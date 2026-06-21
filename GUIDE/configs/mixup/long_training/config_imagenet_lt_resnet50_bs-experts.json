@@ -1,0 +1,89 @@
+{
+    "name": "GUIDE_ImageNet_LT_DERM_ResNet50_Long_e400",
+    "n_gpu": 1,
+
+    "arch": {
+        "type": "DERM_ResNet50Model",
+        "args": {
+            "num_classes": 1000,
+            "reduce_dimension": false,
+            "use_norm": true,
+            "returns_feat": true,
+            "num_experts": 3,
+            "share_layer3": true
+        }
+    },
+
+    "data_loader": {
+        "type": "ImageNetLTDataLoader",
+        "args":{
+            "data_dir": "/data/dataset/imagenet",
+            "batch_size": 64,
+            "shuffle": true,
+            "num_workers": 12
+        }
+    },
+
+    "optimizer": {
+        "type": "SGD",
+        "args":{
+            "lr": 0.025,
+            "controller_lr": 1e-4,
+            "weight_decay": 5e-4,
+            "momentum": 0.9,
+            "nesterov": true
+        }
+    },
+
+    "add_extra_info": true,
+    "loss": {
+        "type": "BSExpertLoss",
+        "args": {
+            "tau_list": [0, 1.25, 2.5]
+        }
+    },
+
+    "metrics": [
+        "accuracy"
+    ],
+
+    "lr_scheduler": {
+        "type": "CosineAnnealingLR",
+        "args": {
+            "T_max": 400,
+            "eta_min": 0.0
+        }
+    },
+
+    "trainer": {
+        "epochs": 400,
+        "save_dir": "saved/imagenet/GUIDE_DERM_ResNet50_Long_e400",
+        "save_period": 100,
+        "verbosity": 2,
+        "monitor": "max val_accuracy",
+        "validate": true,
+
+        "amuse_cfg": {
+            "lambda_decouple": 0.1,
+            "lambda_diversity": 0.1,
+            "loss_warmup_epochs": 40,
+            "diversity_temp": 1.0,
+            "ema_momentum": 0.9,
+            "gate_decision": {
+                "update_every_epochs": 1,
+                "update_mechanism": "unc_map",
+                "alpha": 2.0,
+                "beta": 1.0,
+                "gamma": 0.0
+            }
+        }
+    },
+
+    "combiner": {
+        "type": "Combiner",
+        "mode": "mixup",
+        "mixup": {
+            "alpha": 0.3
+        }
+    }
+}

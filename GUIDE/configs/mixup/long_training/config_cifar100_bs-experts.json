@@ -1,0 +1,89 @@
+{
+    "name": "Meta-cifar100_100",
+    "n_gpu": 1,
+
+    "arch": {
+        "type": "AFS_ResNet32Model",
+        "args": {
+            "num_classes": 100,
+            "reduce_dimension": false,
+            "use_norm": true,
+            "returns_feat": true,
+            "num_experts": 3
+        }
+    },
+
+    "data_loader": {
+        "type": "ImbalanceCIFAR100DataLoader",
+        "args":{
+            "data_dir": "./data/CIFAR-100-python",
+            "batch_size": 128,
+            "shuffle": true,
+            "num_workers": 4,
+            "imb_factor": 0.01,
+            "randaugm": true
+        }
+    },
+    "optimizer": {
+        "type": "SGD",
+        "args":{
+            "lr": 0.1,
+            "controller_lr": 1e-4,
+
+            "weight_decay": 5e-4,
+            "momentum": 0.9,
+            "nesterov": true
+        }
+    },
+    "add_extra_info": true,
+    "loss": {
+        "type": "BSExpertLoss",
+        "tau_min": 0,
+        "tau_max": 2.0,
+        "args": {
+            "tau_list": [0, 1.0, 2.0]
+        }
+    },
+    "metrics": [
+        "accuracy"
+    ],
+    "lr_scheduler": {
+        "type": "CustomLR",
+        "args": {
+            "step1": 320,
+            "step2": 360,
+            "gamma": 0.1,
+            "warmup_epoch": 10
+        }
+    },
+    "trainer": {
+        "epochs": 400,
+        "save_dir": "saved/cifar100/ir100/AMUSE_Final",
+        "save_period": 100,
+        "verbosity": 2,
+        "monitor": "max val_accuracy",
+        "validate": true,
+
+        "amuse_cfg": {
+            "lambda_decouple": 0.1,
+            "lambda_diversity": 0.1,
+            "diversity_temp": 1.0,
+            "ema_momentum": 0.9,
+
+            "gate_decision": {
+                "update_every_epochs": 1,
+                "update_mechanism": "unc_map",
+                "alpha": 2.0,
+                "beta": 1.0,
+                "gamma": 0.0
+            }
+        }
+    },
+    "combiner": {
+        "type": "Combiner",
+        "mode": "mixup",
+        "mixup": {
+            "alpha": 0.4
+        }
+    }
+}

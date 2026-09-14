@@ -2,6 +2,11 @@
 
 Date: 2026-06-20
 
+Update (2026-09-14): the earlier missing-ISIC note below is historical. The local
+`ISIC2019_FoProKD/ISIC_2019_Training_Input` directory now contains 25,331 JPEG files;
+one JPEG header was checked. Full split coverage was not revalidated. No ISIC
+experiment-result report was found in this project. See [current status](PROJECT_STATUS_20260914.md).
+
 ## Scope
 
 This repo now supports two FoPro-KD style medical long-tailed image datasets in the existing `train.py` / `src/engine/finetune.py` pipeline:

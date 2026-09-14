@@ -42,7 +42,7 @@ class DSMProjector(nn.Module):
         }
 
 
-def compute_dynamic_structure(projected_prototypes: torch.Tensor) -> tuple[torch.Tensor, Dict[str, float | int]]:
+def compute_dynamic_structure(projected_prototypes: torch.Tensor) -> tuple[torch.Tensor, Dict[str, object]]:
     """Build ConCM ETF-like geometry vectors with torch.linalg.svd.
 
     This follows the official helper:
@@ -56,13 +56,19 @@ def compute_dynamic_structure(projected_prototypes: torch.Tensor) -> tuple[torch
     num_classes, proj_dim = projected_prototypes.shape
     if int(num_classes) < 2:
         raise ValueError("compute_dynamic_structure requires at least two classes")
+    if int(proj_dim) <= int(num_classes):
+        raise ValueError(
+            "compute_dynamic_structure requires projection dimension dg > number of classes N "
+            f"(got dg={int(proj_dim)}, N={int(num_classes)})"
+        )
     device = projected_prototypes.device
     dtype = projected_prototypes.dtype
     prototypes = F.normalize(torch.nan_to_num(projected_prototypes), p=2, dim=1)
     eye = torch.eye(num_classes, device=device, dtype=dtype)
     mean = torch.full((num_classes, num_classes), 1.0 / float(num_classes), device=device, dtype=dtype)
     centering = eye - mean
-    u, _, vh = torch.linalg.svd(prototypes.transpose(0, 1) @ centering, full_matrices=False)
+    centered = prototypes.transpose(0, 1) @ centering
+    u, singular_values, vh = torch.linalg.svd(centered, full_matrices=False)
     orth_vec = F.normalize(u @ vh, p=2, dim=0)
     geometry = (float(num_classes) / float(num_classes - 1)) ** 0.5 * (orth_vec @ centering).transpose(0, 1)
     geometry = F.normalize(torch.nan_to_num(geometry), p=2, dim=1)
@@ -72,13 +78,35 @@ def compute_dynamic_structure(projected_prototypes: torch.Tensor) -> tuple[torch
     offdiag_mask = ~torch.eye(num_classes, device=device, dtype=torch.bool)
     offdiag = dots[offdiag_mask]
     target = -1.0 / float(num_classes - 1)
-    stats: Dict[str, float | int] = {
+    gram_target = (
+        float(num_classes) / float(num_classes - 1) * eye
+        - torch.ones_like(eye) / float(num_classes - 1)
+    )
+    etf_residual = torch.linalg.vector_norm(dots - gram_target) / torch.linalg.vector_norm(gram_target).clamp_min(1e-12)
+    tolerance = max(centered.shape) * torch.finfo(singular_values.dtype).eps * singular_values.max().clamp_min(1e-12)
+    nonzero = singular_values[singular_values > tolerance]
+    probabilities = singular_values / singular_values.sum().clamp_min(1e-12)
+    effective_rank = torch.exp(-(probabilities * probabilities.clamp_min(1e-12).log()).sum())
+    stats: Dict[str, object] = {
         "num_classes": int(num_classes),
         "proj_dim": int(proj_dim),
+        "etf_residual": float(etf_residual.detach().cpu().item()),
         "pairwise_diag_mean": float(diag.mean().detach().cpu().item()),
         "pairwise_offdiag_mean": float(offdiag.mean().detach().cpu().item()) if offdiag.numel() else 0.0,
         "pairwise_offdiag_target": target,
         "max_abs_offdiag_error": float((offdiag - target).abs().max().detach().cpu().item()) if offdiag.numel() else 0.0,
+        "singular_values": [float(value) for value in singular_values.detach().cpu().tolist()],
+        "largest_singular_value": float(singular_values.max().detach().cpu().item()),
+        "smallest_nonzero_singular_value": float(nonzero.min().detach().cpu().item()) if nonzero.numel() else 0.0,
+        "numerical_rank": int(nonzero.numel()),
+        "effective_rank": float(effective_rank.detach().cpu().item()),
+        "condition_number": (
+            float((singular_values.max() / nonzero.min()).detach().cpu().item()) if nonzero.numel() else float("inf")
+        ),
+        "singular_value_gap": (
+            float((nonzero[-2] - nonzero[-1]).detach().cpu().item()) if nonzero.numel() >= 2 else None
+        ),
+        "rank_tolerance": float(tolerance.detach().cpu().item()),
     }
     return geometry, stats
 

@@ -1245,6 +1245,10 @@ class Learner(BaseLearner):
             )
 
     def _init_train(self, train_loader, test_loader, optimizer, scheduler):
+        real_ce_scope = self.args.get('real_ce_scope', 'current')
+        if real_ce_scope not in ('current', 'all_seen'):
+            raise ValueError('real_ce_scope must be current or all_seen')
+        ce_start = self._known_classes if real_ce_scope == 'current' else 0
         prog_bar = tqdm(range(getattr(self, '_v2_start_epoch', 0), self.args['tuned_epoch']))
         cls_num_list = torch.Tensor(self.args["lt_list"][:self._total_classes]).to(self._device)
         for _, epoch in enumerate(prog_bar):
@@ -1350,16 +1354,16 @@ class Learner(BaseLearner):
 
                 pool = output["pool_id"]
                 logits = output["logits"]
-                logits = logits[:, self._known_classes : self._total_classes] 
-                fake_targets = targets - self._known_classes
+                logits = logits[:, ce_start : self._total_classes]
+                fake_targets = targets - ce_start
                 loss1 = F.cross_entropy(logits, fake_targets.long())
                 loss = loss1
 
                 
                 logits_few = output["logits_few"]
-                logits_few = logits_few[:, self._known_classes : self._total_classes] 
+                logits_few = logits_few[:, ce_start : self._total_classes]
                 logits_all = logits + logits_few
-                target = F.one_hot(fake_targets, self._total_classes - self._known_classes)
+                target = F.one_hot(fake_targets, self._total_classes - ce_start)
                 
                 loss_all = F.cross_entropy(logits_all, fake_targets.long())
                 loss += loss_all
@@ -1573,6 +1577,9 @@ class Learner(BaseLearner):
                             concm_match_few_losses += concm_match["few_loss"].item()
                             concm_match_few_cosines += concm_match["few_cosine"].item()
 
+                if hasattr(self, '_v3_batch_hook'):
+                    self._v3_batch_hook(epoch, i, output, targets, loss_all, loss_few,
+                                        match_loss, concm_stage1_loss, effective_stage1_weight)
                 optimizer.zero_grad()
                 loss.backward()
                 if hasattr(self, "_v2_gradient_hook"):

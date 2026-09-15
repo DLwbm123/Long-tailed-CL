@@ -109,13 +109,40 @@ def engineering(config):
         assert 'old_synthetic_actual_both_heads' in probe['common_logit_shift']
         assert all(probe['terms']['synthetic/'+n]['weight_in_total']==weight/3 for n in ('main_ce','few_ce','sum_ce'))
         head_objective='PASS: actual loss/gradients equal explicit CE mean; legacy default exact; probe and future mask correct'
+    variance_sampling='not applicable'
+    if config.get('synthetic_variance_rule')=='empirical_unclipped':
+        assert l.args['effective_synthetic_var_max'] is None and l.concm_stage1_var_max==1.0
+        assert l.args.get('synthetic_ce_heads','sum_only')=='sum_only' and not row_fixed
+        with isolated_rng(l):
+            actual=l._concm_stage1_sample_memory();actual_rng=l.synth_rng.clone()
+        assert l.concm_stage1_var_max==1.0
+        with isolated_rng(l):
+            with torch.random.fork_rng(devices=[0]):
+                torch.cuda.set_rng_state(l.synth_rng,0);parts=[[],[],[]]
+                for cl,m in sorted(l.concm_stage1_memory.items()):
+                    if cl>=l._known_classes:continue
+                    for i,head in enumerate(('main','few')):
+                        mean=m['mean_'+head].cuda();var=m['var_'+head].cuda()
+                        assert torch.isfinite(var).all() and (var>=0).all()
+                        z=torch.randn(4,mean.numel(),device='cuda')
+                        parts[i].append(mean.unsqueeze(0)+z*(var.clamp_min(0)+l.concm_stage1_cov_eps).sqrt().unsqueeze(0))
+                    parts[2].append(torch.full((4,),cl,dtype=torch.long,device='cuda'))
+                expected=tuple(torch.cat(p) for p in parts);expected_rng=torch.cuda.get_rng_state(0)
+        assert all(torch.equal(x,y) and torch.isfinite(x).all() for x,y in zip(actual,expected))
+        assert torch.equal(actual_rng,expected_rng)
+        l.args['synthetic_variance_rule']='legacy_cap'
+        with isolated_rng(l):capped=l._concm_stage1_sample_memory();capped_rng=l.synth_rng.clone()
+        l.args['synthetic_variance_rule']='empirical_unclipped'
+        assert torch.equal(actual_rng,capped_rng) and torch.equal(actual[2],capped[2])
+        assert not torch.equal(actual[0],capped[0]) and not torch.equal(actual[1],capped[1])
+        variance_sampling='PASS: exact empirical formula and RNG; only upper cap changes; legacy dispatch retained'
     result={'status':'PASS','one_real_training_update':'PASS','only_four_head_tensors_have_gradients':True,
             'all_non_head_parameters_and_buffers_bitwise_unchanged':True,'future_ce_gradients_zero':True,
             'compact_restore_and_next_update_bitwise_equal':True,'normal_restore_seed_guard':'PASS','delta_parent_guard':'PASS',
             'old_rows_exact_after_adamw_decay_and_nonzero_moments':row_fixed,
             'old_row_reference_restore_guard':'PASS' if row_fixed else 'not applicable',
             'current_classifier_rows_update':True,'checkpoint_bytes':ckpt.stat().st_size,'one_batch_seconds':seconds,'peak_allocated_bytes':peak,
-            'synthetic_head_objective':head_objective,'observed_losses':losses,'constant_feature_objectives_have_zero_head_gradient':True,
+            'empirical_variance_sampling':variance_sampling,'synthetic_head_objective':head_objective,'observed_losses':losses,'constant_feature_objectives_have_zero_head_gradient':True,
             'base_replay_weight':base,'actual_s1_replay_weight':weight,'probe_matches_actual_replay_weight':'PASS',
             'batch_context_and_label_independence':context,'test_predictions':0}
     write_json(out/'ENGINEERING.json',result);return result

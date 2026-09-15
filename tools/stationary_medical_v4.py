@@ -15,6 +15,15 @@ from report_medical_v3 import flatten
 HEADS={'backbone.head.weight','backbone.head.bias','backbone.head_few.weight','backbone.head_few.bias'}
 
 class StationaryLearner(ForkLearner):
+    def _concm_stage1_sample_memory(self,*args,**kwargs):
+        rule=self.args.get('synthetic_variance_rule','legacy_cap')
+        assert rule in ('legacy_cap','empirical_unclipped'),'BLOCKED_VARIANCE_RULE'
+        if rule=='legacy_cap':return super()._concm_stage1_sample_memory(*args,**kwargs)
+        # None removes only torch.clamp's upper bound; sampling/RNG stays in the original path.
+        cap=self.concm_stage1_var_max;self.concm_stage1_var_max=None
+        try:return super()._concm_stage1_sample_memory(*args,**kwargs)
+        finally:self.concm_stage1_var_max=cap
+
     def _concm_stage1_loss(self,max_synth_total=None):
         if self.args.get('synthetic_ce_heads','sum_only')=='sum_only':
             return super()._concm_stage1_loss(max_synth_total=max_synth_total)
@@ -126,7 +135,7 @@ class StationaryLearner(ForkLearner):
 
 def fork(config,seed,out=None):
     branch=config.get('candidate_branch','F');weight=config.get('replay_weight',.05);rule=config.get('replay_weight_rule','constant')
-    assert (branch,weight,rule) in [('F',.05,'constant'),('G',1.0,'constant'),('H',1.0,'old_current_count'),('I',1.0,'old_current_count'),('J',1.0,'old_current_count')],'Unsupported fixed contrast'
+    assert (branch,weight,rule) in [('F',.05,'constant'),('G',1.0,'constant'),('H',1.0,'old_current_count'),('I',1.0,'old_current_count'),('J',1.0,'old_current_count'),('K',1.0,'old_current_count')],'Unsupported fixed contrast'
     out=Path(out or Path(config['output'])/f'{seed}_{branch}')
     v2=json.loads(Path(config['v2_runtime']).read_text())
     entries=json.loads((Path(config['v2_output'])/'ALL_CHECKPOINTS_LOCK.json').read_text())['checkpoints']
@@ -149,6 +158,10 @@ def fork(config,seed,out=None):
     if branch=='J':
         assert config['synthetic_ce_heads']=='mean_main_few_sum' and config.get('old_classifier_rows') is None
         learner.args['synthetic_ce_heads']='mean_main_few_sum'
+    if branch=='K':
+        assert config['synthetic_variance_rule']=='empirical_unclipped'
+        assert config.get('synthetic_ce_heads','sum_only')=='sum_only' and config.get('old_classifier_rows') is None
+        learner.args.update(synthetic_variance_rule='empirical_unclipped',effective_synthetic_var_max=None)
     learner.concm_stage1_loss_weight=weight
     learner._cur_task=1;learner._known_classes=4;learner._total_classes=6
     assert network_hash(learner._network)==before and rng_equal(rng,learner._capture_rng_state())
@@ -158,7 +171,8 @@ def fork(config,seed,out=None):
                             'G':'relative to F, replay coefficient 0.05 -> 1.0; all other settings unchanged',
                             'H':'relative to G, multiply replay coefficient by known/current class count: S1=2, S2=3',
                             'I':'relative to H, preserve existing classifier rows and zero their Adam moments at each session; losses unchanged',
-                            'J':'relative to H, old synthetic CE is mean(main CE, few CE, sum CE); all H real losses and optimizer unchanged'}[branch],
+                            'J':'relative to H, old synthetic CE is mean(main CE, few CE, sum CE); all H real losses and optimizer unchanged',
+                            'K':'relative to H, use stored empirical diagonal variance without upper clipping; H sum-only loss and all other settings unchanged'}[branch],
             'trainable_names':sorted(HEADS),'trainable_parameters':sum(p.numel() for p in learner._network.parameters() if p.requires_grad),
             'memory_classes':sorted(learner.concm_stage1_memory),'code_commit':config['code_commit'],
             'checkpoint_format':'S0_HEAD_DELTA_V1: exact parent plus changed heads, optimizer, memory and complete RNG',
@@ -222,26 +236,31 @@ def report(config):
     baseline=list(csv.DictReader((Path(config['v3_output'])/'results/val_session_metrics.csv').open()))
     oldpc=list(csv.DictReader((Path(config['v3_output'])/'results/val_per_class_metrics.csv').open()))
     comparisons=['C','E']
-    if branch in ('G','H','I','J'):
+    if branch in ('G','H','I','J','K'):
         reference=Path(config['v4_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('F')
-    if branch in ('H','I','J'):
+    if branch in ('H','I','J','K'):
         reference=Path(config['v5_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('G')
-    if branch in ('I','J'):
+    if branch in ('I','J','K'):
         reference=Path(config['v6_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('H')
-    if branch=='J':
+    if branch in ('J','K'):
         reference=Path(config['v7_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('I')
+    if branch=='K':
+        reference=Path(config['v8_output'])/'results'
+        baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
+        oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
+        comparisons.append('J')
     pairs=[];decisions={};means=[]
     fields=['balanced_accuracy','old_macro_recall','current_macro_recall','old_current_hm_macro_recall','tail_rank2','current_to_old_rate','old_to_current_rate','restricted_current_ba']
     for b in comparisons:

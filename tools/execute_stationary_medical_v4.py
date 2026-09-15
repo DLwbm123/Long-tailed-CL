@@ -16,10 +16,15 @@ def verify(config):
     assert lock['code_commit']==config['code_commit'] and lock['class_orders']==config['class_orders']
     if config.get('candidate_branch')=='G':
         assert lock['candidate_branch']=='G' and lock['replay_weight']==config['replay_weight']==1.0
+    if config.get('candidate_branch')=='H':
+        assert lock['candidate_branch']=='H' and lock['replay_weight']==config['replay_weight']==1.0
+        assert lock['replay_weight_rule']==config['replay_weight_rule']=='old_current_count'
+        assert lock['effective_replay_weights']=={'1':2.0,'2':3.0}
     summary=json.loads((Path(config['protocol'])/'V2_DATASET_SUMMARY.json').read_text())
     for split,h in summary['manifest_sha256'].items():assert sha(Path(config['protocol'])/(split+'.csv'))==h
     assert json.loads((Path(config['v3_complete_output'])/'FINAL_STATUS.json').read_text())['status']=='COMPLETE_P0_P1_P2'
     if config.get('candidate_branch')=='G':assert json.loads((Path(config['v4_output'])/'FINAL_STATUS.json').read_text())['status']=='COMPLETE'
+    if config.get('candidate_branch')=='H':assert json.loads((Path(config['v5_output'])/'FINAL_STATUS.json').read_text())['status']=='COMPLETE'
 
 def worker(config,phase,seed=1993):
     import torch

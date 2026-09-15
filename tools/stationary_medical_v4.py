@@ -15,6 +15,13 @@ from report_medical_v3 import flatten
 HEADS={'backbone.head.weight','backbone.head.bias','backbone.head_few.weight','backbone.head_few.bias'}
 
 class StationaryLearner(ForkLearner):
+    def _concm_stage1_effective_weight(self,epoch):
+        weight=super()._concm_stage1_effective_weight(epoch)
+        if self.args.get('replay_weight_rule','constant')=='old_current_count':
+            assert 0<=self._known_classes<self._total_classes<=8
+            weight*=self._known_classes/(self._total_classes-self._known_classes)
+        return weight
+
     def freeze_features(self,parent,state):
         self.delta_parent=parent
         self.base_network={k:v.detach().cpu().clone() for k,v in state['network'].items()}
@@ -47,8 +54,8 @@ class StationaryLearner(ForkLearner):
         return self._restore_checkpoint_state(state)
 
 def fork(config,seed,out=None):
-    branch=config.get('candidate_branch','F');weight=config.get('replay_weight',.05)
-    assert (branch,weight) in [('F',.05),('G',1.0)],'Unsupported fixed contrast'
+    branch=config.get('candidate_branch','F');weight=config.get('replay_weight',.05);rule=config.get('replay_weight_rule','constant')
+    assert (branch,weight,rule) in [('F',.05,'constant'),('G',1.0,'constant'),('H',1.0,'old_current_count')],'Unsupported fixed contrast'
     out=Path(out or Path(config['output'])/f'{seed}_{branch}')
     v2=json.loads(Path(config['v2_runtime']).read_text())
     entries=json.loads((Path(config['v2_output'])/'ALL_CHECKPOINTS_LOCK.json').read_text())['checkpoints']
@@ -64,13 +71,15 @@ def fork(config,seed,out=None):
     assert before==expected[f'{seed}_C']==expected[f'{seed}_B']
     learner.freeze_features(parent,state)
     learner.config=copy.deepcopy(config);learner.protocol_hash=config['protocol_sha256']
-    learner.args=dict(a,real_ce_scope='all_seen',feature_update_scope='s0_frozen',concm_stage1_loss_weight=weight)
+    learner.args=dict(a,real_ce_scope='all_seen',feature_update_scope='s0_frozen',concm_stage1_loss_weight=weight,replay_weight_rule=rule)
     learner.concm_stage1_loss_weight=weight
     learner._cur_task=1;learner._known_classes=4;learner._total_classes=6
     assert network_hash(learner._network)==before and rng_equal(rng,learner._capture_rng_state())
     record={'seed':seed,'branch':branch,'parent':parent,'parent_network_sha256':before,
             'ordinary_parent_restore':'PASS','network_and_rng_inheritance':'PASS',
-            'intervention':('freeze all non-head parameters at the corresponding C S0 state' if branch=='F' else 'relative to F, replay coefficient 0.05 -> 1.0; all other settings unchanged'),
+            'intervention':{'F':'freeze all non-head parameters at the corresponding C S0 state',
+                            'G':'relative to F, replay coefficient 0.05 -> 1.0; all other settings unchanged',
+                            'H':'relative to G, multiply replay coefficient by known/current class count: S1=2, S2=3'}[branch],
             'trainable_names':sorted(HEADS),'trainable_parameters':sum(p.numel() for p in learner._network.parameters() if p.requires_grad),
             'memory_classes':sorted(learner.concm_stage1_memory),'code_commit':config['code_commit'],
             'checkpoint_format':'S0_HEAD_DELTA_V1: exact parent plus changed heads, optimizer, memory and complete RNG',
@@ -130,11 +139,16 @@ def report(config):
     baseline=list(csv.DictReader((Path(config['v3_output'])/'results/val_session_metrics.csv').open()))
     oldpc=list(csv.DictReader((Path(config['v3_output'])/'results/val_per_class_metrics.csv').open()))
     comparisons=['C','E']
-    if branch=='G':
+    if branch in ('G','H'):
         reference=Path(config['v4_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('F')
+    if branch=='H':
+        reference=Path(config['v5_output'])/'results'
+        baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
+        oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
+        comparisons.append('G')
     pairs=[];decisions={};means=[]
     fields=['balanced_accuracy','old_macro_recall','current_macro_recall','old_current_hm_macro_recall','tail_rank2','current_to_old_rate','old_to_current_rate','restricted_current_ba']
     for b in comparisons:

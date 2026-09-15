@@ -112,6 +112,20 @@ def check_checkpoint_rejections():
         except AssertionError:pass
         else:raise AssertionError('accepted mismatched '+field)
 
+def check_headnorm():
+    import torch
+    from types import SimpleNamespace
+    from utils.medical_v2 import headnorm_alpha
+    m=SimpleNamespace(head=SimpleNamespace(weight=torch.tensor([[2.],[4.]])),head_few=SimpleNamespace(weight=torch.zeros(2,1)))
+    assert headnorm_alpha(m,2,0)==1. and headnorm_alpha(m,2,1)==2.
+    m.head.weight[0]=5e-13
+    assert headnorm_alpha(m,2,1)==(m.head.weight[1,0]/torch.tensor(1e-12)).item()
+    for value in (0.,float('nan')):
+        m.head.weight[0]=value
+        try:headnorm_alpha(m,2,1)
+        except AssertionError:pass
+        else:raise AssertionError('invalid head norm accepted')
+
 if __name__=='__main__':
-    check_cleaning();check_components();check_metrics();check_aggregation();check_checkpoint_rejections()
+    check_cleaning();check_components();check_metrics();check_aggregation();check_checkpoint_rejections();check_headnorm()
     print('CLEANING_CAPACITY_OPTIMIZER_METRICS_CHECKPOINT_CPU_PASS')

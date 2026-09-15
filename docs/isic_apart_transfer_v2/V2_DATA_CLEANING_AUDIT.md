@@ -28,3 +28,18 @@ V1 decoded and hashed all original images. V2 reused that evidence after validat
 Limitations: documented lesion isolation is not patient isolation (UNKNOWN). Excluding missing lesion IDs changes cohort coverage and may create selection bias. Development exposure is UNKNOWN. Disease names remain SEMANTIC_MAP_UNVERIFIED; finding IDs are retained. New ImageNet provenance is declared but target-image pretraining overlap is not independently disproven. This is an internal migration experiment, not external clinical validation.
 
 Private: per-image manifests, disposition/component/lesion IDs, images, weights, predictions and checkpoints. Public: this aggregate audit, class counts, protocol hashes and method code.
+
+Per-split before/after counts (same original finding IDs):
+
+| Finding ID | Original train | V2 train | Original val | V2 val | Original test | V2 test |
+|---|---:|---:|---:|---:|---:|---:|
+| 0 | 12725 | 10529 | 50 | 44 | 100 | 86 |
+| 1 | 4372 | 3263 | 50 | 37 | 100 | 86 |
+| 2 | 3173 | 2835 | 50 | 46 | 100 | 100 |
+| 3 | 1788 | 1306 | 50 | 40 | 100 | 92 |
+| 4 | 717 | 458 | 50 | 41 | 100 | 100 |
+| 5 | 478 | 256 | 50 | 37 | 100 | 100 |
+| 6 | 103 | 44 | 50 | 26 | 100 | 100 |
+| 7 | 89 | 27 | 50 | 24 | 100 | 100 |
+
+The original measured training ratio was 12725/89 = 142.98:1; the nominal 100:1 setting was not the measured original or cleaned ratio. See cleaning_before_after.csv for exact exclusions by split.

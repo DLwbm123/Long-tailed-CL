@@ -69,3 +69,12 @@ def effective_optimizer(backbone):
 
 def effective_scheduler(optimizer, session):
     return torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=1e-5) if session == 0 else None
+
+def headnorm_alpha(backbone, seen, known):
+    if not known:return 1.
+    w=(backbone.head.weight+backbone.head_few.weight)[:seen].detach()
+    old=w[:known].norm(dim=1).mean();new=w[known:].norm(dim=1).mean()
+    assert old>0 and torch.isfinite(old) and torch.isfinite(new),'BLOCKED_HEAD_NORM'
+    alpha=new/old.clamp_min(1e-12)  # Preserve the reference calibration denominator.
+    assert torch.isfinite(alpha),'BLOCKED_HEAD_NORM'
+    return alpha.item()

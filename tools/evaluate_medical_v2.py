@@ -8,7 +8,7 @@ import numpy as np
 import torch
 from sklearn.metrics import f1_score,roc_auc_score
 from torch.utils.data import DataLoader
-from run_medical_v2 import Images,MedicalLearner,args_for,seed_all,sha,write_json
+from run_medical_v2 import Images,MedicalLearner,args_for,seed_all,sha,write_json,headnorm_alpha
 
 def mean_or_none(values):return float(np.mean(values)) if len(values) else None
 
@@ -144,12 +144,7 @@ def evaluate(config):
         raw=torch.cat(outputs).numpy();target=torch.cat(targets).numpy();assert np.isfinite(raw).all()
         prediction_count+=len(target)
         np.savez(private/f'{seed}_{branch}_s{task}.npz',raw_logits=raw,targets=target)
-        alpha=1.
-        if known:
-            w=(learner._network.backbone.head.weight+learner._network.backbone.head_few.weight)[:seen].detach()
-            old=w[:known].norm(dim=1).mean();new=w[known:].norm(dim=1).mean()
-            assert old>0 and torch.isfinite(old) and torch.isfinite(new)
-            alpha=(new/old).item()
+        alpha=headnorm_alpha(learner._network.backbone,seen,known)
         for hn in (False,True):
             scores=raw.copy()
             if hn:scores[:,:known]*=alpha

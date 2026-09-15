@@ -19,7 +19,7 @@ from torchvision import transforms as T
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'third_party/APART'))
 from models.apart import Learner
-from utils.medical_v2 import extend_embedding,effective_optimizer,effective_scheduler,WEIGHT_SHA
+from utils.medical_v2 import extend_embedding,effective_optimizer,effective_scheduler,headnorm_alpha,WEIGHT_SHA
 
 def write_json(path,value):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
@@ -74,7 +74,9 @@ def args_for(config,seed,branch,smoke):
              concm_stage1=branch=='C',concm_stage1_eval_calibration=False,calibration_rule='none',
              lt_list=[counts[c] for c in order],dataset=summary['protocol_id'],weight_decay=.01,
              optimizer_profile='legacy_effective_v1',scheduler='S0_cosine_S1_S2_none',save_task_checkpoints=False,
-             class_order=order,split_id='split1',actual_training_imbalance=summary['train_image_imbalance_ratio'])
+             class_order=order,split_id='split1',actual_training_imbalance=summary['train_image_imbalance_ratio'],
+             data_loader_seed=seed,embedding_seed=seed+1000003,synthesis_seed=seed+2000003,
+             memory_statistics_seed_rule='train_seed * 1000 + session')
     for key in ('longtail','order','task_checkpoint_dir'):a.pop(key,None)
     return a,order
 
@@ -87,9 +89,9 @@ class MedicalLearner(Learner):
         self.manifest_hashes={s:sha(Path(config['protocol'])/(s+'.csv')) for s in ('train','val','test')}
         assert self.manifest_hashes==summary['manifest_sha256'],'BLOCKED_MANIFEST_DRIFT'
         self.protocol_hash=config.get('protocol_sha256',sha(Path(config['protocol'])/'V2_DATASET_SUMMARY.json'))
-        self.loader_generator=torch.Generator().manual_seed(args['seed'])
+        self.loader_generator=torch.Generator().manual_seed(args['data_loader_seed'])
         # Fork only the device synthesis stream; preserve reference sampling and distributions.
-        self.synth_rng=torch.Generator(device=self._device).manual_seed(args['seed']+2000003).get_state()
+        self.synth_rng=torch.Generator(device=self._device).manual_seed(args['synthesis_seed']).get_state()
         self.records=[];self.epoch_start=time.monotonic();self.gradient_rows=set();self.input_hashes=[];self.pool_grad=False
     def _v2_input_hook(self,epoch,batch,inputs,targets):
         if self.args['tuned_epoch']==1:
@@ -174,10 +176,7 @@ def logits(model,x,seen,known,calibrate=False):
     assert raw.shape[1]==seen and torch.isfinite(raw).all()
     alpha=1.
     if calibrate and known:
-        w=(model.backbone.head.weight+model.backbone.head_few.weight)[:seen]
-        old=w[:known].norm(dim=1).mean();new=w[known:].norm(dim=1).mean()
-        assert old>0 and torch.isfinite(old) and torch.isfinite(new),'BLOCKED_HEAD_NORM'
-        alpha=(new/old).item();raw=raw.clone();raw[:,:known]*=alpha
+        alpha=headnorm_alpha(model.backbone,seen,known);raw=raw.clone();raw[:,:known]*=alpha
     return raw,raw.topk(min(5,seen),dim=1).indices,alpha
 
 def p1(config):

@@ -42,5 +42,16 @@
   "preprocessing": {
     "train": "RGB; Resize 256x256 bicubic antialias; RandomCrop 224; horizontal flip p=.5; tensor; normalize .5/.5",
     "evaluation": "RGB; Resize 224x224 bicubic antialias; tensor; normalize .5/.5"
+  },
+  "random_streams": {
+    "data_loader_seed": "train_seed",
+    "embedding_seed": "train_seed + 1000003",
+    "synthesis_seed": "train_seed + 2000003",
+    "memory_statistics_seed": "train_seed * 1000 + session"
+  },
+  "headnorm": {
+    "effective_weight": "head.weight + head_few.weight",
+    "denominator_clamp_min": 1e-12,
+    "S0": "identity"
   }
 }

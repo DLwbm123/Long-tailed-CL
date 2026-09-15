@@ -1,0 +1,142 @@
+{
+  "status": "P1_PASS",
+  "test_predictions": 0,
+  "branches": {
+    "B": [
+      {
+        "session": 0,
+        "train_images": 96,
+        "train_batches": 2,
+        "epoch_seconds": 1.8264442189974943,
+        "memory_seconds": 0.0007465140006388538,
+        "checkpoint_seconds": 0.6698605819983641,
+        "peak_allocated_bytes": 9016671744,
+        "gradient_rows": [
+          27,
+          458,
+          1306,
+          10529
+        ],
+        "network_sha256": "451306cbee6c3e8f981357ea7bc385d8e04d5b6bf380c000304547e74b7348d3",
+        "pool_gradient": true
+      },
+      {
+        "session": 1,
+        "train_images": 96,
+        "train_batches": 2,
+        "epoch_seconds": 1.6071774619995267,
+        "memory_seconds": 0.0008481200056849048,
+        "checkpoint_seconds": 0.6872105810034554,
+        "peak_allocated_bytes": 9018177536,
+        "gradient_rows": [
+          27,
+          44,
+          256,
+          458,
+          1306,
+          10529
+        ],
+        "network_sha256": "ffdf2b35f855c16979364ee46ea677dda1da47843be2d99c8281ea80c00ec594",
+        "pool_gradient": true
+      },
+      {
+        "session": 2,
+        "train_images": 96,
+        "train_batches": 2,
+        "epoch_seconds": 1.6387053930011461,
+        "memory_seconds": 0.0007785679990774952,
+        "checkpoint_seconds": 0.6802479410034721,
+        "peak_allocated_bytes": 9018921984,
+        "gradient_rows": [
+          27,
+          44,
+          256,
+          458,
+          1306,
+          2835,
+          3263,
+          10529
+        ],
+        "network_sha256": "cf491140c031c16a0551c2cd2a00a9f5d4ac17578f50564517c380d71097cc92",
+        "pool_gradient": true
+      }
+    ],
+    "C": [
+      {
+        "session": 0,
+        "train_images": 96,
+        "train_batches": 2,
+        "epoch_seconds": 1.6918208530041738,
+        "memory_seconds": 1.0925186469976325,
+        "checkpoint_seconds": 0.7100561680053943,
+        "peak_allocated_bytes": 9041431552,
+        "gradient_rows": [
+          27,
+          458,
+          1306,
+          10529
+        ],
+        "network_sha256": "451306cbee6c3e8f981357ea7bc385d8e04d5b6bf380c000304547e74b7348d3",
+        "pool_gradient": true
+      },
+      {
+        "session": 1,
+        "train_images": 96,
+        "train_batches": 2,
+        "epoch_seconds": 1.6467965269985143,
+        "memory_seconds": 1.153757833999407,
+        "checkpoint_seconds": 0.6853470049973112,
+        "peak_allocated_bytes": 9019639808,
+        "gradient_rows": [
+          27,
+          44,
+          256,
+          458,
+          1306,
+          10529
+        ],
+        "network_sha256": "8bc4d88beb86e65a3fb95db11b4da507887fbf9d16220762d7ef115111de2035",
+        "pool_gradient": true
+      },
+      {
+        "session": 2,
+        "train_images": 96,
+        "train_batches": 2,
+        "epoch_seconds": 1.6804866810052772,
+        "memory_seconds": 1.0957584759962629,
+        "checkpoint_seconds": 0.7039716539948131,
+        "peak_allocated_bytes": 9019738624,
+        "gradient_rows": [
+          27,
+          44,
+          256,
+          458,
+          1306,
+          2835,
+          3263,
+          10529
+        ],
+        "network_sha256": "380d70c95c2feddd864e84979554df92d212083520be7961ccbc41bff73cc448",
+        "pool_gradient": true
+      }
+    ]
+  },
+  "budget_seconds": 1800,
+  "cpu_regression": "PASS",
+  "remote_train_readable": 18718,
+  "initial_hashes": {
+    "B": "54316e5ecf5de22ce20219ff68e3c9c2530392f12b5c076a1c79caac3f6ee2c4",
+    "C": "54316e5ecf5de22ce20219ff68e3c9c2530392f12b5c076a1c79caac3f6ee2c4"
+  },
+  "s0_hashes": {
+    "B": "451306cbee6c3e8f981357ea7bc385d8e04d5b6bf380c000304547e74b7348d3",
+    "C": "451306cbee6c3e8f981357ea7bc385d8e04d5b6bf380c000304547e74b7348d3"
+  },
+  "elapsed_seconds": 194.36179668200202,
+  "label_blind": "PASS",
+  "evaluation_purity": "PASS",
+  "checkpoint_reload_and_update": "PASS",
+  "budget_formula": "1.25 * (6*10*n_train*max_training_seconds_per_image + 3*n_train*max_memory_seconds_per_image + 198*max_checkpoint_seconds)",
+  "formal_estimate_seconds": 27728.227064108793,
+  "formal_budget_seconds": 86400
+}

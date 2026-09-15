@@ -1,3 +1,5 @@
+最新状态（2026-09-15）：六条轨迹及一次批量测试已完成，结论为 **COMPLETE_MIXED_SIGNAL**。完整报告见 [AUDIT_AND_CONCLUSIONS.md](completed_hb01/AUDIT_AND_CONCLUSIONS.md)。下面的早期预算 BLOCKED 记录保留为历史审计。
+
 # ISIC APART migration V2
 
 **BLOCKED_FORMAL_BUDGET** — data, weights and P1 engineering pass; formal training **0/6**, final session checkpoints **0/18**, model test predictions **0**. This is a budget block, not a negative transfer result.

@@ -51,10 +51,17 @@ def engineering(config):
     else:raise AssertionError('Wrong parent accepted')
     context=batch_probe(l);probe=gradient_probe(l)
     assert probe['terms']['assignment/pool_match']['old_gradient_norm']==0
+    weight=config.get('replay_weight',.05)
+    assert l.concm_stage1_loss_weight==l.args['concm_stage1_loss_weight']==weight
+    raw=probe['terms']['synthetic/raw'];weighted=probe['terms']['synthetic/weighted']
+    assert raw['weight_in_total']==weight and abs(weighted['loss']-weight*raw['loss'])<1e-6
+    for part in ['old','current']:
+        assert abs(weighted[part+'_gradient_norm']-weight*raw[part+'_gradient_norm'])<1e-5
     result={'status':'PASS','one_real_training_update':'PASS','only_four_head_tensors_have_gradients':True,
             'all_non_head_parameters_and_buffers_bitwise_unchanged':True,'future_ce_gradients_zero':True,
             'compact_restore_and_next_update_bitwise_equal':True,'normal_restore_seed_guard':'PASS','delta_parent_guard':'PASS',
             'checkpoint_bytes':ckpt.stat().st_size,'one_batch_seconds':seconds,'peak_allocated_bytes':peak,
             'observed_losses':losses,'constant_feature_objectives_have_zero_head_gradient':True,
+            'actual_replay_weight':weight,'probe_matches_actual_replay_weight':'PASS',
             'batch_context_and_label_independence':context,'test_predictions':0}
     write_json(out/'ENGINEERING.json',result);return result

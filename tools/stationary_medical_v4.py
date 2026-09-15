@@ -47,7 +47,9 @@ class StationaryLearner(ForkLearner):
         return self._restore_checkpoint_state(state)
 
 def fork(config,seed,out=None):
-    out=Path(out or Path(config['output'])/f'{seed}_F')
+    branch=config.get('candidate_branch','F');weight=config.get('replay_weight',.05)
+    assert (branch,weight) in [('F',.05),('G',1.0)],'Unsupported fixed contrast'
+    out=Path(out or Path(config['output'])/f'{seed}_{branch}')
     v2=json.loads(Path(config['v2_runtime']).read_text())
     entries=json.loads((Path(config['v2_output'])/'ALL_CHECKPOINTS_LOCK.json').read_text())['checkpoints']
     parent=next(e for e in entries if (e['seed'],e['branch'],e['session'])==(seed,'C',0))
@@ -62,12 +64,13 @@ def fork(config,seed,out=None):
     assert before==expected[f'{seed}_C']==expected[f'{seed}_B']
     learner.freeze_features(parent,state)
     learner.config=copy.deepcopy(config);learner.protocol_hash=config['protocol_sha256']
-    learner.args=dict(a,real_ce_scope='all_seen',feature_update_scope='s0_frozen')
+    learner.args=dict(a,real_ce_scope='all_seen',feature_update_scope='s0_frozen',concm_stage1_loss_weight=weight)
+    learner.concm_stage1_loss_weight=weight
     learner._cur_task=1;learner._known_classes=4;learner._total_classes=6
     assert network_hash(learner._network)==before and rng_equal(rng,learner._capture_rng_state())
-    record={'seed':seed,'branch':'F','parent':parent,'parent_network_sha256':before,
+    record={'seed':seed,'branch':branch,'parent':parent,'parent_network_sha256':before,
             'ordinary_parent_restore':'PASS','network_and_rng_inheritance':'PASS',
-            'only_change_vs_V3_E':'freeze all non-head parameters at the corresponding C S0 state',
+            'intervention':('freeze all non-head parameters at the corresponding C S0 state' if branch=='F' else 'relative to F, replay coefficient 0.05 -> 1.0; all other settings unchanged'),
             'trainable_names':sorted(HEADS),'trainable_parameters':sum(p.numel() for p in learner._network.parameters() if p.requires_grad),
             'memory_classes':sorted(learner.concm_stage1_memory),'code_commit':config['code_commit'],
             'checkpoint_format':'S0_HEAD_DELTA_V1: exact parent plus changed heads, optimizer, memory and complete RNG',
@@ -79,7 +82,8 @@ def fork(config,seed,out=None):
     return learner
 
 def trajectory(config,seed,pilot=False):
-    out=Path(config['output'])/f'{seed}_F';done=out/'TRAJECTORY_COMPLETE.json'
+    branch=config.get('candidate_branch','F')
+    out=Path(config['output'])/f'{seed}_{branch}';done=out/'TRAJECTORY_COMPLETE.json'
     if done.exists():return json.loads(done.read_text())
     l=fork(config,seed);sessions=[]
     for task in (1,2):
@@ -104,51 +108,57 @@ def trajectory(config,seed,pilot=False):
         p=out/f'session{task}_val.json'
         if not p.exists():write_json(p,evaluate(l,'val'))
         sessions.append({'session':task,'path':str(final),'sha256':sha(final),'epoch':10,'bytes':final.stat().st_size,'frozen_features_exact':'PASS'})
-    result={'seed':seed,'branch':'F','status':'COMPLETE','sessions':sessions,'new_epochs':20,'test_predictions':0,'immutable_parent':l.delta_parent}
+    result={'seed':seed,'branch':branch,'status':'COMPLETE','sessions':sessions,'new_epochs':20,'test_predictions':0,'immutable_parent':l.delta_parent}
     write_json(done,result);return result
 
 def report(config):
     import csv
     root=Path(config['output']);out=root/'results';out.mkdir(exist_ok=True)
-    metrics=[];classes=[];epochs=[];locks=[]
+    branch=config.get('candidate_branch','F');metrics=[];classes=[];epochs=[];locks=[]
     for seed in SEEDS:
-        d=root/f'{seed}_F';e=[json.loads(x) for x in (d/'epochs.jsonl').read_text().splitlines()]
+        d=root/f'{seed}_{branch}';e=[json.loads(x) for x in (d/'epochs.jsonl').read_text().splitlines()]
         assert len(e)==20 and {(r['session'],r['epoch']) for r in e}=={(t,k) for t in (1,2) for k in range(1,11)}
         ref=[json.loads(x) for x in (Path(config['v3_output'])/f'{seed}_E/epochs.jsonl').read_text().splitlines()]
         assert all(a['components']['real_stream_sha256']==b['components']['real_stream_sha256'] for a,b in zip(e,ref)),'BLOCKED_REAL_STREAM_PAIR'
         for t in (0,1,2):
             value=json.loads((Path(config['v3_output'])/'p0'/f'{seed}_C_s0.json').read_text())['diagnostics']['val'] if t==0 else json.loads((d/f'session{t}_val.json').read_text())
-            prefix=dict(seed=seed,branch='F',session=t,inherited_s0=t==0)
+            prefix=dict(seed=seed,branch=branch,session=t,inherited_s0=t==0)
             metrics += [dict(**prefix,**m) for m in value['metrics']]
             classes += [dict(**prefix,**p) for p in value['per_class']]
-        epochs += [dict(seed=seed,branch='F',session=r['session'],epoch=r['epoch'],**flatten(r['components'])) for r in e]
+        epochs += [dict(seed=seed,branch=branch,session=r['session'],epoch=r['epoch'],**flatten(r['components'])) for r in e]
         locks += json.loads((d/'TRAJECTORY_COMPLETE.json').read_text())['sessions']
     baseline=list(csv.DictReader((Path(config['v3_output'])/'results/val_session_metrics.csv').open()))
     oldpc=list(csv.DictReader((Path(config['v3_output'])/'results/val_per_class_metrics.csv').open()))
+    comparisons=['C','E']
+    if branch=='G':
+        reference=Path(config['v4_output'])/'results'
+        baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
+        oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
+        comparisons.append('F')
     pairs=[];decisions={};means=[]
     fields=['balanced_accuracy','old_macro_recall','current_macro_recall','old_current_hm_macro_recall','tail_rank2','current_to_old_rate','old_to_current_rate','restricted_current_ba']
-    for b in ('C','E'):
+    for b in comparisons:
         newzero=[];improved=0
         for seed in SEEDS:
             for task in (1,2):
                 x=next(r for r in metrics if (r['seed'],r['session'],r['head'])==(seed,task,'sum'))
                 y=next(r for r in baseline if (r['seed'],r['session'],r['head'],r['branch'])==(str(seed),str(task),'sum',b))
                 if task==2:improved+=int(x['balanced_accuracy']>float(y['balanced_accuracy']) and x['current_macro_recall']>float(y['current_macro_recall']))
-                for field in fields:pairs.append(dict(contrast='F-'+b,seed=seed,session=task,metric=field,difference_pp=x[field]-float(y[field])))
+                for field in fields:pairs.append(dict(contrast=branch+'-'+b,seed=seed,session=task,metric=field,difference_pp=x[field]-float(y[field])))
                 for p in classes:
                     if (p['seed'],p['session'],p['head'])==(seed,task,'sum') and p['head_index']>=(4,6)[task-1] and p['recall']==0:
                         q=next(r for r in oldpc if (r['seed'],r['session'],r['head'],r['branch'],r['original_label'])==(str(seed),str(task),'sum',b,str(p['original_label'])))
                         if float(q['recall'])>0:newzero.append([seed,task,p['original_label']])
         for task in (1,2):
             for f in fields:
-                v=[r['difference_pp'] for r in pairs if (r['contrast'],r['session'],r['metric'])==('F-'+b,task,f)]
+                v=[r['difference_pp'] for r in pairs if (r['contrast'],r['session'],r['metric'])==(branch+'-'+b,task,f)]
                 assert len(v)==3 and all(math.isfinite(x) for x in v)
-                means.append(dict(contrast='F-'+b,session=task,metric=f,mean_difference_pp=float(np.mean(v)),sample_sd=float(np.std(v,ddof=1))))
-        ds={r['metric']:r['mean_difference_pp'] for r in means if (r['contrast'],r['session'])==('F-'+b,2)}
+                means.append(dict(contrast=branch+'-'+b,session=task,metric=f,mean_difference_pp=float(np.mean(v)),sample_sd=float(np.std(v,ddof=1))))
+        ds={r['metric']:r['mean_difference_pp'] for r in means if (r['contrast'],r['session'])==(branch+'-'+b,2)}
         passed=ds['balanced_accuracy']>0 and ds['current_macro_recall']>=10 and ds['old_macro_recall']>=-5 and improved>=2 and not newzero
-        decisions['F-'+b]=dict(final_mean_deltas=ds,seeds_improved_ba_and_current=improved,new_zero_current=newzero,success_criterion_pass=passed)
+        decisions[branch+'-'+b]=dict(final_mean_deltas=ds,seeds_improved_ba_and_current=improved,new_zero_current=newzero,success_criterion_pass=passed)
     for name,rs in [('val_session_metrics',metrics),('val_per_class_metrics',classes),('training_components',epochs),('paired_val_differences',pairs),('paired_val_summary',means)]:write_csv(out/(name+'.csv'),[flatten(r) for r in rs])
-    result={'status':'COMPLETE','new_epochs':60,'new_session_checkpoints':6,'test_predictions':0,'paired_real_streams_vs_E':'PASS','contrasts':decisions,'success':decisions['F-C']['success_criterion_pass']}
+    result={'status':'COMPLETE','candidate':branch,'new_epochs':60,'new_session_checkpoints':6,'test_predictions':0,'paired_real_streams_vs_E':'PASS','contrasts':decisions,'success':decisions[branch+'-C']['success_criterion_pass']}
     write_json(root/'CHECKPOINT_LOCK.json',{'sessions':locks,'format':'S0_HEAD_DELTA_V1','parent_reference_required':True,'test_predictions':0})
     write_json(root/'FINAL_STATUS.json',result);write_json(root/'STATUS.json',result)
     (out/'DECISION.md').write_text('# Stationary-feature experiment\n\n'+json.dumps(result,indent=2)+'\n\nDevelopment validation only. Full three-seed matrix; no epoch selection. Repeated validation use introduces adaptive selection bias. Frozen features do not eliminate Gaussian or augmentation mismatch. V2/V3 originals are unchanged.\n')

@@ -120,12 +120,13 @@ def gradient_probe(learner,epoch=9):
         counts=torch.tensor(learner.args['lt_list'],device='cuda')[y];pool=o['pool_id'].squeeze(1)
         terms['assignment/pool_match']=((torch.where(counts<=learner.theta,1.,.1)-pool)**2*torch.where(counts<=learner.theta,10.,1.)).sum() if epoch<5 else ((1-pool)**2*pool*10).sum()
         terms['constraint/pull']=-learner.args['pull_constraint_coeff']*(o['reduce_sim']+o['reduce_sim_few'])
+        replay_weight=learner._concm_stage1_effective_weight(epoch)
         sampled=learner._concm_stage1_sample_memory()
         synth=None
         if sampled:
             fm,ff,sy=sampled;sl=(b.head(fm)+b.head_few(ff))[:,:t]
             terms['synthetic/raw']=F.cross_entropy(sl,sy)
-            terms['synthetic/weighted']=.05*terms['synthetic/raw']
+            terms['synthetic/weighted']=replay_weight*terms['synthetic/raw']
             synth={'main_norm':quantiles(fm.detach().norm(dim=1).cpu()),'few_norm':quantiles(ff.detach().norm(dim=1).cpu()),
                    'logits':quantiles(sl.detach().cpu()),'current_minus_old_margin':quantiles((sl[:,k:].max(1).values-sl[:,:k].max(1).values).detach().cpu()),
                    'labels_counts':torch.bincount(sy,minlength=t).cpu().tolist()}
@@ -137,7 +138,7 @@ def gradient_probe(learner,epoch=9):
             grads=torch.autograd.grad(term,params,retain_graph=True,allow_unused=True) if term.requires_grad else [None]*len(params)
             grads=[torch.zeros_like(p) if g is None else g for p,g in zip(params,grads)]
             assert all(torch.isfinite(g).all() for g in grads)
-            rec={'loss':float(term.detach()),'weight_in_total':1/3 if name.split('/')[-1] in ('main_ce','sum_ce','few_pool_ce') else (.05 if name=='synthetic/raw' else 1)}
+            rec={'loss':float(term.detach()),'weight_in_total':1/3 if name.split('/')[-1] in ('main_ce','sum_ce','few_pool_ce') else (replay_weight if name=='synthetic/raw' else 1)}
             for scope,slc in [('old',slice(0,k)),('current',slice(k,t))]:
                 v=torch.cat([g[slc].reshape(-1) for g in grads]);vectors[name,scope]=v
                 rec[scope+'_gradient_norm']=float(v.norm())

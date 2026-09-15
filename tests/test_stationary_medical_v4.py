@@ -3,9 +3,10 @@ import copy
 import time
 from pathlib import Path
 import torch
+import torch.nn.functional as F
 from run_medical_v2 import write_json,network_hash,rng_equal
 from stationary_medical_v4 import fork,HEADS
-from diagnose_medical_v3 import fixed_probe,batch_probe,gradient_probe
+from diagnose_medical_v3 import fixed_probe,batch_probe,gradient_probe,isolated_rng
 from utils.medical_v2 import effective_optimizer
 
 def engineering(config):
@@ -87,13 +88,34 @@ def engineering(config):
     assert raw['weight_in_total']==weight and abs(weighted['loss']-weight*raw['loss'])<1e-6
     for part in ['old','current']:
         assert abs(weighted[part+'_gradient_norm']-weight*raw[part+'_gradient_norm'])<1e-5
+    head_objective='not applicable'
+    if config.get('synthetic_ce_heads')=='mean_main_few_sum':
+        assert not row_fixed and l.args.get('old_classifier_rows') is None
+        # Check actual sampler/heads against an independent explicit CE expression.
+        with isolated_rng(l):
+            fm,ff,sy=l._concm_stage1_sample_memory();b=l._backbone_module();t=l._total_classes
+            main=b.head(fm)[:,:t];few=b.head_few(ff)[:,:t]
+            expected=(F.cross_entropy(main+few,sy)+F.cross_entropy(main,sy)+F.cross_entropy(few,sy))/3
+        with isolated_rng(l):actual=l._concm_stage1_loss()
+        assert torch.equal(actual,expected)
+        pars=[b.head.weight,b.head.bias,b.head_few.weight,b.head_few.bias]
+        ga=torch.autograd.grad(actual,pars);ge=torch.autograd.grad(expected,pars)
+        assert all(torch.equal(x,y) and torch.count_nonzero(x[6:])==0 for x,y in zip(ga,ge))
+        l.args['synthetic_ce_heads']='sum_only'
+        with isolated_rng(l):legacy=l._concm_stage1_loss()
+        assert torch.equal(legacy,F.cross_entropy(main+few,sy))
+        l.args['synthetic_ce_heads']='mean_main_few_sum'
+        assert abs(raw['loss']-sum(probe['terms']['synthetic/'+n]['loss'] for n in ('main_ce','few_ce','sum_ce'))/3)<1e-5
+        assert 'old_synthetic_actual_both_heads' in probe['common_logit_shift']
+        assert all(probe['terms']['synthetic/'+n]['weight_in_total']==weight/3 for n in ('main_ce','few_ce','sum_ce'))
+        head_objective='PASS: actual loss/gradients equal explicit CE mean; legacy default exact; probe and future mask correct'
     result={'status':'PASS','one_real_training_update':'PASS','only_four_head_tensors_have_gradients':True,
             'all_non_head_parameters_and_buffers_bitwise_unchanged':True,'future_ce_gradients_zero':True,
             'compact_restore_and_next_update_bitwise_equal':True,'normal_restore_seed_guard':'PASS','delta_parent_guard':'PASS',
             'old_rows_exact_after_adamw_decay_and_nonzero_moments':row_fixed,
             'old_row_reference_restore_guard':'PASS' if row_fixed else 'not applicable',
             'current_classifier_rows_update':True,'checkpoint_bytes':ckpt.stat().st_size,'one_batch_seconds':seconds,'peak_allocated_bytes':peak,
-            'observed_losses':losses,'constant_feature_objectives_have_zero_head_gradient':True,
+            'synthetic_head_objective':head_objective,'observed_losses':losses,'constant_feature_objectives_have_zero_head_gradient':True,
             'base_replay_weight':base,'actual_s1_replay_weight':weight,'probe_matches_actual_replay_weight':'PASS',
             'batch_context_and_label_independence':context,'test_predictions':0}
     write_json(out/'ENGINEERING.json',result);return result

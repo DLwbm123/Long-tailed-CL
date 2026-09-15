@@ -100,6 +100,14 @@ def real_terms(output,y,known,total,scope):
     return {'main_ce':F.cross_entropy(a,y), 'sum_ce':F.cross_entropy(a+b,y),
             'few_pool_ce':-(output['pool_id'].squeeze(1)*(F.one_hot(y,total-start)*torch.log(b.softmax(-1)+1e-7)).sum(1)).sum()}
 
+def synthetic_terms(main,few,y,rule='sum_only'):
+    """Shared actual/probe CE definition; existing sum-only behavior remains the default."""
+    assert rule in ('sum_only','mean_main_few_sum')
+    terms={'sum_ce':F.cross_entropy(main+few,y)}
+    if rule=='mean_main_few_sum':
+        terms.update(main_ce=F.cross_entropy(main,y),few_ce=F.cross_entropy(few,y))
+    return dict(terms,raw=sum(terms.values())/len(terms))
+
 def fixed_probe(learner):
     d=dataset(learner.config,learner.order,learner._total_classes,'train')
     d.rows=[r for r in d.rows if r['target']>=learner._known_classes]
@@ -124,8 +132,11 @@ def gradient_probe(learner,epoch=9):
         sampled=learner._concm_stage1_sample_memory()
         synth=None
         if sampled:
-            fm,ff,sy=sampled;sl=(b.head(fm)+b.head_few(ff))[:,:t]
-            terms['synthetic/raw']=F.cross_entropy(sl,sy)
+            fm,ff,sy=sampled;sm=b.head(fm)[:,:t];sf=b.head_few(ff)[:,:t];sl=sm+sf
+            rule=learner.args.get('synthetic_ce_heads','sum_only')
+            st=synthetic_terms(sm,sf,sy,rule)
+            terms['synthetic/raw']=st['raw']
+            if rule=='mean_main_few_sum':terms.update({'synthetic/'+n:v for n,v in st.items() if n!='raw'})
             terms['synthetic/weighted']=replay_weight*terms['synthetic/raw']
             synth={'main_norm':quantiles(fm.detach().norm(dim=1).cpu()),'few_norm':quantiles(ff.detach().norm(dim=1).cpu()),
                    'logits':quantiles(sl.detach().cpu()),'current_minus_old_margin':quantiles((sl[:,k:].max(1).values-sl[:,:k].max(1).values).detach().cpu()),
@@ -138,7 +149,9 @@ def gradient_probe(learner,epoch=9):
             grads=torch.autograd.grad(term,params,retain_graph=True,allow_unused=True) if term.requires_grad else [None]*len(params)
             grads=[torch.zeros_like(p) if g is None else g for p,g in zip(params,grads)]
             assert all(torch.isfinite(g).all() for g in grads)
-            rec={'loss':float(term.detach()),'weight_in_total':1/3 if name.split('/')[-1] in ('main_ce','sum_ce','few_pool_ce') else (replay_weight if name=='synthetic/raw' else 1)}
+            weight=1/3 if name.split('/')[-1] in ('main_ce','sum_ce','few_pool_ce') else (replay_weight if name=='synthetic/raw' else 1)
+            if name in ('synthetic/main_ce','synthetic/few_ce','synthetic/sum_ce'):weight=replay_weight/3
+            rec={'loss':float(term.detach()),'weight_in_total':weight}
             for scope,slc in [('old',slice(0,k)),('current',slice(k,t))]:
                 v=torch.cat([g[slc].reshape(-1) for g in grads]);vectors[name,scope]=v
                 rec[scope+'_gradient_norm']=float(v.norm())
@@ -156,6 +169,16 @@ def gradient_probe(learner,epoch=9):
             expected=0. if restricted else mass-(1. if name=='all_seen_real' else 0.)
             assert abs(g-expected)<2e-6, 'BLOCKED_GRADIENT_PROBE_FORMULA'
             shifts[name]={'derivative':g,'expected':expected,'current_probability_mass':mass}
+        if sampled and learner.args.get('synthetic_ce_heads')=='mean_main_few_sum':
+            # One unit shift in each head gives two units in their sum.
+            z=torch.zeros((),device='cuda',requires_grad=True);mask=(torch.arange(t,device='cuda')>=k)
+            shifted=synthetic_terms(sm.detach()+z*mask,sf.detach()+z*mask,sy,'mean_main_few_sum')['raw']
+            derivative=float(torch.autograd.grad(shifted,z)[0])
+            mass=lambda logits:float(logits.detach().softmax(1)[:,k:].sum(1).mean())
+            expected=(mass(sm)+mass(sf)+2*mass(sl))/3
+            assert abs(derivative-expected)<2e-6,'BLOCKED_SYNTHETIC_HEAD_SHIFT'
+            shifts['old_synthetic']['role']='sum-only reference, not actual three-head objective'
+            shifts['old_synthetic_actual_both_heads']={'derivative':derivative,'expected':expected,'head_shift_units':1,'sum_shift_units':2}
         cosines={}
         if sampled:
             for scope in ('current','all_seen'):

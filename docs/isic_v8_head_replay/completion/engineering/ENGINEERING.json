@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "one_real_training_update": "PASS",
+  "only_four_head_tensors_have_gradients": true,
+  "all_non_head_parameters_and_buffers_bitwise_unchanged": true,
+  "future_ce_gradients_zero": true,
+  "compact_restore_and_next_update_bitwise_equal": true,
+  "normal_restore_seed_guard": "PASS",
+  "delta_parent_guard": "PASS",
+  "old_rows_exact_after_adamw_decay_and_nonzero_moments": false,
+  "old_row_reference_restore_guard": "not applicable",
+  "current_classifier_rows_update": true,
+  "checkpoint_bytes": 236489,
+  "one_batch_seconds": 0.6455169959954219,
+  "peak_allocated_bytes": 799058944,
+  "synthetic_head_objective": "PASS: actual loss/gradients equal explicit CE mean; legacy default exact; probe and future mask correct",
+  "observed_losses": [
+    17.350431442260742,
+    12.926934242248535,
+    12.926934242248535
+  ],
+  "constant_feature_objectives_have_zero_head_gradient": true,
+  "base_replay_weight": 1.0,
+  "actual_s1_replay_weight": 2.0,
+  "probe_matches_actual_replay_weight": "PASS",
+  "batch_context_and_label_independence": [
+    {
+      "context": 0,
+      "max_main_change": 0.0,
+      "max_few_change": 0.0,
+      "main_adapter": [
+        1
+      ],
+      "few_adapter": [
+        2
+      ]
+    },
+    {
+      "context": 1,
+      "max_main_change": 0.0,
+      "max_few_change": 0.0,
+      "main_adapter": [
+        1
+      ],
+      "few_adapter": [
+        2
+      ]
+    },
+    {
+      "context": 2,
+      "max_main_change": 0.0,
+      "max_few_change": 0.0,
+      "main_adapter": [
+        1
+      ],
+      "few_adapter": [
+        2
+      ]
+    },
+    {
+      "context": 3,
+      "max_main_change": 0.0,
+      "max_few_change": 0.0,
+      "main_adapter": [
+        1
+      ],
+      "few_adapter": [
+        2
+      ]
+    }
+  ],
+  "test_predictions": 0
+}

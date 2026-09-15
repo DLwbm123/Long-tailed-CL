@@ -1,0 +1,32 @@
+{
+  "status": "CHECKPOINT_BINDING_AND_RESUME_PASS",
+  "rejected_mismatches": [
+    "protocol_sha256",
+    "manifest_sha256",
+    "train_branch",
+    "training_args",
+    "train_seed"
+  ],
+  "network_unchanged": true,
+  "extra_training_steps": 0,
+  "source_purpose": "disposable P1 only",
+  "source_training_code_sha256": {
+    "tools/prepare_isic_transfer_v2.py": "5cf3f3a9e17987b0821e0c1e55d89489a9ff320a68d7374e4ae3399d4fc4fd94",
+    "tools/run_medical_v2.py": "aa3faf9ae4d1aaf744e04e5496f8e15298cd5d97830d2d2313be51ec28dc0da4",
+    "tests/test_medical_v2.py": "8ff18f6a5a06bbcc455fb13ed8727572c0267a32ce6e656e02fad7b6e0b2c6a8",
+    "third_party/APART/utils/medical_v2.py": "4841de5c5085985ae64ab71d8ab87ccf288ea4e9ab8a03e67f410c4250564f60",
+    "third_party/APART/utils/inc_net.py": "8eb7be651119e355a0a00b614c3ab17b0925ec7ea3cbaffc6002e86b266f14c0",
+    "third_party/APART/models/apart.py": "760ff17f67588765acf8ae1787d68c5b2b5ba52286f196d3906b5467bb91a534",
+    "third_party/APART/backbone/vision_transformer_adapter_pool_a.py": "5972c5a7a00d4c07eff430ea042622eccf9f00abe2321cc34f5d26fc96d852ab"
+  },
+  "checked_code_sha256": {
+    "tools/prepare_isic_transfer_v2.py": "5cf3f3a9e17987b0821e0c1e55d89489a9ff320a68d7374e4ae3399d4fc4fd94",
+    "tools/run_medical_v2.py": "7d464d590dde7ecb280a19813481510ec86f1564bd9e19089f8e0ade944bad13",
+    "tests/test_medical_v2.py": "7b2ee35ffaffb3a2a5663ace9a4b4c88e19ece7daf0baf22ebe633d956011478",
+    "third_party/APART/utils/medical_v2.py": "22546730e24a2a19822afac86ca25d31beb66df365c3b49a0aa904dba5e869ad",
+    "third_party/APART/utils/inc_net.py": "8eb7be651119e355a0a00b614c3ab17b0925ec7ea3cbaffc6002e86b266f14c0",
+    "third_party/APART/models/apart.py": "760ff17f67588765acf8ae1787d68c5b2b5ba52286f196d3906b5467bb91a534",
+    "third_party/APART/backbone/vision_transformer_adapter_pool_a.py": "5972c5a7a00d4c07eff430ea042622eccf9f00abe2321cc34f5d26fc96d852ab"
+  },
+  "protocol_hash_scope": "P1 data summary; formal run requires PROTOCOL_LOCK_V2 hash"
+}

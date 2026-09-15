@@ -1245,7 +1245,7 @@ class Learner(BaseLearner):
             )
 
     def _init_train(self, train_loader, test_loader, optimizer, scheduler):
-        prog_bar = tqdm(range(self.args['tuned_epoch']))
+        prog_bar = tqdm(range(getattr(self, '_v2_start_epoch', 0), self.args['tuned_epoch']))
         cls_num_list = torch.Tensor(self.args["lt_list"][:self._total_classes]).to(self._device)
         for _, epoch in enumerate(prog_bar):
             self._network.backbone.train()
@@ -1316,6 +1316,8 @@ class Learner(BaseLearner):
             correct, total = 0, 0
             for i, (_, inputs, targets) in enumerate(train_loader):
                 inputs, targets = inputs.to(self._device), targets.to(self._device)
+                if hasattr(self, "_v2_input_hook"):
+                    self._v2_input_hook(epoch, i, inputs, targets)
                 weight = cls_num_list[targets]
 
                 output = self._network(inputs, task_id=self._cur_task, train=True, weight=weight) 
@@ -1573,6 +1575,8 @@ class Learner(BaseLearner):
 
                 optimizer.zero_grad()
                 loss.backward()
+                if hasattr(self, "_v2_gradient_hook"):
+                    self._v2_gradient_hook(epoch, i, loss)
                 optimizer.step()
                 losses += loss.item()
 
@@ -1585,7 +1589,10 @@ class Learner(BaseLearner):
                 scheduler.step()
             train_acc = np.around(tensor2numpy(correct) * 100 / total, decimals=2)
             
-            if (epoch + 1) % 5 == 0:
+            if hasattr(self, "_v2_epoch_hook"):
+                self._v2_epoch_hook(epoch, optimizer, scheduler, {"loss": losses / len(train_loader), "train_accuracy": float(train_acc), "concm_gradient_batches": concm_stage1_nonzero_grad_batches})
+
+            if (epoch + 1) % 5 == 0 and not self.args.get("medical_v2", False):
                 test_acc = self._compute_accuracy(self._network, test_loader)
                 info = "Task {}, Epoch {}/{} => Loss {:.3f}, Train_accy {:.2f}, Test_accy(pool1 {:.2f}, pool2 {:.2f}, pool_all {:.2f})".format(
                     self._cur_task,

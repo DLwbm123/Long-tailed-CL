@@ -25,9 +25,13 @@ def verify(config):
     assert json.loads((Path(config['v2_output'])/'FINAL_STATUS.json').read_text())['status']=='COMPLETE_MIXED_SIGNAL'
     # Storage gate counts all 12 final states, six resumes and two atomic writes. No deletion/precision changes.
     old=list(Path(config['v2_output']).glob('199?_[BC]/session*.pt'));size=max(p.stat().st_size for p in old)
-    free=shutil.disk_usage(output).free;required=20*size+450*1024**2+1024**3
+    # A's two float32 feature arrays occupy 58.4 MB. B was explicitly allowed to be
+    # unavailable; do not reserve its undownloadable weight and cache as if present.
+    auxiliary=450*1024**2 if (Path(config['v3_root'])/'weights/model.safetensors').exists() else 128*1024**2
+    free=shutil.disk_usage(output).free;required=20*size+auxiliary+1024**3
     assert free>required, f'BLOCKED_STORAGE free={free}, required={required}'
-    return {'free_bytes':free,'required_bytes':required,'checkpoint_bytes_upper':size,'retention':'12 final checkpoints + 6 resume files + 2 atomic write buffers; V2 untouched','test_predictions':0}
+    return {'free_bytes':free,'required_bytes':required,'checkpoint_bytes_upper':size,'auxiliary_bytes':auxiliary,'additional_reserve_bytes':1024**3,
+            'retention':'12 final checkpoints + 6 resume files + 2 atomic write buffers; V2 untouched','test_predictions':0}
 
 def recompute_v2(config):
     p=Path(config['v2_output'])/'results';rows=list(csv.DictReader((p/'per_class_metrics.csv').open()));summary=[]

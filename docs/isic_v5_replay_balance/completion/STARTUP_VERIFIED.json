@@ -1,0 +1,64 @@
+{
+  "checked_at": "2026-09-15T17:25:35.969775+00:00",
+  "status": {
+    "status": "RUNNING",
+    "slots": 2,
+    "planned_epochs": 60,
+    "test_predictions": 0
+  },
+  "epochs": {
+    "1993_G": {
+      "completed": 11,
+      "session": 2,
+      "epoch": 1
+    },
+    "1994_G": {
+      "completed": 1,
+      "session": 1,
+      "epoch": 1
+    }
+  },
+  "resource_gate": {
+    "status": "PASS",
+    "slots": 2,
+    "estimated_gpu_process_seconds": 5243.22715048256,
+    "budget_gpu_hours": null,
+    "pilot_seconds_per_image": 0.011101806626684266,
+    "peak_gpu_bytes": 1224021504,
+    "free_gpu_bytes": 25250758656,
+    "free_disk_bytes": 2632298496,
+    "required_disk_bytes": 1207959552,
+    "checkpoint_format": "S0_HEAD_DELTA_V1",
+    "pilot_checkpoint_bytes": 235915,
+    "retention": "six session checkpoints + three resumes; original parents preserved",
+    "new_epochs": 60,
+    "pilot_is_first_formal_epoch": true
+  },
+  "gpu": "3762 MiB, 24564 MiB, 87 %",
+  "gpu_processes": "51870, /tmp/n154env/bin/python, 0 MiB\n51869, /tmp/n154env/bin/python, 0 MiB",
+  "neutral_processes": [
+    "51738       1       03:02 /tmp/n154env/bin/python /tmp/n5m.py",
+    "51869   51738       02:44 /tmp/n154env/bin/python /tmp/n5w.py",
+    "51870   51738       02:44 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53116   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53120   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53124   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53128   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53132   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53136   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53140   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53144   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53148   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53152   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53156   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53160   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53164   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53168   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53172   51869       00:17 /tmp/n154env/bin/python /tmp/n5w.py",
+    "53184   51870       00:17 /tmp/n154env/bin/python /tmp/n5w.py"
+  ],
+  "worker_errors": {
+    "train_1993.log": false,
+    "train_1994.log": false
+  }
+}

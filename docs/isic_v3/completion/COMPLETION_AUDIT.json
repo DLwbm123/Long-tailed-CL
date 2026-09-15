@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "epochs": 120,
+  "incremental_checkpoints": 12,
+  "paired_streams": "PASS",
+  "forks_and_training_configs": "PASS",
+  "metric_rows": 108,
+  "per_class_rows": 648,
+  "recomputed_BA_from_class_recalls": "PASS",
+  "train_only_stage_access": "PASS",
+  "two_pinned_encoder_cache_locks": "PASS",
+  "finite_training_records": "PASS",
+  "test_predictions": 0,
+  "checkpoint_integrity_scope": "Matched recorded checkpoint hashes across trajectory and final locks; completion check verifies current paths/sizes separately, without rehashing all large files.",
+  "resources": {
+    "original_physical_wall_hours": 2.4145625077353583,
+    "supplement_compute_seconds": 43.11244583129883,
+    "conservative_gpu_process_hours_including_supplement": 4.105255267818769,
+    "peak_sampled_gpu_mib": 19286.0,
+    "original_8_gpu_hour_gate_pass": true
+  },
+  "final_val_summary": [
+    {
+      "method": "B",
+      "balanced_accuracy_mean": 28.86062284392083,
+      "balanced_accuracy_sample_sd": 10.034755927865035,
+      "old_macro_recall_mean": 22.84274253786449,
+      "old_macro_recall_sample_sd": 19.696562342164174,
+      "current_macro_recall_mean": 46.914263762089845,
+      "current_macro_recall_sample_sd": 20.59920686574632,
+      "tail_rank2_mean": 22.64957264957265,
+      "tail_rank2_sample_sd": 7.4641190062857135
+    },
+    {
+      "method": "C",
+      "balanced_accuracy_mean": 41.84839765831283,
+      "balanced_accuracy_sample_sd": 3.365968804917753,
+      "old_macro_recall_mean": 54.834944103236786,
+      "old_macro_recall_sample_sd": 3.5599580203029526,
+      "current_macro_recall_mean": 2.888758323540932,
+      "current_macro_recall_sample_sd": 5.003476187160388,
+      "tail_rank2_mean": 47.48931623931624,
+      "tail_rank2_sample_sd": 25.478417351010062
+    },
+    {
+      "method": "D",
+      "balanced_accuracy_mean": 20.063531340705254,
+      "balanced_accuracy_sample_sd": 2.2935228788852324,
+      "old_macro_recall_mean": 0.0,
+      "old_macro_recall_sample_sd": 0.0,
+      "current_macro_recall_mean": 80.25412536282101,
+      "current_macro_recall_sample_sd": 9.17409151554093,
+      "tail_rank2_mean": 17.200854700854702,
+      "tail_rank2_sample_sd": 15.702947694433194
+    },
+    {
+      "method": "E",
+      "balanced_accuracy_mean": 25.180908333082247,
+      "balanced_accuracy_sample_sd": 3.083909111808628,
+      "old_macro_recall_mean": 6.309193809193809,
+      "old_macro_recall_sample_sd": 1.4139826820362056,
+      "current_macro_recall_mean": 81.79605190474756,
+      "current_macro_recall_sample_sd": 10.543200318012657,
+      "tail_rank2_mean": 28.0982905982906,
+      "tail_rank2_sample_sd": 9.379222330636152
+    }
+  ],
+  "frozen_reference_threshold_audit": [
+    {
+      "encoder": "A",
+      "classifier": "NCM",
+      "mean_deltas": {
+        "balanced_accuracy": 1.6715429013281617,
+        "old_macro_recall": -8.977109891744037,
+        "current_macro_recall": 33.61750128054476
+      },
+      "paired_layout_improvements": 2,
+      "new_zero_current": [],
+      "numerical_threshold_pass": false,
+      "independent_frozen_fits": 1
+    },
+    {
+      "encoder": "A",
+      "classifier": "CBRidge",
+      "mean_deltas": {
+        "balanced_accuracy": 13.64886593511991,
+        "old_macro_recall": 1.1561947842435671,
+        "current_macro_recall": 51.12687938774895
+      },
+      "paired_layout_improvements": 3,
+      "new_zero_current": [],
+      "numerical_threshold_pass": true,
+      "independent_frozen_fits": 1
+    },
+    {
+      "encoder": "B",
+      "classifier": "NCM",
+      "mean_deltas": {
+        "balanced_accuracy": -7.720795498499633,
+        "old_macro_recall": -18.049850123020857,
+        "current_macro_recall": 23.26636837506403
+      },
+      "paired_layout_improvements": 0,
+      "new_zero_current": [],
+      "numerical_threshold_pass": false,
+      "independent_frozen_fits": 1
+    },
+    {
+      "encoder": "B",
+      "classifier": "CBRidge",
+      "mean_deltas": {
+        "balanced_accuracy": 12.344534059473084,
+        "old_macro_recall": -1.3430390564536931,
+        "current_macro_recall": 53.40725340725341
+      },
+      "paired_layout_improvements": 3,
+      "new_zero_current": [],
+      "numerical_threshold_pass": true,
+      "independent_frozen_fits": 1
+    }
+  ],
+  "V3_E_success": false
+}

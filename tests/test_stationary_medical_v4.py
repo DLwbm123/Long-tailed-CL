@@ -14,11 +14,16 @@ def engineering(config):
     original=network_hash(l._network);l.args['tuned_epoch']=1
     x,y=fixed_probe(l);x=x[:4];y=y[:4]
     batch=[(torch.arange(len(x)),x,y)]
-    losses=[];grad={}
+    losses=[];grad={};inject_moments=[False]
     def capture(epoch,batch,loss):
         for name,p in l._network.named_parameters():
             if p.grad is not None:grad[name]=p.grad.detach().cpu().clone()
         assert set(grad)==HEADS and all(torch.isfinite(g).all() for g in grad.values())
+        if inject_moments[0]:
+            for group in l.optimizer.param_groups:
+                for p in group['params']:
+                    for key in ('exp_avg','exp_avg_sq'):l.optimizer.state[p][key][:4].fill_(0.25)
+            inject_moments[0]=False
     l._v2_gradient_hook=capture
     l._v2_epoch_hook=lambda epoch,opt,sched,stats:losses.append(stats['loss'])
     def update():
@@ -28,7 +33,19 @@ def engineering(config):
     torch.cuda.reset_peak_memory_stats();start=time.monotonic();update();torch.cuda.synchronize()
     seconds=time.monotonic()-start;peak=torch.cuda.max_memory_allocated()
     l.assert_stationary();assert network_hash(l._network)!=original
+    row_fixed=config.get('old_classifier_rows')=='session_fixed'
+    if row_fixed:
+        l.assert_old_rows(l.optimizer)
+        assert l.old_row_reference['steps']==1
+        for name in HEADS:assert torch.equal(l.old_row_reference['rows'][name],l.base_network[name][:4])
+        assert any(not torch.equal(p[4:6].detach().cpu(),l.base_network[n][4:6]) for n,p in l._network.named_parameters() if n in HEADS)
+        # Stress nonzero inherited moments; the post-step projection must erase them.
+        inject_moments[0]=True
     assert all((g[6:]==0).all() for g in grad.values())
+    if row_fixed:
+        # This update also exercises nonzero weight decay in the original AdamW groups.
+        l._init_train(batch,None,l.optimizer,None);l.assert_old_rows(l.optimizer)
+        losses.clear()
     ckpt=out/'roundtrip.pt';l.checkpoint(ckpt,l.optimizer,None,1,'epoch_complete')
     h=network_hash(l._network);rng=l._capture_rng_state();loader=l.loader_generator.get_state();synth=l.synth_rng.clone()
     compact=torch.load(ckpt,map_location='cpu',weights_only=False)
@@ -39,8 +56,14 @@ def engineering(config):
     assert network_hash(l._network)==h and rng_equal(rng,l._capture_rng_state())
     assert torch.equal(loader,l.loader_generator.get_state()) and torch.equal(synth,l.synth_rng)
     update();assert network_hash(l._network)==expected and rng_equal(expected_rng,l._capture_rng_state())
-    assert losses[1]==losses[2]
+    assert losses[-2]==losses[-1]
     l.assert_stationary()
+    if row_fixed:
+        l.assert_old_rows(l.optimizer)
+        bad=copy.deepcopy(compact);bad['old_row_reference']['rows']['backbone.head.bias'][0]+=1
+        try:l.expand_delta(bad)
+        except AssertionError:pass
+        else:raise AssertionError('Corrupt old-row reference accepted')
     bad=dict(compact,train_seed=1994)
     try:l._restore_checkpoint_state(l.expand_delta(bad))
     except AssertionError:pass
@@ -67,7 +90,9 @@ def engineering(config):
     result={'status':'PASS','one_real_training_update':'PASS','only_four_head_tensors_have_gradients':True,
             'all_non_head_parameters_and_buffers_bitwise_unchanged':True,'future_ce_gradients_zero':True,
             'compact_restore_and_next_update_bitwise_equal':True,'normal_restore_seed_guard':'PASS','delta_parent_guard':'PASS',
-            'checkpoint_bytes':ckpt.stat().st_size,'one_batch_seconds':seconds,'peak_allocated_bytes':peak,
+            'old_rows_exact_after_adamw_decay_and_nonzero_moments':row_fixed,
+            'old_row_reference_restore_guard':'PASS' if row_fixed else 'not applicable',
+            'current_classifier_rows_update':True,'checkpoint_bytes':ckpt.stat().st_size,'one_batch_seconds':seconds,'peak_allocated_bytes':peak,
             'observed_losses':losses,'constant_feature_objectives_have_zero_head_gradient':True,
             'base_replay_weight':base,'actual_s1_replay_weight':weight,'probe_matches_actual_replay_weight':'PASS',
             'batch_context_and_label_independence':context,'test_predictions':0}

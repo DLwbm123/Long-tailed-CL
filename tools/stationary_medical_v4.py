@@ -15,6 +15,50 @@ from report_medical_v3 import flatten
 HEADS={'backbone.head.weight','backbone.head.bias','backbone.head_few.weight','backbone.head_few.bias'}
 
 class StationaryLearner(ForkLearner):
+    def assert_old_rows(self,optimizer=None):
+        if self.args.get('old_classifier_rows')!='session_fixed':return
+        ref=self.old_row_reference;k=ref['known']
+        assert (ref['task'],k)==(self._cur_task,self._known_classes),'BLOCKED_OLD_ROW_STAGE'
+        for name,p in self._network.named_parameters():
+            if name in HEADS:
+                assert torch.equal(p[:k].detach().cpu(),ref['rows'][name].cpu()),'BLOCKED_OLD_ROW_DRIFT '+name
+                if optimizer is not None:
+                    for key in ('exp_avg','exp_avg_sq','max_exp_avg_sq'):
+                        v=optimizer.state.get(p,{}).get(key)
+                        if v is not None:assert torch.count_nonzero(v[:k])==0,'BLOCKED_OLD_ROW_MOMENT'
+
+    def _init_train(self,train_loader,test_loader,optimizer,scheduler):
+        if self.args.get('old_classifier_rows')!='session_fixed':
+            return super()._init_train(train_loader,test_loader,optimizer,scheduler)
+        k=self._known_classes
+        if not hasattr(self,'old_row_reference') or self.old_row_reference['task']!=self._cur_task:
+            self.old_row_reference={'task':self._cur_task,'known':k,'steps':0,
+                'rows':{n:p[:k].detach().cpu().clone() for n,p in self._network.named_parameters() if n in HEADS}}
+        self.assert_old_rows(optimizer)
+        heads=[(p,self.old_row_reference['rows'][n].to(p.device)) for n,p in self._network.named_parameters() if n in HEADS]
+        def before_step(opt,args,kwargs):
+            for p,_ in heads:
+                if p.grad is not None:p.grad[:k].zero_()
+        @torch.no_grad()
+        def after_step(opt,args,kwargs):
+            # Gradient masking alone does not prevent AdamW decay or residual moments.
+            for p,value in heads:
+                p[:k].copy_(value)
+                for key in ('exp_avg','exp_avg_sq','max_exp_avg_sq'):
+                    v=opt.state.get(p,{}).get(key)
+                    if v is not None:v[:k].zero_()
+            self.old_row_reference['steps']+=1
+        pre=optimizer.register_step_pre_hook(before_step);post=optimizer.register_step_post_hook(after_step)
+        try:return super()._init_train(train_loader,test_loader,optimizer,scheduler)
+        finally:pre.remove();post.remove()
+
+    def _v2_epoch_hook(self,epoch,optimizer,scheduler,stats):
+        if self.args.get('old_classifier_rows')=='session_fixed':
+            self.assert_old_rows(optimizer)
+            stats=dict(stats,old_classifier_rows_exact='PASS',old_classifier_moments_zero='PASS',
+                       constrained_optimizer_steps=self.old_row_reference['steps'])
+        return super()._v2_epoch_hook(epoch,optimizer,scheduler,stats)
+
     def _concm_stage1_effective_weight(self,epoch):
         weight=super()._concm_stage1_effective_weight(epoch)
         if self.args.get('replay_weight_rule','constant')=='old_current_count':
@@ -38,12 +82,18 @@ class StationaryLearner(ForkLearner):
         state=self._checkpoint_state(optimizer,scheduler,epoch,phase)
         state['network']={k:v for k,v in state['network'].items() if k in HEADS}
         state['checkpoint_format']='S0_HEAD_DELTA_V1';state['immutable_parent']=self.delta_parent
+        if self.args.get('old_classifier_rows')=='session_fixed':
+            self.assert_old_rows(optimizer);state['old_row_reference']=self.old_row_reference
         tmp=Path(str(path)+'.part');torch.save(state,tmp);tmp.replace(path)
 
     def expand_delta(self,state):
         assert state['checkpoint_format']=='S0_HEAD_DELTA_V1'
         assert state['immutable_parent']==self.delta_parent,'BLOCKED_DELTA_PARENT'
         assert set(state['network'])==HEADS,'BLOCKED_DELTA_KEYS'
+        if self.args.get('old_classifier_rows')=='session_fixed':
+            ref=state['old_row_reference'];k=state['known']
+            assert (ref['task'],ref['known'])==(state['task'],k) and set(ref['rows'])==HEADS,'BLOCKED_OLD_ROW_REFERENCE'
+            assert all(torch.equal(state['network'][n][:k],ref['rows'][n]) for n in HEADS),'BLOCKED_OLD_ROW_REFERENCE'
         state=dict(state,network={**self.base_network,**state['network']})
         return state
 
@@ -51,11 +101,14 @@ class StationaryLearner(ForkLearner):
         if not hasattr(self,'delta_parent'):return super().restore(path)
         state=self.expand_delta(torch.load(path,map_location='cpu',weights_only=False))
         # Use precisely the normal protocol/config/seed/branch/state guards.
-        return self._restore_checkpoint_state(state)
+        result=self._restore_checkpoint_state(state)
+        if self.args.get('old_classifier_rows')=='session_fixed':
+            self.old_row_reference=state['old_row_reference'];self.assert_old_rows(self.optimizer)
+        return result
 
 def fork(config,seed,out=None):
     branch=config.get('candidate_branch','F');weight=config.get('replay_weight',.05);rule=config.get('replay_weight_rule','constant')
-    assert (branch,weight,rule) in [('F',.05,'constant'),('G',1.0,'constant'),('H',1.0,'old_current_count')],'Unsupported fixed contrast'
+    assert (branch,weight,rule) in [('F',.05,'constant'),('G',1.0,'constant'),('H',1.0,'old_current_count'),('I',1.0,'old_current_count')],'Unsupported fixed contrast'
     out=Path(out or Path(config['output'])/f'{seed}_{branch}')
     v2=json.loads(Path(config['v2_runtime']).read_text())
     entries=json.loads((Path(config['v2_output'])/'ALL_CHECKPOINTS_LOCK.json').read_text())['checkpoints']
@@ -72,6 +125,9 @@ def fork(config,seed,out=None):
     learner.freeze_features(parent,state)
     learner.config=copy.deepcopy(config);learner.protocol_hash=config['protocol_sha256']
     learner.args=dict(a,real_ce_scope='all_seen',feature_update_scope='s0_frozen',concm_stage1_loss_weight=weight,replay_weight_rule=rule)
+    if branch=='I':
+        assert config['old_classifier_rows']=='session_fixed'
+        learner.args['old_classifier_rows']='session_fixed'
     learner.concm_stage1_loss_weight=weight
     learner._cur_task=1;learner._known_classes=4;learner._total_classes=6
     assert network_hash(learner._network)==before and rng_equal(rng,learner._capture_rng_state())
@@ -79,7 +135,8 @@ def fork(config,seed,out=None):
             'ordinary_parent_restore':'PASS','network_and_rng_inheritance':'PASS',
             'intervention':{'F':'freeze all non-head parameters at the corresponding C S0 state',
                             'G':'relative to F, replay coefficient 0.05 -> 1.0; all other settings unchanged',
-                            'H':'relative to G, multiply replay coefficient by known/current class count: S1=2, S2=3'}[branch],
+                            'H':'relative to G, multiply replay coefficient by known/current class count: S1=2, S2=3',
+                            'I':'relative to H, preserve existing classifier rows and zero their Adam moments at each session; losses unchanged'}[branch],
             'trainable_names':sorted(HEADS),'trainable_parameters':sum(p.numel() for p in learner._network.parameters() if p.requires_grad),
             'memory_classes':sorted(learner.concm_stage1_memory),'code_commit':config['code_commit'],
             'checkpoint_format':'S0_HEAD_DELTA_V1: exact parent plus changed heads, optimizer, memory and complete RNG',
@@ -126,6 +183,7 @@ def report(config):
     branch=config.get('candidate_branch','F');metrics=[];classes=[];epochs=[];locks=[]
     for seed in SEEDS:
         d=root/f'{seed}_{branch}';e=[json.loads(x) for x in (d/'epochs.jsonl').read_text().splitlines()]
+        if branch=='I':assert all(r['old_classifier_rows_exact']=='PASS' and r['old_classifier_moments_zero']=='PASS' for r in e),'BLOCKED_OLD_ROW_AUDIT'
         assert len(e)==20 and {(r['session'],r['epoch']) for r in e}=={(t,k) for t in (1,2) for k in range(1,11)}
         ref=[json.loads(x) for x in (Path(config['v3_output'])/f'{seed}_E/epochs.jsonl').read_text().splitlines()]
         assert all(a['components']['real_stream_sha256']==b['components']['real_stream_sha256'] for a,b in zip(e,ref)),'BLOCKED_REAL_STREAM_PAIR'
@@ -139,16 +197,21 @@ def report(config):
     baseline=list(csv.DictReader((Path(config['v3_output'])/'results/val_session_metrics.csv').open()))
     oldpc=list(csv.DictReader((Path(config['v3_output'])/'results/val_per_class_metrics.csv').open()))
     comparisons=['C','E']
-    if branch in ('G','H'):
+    if branch in ('G','H','I'):
         reference=Path(config['v4_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('F')
-    if branch=='H':
+    if branch in ('H','I'):
         reference=Path(config['v5_output'])/'results'
         baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
         oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
         comparisons.append('G')
+    if branch=='I':
+        reference=Path(config['v6_output'])/'results'
+        baseline += list(csv.DictReader((reference/'val_session_metrics.csv').open()))
+        oldpc += list(csv.DictReader((reference/'val_per_class_metrics.csv').open()))
+        comparisons.append('H')
     pairs=[];decisions={};means=[]
     fields=['balanced_accuracy','old_macro_recall','current_macro_recall','old_current_hm_macro_recall','tail_rank2','current_to_old_rate','old_to_current_rate','restricted_current_ba']
     for b in comparisons:

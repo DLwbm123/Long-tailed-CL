@@ -134,7 +134,7 @@ def gradient_probe(learner,epoch=9):
             terms[scope+'/full_training_total']=terms[scope+'/total_with_replay']+terms['assignment/pool_match']+terms['constraint/pull']
         records={};vectors={}
         for name,term in terms.items():
-            grads=torch.autograd.grad(term,params,retain_graph=True,allow_unused=True)
+            grads=torch.autograd.grad(term,params,retain_graph=True,allow_unused=True) if term.requires_grad else [None]*len(params)
             grads=[torch.zeros_like(p) if g is None else g for p,g in zip(params,grads)]
             assert all(torch.isfinite(g).all() for g in grads)
             rec={'loss':float(term.detach()),'weight_in_total':1/3 if name.split('/')[-1] in ('main_ce','sum_ce','few_pool_ce') else (.05 if name=='synthetic/raw' else 1)}

@@ -110,7 +110,7 @@ class MedicalLearner(Learner):
         g=self._network.backbone.assigner.cls_emb.weight.grad
         if g is not None:self.gradient_rows.update(torch.where(g.abs().sum(1)>0)[0].tolist())
         self.pool_grad |= any(p.grad is not None and p.grad.abs().sum().item()>0 for name,p in self._network.backbone.named_parameters() if name.startswith(('pool.','pool_few.')))
-    def checkpoint(self,path,optimizer,scheduler,epoch,phase):
+    def _checkpoint_state(self,optimizer,scheduler,epoch,phase):
         state=dict(network=self._network.state_dict(),task=self._cur_task,known=self._known_classes,total=self._total_classes,
                    memory=self.concm_stage1_memory,optimizer=optimizer.state_dict(),scheduler=scheduler.state_dict() if scheduler else None,
                    rng=self._capture_rng_state(),loader_rng=self.loader_generator.get_state(),synth_rng=self.synth_rng,
@@ -118,9 +118,14 @@ class MedicalLearner(Learner):
                    train_seed=self.args['seed'],train_branch='C' if self.concm_stage1_enabled else 'B',
                    training_args=dict(self.args,device=[str(d) for d in self.args['device']]),
                    manifest_sha256=self.manifest_hashes,protocol_sha256=self.protocol_hash,code_sha256=self.config['code_sha256'])
+        return state
+    def checkpoint(self,path,optimizer,scheduler,epoch,phase):
+        state=self._checkpoint_state(optimizer,scheduler,epoch,phase)
         tmp=Path(str(path)+'.part');torch.save(state,tmp);tmp.replace(path)
     def restore(self,path):
         state=torch.load(path,map_location='cpu',weights_only=False)
+        return self._restore_checkpoint_state(state)
+    def _restore_checkpoint_state(self,state):
         assert state['order']==self.order and state['code_sha256']==self.config['code_sha256'] and state['weight_sha256']==WEIGHT_SHA
         assert state['manifest_sha256']==self.manifest_hashes and state['protocol_sha256']==self.protocol_hash,'BLOCKED_CHECKPOINT_PROTOCOL'
         assert state['train_seed']==self.args['seed'] and state['train_branch']==('C' if self.concm_stage1_enabled else 'B'),'BLOCKED_CHECKPOINT_BRANCH'

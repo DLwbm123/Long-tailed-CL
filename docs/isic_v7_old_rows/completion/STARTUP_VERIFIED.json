@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-09-15T19:27:55.826069+00:00",
+  "status": {
+    "status": "RUNNING",
+    "slots": 2,
+    "planned_epochs": 60,
+    "test_predictions": 0
+  },
+  "resource_gate": {
+    "status": "PASS",
+    "slots": 2,
+    "estimated_gpu_process_seconds": 5420.457404347892,
+    "budget_gpu_hours": null,
+    "pilot_seconds_per_image": 0.011496189229995556,
+    "peak_gpu_bytes": 1224047104,
+    "free_gpu_bytes": 25250758656,
+    "free_disk_bytes": 2504294400,
+    "required_disk_bytes": 1207959552,
+    "checkpoint_format": "S0_HEAD_DELTA_V1",
+    "pilot_checkpoint_bytes": 262087,
+    "retention": "six session checkpoints + three resumes; original parents preserved",
+    "new_epochs": 60,
+    "pilot_is_first_formal_epoch": true
+  },
+  "epochs": {
+    "1993_I": {
+      "completed": 3,
+      "session": 1,
+      "epoch": 3,
+      "old_classifier_rows_exact": "PASS",
+      "old_classifier_moments_zero": "PASS",
+      "constrained_optimizer_steps": 21,
+      "effective_replay_weight": 2.0
+    }
+  },
+  "gpu": "3762 MiB, 24564 MiB, 54 %",
+  "gpu_processes": "67103, /tmp/n154env/bin/python, 0 MiB\n67104, /tmp/n154env/bin/python, 0 MiB",
+  "neutral_processes": [
+    "66972       1       00:40 /tmp/n154env/bin/python /tmp/n7m.py",
+    "67103   66972       00:22 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67104   66972       00:22 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67142   67104       00:13 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67146   67104       00:13 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67150   67104       00:13 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67154   67104       00:12 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67158   67104       00:12 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67162   67104       00:12 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67167   67104       00:12 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67175   67104       00:12 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67400   67103       00:01 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67404   67103       00:01 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67408   67103       00:01 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67412   67103       00:01 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67416   67103       00:00 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67420   67103       00:00 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67424   67103       00:00 /tmp/n154env/bin/python /tmp/n7w.py",
+    "67428   67103       00:00 /tmp/n154env/bin/python /tmp/n7w.py"
+  ],
+  "worker_errors": {
+    "train_1993.log": false,
+    "train_1994.log": false
+  }
+}

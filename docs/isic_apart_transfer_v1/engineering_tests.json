@@ -1,0 +1,97 @@
+{
+  "status": "P0_COMPONENT_CHECKS_ONLY_NOT_TECHNICAL_PASS",
+  "audit_regression_tests": {
+    "passed": 2,
+    "failed": 0,
+    "synthetic_images_only": true
+  },
+  "reference_component_probe": {
+    "status": "BLOCKED_TRAINING_SEMANTICS",
+    "test": "original PoolAssigner on all actual split1 class counts",
+    "device": "cpu",
+    "torch": "2.6.0+cu124",
+    "embedding_rows": 501,
+    "valid_indices": [
+      0,
+      500
+    ],
+    "class_results": [
+      {
+        "original_label": 0,
+        "train_count": 12725,
+        "error": "index out of range in self"
+      },
+      {
+        "original_label": 1,
+        "train_count": 4372,
+        "error": "index out of range in self"
+      },
+      {
+        "original_label": 2,
+        "train_count": 3173,
+        "error": "index out of range in self"
+      },
+      {
+        "original_label": 3,
+        "train_count": 1788,
+        "error": "index out of range in self"
+      },
+      {
+        "original_label": 4,
+        "train_count": 717,
+        "error": "index out of range in self"
+      },
+      {
+        "original_label": 5,
+        "train_count": 478,
+        "error": null
+      },
+      {
+        "original_label": 6,
+        "train_count": 103,
+        "error": null
+      },
+      {
+        "original_label": 7,
+        "train_count": 89,
+        "error": null
+      }
+    ],
+    "optimizer_audit": {
+      "mode": "legacy_effective",
+      "groups": [
+        {
+          "lr": 0.00030000000000000003,
+          "weight_decay": 0.01,
+          "legacy_weight_decay_key": 0,
+          "betas": [
+            0.9,
+            0.999
+          ]
+        },
+        {
+          "lr": 0.003,
+          "weight_decay": 0.01,
+          "legacy_weight_decay_key": 0,
+          "betas": [
+            0.9,
+            0.999
+          ]
+        }
+      ],
+      "scheduler": "CosineAnnealingLR",
+      "scheduler_arg_overwritten_to": "cosine",
+      "S0_binding_correct": true,
+      "incremental_reinit_binding_correct": false
+    },
+    "full_pretrained_label_blind_test": "NOT_RUN",
+    "train_batches": 0,
+    "test_predictions": 0
+  },
+  "P1_full_smoke": "NOT_RUN",
+  "P1_full_label_blind": "NOT_RUN",
+  "P1_causal_access": "NOT_RUN",
+  "P1_checkpoint_resume": "NOT_RUN",
+  "P1_pair_equivalence": "NOT_RUN",
+  "P1_budget_estimate": "NOT_RUN"
+}

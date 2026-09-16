@@ -1,0 +1,151 @@
+{
+  "protocol": "G1_CONTROLLED_SPHERICAL_MIXUP",
+  "reference_R1": "2ab2c2690953cc34128d4b702df0a4e920e54d44",
+  "reference_V3": "cda1b371225de3568f7f07a8fc1658ec5f03fa3d",
+  "methods": [
+    "R0",
+    "B0",
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+  ],
+  "mix_seeds": [
+    41001,
+    41002,
+    41003
+  ],
+  "class_orders": {
+    "1993": [
+      4,
+      0,
+      3,
+      7,
+      5,
+      6,
+      2,
+      1
+    ],
+    "1994": [
+      3,
+      7,
+      4,
+      5,
+      1,
+      0,
+      6,
+      2
+    ],
+    "1995": [
+      1,
+      3,
+      0,
+      6,
+      4,
+      5,
+      2,
+      7
+    ]
+  },
+  "seen": [
+    4,
+    6,
+    8
+  ],
+  "train_counts": [
+    10529,
+    3263,
+    2835,
+    1306,
+    458,
+    256,
+    44,
+    27
+  ],
+  "lambda_value": 0.001,
+  "bias": false,
+  "dtype": "float64",
+  "true_features": "cast original float32 cache; never renormalize",
+  "augmentation_count": "M_c=N_c for every class",
+  "beta": 1,
+  "alpha_fixed": 0.6,
+  "alpha_adaptive": "0.6+0.4*exp(-0.005*N_c)",
+  "pairing": "PCG64 SeedSequence([mix_seed,class_id,0]); permutation ring",
+  "uniform": "PCG64 SeedSequence([mix_seed,class_id,1]); clip eps64..1-eps64",
+  "gamma": "scipy.special.betaincinv(alpha,alpha,u)",
+  "class_weight": "B0-B4 total class weight 1/C_seen; R0 sample weight 1/N_seen",
+  "spherical_denom_min": 1e-12,
+  "tie": "argmax first column in locked order",
+  "tolerances": {
+    "atol": 1e-10,
+    "rtol": 1e-09,
+    "solve_residual_lt": 1e-10,
+    "sphere_abs_lt": 1e-10,
+    "cache_unit_abs_le": 2e-06,
+    "span_relative_lt": 1e-09
+  },
+  "spectral": {
+    "stable_rank": "sum(eigenvalues**2)/spectral_norm**2",
+    "numeric_rank_rtol": "eps64*dimension",
+    "B0_reference_top": 16,
+    "entropy_negative_clip": "only diagnostics within rank tolerance; raw eigenvalues retained"
+  },
+  "bootstrap": {
+    "resamples": 2000,
+    "seed": 42001,
+    "unit": "class-stratified identity_component",
+    "training_mix_seeds_resampled": false
+  },
+  "contrasts": [
+    "B4-B0",
+    "B3-B2",
+    "B4-B3",
+    "B0-R0",
+    "B3-B0",
+    "B2-B0",
+    "B1-B0"
+  ],
+  "gate": {
+    "BA_mean_gain_ge": 1.0,
+    "tail_mean_gain_ge": 3.0,
+    "each_tail_class_gain_ge": 0.0,
+    "each_order_mean_old_current_gain_ge": -2.0,
+    "mix_seeds_improving_BA_and_tail_ge": 2,
+    "new_current_zero": 0
+  },
+  "resources": {
+    "cpu_wall_seconds": 7200,
+    "rss_target_bytes": 4294967296,
+    "new_file_bytes": 268435456,
+    "min_free_bytes": 1073741824,
+    "blas_threads": 4,
+    "workers": 1
+  },
+  "neural_training_epochs": 0,
+  "optimizer_steps": 0,
+  "encoder_forward_calls": 0,
+  "new_test_predictions": 0,
+  "new_test_feature_reads": 0,
+  "validation_adaptively_reused": true,
+  "full_GSR_reproduction": false,
+  "further_experiments_started": false,
+  "input_documents_sha256": {
+    "CODEX_ISIC_G1_CONTROLLED_SPHERICAL_MIXUP_PLAN.md": "21c1961b3691400c3f2f4c9e8af284c6ea2958f59464ad166e5bbe89604493cc",
+    "CODEX_ISIC_G1_CONTROLLED_SPHERICAL_MIXUP_PROMPT.txt": "fa57a42f552c8dd883c756049c919dc3a82818aeff22e36a17e4a2cd9b14a7cf"
+  },
+  "paper_source": {
+    "title": "Spectral-Aware Analytic Class-Incremental Learning for Long-Tailed Distributions",
+    "authors": "Tran et al.",
+    "version": "arXiv:2607.22931v1, 24 Jul 2026",
+    "pages": 29,
+    "sha256": "33980d677ee90b19c7d14619041a83b37ced66fcddc7ed0f1b33d6515049455c",
+    "inspected_pdf_pages": [
+      1,
+      7,
+      8,
+      9,
+      27
+    ],
+    "source": "user-provided local PDF"
+  }
+}

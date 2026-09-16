@@ -1,0 +1,79 @@
+{
+  "status": "NO_ADDED_BENEFIT_OVER_CBRIDGE",
+  "checks": {
+    "final_BA_gain_ge_1pp": false,
+    "final_tail_gain_ge_3pp": false,
+    "both_tail_classes_non_decreasing": false,
+    "every_order_old_current_loss_le_2pp": false,
+    "at_least_two_mix_seeds_improve_BA_and_tail": false,
+    "no_new_current_zero": true
+  },
+  "all_pass": false,
+  "B4_minus_B0_mean_pp": {
+    "balanced_accuracy": -0.4086251812922015,
+    "tail_rank2": -1.923076923076934,
+    "old_macro_recall": -0.1396625177113009,
+    "current_macro_recall": -1.2155131720349175,
+    "label_6_recall": -3.846153846153854,
+    "label_7_recall": 0.0
+  },
+  "per_order_partitions": [
+    {
+      "order_seed": 1993,
+      "metric": "old_macro_recall",
+      "mean_difference_pp": -0.4534378314866174,
+      "passes": true
+    },
+    {
+      "order_seed": 1993,
+      "metric": "current_macro_recall",
+      "mean_difference_pp": -0.2741872307089679,
+      "passes": true
+    },
+    {
+      "order_seed": 1994,
+      "metric": "old_macro_recall",
+      "mean_difference_pp": 0.3377379596891785,
+      "passes": true
+    },
+    {
+      "order_seed": 1994,
+      "metric": "current_macro_recall",
+      "mean_difference_pp": -2.6477146042363415,
+      "passes": false
+    },
+    {
+      "order_seed": 1995,
+      "metric": "old_macro_recall",
+      "mean_difference_pp": -0.3032876813364709,
+      "passes": true
+    },
+    {
+      "order_seed": 1995,
+      "metric": "current_macro_recall",
+      "mean_difference_pp": -0.7246376811594217,
+      "passes": true
+    }
+  ],
+  "per_mix_improvement": [
+    {
+      "mix_seed": 41001,
+      "BA_difference_pp": 0.5150283961259561,
+      "tail_difference_pp": -1.923076923076934
+    },
+    {
+      "mix_seed": 41002,
+      "BA_difference_pp": -1.0166255404192839,
+      "tail_difference_pp": -1.923076923076934
+    },
+    {
+      "mix_seed": 41003,
+      "BA_difference_pp": -0.7242783995832838,
+      "tail_difference_pp": -1.923076923076934
+    }
+  ],
+  "n_mix_improving_both": 0,
+  "new_current_zero": [],
+  "thresholds_changed": false,
+  "independent_confirmation": false
+}

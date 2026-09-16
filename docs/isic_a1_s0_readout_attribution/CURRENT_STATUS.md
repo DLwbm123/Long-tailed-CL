@@ -1,10 +1,17 @@
 # A1 当前状态
 
-2026-09-16 23:50（北京时间）：**RUNNING_P2**。数值工程修复通过三父模型全部固定布局与原生B1逐位一致检查；完整入口重新通过工程和累计预算，已锁定并启动正式S提取/拟合。
+2026-09-17（北京时间）：**COMPLETE_A1_ATTRIBUTION，NEXT_DECISION=STOP**。正式worker退出码0，完整8变体×3固定父模型/顺序配对×3阶段完成，主指标72行、逐类432行（核心36/216），正式特征57,039行。保存分数复核通过，神经训练/optimizer step/test访问均0。
 
-冻结训练外推理源码：4c74c4b1e04b396f24c79bbd8819a59bf662d408。网络batch48、FP32、权重、路由、lambda及1e-5门槛不变，仅修复Linear内部计算调度。原A的18个阶段拟合原位复用，新增S的54个阶段拟合；目标仍72/432（核心36/216）。新训练与test访问均0。
+主比较S-J-CB的Final BA为59.706%，A-CB为55.497%，差值+4.208 pp，条件性95%区间[+1.704,+6.876]。tail差值+1.496 pp，区间[−2.667,+5.797]；标签6平均召回下降，不能称尾类全面改善或独立确认。M/F仅作固定诊断，不替换J主比较。
 
-吞吐估计含余量约27分钟，不是完成回执。用户授权的每小时维护持续至2026-09-17 10:27，若完整交付则提前停止。只有下一次读取完整覆盖、锁、退出码和报告后才能标记完成。
+执行源码`4c74c4b1e04b396f24c79bbd8819a59bf662d408`。首轮18个A拟合原位复用，新S拟合54个。累计GPU驻留观测约21.4分钟、保守上界22.02分钟；新增文件约350 MiB、最低空闲1.767 GiB，预算通过，无需删除历史资产。本次限时监测随完整交付提前关闭，不自动扩展实验。
+
+- [最终中文报告](repair_01/FINAL_REPORT_ZH.md)
+- [来源与局限](repair_01/SOURCE_AND_LIMITATIONS.md)
+- [交付核验](repair_01/DELIVERY_AUDIT.json)
+- [主指标72行](repair_01/val_metrics.csv) / [逐类432行](repair_01/val_per_class_metrics.csv)
+- [配对区间](repair_01/bootstrap_intervals.csv)
+- [资源计账](repair_01/RESOURCE_REPORT.json)
 
 - [工程修复证据](oversight_20260916/REPAIR_REPORT_ZH.md)
 - [正式启动记录](repair_01/FORMAL_LAUNCH.json)

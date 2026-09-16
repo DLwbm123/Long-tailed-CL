@@ -1,0 +1,406 @@
+{
+  "neural_training_epochs": 0,
+  "optimizer_steps": 0,
+  "new_S0_training": 0,
+  "new_test_predictions": 0,
+  "new_test_feature_reads": 0,
+  "new_test_image_reads": 0,
+  "routing_mode": "S0_POINTWISE_PROBE",
+  "routing_configuration_changed": true,
+  "checkpoint_tensor_parameters_changed": false,
+  "validation_adaptively_reused": true,
+  "independent_confirmation": false,
+  "full_GSR_reproduction": false,
+  "further_experiments_started": false,
+  "wrapper_batch_calls": 1692,
+  "wrapper_image_rows": 60743,
+  "new_train_val_feature_rows": 57039,
+  "image_reads": {
+    "probe": 464,
+    "formal": 57039
+  },
+  "module_batch_calls": {
+    "original": 1703,
+    "main": 1692,
+    "few": 1692
+  },
+  "module_image_rows": {
+    "original": 60919,
+    "main": 60743,
+    "few": 60743
+  },
+  "phase_calls": {
+    "initial_probe": {
+      "original_calls": 34,
+      "original_image_rows": 96,
+      "few_calls": 34,
+      "few_image_rows": 96,
+      "main_calls": 34,
+      "main_image_rows": 96
+    },
+    "bounded_forensics": {
+      "original_calls": 126,
+      "original_image_rows": 1011,
+      "few_calls": 123,
+      "few_image_rows": 963,
+      "main_calls": 123,
+      "main_image_rows": 963
+    },
+    "blas_control_01": {
+      "original_calls": 42,
+      "original_image_rows": 337,
+      "few_calls": 41,
+      "few_image_rows": 321,
+      "main_calls": 41,
+      "main_image_rows": 321
+    },
+    "operators_01": {
+      "original_calls": 1,
+      "original_image_rows": 32,
+      "few_calls": 1,
+      "few_image_rows": 32,
+      "main_calls": 1,
+      "main_image_rows": 32
+    },
+    "linear_lowering_01": {
+      "original_calls": 42,
+      "original_image_rows": 337,
+      "few_calls": 41,
+      "few_image_rows": 321,
+      "main_calls": 41,
+      "main_image_rows": 321
+    },
+    "linear_native_01": {
+      "original_calls": 126,
+      "original_image_rows": 1011,
+      "few_calls": 123,
+      "few_image_rows": 963,
+      "main_calls": 123,
+      "main_image_rows": 963
+    },
+    "probe": {
+      "original_calls": 126,
+      "original_image_rows": 1056,
+      "few_calls": 123,
+      "few_image_rows": 1008,
+      "main_calls": 123,
+      "main_image_rows": 1008
+    },
+    "formal": {
+      "original_calls": 1206,
+      "original_image_rows": 57039,
+      "few_calls": 1206,
+      "few_image_rows": 57039,
+      "main_calls": 1206,
+      "main_image_rows": 57039
+    }
+  },
+  "formal_arrivals": [
+    {
+      "parent_id": 1993,
+      "session": 0,
+      "label": 4,
+      "n_train": 458,
+      "visited": [
+        4
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 0,
+      "label": 0,
+      "n_train": 10529,
+      "visited": [
+        4,
+        0
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 0,
+      "label": 3,
+      "n_train": 1306,
+      "visited": [
+        4,
+        0,
+        3
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 0,
+      "label": 7,
+      "n_train": 27,
+      "visited": [
+        4,
+        0,
+        3,
+        7
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 1,
+      "label": 5,
+      "n_train": 256,
+      "visited": [
+        4,
+        0,
+        3,
+        7,
+        5
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 1,
+      "label": 6,
+      "n_train": 44,
+      "visited": [
+        4,
+        0,
+        3,
+        7,
+        5,
+        6
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 2,
+      "label": 2,
+      "n_train": 2835,
+      "visited": [
+        4,
+        0,
+        3,
+        7,
+        5,
+        6,
+        2
+      ]
+    },
+    {
+      "parent_id": 1993,
+      "session": 2,
+      "label": 1,
+      "n_train": 3263,
+      "visited": [
+        4,
+        0,
+        3,
+        7,
+        5,
+        6,
+        2,
+        1
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 0,
+      "label": 3,
+      "n_train": 1306,
+      "visited": [
+        3
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 0,
+      "label": 7,
+      "n_train": 27,
+      "visited": [
+        3,
+        7
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 0,
+      "label": 4,
+      "n_train": 458,
+      "visited": [
+        3,
+        7,
+        4
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 0,
+      "label": 5,
+      "n_train": 256,
+      "visited": [
+        3,
+        7,
+        4,
+        5
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 1,
+      "label": 1,
+      "n_train": 3263,
+      "visited": [
+        3,
+        7,
+        4,
+        5,
+        1
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 1,
+      "label": 0,
+      "n_train": 10529,
+      "visited": [
+        3,
+        7,
+        4,
+        5,
+        1,
+        0
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 2,
+      "label": 6,
+      "n_train": 44,
+      "visited": [
+        3,
+        7,
+        4,
+        5,
+        1,
+        0,
+        6
+      ]
+    },
+    {
+      "parent_id": 1994,
+      "session": 2,
+      "label": 2,
+      "n_train": 2835,
+      "visited": [
+        3,
+        7,
+        4,
+        5,
+        1,
+        0,
+        6,
+        2
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 0,
+      "label": 1,
+      "n_train": 3263,
+      "visited": [
+        1
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 0,
+      "label": 3,
+      "n_train": 1306,
+      "visited": [
+        1,
+        3
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 0,
+      "label": 0,
+      "n_train": 10529,
+      "visited": [
+        1,
+        3,
+        0
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 0,
+      "label": 6,
+      "n_train": 44,
+      "visited": [
+        1,
+        3,
+        0,
+        6
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 1,
+      "label": 4,
+      "n_train": 458,
+      "visited": [
+        1,
+        3,
+        0,
+        6,
+        4
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 1,
+      "label": 5,
+      "n_train": 256,
+      "visited": [
+        1,
+        3,
+        0,
+        6,
+        4,
+        5
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 2,
+      "label": 2,
+      "n_train": 2835,
+      "visited": [
+        1,
+        3,
+        0,
+        6,
+        4,
+        5,
+        2
+      ]
+    },
+    {
+      "parent_id": 1995,
+      "session": 2,
+      "label": 7,
+      "n_train": 27,
+      "visited": [
+        1,
+        3,
+        0,
+        6,
+        4,
+        5,
+        2,
+        7
+      ]
+    }
+  ],
+  "analytic_train_rows": 112308,
+  "fit_val_rows": 0,
+  "train_forensics_rows": 0,
+  "encoder_forward_calls": 5087,
+  "encoder_image_forward_rows": 182405,
+  "no_labels_frequency_task_adapter_passed": true
+}

@@ -1,0 +1,529 @@
+{
+  "status": "DIAGNOSIS_ONLY",
+  "parent_id": 1993,
+  "backend_changed": false,
+  "operators": [
+    {
+      "operator": "original/patch_embed_all_tokens",
+      "shape": [
+        32,
+        196,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4816896,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "original/norm1",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "original/attn.qkv",
+      "shape": [
+        32,
+        197,
+        2304
+      ],
+      "pass_tolerance": true,
+      "max_abs": 9.059906005859375e-06,
+      "relative_l2": 3.025974706361012e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 14524416,
+      "max_error_to_allowed_ratio": 0.34457796812057495
+    },
+    {
+      "operator": "original/attn.proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.814697265625e-06,
+      "relative_l2": 3.042975151856808e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.12029632925987244
+    },
+    {
+      "operator": "original/attn",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 5.0067901611328125e-06,
+      "relative_l2": 5.41931512998417e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.2455528974533081
+    },
+    {
+      "operator": "original/norm2",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "original/mlp.fc1",
+      "shape": [
+        32,
+        197,
+        3072
+      ],
+      "pass_tolerance": true,
+      "max_abs": 8.58306884765625e-06,
+      "relative_l2": 1.631307924299108e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 19365888,
+      "max_error_to_allowed_ratio": 0.40699413418769836
+    },
+    {
+      "operator": "original/mlp.act",
+      "shape": [
+        32,
+        197,
+        3072
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 19365888,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "original/mlp.fc2",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 8.58306884765625e-06,
+      "relative_l2": 5.653137122862972e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.7661218047142029
+    },
+    {
+      "operator": "few/patch_embed_all_tokens",
+      "shape": [
+        32,
+        196,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4816896,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/norm1",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/attn.q_proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 6.67572021484375e-06,
+      "relative_l2": 1.766937316460826e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.17683863639831543
+    },
+    {
+      "operator": "few/attn.k_proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.814697265625e-06,
+      "relative_l2": 2.4603482984275615e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.16020196676254272
+    },
+    {
+      "operator": "few/attn.v_proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.5762786865234375e-06,
+      "relative_l2": 2.7853889150719624e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.16934368014335632
+    },
+    {
+      "operator": "few/attn.proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.814697265625e-06,
+      "relative_l2": 3.0440523346442205e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.12477633357048035
+    },
+    {
+      "operator": "few/attn",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 4.291534423828125e-06,
+      "relative_l2": 4.157633952672768e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.18813827633857727
+    },
+    {
+      "operator": "few/same_input_qk_bmm",
+      "shape": [
+        384,
+        197,
+        197
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 14902656,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/same_input_softmax",
+      "shape": [
+        384,
+        197,
+        197
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 14902656,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/same_input_pv_bmm",
+      "shape": [
+        384,
+        197,
+        64
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/norm2",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/fc1",
+      "shape": [
+        32,
+        197,
+        3072
+      ],
+      "pass_tolerance": true,
+      "max_abs": 8.58306884765625e-06,
+      "relative_l2": 1.6310519868056872e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 19365888,
+      "max_error_to_allowed_ratio": 0.4391246438026428
+    },
+    {
+      "operator": "few/act",
+      "shape": [
+        32,
+        197,
+        3072
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 19365888,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "few/fc2",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 8.344650268554688e-06,
+      "relative_l2": 5.644741349897231e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.796855628490448
+    },
+    {
+      "operator": "main/patch_embed_all_tokens",
+      "shape": [
+        32,
+        196,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4816896,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/norm1",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/attn.q_proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 6.67572021484375e-06,
+      "relative_l2": 1.766937316460826e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.17683863639831543
+    },
+    {
+      "operator": "main/attn.k_proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.814697265625e-06,
+      "relative_l2": 2.4603482984275615e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.16020196676254272
+    },
+    {
+      "operator": "main/attn.v_proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.5762786865234375e-06,
+      "relative_l2": 2.7853889150719624e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.16934368014335632
+    },
+    {
+      "operator": "main/attn.proj",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 3.814697265625e-06,
+      "relative_l2": 3.0440523346442205e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.12477633357048035
+    },
+    {
+      "operator": "main/attn",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 4.291534423828125e-06,
+      "relative_l2": 4.157633952672768e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.18813827633857727
+    },
+    {
+      "operator": "main/same_input_qk_bmm",
+      "shape": [
+        384,
+        197,
+        197
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 14902656,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/same_input_softmax",
+      "shape": [
+        384,
+        197,
+        197
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 14902656,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/same_input_pv_bmm",
+      "shape": [
+        384,
+        197,
+        64
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/norm2",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/fc1",
+      "shape": [
+        32,
+        197,
+        3072
+      ],
+      "pass_tolerance": true,
+      "max_abs": 8.58306884765625e-06,
+      "relative_l2": 1.6310519868056872e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 19365888,
+      "max_error_to_allowed_ratio": 0.4391246438026428
+    },
+    {
+      "operator": "main/act",
+      "shape": [
+        32,
+        197,
+        3072
+      ],
+      "pass_tolerance": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "outside_tolerance_elements": 0,
+      "elements": 19365888,
+      "max_error_to_allowed_ratio": 0.0
+    },
+    {
+      "operator": "main/fc2",
+      "shape": [
+        32,
+        197,
+        768
+      ],
+      "pass_tolerance": true,
+      "max_abs": 8.344650268554688e-06,
+      "relative_l2": 5.644741349897231e-07,
+      "outside_tolerance_elements": 0,
+      "elements": 4841472,
+      "max_error_to_allowed_ratio": 0.796855628490448
+    }
+  ],
+  "isolated_operator_calls": 1196,
+  "operator_inputs_identical": true,
+  "parameters_buffers_unchanged": true,
+  "S_candidate_scores_generated": 0
+}

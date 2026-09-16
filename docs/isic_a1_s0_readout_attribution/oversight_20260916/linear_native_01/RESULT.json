@@ -1,0 +1,1825 @@
+{
+  "status": "ENGINEERING_PASS",
+  "backend_control": {
+    "linear_3D_B_gt_1": "per-image native Linear GEMM; network batch unchanged; native B1 untouched"
+  },
+  "torch_git_version": "7269437d655783a26cba32aa88195b741ff496aa",
+  "parents": [
+    {
+      "parent_id": 1993,
+      "parent_lock": {
+        "parent_id": 1993,
+        "checkpoint_sha256": "22c4b3919e788864a7b3ef3551b39b16ad0a7f98504d53fdabe6dcbf0e03c5ef",
+        "network_sha256": "3ac9bb02f8069152c9ccb5ae9044f70b96628df7a04ff34b26815cf5421783f4",
+        "train_source_commit": "6d8bd3e700924c864e229c47efe5f108ce728c78",
+        "order": [
+          4,
+          0,
+          3,
+          7,
+          5,
+          6,
+          2,
+          1
+        ],
+        "base_labels": [
+          4,
+          0,
+          3,
+          7
+        ],
+        "epoch": 10,
+        "session": 0,
+        "strict_restore": true,
+        "optimizer_constructed": false,
+        "original_frequency_embedding_shape": [
+          12726,
+          16
+        ],
+        "routing_diff": {
+          "backbone.pool.batchwise_prompt": [
+            true,
+            false
+          ],
+          "backbone.pool_few.batchwise_prompt": [
+            true,
+            false
+          ]
+        }
+      },
+      "cases": [
+        {
+          "case": "batch32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "reversed32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "train_peers32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "val_peers32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "batch48",
+          "batch": 48,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 36864,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 36864,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "pointwise_B1",
+          "batch": 1,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 768,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 768,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        }
+      ],
+      "layerwise_CLS_comparison": [
+        {
+          "layer": "original/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        }
+      ],
+      "repeated_pointwise_batch_bitwise_equal": true,
+      "native_batch48_route_mismatches": {
+        "prompt_idx": 0,
+        "prompt_idx_few": 0
+      },
+      "original_backbone_A_cache": {
+        "pass_tolerance": true,
+        "max_abs": 7.748603820800781e-07,
+        "relative_l2": 2.327392166989739e-06,
+        "outside_tolerance_elements": 0,
+        "elements": 12288,
+        "max_error_to_allowed_ratio": 0.06542834639549255
+      },
+      "parameters_buffers_unchanged": true,
+      "rng_unchanged": true,
+      "precision": {
+        "parameter_dtype": "float32",
+        "autocast_enabled": false,
+        "TF32_matmul": false,
+        "TF32_cudnn": false,
+        "float32_matmul_precision": "highest"
+      },
+      "gate_pass": true
+    },
+    {
+      "parent_id": 1994,
+      "parent_lock": {
+        "parent_id": 1994,
+        "checkpoint_sha256": "c9f103e8858ec595d158189b2df2dec40e83793a341cce05abfac54880d9eef2",
+        "network_sha256": "554f5b520fef6f66480c5d382e9bdaf6de674c749ab2f7e4a55d3eb9cf94f350",
+        "train_source_commit": "6d8bd3e700924c864e229c47efe5f108ce728c78",
+        "order": [
+          3,
+          7,
+          4,
+          5,
+          1,
+          0,
+          6,
+          2
+        ],
+        "base_labels": [
+          3,
+          7,
+          4,
+          5
+        ],
+        "epoch": 10,
+        "session": 0,
+        "strict_restore": true,
+        "optimizer_constructed": false,
+        "original_frequency_embedding_shape": [
+          12726,
+          16
+        ],
+        "routing_diff": {
+          "backbone.pool.batchwise_prompt": [
+            true,
+            false
+          ],
+          "backbone.pool_few.batchwise_prompt": [
+            true,
+            false
+          ]
+        }
+      },
+      "cases": [
+        {
+          "case": "batch32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "reversed32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "train_peers32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "val_peers32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "batch48",
+          "batch": 48,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 36864,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 36864,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "pointwise_B1",
+          "batch": 1,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 768,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 768,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        }
+      ],
+      "layerwise_CLS_comparison": [
+        {
+          "layer": "original/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        }
+      ],
+      "repeated_pointwise_batch_bitwise_equal": true,
+      "native_batch48_route_mismatches": {
+        "prompt_idx": 0,
+        "prompt_idx_few": 5
+      },
+      "original_backbone_A_cache": {
+        "pass_tolerance": true,
+        "max_abs": 9.96515154838562e-07,
+        "relative_l2": 2.692446287255734e-06,
+        "outside_tolerance_elements": 0,
+        "elements": 12288,
+        "max_error_to_allowed_ratio": 0.09747904539108276
+      },
+      "parameters_buffers_unchanged": true,
+      "rng_unchanged": true,
+      "precision": {
+        "parameter_dtype": "float32",
+        "autocast_enabled": false,
+        "TF32_matmul": false,
+        "TF32_cudnn": false,
+        "float32_matmul_precision": "highest"
+      },
+      "gate_pass": true
+    },
+    {
+      "parent_id": 1995,
+      "parent_lock": {
+        "parent_id": 1995,
+        "checkpoint_sha256": "be55012cb9e8f8ddb60c27b5022e9a98f1fde90e80b4158c732c4d566199d348",
+        "network_sha256": "1158770b58952fbe0353c589644855a3817f4f9ce3b16d98b2598fe1d447a75f",
+        "train_source_commit": "6d8bd3e700924c864e229c47efe5f108ce728c78",
+        "order": [
+          1,
+          3,
+          0,
+          6,
+          4,
+          5,
+          2,
+          7
+        ],
+        "base_labels": [
+          1,
+          3,
+          0,
+          6
+        ],
+        "epoch": 10,
+        "session": 0,
+        "strict_restore": true,
+        "optimizer_constructed": false,
+        "original_frequency_embedding_shape": [
+          12726,
+          16
+        ],
+        "routing_diff": {
+          "backbone.pool.batchwise_prompt": [
+            true,
+            false
+          ],
+          "backbone.pool_few.batchwise_prompt": [
+            true,
+            false
+          ]
+        }
+      },
+      "cases": [
+        {
+          "case": "batch32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "reversed32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "train_peers32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "val_peers32",
+          "batch": 32,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 24576,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "batch48",
+          "batch": 48,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 36864,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 36864,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        },
+        {
+          "case": "pointwise_B1",
+          "batch": 1,
+          "route_ID_mismatches": {
+            "prompt_idx": 0,
+            "prompt_idx_few": 0
+          },
+          "features": {
+            "pre_logits": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 768,
+              "max_error_to_allowed_ratio": 0.0
+            },
+            "pre_logits_few": {
+              "pass_tolerance": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "outside_tolerance_elements": 0,
+              "elements": 768,
+              "max_error_to_allowed_ratio": 0.0
+            }
+          }
+        }
+      ],
+      "layerwise_CLS_comparison": [
+        {
+          "layer": "original/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "original/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "few/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/patch_embed",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_00",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_01",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_02",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_03",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_04",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_05",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_06",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_07",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_08",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_09",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_10",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/block_11",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        },
+        {
+          "layer": "main/norm",
+          "pass_tolerance": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "outside_tolerance_elements": 0,
+          "elements": 24576,
+          "max_error_to_allowed_ratio": 0.0
+        }
+      ],
+      "repeated_pointwise_batch_bitwise_equal": true,
+      "native_batch48_route_mismatches": {
+        "prompt_idx": 0,
+        "prompt_idx_few": 0
+      },
+      "original_backbone_A_cache": {
+        "pass_tolerance": true,
+        "max_abs": 7.748603820800781e-07,
+        "relative_l2": 2.291386863362277e-06,
+        "outside_tolerance_elements": 0,
+        "elements": 12288,
+        "max_error_to_allowed_ratio": 0.06542834639549255
+      },
+      "parameters_buffers_unchanged": true,
+      "rng_unchanged": true,
+      "precision": {
+        "parameter_dtype": "float32",
+        "autocast_enabled": false,
+        "TF32_matmul": false,
+        "TF32_cudnn": false,
+        "float32_matmul_precision": "highest"
+      },
+      "gate_pass": true
+    }
+  ],
+  "threshold_changed": false,
+  "precision_changed": false,
+  "batch_changed": false,
+  "S_candidate_scores_generated": 0
+}

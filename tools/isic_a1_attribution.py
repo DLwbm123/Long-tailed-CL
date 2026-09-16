@@ -94,29 +94,41 @@ class Run:
         self.cfg=cfg;self.root=Path(cfg['root']);self.out=self.root/'output';self.pub=self.out/'public';self.private=self.out/'private'
         for p in (self.pub,self.private):p.mkdir(parents=True,exist_ok=True)
         self.protocol=read(ROOT/'exps/isic_a1_protocol.json');self.orders={int(k):v for k,v in self.protocol['class_orders'].items()}
-        self.start=time.monotonic();self.cpu_seconds=0.;self.gpu_start=None;self.gpu_seconds=0.;self.solves=0
+        self.prior=cfg.get('prior_resources',{})
+        self.start=time.monotonic();self.cpu_seconds=self.prior.get('analytic_CPU_seconds',0.);self.gpu_start=None;self.gpu_seconds=0.;self.solves=0;self.reused_fits=0
+        if cfg.get('linear_native_per_image'):
+            self.protocol['numerical_implementation']='Native FP32 Linear per-image GEMM at 3D B>1; network batch unchanged; native B1 untouched'
         self.data={};self.metrics=[];self.pc=[];self.errors=[];self.numeric=[];self.duplicates=[];self.features=[];self.parent_locks=[];self.parity=[]
         self.access=dict(wrapper_batch_calls=0,wrapper_image_rows=0,new_train_val_feature_rows=0,image_reads={'probe':0,'formal':0},
             module_batch_calls={m:0 for m in ('original','main','few')},module_image_rows={m:0 for m in ('original','main','few')},
             phase_calls={},formal_arrivals=[],analytic_train_rows=0,fit_val_rows=0,train_forensics_rows=0)
+        previous_access=cfg.get('prior_access',{})
+        for key in self.access:
+            if key in previous_access:self.access[key]=json.loads(json.dumps(previous_access[key]))
+        assert self.access['new_train_val_feature_rows']==0 and not self.access['formal_arrivals'],'BLOCKED_DUPLICATE_EXTRACTION'
         self.phase='probe';self.peak_files=0;self.min_free=shutil.disk_usage(self.root).free;self.peak_allocated=0
         self.verified_parents=set();self.blocked=[]
 
     def resource_check(self,enforce=True):
-        size=sum(p.stat().st_size for p in self.root.rglob('*') if p.is_file() and not p.is_symlink())
+        storage_root=Path(self.cfg.get('storage_root',self.root))
+        size=sum(p.stat().st_size for p in storage_root.rglob('*') if p.is_file() and not p.is_symlink())
         free=shutil.disk_usage(self.root).free;rss=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024
         self.peak_files=max(self.peak_files,size);self.min_free=min(self.min_free,free)
         if enforce:
             assert size<640*1024**2 and free>=1024**3,'BLOCKED_RESOURCE_DISK'
-            assert rss<8*1024**3 and self.cpu_seconds<7200,'BLOCKED_RESOURCE_CPU'
+            assert rss<8*1024**3 and self.cpu_seconds+self.prior.get('CPU_test_budget_reserve_seconds',0)<7200,'BLOCKED_RESOURCE_CPU'
         if self.gpu_start is not None:
             import torch
             self.peak_allocated=max(self.peak_allocated,torch.cuda.max_memory_allocated())
-            if enforce:assert self.peak_allocated<8*1024**3 and time.monotonic()-self.gpu_start<7200,'BLOCKED_RESOURCE_GPU'
+            if enforce:assert self.peak_allocated<8*1024**3 and self.prior.get('GPU_budget_seconds',0)+time.monotonic()-self.gpu_start<7200,'BLOCKED_RESOURCE_GPU'
+        worker_gpu=self.gpu_seconds if self.gpu_start is None else time.monotonic()-self.gpu_start
         return dict(wall_seconds=time.monotonic()-self.start,analytic_CPU_seconds=self.cpu_seconds,
-            GPU_process_residence_seconds=self.gpu_seconds if self.gpu_start is None else time.monotonic()-self.gpu_start,
-            peak_RSS_bytes=rss,peak_GPU_allocated_bytes=self.peak_allocated,new_file_bytes_observed=self.peak_files,min_free_bytes=self.min_free,
-            threads=4,workers=1,loader_workers=0,batch_size=48,analytic_fits=self.solves,total_solve_calls_including_engineering=SOLVE_CALLS)
+            CPU_budget_seconds=self.cpu_seconds+self.prior.get('CPU_test_budget_reserve_seconds',0),
+            GPU_process_residence_seconds=self.prior.get('GPU_observed_seconds',0)+worker_gpu,
+            worker_GPU_process_residence_seconds=worker_gpu,GPU_budget_seconds=self.prior.get('GPU_budget_seconds',0)+worker_gpu,
+            peak_RSS_bytes=max(rss,self.prior.get('peak_RSS_bytes',0)),peak_GPU_allocated_bytes=max(self.peak_allocated,self.prior.get('peak_GPU_allocated_bytes',0)),new_file_bytes_observed=self.peak_files,min_free_bytes=self.min_free,
+            threads=4,workers=1,loader_workers=0,batch_size=48,analytic_fits=self.solves+self.reused_fits,new_analytic_fits=self.solves,reused_A_fits=self.reused_fits,
+            total_solve_calls_including_engineering=SOLVE_CALLS+self.prior.get('solve_calls',0))
 
     def audit(self):
         r1=read(self.cfg['r1_runtime']);self.v2=read(r1['v2_runtime']);self.images=Path(r1['images']);self.cache=Path(r1['v3_complete_output'])/'p1/A'
@@ -159,6 +171,9 @@ class Run:
         # All image reads are restricted to the verified train/val association universe.
         allowed_images={str((self.images/r['relative_path']).resolve()) for s in ('train','val') for r in self.data[s][2]}
         allowed_features={str((self.cache/(s+'.npz')).resolve()) for s in ('train','val')}
+        if self.cfg.get('reuse_A_output'):
+            old_private=Path(self.cfg['reuse_A_output'])/'private'
+            allowed_features.update(str((old_private/f'{m}_{seed}_s{stage}.npz').resolve()) for m in ('A-U','A-CB') for seed in self.orders for stage in range(3))
         allowed_weights={str(Path(e['path']).resolve()) for e in self.entries}|{str(Path(self.v2['weight']).resolve())}
         private=str(self.private.resolve())+os.sep
         def guard(event,args):
@@ -213,6 +228,10 @@ class Run:
         def features(x,*args,**kwargs):
             self.count_module('few' if kwargs.get('few',0)==1 else 'main',len(x));return native(x,*args,**kwargs)
         net.backbone.forward_features=features
+        if self.cfg.get('linear_native_per_image'):
+            from check_isic_a1_linear_native import install_batched_linear
+            install_batched_linear(net)
+            line['numerical_implementation']=self.protocol['numerical_implementation']
         return net,line
 
     def count_module(self,name,n):
@@ -332,6 +351,30 @@ class Run:
         return restored
 
     def baseline(self):
+        if self.cfg.get('reuse_A_output'):
+            from report_isic_g1 import records
+            old=Path(self.cfg['reuse_A_output']);audit=read(old/'public/ASSET_AUDIT.json')
+            assert audit['splits']==self.audit_record['splits'],'BLOCKED_REUSE_DATA'
+            assert read(old/'public/COMPLETION_AUDIT.json')['completed_methods']==['A-U','A-CB']
+            for attr,name in [('metrics','val_metrics'),('pc','val_per_class_metrics'),('errors','error_decomposition'),('numeric','numeric_diagnostics')]:
+                table=records(old/'public'/f'{name}.csv')
+                for row in table:
+                    assert row['method'] in ('A-U','A-CB')
+                    for k,v in row.items():
+                        if isinstance(v,str) and v in ('True','False'):row[k]=v=='True'
+                setattr(self,attr,table)
+            assert len(self.metrics)==18 and len(self.pc)==108
+            for method in ('A-U','A-CB'):
+                for seed in self.orders:
+                    for stage in range(3):
+                        name=f'{method}_{seed}_s{stage}.npz';source=old/'private'/name
+                        assert source.is_file()
+                        (self.private/name).symlink_to(source)
+            controls=read(old/'public/DUPLICATE_EMBEDDING_CONTROL.json');assert controls['status']=='PASS'
+            self.duplicates=controls['actual_A_controls'];self.reused_fits=18;self.flush()
+            write(self.pub/'DUPLICATE_EMBEDDING_CONTROL.json',controls)
+            write(self.pub/'A_REUSE.json',dict(status='PASS',source_commit='fba6a39dacc95bf7cb6c33449849d58d8a240b46',fits=18,new_A_fits=0,original_private_scores_referenced=True,source_manifest_and_cache_hashes_match=True))
+            print('A_BASELINES_REUSED',flush=True);return
         t=time.monotonic();cpu_before=self.cpu_seconds;train,labels,_=self.data['train'];val,vy,_=self.data['val'];final={}
         for seed,order in self.orders.items():
             learners={kind:Increment(order,768,'R0' if kind=='U' else 'B0') for kind in ('U','CB')};known=0
@@ -446,8 +489,8 @@ class Run:
         for e in self.entries:
             bench.append(self.probe(e));write(self.pub/'ROUTING_PARITY.json',dict(status='PASS',parents=self.parity));self.flush()
         projected=max(b['projected_all_57039_rows_seconds'] for b in bench)+300
-        assert projected+(time.monotonic()-self.gpu_start)<7200,'BLOCKED_RESOURCE_PROJECTED_GPU'
-        projected_cpu=self.cpu_seconds*20+300
+        assert projected+self.prior.get('GPU_budget_seconds',0)+(time.monotonic()-self.gpu_start)<7200,'BLOCKED_RESOURCE_PROJECTED_GPU'
+        projected_cpu=self.cpu_seconds*20+300+self.prior.get('CPU_test_budget_reserve_seconds',0)
         assert projected_cpu<7200,'BLOCKED_RESOURCE_PROJECTED_CPU'
         self.engineering.update(A_baselines_reproduced=True,routing_parity=True,budget_probe=bench,projected_GPU_seconds=projected,
             projected_CPU_seconds=projected_cpu,projected_new_file_bytes=450*1024**2,preexisting_free_bytes=self.min_free,parameter_buffers_immutable=True)
@@ -456,11 +499,14 @@ class Run:
         write(self.pub/'FEATURE_VIEW_LOCK.json',dict(routing_mode='S0_POINTWISE_PROBE',raw_dtype='float32',derive_dtype='float64',batch_size=48,
              views={'J':'concat raw main,few / sqrt(sum main**2 + sum few**2)','M':'main / norm(main)','F':'few / norm(few)','A':'unaltered original float32 cached values cast to float64'},
              output_fields=['pre_logits','pre_logits_few'],parameter_changes=False,pointwise_flags=['backbone.pool.batchwise_prompt=false','backbone.pool_few.batchwise_prompt=false'],
-             original_A_cache_sha256={s:self.audit_record['splits'][s]['cache_sha256'] for s in ('train','val')},atol=1e-5,rtol=1e-5))
+             original_A_cache_sha256={s:self.audit_record['splits'][s]['cache_sha256'] for s in ('train','val')},atol=1e-5,rtol=1e-5,
+             numerical_implementation=self.protocol.get('numerical_implementation','unchanged native operators')))
         files=['tools/isic_a1_attribution.py','tools/report_isic_a1.py','tools/isic_g1_controlled_mixup.py','tools/report_locked_holdout_r1.py','tools/run_medical_v2.py','tests/test_isic_a1.py','exps/isic_a1_protocol.json',
                'third_party/APART/backbone/vision_transformer_adapter_pool_a.py','third_party/APART/utils/inc_net.py','third_party/APART/utils/medical_v2.py']
+        if self.cfg.get('linear_native_per_image'):files.append('tools/check_isic_a1_linear_native.py')
         write(self.pub/'CODE_LOCK_A1.json',dict(source_commit=self.cfg['source_commit'],sha256={f:sha(ROOT/f) for f in files},locked_before_S_candidate_scoring=True,
-            versions={k:importlib.metadata.version(k) for k in ('torch','torchvision','timm','numpy','scipy','Pillow')},tf32=False,AMP=False,**FIXED))
+            versions={k:importlib.metadata.version(k) for k in ('torch','torchvision','timm','numpy','scipy','Pillow')},tf32=False,AMP=False,
+            numerical_implementation=self.protocol.get('numerical_implementation','unchanged native operators'),prior_resources=self.prior,reused_A_fits=self.reused_fits,**FIXED))
         (self.pub/'P0_AUDIT.md').write_text('# A1 P0\n\nAsset hashes, strict full-network restoration, native routing and feature parity, A/G1 baseline reproduction, duplicate controls and budget gates PASS. Exactly two routing flags differ in disposable probes. No S candidate scored before this lock. See structured evidence alongside this audit.\n')
         print(json.dumps(dict(event='P0_P1_ENGINEERING_PASS',projected_GPU_seconds=projected)),flush=True)
         for e in self.entries:self.extract_parent(e)
@@ -472,9 +518,9 @@ class Run:
         t=time.monotonic();complete(self.out);self.cpu_seconds+=time.monotonic()-t
         resources=self.resource_check();resources.update(continued_increment_all_views_two_targets_bytes=2*(1536**2+2*768**2)*8+6*1536*8*8,
             raw_cache_payload_bytes=57039*2*768*4,physical_formal_stage_solves=72,engineering_or_equivalence_solves_excluded_from_formal_count=True,
-            source_commit=self.cfg['source_commit'],GPU_residence_upper_bound_including_CPU_analysis=resources['wall_seconds'])
+            source_commit=self.cfg['source_commit'],GPU_residence_upper_bound_including_CPU_analysis=self.prior.get('GPU_budget_seconds',0)+resources['wall_seconds'])
         write(self.pub/'RESOURCE_REPORT.json',resources)
-        completion=dict(status='COMPLETE_A1_ATTRIBUTION',**FIXED,analytic_fits=self.solves,encoder_forward_calls=sum(self.access['module_batch_calls'].values()),
+        completion=dict(status='COMPLETE_A1_ATTRIBUTION',**FIXED,analytic_fits=self.solves+self.reused_fits,new_analytic_fits=self.solves,reused_A_fits=self.reused_fits,encoder_forward_calls=sum(self.access['module_batch_calls'].values()),
             new_train_val_feature_rows=57039,core_val_metric_rows=36,core_val_per_class_rows=216,all_val_metric_rows=72,all_val_per_class_rows=432)
         write(self.pub/'COMPLETION_AUDIT.json',completion);render(self.pub)
         print(json.dumps(completion),flush=True)

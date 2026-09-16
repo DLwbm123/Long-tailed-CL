@@ -145,4 +145,9 @@ def render(pub):
     text+='公开代码、锁和聚合；raw特征、个体身份、分数、W和精确路径私有，不声称统计天然匿名。原checkpoint、历史负结果及旧工作区未覆盖，不删除历史资产、不自动合并main。\n\n```text\n'
     for k,v in completion.items():text+=f'{k}={str(v).lower() if isinstance(v,bool) else v}\n'
     text+='```\n\nNEXT_DECISION=STOP。未启动新的S0训练、GSR/K修复、融合、编码器、外部数据、test或小时监测。\n'
+    lock=read(pub/'CODE_LOCK_A1.json')
+    if 'per-image GEMM' in lock.get('numerical_implementation',''):
+        text=text.replace('NEXT_DECISION=STOP。未启动新的S0训练、GSR/K修复、融合、编码器、外部数据、test或小时监测。',
+            'NEXT_DECISION=STOP。用户另行授权了限时12小时监测和工程修复；本轮完成后停止该监测，不启动新的S0训练、GSR/K修复、融合、编码器、外部数据或test。')
+        text+='\n## 数值实现修复及历史保留\n\n首轮BLOCKED_ROUTING_PARITY及两项失败数值控制完整保留。对相同输入的算子检查将差异定位在线性层随批尺寸变化的矩阵计算；仅在隔离推理模型中，使三维B>1的Linear内部逐图调用原生FP32 Linear算子并拼回原batch。网络仍整体接收batch48，路由、全部参数、精度、目标及容差不变，原生B1路径未改。这是明确披露的算子调度修复，不是缩小网络输入batch，不增加网络模块。三个父模型的全部固定布局通过原始门槛，独立修复探针的两路最大绝对差均为0。\n\n原18个A拟合/分数原位引用，没有重拟合或伪造训练重复；本次新拟合S的54个阶段分类器，累计72个。访问和GPU/解析预算累计前次及全部工程诊断，不能把工作器重启当作预算清零。原始失败报告保持独立，当前结果来自修复后的新运行目录。\n'
     (pub/'FINAL_REPORT_ZH.md').write_text(text)

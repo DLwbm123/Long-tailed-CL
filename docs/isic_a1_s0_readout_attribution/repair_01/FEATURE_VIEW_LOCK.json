@@ -1,0 +1,28 @@
+{
+  "routing_mode": "S0_POINTWISE_PROBE",
+  "raw_dtype": "float32",
+  "derive_dtype": "float64",
+  "batch_size": 48,
+  "views": {
+    "J": "concat raw main,few / sqrt(sum main**2 + sum few**2)",
+    "M": "main / norm(main)",
+    "F": "few / norm(few)",
+    "A": "unaltered original float32 cached values cast to float64"
+  },
+  "output_fields": [
+    "pre_logits",
+    "pre_logits_few"
+  ],
+  "parameter_changes": false,
+  "pointwise_flags": [
+    "backbone.pool.batchwise_prompt=false",
+    "backbone.pool_few.batchwise_prompt=false"
+  ],
+  "original_A_cache_sha256": {
+    "train": "75d56237dae5a09de9dcd363960e829b0b5deefc7cf3110459c5c94c98d80998",
+    "val": "b812da9181d2a2a0c2e98e0d6233fc771366820d18192194d400c5fd5f7ed864"
+  },
+  "atol": 1e-05,
+  "rtol": 1e-05,
+  "numerical_implementation": "Native FP32 Linear per-image GEMM at 3D B>1; network batch unchanged; native B1 untouched"
+}

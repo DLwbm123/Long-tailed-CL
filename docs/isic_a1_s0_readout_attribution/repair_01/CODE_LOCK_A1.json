@@ -1,0 +1,53 @@
+{
+  "source_commit": "4c74c4b1e04b396f24c79bbd8819a59bf662d408",
+  "sha256": {
+    "tools/isic_a1_attribution.py": "b2c50dec0deb43da8ff22323f79c25656e4019cb0e557ff0d6486fac146700b4",
+    "tools/report_isic_a1.py": "1c66d35fa4476ee15bda6652978a47a79c5bf92ec55c501ac12b02701d819323",
+    "tools/isic_g1_controlled_mixup.py": "6b7c5a64b3be8894c001ba25a9c174083f8c520bd43d03d8ee9ba2c1e46ef833",
+    "tools/report_locked_holdout_r1.py": "23a31c6e86ba5e30a0be6ae671aece89d1b01f595760f573a7d90f91566cca71",
+    "tools/run_medical_v2.py": "77770145f8afdf7918dcb033f7ba8a299b2946a4e789dc3c3e30cc7eeeb4c0a1",
+    "tests/test_isic_a1.py": "0726258bc9f57f3011f2d68401724b5af32fafdcd5e104725e23c1f588585d04",
+    "exps/isic_a1_protocol.json": "e364943d36e67a294d5396a16a688317b580aa6c47f41e539b7b8fb7dacdc668",
+    "third_party/APART/backbone/vision_transformer_adapter_pool_a.py": "5972c5a7a00d4c07eff430ea042622eccf9f00abe2321cc34f5d26fc96d852ab",
+    "third_party/APART/utils/inc_net.py": "8eb7be651119e355a0a00b614c3ab17b0925ec7ea3cbaffc6002e86b266f14c0",
+    "third_party/APART/utils/medical_v2.py": "aedb95be87ebe5c6cda2e64b2a70f9f42da84b4475dd5a1456e8c1c43d66f940",
+    "tools/check_isic_a1_linear_native.py": "5b6e6a351c227886ffa492c34779676c35d86d1147e1ad8630def315e01d0e2d"
+  },
+  "locked_before_S_candidate_scoring": true,
+  "versions": {
+    "torch": "2.12.1+cu130",
+    "torchvision": "0.27.1+cu130",
+    "timm": "1.0.15",
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "Pillow": "10.4.0"
+  },
+  "tf32": false,
+  "AMP": false,
+  "numerical_implementation": "Native FP32 Linear per-image GEMM at 3D B>1; network batch unchanged; native B1 untouched",
+  "prior_resources": {
+    "GPU_observed_seconds": 77.71707561096991,
+    "GPU_budget_seconds": 111.53863310813904,
+    "analytic_CPU_seconds": 2.5391465970024,
+    "solve_calls": 60,
+    "peak_RSS_bytes": 3233480704,
+    "peak_GPU_allocated_bytes": 1322724864,
+    "standalone_CPU_test_solves": 12,
+    "CPU_test_budget_reserve_seconds": 60,
+    "CPU_test_accounting": "Two standalone CPU self-check invocations, 6 toy solves each, outside worker counters; pure analytic wall uninstrumented, conservatively reserve 60 seconds, not reported as measured time."
+  },
+  "reused_A_fits": 18,
+  "neural_training_epochs": 0,
+  "optimizer_steps": 0,
+  "new_S0_training": 0,
+  "new_test_predictions": 0,
+  "new_test_feature_reads": 0,
+  "new_test_image_reads": 0,
+  "routing_mode": "S0_POINTWISE_PROBE",
+  "routing_configuration_changed": true,
+  "checkpoint_tensor_parameters_changed": false,
+  "validation_adaptively_reused": true,
+  "independent_confirmation": false,
+  "full_GSR_reproduction": false,
+  "further_experiments_started": false
+}

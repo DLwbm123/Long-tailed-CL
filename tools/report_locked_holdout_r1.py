@@ -19,8 +19,13 @@ def csvwrite(p,rows):
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows([{k:json.dumps(v) if isinstance(v,(dict,list)) else v for k,v in r.items()} for r in rows])
 def mean(x):return float(np.mean(x)) if len(x) else None
 
-def analyze_unit(p,method,seed,stage):
-    raw=p['raw'];y=p['y'];order=p['order'];pred=raw.argmax(1);correct=pred==y;seen=raw.shape[1];known=(0,4,6)[stage]
+def predict_columns(raw, order=None):
+    if order is None:return raw.argmax(1)
+    columns=np.argsort(np.asarray(order)[:raw.shape[1]],kind='stable')
+    return columns[raw[:,columns].argmax(1)]
+
+def analyze_unit(p,method,seed,stage,tie_original_label=False):
+    raw=p['raw'];y=p['y'];order=p['order'];pred=predict_columns(raw,order if tie_original_label else None);correct=pred==y;seen=raw.shape[1];known=(0,4,6)[stage]
     prefix=dict(method=method,order_seed=seed,session=stage,seen_classes=seen,old_classes=known,current_classes=seen-known,split='test',predictor='raw_sum' if method in ('C','H','K') else 'original_V3_CBRidge')
     assert len(set(p['ids'].tolist()))==len(y) and np.isfinite(raw).all()
     assert np.array_equal(order[y],p['original'])
@@ -51,7 +56,7 @@ def analyze_unit(p,method,seed,stage):
             r[name+'_class_macro']=100*mean([event[y==c].mean() for c in cs]) if cs else None
         if cs:
             for suffix in ('sample_weighted','class_macro'):assert abs(sum(r[k+'_'+suffix] for k in events)-100)<1e-10
-            restricted=np.array(cs)[raw[mask][:,cs].argmax(1)]
+            restricted=np.array(cs)[predict_columns(raw[mask][:,cs],order[cs] if tie_original_label else None)]
             m['restricted_'+scope+'_BA_diagnostic']=100*mean([(restricted[y[mask]==c]==c).mean() for c in cs])
         else:m['restricted_'+scope+'_BA_diagnostic']=None
         errors.append(r)
@@ -68,8 +73,8 @@ def bootstrap_weights(p,resamples=2000,seed=91001):
         weights[:,indices]=counts[:,inverse]
     return weights
 
-def boot_unit(p,weights):
-    pred=p['raw'].argmax(1);correct=pred==p['y'];seen=p['raw'].shape[1];recalls=[]
+def boot_unit(p,weights,tie_original_label=False):
+    pred=predict_columns(p['raw'],p['order'] if tie_original_label else None);correct=pred==p['y'];seen=p['raw'].shape[1];recalls=[]
     for c in range(seen):
         ix=np.where(p['y']==c)[0];w=weights[:,ix];recalls.append(100*(w@correct[ix])/w.sum(axis=1))
     return np.stack(recalls,axis=1)

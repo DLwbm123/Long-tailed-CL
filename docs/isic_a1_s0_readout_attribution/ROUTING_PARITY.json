@@ -1,0 +1,308 @@
+{
+  "status": "BLOCKED_ROUTING_PARITY",
+  "atol": 1e-05,
+  "rtol": 1e-05,
+  "tolerance_rule": "abs(actual-reference) <= atol + rtol*abs(reference)",
+  "reference": "native batchwise_prompt true, B=1",
+  "candidate": "two authorized batchwise_prompt false flags; native top-1; FP32",
+  "parents": [
+    {
+      "parent_id": 1993,
+      "routing_ID_gate": "PASS",
+      "raw_feature_gate": "FAIL",
+      "batch32": {
+        "case": "batch32",
+        "batch": 32,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": false,
+            "max_abs": 5.7220458984375e-05,
+            "relative_l2": 1.34778929350432e-06,
+            "outside_tolerance_elements": 21,
+            "elements": 24576,
+            "max_error_to_allowed_ratio": 2.994168758392334
+          },
+          "pre_logits_few": {
+            "pass_tolerance": false,
+            "max_abs": 0.000213623046875,
+            "relative_l2": 1.8856951555790147e-06,
+            "outside_tolerance_elements": 165,
+            "elements": 24576,
+            "max_error_to_allowed_ratio": 7.716549873352051
+          }
+        }
+      },
+      "batch48": {
+        "case": "batch48",
+        "batch": 48,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": false,
+            "max_abs": 9.107589721679688e-05,
+            "relative_l2": 2.05791889129614e-06,
+            "outside_tolerance_elements": 281,
+            "elements": 36864,
+            "max_error_to_allowed_ratio": 2.2812294960021973
+          },
+          "pre_logits_few": {
+            "pass_tolerance": false,
+            "max_abs": 0.0001811981201171875,
+            "relative_l2": 2.8872086659248453e-06,
+            "outside_tolerance_elements": 950,
+            "elements": 36864,
+            "max_error_to_allowed_ratio": 8.989048957824707
+          }
+        }
+      },
+      "pointwise_B1_first_image": {
+        "case": "pointwise_B1",
+        "batch": 1,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "outside_tolerance_elements": 0,
+            "elements": 768,
+            "max_error_to_allowed_ratio": 0.0
+          },
+          "pre_logits_few": {
+            "pass_tolerance": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "outside_tolerance_elements": 0,
+            "elements": 768,
+            "max_error_to_allowed_ratio": 0.0
+          }
+        }
+      },
+      "original_backbone_cache": {
+        "pass_tolerance": true,
+        "max_abs": 8.940696716308594e-07,
+        "relative_l2": 2.054711103482987e-06,
+        "outside_tolerance_elements": 0,
+        "elements": 12288,
+        "max_error_to_allowed_ratio": 0.07061992585659027
+      },
+      "state_unchanged": true,
+      "rng_unchanged": true,
+      "same_batch_repeat_bitwise_equal": true,
+      "native_batch48_route_mismatches": {
+        "prompt_idx": 0,
+        "prompt_idx_few": 0
+      }
+    },
+    {
+      "parent_id": 1994,
+      "routing_ID_gate": "PASS",
+      "raw_feature_gate": "FAIL",
+      "batch32": {
+        "case": "batch32",
+        "batch": 32,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": false,
+            "max_abs": 4.76837158203125e-05,
+            "relative_l2": 1.5389682630484458e-06,
+            "outside_tolerance_elements": 56,
+            "elements": 24576,
+            "max_error_to_allowed_ratio": 1.950137972831726
+          },
+          "pre_logits_few": {
+            "pass_tolerance": false,
+            "max_abs": 0.00016483664512634277,
+            "relative_l2": 1.8808619870469556e-06,
+            "outside_tolerance_elements": 191,
+            "elements": 24576,
+            "max_error_to_allowed_ratio": 11.0675687789917
+          }
+        }
+      },
+      "batch48": {
+        "case": "batch48",
+        "batch": 48,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": false,
+            "max_abs": 8.535385131835938e-05,
+            "relative_l2": 2.4463024601573125e-06,
+            "outside_tolerance_elements": 579,
+            "elements": 36864,
+            "max_error_to_allowed_ratio": 3.39141845703125
+          },
+          "pre_logits_few": {
+            "pass_tolerance": false,
+            "max_abs": 9.918212890625e-05,
+            "relative_l2": 2.2941387669561664e-06,
+            "outside_tolerance_elements": 499,
+            "elements": 36864,
+            "max_error_to_allowed_ratio": 3.404388904571533
+          }
+        }
+      },
+      "pointwise_B1_first_image": {
+        "case": "pointwise_B1",
+        "batch": 1,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "outside_tolerance_elements": 0,
+            "elements": 768,
+            "max_error_to_allowed_ratio": 0.0
+          },
+          "pre_logits_few": {
+            "pass_tolerance": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "outside_tolerance_elements": 0,
+            "elements": 768,
+            "max_error_to_allowed_ratio": 0.0
+          }
+        }
+      },
+      "original_backbone_cache": {
+        "pass_tolerance": true,
+        "max_abs": 1.0654330253601074e-06,
+        "relative_l2": 2.4011130790313473e-06,
+        "outside_tolerance_elements": 0,
+        "elements": 12288,
+        "max_error_to_allowed_ratio": 0.09935629367828369
+      },
+      "state_unchanged": true,
+      "rng_unchanged": true,
+      "same_batch_repeat_bitwise_equal": true,
+      "native_batch48_route_mismatches": {
+        "prompt_idx": 0,
+        "prompt_idx_few": 5
+      }
+    },
+    {
+      "parent_id": 1995,
+      "routing_ID_gate": "PASS",
+      "raw_feature_gate": "FAIL",
+      "batch32": {
+        "case": "batch32",
+        "batch": 32,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": false,
+            "max_abs": 4.76837158203125e-05,
+            "relative_l2": 1.3388103070610669e-06,
+            "outside_tolerance_elements": 18,
+            "elements": 24576,
+            "max_error_to_allowed_ratio": 1.668251395225525
+          },
+          "pre_logits_few": {
+            "pass_tolerance": false,
+            "max_abs": 4.684925079345703e-05,
+            "relative_l2": 1.3546867876357283e-06,
+            "outside_tolerance_elements": 33,
+            "elements": 24576,
+            "max_error_to_allowed_ratio": 2.0717804431915283
+          }
+        }
+      },
+      "batch48": {
+        "case": "batch48",
+        "batch": 48,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": false,
+            "max_abs": 0.00013113021850585938,
+            "relative_l2": 2.0966356260032626e-06,
+            "outside_tolerance_elements": 325,
+            "elements": 36864,
+            "max_error_to_allowed_ratio": 4.135976791381836
+          },
+          "pre_logits_few": {
+            "pass_tolerance": false,
+            "max_abs": 8.511543273925781e-05,
+            "relative_l2": 2.0321865576988785e-06,
+            "outside_tolerance_elements": 390,
+            "elements": 36864,
+            "max_error_to_allowed_ratio": 4.242440700531006
+          }
+        }
+      },
+      "pointwise_B1_first_image": {
+        "case": "pointwise_B1",
+        "batch": 1,
+        "route_ID_mismatches": {
+          "prompt_idx": 0,
+          "prompt_idx_few": 0
+        },
+        "features": {
+          "pre_logits": {
+            "pass_tolerance": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "outside_tolerance_elements": 0,
+            "elements": 768,
+            "max_error_to_allowed_ratio": 0.0
+          },
+          "pre_logits_few": {
+            "pass_tolerance": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "outside_tolerance_elements": 0,
+            "elements": 768,
+            "max_error_to_allowed_ratio": 0.0
+          }
+        }
+      },
+      "original_backbone_cache": {
+        "pass_tolerance": true,
+        "max_abs": 8.940696716308594e-07,
+        "relative_l2": 2.030074256254011e-06,
+        "outside_tolerance_elements": 0,
+        "elements": 12288,
+        "max_error_to_allowed_ratio": 0.07061992585659027
+      },
+      "state_unchanged": true,
+      "rng_unchanged": true,
+      "same_batch_repeat_bitwise_equal": true,
+      "native_batch48_route_mismatches": {
+        "prompt_idx": 0,
+        "prompt_idx_few": 0
+      }
+    }
+  ],
+  "diagnosis": "All tested pointwise route IDs match. Batch-dependent numerical differences accumulate in Transformer blocks, with some coordinates outside the locked tolerance. No exact GPU kernel cause was proven.",
+  "threshold_changed": false,
+  "routing_policy_changed_beyond_authorized_flags": false,
+  "source": "ROUTING_PARITY_FORENSICS.json"
+}

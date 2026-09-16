@@ -15,13 +15,16 @@ COEFFICIENTS={a+' minus '+b:{a:1,b:-1} for a,b in CONTRASTS}
 COEFFICIENTS['interaction']={'S-J-CB':1,'S-J-U':-1,'A-CB':-1,'A-U':1}
 
 
-def complete(out):
+def complete(out,baseline_only=False):
     out=Path(out);pub=out/'public';private=out/'private'
     rows=records(pub/'val_metrics.csv');pcs=records(pub/'val_per_class_metrics.csv')
-    assert len(rows)==72 and len(pcs)==432
-    by={(r['method'],r['order_seed'],r['session']):r for r in rows};assert len(by)==72
+    methods=('A-U','A-CB') if baseline_only else METHODS
+    coefficients={'A-CB minus A-U':COEFFICIENTS['A-CB minus A-U']} if baseline_only else COEFFICIENTS
+    assert len(rows)==len(methods)*9 and len(pcs)==len(methods)*54
+    by={(r['method'],r['order_seed'],r['session']):r for r in rows}
+    assert set(by)=={(m,s,t) for m in methods for s in ORDERS for t in range(3)}
     final=[];summary=[];forget=[];pairs=[];interaction=[];data={}
-    for m in METHODS:
+    for m in methods:
         for seed in ORDERS:
             rs=[by[m,seed,s] for s in range(3)];f=dict(rs[2],AvgBA_all=avg([r['balanced_accuracy'] for r in rs]),AvgBA_inc=avg([r['balanced_accuracy'] for r in rs[1:]]));final.append(f)
             for c in range(8):
@@ -41,7 +44,7 @@ def complete(out):
         if m.startswith('A-'):
             preds=[data[m,s,2]['order'][data[m,s,2]['raw'].argmax(1)] for s in ORDERS]
             assert all(np.array_equal(preds[0],x) for x in preds[1:])
-    for name,coeff in COEFFICIENTS.items():
+    for name,coeff in coefficients.items():
         output=interaction if name=='interaction' else pairs
         for stage in range(3):
             for field in FIELDS:
@@ -52,7 +55,8 @@ def complete(out):
                     differences.append(d);output.append(dict(contrast=name,order_seed=seed,session=stage,metric=field,difference_pp=d))
                 output.append(dict(contrast=name,order_seed='fixed_pair_mean',session=stage,metric=field,difference_pp=avg(differences),
                     std_across_fixed_pairs=float(np.std(differences,ddof=1)) if all(d is not None for d in differences) else None))
-    for name,table in [('final_by_pair',final),('final_summary',summary),('forgetting',forget),('paired_differences',pairs),('interaction_differences',interaction)]:csvwrite(pub/(name+'.csv'),table)
+    for name,table in [('final_by_pair',final),('final_summary',summary),('forgetting',forget),('paired_differences',pairs),('interaction_differences',interaction)]:
+        if table:csvwrite(pub/(name+'.csv'),table)
     canonical=data['A-CB',1993,2];idmap={s:i for i,s in enumerate(canonical['ids'])}
     weights=bootstrap_weights(canonical,resamples=2000,seed=43001);boots={};intervals=[]
     for key,p in data.items():
@@ -70,7 +74,7 @@ def complete(out):
         lo,hi=np.quantile(value,[.025,.975]);intervals.append(dict(contrast=name,order_seed=seed,session=stage,metric=field,point_pp=point,lower95=float(lo),upper95=float(hi),
            resamples=2000,seed=43001,unit='class-stratified identity_component',parents_resampled=False,independent_confirmation=False,
            interpretation='fixed parent pairs; adaptively reused development validation; conditional descriptive interval'))
-    for name,coeff in COEFFICIENTS.items():
+    for name,coeff in coefficients.items():
         for stage in range(3):
             for field in FIELDS:
                 ds=[];points=[]
@@ -81,9 +85,10 @@ def complete(out):
                 # Never silently change the mean's set of fixed parents for empty groups.
                 if len(ds)==3:ci(name,'fixed_pair_mean',stage,field,np.mean(ds,axis=0),avg(points))
     csvwrite(pub/'bootstrap_intervals.csv',intervals)
-    write(pub/'BOOTSTRAP_AUDIT.json',dict(status='PASS',resamples=2000,seed=43001,shared_draws_all_methods_parents=True,parents_resampled=False,
+    write(pub/'BOOTSTRAP_AUDIT.json',dict(status='PASS_BASELINE_ONLY' if baseline_only else 'PASS',methods=list(methods),resamples=2000,seed=43001,shared_draws_all_methods_parents=True,parents_resampled=False,
          component_counts={str(c):len(np.unique(canonical['component'][canonical['original']==c])) for c in range(8)},
          unknown_patient_correlation=True,validation_adaptively_reused=True,independent_confirmation=False))
+    if baseline_only:return
     principal=[r for r in pairs if r['contrast']=='S-J-CB minus A-CB' and r['order_seed']=='fixed_pair_mean' and r['session']==2]
     d={r['metric']:r['difference_pp'] for r in principal}
     if d['balanced_accuracy']>0 and d['tail_rank2']>0:direction='POSITIVE_DESCRIPTIVE_DIRECTION'

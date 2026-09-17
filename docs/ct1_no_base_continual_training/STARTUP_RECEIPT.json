@@ -1,0 +1,17 @@
+{
+  "status": "RUNNING",
+  "unix": 1789652334.8123205,
+  "source_commit": "8e63785896d17126114a436027d1cb0890b4658f",
+  "started": {
+    "status": "RUNNING",
+    "unix": 1789652309.7712061,
+    "source_commit": "8e63785896d17126114a436027d1cb0890b4658f"
+  },
+  "processes": " 114210       1  114209       00:29 bash -c test ! -e /tmp/p20root/output/public/FORMAL_STARTED.json && nohup setsid /bin/bash /tmp/p20run.sh > /tmp/p20root/output/launcher.log 2>&1 < /dev/null & echo $! > /tmp/p20launch.pid\n 114211  114210  114211       00:29 /bin/bash /tmp/p20run.sh\n 114212  114211  114211       00:29 timeout -k 10 42986 /tmp/n154env/bin/python -u /tmp/p20w.py\n 114213  114212  114211       00:29 /tmp/n154env/bin/python -u /tmp/p20w.py\n 114340  114213  114211       00:01 /tmp/n154env/bin/python -u /tmp/p20w.py\n 114344  114213  114211       00:01 /tmp/n154env/bin/python -u /tmp/p20w.py\n 114348  114213  114211       00:01 /tmp/n154env/bin/python -u /tmp/p20w.py\n 114352  114213  114211       00:01 /tmp/n154env/bin/python -u /tmp/p20w.py",
+  "gpu_process": "114213, /tmp/n154env/bin/python, 0 MiB",
+  "failure_files": [],
+  "log_tail": "/tmp/n154env/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers\n  warnings.warn(f\"Importing from {__name__} is deprecated, please import via timm.layers\", FutureWarning)\n/tmp/n154env/lib/python3.12/site-packages/timm/models/registry.py:4: FutureWarning: Importing from timm.models.registry is deprecated, please import via timm.models\n  warnings.warn(f\"Importing from {__name__} is deprecated, please import via timm.models\", FutureWarning)\nI'm using ViT with adapter [POOL].\n\n  0%|          | 0/10 [00:00<?, ?it/s]EPOCH HK 1993 U 1 1\n\nTask 0, Epoch 1/10 => Loss 2.508, Train_accy 99.54:   0%|          | 0/10 [00:14<?, ?it/s]\nTask 0, Epoch 1/10 => Loss 2.508, Train_accy 99.54:  10%|\u2588         | 1/10 [00:14<02:08, 14.30s/it]",
+  "formal_exit_present": false,
+  "one_startup_check": true,
+  "new_test_predictions": 0
+}

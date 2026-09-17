@@ -62,9 +62,9 @@ def analyze_unit(p,method,seed,stage,tie_original_label=False):
         errors.append(r)
     return m,pc,errors
 
-def bootstrap_weights(p,resamples=2000,seed=91001):
+def bootstrap_weights(p,resamples=2000,seed=91001,labels=range(8)):
     rng=np.random.default_rng(seed);weights=np.zeros((resamples,len(p['y'])),dtype=np.int32)
-    for label in range(8):
+    for label in labels:
         indices=np.where(p['original']==label)[0];groups=p['component'][indices];unique,inverse=np.unique(groups,return_inverse=True)
         assert len(unique)>0
         for group in unique:assert len(np.unique(p['original'][p['component']==group]))==1,'GROUP_LABEL_CONFLICT'

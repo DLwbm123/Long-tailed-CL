@@ -1,0 +1,46 @@
+{
+  "status": "STORAGE_REMEDIATED_PENDING_FULL_ENGINEERING_GATE",
+  "finished_utc": "2026-09-17T03:02:38.946602+00:00",
+  "user_authorization": "Subsequent explicit authorization to clean space and move important files to my-gpu remote-home; this overrides the initial no-historical-migration restriction for this recorded operation.",
+  "source_host": "hb01",
+  "archive_host": "my-gpu",
+  "archive_private_locator": "ARCHIVE_INDEX_20260917.json on source; matching ARCHIVE_COMPLETED.json in private NAS archive",
+  "moved_artifact_type": "Six completed V3 D/E rolling resume checkpoints; final session checkpoints retained",
+  "moved_files": [
+    {
+      "relative_path": "v3/q8m8/output_r2/1993_D/resume.pt",
+      "bytes": 756290479
+    },
+    {
+      "relative_path": "v3/q8m8/output_r2/1993_E/resume.pt",
+      "bytes": 756371079
+    },
+    {
+      "relative_path": "v3/q8m8/output_r2/1994_D/resume.pt",
+      "bytes": 756290479
+    },
+    {
+      "relative_path": "v3/q8m8/output_r2/1994_E/resume.pt",
+      "bytes": 756371079
+    },
+    {
+      "relative_path": "v3/q8m8/output_r2/1995_D/resume.pt",
+      "bytes": 756290479
+    },
+    {
+      "relative_path": "v3/q8m8/output_r2/1995_E/resume.pt",
+      "bytes": 756371143
+    }
+  ],
+  "payload_bytes_relocated": 4537984738,
+  "before_free_bytes": 1897340928,
+  "after_free_bytes": 6435332096,
+  "verification": "Successful authenticated rsync transfer, expected file sizes, readable PyTorch ZIP central directory and version; no full-file hash or tensor restore.",
+  "transfer_exit": 0,
+  "V3_final_session_checkpoints_retained": 12,
+  "pretrained_and_S0_assets_untouched": true,
+  "historical_assets_discarded": 0,
+  "source_copies_removed_after_archive_verification": 6,
+  "HK1_images_transferred": 0,
+  "experimental_GPU_or_compact_budget_pass": false
+}

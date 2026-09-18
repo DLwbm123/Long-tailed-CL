@@ -1580,6 +1580,8 @@ class Learner(BaseLearner):
                 if hasattr(self, '_v3_batch_hook'):
                     self._v3_batch_hook(epoch, i, output, targets, loss_all, loss_few,
                                         match_loss, concm_stage1_loss, effective_stage1_weight)
+                if hasattr(self, '_ct3p_add_loss'):
+                    loss = self._ct3p_add_loss(loss, inputs, epoch, i)
                 optimizer.zero_grad()
                 loss.backward()
                 if hasattr(self, "_v2_gradient_hook"):

@@ -1,15 +1,3 @@
-# CT2-D 当前状态
+# CT2-D status
 
-**FORMAL_RUNNING：正式固定诊断已在 hb01 后台运行；一次启动核验通过，尚未完成。**
-
-启动核验确认首个最终模型梯度探针已完成、图像提取进程在运行，无即时失败。
-
-执行源 `03c8d036f0333a17752860a53b244a8b0a60cfe7`，独立分支 `exp/ct2d-forensic-diagnosis`。工程验收与资源准入通过；初始保守预算约 2.1 小时，GPU累计驻留上限 3 小时。
-
-12 个最终模型的 54/837 离线反事实、4 个固定末任务转移、8 个 pre/post 梯度探针和 6 个 R 合成/真实分布诊断固定执行。神经训练与 optimizer 更新为 0。旧 train 图像仅按新增离线诊断授权读取并单独计数，所有 test 访问为 0。
-
-CT1 原 270/2754 指标已独立复算一致。90 个归档来源 SHA、全部非共享名字与逐任务步骤已核对；原资产未修改。
-
-私人运行目录：hb01 `/root/rivermind-data/LongTailedCL/ct2d/q8m21`；日志 `output/formal.log`、`output/analysis.log`。新产物与原 CT1 分离；父状态逐个传输，不复制全部 90 个模型。
-
-后台流程完成后自动分析并 STOP，不启动训练、参数搜索、test 或监测。
+PARTIAL_INTERRUPTED, preparing bounded R1 recovery. Eight of twelve models complete; ninth partially complete (40 of 54 saved score units). Container restarted; no experiment process remains. Recovery engineering and conservative resource admission pass. See RECOVERY_R1.md and RECOVERY_LOCK_R1.json. This is not a completed experiment or a scientific success claim.

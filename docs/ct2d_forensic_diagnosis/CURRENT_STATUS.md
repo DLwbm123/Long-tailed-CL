@@ -1,7 +1,11 @@
 # CT2-D status
 
-RUNNING_RECOVERY_R1 (2026-09-18 13:41 UTC+8 startup check). Nine of twelve final models now complete. The interrupted ISIC/1994/U cache passed parent/manifest/current-moment and four saved W/logit checks without rereading images or overwriting existing scores. ISIC/1994/R is extracting, followed by ISIC/1995 U/R and fixed P3 analysis.
+COMPLETE_CT2D / STOP. Recovery and CPU report both exited 0. Analysis completed at 2026-09-18 13:49:20 UTC+8; live closeout check at 14:10 confirmed no remaining launcher/worker. No further experiment or periodic monitoring was started.
 
-Detached launcher PID 5533 (PPID 1), worker 5535, neutral main/loader command lines verified. No immediate failure, normal exit or final report yet. Existing protocol limits and STOP remain in force. No periodic monitoring was created.
+Completed: 12/12 final models, four fixed pre/post transitions, eight gradient states, 54 oracle metric rows and 837 per-class rows; original 270/2754 rows independently reproduced. Original CT1 assets remain unchanged. New neural training, optimizer steps and all test-access counters are zero. These are offline diagnostics, not legal replay-free CIL candidates.
 
-This is a running diagnostic, not a completed experiment or scientific success. See RECOVERY_R1.md, RECOVERY_LOCK_R1.json, RECOVERY_LAUNCH_R1.json and RECOVERED_CACHE_VALIDATION.json.
+The interrupted run's resource uncertainty remains explicit: conservative GPU residence upper bound 1.935 h, CPU analytic + engineering reserve + report upper bound 1.546 h. Confirmed analytic solves 79; true total lies in 79–81 because up to two completed solves may have lost their receipts at restart. Persistent diagnostic output was about 46.6 MiB at GPU completion; measured active peak 370.1 MiB; free disk at closeout about 2.4 GiB. No historical asset deletion was needed.
+
+Closeout checks: table coverage, per-class-to-BA consistency, twelve reproduction receipts, original resource ceilings, zero training/test access, STOP, and public aggregate-field scan passed. Public delivery contains source/protocol, aggregate tables, audits and reports; raw images, identity maps, model/features/W and per-sample scores remain private.
+
+Read FINAL_REPORT_ZH.md, BUGS_VS_DESIGN_LIMITS.md and RECOVERY_R1.md for findings, evidence limits and restart recovery details.

@@ -1,0 +1,77 @@
+请执行附件 CODEX_CT2D_FORENSIC_DIAGNOSIS_PLAN.md。
+本轮编号CT2-D，是CT1完成后的隔离代码复核与失效归因，不是CT1全量重训，也不是新的Risk参数搜索。完成P0→P1→P2→P3后停止。工程与资源验收通过后实际执行固定诊断，不只写脚手架。
+
+【执行来源】
+CT1交付：345bd7714662a8b7404c4609770df4bba4808451
+绑定执行源：8e63785896d17126114a436027d1cb0890b4658f
+先读SOURCE_COMMIT_BINDING、CODE_ENV_LOCK、实际配置、MODEL_LINEAGE、TRAJECTORIES_LOCK以及原CT1计划。检查当前工作区差异和源码实际SHA；独立分支/输出目录，不reset/clean、不自动合并main，不覆盖原270/2754结果或90个checkpoint。
+
+【授权与访问边界】
+本轮新增神经训练epoch=0，optimizer.step=0；允许隔离反向梯度探针和规定的离线解析拟合。不得把本轮描述成所有拟合为0。
+
+我明确批准：仅在事后诊断进程中读取既有train/fit的旧类图像，用最终已训练模型重新编码，构造真实当前空间矩。这个权限只用于ORACLE_MOMENT_DIAGNOSTIC，不允许进入任何在线learner、后续神经训练或宣称合法无回放CIL结果。
+
+所有诊断旧类读取要据实计数；不能再填写old_train_image_reads=0。原CT1运行的零旧图像访问结论保持原样，两轮分账。
+
+本轮test/reserved图像读取、特征读取、历史逐样本预测读取、模型前向及新预测均为0。对旧test缓存乘新W也禁止。validation不拟合统计、不选超参数、不返回训练。
+
+不要直接构造会写原目录/启动正式训练的原Run对象。建立独立恢复与数据访问管线，严格限定train/val，原guard不删除；诊断例外单独实现和记录。
+
+【P0：先核对正确性】
+逐任务复核12轨迹、90状态、900epoch和32340更新，分别从样本数重新计算。
+逐名核对core冻结、main/few adapter、keys、assigner和heads；核对task间连续继承与shared-core来源，不能凭计数器PASS替代检查。
+
+独立读取封存val logits重算270行主指标/2754行逐类，保留原最小original_label tie规则。验证label/head/order往返、seen集合和old/current分母，补restricted-old/current BA与accuracy、双向误分及逐类首次/最大到最终下降。
+
+审阅并实测ct1_statistics的affine S公式、identity、cross-Gram、类均衡目标、risk PSD factor方向、eta=0回归；检查immutable pre-task anchor不重复施加每个epoch映射。
+
+区分IMPLEMENTATION_CONFIRMED、SPECIFICATION_WEAKNESS、SUPPORTED_MECHANISM和UNRESOLVED。低分不自动是bug，toy PASS也不证明模型能保持旧类。发现明确实现偏离先给最小反例与影响范围，不自行重训全部模型。
+
+【P1：12个最终模型上的固定反事实】
+使用全部2dataset×3seed/order×U/R最终模型，不选表现最差或最好子集。ISIC最终Task4，HK最终Task11。
+冻结参数/缓冲区，严格恢复原FP32 pointwise probe、Resize224 bicubic antialias、mean/std0.5，J=raw main/few拼接后整体float64 L2，batch48，sample_id升序。不改路由/特征/正则/分辨率，不使用历史S0替代。
+
+每模型只提取一次train/fit、一次val；同版本身份可核验缓存可复用。先核对最后当前类计数、矩和预测与CT1存储结果一致；若不一致，先查恢复/提取，不归因旧类漂移。
+
+固定四个解析状态，当前类矩始终相同：
+Q00：原输运旧均值+原输运旧中心化协方差和。
+Q10：刷新旧均值+原输运旧中心化协方差和。
+Q01：原输运旧均值+刷新旧中心化协方差和。
+Q11：刷新旧均值+刷新旧中心化协方差和。
+
+严格按附件从S、mu和真实当前类矩重构中心化scatter；换均值时同步重构均值外积。不能只改R伪称换均值，不做随意PSD截断或jitter。
+所有解lambda=.001，无bias，float64 solve，原head列顺序。
+Q00须复现原CT-J-CB/CT-ConCM-CB；Q11须与独立样本加权批量目标一致。Q10/Q01可能不再单位trace，报告不调lambda。
+
+仅6个U最终状态额外做Q11-Risk；保持原eta=.1,rho=kappa=1,delta=.1、对角收缩、W=W0B和solver全部不变。e=0只表示不使用输运残差，仍保留v_tilde/n，不宣称无统计不确定性。
+
+交付54行离线最终指标与837行逐类；绝不并入合法CIL排行榜。ORACLE不是必然上界，差结果也完整保留。
+
+【P2：固定4个末任务转移】
+seed1993：HK Task10→11、ISIC Task3→4，各U/R，共4个转移。额外只恢复4个前任务状态，最终状态复用P1，不扩到全部90模型。
+
+只用当前fit的pre/post特征复算原fit_map。旧fit/val只能检验外推误差，不拟合a/b。
+报告a上下界clipping率、current与old残差、RMS L2与每坐标MSE、真实pre/post及输运后的类间均值距离/within scatter/均值范数、记忆年龄、两池pointwise路由切换率。不要用均值范数近1当成旧类几何完好。
+
+做零更新分项梯度检查：main/sum/few/assignment/pull/synthetic CE，分开adapter、key、assigner和heads。固定小batch及同一张量复制成2B，检验SUM/MEAN尺度；记录pool_id分布和未加权few CE。synthetic CE直接对adapter为0/None必须确认，不执行optimizer.step。Risk不回传也必须确认。
+
+6个R最终模型，固定每旧类32对raw高斯诊断样本，仅送head，比较synthetic与真实旧fit特征的CE、margin及错误。此配额不改CT1每类4/cap48的训练规则，不增加新训练/校准。
+
+【P3：分析而不是搜索】
+主诊断Q11−Q00，分解Q10/Q01及交互；另看刷新统计后Risk−CB、固定PT参照、真实/合成分布与路由行为。
+报告正确数和分母、tail、old/current、零召回、fit-vs-val差异、风险xi/无slack margin/B变化/预测翻转。Risk optimal不是类识别保证。
+2000次按类分层component配对bootstrap，seed46001，固定父模型、方法共享抽样；明确singleton与反复validation开发限制。
+
+如果Q11恢复，优先认为记忆空间失配值得修；Q11仍差则审查表征/读出泛化。不要把这些有限对照写成唯一原因或不可逆信息破坏。
+
+【资源与停止】
+单worker≤8CPU核；新GPU累计驻留≤3小时；CPU解析/报告额外≤2小时。先做技术吞吐/磁盘验收，不能用性能选择工作量。
+新持久产物≤512MiB，活动含临时≤1GiB，磁盘至少保留1GiB。逐个恢复既有归档，不复制全部90状态，不下载权重，不删除历史资产。只清理已登记的本轮临时缓存。
+技术问题最多两次有限修复。预算不足准确PARTIAL/BLOCKED，不删方法、降精度或换数据伪称完成。
+
+交付完整来源/恢复/数学核对、BUGS_VS_DESIGN_LIMITS、270/2754重算、54/837反事实、固定转移和梯度审计、资源访问账本、FINAL_REPORT_ZH和NEXT_DECISION=STOP。
+公开源码/协议/聚合；图像、身份、特征/W及逐样本分数保留私有。
+
+最终据实填写：new_neural_training_epochs=0、optimizer_steps=0、backward_probe_calls、new_analytic_fits、encoder_forward_calls、diagnostic_old_train_image_reads；全部test项=0；oracle_diagnostics_are_valid_online_CIL_results=false；original_ct1_artifacts_modified=false。
+
+本轮之后不自动做CT2训练、换学习率/路由、蒸馏、Risk网格、增加旧图像回放、恢复S0、GSR/DSM或每小时监测。保留用户无S0持续适配研究目标，但必须先完成归因，再另行制定单因素训练干预。

@@ -1,0 +1,27 @@
+# Long-term autonomous research authorization and operations
+
+The user authorized hourly long-term monitoring, technical fixes, deletion of unnecessary files, migration of necessary assets to data_nas, substantive result analysis, and self-directed design/execution of follow-up experiments on 2026-09-18. Heartbeat automation `isic` is ACTIVE with no end date, attached to this task. Notify only meaningful progress, repair, completion, failure or required user action; keep unchanged polls quiet. No duplicate worker or automation.
+
+## Current fixed study first
+
+Complete CT3-P under its locked matrix and data boundary, then close its report with STOP. The latest authorization permits subsequent separately planned studies; it does not retroactively turn incomplete CT3-P into a different experiment. Budget consumed by failed attempts remains charged. Do not replace seeds, shorten epochs, repeat completed updates, or peek at candidate validation scores before the lock.
+
+Current repair: exact-value pickle protocol4 serialization, strict epoch2 restore, and disposal of redundant failed-attempt caches. Model, teacher, optimizer/scheduler and RNG survive intact. The qualified scientific source remains d1eaa599a23679d025659a6d1b45a43996291b86; the recovery worker/driver require a supplemental code lock. No optimizer steps were used by this repair.
+
+The refreshed full-matrix projection is 14,659.477 GPU seconds, above the original 14,400 ceiling. An explicit async question requests increasing this study's cumulative budget to 18,000 seconds. UNTIL THE USER ANSWERS, do not mark admission PASS, create an approved budget lock, launch recovery, or silently charge remaining CT3-P to a new study. A preselected UI option is not approval. If approved, bind the user's answer and new limit in RECOVERY_LOCK_R2.json, retain the original protocol and all failures, update the heartbeat prompt, then continue the exact remaining 28 epochs / 4,664 steps.
+
+## Resume procedure
+
+Read current remote evidence first. Worktree: `/Users/bominwang/Desktop/codes/_worktrees/q8m22`. Current server runtime is `/tmp/p22root` on the already authorized hb01 host/port; credentials are not stored here. Current private resume is `output/private/active_resume.pt`, ISIC1994 Task3 epoch2, SHA fbdc870a235ae557b4398975480e15a1e500cbecccb713582adede62f3a62af3. It was promoted only after strict restore. The remaining ISIC1995 Task1 parent remains cached and verified. Nine final checkpoints are in the existing my-gpu `/tmp/p22archive` store.
+
+`tools/resume_ct3p.py` uses the unchanged original loader and training loop. Modes: qualify/resume/evaluate/oracle selected via P22_RECOVERY_MODE. `tools/execute_ct3p_recovery.py` runs train→evaluate→oracle→report with hard remaining deadlines. Deploy neutral entry `/tmp/p22resume.py`, driver `/tmp/p22driver_r2.py`, preserve old failure receipts, archive old STOP_TRANSFER marker, and re-establish the existing bounded transfer service only after admission and GPU/storage checks. Set P22_ROOT=/tmp/p22root; runtime_locked.json retains qualified source hashes. Supplemental lock must include recovery source commit, worker/driver hashes, budget authorization and GPU_limit_seconds. An approved cap is enforced for every remaining GPU phase. Report retains all negative findings and budget amendment disclosure.
+
+## Storage
+
+Verified writable NFS target: `jiangsuiyang:/data_nas/jiangsuiyang/LongTailedCL/`, approximately 28 TiB free on first probe. A V3 historical trajectory (1993_D) was successfully copied from hb01 v3/q8m8/output_r2 to the corresponding v3_q8m8/output_r2 directory on data_nas. The stream exited zero; all 11 file sizes/counts matched and both checkpoint ZIP directories were readable. A migration index was recorded before removing the two redundant original checkpoint copies (1,512,585,638 bytes). This was not a bytewise/hash comparison. This trajectory is not a CT3-P runtime dependency. Never infer a completed transfer from file existence. Preserve unique data, weights, parent/final states, reports and failure evidence. No root-disk fallback. Do not migrate old assets back wholesale.
+
+## After full results
+
+Reconcile 90/360 online rows, 4/24 isolated oracle rows, 120 epochs, 6620 steps, 12 checkpoints, all fixed order comparisons and actual resource/access counts. Analyze C3−C1 first, then C1−C0, C2−C0, C3−C0 and interaction; retain paired seed/order effects, old/current tradeoffs, tail support, uncertainty and negative outcomes. Distinguish legitimate online scores from Q11 diagnostics and developmental validation from holdout confirmation. Publish source-only code and aggregate evidence to the appropriate branch and verify public SHA.
+
+Only then propose the next most informative finite experiment from the complete evidence: spell out the falsifiable hypothesis, one intervention, fixed controls/matrix/seeds, training/data boundaries, predeclared metrics, resource admission and stopping rules. User has authorized execution after engineering/resource checks without routine approval. Use existing compute; no purchases, unrelated process termination, hidden test access, unbounded sweeps, best-seed/epoch selection or retries until significance. Freeze a new plan and independent branch before launching it. A failed hypothesis is a valid result; do not promise a positive outcome. Persistent scientific/data/resource blockers remain explicit.

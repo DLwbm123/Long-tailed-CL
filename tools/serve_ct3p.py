@@ -21,7 +21,7 @@ def main():
     assert os.stat(root).st_dev!=os.stat('/').st_dev
     p=root/'.probe';p.write_text('ready');assert p.read_text()=='ready';p.unlink()
     ssh=['ssh','-S','/tmp/q22-transfer2','-o','BatchMode=yes','-p','30154','root@hb01-ssh.gpuhome.cc']
-    def send(x):subprocess.run(ssh+['cat > /tmp/p22root/output/private/ACK.json'],input=json.dumps(x).encode(),check=True,timeout=30)
+    def send(x):subprocess.run(ssh+['cat > /tmp/p22root/output/private/ACK.json.part && mv /tmp/p22root/output/private/ACK.json.part /tmp/p22root/output/private/ACK.json'],input=json.dumps(x).encode(),check=True,timeout=30)
     oldnames={f'{n}_{s}_U_t{t:02d}.pt' for n in ('HK','ISIC') for s in (1993,1994,1995) for t in (1,2,3)}
     newnames={f'{n}_{s}_F_t{t:02d}.pt' for n in ('HK','ISIC') for s in (1993,1994,1995) for t in (2,3)}
     done=set();deadline=time.monotonic()+5*3600

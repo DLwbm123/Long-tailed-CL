@@ -1,0 +1,51 @@
+{
+  "status": "QUALIFIED_RESTART",
+  "attempt": 1,
+  "problem": "non-atomic ACK publication raced JSON reader",
+  "fix": "write ACK.json.part then atomic rename",
+  "test": "50 concurrent fragmented ACK writes; no partial JSON observed",
+  "engineering_optimizer_steps_added": 0,
+  "formal_steps_before_restart": 0,
+  "previous_source": "6ba526ba775d575302163e53d08e18d4e7b40976",
+  "source_commit": "d1eaa599a23679d025659a6d1b45a43996291b86",
+  "changed_qualified_file": "tools/serve_ct3p.py",
+  "sha256": "97b273c56f76243540b2dfbc2a4644ea544f6ebdf9b23ea3904b9cb7af9b195d",
+  "original_protocol_lock_preserved": true,
+  "scientific_protocol_changes": [],
+  "failed_attempt_GPU_seconds": 376.4692630767822,
+  "cumulative_GPU_seconds_before_restart": 828.4483761237934,
+  "projected_cumulative_GPU_seconds": 13867.740801151263,
+  "limit": 14400,
+  "partial_evidence_preserved": "attempt0",
+  "removed_original_parent_copies": [
+    {
+      "file": "private/parents/HK_1993.pt",
+      "bytes": 110623358
+    },
+    {
+      "file": "private/parents/HK_1995.pt",
+      "bytes": 110658430
+    },
+    {
+      "file": "private/parents/ISIC_1994.pt",
+      "bytes": 110669096
+    },
+    {
+      "file": "private/parents/HK_1994.pt",
+      "bytes": 110570814
+    },
+    {
+      "file": "private/parents/ISIC_1993.pt",
+      "bytes": 110688424
+    },
+    {
+      "file": "private/parent.pt",
+      "bytes": 110669096
+    },
+    {
+      "file": "private/parent.part",
+      "bytes": 110734120
+    }
+  ],
+  "automatic_retry": false
+}

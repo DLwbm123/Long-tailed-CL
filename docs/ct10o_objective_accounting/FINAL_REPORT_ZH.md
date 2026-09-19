@@ -52,7 +52,7 @@ HK1993与1995在两种beta下末epoch CE均很低，1994仍约0.279；ISIC1993�
 2. `models/apart.py:1355–1386,1581–1605`：main/sum CE是mean，few与assignment是batch sum，三个CE再/3，pull单独相减，最后增加FD后反传。`tools/run_ct1.py:224–232`与`run_ct3p.py:162–168`记录分项和相同batch均值；本次重建验证的是记录与公式一致，不是重新计算图像前向。
 3. `utils/medical_v2.py:63–68`与`tools/run_ct1.py:174–178`：实际优化器是AdamW，参数名含pool者初始lr0.0003，其余可训练者0.003；任务重建10epoch余弦调度。配置中的scheduler字符串不应替代执行入口。未改变已批准的legacy行为。
 4. `tools/ct3p_core.py:17–47`：FD比较归一化拼接特征、pointwise路由、固定教师，student可微；恢复模型mode和随机状态。它不直接训练解析W。
-5. `tools/run_ct1.py:109–131`：解析特征从eval probe提取，沿用batch48及原batchwise路由。`ct1_statistics.py:6–10,59–69`对拼接特征L2归一化、用类均衡统计及lambda0.001解ridge；`run_ct9p.py:151–170`最终分数是z@W。训练神经head/head_few参数没有被直接作为解析W，解析bank/W没有反馈神经训练。
+5. `tools/run_ct1.py:109–131`：解析特征从eval probe提取，使用batch48；`run_ct1.py:164–166`在构造probe时显式设置main/few的batchwise_prompt=False，因此使用逐样本路由。加载state_dict不会覆盖这个普通布尔属性。FD同样临时使用逐样本路由；二者不存在此前文字所暗示的“FD逐样本、解析评价批次路由”差别。原真实CE训练网络的batchwise_prompt=True，训练CE与FD/probe的路由设置仍不同。`ct1_statistics.py:6–10,59–69`对拼接特征L2归一化、用类均衡统计及lambda0.001解ridge；`run_ct9p.py:151–170`最终分数是z@W。训练神经head/head_few参数没有被直接作为解析W，解析bank/W没有反馈神经训练。
 
 因此真实CE与最终解析分类器共享特征编码器，但不共享分类器参数或完全相同的目标/路由。CE下降并不必然改善最终ridge。此为源码可确认的结构关系，不是“错配导致失败”的因果证据，也不是发现了应当自动修复的实现错误。
 
@@ -63,3 +63,7 @@ HK1993与1995在两种beta下末epoch CE均很低，1994仍约0.279；ISIC1993�
 这是在CT9结果已知后选定的描述性审计，不是独立验证；源码检查未重新执行autograd或测量参数位移。没有神经head与ridge同布局val对比，也未测无gate的few CE或gate分布；这些问题仍未验证。不能据此擅自去掉assignment、修改路由/损失、继续调beta或宣称已解决问题。
 
 后续最有信息量的有限候选是固定已训练Task4状态下、同一val布局的原神经main+few与已有ridge读出对照，区分训练头适应与解析读出表现；应另立计划与访问锁后执行，不选择更优head替换正式成绩。本轮没有启动该候选。NEXT_DECISION=STOP。
+
+## 路由文字更正（2026-09-19 23:47 UTC）
+
+准备后续对照时补查了CTLearner的probe构造路径，纠正初版对解析评价路由的文字描述。batch size=48不等于batchwise_prompt=True；probe明确False，FD也False。原错误版本保留在Git历史，数值表、输入锁、代码、模型与所有已完成结果均未改变，未重跑会计或模型评价。本更正仅收窄结构解释。

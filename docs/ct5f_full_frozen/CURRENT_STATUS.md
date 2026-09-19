@@ -1,17 +1,11 @@
 # CT5-F CURRENT_STATUS
 
-RUNNING — 2026-09-19 启动已验证；不是实验完成。
+COMPLETE_CT5F — 2026-09-19；NEXT_DECISION=STOP。
 
-- 独立分支：analysis/ct5f-full-frozen-reference。
-- 科学源码：c466ff68625502fbb5fb9096c44df6785b2c7058；PROTOCOL_LOCK已在运行前写入。
-- CT3-P/CT4-F均已完成关闭，未重启。
-- 服务器当前端口30128，中性根/tmp/p24root，驱动PID11441，GPU worker PID11442。使用实时退出码与回执判断，PID仅供定位。
-- 已通过实际数据盘写读探针、六父可用性、90个历史控制分数锁、18个CT4前缀W锁核验及CPU边界/指标测试。
-- 启动后日志已到HK1993 Task8解析拟合，前3阶段W数值重现通过。
-- 首个新增Task4：667图像/5.716秒；峰值CUDA allocated 1.9765GB。盘剩余约3.30GB，未清理历史资产。
-- 45个F1阶段全部W锁定后再进行新增27阶段val；18阶段复用原预测。新增神经epoch/step=0，test/reserved=0。
-- 顺序重建Task2/3统计是明确披露的前缀重建，不重新生成其val预测。完整输出预计15–30分钟；实际资源以进程回执为准。
+完整45/459行F1、135/1377行含对照，18复用/27新增阶段。推理退出0，报告首次退出1已通过独立源码锁修复，report_r1退出0。禁止重新启动p24driver或p24。
 
-远程证据：output/inference.log、inference.exit、report.log、report.exit、public/PROCESS_RECEIPTS.json、FIT_AUDIT.json、STATE_W_LOCK.json、PREDICTIONS_LOCK.json、RESOURCES.json、INFERENCE_COMPLETE.json、COMPLETE.json；失败保留FAILURE/DRIVER_FAILURE。
+Final BA：HK F1 61.213、P61.128、C013.638；ISIC F1 58.276、P55.497、C046.401。主F1−P：HK+0.085pp，区间跨零；ISIC+2.778pp，[0.470,5.202]。无新增神经训练或test访问。详见FINAL_REPORT_ZH.md及results。
 
-按小时监测。成功后复制公开聚合交付、完善科学结论、推送本分支并匿名验证。无论结果正负，本固定研究NEXT_DECISION=STOP。
+推理825.958秒，报告失败1.165秒、修复2.818秒全部保留；输出约22.39MB，未删除历史资产。六父/45W/预测锁、工程/修复证据、完整表格已同步。
+
+分支analysis/ct5f-full-frozen-reference；原源码c466ff68625502fbb5fb9096c44df6785b2c7058，报告修复b023168。后续候选及严格前置条件见NEXT_DECISION.md；尚未启动新的训练。

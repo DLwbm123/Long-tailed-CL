@@ -1,6 +1,6 @@
 # CT3-P status
 
-RECOVERY_AUTHORIZED_PREPARING_DISPATCH. Hourly long-term monitoring is ACTIVE (`isic`) under the user's new autonomous monitoring, maintenance and future-experiment authorization. No training worker is running, and no final results exist yet.
+RUNNING_R2_STRICT_RESUME_VERIFIED. Hourly long-term monitoring is ACTIVE (`isic`) under the user's new autonomous monitoring, maintenance and future-experiment authorization. Recovery worker is running on hb01 port30128. No final results exist yet.
 
 The latest ISIC1994 Task3 epoch2 checkpoint passed the ordinary strict model, metadata, code/data hash, teacher, optimizer/scheduler and generator-state checks. It was promoted from the fully written temporary file; the obsolete epoch1 rolling file was removed. All 92 recorded epochs / 1,956 optimizer steps remain intact, with nine archived task checkpoints. No formal epoch was repeated and no new engineering optimizer step was used.
 
@@ -15,3 +15,7 @@ Bind this approved resource-only amendment and recovery source/hash, recheck GPU
 ## Connection update 2026-09-19
 
 The user supplied replacement SSH port 30128 for hb01-ssh.gpuhome.cc. Login succeeded; the original runtime directory, strict recovery receipt and 676,882,789-byte active resume file are present. GPU is RTX 4090 D, 0/24,564 MiB used at this check; disk free is 3,193,294,848 bytes. No worker, approved recovery lock or completion receipt exists. The user subsequently removed this study’s GPU-hour limit; recovery is being prepared. Future monitoring must use port 30128; the obsolete port 30154 is not trusted. This check confirmed file presence/size and existing receipts, not a new full checkpoint integrity test.
+
+## Recovery R2 started 2026-09-19
+
+Source d42b1f1b9ae33408aa90b1b8fc38639b9a283861 binds the explicit no-GPU-hour-limit amendment. RECOVERY_LOCK_R2 is approved and RECOVERY_ADMISSION_R2_APPROVED is PASS; the original BLOCKED admission remains historical evidence. Strict restore passed model/teacher/optimizer/scheduler/RNG checks; ISIC1994 Task3 resumes at epoch3 with zero repeated steps. Neutral driver PID554, worker PID555; startup GPU19,257 MiB and100% utilization. my-gpu archive service PID2360416 passed real NFS mount/write/read probe and uses port30128. Pipeline train→evaluate→oracle→report is detached; future hourly checks must inspect train_r2/evaluate_r2/oracle_r2/report_r2 exit files, PHASE_RECEIPTS_R2, PIPELINE_COMPLETE or failure receipts. Do not launch another worker. All prior consumed time remains charged; no GPU residence ceiling, original CPU/storage/access guards retained.

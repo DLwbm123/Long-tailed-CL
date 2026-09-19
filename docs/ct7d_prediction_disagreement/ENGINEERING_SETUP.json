@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "synthetic_checks": [
+    "event_partition",
+    "class_balance",
+    "gain_loss_identity",
+    "identity_pair",
+    "label_permutation",
+    "tie_original_label"
+  ],
+  "source_dependencies_match": true,
+  "storage_mount": "existing hb data volume",
+  "free_bytes_min": 3234693120,
+  "write_read_probe": "PASS",
+  "neural_steps": 0,
+  "new_predictions": 0,
+  "setup_failures": [
+    {
+      "action": "metadata export shell quoting",
+      "exit_code": 1,
+      "effect": "No remote data read or experiment launch; corrected using subprocess stdin"
+    },
+    {
+      "action": "dependent local manifest construction",
+      "exit_code": 1,
+      "effect": "Missing metadata file; no experiment launch; rebuilt after export"
+    }
+  ]
+}

@@ -67,7 +67,7 @@ def main():
     def resources():
         size=sum(f.stat().st_size for f in root.rglob('*') if f.is_file() and not f.is_symlink());free=shutil.disk_usage(root).free
         assert size<2*1024**3 and free>=1024**3 and cpu<1800
-        return dict(wall_seconds=time.monotonic()-began,CPU_analytic_report_seconds=cpu,disk_bytes=size,free_bytes=free,neural_epochs=0,optimizer_steps=0,test_reads=0,old_fit_reads=0,future_fit_reads=0,calls={} if r is None else r.access)
+        return dict(wall_seconds=time.monotonic()-began,CPU_analytic_report_seconds=cpu,disk_bytes=size,free_bytes=free,neural_epochs=0,optimizer_steps=0,test_reads=0,old_fit_reads=0,future_fit_reads=0,peak_GPU_allocated_bytes=0 if r is None else torch.cuda.max_memory_allocated(),calls={} if r is None else r.access)
     try:
         r=Prefix(cfg);r.setup();states=[];audit=[]
         def no_training(*args,**kwargs):raise AssertionError('BLOCKED_NEURAL_TRAINING')

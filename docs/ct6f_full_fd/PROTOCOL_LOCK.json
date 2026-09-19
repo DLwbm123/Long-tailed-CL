@@ -1,0 +1,46 @@
+{
+  "status": "LOCKED",
+  "study": "CT6-F",
+  "source_commit": "2d4aa7b12ddbe6a4d15633aaf0bc071197bb810c",
+  "worker_sha256": "8a2325686e0f889e65071ab71615854882d16d3bc3fa0e1d702c944c0bd49a75",
+  "report_sha256": "be9bb619c6a89e0e4ab9449117f847c7576066f55b46045dcb8a8eb51bb99db9",
+  "archive_sha256": "0e3c49bf0f1edb0abf5b2c2394bb68ce233862a7bc8c1aa5a301b331dbb9d9e4",
+  "plan_sha256": "03ccc30e36b42c8ad5828643b32c33b34a578b67f3694b96b659d411fd32d892",
+  "parent_source": "CT3-P Task3 six locked FD states",
+  "seeds": [
+    1993,
+    1994,
+    1995
+  ],
+  "new_task_epochs": 270,
+  "new_optimizer_steps": 5570,
+  "new_checkpoints": 27,
+  "methods": [
+    "C2",
+    "C3"
+  ],
+  "controls": [
+    "F1",
+    "P",
+    "C0"
+  ],
+  "primary": "C3-F1",
+  "secondary": [
+    "C2-F1",
+    "C3-C2",
+    "C3-P",
+    "C3-C0"
+  ],
+  "bootstrap_resamples": 2000,
+  "bootstrap_seed": 50001,
+  "GPU_limit_seconds": null,
+  "CPU_analytic_report_limit_seconds": 7200,
+  "active_disk_limit_bytes": 2147483648,
+  "min_free_bytes": 1073741824,
+  "archive_limit_bytes": 10737418240,
+  "neural_beta": 10,
+  "new_test_predictions": 0,
+  "old_future_fit_reads": 0,
+  "oracle_reads": 0,
+  "NEXT_DECISION": "STOP"
+}

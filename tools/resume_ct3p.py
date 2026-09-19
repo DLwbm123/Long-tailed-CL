@@ -93,12 +93,12 @@ def install_resource_limit(root):
     lock=read(root/'output/public/RECOVERY_LOCK_R2.json')
     assert sha(Path(__file__))==lock['recovery_worker_sha256'],'BLOCKED_RECOVERY_CODE_DRIFT'
     limit=lock['GPU_limit_seconds']
-    assert limit==14400 or (limit==18000 and lock['budget_authorization']=='USER_APPROVED_CT3P_CUMULATIVE_5H')
+    assert (limit is None and lock['budget_authorization']=='USER_APPROVED_CT3P_NO_GPU_HOUR_LIMIT') or limit==14400 or (limit==18000 and lock['budget_authorization']=='USER_APPROVED_CT3P_CUMULATIVE_5H')
     original=Prefix.resources
     def resources(self,enforce=True):
         x=original(self,False)
         if enforce:
-            assert x['GPU_process_residence_seconds']<limit and x['CPU_analytic_seconds']+600<7200,'BLOCKED_RESOURCE'
+            assert (limit is None or x['GPU_process_residence_seconds']<limit) and x['CPU_analytic_seconds']+600<7200,'BLOCKED_RESOURCE'
             assert x['active_bytes']<2*1024**3 and x['persistent_archive_upper_bytes']<3*1024**3 and x['min_free_bytes']>=1024**3,'BLOCKED_RESOURCE'
         return x
     Prefix.resources=resources

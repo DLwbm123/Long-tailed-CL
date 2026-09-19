@@ -20,12 +20,12 @@ def main():
     root=Path(os.environ['P22_ARCHIVE']);old=Path('/tmp/p20archive');root.mkdir(parents=True,exist_ok=True)
     assert os.stat(root).st_dev!=os.stat('/').st_dev
     p=root/'.probe';p.write_text('ready');assert p.read_text()=='ready';p.unlink()
-    ssh=['ssh','-S','/tmp/q22-transfer2','-o','BatchMode=yes','-p','30154','root@hb01-ssh.gpuhome.cc']
+    ssh=['ssh','-S','/tmp/q22-transfer2','-o','BatchMode=yes','-p',os.environ.get('P22_SSH_PORT','30154'),'root@hb01-ssh.gpuhome.cc']
     def send(x):subprocess.run(ssh+['cat > /tmp/p22root/output/private/ACK.json.part && mv /tmp/p22root/output/private/ACK.json.part /tmp/p22root/output/private/ACK.json'],input=json.dumps(x).encode(),check=True,timeout=30)
     oldnames={f'{n}_{s}_U_t{t:02d}.pt' for n in ('HK','ISIC') for s in (1993,1994,1995) for t in (1,2,3)}
     newnames={f'{n}_{s}_F_t{t:02d}.pt' for n in ('HK','ISIC') for s in (1993,1994,1995) for t in (2,3)}
-    done=set();deadline=time.monotonic()+5*3600
-    while time.monotonic()<deadline:
+    done=set()
+    while True:
         q=subprocess.run(ssh+['cat /tmp/p22root/output/private/REQUEST.json'],capture_output=True,timeout=30)
         if q.returncode==0:
             req=json.loads(q.stdout);key=req['id'];name=req['name'];op=req['op']
@@ -59,5 +59,4 @@ def main():
         stop=subprocess.run(ssh+['test -f /tmp/p22root/output/private/STOP_TRANSFER.json'],capture_output=True,timeout=30)
         if stop.returncode==0:write_json(root/'STOP.json',dict(status='STOP',requests=len(done)));return
         time.sleep(2)
-    raise TimeoutError('TRANSFER_DEADLINE')
 if __name__=='__main__':main()

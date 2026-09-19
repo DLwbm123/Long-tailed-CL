@@ -87,7 +87,7 @@ def main():
             assert p.is_relative_to(out.resolve()), 'BLOCKED_WRITE'
         elif p.suffix.lower() in ('.npz', '.npy', '.pt', '.pth', '.jpg', '.jpeg', '.png', '.csv'):
             assert str(p) in allowed, 'BLOCKED_ASSET_ACCESS'
-        assert not any(x.lower().startswith(('test', 'reserved')) for x in p.parts), 'BLOCKED_TEST'
+            assert not any(x.lower().startswith(('test', 'reserved')) for x in p.parts), 'BLOCKED_TEST'
     sys.addaudithook(guard)
     try:
         (out / 'ENGINEERING_GATE.json').write_text(json.dumps(selfcheck(), indent=2))

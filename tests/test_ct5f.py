@@ -2,7 +2,7 @@
 import ast
 from pathlib import Path
 import numpy as np
-from report_ct5f import recall_groups
+from report_ct5f import recall_groups,stage_order
 from ct2d_math import metrics
 # Load only the small stage guard from the GPU runner: this check does not initialize it.
 tree=ast.parse((Path(__file__).parents[1]/'tools/run_ct5f.py').read_text());ns={}
@@ -17,3 +17,10 @@ assert abs(g['HM'][0]-200/3)<1e-10
 order=np.array([3,0,2,1]);y=np.arange(4);scores=np.eye(4);m,pc,_=metrics(scores,y,order,2,{'tail':[1,3]}, {},np.array(['a','b','c','d']))
 assert m['balanced_accuracy']==100 and [x['original_label'] for x in pc]==[3,0,2,1]
 print('PASS: full-stage boundaries, three-class current metrics, remapped labels')
+
+p=dict(raw=np.eye(2),y=np.array([0,1]),order=np.array([3,0,2,1]),original=np.array([3,0]))
+assert np.array_equal(stage_order(p,2),[3,0])
+try:stage_order(dict(p,original=np.array([0,3])),2)
+except AssertionError:pass
+else:raise AssertionError('incorrect label mapping accepted')
+print('PASS: full arrival order compatibility and label guard')

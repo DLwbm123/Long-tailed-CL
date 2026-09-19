@@ -12,9 +12,19 @@ def recall_groups(rec,known,order,tail):
     old=rec[:,:known].mean(1) if known else None;cur=rec[:,known:].mean(1);ix=np.isin(order,tail)
     return dict(BA=rec.mean(1),old=old,current=cur,tail=rec[:,ix].mean(1) if ix.any() else None,HM=None if old is None else np.divide(2*old*cur,old+cur,out=np.zeros(len(rec)),where=old+cur!=0))
 
+def stage_order(p,seen):
+    # CT1 serializes the full arrival order; CT4/5 serialize its seen prefix.
+    assert p['raw'].shape==(len(p['y']),seen) and len(p['order'])>=seen
+    assert len(np.unique(p['order']))==len(p['order'])
+    order=p['order'][:seen]
+    assert np.all((p['y']>=0)&(p['y']<seen))
+    assert np.array_equal(order[p['y']],p['original']),'BLOCKED_LABEL_MAPPING'
+    return order
+
 def main():
     start=time.monotonic();cfg=read(os.environ['P24_CONFIG']);root=Path(cfg['root']);pub=root/'output/public';old=Path(cfg['ct1_root'])/'output';data={};point={};rows=[];pcs=[];errors=[];entries={}
-    lock=read(pub/'PROTOCOL_LOCK.json');assert sha(__file__)==lock['report_sha256']
+    lock=read(pub/'PROTOCOL_LOCK.json');repair=read(pub/'REPORT_REPAIR_LOCK.json')
+    assert repair['original_report_sha256']==lock['report_sha256'] and sha(__file__)==repair['report_sha256']
     assert read(pub/'INFERENCE_COMPLETE.json')['units']==45
     # This isolated reporter may only read locked predictions, never images or fitting assets.
     allowed={str(p.resolve()) for p in (root/'output/private/sealed').glob('*.npz')}
@@ -33,7 +43,7 @@ def main():
             path=directory/'private/sealed'/e['file'];assert sha(path)==e['sha256']
             with np.load(path) as f:p={k:f[k].copy() for k in f.files}
             key=(e['dataset'],e['seed'],e['task'],e['method']);assert key not in data
-            assert len(p['order'])==e['seen'];data[key]=p;entries[key]=e
+            p['order']=stage_order(p,e['seen']);data[key]=p;entries[key]=e
             m,pc,er=metrics(p['raw'],p['y'],p['order'],e['known'],cfg['frequency_groups'][e['dataset']],dict(zip(('dataset','seed','task','method'),key)),p['component'])
             point[key]=m;rows.append(m);pcs+=pc;errors+=er
     assert len(rows)==135 and len(pcs)==1377

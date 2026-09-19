@@ -13,6 +13,7 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def main():
     start=time.monotonic();cfg=read(os.environ['P28_CONFIG']);root=Path(cfg['root']);pub=root/'output/public'
     lock=read(pub/'PROTOCOL_LOCK.json');assert sha(__file__)==lock['report_sha256']
+    for path,digest in lock['reference_locks'].items():assert sha(path)==digest
     new=read(pub/'PREDICTIONS_LOCK.json')['units'];assert len(new)==12
     sets=[(root/'output',new)]
     for key,methods in [('ct6f_root',('C2','C3')),('ct5f_root',('F1',))]:
@@ -68,7 +69,7 @@ def main():
     for ds in ('HK','ISIC'):
         for method in ('B1A','B1T','C2','C3','F1'):
             q=[x for x in rows if x['dataset']==ds and x['method']==method]
-            vals=[np.mean([x[k] for x in q]) for k in ['balanced_accuracy','old_macro_recall','current_macro_recall','tail_recall']]
+            vals=[(np.mean([x[k] for x in q]) if all(x[k] is not None for x in q) else float('nan')) for k in ['balanced_accuracy','old_macro_recall','current_macro_recall','tail_recall']]
             report.append('|'+ '|'.join([ds,method,f'{vals[0]:.3f}',f'{min(x["balanced_accuracy"] for x in q):.3f}']+[f'{v:.3f}' for v in vals[1:]])+'|')
     for r in paired:
         if r['seed']=='fixed_three_mean' and r['metric']=='BA':report.append(f"- {r['dataset']} {r['contrast']}: {r['difference_pp']:+.3f}pp [{r['low']:+.3f}, {r['high']:+.3f}]。")

@@ -171,7 +171,8 @@ def evaluate(r):
 
 def main():
     cfg=read(os.environ['P28_CONFIG']);cfg['mode']=os.environ['P28_MODE'];root=Path(cfg['root']);pub=root/'output/public'
-    assert sha(__file__)==read(pub/'PROTOCOL_LOCK.json')['worker_sha256']
+    protocol=read(pub/'PROTOCOL_LOCK.json');assert sha(__file__)==protocol['worker_sha256']
+    for path,digest in protocol['reference_locks'].items():assert sha(path)==digest
     prior=read(pub/'RESOURCE_LEDGER.json') if (pub/'RESOURCE_LEDGER.json').exists() else {}
     r=Run(cfg);r.access=prior.get('calls',{});r.prior_gpu=prior.get('GPU_process_residence_seconds',0)
     r.prior_fit=prior.get('fit_image_reads',0);r.prior_val=prior.get('val_image_reads',0);r.archived=prior.get('archive_bytes',0);r.setup()

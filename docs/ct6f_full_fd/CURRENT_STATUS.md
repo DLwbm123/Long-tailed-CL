@@ -1,5 +1,9 @@
 # CT6-F CURRENT_STATUS
 
+TRAINING_COMPLETE_EVALUATING — 2026-09-19 15:38 UTC heartbeat实测。train_r1.exit=0；270/270 task-epochs、5570/5570正式steps、27/27末checkpoint全部完成。STATE_W_LOCK=LOCKED，54个W与27个checkpoint已锁定。禁止重启训练。驱动29287已转入统一val，评价PID39847（仅定位）；待evaluate_r1/report_r1.exit、PREDICTIONS_LOCK、COMPLETE与公开报告验收，当前尚未完整交付。累计GPU-process residence最新约13587秒，包含历史失败及恢复，不归零；test/old-fit/future-fit/oracle访问仍0，空闲约3.24GB。
+
+以下为历史恢复及启动记录：
+
 RUNNING_RECOVERED_R1 — 2026-09-19 13:41 UTC，归档超时已修复且实际续训，未完成。
 
 原训练在180epochs/2350steps后归档第18个checkpoint超时退出1，见RECOVERY_R1.md与R0证据。严格普通restore、末次A/T统计重建及既有W核对全部PASS；同字节归档重传105.219秒成功，没有重复训练。已经从HK1995 Task6续训并完成两个epoch。恢复启动时剩余90epochs/3220steps/9个新checkpoint。

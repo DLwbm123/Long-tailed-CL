@@ -1,6 +1,12 @@
 # CT6-F CURRENT_STATUS
 
-RUNNING — 2026-09-19，六父严格验收后实际启动，未完成。
+RUNNING_RECOVERED_R1 — 2026-09-19 13:41 UTC，归档超时已修复且实际续训，未完成。
+
+原训练在180epochs/2350steps后归档第18个checkpoint超时退出1，见RECOVERY_R1.md与R0证据。严格普通restore、末次A/T统计重建及既有W核对全部PASS；同字节归档重传105.219秒成功，没有重复训练。已经从HK1995 Task6续训并完成两个epoch。恢复启动时剩余90epochs/3220steps/9个新checkpoint。
+
+当前驱动/tmp/p25driver_r1.py PID29287、GPU入口/tmp/p25resume.py PID29288；归档my-gpu /tmp/p25s_r1.py PID2413513，使用新/tmp/q25-transfer-r1 master。旧进程已退出，不得启动原driver/train。优先读train_r1/evaluate_r1/report_r1日志和.exit、PROCESS_RECEIPTS_R1；原train.exit=1及R0为保留历史，不代表再次失败。原科学源不变，恢复源码4608f49ccfd5e742755f1a1f2936898edcbc9bbf及RECOVERY_LOCK_R1单独绑定。传输600秒/ACK660秒为有界技术修复，模型/loss/seed/epoch/data不变。
+
+以下为原启动审计（旧PID仅历史）：
 
 - 独立分支exp/ct6f-full-fd-continuation；科学编排源码2d4aa7b12ddbe6a4d15633aaf0bc071197bb810c；驱动源码00736901141ff0736a62f0d455b4b11a5d71dafa，原CT3依赖SHA保持不变。
 - hb01 SSH30128，中性根/tmp/p25root；GPU主入口p25.py PID14034、驱动p25driver.py PID14033，仅定位用，判断状态必须读实时日志/退出码/锁/资源。

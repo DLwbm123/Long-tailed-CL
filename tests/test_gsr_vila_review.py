@@ -12,7 +12,7 @@ import numpy as np
 import pytest
 import torch
 
-from shared.frozen_dual_features import build_joint_feature, validate_encoder_lock
+from shared.frozen_dual_features import build_joint_feature, label_free_forward, validate_encoder_lock
 from shared.dual_moment_bank import DualMomentBank
 from route_a.semantic_prior import component_reliability
 from route_a.spectral_prior_ridge import a0_to_a8, spectral_prior_ridge
@@ -187,7 +187,7 @@ def all_readouts():
     G=np.diag(diag);M=np.zeros((d,K))
     M[0,0]=.01;M[1,1]=.01;M[1536,0]=.02;M[1537,1]=.02
     text=np.eye(512)[:,:K]
-    outputs=a0_to_a8(K*G,M,text,V=np.zeros_like(M),gamma=0.)
+    outputs=a0_to_a8(K*G,M,text,V=np.zeros_like(M),gamma=0.,ncomp=np.ones(K))
     return outputs,diag,M
 
 
@@ -196,12 +196,27 @@ def test_a0_a1_match_original_unscaled_branch_ridge(all_readouts):
     # Compare predictions on actual joint subblock x against prediction on
     # original unit block a=sqrt(2)*x.  Equality must hold for each branch.
     for key,sl in [('A0',slice(0,1536)),('A1',slice(1536,None))]:
-        expected_on_scaled_input=M[sl]/(2*diag[sl,None]+.001)
+        expected_on_scaled_input=np.sqrt(2.)*M[sl]/(2*(diag[sl,None])+.001)
+        expected_on_scaled_input /= 2
         np.testing.assert_allclose(outputs[key],expected_on_scaled_input,rtol=1e-10,atol=1e-10)
 
 
+def test_apart_requires_and_concatenates_both_prelogits_branches():
+    main = np.zeros((2, 768), dtype=np.float64)
+    few = np.ones((2, 768), dtype=np.float64)
+    f = label_free_forward(np.zeros((2, 1)), lambda _: {'pre_logits': main, 'pre_logits_few': few},
+                           lambda _: np.ones((2, 2)))
+    assert f.a.shape == (2, 1536) and np.allclose(f.a[:, :768], np.asarray(main) / np.linalg.norm(np.c_[main, few], axis=1, keepdims=True))
+    with pytest.raises(ValueError, match='BLOCKED_APART_PRELOGITS_CONTRACT'):
+        label_free_forward(np.zeros((1, 1)), lambda _: {'pre_logits': np.ones((1, 6))},
+                           lambda _: np.ones((1, 2)))
+
+
 def test_a5_zero_semantic_scale_reverts_to_a2(all_readouts):
-    outputs,_,_=all_readouts
+    d=2048;K=2
+    diag=np.r_[np.full(1536,.5/1536),np.full(512,.5/512)]
+    G=np.diag(diag);M=np.zeros((d,K));text=np.eye(512)[:,:K]
+    outputs=a0_to_a8(K*G,M,text,V=np.zeros_like(M),gamma=0.,a_scale=0.)
     np.testing.assert_allclose(outputs['A5'],outputs['A2'],rtol=1e-10,atol=1e-10)
 
 

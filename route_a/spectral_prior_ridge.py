@@ -75,18 +75,18 @@ class RASPReadout:
         h = np.asarray(h, dtype=np.float64)
         if h.ndim != 2 or h.shape[1] != self.W.shape[0]:
             raise ValueError("BLOCKED_READOUT_FEATURE_SHAPE")
-        scores = h @ self.W
-        u = h[:, -self.text_u.shape[0]:]
+        scores = np.einsum("nd,dk->nk", h, self.W)
+        u = np.sqrt(2.0) * h[:, -self.text_u.shape[0]:]
         text = self.text_u
+        # A3 uses raw unit u/T cosine. A3s only centers text across classes;
+        # u is never centered and Tc is never renormalized.
         if self.centered:
-            u = u - u.mean(axis=1, keepdims=True)
-            text = text - text.mean(axis=0, keepdims=True)
+            text = text - text.mean(axis=1, keepdims=True)
             scale = self.a_scale
         else:
             scale = 1.0
         u = u / np.maximum(np.linalg.norm(u, axis=1, keepdims=True), 1e-12)
-        text = text / np.maximum(np.linalg.norm(text, axis=0, keepdims=True), 1e-12)
-        cosine = scale * (u @ text)
+        cosine = scale * np.einsum("nd,dk->nk", u, text)
         k = min(self.top_k, scores.shape[1])
         top = np.argpartition(scores, -k, axis=1)[:, -k:]
         fused = scores.copy()
@@ -110,8 +110,8 @@ def a0_to_a8(S: np.ndarray, M: np.ndarray, text_u: np.ndarray, *, V: np.ndarray 
     K = M.shape[1]
     # h contains a/sqrt(2),u/sqrt(2). Restore the original branch Gram before
     # fitting; A2 deliberately remains in the joint h coordinates.
-    W0 = ridge(2.0 * S[:1536, :1536] / K, M[:1536], lam)
-    Wu = ridge(2.0 * S[1536:, 1536:] / K, M[1536:], lam)
+    W0 = ridge(2.0 * S[:1536, :1536] / K, np.sqrt(2.0) * M[:1536] / K, lam)
+    Wu = ridge(2.0 * S[1536:, 1536:] / K, np.sqrt(2.0) * M[1536:] / K, lam)
     W2 = ridge(S / K, M / K, lam)
     outputs = {"A0": W0, "A1": Wu, "A2": W2}
     outputs["A3"] = RASPReadout(W2, T, a_scale, centered=False)
@@ -128,7 +128,7 @@ def a0_to_a8(S: np.ndarray, M: np.ndarray, text_u: np.ndarray, *, V: np.ndarray 
     elif ncomp is not None:
         g_rarity = 0.001 * 10.0 / (np.asarray(ncomp, dtype=np.float64) + 10.0)
     else:
-        g_rarity = gamma
+        raise ValueError("BLOCKED_A5_RARITY_PARAMETER")
     outputs["A5"], _ = spectral_prior_ridge(S, M, V, g_rarity, lam=lam)
     outputs["A6"], diagnostics = spectral_prior_ridge(S, M, V, gamma, lam=lam)
     outputs["A7"] = M / np.maximum(np.linalg.norm(M, axis=0, keepdims=True), 1e-12)
@@ -138,8 +138,28 @@ def a0_to_a8(S: np.ndarray, M: np.ndarray, text_u: np.ndarray, *, V: np.ndarray 
     G, R = S / K, M / K
     mbar, ybar = M.mean(1), np.full(K, 1.0 / K)
     Wc = np.linalg.solve(G - np.outer(mbar, mbar) + lam * np.eye(S.shape[0]), R - np.outer(mbar, ybar))
-    outputs["A8"] = np.vstack((Wc, ybar - mbar @ Wc))
+    # ``einsum`` keeps the intercept reduction in float64 without dispatching
+    # a large BLAS matmul for this one-row product.
+    outputs["A8"] = np.vstack((Wc, ybar - np.einsum("i,ij->j", mbar, Wc)))
     return outputs
+
+
+def readout_scores(outputs: dict[str, object], name: str, h: np.ndarray) -> np.ndarray:
+    """Score every readout in its declared coordinate system."""
+    h = np.asarray(h, dtype=np.float64)
+    if h.ndim != 2 or h.shape[1] != 2048:
+        raise ValueError("BLOCKED_READOUT_FEATURE_SHAPE")
+    if name == "A0":
+        return np.einsum("nd,dk->nk", np.sqrt(2.0) * h[:, :1536], np.asarray(outputs[name]))
+    if name == "A1":
+        return np.einsum("nd,dk->nk", np.sqrt(2.0) * h[:, 1536:], np.asarray(outputs[name]))
+    value = outputs[name]
+    if hasattr(value, "scores"):
+        return value.scores(h)
+    if name == "A8":
+        x = np.column_stack((h, np.ones(len(h))))
+        return np.einsum("nd,dk->nk", x, np.asarray(value))
+    return np.einsum("nd,dk->nk", h, np.asarray(value))
 
 
 def cosine_scores(features: np.ndarray, prototypes: np.ndarray, *, centered: bool = False) -> np.ndarray:

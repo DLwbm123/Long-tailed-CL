@@ -3,8 +3,10 @@
 The real launcher was executed on `my-gpu` at
 `/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r2` and the
 updated formal runner was rechecked at
-`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r4` from source
-commit `21fcd835d883d609bcebc530ea13e9a4705d5613` (base
+`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r4` and the final
+rerun at `.../isic_20260920_r5` from the updated formal-runner commit
+`7c5fa5121ee405f11711b1e7c37853fdde335e84` (the original execution source
+was `21fcd835d883d609bcebc530ea13e9a4705d5613`; base
 `674942161b3bed60a3264a2e21a75c3785c81660`). It read the V2 **train** manifest and checked the val path
 for existence only. It did not open val rows, test/reserved manifests,
 images from val/test, or any test prediction path.

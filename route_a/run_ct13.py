@@ -38,9 +38,14 @@ def validate_config(config: dict, *, require_assets: bool = False) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", required=True)
-    parser.add_argument("--dry-run", action="store_true", help="validate only; real execution is intentionally external")
+    parser.add_argument("--dry-run", action="store_true", help="validate only")
+    parser.add_argument("--execute", action="store_true", help="run the real train-only gate and CT13 launcher")
     args = parser.parse_args()
-    result = validate_config(json.loads(Path(args.config).read_text()), require_assets=not args.dry_run)
+    config = json.loads(Path(args.config).read_text())
+    if args.execute:
+        from route_a.run_ct13_real import execute
+        raise SystemExit(execute(config, Path(config.get("output_dir", "ct13_output"))))
+    result = validate_config(config, require_assets=not args.dry_run)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

@@ -81,12 +81,41 @@ def build_joint_feature(main_few_logits: Any, clip_visual: Any) -> FeatureBatch:
     return FeatureBatch(a=a, u=u, h=h)
 
 
-def _unwrap_pre_logits(value: Any) -> Any:
+def _concat_pair(main: Any, few: Any) -> Any:
+    """Concatenate the two APART branches before the single L2 normalization."""
+    try:
+        import torch
+    except ImportError:
+        torch = None
+    if torch is not None and isinstance(main, torch.Tensor):
+        if not isinstance(few, torch.Tensor) or main.ndim != 2 or few.ndim != 2:
+            raise ValueError("BLOCKED_APART_PRELOGITS_TYPE")
+        if main.shape[0] != few.shape[0] or main.shape[1] + few.shape[1] != 1536:
+            raise ValueError("BLOCKED_APART_PRELOGITS_DIM")
+        return torch.cat((main, few), dim=1)
+    main, few = np.asarray(main), np.asarray(few)
+    if main.ndim != 2 or few.ndim != 2 or main.shape[0] != few.shape[0] or main.shape[1] + few.shape[1] != 1536:
+        raise ValueError("BLOCKED_APART_PRELOGITS_DIM")
+    return np.concatenate((main, few), axis=1)
+
+
+def _unwrap_pre_logits(value: Any, *, apart: bool = False) -> Any:
     if isinstance(value, Mapping):
-        for key in ("pre_logits", "main_few_pre_logits", "features"):
+        if apart:
+            if "pre_logits" in value and "pre_logits_few" in value:
+                return _concat_pair(value["pre_logits"], value["pre_logits_few"])
+            if "main_few_pre_logits" in value:
+                joined = value["main_few_pre_logits"]
+                if getattr(joined, "ndim", None) != 2 or joined.shape[1] != 1536:
+                    raise ValueError("BLOCKED_APART_PRELOGITS_DIM")
+                return joined
+            raise ValueError("BLOCKED_APART_PRELOGITS_CONTRACT")
+        for key in ("pre_logits", "features", "image_features"):
             if key in value:
                 return value[key]
-        raise ValueError("BLOCKED_APART_OUTPUT_KEY")
+        raise ValueError("BLOCKED_ENCODER_OUTPUT_KEY")
+    if apart and getattr(value, "shape", (None, None))[1] != 1536:
+        raise ValueError("BLOCKED_APART_PRELOGITS_DIM")
     return value
 
 
@@ -96,7 +125,8 @@ def label_free_forward(
     clip_forward: Callable[[Any], Any],
 ) -> FeatureBatch:
     """Run both frozen encoders without passing labels to either forward."""
-    return build_joint_feature(_unwrap_pre_logits(apart_forward(images)), _unwrap_pre_logits(clip_forward(images)))
+    return build_joint_feature(_unwrap_pre_logits(apart_forward(images), apart=True),
+                               _unwrap_pre_logits(clip_forward(images)))
 
 
 class FrozenDualFeatureExtractor:

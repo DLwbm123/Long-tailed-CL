@@ -1,7 +1,9 @@
 # CT13-ISIC execution record (blocked at asset gate)
 
 The real launcher was executed on `my-gpu` at
-`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r2` from source
+`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r2` and the
+updated formal runner was rechecked at
+`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r4` from source
 commit `21fcd835d883d609bcebc530ea13e9a4705d5613` (base
 `674942161b3bed60a3264a2e21a75c3785c81660`). It read the V2 **train** manifest and checked the val path
 for existence only. It did not open val rows, test/reserved manifests,
@@ -17,6 +19,16 @@ configured/search locations. The V2 summary also reports
 `semantic_map: SEMANTIC_MAP_UNVERIFIED`; no class-name mapping was silently
 invented for text prompts.
 
+The exact public CLIP source was also attempted from the local machine before
+upload: the pinned Hugging Face resolve URL timed out after 10 seconds, so no
+local weight or config file was created. The supplied fetch script on
+`my-gpu` exited because `huggingface_hub` is not installed; a direct remote
+request failed with `Network unreachable`. No alternative checkpoint was
+used and there is no local CLIP file to delete. The runner's formal path now
+implements separate APART/CLIP preprocessing, train-only semantic verification,
+per-stage bank/readout locks, one batched val pass, and the 120/600 row-count
+checks, but it cannot pass the asset gate without those inputs.
+
 The launcher wrote `ASSET_AUDIT.json`, `ENGINEERING_GATE.json`,
 `PROTOCOL_LOCK.json`, and `BLOCKED.json`. The receipts record
 `val_access=0`, `test_access=0`, `reserved_access=0`, zero training epochs and
@@ -25,5 +37,6 @@ not a substitute-model run.
 
 Minimum resume condition: provide the exact locked CLIP weight file plus
 preprocess/tokenizer files and SHA256 values, and a verified eight-class name
-mapping. The existing F1 parent states remain preserved and reusable. No
-CT13 matrix or metrics are reported until that gate passes.
+mapping derived from train-only provenance. The existing F1 parent states
+remain preserved and reusable. No CT13 matrix or metrics are reported until
+that gate passes.

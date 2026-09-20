@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
 
-from route_a.run_ct13_real import execute
+import numpy as np
+from PIL import Image
+
+from route_a.run_ct13_real import _extract_rows, execute
 
 
 def test_real_launcher_records_missing_locked_assets_without_val_access(tmp_path):
@@ -26,3 +29,31 @@ def test_real_launcher_records_missing_locked_assets_without_val_access(tmp_path
     blocked = json.loads((tmp_path / "out" / "BLOCKED.json").read_text())
     assert gate["status"] == "BLOCKED" and gate["val_access"] == 0
     assert blocked["test_access"] == blocked["reserved_access"] == 0
+
+
+def test_real_extractor_uses_separate_preprocess_and_explicit_apart_pair(tmp_path):
+    image_root = tmp_path / "images"
+    image_root.mkdir()
+    Image.new("RGB", (2, 2), (10, 20, 30)).save(image_root / "a.jpg")
+    rows = [{"sample_id": "a", "mapped_label": "0", "split": "train", "relative_path": "a.jpg"}]
+    apart_seen, clip_seen = [], []
+
+    def apart_pre(image):
+        apart_seen.append(image.getpixel((0, 0)))
+        return np.ones(2)
+
+    def clip_pre(image):
+        clip_seen.append(image.getpixel((0, 0)))
+        return np.full(2, 2.0)
+
+    apart = {
+        "preprocess": apart_pre,
+        "forward": lambda batch: {"pre_logits": np.ones((len(batch), 768)),
+                                   "pre_logits_few": np.ones((len(batch), 768))},
+    }
+    clip = {"preprocess": clip_pre,
+            "forward": lambda batch: {"pre_logits": np.ones((len(batch), 512))}}
+    a, u, h = _extract_rows(rows, image_root, apart, clip)
+    assert len(apart_seen) == len(clip_seen) == 1
+    assert a.shape == (1, 1536) and u.shape == (1, 512) and h.shape == (1, 2048)
+    np.testing.assert_allclose(np.linalg.norm(a, axis=1), 1.0)

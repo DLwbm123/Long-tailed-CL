@@ -12,6 +12,12 @@ or open test/reserved manifests. If an asset is missing it writes
 `ASSET_AUDIT.json`, `ENGINEERING_GATE.json`, and `BLOCKED.json` with the
 checked paths and zero val/test/reserved access.
 
-Once the gate passes, the factories must provide the locked text encoder and
-moment-bank adapter for the fixed 2+2+2+2, three-order matrix. The launcher
-does not select a seed, readout, prompt, or preprocessing rule from val.
+Once the gate passes, the launcher verifies the train-only semantic map, then
+the factories provide the locked text encoder and moment-bank adapter for the
+fixed 2+2+2+2, three-order matrix. It writes one `BANK.npz`, `READOUTS.npz`,
+and `STATE_W_LOCK.json` per seed/task, seals all ten readouts, and performs a
+single batched val pass. A successful run contains 120 stage rows, 600
+class rows, a prediction lock, and a resource ledger. The launcher does not
+select a seed, readout, prompt, or preprocessing rule from val; missing
+semantic provenance, pinned CLIP assets, parent states, or the fixed A0
+reference remains a precise BLOCKED result.

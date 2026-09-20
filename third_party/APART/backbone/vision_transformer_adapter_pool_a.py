@@ -532,10 +532,14 @@ class VisionTransformer(nn.Module):
         return out
 
 
-def vit_base_patch16_224_adapter(pretrained=False, **kwargs):
+def vit_base_patch16_224_adapter(pretrained=False, locked_weight_path=None, **kwargs):
     
     model = VisionTransformer(patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
         norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+
+    if locked_weight_path is not None:
+        from utils.medical_v2 import load_adapter
+        return load_adapter(model, locked_weight_path)
 
     # checkpoint_model = torch.load('./pretrained_models/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0.npz')
     checkpoint_model=timm.create_model("vit_base_patch16_224", pretrained=True, num_classes=0)

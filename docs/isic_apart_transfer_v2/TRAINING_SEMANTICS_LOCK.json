@@ -1,0 +1,57 @@
+{
+  "profile": "legacy_effective_v1",
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "betas": [
+    0.9,
+    0.999
+  ],
+  "eps": 1e-08,
+  "pool_initial_lr": 0.00030000000000000003,
+  "other_initial_lr": 0.003,
+  "S0": {
+    "scheduler": "CosineAnnealingLR",
+    "T_max": 10,
+    "eta_min": 1e-05,
+    "step": "end of epoch"
+  },
+  "S1_S2": {
+    "scheduler": null,
+    "reinit_optimizer": true,
+    "lr": "constant initial group rates"
+  },
+  "embedding": {
+    "shape": [
+      12726,
+      16
+    ],
+    "preserved_rows": [
+      0,
+      500
+    ],
+    "extra_parameters": 195600,
+    "new_row_distribution": "Normal(0,1)",
+    "embedding_seed": "train_seed + 1000003",
+    "global_rng_advance": false
+  },
+  "theta": 100,
+  "original_losses": "unchanged",
+  "batch_size": 48,
+  "drop_last": false,
+  "epochs_per_session": 10,
+  "preprocessing": {
+    "train": "RGB; Resize 256x256 bicubic antialias; RandomCrop 224; horizontal flip p=.5; tensor; normalize .5/.5",
+    "evaluation": "RGB; Resize 224x224 bicubic antialias; tensor; normalize .5/.5"
+  },
+  "random_streams": {
+    "data_loader_seed": "train_seed",
+    "embedding_seed": "train_seed + 1000003",
+    "synthesis_seed": "train_seed + 2000003",
+    "memory_statistics_seed": "train_seed * 1000 + session"
+  },
+  "headnorm": {
+    "effective_weight": "head.weight + head_few.weight",
+    "denominator_clamp_min": 1e-12,
+    "S0": "identity"
+  }
+}

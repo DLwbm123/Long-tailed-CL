@@ -1,0 +1,142 @@
+{
+  "status": "ENGINEERING_REPAIR_PASSED_PREPARING_FORMAL_BUDGET",
+  "prior_resources": {
+    "GPU_observed_seconds": 77.71707561096991,
+    "GPU_budget_seconds": 111.53863310813904,
+    "analytic_CPU_seconds": 2.5391465970024,
+    "solve_calls": 60,
+    "peak_RSS_bytes": 3233480704,
+    "peak_GPU_allocated_bytes": 1322724864,
+    "standalone_CPU_test_solves": 12,
+    "CPU_test_budget_reserve_seconds": 60,
+    "CPU_test_accounting": "Two standalone CPU self-check invocations, 6 toy solves each, outside worker counters; pure analytic wall uninstrumented, conservatively reserve 60 seconds, not reported as measured time."
+  },
+  "prior_access": {
+    "neural_training_epochs": 0,
+    "optimizer_steps": 0,
+    "new_S0_training": 0,
+    "new_test_predictions": 0,
+    "new_test_feature_reads": 0,
+    "new_test_image_reads": 0,
+    "routing_mode": "S0_POINTWISE_PROBE",
+    "routing_configuration_changed": true,
+    "checkpoint_tensor_parameters_changed": false,
+    "validation_adaptively_reused": true,
+    "independent_confirmation": false,
+    "full_GSR_reproduction": false,
+    "further_experiments_started": false,
+    "wrapper_batch_calls": 363,
+    "wrapper_image_rows": 2696,
+    "new_train_val_feature_rows": 0,
+    "image_reads": {
+      "probe": 320,
+      "formal": 0
+    },
+    "module_batch_calls": {
+      "original": 371,
+      "main": 363,
+      "few": 363
+    },
+    "module_image_rows": {
+      "original": 2824,
+      "main": 2696,
+      "few": 2696
+    },
+    "phase_calls": {
+      "initial_probe": {
+        "original_calls": 34,
+        "original_image_rows": 96,
+        "few_calls": 34,
+        "few_image_rows": 96,
+        "main_calls": 34,
+        "main_image_rows": 96
+      },
+      "bounded_forensics": {
+        "original_calls": 126,
+        "original_image_rows": 1011,
+        "few_calls": 123,
+        "few_image_rows": 963,
+        "main_calls": 123,
+        "main_image_rows": 963
+      },
+      "blas_control_01": {
+        "original_calls": 42,
+        "original_image_rows": 337,
+        "few_calls": 41,
+        "few_image_rows": 321,
+        "main_calls": 41,
+        "main_image_rows": 321
+      },
+      "operators_01": {
+        "original_calls": 1,
+        "original_image_rows": 32,
+        "few_calls": 1,
+        "few_image_rows": 32,
+        "main_calls": 1,
+        "main_image_rows": 32
+      },
+      "linear_lowering_01": {
+        "original_calls": 42,
+        "original_image_rows": 337,
+        "few_calls": 41,
+        "few_image_rows": 321,
+        "main_calls": 41,
+        "main_image_rows": 321
+      },
+      "linear_native_01": {
+        "original_calls": 126,
+        "original_image_rows": 1011,
+        "few_calls": 123,
+        "few_image_rows": 963,
+        "main_calls": 123,
+        "main_image_rows": 963
+      }
+    },
+    "formal_arrivals": [],
+    "analytic_train_rows": 56154,
+    "fit_val_rows": 0,
+    "train_forensics_rows": 0,
+    "encoder_forward_calls": 1097,
+    "encoder_image_forward_rows": 8216,
+    "no_labels_frequency_task_adapter_passed": true,
+    "A_cached_train_rows_consumed_for_statistics": 56154,
+    "S_analytic_train_rows": 0,
+    "A_cached_val_score_rows": 3966,
+    "analytic_train_counter_note": "Initial worker counter tracked S extraction only; A statistics read train cached rows once per order, shared by U and CB. This aggregate includes both.",
+    "probe_unique_parent_image_combinations": 96,
+    "probe_image_read_events": 128,
+    "formal_feature_rows": 0,
+    "probe_features_persisted": false,
+    "bootstrap_encoder_calls": 0
+  },
+  "controls": {
+    "blas_control_01": {
+      "GPU_observed_seconds": 8.194897637004033,
+      "GPU_upper_bound_seconds": 12.118131399154663,
+      "wrapper_batch_calls": 41,
+      "encoder_forward_calls": 124
+    },
+    "operators_01": {
+      "GPU_observed_seconds": 9.95222141398699,
+      "GPU_upper_bound_seconds": 14.78230905532837,
+      "wrapper_batch_calls": 1,
+      "encoder_forward_calls": 3
+    },
+    "linear_lowering_01": {
+      "GPU_observed_seconds": 8.51221637497656,
+      "GPU_upper_bound_seconds": 13.17844271659851,
+      "wrapper_batch_calls": 41,
+      "encoder_forward_calls": 124
+    },
+    "linear_native_01": {
+      "GPU_observed_seconds": 22.981997947994387,
+      "GPU_upper_bound_seconds": 27.59059500694275,
+      "wrapper_batch_calls": 123,
+      "encoder_forward_calls": 372
+    }
+  },
+  "new_S_candidate_scores": 0,
+  "new_test_predictions": 0,
+  "storage_free_bytes": 2257997824,
+  "historical_assets_deleted": 0
+}

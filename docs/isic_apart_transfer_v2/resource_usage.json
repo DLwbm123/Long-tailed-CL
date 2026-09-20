@@ -1,0 +1,43 @@
+{
+  "status": "BLOCKED_FORMAL_BUDGET",
+  "p1_wall_seconds": 1026.5703515859786,
+  "p1_gpu_time_upper_bound_seconds": 1026.5703515859786,
+  "p1_gpu_budget_seconds": 1800,
+  "peak_allocated_bytes": 9068955648,
+  "image_files_transferred": 19777,
+  "image_bytes_transferred": 7925069965,
+  "weight_bytes": 346284714,
+  "formal_trajectories": 0,
+  "formal_checkpoints": 0,
+  "test_predictions": 0,
+  "formal_budget": {
+    "status": "BLOCKED_FORMAL_BUDGET",
+    "formal_budget_hours": 24,
+    "conservative_estimate_hours": 47.43807548385948,
+    "cold_start_amortized_upper_estimate_hours": 32.33280398499489,
+    "worst_observed_training_seconds_per_image": 0.11717038004038234,
+    "worst_warm_training_seconds_per_image": 0.07841489951048668,
+    "max_memory_seconds_per_image": 0.06179896067624213,
+    "max_checkpoint_seconds": 7.877212828025222,
+    "reserve_factor": 1.25,
+    "formal_images_processed": 1123080,
+    "formal_optimizer_steps": 23480,
+    "formal_checkpoint_writes": 198,
+    "interpretation": "single-GPU wall-clock occupancy including data/serialization overhead, not measured SM-active time",
+    "primary_formula": "1.25 * (6*10*n_train*max_training_seconds_per_image + 3*n_train*max_memory_seconds_per_image + 198*max_checkpoint_seconds)",
+    "sensitivity_formula": "1.25 * (1123080 * max rate excluding only the first CUDA training epoch + 56154 * max memory rate + 198 * max checkpoint write seconds + 6 * measured cold-start excess)",
+    "cold_start_note": "Even amortizing the first-use excess once per trajectory leaves the upper estimate above 24 hours; no smaller model/batch/epoch/seed substituted.",
+    "formal_trajectories_completed": 0,
+    "formal_session_checkpoints": 0,
+    "model_test_predictions": 0,
+    "minimum_pending_decision": "Increase formal budget from 24 to 48 GPU hours, or defer; all method/data/GPU/seed/epoch settings stay fixed."
+  },
+  "notes": "P1 total wall time includes the serial remote decode audit; it is an upper bound on GPU occupancy. Later checkpoint-format checks used zero training steps. Exact follow-up wall time is recorded separately.",
+  "followup_checks": {
+    "resume_edge_wall_seconds": 31.83711290359497,
+    "checkpoint_binding_wall_seconds": 42.692286014556885,
+    "status": "FINAL_CPU_SUITE_PASS",
+    "extra_training_steps": 0
+  },
+  "total_P1_gpu_time_upper_bound_seconds": 1101.0997505041305
+}

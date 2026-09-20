@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETE_FIXED_VAL_CRITERIA_PASS",
+  "candidate": "K",
+  "stop_autonomous_experiments": true,
+  "new_test_predictions": 0,
+  "independent_test_confirmation": false,
+  "training_source": "47fe3b6c180bd4e45ce83a779a71f844398cbca7",
+  "gates": {
+    "gates": {
+      "BA_improves": true,
+      "current_gain_at_least_10pp": true,
+      "old_loss_at_most_5pp": true,
+      "at_least_two_paired_improvements": true,
+      "no_new_current_zero_recall": true
+    },
+    "deltas_pp": {
+      "balanced_accuracy": 9.647750173996194,
+      "old_macro_recall": -4.482755610804394,
+      "current_macro_recall": 52.039267528397964
+    },
+    "paired_improvements": 3,
+    "new_zero_current": []
+  },
+  "completion_audit": "PASS",
+  "memory_control_vs_H": "BITWISE_EQUAL",
+  "main_limitation": "Adaptive reuse of small validation set; narrow mean retention margin; tail below C; no test confirmation",
+  "no_further_run_authorized_by_this_decision": true
+}

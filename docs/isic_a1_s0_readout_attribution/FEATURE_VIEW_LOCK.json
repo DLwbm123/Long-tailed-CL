@@ -1,0 +1,31 @@
+{
+  "status": "DEFINED_NOT_RELEASED",
+  "reason": "Fixed raw FP32 feature gate failed before any S candidate scoring.",
+  "routing_mode": "S0_POINTWISE_PROBE",
+  "routing_diff": [
+    "backbone.pool.batchwise_prompt: true -> false",
+    "backbone.pool_few.batchwise_prompt: true -> false"
+  ],
+  "raw_fields": [
+    "pre_logits",
+    "pre_logits_few"
+  ],
+  "raw_dtype": "float32",
+  "view_statistics_dtype": "float64",
+  "views": {
+    "A": "original AugReg float32 cached values cast float64, not renormalized",
+    "M": "raw main / L2 norm",
+    "F": "raw few / L2 norm",
+    "J": "concatenate raw main,few then one joint L2 normalization"
+  },
+  "batch_size": 48,
+  "feature_tolerance": {
+    "rtol": 1e-05,
+    "atol": 1e-05
+  },
+  "original_A_cache_sha256": {
+    "train": "75d56237dae5a09de9dcd363960e829b0b5deefc7cf3110459c5c94c98d80998",
+    "val": "b812da9181d2a2a0c2e98e0d6233fc771366820d18192194d400c5fd5f7ed864"
+  },
+  "S_cache_created": false
+}

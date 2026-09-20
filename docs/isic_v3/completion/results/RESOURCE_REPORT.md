@@ -1,0 +1,11 @@
+# Combined resource audit
+
+Original six-trajectory runtime is preserved separately. Supplemental B extraction and fixed classifiers:
+
+{
+  "queue_seconds": 1383.629418373108,
+  "supplement_seconds": 43.11244583129883,
+  "peak_gpu_bytes": 953445376,
+  "original_resource_report": "/root/rivermind-data/LongTailedCL/v3/q8m8/output_r2/resource_usage.json",
+  "test_predictions": 0
+}

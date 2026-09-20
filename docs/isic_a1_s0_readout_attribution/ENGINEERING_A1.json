@@ -1,0 +1,32 @@
+{
+  "status": "PARTIAL_BLOCKED_ROUTING_PARITY",
+  "passed": [
+    "train/val manifest and A cache/identity hashes",
+    "three parent checkpoint file hashes",
+    "three strict network restores and tensor hashes",
+    "native source matches V2",
+    "original-backbone train probe matches A cache for all three parents",
+    "both pointwise route IDs match native B=1 across all tested layouts",
+    "frozen parameters/buffers, eval/no_grad, unchanged RNG",
+    "A-U/A-CB 18 stage rows and 108 class rows reproduce G1",
+    "toy stream versus weighted batch and duplicated-sample controls",
+    "toy direct duplicated-embedding solve and actual-A duplicated-embedding residual/norm/score checks",
+    "future-class and test-split negative guards",
+    "original-label tie rule and full joint cross-block construction",
+    "A cumulative-statistic save/restore and deterministic final order invariance",
+    "baseline-only component bootstrap: 2000, seed43001"
+  ],
+  "failed": [
+    "raw FP32 feature equivalence for all three parents at locked rtol=atol=1e-5"
+  ],
+  "not_run": [
+    "full S extraction",
+    "S cumulative-statistic and within-parent reblocking checks on real features",
+    "S model scores and S comparisons",
+    "full-matrix throughput admission after parity"
+  ],
+  "CPU_engineering_evidence": "The initial worker reached A_BASELINES_REPRODUCED after engineering() assertions; initial worker solve count 48 includes toy checks. No second toy run added.",
+  "label_blind_evidence": "Only images plus train=False, weight=None passed to the native forward; no labels/frequency/task/adapter IDs. Same batch repeated bitwise equal in forensics.",
+  "baseline_analysis_exit_status": "PASS",
+  "formal_S_release": false
+}

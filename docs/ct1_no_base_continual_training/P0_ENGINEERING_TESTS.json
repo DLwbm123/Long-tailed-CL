@@ -1,0 +1,231 @@
+{
+  "status": "PASS",
+  "neural": [
+    {
+      "dataset": "HK",
+      "stream": "U",
+      "task2_adapter_updates": 84,
+      "strict_compact_next_step": true,
+      "pointwise": {
+        "status": "PASS",
+        "native_B1_pointwise_max_abs": {
+          "pre_logits": 0.0,
+          "pre_logits_few": 0.0
+        },
+        "label_frequency_independent": true
+      }
+    },
+    {
+      "dataset": "HK",
+      "stream": "R",
+      "task2_adapter_updates": 84,
+      "strict_compact_next_step": true,
+      "pointwise": {
+        "status": "PASS",
+        "native_B1_pointwise_max_abs": {
+          "pre_logits": 0.0,
+          "pre_logits_few": 0.0
+        },
+        "label_frequency_independent": true
+      }
+    },
+    {
+      "dataset": "ISIC",
+      "stream": "U",
+      "task2_adapter_updates": 84,
+      "strict_compact_next_step": true,
+      "pointwise": {
+        "status": "PASS",
+        "native_B1_pointwise_max_abs": {
+          "pre_logits": 0.0,
+          "pre_logits_few": 0.0
+        },
+        "label_frequency_independent": true
+      }
+    },
+    {
+      "dataset": "ISIC",
+      "stream": "R",
+      "task2_adapter_updates": 84,
+      "strict_compact_next_step": true,
+      "pointwise": {
+        "status": "PASS",
+        "native_B1_pointwise_max_abs": {
+          "pre_logits": 0.0,
+          "pre_logits_few": 0.0
+        },
+        "label_frequency_independent": true
+      }
+    }
+  ],
+  "Task1_U_R_identical": true,
+  "epoch_boundary_transport_flow": true,
+  "transported_resume_flow": true,
+  "math": {
+    "status": "PASS",
+    "aggregate_affine_exact": true,
+    "identity_exact": true,
+    "class_balanced_objective_exact": true,
+    "cross_Gram_retained": true,
+    "subspace_objective_difference_exact": true,
+    "eta_zero_recovers_W0": {
+      "status": "optimal",
+      "seconds": 0.026226669986499473,
+      "cvxpy": "1.7.3",
+      "clarabel": "0.11.1",
+      "iterations": 6,
+      "eta": 0,
+      "v_tilde_mean_by_class": [
+        1.0731689864974434,
+        0.8333340488699853,
+        0.9402595866480854
+      ],
+      "u_mean_by_class": [
+        0.15330985521392052,
+        0.20833351221749632,
+        0.10447328740534281
+      ],
+      "objective": 5.537095569880996e-19,
+      "normalized_max_constraint_violation": 0.0,
+      "xi": [
+        11.83475740408363,
+        11.703252176868256,
+        11.725495317818805
+      ],
+      "active_constraints": 0,
+      "primal_residual": 6.125083219356151e-12,
+      "dual_residual": 7.396724616805864e-11
+    },
+    "toy_risk": {
+      "status": "optimal",
+      "seconds": 0.022542906022863463,
+      "cvxpy": "1.7.3",
+      "clarabel": "0.11.1",
+      "iterations": 7,
+      "eta": 0.1,
+      "v_tilde_mean_by_class": [
+        1.0731689864974434,
+        0.8333340488699853,
+        0.9402595866480854
+      ],
+      "u_mean_by_class": [
+        0.15330985521392052,
+        0.20833351221749632,
+        0.10447328740534281
+      ],
+      "objective": 0.046934545091901675,
+      "normalized_max_constraint_violation": 0.0,
+      "xi": [
+        0.5211707861769252,
+        0.39490400607187354,
+        0.4256154537030186
+      ],
+      "active_constraints": 4,
+      "primal_residual": 9.589234798116352e-11,
+      "dual_residual": 3.113068671422355e-11
+    },
+    "max23_toy": {
+      "status": "optimal",
+      "seconds": 6.803181756986305,
+      "cvxpy": "1.7.3",
+      "clarabel": "0.11.1",
+      "iterations": 13,
+      "eta": 0.1,
+      "v_tilde_mean_by_class": [
+        0.9158233327438423,
+        0.902209548312782,
+        0.8728741470501454,
+        0.9114288021714761,
+        0.8865841774035927,
+        0.8945354114689943,
+        0.8904432459545896,
+        0.8509979686019965,
+        0.8779355806607133,
+        0.8632762431215492,
+        0.9019465784878243,
+        0.90302787296956,
+        0.9146800128043991,
+        0.9013723821990328,
+        0.8716960171700565,
+        0.9044676888745263,
+        0.8861100285467133,
+        0.9187225281170086,
+        0.8521771251717941,
+        0.845102647662081,
+        0.9409841147163114,
+        0.9132516965230072,
+        0.8788961103637084
+      ],
+      "u_mean_by_class": [
+        0.09158233327438425,
+        0.09022095483127818,
+        0.08728741470501451,
+        0.0911428802171476,
+        0.08865841774035928,
+        0.08945354114689942,
+        0.08904432459545891,
+        0.08509979686019964,
+        0.08779355806607131,
+        0.08632762431215492,
+        0.09019465784878244,
+        0.090302787296956,
+        0.09146800128043987,
+        0.09013723821990331,
+        0.08716960171700568,
+        0.09044676888745264,
+        0.08861100285467127,
+        0.0918722528117009,
+        0.08521771251717943,
+        0.08451026476620811,
+        0.09409841147163113,
+        0.09132516965230068,
+        0.08788961103637083
+      ],
+      "objective": 0.011487624337795625,
+      "normalized_max_constraint_violation": 0.0,
+      "xi": [
+        0.11237721285638758,
+        0.10202465131398955,
+        0.09234917818376515,
+        0.10969329271034094,
+        0.08155793511160678,
+        0.12169046419032427,
+        0.11804378566919065,
+        0.1079808270202851,
+        0.11379354261696382,
+        0.13442762479209208,
+        0.12622314035013893,
+        0.12834267615454767,
+        0.14653783767210887,
+        0.12930195602978997,
+        0.10018226489454674,
+        0.06053965597676368,
+        0.10145336895791815,
+        0.13081806342564084,
+        0.11788603359926755,
+        0.11095800170935015,
+        0.08744919518499097,
+        0.13840754735001398,
+        0.07557971584669829
+      ],
+      "active_constraints": 36,
+      "primal_residual": 3.1966662100154614e-11,
+      "dual_residual": 2.3588547363839626e-11
+    }
+  },
+  "math_wall_seconds": 7.335940868011676,
+  "PT_reproduction": [
+    {
+      "dataset": "HK",
+      "status": "PASS",
+      "final_BA": 61.12772365602366,
+      "reference_only": true
+    },
+    {
+      "dataset": "ISIC",
+      "status": "PASS",
+      "final_BA": 55.497263593432734,
+      "reference_only": true
+    }
+  ]
+}

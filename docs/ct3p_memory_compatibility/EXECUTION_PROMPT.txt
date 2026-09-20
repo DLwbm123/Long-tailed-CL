@@ -1,0 +1,102 @@
+请执行 CODEX_CT3P_MEMORY_COMPATIBILITY_PILOT_PLAN.md。
+本轮CT3-P：无独立S0的记忆兼容性在线干预，执行P0→P1→P2→P3后停止。
+工程/预算通过后完成固定前缀，不只写脚手架，不扩展全量训练。
+
+【授权与范围】
+从六个CT1-U Task1末父状态分叉，每个只继续Task2和Task3，各10epoch。
+新增6条续训轨迹、12个任务checkpoint、120 task-epochs，预期6620正式optimizer steps。
+Task1是已有正常两类任务、10epoch的合法前缀，不重训，不是隐藏S0。
+Task2/3始终更新adapter；所有方法起源于同一原始AugReg，不使用历史大S0。
+
+只用两数据集CT1原图像划分和1993/1994/1995原order的前3任务（2→4→6类）。
+完整head容量/标签映射保持8/23；未来类不能进入损失/统计/评价。
+结果命名prefix_terminal_BA，不伪称全部8/23类Final BA。
+尾类只报告已见类别及有效分母，无尾类为NA；禁止直接减旧全协议PT数值。
+
+【来源与隔离】
+CT2-D：7e3542d153cc77dcc2bcb4d14b6bc2f8f1b3a7cb
+CT1交付：345bd7714662a8b7404c4609770df4bba4808451
+CT1训练源：8e63785896d17126114a436027d1cb0890b4658f
+先读CT2-D报告、BUGS_VS_DESIGN_LIMITS、实现说明、task_step_recalculation，
+以及CT1数据/代码/权重/父状态锁。独立分支，不reset/clean或覆盖历史报告。
+
+CT2-D oracle特征/均值/协方差/W及逐样本结果严禁进入在线学习器。
+不调用原Run/formal写回旧目录或恢复完整90任务队列。
+专用fork_from_ct1_task1记录父/子配置差异和SHA；不得绕过普通恢复校验。
+所有未来fit和test/reserved图像/特征/历史逐样本预测访问都禁止。
+
+【固定矩阵】
+P=PT-CB，原始冻结特征，合法阶段增量统计。
+C0=原CT1-U+原对角仿射A，复用T1–3。
+C1=同一原U+仅公共平移T，不新增神经训练。
+C2=新U+FD神经轨迹+原A。
+C3=与C2共享同一新轨迹+T。
+主机制比较C3−C1；另报C1−C0、C2−C0、C3−C0、两因素交互和各自对P。
+C0/C1共享网络，C2/C3共享网络；A/T bank不反馈训练，不制造独立重复。
+不运行Risk、ConCM新回放训练、GSR、M读出或PT融合。
+
+【唯一新训练项FD】
+每个任务开始，冻结自身上一个任务的模型作教师；Task3教师是新F-Task2，
+不是CT1-U Task2。教师不能复用会被extract同步的probe。
+当前随机增强张量x同时用于原real loss和FD，不重新抽增强。
+学生/教师各取pointwise raw main/few，先拼接后整体L2。
+L_FD = mean_batch(sum_dims((J_student-stopgrad(J_teacher))**2))。
+L_total = 原完整CT1_real_loss + 10.0*L_FD。
+不得将FD再除以3或1536；10.0为固定试验值，不调参或自适应改权重。
+
+原CE前向、三项all-seen CE、SUM/MEAN、/3、assignment、pull、batchwise路由保持。
+FD学生额外前向可微、临时eval+pointwise、train=False/weight=None；
+必须恢复全部flags/RNG，不能调用no_grad/inference_mode/extract/numpy路径。
+教师eval/no_grad；FD不用真实类别频次或task ID。
+FD训练使用原生FP32，不把仅推理Linear补丁带进backward。
+数值提取保持原pointwise补丁，新增可微路径与之做兼容性验收。
+测真实adapter梯度、教师不变、beta0回归和FD/real梯度比；不按结果改beta。
+
+训练固定AdamW，pool lr0.0003、其它lr0.003、wd0.01、batch48，
+每任务cosine10epoch到1e-5；每任务重建optimizer，参数连续继承。
+无AMP/TF32，不变采样器，不冻结keys，不改loss reduction。
+
+【公共平移T】
+只对当前fit的pre/post确定性J拟合：
+w_i=1/(当前类数*n_c)，b=sum w_i*(z_after-z_before)，a全1。
+使用附件完整未中心化二阶矩公式：
+S'=S+u b^T+b u^T+m b b^T，mu'=mu+b，v'=v。
+不只改mu、不归一化旧mu、不改lambda、不偷偷引入缩放/旋转。
+A/T各自从immutable pre-task bank计算，任务末提交一次，跨任务独立累计。
+原U的T从合法T1矩开始，逐任务只读取当前图像重建；不使用oracle资产。
+
+【执行和验收】
+P0复用既有基础审计，仅做新增fork、FD梯度/flags/RNG、T完整矩、
+共享T1、原C0/P复现、阶段访问与预算验收；工程步骤最多16、隔离废弃。
+P1重现原前缀并重建C1。
+P2完成六个F分支T2/T3，所有候选W锁定后统一释放validation分数。
+不按首seed表现取消其余配对，不early-stop或选best epoch。
+
+主交付90行合法在线前缀指标、360行逐类，120行新epoch记录、12个新checkpoint。
+当前图像可多次探针但据实计数；统计拟合不使用val。每个任务报告adapter实际更新。
+
+【P3有限离线权限】
+全部在线状态/W/预测锁定后，另进程检查seed1993的HK/ISIC U/F Task3，4个模型。
+我只批准该隔离进程重读已经到达的前6类历史fit，拟合4个Q11作oracle诊断。
+不读第4任务以后图像；不使用CT2-D的全类最终oracle；不向在线学习器回写。
+新增4行/24行离线表，与90/360合法表分开；报告A/T与Q11差距和均值/几何误差。
+这不是合法无回放成绩，也不是必然性能上界。
+在线old_fit_reads=0；offline_diagnostic_old_fit_reads据实填写，不声称全部旧图像访问0。
+全部test访问仍0。
+
+【评价与停止】
+报告BA、old/current及HM、已见tail逐类正确数/分母、零召回、restricted和错误分解，
+以及首次学习质量/后续下降、FD梯度、输运clipping/类间距离和资源。
+2000次component配对bootstrap，seed47001，固定模型；各seed仅评价自身已见集合。
+不把共享模型/阶段当独立重复，保留singleton与反复validation开发限制。
+不设成功后自动继续；前缀正结果不能外推整个HK11任务。
+
+预算单GPU worker，torch/BLAS4线程+loader4，GPU累计≤4小时，CPU额外≤2小时。
+先测真实吞吐/空间；新活跃含临时≤2GiB，新持久/归档≤3GiB，空闲≥1GiB。
+不下载新模型、不删除或移动历史资产；只回收本轮登记tmp。
+只使用既有授权通道归档新产物，hash/可读性核验。
+同锁恢复中断，不能换seed/参数；计数不能恢复时报告范围。
+
+交付源码和协议锁、父谱系、完整指标/逐类/配对/区间、12checkpoint、
+访问与资源审计、FINAL_REPORT_ZH、NEXT_DECISION=STOP。
+无论正负均停止；不自动训练Task4–11，不追加Risk/ConCM/GSR、新数据集、test或小时监测。

@@ -1,0 +1,31 @@
+{
+  "status": "LOCKED",
+  "study": "CT8-A",
+  "reference_CT6": "344d87d22bfa786371d526ae338e4dbdc4746940",
+  "reference_CT7": "f83bf4db3021e446deb762129b74040a04c91020",
+  "gradient_log": "../ct6f_full_fd/results/FEATURE_DISTILLATION_AUDIT.jsonl",
+  "loss_log": "../ct6f_full_fd/results/TRAIN_EPOCH_METRICS.jsonl",
+  "inputs": {
+    "../ct6f_full_fd/results/FEATURE_DISTILLATION_AUDIT.jsonl": "328d8a7c2481d4d56e58f4dea395ea4969c7fe10e9cded1553ea9a34663dd7b8",
+    "../ct6f_full_fd/results/TRAIN_EPOCH_METRICS.jsonl": "9084d3f967d75b662a20cf71020656cd5c0688314085297e59dea5b6101ac2d4",
+    "../../tools/run_ct3p.py": "edc99e706dc32cb8406cc572c96ed664b180824a6775d58d252f3ee0380ecb4e",
+    "../../tools/run_ct1.py": "3150056c61ae11aeb176800f16992e70259d45b68180c1b9d3936529667c4d82",
+    "../../third_party/APART/models/apart.py": "d858677008c691c84ddcb9e9f693ec9ab4411d29525cde21444f7754f6544d00"
+  },
+  "source_sha256": "c7ee16e76d4d273cf6910e75f543c7afaa76989b761b0588737fc6e65456221b",
+  "plan_sha256": "0595bf798c4495dc50618497a0adaea703f6de178302ca3724adb15835b4f2e6",
+  "CPU_wall_limit_seconds": 30,
+  "new_GPU_seconds": 0,
+  "phases": [
+    "epoch1",
+    "epoch2to10"
+  ],
+  "beta": 10,
+  "expected_rows": [
+    540,
+    8,
+    24,
+    108,
+    270
+  ]
+}

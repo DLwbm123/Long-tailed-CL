@@ -1,0 +1,159 @@
+{
+  "protocol": "A1_S0_REPRESENTATION_ATTRIBUTION",
+  "reference_G1": "8507c2d22916cce7c12c68527eb2515585c0de9e",
+  "reference_R1": "2ab2c2690953cc34128d4b702df0a4e920e54d44",
+  "reference_V3": "cda1b371225de3568f7f07a8fc1658ec5f03fa3d",
+  "V2_training_source": "6d8bd3e700924c864e229c47efe5f108ce728c78",
+  "V2_delivery": "a18b25a8c582a0ac0f027bb177dcbdb85ddd7596",
+  "class_orders": {
+    "1993": [
+      4,
+      0,
+      3,
+      7,
+      5,
+      6,
+      2,
+      1
+    ],
+    "1994": [
+      3,
+      7,
+      4,
+      5,
+      1,
+      0,
+      6,
+      2
+    ],
+    "1995": [
+      1,
+      3,
+      0,
+      6,
+      4,
+      5,
+      2,
+      7
+    ]
+  },
+  "train_counts": [
+    10529,
+    3263,
+    2835,
+    1306,
+    458,
+    256,
+    44,
+    27
+  ],
+  "seen": [
+    4,
+    6,
+    8
+  ],
+  "manifest_sha256": {
+    "train": "6c9113aaac70a3d0c976177d28d54fbaa3f0138f0fa74715c225014de6ee8abd",
+    "val": "f485459bb5636ef85bf5c023d3c8c7b988df2e51cdada25967e1888ab7581956"
+  },
+  "core_methods": [
+    "A-U",
+    "A-CB",
+    "S-J-U",
+    "S-J-CB"
+  ],
+  "diagnostic_methods": [
+    "S-M-U",
+    "S-M-CB",
+    "S-F-U",
+    "S-F-CB"
+  ],
+  "paired_parent_only": true,
+  "routing_mode": "S0_POINTWISE_PROBE",
+  "routing_diff": [
+    "backbone.pool.batchwise_prompt: true -> false",
+    "backbone.pool_few.batchwise_prompt: true -> false"
+  ],
+  "routing_top_k": 1,
+  "batch_size": 48,
+  "loader_workers": 0,
+  "precision": "FP32; no AMP or TF32",
+  "input_transform": "RGB, Resize((224,224)) bicubic antialias, ToTensor, mean/std 0.5",
+  "raw_fields": [
+    "pre_logits",
+    "pre_logits_few"
+  ],
+  "raw_shape_per_image": [
+    2,
+    768
+  ],
+  "raw_dtype": "float32",
+  "view_statistics_dtype": "float64",
+  "views": {
+    "A": "original AugReg float32 cached values cast float64, not renormalized",
+    "M": "raw main / L2 norm",
+    "F": "raw few / L2 norm",
+    "J": "concatenate raw main,few then one joint L2 normalization"
+  },
+  "lambda": 0.001,
+  "bias": false,
+  "U_objective": "mean sample MSE + lambda norm(W)^2",
+  "CB_objective": "mean class-mean MSE + lambda norm(W)^2",
+  "full_joint_cross_Gram": true,
+  "feature_probe": "first 16 sample IDs in parent-base train and first 16 in parent-base val",
+  "feature_tolerance": {
+    "rtol": 1e-05,
+    "atol": 1e-05
+  },
+  "statistics_tolerance": {
+    "rtol": 1e-09,
+    "atol": 1e-10,
+    "relative_solve_residual_lt": 1e-10
+  },
+  "tie_break": "smallest original_label among exact maxima",
+  "bootstrap": {
+    "resamples": 2000,
+    "seed": 43001,
+    "unit": "class-stratified identity_component",
+    "shared_draws": true,
+    "resample_parents": false
+  },
+  "primary_contrast": "S-J-CB minus A-CB",
+  "interaction": "(S-J-CB-S-J-U)-(A-CB-A-U)",
+  "new_thresholds": null,
+  "no_new_train_resubstitution_scores": true,
+  "resources": {
+    "GPU_process_seconds": 7200,
+    "CPU_analytic_seconds": 7200,
+    "RSS_bytes": 8589934592,
+    "GPU_allocated_bytes": 8589934592,
+    "new_file_peak_bytes": 671088640,
+    "min_free_bytes": 1073741824,
+    "workers": 1,
+    "BLAS_threads": 4
+  },
+  "neural_training_epochs": 0,
+  "optimizer_steps": 0,
+  "new_S0_training": 0,
+  "new_test_predictions": 0,
+  "new_test_feature_reads": 0,
+  "new_test_image_reads": 0,
+  "core_expected_rows": [
+    36,
+    216
+  ],
+  "all_expected_rows": [
+    72,
+    432
+  ],
+  "new_formal_feature_rows": 57039,
+  "validation_adaptively_reused": true,
+  "independent_confirmation": false,
+  "full_GSR_reproduction": false,
+  "stop_after": "P3",
+  "input_documents_sha256": {
+    "CODEX_ISIC_A1_S0_REPRESENTATION_ATTRIBUTION_PLAN.md": "ae2822971305edcca2b1451a23a665879c3083255ad2379adca1ca7fcdb8cfb8",
+    "CODEX_ISIC_A1_S0_REPRESENTATION_ATTRIBUTION_PROMPT.txt": "ee9061905cca9d28474d296d70cdffb349c5bfe8013ffab2b7e51f27f39f6fe1"
+  },
+  "numerical_implementation": "Native FP32 Linear per-image GEMM at 3D B>1; network batch unchanged; native B1 untouched"
+}

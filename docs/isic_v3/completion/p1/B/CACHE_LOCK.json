@@ -1,0 +1,42 @@
+{
+  "encoder": "B",
+  "model_sha256": "d73036b56966966d07975d696bde331762f37297e2f095de8cea0040c3aa0841",
+  "preprocess": {
+    "geometry": "RGB Resize224x224 bicubic antialias",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "feature": "final layer norm CLS; sample L2",
+    "dimension": 768
+  },
+  "preprocess_sha256": "ba500c0cbf811e63b2d22b2970056f0b4f29a23a5bf870e0a023cd9dc1f0283e",
+  "test_predictions": 0,
+  "splits": {
+    "train": {
+      "n": 18718,
+      "seconds": 38.42620946399984,
+      "manifest_sha256": "6c9113aaac70a3d0c976177d28d54fbaa3f0138f0fa74715c225014de6ee8abd",
+      "cache_sha256": "e11711ba70a21c3ac51741c1ca4ab7c4fbf680008f72431bdb9ecea832672cc3",
+      "associations_sha256": "9c992ba26608abb0c7045f334c1d04bddec29eab426868691762e7b34db9a02d"
+    },
+    "val": {
+      "n": 295,
+      "seconds": 1.326733043009881,
+      "manifest_sha256": "f485459bb5636ef85bf5c023d3c8c7b988df2e51cdada25967e1888ab7581956",
+      "cache_sha256": "275ec1ac24dbcfe6a7bb103b44f950fcfff59011f2bfd994098cbc5bbc3d43ab",
+      "associations_sha256": "553cb7c8b48f8fb833fe35f39482098261e97f645f89497a4ef0cf9671cb5511"
+    }
+  },
+  "metadata_sha256": {
+    "config.json": "f7ff4cfa73d2f70647dbf6950541ad25d73082d54c2e7e9bded160c7656b2a70",
+    "preprocessor_config.json": "14e780d86fa1861f8751f868d7f45425b5feb55c38ca26f152ca5097ab30f828"
+  },
+  "revision": "f9e44c814b77203eaa57a6bdbbd535f21ede1415"
+}

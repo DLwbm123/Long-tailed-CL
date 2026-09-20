@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-09-15T21:27:34.356158+00:00",
+  "status": {
+    "status": "RUNNING",
+    "slots": 2,
+    "planned_epochs": 60,
+    "test_predictions": 0
+  },
+  "resource_gate": {
+    "status": "PASS",
+    "slots": 2,
+    "estimated_gpu_process_seconds": 5342.059460740465,
+    "budget_gpu_hours": null,
+    "pilot_seconds_per_image": 0.011314783189979305,
+    "peak_gpu_bytes": 1224021504,
+    "free_gpu_bytes": 25250758656,
+    "free_disk_bytes": 2372526080,
+    "required_disk_bytes": 1207959552,
+    "checkpoint_format": "S0_HEAD_DELTA_V1",
+    "pilot_checkpoint_bytes": 236491,
+    "retention": "six session checkpoints + three resumes; original parents preserved",
+    "new_epochs": 60,
+    "pilot_is_first_formal_epoch": true
+  },
+  "epochs": {
+    "1993_K": {
+      "completed": 9,
+      "session": 1,
+      "epoch": 9,
+      "variance_rule": "empirical_unclipped",
+      "effective_replay_weight": 2.0,
+      "real_stream_vs_H": "PASS"
+    }
+  },
+  "gpu": "3762 MiB, 24564 MiB, 86 %",
+  "gpu_processes": "82237, /tmp/n154env/bin/python, 0 MiB\n82236, /tmp/n154env/bin/python, 0 MiB",
+  "neutral_processes": [
+    "82101       1       01:18 /tmp/n154env/bin/python /tmp/n9m.py",
+    "82236   82101       01:00 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82237   82101       01:00 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82277   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82281   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82285   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82289   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82293   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82297   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82301   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "82305   82237       00:51 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83116   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83120   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83124   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83128   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83132   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83136   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83140   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py",
+    "83144   82236       00:01 /tmp/n154env/bin/python /tmp/n9w.py"
+  ],
+  "worker_errors": {
+    "train_1993.log": false,
+    "train_1994.log": false
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "status": "QUEUED",
+  "authorization": "User requested local/my-gpu download and transfer to complete the already approved DINOv2 baseline.",
+  "parent_output": "/root/rivermind-data/LongTailedCL/v3/q8m8/output_r2",
+  "parent_scope_sha256": "6b4e7c2065c141eb8fcbe3d99779ab514ad626fa54b339e01341e2002cc195fa",
+  "P2_training_source_commit": "8ac23f4808e3b3ec9924c89b3b81dd2cd7c9bd69",
+  "supplement_source_sha256": "46bf3ef45f55958c0a43be7e2244d2ae6f9719ebcf19c3668edf0af24a32e617",
+  "weight": {
+    "repo": "facebook/dinov2-base",
+    "revision": "f9e44c814b77203eaa57a6bdbbd535f21ede1415",
+    "download_route": "local existing HTTP proxy; publisher fixed revision",
+    "verified_at": 1789484208.1572878,
+    "files": {
+      "model.safetensors": {
+        "sha256": "d73036b56966966d07975d696bde331762f37297e2f095de8cea0040c3aa0841",
+        "bytes": 346345912
+      },
+      "config.json": {
+        "sha256": "f7ff4cfa73d2f70647dbf6950541ad25d73082d54c2e7e9bded160c7656b2a70",
+        "bytes": 548
+      },
+      "preprocessor_config.json": {
+        "sha256": "14e780d86fa1861f8751f868d7f45425b5feb55c38ca26f152ca5097ab30f828",
+        "bytes": 436
+      }
+    }
+  },
+  "loading": {
+    "status": "PASS",
+    "loading": {
+      "missing_keys": [],
+      "unexpected_keys": [],
+      "mismatched_keys": [],
+      "error_msgs": []
+    },
+    "model_class": "Dinov2Model",
+    "hidden_size": 768,
+    "patch_size": 14,
+    "attention_implementation": "sdpa",
+    "dtype": "torch.float32",
+    "versions": {
+      "transformers": "4.57.1",
+      "huggingface-hub": "0.36.0",
+      "tokenizers": "0.22.2",
+      "regex": "2025.11.3",
+      "torch": "2.12.1+cu130",
+      "safetensors": "0.8.0"
+    },
+    "images_forwarded": 0,
+    "test_predictions": 0
+  },
+  "extra_phase": "P1 B only: one train/val feature extraction, fixed F-NCM and F-CBRidge; reuse A and P2 results.",
+  "test_predictions": 0,
+  "reserved_extra_gpu_seconds": 900,
+  "conservative_total_with_supplement_seconds": 17070.432874715916,
+  "no_original_artifact_overwrite": true,
+  "wait_for": "original supervisor to stop and fewer than two active GPU processes"
+}

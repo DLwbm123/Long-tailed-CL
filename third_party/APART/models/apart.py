@@ -1245,7 +1245,11 @@ class Learner(BaseLearner):
             )
 
     def _init_train(self, train_loader, test_loader, optimizer, scheduler):
-        prog_bar = tqdm(range(self.args['tuned_epoch']))
+        real_ce_scope = self.args.get('real_ce_scope', 'current')
+        if real_ce_scope not in ('current', 'all_seen'):
+            raise ValueError('real_ce_scope must be current or all_seen')
+        ce_start = self._known_classes if real_ce_scope == 'current' else 0
+        prog_bar = tqdm(range(getattr(self, '_v2_start_epoch', 0), self.args['tuned_epoch']))
         cls_num_list = torch.Tensor(self.args["lt_list"][:self._total_classes]).to(self._device)
         for _, epoch in enumerate(prog_bar):
             self._network.backbone.train()
@@ -1316,6 +1320,8 @@ class Learner(BaseLearner):
             correct, total = 0, 0
             for i, (_, inputs, targets) in enumerate(train_loader):
                 inputs, targets = inputs.to(self._device), targets.to(self._device)
+                if hasattr(self, "_v2_input_hook"):
+                    self._v2_input_hook(epoch, i, inputs, targets)
                 weight = cls_num_list[targets]
 
                 output = self._network(inputs, task_id=self._cur_task, train=True, weight=weight) 
@@ -1348,16 +1354,16 @@ class Learner(BaseLearner):
 
                 pool = output["pool_id"]
                 logits = output["logits"]
-                logits = logits[:, self._known_classes : self._total_classes] 
-                fake_targets = targets - self._known_classes
+                logits = logits[:, ce_start : self._total_classes]
+                fake_targets = targets - ce_start
                 loss1 = F.cross_entropy(logits, fake_targets.long())
                 loss = loss1
 
                 
                 logits_few = output["logits_few"]
-                logits_few = logits_few[:, self._known_classes : self._total_classes] 
+                logits_few = logits_few[:, ce_start : self._total_classes]
                 logits_all = logits + logits_few
-                target = F.one_hot(fake_targets, self._total_classes - self._known_classes)
+                target = F.one_hot(fake_targets, self._total_classes - ce_start)
                 
                 loss_all = F.cross_entropy(logits_all, fake_targets.long())
                 loss += loss_all
@@ -1571,8 +1577,15 @@ class Learner(BaseLearner):
                             concm_match_few_losses += concm_match["few_loss"].item()
                             concm_match_few_cosines += concm_match["few_cosine"].item()
 
+                if hasattr(self, '_v3_batch_hook'):
+                    self._v3_batch_hook(epoch, i, output, targets, loss_all, loss_few,
+                                        match_loss, concm_stage1_loss, effective_stage1_weight)
+                if hasattr(self, '_ct3p_add_loss'):
+                    loss = self._ct3p_add_loss(loss, inputs, epoch, i)
                 optimizer.zero_grad()
                 loss.backward()
+                if hasattr(self, "_v2_gradient_hook"):
+                    self._v2_gradient_hook(epoch, i, loss)
                 optimizer.step()
                 losses += loss.item()
 
@@ -1585,7 +1598,10 @@ class Learner(BaseLearner):
                 scheduler.step()
             train_acc = np.around(tensor2numpy(correct) * 100 / total, decimals=2)
             
-            if (epoch + 1) % 5 == 0:
+            if hasattr(self, "_v2_epoch_hook"):
+                self._v2_epoch_hook(epoch, optimizer, scheduler, {"loss": losses / len(train_loader), "train_accuracy": float(train_acc), "concm_gradient_batches": concm_stage1_nonzero_grad_batches})
+
+            if (epoch + 1) % 5 == 0 and not self.args.get("medical_v2", False):
                 test_acc = self._compute_accuracy(self._network, test_loader)
                 info = "Task {}, Epoch {}/{} => Loss {:.3f}, Train_accy {:.2f}, Test_accy(pool1 {:.2f}, pool2 {:.2f}, pool_all {:.2f})".format(
                     self._cur_task,

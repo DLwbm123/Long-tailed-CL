@@ -1,0 +1,15 @@
+{
+  "route": "A_RASP",
+  "dataset": "isic",
+  "tasks": [1, 2, 3, 4],
+  "seeds": [1993, 1995, 1997],
+  "clip_lock": {
+    "model_name": "ViT-B-16",
+    "pretrained": "laion400m_e32",
+    "weights_sha256": "REQUIRED_BEFORE_EXTRACTION",
+    "preprocess_sha256": "REQUIRED_BEFORE_EXTRACTION"
+  },
+  "holdout_access": "zero",
+  "lambda": 0.001,
+  "bootstrap": {"n": 2000, "seed": 57002}
+}

@@ -151,6 +151,8 @@ def execute(config: Mapping[str, Any], output: Path) -> int:
     output.mkdir(parents=True, exist_ok=True)
     start = time.time()
     _write(output / "PROTOCOL_LOCK.json", {
+        "base_commit": config.get("base_commit"),
+        "implementation_commit": config.get("implementation_commit"),
         "route": "A_RASP", "dataset": "isic", "tasks": [1, 2, 3, 4],
         "seeds": [1993, 1994, 1995], "task_sizes": [2, 2, 2, 2],
         "readout": "A6", "new_training_epochs": 0, "optimizer_steps": 0,

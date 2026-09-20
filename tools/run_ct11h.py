@@ -40,13 +40,14 @@ def main():
     r.prior_gpu=prior.get('GPU_process_residence_seconds',0);r.prior_val=prior.get('val_image_reads',0);r.access=prior.get('calls',{})
     lock=read(r.pub/'DIAGNOSTIC_LOCK.json');assert sha(__file__)==lock['worker_sha256']
     for path,digest in lock['references'].items():assert sha(path)==digest
+    allowed_assets={str(Path(p).resolve()) for p in lock['allowed_assets']}
     oldroots=[Path(cfg[k]).resolve() for k in ('ct1_root','ct3p_root','ct4f_root','ct5f_root','ct6f_root','ct9p_root')]
     def protect(event,args):
         if event!='open' or not isinstance(args[0],(str,bytes,os.PathLike)):return
         p=Path(os.fsdecode(args[0])).resolve();flags=args[2] if len(args)>2 else 0
         if flags&(os.O_WRONLY|os.O_RDWR|os.O_CREAT|os.O_TRUNC):assert not any(p.is_relative_to(q) for q in oldroots)
         elif p.suffix.lower() in ('.npy','.npz','.pt','.jpg','.jpeg','.png'):
-            assert str(p) in lock['allowed_assets'] or p.is_relative_to(r.private.resolve()) or str(p) in r.allowed,('BLOCKED_ASSET',str(p))
+            assert str(p) in allowed_assets or p.is_relative_to(r.private.resolve()) or str(p) in r.allowed,('BLOCKED_ASSET',str(p))
     sys.addaudithook(protect);r.setup()
     try:
         if r.mode=='qualify':

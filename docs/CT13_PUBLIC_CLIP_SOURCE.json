@@ -1,0 +1,24 @@
+{
+  "status": "UPSTREAM_SOURCE_IDENTIFIED_NOT_RUNTIME_VERIFIED",
+  "model_name": "ViT-B-16",
+  "pretrained": "laion400m_e32",
+  "repository": "timm/vit_base_patch16_224.laion400m_e32",
+  "revision": "1bd6e4f8c309de5def502a87ddbde92b94cbab4f",
+  "weights_filename": "open_clip_model.safetensors",
+  "weights_sha256": "5dd0b33400e35f5ddb982b37d5925ab98a999079855dd5465cc9728aee224271",
+  "config_filename": "open_clip_config.json",
+  "model_card": "https://huggingface.co/timm/vit_base_patch16_224.laion400m_e32",
+  "weight_pointer_source": "https://huggingface.co/timm/vit_base_patch16_224.laion400m_e32/blob/1bd6e4f8c309de5def502a87ddbde92b94cbab4f/open_clip_model.safetensors",
+  "expected_config_subset": {
+    "embed_dim": 512,
+    "image_size": 224,
+    "patch_size": 16,
+    "context_length": 77,
+    "vocab_size": 49408,
+    "mean": [0.48145466, 0.4578275, 0.40821073],
+    "std": [0.26862954, 0.26130258, 0.27577711],
+    "interpolation": "bicubic",
+    "resize_mode": "shortest"
+  },
+  "note": "Runtime preprocessing, tokenizer, and model loading remain blocked until the pinned files are downloaded and verified from this revision."
+}

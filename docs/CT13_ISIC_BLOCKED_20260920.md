@@ -1,8 +1,9 @@
 # CT13-ISIC execution record (blocked at asset gate)
 
 The real launcher was executed on `my-gpu` at
-`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920` from the CT13
-source checkout. It read the V2 **train** manifest and checked the val path
+`/remote-home/wangbomin/LongTailedCL/ct13_runs/isic_20260920_r2` from source
+commit `21fcd835d883d609bcebc530ea13e9a4705d5613` (base
+`674942161b3bed60a3264a2e21a75c3785c81660`). It read the V2 **train** manifest and checked the val path
 for existence only. It did not open val rows, test/reserved manifests,
 images from val/test, or any test prediction path.
 

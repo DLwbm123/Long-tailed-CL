@@ -2,13 +2,18 @@
   "route": "B_ACTM",
   "dataset": "isic",
   "tasks": [4],
+  "tasks": [4],
   "variants": ["B00", "B01", "B10", "B11"],
-  "seeds": [1993, 1995, 1997],
+  "seeds": [1993, 1994, 1995],
   "clip_lock": {
     "model_name": "ViT-B-16",
     "pretrained": "laion400m_e32",
+    "weights_path": "REQUIRED_BEFORE_EXTRACTION",
+    "preprocess_path": "REQUIRED_BEFORE_EXTRACTION",
+    "tokenizer_path": "REQUIRED_BEFORE_EXTRACTION",
     "weights_sha256": "REQUIRED_BEFORE_EXTRACTION",
-    "preprocess_sha256": "REQUIRED_BEFORE_EXTRACTION"
+    "preprocess_sha256": "REQUIRED_BEFORE_EXTRACTION",
+    "tokenizer_sha256": "REQUIRED_BEFORE_EXTRACTION"
   },
   "support_query": {"fold_seed": 57001, "support_max": 8, "query_max": 16},
   "holdout_access": "zero",

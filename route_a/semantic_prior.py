@@ -54,22 +54,44 @@ def component_reliability(
     K = len(ids)
     if a_scale == 0:
         return np.zeros(K), np.zeros(K)
-    pooled = [np.asarray(component_means[c], dtype=np.float64) for c in ids if component_counts.get(c, 0) >= 2]
-    if len(pooled) >= 2:
-        pool = np.concatenate(pooled, axis=0)
-        cov = np.cov(pool, rowvar=False, bias=True)
+    def stats_for(c):
+        raw = component_means.get(c)
+        n = int(component_counts.get(c, 0))
+        if isinstance(raw, Mapping):
+            n = int(raw.get("count", n)); total = np.asarray(raw.get("sum"), dtype=np.float64)
+            second = np.asarray(raw.get("second"), dtype=np.float64)
+            mean = total / max(n, 1)
+            cov = second / max(n, 1) - np.outer(mean, mean)
+            return n, mean, (cov + cov.T) / 2
+        values = np.asarray(raw, dtype=np.float64)
+        if values.ndim != 2 or not len(values):
+            return 0, np.zeros(T.shape[0]), np.eye(T.shape[0]) / T.shape[0]
+        mean = values.mean(0)
+        centered = values - mean
+        return len(values), mean, centered.T @ centered / len(values)
+
+    valid = [stats_for(c)[2] for c in ids if stats_for(c)[0] >= 2]
+    if valid:
+        pool = sum(valid, np.zeros((T.shape[0], T.shape[0]))) / len(valid)
     else:
-        cov = np.eye(T.shape[0])
+        pool = np.eye(T.shape[0]) / T.shape[0]
     out = np.zeros(K, dtype=np.float64)
     for j, c in enumerate(ids):
-        n = int(component_counts.get(c, 0))
+        n, mean, Cc = stats_for(c)
         if n < 2:
             continue
-        x = np.asarray(component_means[c], dtype=np.float64)
-        own = float(np.mean(x @ T[:, c]))
-        competitors = [float(np.mean(x @ T[:, k])) for k in range(K) if k != j]
-        m = own - max(competitors) if competitors else own
-        v = float(T[:, j].T @ cov @ T[:, j])
+        omega = 10.0 / (n + 10.0)
+        Ctilde = (1.0 - omega) * Cc + omega * pool
+        own = float(mean @ T[:, j])
+        competitors = [float(mean @ T[:, k]) for k in range(K) if k != j]
+        if competitors:
+            worst = max((k for k in range(K) if k != j), key=lambda k: float(mean @ T[:, k]))
+            diff = T[:, j] - T[:, worst]
+            m = own - float(mean @ T[:, worst])
+        else:
+            diff = T[:, j]
+            m = own
+        v = float(diff.T @ Ctilde @ diff)
         out[j] = np.clip((m - np.sqrt(max(v, 0.0) / n)) /
                          (abs(m) + np.sqrt(max(v, 0.0)) + 1e-8), 0.0, 1.0)
     gamma = 0.001 * 10.0 / (np.asarray([component_counts.get(c, 0) for c in ids]) + 10.0) * out

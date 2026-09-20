@@ -20,11 +20,17 @@ def validate_config(config: dict, *, require_assets: bool = False) -> dict:
         raise ValueError("BLOCKED_CONFIG:" + ",".join(missing))
     if config["route"] != "B_ACTM" or config["holdout_access"] != "zero":
         raise ValueError("BLOCKED_PROTOCOL_SCOPE")
-    if config["dataset"] != "isic" or set(config["variants"]) != {"B00", "B01", "B10", "B11"}:
+    if config["dataset"] != "isic" or config["variants"] != ["B00", "B01", "B10", "B11"]:
         raise ValueError("BLOCKED_FINITE_MATRIX")
+    if config.get("tasks") != [4] or config["seeds"] != [1993, 1994, 1995]:
+        raise ValueError("BLOCKED_TASK_OR_SEED_MATRIX")
+    if int(config.get("epochs", -1)) != 10 or float(config.get("lr", -1)) != 3e-4 or float(config.get("fd_weight", -1)) != 1.0:
+        raise ValueError("BLOCKED_TRAINING_RECIPE")
+    if config.get("support_query", {}).get("fold_seed") != 57001:
+        raise ValueError("BLOCKED_FOLD_SEED")
     if require_assets:
         validate_encoder_lock(config["clip_lock"])
-    return {"status": "QUALIFIED_DRY_RUN", "training_started": False,
+    return {"status": "ASSET_VERIFIED" if require_assets else "CONFIG_VALID", "training_started": False,
             "test_access": 0, "holdout_access": 0,
             "route": config["route"], "dataset": config["dataset"],
             "trajectories": len(config["variants"]) * len(config["seeds"])}

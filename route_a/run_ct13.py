@@ -24,9 +24,13 @@ def validate_config(config: dict, *, require_assets: bool = False) -> dict:
         raise ValueError("BLOCKED_PROTOCOL_SCOPE")
     if config["dataset"] not in {"isic", "hyperkvasir"}:
         raise ValueError("BLOCKED_DATASET")
+    if config["tasks"] != [1, 2, 3, 4] or config["seeds"] != [1993, 1994, 1995]:
+        raise ValueError("BLOCKED_TASK_OR_SEED_MATRIX")
+    if float(config.get("lambda", 0)) != 0.001:
+        raise ValueError("BLOCKED_LAMBDA")
     if require_assets:
         validate_encoder_lock(config["clip_lock"])
-    return {"status": "QUALIFIED_DRY_RUN", "training_started": False,
+    return {"status": "ASSET_VERIFIED" if require_assets else "CONFIG_VALID", "training_started": False,
             "test_access": 0, "holdout_access": 0,
             "route": config["route"], "dataset": config["dataset"]}
 

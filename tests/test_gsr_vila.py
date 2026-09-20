@@ -9,6 +9,14 @@ from route_b.affine_moment_transport import transport_old_bank
 from route_b.anchor_drift import fit_anchor_drift
 
 
+@pytest.fixture(autouse=True)
+def _restore_torch_default_dtype():
+    import torch
+    before = torch.get_default_dtype()
+    yield
+    torch.set_default_dtype(before)
+
+
 def toy(seed=7):
     rng = np.random.default_rng(seed)
     return rng.normal(size=(18, 1536)), rng.normal(size=(18, 512))
@@ -49,17 +57,19 @@ def test_transport_keeps_cross_block_and_identity():
     bank.add_class(0, X[:6], task=1)
     bank.add_class(1, X[6:], task=1)
     S, M, _ = bank.class_balanced()
-    barS, barM = S / 2, M / 2
+    barS, barM = bank.homogeneous()
     outS, outM = transport_old_bank(barS, barM, np.zeros((2, 4)), np.zeros(4), dim_a=4, dim_u=2)
-    np.testing.assert_allclose(outS, barS)
-    np.testing.assert_allclose(outM, barM)
+    np.testing.assert_allclose(outS, barS[:-1, :-1] / 2)
+    np.testing.assert_allclose(outM, barM[:-1] / 2)
     B = rng.normal(size=(2, 4)) * .01; b = rng.normal(size=4) * .01
     gotS, gotM = transport_old_bank(barS, barM, B, b, dim_a=4, dim_u=2)
     H = np.eye(7); H[:4, 4:6] = B.T; H[:4, -1] = b
     Z = np.column_stack([X[y == c].mean(0) for c in [0, 1]])
-    augS = np.zeros((7, 7)); augS[:-1, :-1] = barS; augS[:-1, -1] = augS[-1, :-1] = barM.mean(1); augS[-1, -1] = 1
-    np.testing.assert_allclose(gotS, (H @ augS @ H.T)[:-1, :-1])
-    np.testing.assert_allclose(gotM, (H @ np.vstack((barM, np.ones((1, 2)))))[:-1])
+    augS = barS
+    expectedS = (H @ augS @ H.T)[:-1, :-1] / 2
+    expectedM = (H @ barM)[:-1] / 2
+    np.testing.assert_allclose(gotS, expectedS)
+    np.testing.assert_allclose(gotM, expectedM)
 
 
 def test_anchor_fit_and_protocol_rejection():
@@ -83,3 +93,43 @@ def test_torch_anchor_keeps_student_gradient():
     loss = (B.square().sum() + b.square().sum())
     grad = torch.autograd.grad(loss, student)[0]
     assert torch.isfinite(grad).all() and float(torch.linalg.vector_norm(grad)) > 0
+
+
+def test_synthetic_actm_variants_step_and_checkpoint_roundtrip(tmp_path):
+    torch = pytest.importorskip("torch")
+    from route_b.torch_actm import actm_episode_loss
+    torch.set_default_dtype(torch.float64)
+    g = torch.Generator().manual_seed(12)
+    adapter = torch.nn.Linear(5, 3, bias=False)
+    teacher_adapter = torch.nn.Linear(5, 3, bias=False)
+    teacher_adapter.load_state_dict(adapter.state_dict())
+    for p in teacher_adapter.parameters():
+        p.requires_grad_(False)
+    inp = torch.randn((12, 5), generator=g)
+    anchor = torch.randn((12, 3), generator=g)
+    labels = torch.tensor([0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3])
+    W = torch.randn((6, 4), generator=g) * .1
+    old_mean = torch.randn((6, 2), generator=g) * .1
+    old_cov = torch.eye(6) * .2
+    opt = torch.optim.SGD(adapter.parameters(), lr=.01)
+    before_teacher = [p.detach().clone() for p in teacher_adapter.parameters()]
+    for variant in ("B00", "B01", "B10", "B11"):
+        opt.zero_grad(set_to_none=True)
+        total, parts = actm_episode_loss(adapter(inp), teacher_adapter(inp), anchor, labels, W, old_mean, old_cov, variant=variant)
+        total.backward()
+        assert torch.isfinite(total) and all(torch.isfinite(p.grad).all() for p in adapter.parameters())
+        opt.step()
+        assert parts["b"].requires_grad
+        if variant in ("B10", "B11"):
+            assert parts["B"].requires_grad
+    assert all(torch.equal(a, b) for a, b in zip(before_teacher, teacher_adapter.parameters()))
+    state = {"adapter": adapter.state_dict(), "optimizer": opt.state_dict(), "step": 4}
+    path = tmp_path / "synthetic_actm.pt"
+    torch.save(state, path)
+    restored = torch.nn.Linear(5, 3, bias=False)
+    restored_opt = torch.optim.SGD(restored.parameters(), lr=.01)
+    loaded = torch.load(path, weights_only=True)
+    restored.load_state_dict(loaded["adapter"]); restored_opt.load_state_dict(loaded["optimizer"])
+    assert loaded["step"] == 4
+    for a, b in zip(adapter.parameters(), restored.parameters()):
+        torch.testing.assert_close(a, b)

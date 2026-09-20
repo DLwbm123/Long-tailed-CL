@@ -1,4 +1,10 @@
-"""Class-balanced dual moments with the complete 1536x512 cross block."""
+"""Class-balanced dual moments with a bounded, aggregate component state.
+
+The persistent bank stores one global joint second moment and one mean per
+class. Component observations are reduced to per-class 512-D sums/counts and
+second sums before the call returns; individual component vectors never enter
+``state_dict``.
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -20,10 +26,9 @@ class ClassMoments:
     task: int
     n: int
     mean: np.ndarray
-    second: np.ndarray
-    component_ids: tuple[str, ...] = ()
-    component_means: dict[str, np.ndarray] = field(default_factory=dict)
-    component_seconds: dict[str, np.ndarray] = field(default_factory=dict)
+    component_count: int = 0
+    component_sum: np.ndarray | None = None
+    component_second: np.ndarray | None = None
 
 
 @dataclass
@@ -33,6 +38,16 @@ class DualMomentBank:
     dim_a: int = 1536
     dim_u: int = 512
     classes: dict[int, ClassMoments] = field(default_factory=dict)
+    class_order: list[int] = field(default_factory=list)
+    _S: np.ndarray | None = field(default=None, repr=False)
+
+    def __post_init__(self) -> None:
+        if self.dim_a <= 0 or self.dim_u <= 0:
+            raise ValueError("BLOCKED_FEATURE_DIM")
+        if self._S is None:
+            self._S = np.zeros((self.dim, self.dim), dtype=np.float64)
+        else:
+            self._S = _matrix(self._S, self.dim, "bank_second")
 
     @property
     def dim(self) -> int:
@@ -55,93 +70,130 @@ class DualMomentBank:
         if len(ids) != len(h):
             raise ValueError("BLOCKED_COMPONENT_COUNT")
         mean = h.mean(axis=0)
-        # Some NumPy/OpenBLAS builds emit spurious floating-point warnings for
-        # large BLAS matmuls; the finite checks below remain the guard.
         with np.errstate(all="ignore"):
             second = h.T @ h / len(h)
-        comp_means: dict[str, np.ndarray] = {}
-        comp_seconds: dict[str, np.ndarray] = {}
+        if not np.isfinite(second).all():
+            raise ValueError("BLOCKED_NONFINITE_MOMENT")
+
+        # Component reliability lives in unit CLIP coordinates u=sqrt(2)*h_u.
+        comp_sum = np.zeros(self.dim_u, dtype=np.float64)
+        comp_second = np.zeros((self.dim_u, self.dim_u), dtype=np.float64)
+        comp_count = 0
+        ids_array = np.asarray(ids)
         for comp in sorted(set(ids)):
-            x = h[np.asarray(ids) == comp]
-            comp_means[comp] = x.mean(axis=0)
+            x = h[ids_array == comp]
+            u_mean = np.sqrt(2.0) * x[:, self.dim_a :].mean(axis=0)
+            comp_sum += u_mean
             with np.errstate(all="ignore"):
-                comp_seconds[comp] = x.T @ x / len(x)
+                comp_second += np.outer(u_mean, u_mean)
+            comp_count += 1
+        self._S = self._S + second
         self.classes[int(class_id)] = ClassMoments(
-            int(class_id), int(task), len(h), mean, second, tuple(sorted(comp_means)),
-            comp_means, comp_seconds,
+            int(class_id), int(task), len(h), mean, comp_count, comp_sum, comp_second,
         )
+        self.class_order.append(int(class_id))
 
     def _ordered(self) -> list[ClassMoments]:
         if not self.classes:
             raise ValueError("BLOCKED_EMPTY_BANK")
-        return [self.classes[k] for k in sorted(self.classes)]
+        order = self.class_order or sorted(self.classes)
+        return [self.classes[k] for k in order]
 
     def class_balanced(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """Return ``S=sum_c E[h h^T]``, ``M=[mu_c]`` and class ids."""
+        """Return ``S=sum_c E[h h^T]``, ``M=[mu_c]`` and explicit class ids."""
         rows = self._ordered()
-        S = sum((r.second for r in rows), np.zeros((self.dim, self.dim), dtype=np.float64))
-        M = np.column_stack([r.mean for r in rows])
-        return S, M, np.asarray([r.class_id for r in rows], dtype=np.int64)
+        return self._S.copy(), np.column_stack([r.mean for r in rows]), np.asarray(
+            [r.class_id for r in rows], dtype=np.int64
+        )
 
     def homogeneous(self) -> tuple[np.ndarray, np.ndarray]:
-        """Return homogeneous class-balanced moments ``bar_S`` and ``bar_M``."""
+        """Return the protocol's unnormalized homogeneous ``bar_S, bar_M``.
+
+        ``bar_S`` has bottom-right K and cross term ``M@1``; ``bar_M`` has a
+        unit bottom row. Use :func:`transport_homogeneous` for the full form.
+        """
         S, M, _ = self.class_balanced()
-        return S / M.shape[1], M / M.shape[1]
+        K = M.shape[1]
+        bar_S = np.zeros((self.dim + 1, self.dim + 1), dtype=np.float64)
+        bar_S[:-1, :-1] = S
+        bar_S[:-1, -1] = bar_S[-1, :-1] = M @ np.ones(K)
+        bar_S[-1, -1] = K
+        bar_M = np.vstack((M, np.ones((1, K), dtype=np.float64)))
+        return bar_S, bar_M
+
+    def normalized_homogeneous(self) -> tuple[np.ndarray, np.ndarray]:
+        """Return ``bar_S/K`` and ``bar_M/K`` for class-averaged consumers."""
+        bar_S, bar_M = self.homogeneous()
+        return bar_S / bar_M.shape[1], bar_M / bar_M.shape[1]
 
     def u_stats(self) -> tuple[np.ndarray, np.ndarray]:
-        rows = self._ordered()
-        means = np.column_stack([r.mean[self.dim_a :] for r in rows])
-        second = sum((r.second[self.dim_a :, self.dim_a :] for r in rows), np.zeros((self.dim_u, self.dim_u)))
-        return second / len(rows), means / len(rows)
+        """Restore unit-CLIP coordinates from h's ``u/sqrt(2)`` subblock."""
+        S, M, _ = self.class_balanced()
+        K = M.shape[1]
+        Gu = 2.0 * S[self.dim_a :, self.dim_a :] / K
+        Ru = np.sqrt(2.0) * M[self.dim_a :] / K
+        return Gu, Ru
 
-    def component_stats(self, component: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        rows = self._ordered()
-        selected = [(r.component_means[component], r.component_seconds[component])
-                    for r in rows if component in r.component_means]
-        if not selected:
-            return np.zeros((self.dim_u, 0)), np.zeros((self.dim_u, self.dim_u)), np.zeros(0, dtype=np.int64)
-        means = np.column_stack([x[0][self.dim_a :] for x in selected])
-        # Component count is the number of independent observations available
-        # for reliability; the full second moment retains within-component data.
-        counts = np.asarray([1] * len(selected), dtype=np.int64)
-        cov = sum((x[1][self.dim_a :, self.dim_a :] for x in selected), np.zeros((self.dim_u, self.dim_u))) / len(selected)
-        return means, cov, counts
+    def component_reliability_inputs(self, component: str | None = None) -> tuple[dict[int, dict], dict[int, int]]:
+        """Return aggregate component distributions for every class.
 
-    def component_reliability_inputs(self, component: str) -> tuple[dict[int, np.ndarray], dict[int, int]]:
-        """Expose only component means/counts needed by the RASP reliability term."""
-        means: dict[int, np.ndarray] = {}
+        ``component`` is retained for API compatibility but is intentionally
+        not used to select one component: reliability must see all components
+        in a class. The returned stats contain only count/sum/second-sum.
+        """
+        del component
+        stats: dict[int, dict] = {}
         counts: dict[int, int] = {}
         for row in self._ordered():
-            values = [x[self.dim_a :] for key, x in row.component_means.items() if key == component]
-            if values:
-                means[row.class_id] = np.vstack(values)
-                counts[row.class_id] = len(values)
-        return means, counts
+            count = int(row.component_count)
+            stats[row.class_id] = {
+                "count": count,
+                "sum": row.component_sum.copy(),
+                "second": row.component_second.copy(),
+            }
+            counts[row.class_id] = count
+        return stats, counts
 
     def state_dict(self) -> dict:
+        """Serialize only aggregate learning state, never component IDs/vectors."""
         return {
             "dim_a": self.dim_a,
             "dim_u": self.dim_u,
+            "S": self._S.tolist(),
+            "class_order": list(self.class_order),
             "classes": {
                 str(k): {
-                    "task": v.task, "n": v.n,
-                    "mean": v.mean.tolist(), "second": v.second.tolist(),
-                    "component_ids": list(v.component_ids),
-                    "component_means": {c: x.tolist() for c, x in v.component_means.items()},
-                    "component_seconds": {c: x.tolist() for c, x in v.component_seconds.items()},
+                    "task": v.task, "n": v.n, "mean": v.mean.tolist(),
+                    "component_count": v.component_count,
+                    "component_sum": v.component_sum.tolist(),
+                    "component_second": v.component_second.tolist(),
                 } for k, v in self.classes.items()
             },
         }
 
     @classmethod
     def from_state_dict(cls, state: Mapping) -> "DualMomentBank":
-        bank = cls(int(state["dim_a"]), int(state["dim_u"]))
+        dim_a, dim_u = int(state["dim_a"]), int(state["dim_u"])
+        S = np.asarray(state["S"], dtype=np.float64)
+        bank = cls(dim_a, dim_u, _S=S)
+        if S.shape != (bank.dim, bank.dim) or not np.isfinite(S).all():
+            raise ValueError("BLOCKED_RESTORE_SECOND")
+        order = [int(x) for x in state.get("class_order", state["classes"].keys())]
+        if len(order) != len(set(order)) or set(order) != {int(x) for x in state["classes"]}:
+            raise ValueError("BLOCKED_RESTORE_CLASS_ORDER")
         for key, raw in state["classes"].items():
-            bank.classes[int(key)] = ClassMoments(
-                int(key), int(raw["task"]), int(raw["n"]),
-                np.asarray(raw["mean"], dtype=np.float64), np.asarray(raw["second"], dtype=np.float64),
-                tuple(raw.get("component_ids", ())),
-                {c: np.asarray(x, dtype=np.float64) for c, x in raw.get("component_means", {}).items()},
-                {c: np.asarray(x, dtype=np.float64) for c, x in raw.get("component_seconds", {}).items()},
-            )
+            cid = int(key)
+            mean = np.asarray(raw["mean"], dtype=np.float64)
+            csum = np.asarray(raw["component_sum"], dtype=np.float64)
+            csecond = np.asarray(raw["component_second"], dtype=np.float64)
+            if mean.shape != (bank.dim,) or csum.shape != (dim_u,) or csecond.shape != (dim_u, dim_u):
+                raise ValueError("BLOCKED_RESTORE_CLASS_SHAPE")
+            if not all(np.isfinite(x).all() for x in (mean, csum, csecond)):
+                raise ValueError("BLOCKED_RESTORE_CLASS_FINITE")
+            bank.classes[cid] = ClassMoments(cid, int(raw["task"]), int(raw["n"]), mean,
+                                             int(raw["component_count"]), csum, csecond)
+        bank.class_order = order
+        tasks = [bank.classes[c].task for c in order]
+        if tasks != sorted(tasks):
+            raise ValueError("BLOCKED_RESTORE_TASK_ORDER")
         return bank

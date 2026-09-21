@@ -79,7 +79,13 @@ def build_apart(*, checkpoint: Path, lock: Mapping[str, Any]) -> dict[str, Any]:
     args = dict(payload["args"])
     args["device"] = [torch.device("cpu")]
     model = AdapterVitNet(args, True)
-    state = model.load_state_dict(payload["delta"], strict=False)
+    delta = payload["delta"]
+    embedding = delta.get("backbone.assigner.cls_emb.weight")
+    if embedding is not None:
+        from torch import nn
+        model.backbone.assigner.cls_emb = nn.Embedding.from_pretrained(
+            embedding.detach().clone(), freeze=False)
+    state = model.load_state_dict(delta, strict=False)
     if state.unexpected_keys or len(state.missing_keys) != 348:
         raise ValueError("BLOCKED_F1_PARENT_DELTA")
     device = _device()

@@ -1,0 +1,51 @@
+{
+  "route": "A_RASP",
+  "base_commit": "674942161b3bed60a3264a2e21a75c3785c81660",
+  "implementation_commit": "<actual-execution-commit>",
+  "dataset": "isic",
+  "tasks": [1, 2, 3, 4],
+  "seeds": [1993, 1994, 1995],
+  "lambda": 0.001,
+  "holdout_access": "zero",
+  "output_dir": "<run-output>",
+  "data": {
+    "image_root": "<v2-images>",
+    "train_manifest": "<v2-train.csv>",
+    "val_manifest": "<v2-val.csv>"
+  },
+  "f1_parent_state": {
+    "1993": "<ISIC_1993_U_t01.pt>",
+    "1994": "<ISIC_1994_U_t01.pt>",
+    "1995": "<ISIC_1995_U_t01.pt>"
+  },
+  "f1_parent_metadata": {
+    "1993": "<ISIC_1993_U_t01.pt.json>",
+    "1994": "<ISIC_1994_U_t01.pt.json>",
+    "1995": "<ISIC_1995_U_t01.pt.json>"
+  },
+  "class_names": {
+    "0": "<locked-class-name-0>",
+    "1": "<locked-class-name-1>",
+    "2": "<locked-class-name-2>",
+    "3": "<locked-class-name-3>",
+    "4": "<locked-class-name-4>",
+    "5": "<locked-class-name-5>",
+    "6": "<locked-class-name-6>",
+    "7": "<locked-class-name-7>"
+  },
+  "f1_parent_lock": "<read-only-parent-lock>",
+  "clip_lock": {
+    "model_name": "ViT-B-16",
+    "pretrained": "laion400m_e32",
+    "weights_path": "<locked-weights>",
+    "preprocess_path": "<locked-preprocess>",
+    "tokenizer_path": "<locked-tokenizer>",
+    "weights_sha256": "<64-hex>",
+    "preprocess_sha256": "<64-hex>",
+    "tokenizer_sha256": "<64-hex>"
+  },
+  "factories": {
+    "apart": "<readonly_module>:build_apart",
+    "clip": "<readonly_module>:build_clip"
+  }
+}

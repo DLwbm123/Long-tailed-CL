@@ -94,6 +94,8 @@ def build_apart(*, checkpoint: Path, lock: Mapping[str, Any]) -> dict[str, Any]:
 
     @torch.no_grad()
     def forward(batch: Any) -> Any:
-        return model(batch.to(device, non_blocking=True), train=False)
+        raw = model(batch.to(device, non_blocking=True), train=False)
+        return {key: value.float().cpu() for key, value in raw.items()
+                if isinstance(value, torch.Tensor)}
 
     return {"preprocess": preprocess, "forward": forward}

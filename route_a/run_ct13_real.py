@@ -117,16 +117,27 @@ def _open_rgb(path: Path) -> Any:
 
 
 def _extract_rows(rows: list[dict[str, str]], image_root: Path,
-                  apart: Mapping[str, Any], clip: Mapping[str, Any]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+                  apart: Mapping[str, Any], clip: Mapping[str, Any],
+                  *, batch_size: int = 64) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Apply the two transforms to the same RGB images, then release raw data."""
-    images = [_open_rgb(image_root / row["relative_path"]) for row in rows]
-    a_batch = _stack([apart["preprocess"](image) for image in images])
-    c_batch = _stack([clip["preprocess"](image) for image in images])
-    a_raw = apart["forward"](a_batch)
-    c_raw = clip["forward"](c_batch)
-    feature = build_joint_feature(_unwrap_pre_logits(a_raw, apart=True), _unwrap_pre_logits(c_raw))
-    a, u, h = map(_to_numpy, (feature.a, feature.u, feature.h))
-    del images, a_batch, c_batch, a_raw, c_raw, feature
+    if batch_size <= 0:
+        raise ValueError("BLOCKED_BATCH_SIZE")
+    a_parts, u_parts, h_parts = [], [], []
+    for start in range(0, len(rows), batch_size):
+        images = [_open_rgb(image_root / row["relative_path"])
+                  for row in rows[start:start + batch_size]]
+        a_batch = _stack([apart["preprocess"](image) for image in images])
+        c_batch = _stack([clip["preprocess"](image) for image in images])
+        a_raw = apart["forward"](a_batch)
+        c_raw = clip["forward"](c_batch)
+        feature = build_joint_feature(_unwrap_pre_logits(a_raw, apart=True), _unwrap_pre_logits(c_raw))
+        a_parts.append(_to_numpy(feature.a))
+        u_parts.append(_to_numpy(feature.u))
+        h_parts.append(_to_numpy(feature.h))
+        del images, a_batch, c_batch, a_raw, c_raw, feature
+    if not a_parts:
+        raise ValueError("BLOCKED_EMPTY_BATCH")
+    a, u, h = map(lambda parts: np.concatenate(parts, axis=0), (a_parts, u_parts, h_parts))
     gc.collect()
     if a.shape[1:] != (1536,) or u.shape[1:] != (512,) or h.shape[1:] != (2048,):
         raise ValueError("BLOCKED_CT13_FEATURE_DIM")

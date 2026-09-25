@@ -30,7 +30,7 @@ def get_backbone(args, pretrained=False):
             )
             if name == "vit_b16_224_adapter_pool":
                 model = vision_transformer_adapter_pool_a.vit_base_patch16_224_adapter(num_classes=args["nb_classes"],
-                    global_pool=False, drop_path_rate=0.0, tuning_config=tuning_config ,pool_size=args["pool_size"], bs=args["batch_size"])
+                    global_pool=False, drop_path_rate=0.0, tuning_config=tuning_config ,pool_size=args["pool_size"], bs=args["batch_size"], locked_weight_path=args.get("locked_weight_path"))
                 model.out_dim=768
             # elif name == "vit_b16_224_in21k_adapter_pool":
             #     model = vision_transformer_adapter_pool_a.vit_base_patch16_224_in21k_adapter(num_classes=args["nb_classes"],
@@ -453,6 +453,9 @@ class AdapterVitNet(nn.Module):
             self.original_backbone = None
             
     def get_original_backbone(self, args):
+        if args.get("locked_weight_path"):
+            from utils.medical_v2 import FrozenOriginal
+            return FrozenOriginal(args["locked_weight_path"]).eval()
         if args["backbone_type"]== "vit_b16_224_adapter_pool":
             ffn_num = args["ffn_num"]
             from backbone import vision_transformer_adapter_pool_a

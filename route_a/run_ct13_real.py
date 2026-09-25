@@ -25,7 +25,7 @@ from route_a.semantic_prior import (component_reliability, semantic_scale, text_
 from route_a.spectral_prior_ridge import a0_to_a8, readout_scores
 from shared.dual_moment_bank import ClassMoments, DualMomentBank
 from shared.frozen_dual_features import (_unwrap_pre_logits, build_joint_feature,
-                                         validate_encoder_lock)
+                                         normalize_rows, validate_encoder_lock)
 
 
 ORDERS = {
@@ -118,11 +118,12 @@ def _open_rgb(path: Path) -> Any:
 
 def _extract_rows(rows: list[dict[str, str]], image_root: Path,
                   apart: Mapping[str, Any], clip: Mapping[str, Any],
-                  *, batch_size: int = 64) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+                  *, batch_size: int = 64, with_p: bool = False,
+                  on_batch: Callable[[int], None] | None = None) -> tuple[np.ndarray, ...]:
     """Apply the two transforms to the same RGB images, then release raw data."""
     if batch_size <= 0:
         raise ValueError("BLOCKED_BATCH_SIZE")
-    a_parts, u_parts, h_parts = [], [], []
+    a_parts, u_parts, h_parts, p_parts = [], [], [], []
     for start in range(0, len(rows), batch_size):
         images = [_open_rgb(image_root / row["relative_path"])
                   for row in rows[start:start + batch_size]]
@@ -134,6 +135,12 @@ def _extract_rows(rows: list[dict[str, str]], image_root: Path,
         a_parts.append(_to_numpy(feature.a))
         u_parts.append(_to_numpy(feature.u))
         h_parts.append(_to_numpy(feature.h))
+        if with_p:
+            if not isinstance(a_raw, Mapping) or "p" not in a_raw:
+                raise ValueError("BLOCKED_FROZEN_ORIGINAL_FEATURE")
+            p_parts.append(_to_numpy(normalize_rows(a_raw["p"])))
+        if on_batch is not None:
+            on_batch(len(images))
         del images, a_batch, c_batch, a_raw, c_raw, feature
     if not a_parts:
         raise ValueError("BLOCKED_EMPTY_BATCH")
@@ -143,6 +150,11 @@ def _extract_rows(rows: list[dict[str, str]], image_root: Path,
         raise ValueError("BLOCKED_CT13_FEATURE_DIM")
     if not all(np.isfinite(x).all() for x in (a, u, h)):
         raise ValueError("BLOCKED_CT13_NONFINITE_FEATURE")
+    if with_p:
+        p = np.concatenate(p_parts, axis=0)
+        if p.shape != (len(rows), 768) or not np.isfinite(p).all():
+            raise ValueError("BLOCKED_P_FEATURE_DIM")
+        return a, u, h, p
     return a, u, h
 
 
@@ -207,33 +219,46 @@ def _text_bundle(clip: Mapping[str, Any], names: list[str]) -> np.ndarray:
 def _stage_metrics(scores: np.ndarray, labels: np.ndarray, seen: list[int], current: list[int],
                    tail: set[int]) -> tuple[dict[str, Any], list[dict[str, Any]], np.ndarray]:
     original_labels = np.asarray(labels, dtype=np.int64)
+    if scores.ndim != 2 or scores.shape != (len(labels), len(seen)) or len(seen) != len(set(seen)) or not np.isfinite(scores).all():
+        raise ValueError("BLOCKED_SCORE_COLUMNS")
     keep = np.isin(labels, np.asarray(seen))
     labels = labels[keep]
     scores = scores[keep]
     if not len(labels):
         raise ValueError("BLOCKED_EMPTY_VAL_STAGE")
-    pred = np.asarray(seen, dtype=np.int64)[np.argmax(scores, axis=1)]
+    columns = np.asarray(seen, dtype=np.int64)
+    pred = np.where(scores == scores.max(axis=1, keepdims=True), columns, np.iinfo(np.int64).max).min(axis=1)
     predictions = np.full(original_labels.shape, -1, dtype=np.int64)
     predictions[keep] = pred
     class_rows = []
     recalls = []
+    f1s = []
     for cid in seen:
         mask = labels == cid
         n = int(mask.sum())
-        tp = int((pred[mask] == cid).sum()) if n else 0
-        recall = tp / n if n else float("nan")
+        if not n:
+            raise ValueError(f"BLOCKED_VAL_MISSING_SUPPORT:{cid}")
+        tp = int((pred[mask] == cid).sum())
+        fp = int(((pred == cid) & ~mask).sum())
+        fn = n - tp
+        recall = tp / n
+        f1 = 2 * tp / (2 * tp + fp + fn)
         recalls.append(recall)
-        class_rows.append({"class_id": int(cid), "n": n, "recall": recall,
+        f1s.append(f1)
+        class_rows.append({"class_id": int(cid), "n": n, "tp": tp, "fp": fp, "fn": fn,
+                           "recall": recall, "f1": f1,
                            "zero_recall": bool(n and tp == 0)})
     def mean_for(ids: list[int] | set[int]) -> float:
         vals = [row["recall"] for row in class_rows if row["class_id"] in ids and np.isfinite(row["recall"])]
         return float(np.mean(vals)) if vals else float("nan")
     old = [c for c in seen if c not in current]
     old_ba, current_ba, tail_ba = mean_for(old), mean_for(current), mean_for(tail)
-    hm = float(2 * old_ba * current_ba / (old_ba + current_ba)) if old_ba + current_ba else 0.0
-    stage = {"ba": float(np.mean([x for x in recalls if np.isfinite(x)])),
+    hm = (float(2 * old_ba * current_ba / (old_ba + current_ba))
+          if np.isfinite(old_ba) and np.isfinite(current_ba) and old_ba + current_ba else
+          (0.0 if np.isfinite(old_ba) and np.isfinite(current_ba) else float("nan")))
+    stage = {"ba": float(np.mean(recalls)),
              "accuracy": float(np.mean(pred == labels)),
-             "macro_f1": float(np.mean([row["recall"] for row in class_rows if np.isfinite(row["recall"])])),
+             "macro_f1": float(np.mean(f1s)),
              "old_ba": old_ba, "current_ba": current_ba, "hm": hm, "tail_ba": tail_ba,
              "zero_recall": int(sum(row["zero_recall"] for row in class_rows))}
     return stage, class_rows, predictions

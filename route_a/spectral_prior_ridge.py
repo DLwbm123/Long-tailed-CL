@@ -53,11 +53,13 @@ def spectral_prior_ridge(
             rhs = R[:, c] + g[c] * (P @ V[:, c])
             W[:, c] = U @ ((U.T @ rhs) / (sigma + lam + g[c] * p))
         residual = max(float(np.linalg.norm((G + lam * np.eye(G.shape[0]) + g[c] * P) @ W[:, c] -
-                                            (R[:, c] + g[c] * P @ V[:, c]))) for c in range(K))
+                                            (R[:, c] + g[c] * P @ V[:, c])) /
+                             max(np.linalg.norm(R[:, c] + g[c] * P @ V[:, c]), 1e-30)) for c in range(K))
     if not np.isfinite(W).all() or residual > 1e-8:
         raise ValueError("BLOCKED_RASP_SOLVE")
     return W, {"lambda": lam, "gamma": g.tolist(), "eigenvalues": sigma.tolist(),
-               "max_residual": float(residual), "P": P, "identity_prior": identity_prior}
+               "max_residual": float(residual), "max_relative_residual": float(residual),
+               "P": P, "identity_prior": identity_prior}
 
 
 class RASPReadout:

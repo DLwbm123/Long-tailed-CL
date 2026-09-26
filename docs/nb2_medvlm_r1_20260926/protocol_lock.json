@@ -1,0 +1,111 @@
+{
+  "name": "NB2-MedVLM-R1",
+  "tasks": {
+    "ISIC": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "HK": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3
+    ]
+  },
+  "seeds": [
+    1993,
+    1994,
+    1995
+  ],
+  "models": {
+    "G": "OpenCLIP ViT-B-16 laion400m_e32",
+    "B": "microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224",
+    "D": "redlessone/DermLIP_ViT-B-16 (ISIC exploratory, conditional on access/license/exposure audit)"
+  },
+  "primary": "B.J minus G.J, separately per dataset",
+  "secondary": "B.J minus F, reported independently of primary gate",
+  "core": [
+    "V",
+    "J",
+    "J1",
+    "Z",
+    "L",
+    "R"
+  ],
+  "shared": [
+    "P",
+    "F",
+    "F2"
+  ],
+  "extensions_in_fixed_order": [
+    "R-no-gate",
+    "R-identity",
+    "R-zero-prior",
+    "L-permute",
+    "template-0",
+    "template-1"
+  ],
+  "lambda": {
+    "V": 0.001,
+    "F": 0.001,
+    "F2": 0.002,
+    "J": 0.0005,
+    "J1": 0.001,
+    "R": 0.0005
+  },
+  "R_semantics": {
+    "spectral_lambda": 0.0005,
+    "semantic_scale_lambda": 0.0005,
+    "gamma_prefactor": 0.001,
+    "rarity_pseudocount": 10,
+    "all_prior_variants_match_J_regularization": true
+  },
+  "text": {
+    "ensemble": "unit normalize the mean of raw embeddings from both existing fixed domain templates",
+    "top_k": 5,
+    "raw_fusion_weight": 1.0,
+    "negative_control": "cyclic shift in sorted seen-class IDs",
+    "template_selection": false
+  },
+  "generic_reuse": "old per-stage aggregate banks and P weights; new J/readouts derived without fit-image forwards; old results never overwritten",
+  "medical_training_access": "current class images only, independent parent runs; no old/future feature cache",
+  "validation": "all core and extension states locked before val; private APART validation features reused per parent; native VLM validation features shared across parents",
+  "batch_size": 48,
+  "new_neural_epochs": 0,
+  "optimizer_steps": 0,
+  "test_access": 0,
+  "reserved_access": 0,
+  "runtime_network": false,
+  "tf32": false,
+  "amp": false,
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 57026,
+    "unit": "class-stratified identity component",
+    "interval": "conditional on the three fixed parent/order runs"
+  },
+  "utility_gate": {
+    "final_BA_mean_gain_pp_min": 1,
+    "positive_orders_min": 2,
+    "AvgBA_inc_gain_min": 0,
+    "mean_tail_gain_min": 0,
+    "mean_old_current_loss_pp_max": 2,
+    "each_old_current_loss_pp_max": 5,
+    "new_zero_recall_classes_max": 0
+  },
+  "user_override": "Ignore all time limits and time-based cutoffs in supplied plan; execute fixed extensions after G/B core fits. No hyperparameter search or neural training authorized.",
+  "next_decision": "STOP",
+  "models_executed": [
+    "G",
+    "B"
+  ]
+}

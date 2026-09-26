@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "receipts": [
+    {
+      "dataset": "ISIC",
+      "seed": 1993,
+      "samples": 4,
+      "seconds": 5.272752285003662,
+      "parent_sha256": "dd173de6eed85ea86ae70876f23cff899a636dbf02abab656536645ab0e7cd40",
+      "shape": [
+        4,
+        2048
+      ],
+      "strict_restore": "PASS"
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1994,
+      "samples": 4,
+      "seconds": 2.7485053539276123,
+      "parent_sha256": "c76982e2671787915297ca315393e01499155d6e42a8b095dbaa77e99e7189ab",
+      "shape": [
+        4,
+        2048
+      ],
+      "strict_restore": "PASS"
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1995,
+      "samples": 4,
+      "seconds": 2.6796445846557617,
+      "parent_sha256": "a3e502d0cb79a6f7b8e1f4aed94f1732c83daf39b300b31a7b5b236a172c59b4",
+      "shape": [
+        4,
+        2048
+      ],
+      "strict_restore": "PASS"
+    },
+    {
+      "dataset": "HK",
+      "seed": 1993,
+      "samples": 4,
+      "seconds": 2.8047993183135986,
+      "parent_sha256": "d8d33bb0bb6268cabb7cf4eb27d7ba14d83b427cdf729f5877c1677c780728c2",
+      "shape": [
+        4,
+        2048
+      ],
+      "strict_restore": "PASS"
+    },
+    {
+      "dataset": "HK",
+      "seed": 1994,
+      "samples": 4,
+      "seconds": 2.8171491622924805,
+      "parent_sha256": "28c7b9774115e183094cc642b6f93979ebde095aadbe176ee65b1f7002b3b844",
+      "shape": [
+        4,
+        2048
+      ],
+      "strict_restore": "PASS"
+    },
+    {
+      "dataset": "HK",
+      "seed": 1995,
+      "samples": 4,
+      "seconds": 2.8474631309509277,
+      "parent_sha256": "76bbeacdcb56f26ba4fc87e967c1008473d27d174745bf2778459b783301404e",
+      "shape": [
+        4,
+        2048
+      ],
+      "strict_restore": "PASS"
+    }
+  ],
+  "preprocess": "Compose(\n    Resize(size=224, interpolation=bicubic, max_size=None, antialias=warn)\n    CenterCrop(size=(224, 224))\n    <function _convert_to_rgb at 0x7efd54c2d1b0>\n    ToTensor()\n    Normalize(mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])\n)",
+  "tokenizer_class": "HFTokenizer",
+  "context_length": 256,
+  "val_access": 0
+}

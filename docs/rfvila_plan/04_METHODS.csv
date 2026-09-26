@@ -1,0 +1,33 @@
+method,tier,branch,feature,rp_seed,alpha,base_method,lambda_policy,fixed_lambda,purpose
+F.LIN,T0,F,linear,,,,task1_group_cv,,fair lambda-selected linear control
+G.LIN,T0,G,linear,,,,task1_group_cv,,fair lambda-selected linear control
+B.LIN,T0,B,linear,,,,task1_group_cv,,fair lambda-selected linear control
+F.RF1,T0,F,relu_single,67101,,,task1_group_cv,,primary nonlinear readout
+G.RF1,T0,G,relu_joint,67101,,,task1_group_cv,,primary nonlinear readout
+B.RF1,T0,B,relu_joint,67101,,,task1_group_cv,,primary nonlinear readout
+G.LIN.CSE1,T0,G,cse,,1.0,G.LIN,inherit,,fixed semantic-interface contrast
+G.LIN.CSE025,T0,G,cse,,0.25,G.LIN,inherit,,fixed semantic-interface contrast
+G.RF1.CSE1,T0,G,cse,67101,1.0,G.RF1,inherit,,fixed semantic-interface contrast
+G.RF1.CSE025,T0,G,cse,67101,0.25,G.RF1,inherit,,fixed semantic-interface contrast
+B.LIN.CSE1,T0,B,cse,,1.0,B.LIN,inherit,,fixed semantic-interface contrast
+B.LIN.CSE025,T0,B,cse,,0.25,B.LIN,inherit,,fixed semantic-interface contrast
+B.RF1.CSE1,T0,B,cse,67101,1.0,B.RF1,inherit,,fixed semantic-interface contrast
+B.RF1.CSE025,T0,B,cse,67101,0.25,B.RF1,inherit,,fixed semantic-interface contrast
+F.LOCK1e3,T0_REF,F,linear,,,,fixed,0.001,historical fixed-lambda audit; not fair-CV primary comparator
+G.LOCK5e4,T0_REF,G,linear,,,,fixed,0.0005,historical fixed-lambda audit; not fair-CV primary comparator
+G.LOCK1e3,T0_REF,G,linear,,,,fixed,0.001,historical fixed-lambda audit; not fair-CV primary comparator
+B.LOCK5e4,T0_REF,B,linear,,,,fixed,0.0005,historical fixed-lambda audit; not fair-CV primary comparator
+B.LOCK1e3,T0_REF,B,linear,,,,fixed,0.001,historical fixed-lambda audit; not fair-CV primary comparator
+F.RF2,T1,F,relu_single,67102,,,task1_group_cv,,independent-map sensitivity; not primary substitution
+G.RF2,T1,G,relu_joint,67102,,,task1_group_cv,,independent-map sensitivity; not primary substitution
+B.RF2,T1,B,relu_joint,67102,,,task1_group_cv,,independent-map sensitivity; not primary substitution
+G.RF2.CSE1,T1,G,cse,67102,1.0,G.RF2,inherit,,
+G.RF2.CSE025,T1,G,cse,67102,0.25,G.RF2,inherit,,
+B.RF2.CSE1,T1,B,cse,67102,1.0,B.RF2,inherit,,
+B.RF2.CSE025,T1,B,cse,67102,0.25,B.RF2,inherit,,
+G.SPLIT1,T2A,G,relu_split,67101,,,task1_group_cv,,same total feature width; no cross-branch nonlinear unit
+B.SPLIT1,T2A,B,relu_split,67101,,,task1_group_cv,,same total feature width; no cross-branch nonlinear unit
+G.RPLIN1,T2B,G,random_linear,67101,,,task1_group_cv,,linear reparameterization/regularization diagnostic
+B.RPLIN1,T2B,B,random_linear,67101,,,task1_group_cv,,linear reparameterization/regularization diagnostic
+G.RF1.CSEperm1,T2C,G,cse_permuted,67101,1.0,G.RF1,inherit,,"fixed wrong-text negative control, not permutation test"
+B.RF1.CSEperm1,T2C,B,cse_permuted,67101,1.0,B.RF1,inherit,,"fixed wrong-text negative control, not permutation test"

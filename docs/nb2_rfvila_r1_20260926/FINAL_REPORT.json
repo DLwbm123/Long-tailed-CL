@@ -1,22 +1,196 @@
 {
-  "status": "INCOMPLETE_BUDGET",
-  "sealed_stages": 10,
-  "expected_fit_stages": 45,
-  "utility": "NOT_EVALUABLE",
-  "next_decision": "STOP",
-  "cause": "Local SSH backup relay exited; stage 10 waited for missing independent backup acknowledgement until compute cutoff",
-  "dataset_coverage": {
-    "ISIC": {
-      "1993": 4,
-      "1994": 4,
-      "1995": 2
+  "status": "ADMITTED_MATRIX_COMPLETE",
+  "gates": [
+    {
+      "dataset": "ISIC",
+      "candidate": "G.RF1",
+      "comparator": "G.LIN",
+      "status": "FAIL",
+      "criteria": {
+        "final_ba_mean_gain_ge_1pp": false,
+        "at_least_two_orders_improve": false,
+        "avg_ba_inc_nonnegative": false,
+        "final_tail_nonnegative": true,
+        "mean_old_loss_le_2pp": true,
+        "mean_current_loss_le_2pp": true,
+        "each_old_loss_le_5pp": true,
+        "each_current_loss_le_5pp": true,
+        "no_new_zero_recall": true
+      },
+      "final_ba_gain_pp_by_seed": [
+        0.9319058633083133,
+        -2.4358158047182443,
+        -1.139628340715293
+      ],
+      "avg_ba_inc_gain_pp_by_seed": [
+        0.37950724688529114,
+        -2.0445140262213557,
+        -0.9861073448030111
+      ],
+      "final_tail_gain_pp_by_seed": [
+        5.929487179487181,
+        -2.083333333333326,
+        4.006410256410264
+      ],
+      "final_old_loss_pp_by_seed": [
+        -0.7920907006273015,
+        3.2477544062909813,
+        1.126992376992364
+      ],
+      "final_current_loss_pp_by_seed": [
+        -1.3513513513513598,
+        0.0,
+        1.1775362318840632
+      ],
+      "new_zero_recall": []
     },
-    "HK": {
-      "1993": 0,
-      "1994": 0,
-      "1995": 0
+    {
+      "dataset": "ISIC",
+      "candidate": "B.RF1",
+      "comparator": "B.LIN",
+      "status": "FAIL",
+      "criteria": {
+        "final_ba_mean_gain_ge_1pp": false,
+        "at_least_two_orders_improve": false,
+        "avg_ba_inc_nonnegative": false,
+        "final_tail_nonnegative": false,
+        "mean_old_loss_le_2pp": true,
+        "mean_current_loss_le_2pp": true,
+        "each_old_loss_le_5pp": true,
+        "each_current_loss_le_5pp": true,
+        "no_new_zero_recall": true
+      },
+      "final_ba_gain_pp_by_seed": [
+        -0.8385807984827132,
+        -0.6050262701243536,
+        -0.3077918852044004
+      ],
+      "avg_ba_inc_gain_pp_by_seed": [
+        -0.7724436300125537,
+        -0.4926287935964391,
+        -0.7508272878103184
+      ],
+      "final_tail_gain_pp_by_seed": [
+        -1.9230769230769273,
+        0.0,
+        -4.166666666666674
+      ],
+      "final_old_loss_pp_by_seed": [
+        1.0299761214395464,
+        0.4443828529194227,
+        0.4707756537024821
+      ],
+      "final_current_loss_pp_by_seed": [
+        0.2643948296122134,
+        1.0869565217391242,
+        -0.18115942028985588
+      ],
+      "new_zero_recall": []
+    },
+    {
+      "dataset": "HK",
+      "candidate": "G.RF1",
+      "comparator": "G.LIN",
+      "status": "FAIL",
+      "criteria": {
+        "final_ba_mean_gain_ge_1pp": false,
+        "at_least_two_orders_improve": false,
+        "avg_ba_inc_nonnegative": false,
+        "final_tail_nonnegative": false,
+        "mean_old_loss_le_2pp": true,
+        "mean_current_loss_le_2pp": true,
+        "each_old_loss_le_5pp": true,
+        "each_current_loss_le_5pp": true,
+        "no_new_zero_recall": true
+      },
+      "final_ba_gain_pp_by_seed": [
+        -0.9008421371633824,
+        -0.4197158163987469,
+        -0.942163204822033
+      ],
+      "avg_ba_inc_gain_pp_by_seed": [
+        -0.9027778209460102,
+        -0.5108144736443054,
+        -0.7481489130281238
+      ],
+      "final_tail_gain_pp_by_seed": [
+        0.0,
+        0.0,
+        -1.785714285714285
+      ],
+      "final_old_loss_pp_by_seed": [
+        0.9583873367939311,
+        0.46706787913561865,
+        1.2107604128180571
+      ],
+      "final_current_loss_pp_by_seed": [
+        0.5172074729596909,
+        0.10403539815304619,
+        -0.8484848484848428
+      ],
+      "new_zero_recall": []
+    },
+    {
+      "dataset": "HK",
+      "candidate": "B.RF1",
+      "comparator": "B.LIN",
+      "status": "FAIL",
+      "criteria": {
+        "final_ba_mean_gain_ge_1pp": false,
+        "at_least_two_orders_improve": false,
+        "avg_ba_inc_nonnegative": true,
+        "final_tail_nonnegative": false,
+        "mean_old_loss_le_2pp": true,
+        "mean_current_loss_le_2pp": true,
+        "each_old_loss_le_5pp": true,
+        "each_current_loss_le_5pp": true,
+        "no_new_zero_recall": true
+      },
+      "final_ba_gain_pp_by_seed": [
+        1.8227454594654469,
+        -0.5259695560054678,
+        -0.006284708356252278
+      ],
+      "avg_ba_inc_gain_pp_by_seed": [
+        0.3359943467550863,
+        0.3643729625621539,
+        -0.12080468536941336
+      ],
+      "final_tail_gain_pp_by_seed": [
+        0.7142857142857117,
+        -2.4999999999999964,
+        0.0
+      ],
+      "final_old_loss_pp_by_seed": [
+        -1.7524994612761136,
+        0.6910206637972482,
+        0.06783347521573946
+      ],
+      "final_current_loss_pp_by_seed": [
+        -2.291052114060965,
+        -0.5743711626064574,
+        -0.40404040404040664
+      ],
+      "new_zero_recall": []
     }
-  },
-  "evaluation_started": false,
-  "post_budget_action": "Archive and report recovery only; no model, fit or score computation resumed"
+  ],
+  "stage_rows": 1440,
+  "class_rows": 14688,
+  "methods": 32,
+  "admitted_tiers": [
+    "T0",
+    "T0_REF",
+    "T1",
+    "T2A",
+    "T2B",
+    "T2C"
+  ],
+  "pretrain_exposure": "UNKNOWN",
+  "independent_confirmation": false,
+  "next_decision": "STOP",
+  "new_neural_epochs": 0,
+  "optimizer_steps": 0,
+  "test_access": 0,
+  "reserved_access": 0,
+  "time_budget_override": "User authorized continuation without time limit; original clock and failures preserved"
 }

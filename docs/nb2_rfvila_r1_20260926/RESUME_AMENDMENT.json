@@ -1,0 +1,46 @@
+{
+  "time": 1790493170.402636,
+  "authorization": "用户于2026-09-27明确要求：不要管预算，继续跑",
+  "ignore_time_budget": true,
+  "clock_reset": false,
+  "original_clock_sha256": "76988770f80d6c76922e317e73a1200e6ddb0f7e058280a39f466ea4486d9172",
+  "original_source_sha256": "ac74f227bde9105d6372191bd7e96e0cdd0bb4617ba9f7b1495b74df8510004f",
+  "original_protocol_sha256": "f979e2efb5456877a86c62ab32cb56e5bff5a653f392779231804236d0962cd6",
+  "random_map_sha256": "d119347d0c69c4618c96f010fbb1ddfb40c34b8730369f9d12630a54c24716b5",
+  "legacy_stages": {
+    "stages/ISIC/1993/task_01": "67a3ff8ae3e7341843add23efe611615250199f04233718b6b157279195d9745",
+    "stages/ISIC/1993/task_02": "ecec3b8cb20d0c78d26c7104366dae1f844665d915bd80665371f25e64862446",
+    "stages/ISIC/1993/task_03": "d695eeb4c46ea66d9774fb26f605578ad5579d35e98c274358f39d4be87702c4",
+    "stages/ISIC/1993/task_04": "59183e006253a035ce736025f045841f82c37ca9131554fb7c079f7766e10da0",
+    "stages/ISIC/1994/task_01": "5cfbd26c9280431725c0e3dce9692ded15225ba71ea78a7dcd7aae53eeb8a766",
+    "stages/ISIC/1994/task_02": "59e11dfc4ef5f5e174bee2951d9fe77c18783f0c2c7cd283172094df9a4673d6",
+    "stages/ISIC/1994/task_03": "211ee1e9dbe3dbf9d178247a6915c60bc6101cb48a03c40b8f4513927e076563",
+    "stages/ISIC/1994/task_04": "c8336c8bb4287d8be9f56aa3dae43c5e855f6832f72301012809ee95083586be",
+    "stages/ISIC/1995/task_01": "37a763818963b0edaf8706ef41324cd437613c08c3632d35e6dd5270730f7814",
+    "stages/ISIC/1995/task_02": "61da9fbe824282863948b6e170e8ac0f2d2f702622822f3c24ff0e034f283532"
+  },
+  "changed_existing_source_files": [
+    "tools/run_rfvila.py",
+    "tools/finalize_rfvila.py",
+    "tools/rfvila_control.py",
+    "tools/rfvila_delivery.py",
+    "tools/rfvila_io.py",
+    "tests/test_rfvila_report.py"
+  ],
+  "numerical_kernels_changed": false,
+  "scientific_protocol_changed": false,
+  "gpu": 2,
+  "resume_at": {
+    "dataset": "ISIC",
+    "seed": 1995,
+    "next_task": 3
+  },
+  "backup_relay": "independent server, automatic SSH retry, task-restricted credential revoked on completion",
+  "original_failure_records_preserved": true,
+  "tests": [
+    "resume override and immutable state PASS",
+    "full synthetic report PASS",
+    "real SSH failure/reconnect and backup ACK PASS",
+    "arbitrary SSH command denied PASS"
+  ]
+}

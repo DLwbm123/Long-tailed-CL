@@ -1,7 +1,7 @@
 """Private streaming relay endpoint; base directory comes from a local config."""
 import hashlib,io,json,os,sys,tarfile,time
 from pathlib import Path
-PUBLIC=('FINAL_REPORT_ZH.md','FINAL_REPORT.json','METHOD_MATRIX.csv','stage_metrics.csv','class_metrics.csv','summary_by_parent_and_projection.csv','lambda_cv_scores.csv','lambda_selection.json','bootstrap_intervals.csv','error_decomposition.csv','candidate_coverage.csv','projection_robustness.csv','paired_differences.csv','forgetting.csv','SOLVER_PARITY.json','ENGINEERING_REPORT.json','PROTOCOL_LOCK.json','SOURCE_LOCK.json','RANDOM_MAP_LOCK.json','ACCESS_LEDGER.json','RESOURCE_REPORT.json','BACKUP_REPORT.json','completion_receipts.json','failure_receipts.json','NEXT_DECISION.json','PROCESS_RESIDENCE.json','RESOURCE_ADMISSION.json')
+PUBLIC=('FINAL_REPORT_ZH.md','FINAL_REPORT.json','METHOD_MATRIX.csv','stage_metrics.csv','class_metrics.csv','summary_by_parent_and_projection.csv','lambda_cv_scores.csv','lambda_selection.json','bootstrap_intervals.csv','error_decomposition.csv','candidate_coverage.csv','projection_robustness.csv','paired_differences.csv','forgetting.csv','SOLVER_PARITY.json','ENGINEERING_REPORT.json','PROTOCOL_LOCK.json','SOURCE_LOCK.json','RANDOM_MAP_LOCK.json','ACCESS_LEDGER.json','RESOURCE_REPORT.json','BACKUP_REPORT.json','completion_receipts.json','failure_receipts.json','NEXT_DECISION.json','PROCESS_RESIDENCE.json','RESOURCE_ADMISSION.json','RESUME_AMENDMENT.json','SOURCE_LOCK_RESUME.json')
 def digest(p):
     h=hashlib.sha256()
     with p.open('rb') as f:

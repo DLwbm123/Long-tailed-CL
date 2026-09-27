@@ -13,12 +13,15 @@ from tools.rfvila_reference import projections,group_folds,cse,predict
 from tools.rfvila_math import tensor,transform,solve,select_cv,append
 SEEDS=(1993,1994,1995)
 ROOT=Path(__file__).resolve().parents[1]
-FILES=tuple(dict.fromkeys(OLD_SOURCE+('tools/run_rfvila.py','tools/rfvila_math.py','tools/rfvila_reference.py','tools/finalize_rfvila.py','tools/rfvila_control.py','tools/rfvila_delivery.py','tools/rfvila_io.py','tools/qualify_rfvila.py','tests/test_rfvila_production.py','tests/test_rfvila_reference.py','tests/test_rfvila_report.py','docs/rfvila_plan/03_PROTOCOL_PROPOSAL.json')))
+FILES=tuple(dict.fromkeys(OLD_SOURCE+('tools/run_rfvila.py','tools/rfvila_math.py','tools/rfvila_reference.py','tools/finalize_rfvila.py','tools/rfvila_control.py','tools/rfvila_delivery.py','tools/rfvila_io.py','tools/qualify_rfvila.py','tests/test_rfvila_production.py','tests/test_rfvila_reference.py','tests/test_rfvila_report.py','docs/rfvila_plan/03_PROTOCOL_PROPOSAL.json','tools/rfvila_server_relay.py','tools/rfvila_ssh_gate.py','tests/test_rfvila_resume.py')))
 
 class Budget:
-    def __init__(self,out):self.lock=_read(out/'CLOCK_LOCK.json')
+    def __init__(self,out):
+        self.lock=_read(out/'CLOCK_LOCK.json')
+        self.ignore_limits=(out/'RESUME_AMENDMENT.json').exists() and _read(out/'RESUME_AMENDMENT.json').get('ignore_time_budget') is True
     def elapsed(self):return max(time.time()-self.lock['t0_epoch'],time.monotonic()-self.lock['t0_monotonic'])
     def check(self,kind,estimate=0):
+        if self.ignore_limits:return
         limit={'tier':7200,'fit':30600,'forward':37800,'compute':39600,'finish':43200}[kind]
         if self.elapsed()+1.5*estimate>=limit:raise TimeoutError('INCOMPLETE_BUDGET:'+kind)
 
@@ -92,10 +95,20 @@ def load_maps(out,device):
         result[seed]=arr
     return result
 
-def fingerprints(out):return {'source':_sha(out/'SOURCE_LOCK.json'),'protocol':_sha(out/'PROTOCOL_LOCK.json'),'random_map':_sha(out/'RANDOM_MAP_LOCK.json')}
+def source_lock_path(out):
+    return out/('SOURCE_LOCK_RESUME.json' if (out/'RESUME_AMENDMENT.json').exists() else 'SOURCE_LOCK.json')
+
+def fingerprints(out):
+    result={'source':_sha(source_lock_path(out)),'protocol':_sha(out/'PROTOCOL_LOCK.json'),'random_map':_sha(out/'RANDOM_MAP_LOCK.json')}
+    if (out/'RESUME_AMENDMENT.json').exists():result['amendment']=_sha(out/'RESUME_AMENDMENT.json')
+    return result
 def check_lock(out,p):
     d=_read(p/'STATE_LOCK.json')
-    if d['locks']!=fingerprints(out):raise ValueError('STATE_LOCK_DRIFT')
+    if d['locks']!=fingerprints(out):
+        a=_read(out/'RESUME_AMENDMENT.json') if (out/'RESUME_AMENDMENT.json').exists() else {}
+        legacy={'source':_sha(out/'SOURCE_LOCK.json'),'protocol':_sha(out/'PROTOCOL_LOCK.json'),'random_map':_sha(out/'RANDOM_MAP_LOCK.json')}
+        if d['locks']!=legacy or a.get('legacy_stages',{}).get(str(p.relative_to(out)))!=_sha(p/'STATE_LOCK.json'):
+            raise ValueError('STATE_LOCK_DRIFT')
     if _sha(p/'W.npz')!=d['W_sha256']:raise ValueError('W_DRIFT')
     return d
 
@@ -107,6 +120,13 @@ def fit(cfg,out,allowed,budget):
         if _sha(Path(data['train_manifest']))!=tasklock[ds]['manifest_sha256']['train']:raise ValueError('TRAIN_CHANGED')
         train=_manifest(Path(data['train_manifest']),'train',root);names=_names(ds,cfg,train)
         for seed in SEEDS:
+            completed=[out/'stages'/ds/str(seed)/f'task_{t:02d}' for t in range(1,len(SIZES[ds])+1)]
+            if all((p/'STATE_LOCK.json').exists() for p in completed) and all((out/'backup_acks'/f'{ds}_{seed}_{t:02d}.json').exists() for t in range(1,len(SIZES[ds])+1)):
+                for t,p in enumerate(completed,1):
+                    check_lock(out,p)
+                    if _read(out/'backup_acks'/f'{ds}_{seed}_{t:02d}.json')['status']!='VERIFIED':raise ValueError('BACKUP_ACK_BAD')
+                event(out,'resume_completed_stream',dataset=ds,seed=seed,new_image_reads=0)
+                continue
             order=_task_order(tasklock,ds,seed);parent,pl=_parent_lock(cfg,tasklock,ds,seed);apart=build_apart(checkpoint=parent,lock=pl)
             banks={};lambdas={};cv={};position=0;previous=None
             for task,size in enumerate(SIZES[ds],1):

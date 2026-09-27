@@ -135,7 +135,7 @@ def finalize(out,cfg):
       'gpu_process_residence':'recorded by bounded controller in RESOURCE_SAMPLES.jsonl; includes loading and backup waits, not pure GPU compute'})
     report={'status':'ADMITTED_MATRIX_COMPLETE','gates':gates,'stage_rows':len(sr),'class_rows':len(cr),'methods':len(available),'admitted_tiers':protocol['admitted_tiers'],'pretrain_exposure':'UNKNOWN','independent_confirmation':False,'next_decision':'STOP','new_neural_epochs':0,'optimizer_steps':0,'test_access':0,'reserved_access':0}
     _write(out/'FINAL_REPORT.json',report);_write(out/'ENGINEERING_REPORT.json',{'status':'PASS','stage_residuals':solver,'qualification':_read(out/'QUALIFICATION.json'),'no_implicit_jitter':True,'fit_eval_separate_processes':True,'stage_backups':len(list((out/'backup_acks').glob('*.json')))})
-    _write(out/'failure_receipts.json',{'failures':[_read(p) for p in sorted(out.glob('FAILED_*.json'))]})
+    _write(out/'failure_receipts.json',{'failures':[{'receipt':p.name,'time':_read(p).get('time'),'error_code':_read(p).get('error','').split(':')[0].split('(')[0],'private_traceback_retained':True} for p in sorted(out.glob('FAILED_*.json'))]})
     lines=['# NB2-RFVILA-R1 最终报告','','本轮是 VILA 风格医学适配，不是论文原始复现。正常两类 Task1 后全部冻结，新增神经训练和 optimizer steps 为 0。',
       '主投影 67101；67102 独立报告，不挑赢家、不平均 logits。所有比较均使用相同 Task1 九点正则选择预算；CV 表征已学习 Task1，不是端到端独立验证。','',
       f'已准入矩阵完成：{len(available)} 方法，{len(sr)} 阶段行，{len(cr)} 逐类行。','',
@@ -152,6 +152,11 @@ def finalize(out,cfg):
       '区间按 identity component 成对重采样 2000 次；固定父状态与投影，不覆盖训练随机性或未见领域。多重开发、极小尾类和 UNKNOWN 预训练暴露限制保留。',
       '未准入项见 METHOD_MATRIX.csv；所有私有图像、身份/组件映射、逐样本特征/分数和 S/Q/W/R 只留规定存储。关键资产目标端 SHA 已核验，大图像归档未声明全量逐字节一致。',
       'NEXT_DECISION=STOP。','']
+
+    if (out/'RESUME_AMENDMENT.json').exists():
+        report['time_budget_override']='User authorized continuation without time limit; original clock and failures preserved'
+        _write(out/'FINAL_REPORT.json',report)
+        lines+=['本轮曾因本机 SSH 备份中继中断而到达原时限。用户随后授权取消时间预算，从已封存的 10 阶段续跑；原始 T0 和失败记录未重置。服务器端备份中继替代本机中继，模型、方法、数据顺序及超参数保持不变。','']
     (out/'FINAL_REPORT_ZH.md').write_text('\n'.join(lines));_write(out/'NEXT_DECISION.json',{'decision':'STOP'})
     _write(out/'completion_receipts.json',{'status':'ADMITTED_MATRIX_COMPLETE','stage_rows':len(sr),'class_rows':len(cr),'methods':len(available),'fit_stages':45,'time':time.time()})
     return report

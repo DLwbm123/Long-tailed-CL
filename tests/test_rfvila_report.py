@@ -24,7 +24,9 @@ def main():
    np.savez(out/'private'/f'{ds}_PREDICTIONS.npz',labels=labels,components=np.array([str(x) for x in labels]),predictions=np.stack(pred),index=np.array([json.dumps(v) for v in index]))
   _write_csv(out/'stage_metrics.csv',sr);_write_csv(out/'class_metrics.csv',cr);(out/'ACCESS_EVENTS.jsonl').write_text('\n'.join(json.dumps(e) for e in events))
   _write(out/'CLOCK_LOCK.json',{'t0_epoch':0,'t0_utc':'synthetic'});_write(out/'QUALIFICATION.json',{'gpu_name':'synthetic'})
+  _write(out/'FAILED_synthetic.json',{'error':"TimeoutError('INCOMPLETE_BUDGET:COMPUTE_STOP')",'traceback':'/remote-home/private/example','time':1})
   r=finalize(out,{})
+  assert '/remote-home/' not in (out/'failure_receipts.json').read_text()
   assert r['stage_rows']==1440 and r['class_rows']==14688
   assert all(g['status']=='FAIL' for g in r['gates'])
   assert (out/'FINAL_REPORT_ZH.md').is_file()

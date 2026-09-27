@@ -2,7 +2,7 @@
 import fcntl,json,os,resource,signal,subprocess,sys,time,traceback
 from pathlib import Path
 from tools.run_nb2_vlm_r1 import _read,_write,_sha
-from tools.run_rfvila import Budget,FILES,ROOT,backup
+from tools.run_rfvila import Budget,FILES,ROOT,backup,source_lock_path
 
 def incomplete(out,cfg,error):
     from route_a.run_ct13_real import _write_csv
@@ -18,10 +18,10 @@ def incomplete(out,cfg,error):
 def main():
     cfg=_read(Path(os.environ['RF_CONFIG']));out=Path(cfg['run_root']);budget=Budget(out)
     lock=(out/'.controller.lock').open('w');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-    source=_read(out/'SOURCE_LOCK.json')
+    source=_read(source_lock_path(out))
     for name,h in source['code_sha256'].items():
         if _sha(ROOT/name)!=h:raise ValueError('SOURCE_CHANGED:'+name)
-    child=None;residences=[]
+    child=None;residences=_read(out/'PROCESS_RESIDENCE.json').get('residences',[]) if (out/'PROCESS_RESIDENCE.json').exists() else []
     try:
         for role,done in [('fit','FIT_COMPLETE.json'),('eval','EVALUATION_COMPLETE.json')]:
             if (out/done).exists():continue
@@ -31,7 +31,7 @@ def main():
             child=subprocess.Popen([sys.executable,'/tmp/n63w.py'],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);log.close();last=0
             _write(out/'LIVE_PROCESS.json',{'role':role,'pid':child.pid,'pgid':child.pid,'controller_pid':os.getpid(),'start':start})
             while child.poll() is None:
-                if budget.elapsed()>=39600:
+                if not budget.ignore_limits and budget.elapsed()>=39600:
                     os.killpg(child.pid,signal.SIGTERM)
                     try:child.wait(timeout=20)
                     except subprocess.TimeoutExpired:os.killpg(child.pid,signal.SIGKILL);child.wait()
@@ -59,7 +59,8 @@ def main():
     paths+=['states','private/maps','private/scores']+[str(p.relative_to(out)) for p in (out/'private').glob('*PREDICTIONS.npz')]
     paths=[p for p in paths if (out/p).exists()]
     backup(out,'FINAL',paths,budget)
-    _write(out/'BACKUP_REPORT.json',{'status':'INDEPENDENT_BACKUP_COMPLETE','critical_destination_sha256':True,'parent_and_bank_restore':'PASS','whole_image_archive_bytewise_verified':False,'stage_ack_count':len(list((out/'backup_acks').glob('*.json'))),'final_ack':_read(out/'backup_acks/FINAL.json')['status']})
+    _write(out/'BACKUP_REPORT.json',{'status':'INDEPENDENT_BACKUP_COMPLETE','critical_destination_sha256':True,'parent_and_bank_restore':'PASS','whole_image_archive_bytewise_verified':False,'stage_ack_count':sum(p.stem.startswith(('ISIC_','HK_')) for p in (out/'backup_acks').glob('*.json')),'final_ack':_read(out/'backup_acks/FINAL.json')['status']})
+    backup(out,'CLOSURE_RESUME',['BACKUP_REPORT.json'],budget)
     _write(out/'DELIVERY_READY.json',{'status':'READY','time':time.time(),'elapsed':budget.elapsed()})
 
 if __name__=='__main__':main()

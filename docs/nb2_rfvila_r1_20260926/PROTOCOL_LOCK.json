@@ -1,0 +1,619 @@
+{
+  "name": "NB2-RFVILA-12H-R1",
+  "version_date": "2026-09-26",
+  "status": "LOCKED",
+  "source_repository": "DLwbm123/Long-tailed-CL",
+  "base_commit": "b01ba12f86706c44dfcdbed81c7305493ce354dc",
+  "new_branch": "exp/nb2-rfvila-12h",
+  "vila_reference_commit": "ad4293af236d86e05d8e850d2ce33638fc16c7ed",
+  "uploaded_paper": {
+    "title": "Advancing Analytic Class-Incremental Learning through Vision-Language Calibration",
+    "version": "arXiv2602.13670v3",
+    "sha256": "3035ee0994db5e8c30f493438576ec5e3c3e2a444c4fa546545f05c65b23edab"
+  },
+  "runtime": {
+    "ssh_alias": "my-gpu",
+    "remote_home_absolute_path": "private configuration, hash in SOURCE_LOCK",
+    "run_id": "NB2_RFVILA_R1_20260926T145517Z",
+    "gpu_count_limit": 1,
+    "physical_gpu_id": 2,
+    "max_wall_seconds": 43200,
+    "tier_lock_deadline_seconds": 7200,
+    "no_new_fit_after_seconds": 30600,
+    "no_new_image_forward_after_seconds": 37800,
+    "stop_model_solver_scoring_seconds": 39600,
+    "finalization_reserve_seconds": 3600,
+    "timing_margin_factor": 1.5,
+    "do_not_inherit_historical_time_overrides": true,
+    "clock_resets_on_restart": false,
+    "network_after_asset_lock": false,
+    "heartbeat_seconds": 300,
+    "summary_seconds": 3600,
+    "user_gpu_assignment": "explicit GPU 2 confirmation",
+    "t0_utc": "2026-09-26T14:55:17Z",
+    "deadline_epoch": 1790477717.0629818
+  },
+  "tasks": {
+    "ISIC": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "HK": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3
+    ]
+  },
+  "parent_seed_orders": [
+    1993,
+    1994,
+    1995
+  ],
+  "new_neural_epochs": 0,
+  "optimizer_steps": 0,
+  "additional_base_stage": false,
+  "retrain_task1": false,
+  "models": {
+    "G": {
+      "name": "OpenCLIP ViT-B-16 laion400m_e32",
+      "asset_lock": "reuse verified prior project hash lock"
+    },
+    "B": {
+      "name": "microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224",
+      "revision": "9f341de24bfb00180f1b847274256e9b65a3a32e",
+      "native_context_length": 256,
+      "pretrain_exposure": "UNKNOWN"
+    }
+  },
+  "dims": {
+    "apart": 1536,
+    "vlm": 512,
+    "random_width": 4096
+  },
+  "rf_seeds": [
+    67101,
+    67102
+  ],
+  "primary_rf_seed": 67101,
+  "rf": {
+    "generator": "numpy.Generator(numpy.PCG64(numpy.SeedSequence([rp_seed, branch_id])))",
+    "distribution": "N(0,1)",
+    "branch_id_a": 0,
+    "branch_id_u": 1,
+    "dtype": "float64",
+    "pair_across_vlms_parents_datasets": true,
+    "feature_formula": "sqrt(2/m)*relu((a@Ra+u@Ru)/sqrt(2))",
+    "bias": false,
+    "post_rf_l2_normalization": false
+  },
+  "analytic_objective": "(1/K)*sum_c mean_i||phi_i W-e_c||^2 + lambda||W||^2",
+  "analytic_solve": "W=solve(S+K*lambda*I,Q); S=sum_c Phi_c.T@Phi_c/n_c; Q_c=mean(Phi_c)",
+  "solver": {
+    "dtype": "float64",
+    "method": "cholesky_solve",
+    "relative_residual_max": 1e-08,
+    "implicit_jitter": false,
+    "explicit_inverse": false,
+    "backend": "cuda",
+    "allow_woodbury_only_after_diagonal_shift_and_equivalence_tests": true
+  },
+  "task1_cv": {
+    "grid": [
+      1e-06,
+      1e-05,
+      0.0001,
+      0.0005,
+      0.001,
+      0.002,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "max_folds": 3,
+    "hash_salt": 67026,
+    "grouping": "class-pure identity component hash-sort round-robin",
+    "score": "mean of within-class mean squared error, then across folds",
+    "tie_abs_tolerance": 1e-12,
+    "tie_break": "larger_lambda",
+    "fallback_lambda": 0.001,
+    "fallback_scope": "all methods of same parent when legal grouped CV unavailable",
+    "future_reselection": false,
+    "end_to_end_independent_validation": false
+  },
+  "cse": {
+    "top_k": 5,
+    "alphas_fixed": [
+      1.0,
+      0.25
+    ],
+    "primary_semantic_alpha": 1.0,
+    "softmax": false,
+    "learned_logit_scale": false,
+    "clip_negative_cosine": false,
+    "outside_topk": "retain original analytic score",
+    "tie_break": "original class id ascending",
+    "templates": "reuse both fixed medical templates and class name lock from b01",
+    "template_selection": false,
+    "negative_control": "sorted seen class IDs cyclic text shift, alpha=1"
+  },
+  "tier_priority": [
+    "T0",
+    "T0_REF",
+    "T1",
+    "T2A",
+    "T2B",
+    "T2C"
+  ],
+  "admitted_tiers": [
+    "T0",
+    "T0_REF",
+    "T1",
+    "T2A",
+    "T2B",
+    "T2C"
+  ],
+  "methods": [
+    {
+      "method": "F.LIN",
+      "tier": "T0",
+      "branch": "F",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "fair lambda-selected linear control"
+    },
+    {
+      "method": "G.LIN",
+      "tier": "T0",
+      "branch": "G",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "fair lambda-selected linear control"
+    },
+    {
+      "method": "B.LIN",
+      "tier": "T0",
+      "branch": "B",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "fair lambda-selected linear control"
+    },
+    {
+      "method": "F.RF1",
+      "tier": "T0",
+      "branch": "F",
+      "feature": "relu_single",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "primary nonlinear readout"
+    },
+    {
+      "method": "G.RF1",
+      "tier": "T0",
+      "branch": "G",
+      "feature": "relu_joint",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "primary nonlinear readout"
+    },
+    {
+      "method": "B.RF1",
+      "tier": "T0",
+      "branch": "B",
+      "feature": "relu_joint",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "primary nonlinear readout"
+    },
+    {
+      "method": "G.LIN.CSE1",
+      "tier": "T0",
+      "branch": "G",
+      "feature": "cse",
+      "rp_seed": null,
+      "alpha": 1.0,
+      "base_method": "G.LIN",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "G.LIN.CSE025",
+      "tier": "T0",
+      "branch": "G",
+      "feature": "cse",
+      "rp_seed": null,
+      "alpha": 0.25,
+      "base_method": "G.LIN",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "G.RF1.CSE1",
+      "tier": "T0",
+      "branch": "G",
+      "feature": "cse",
+      "rp_seed": 67101,
+      "alpha": 1.0,
+      "base_method": "G.RF1",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "G.RF1.CSE025",
+      "tier": "T0",
+      "branch": "G",
+      "feature": "cse",
+      "rp_seed": 67101,
+      "alpha": 0.25,
+      "base_method": "G.RF1",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "B.LIN.CSE1",
+      "tier": "T0",
+      "branch": "B",
+      "feature": "cse",
+      "rp_seed": null,
+      "alpha": 1.0,
+      "base_method": "B.LIN",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "B.LIN.CSE025",
+      "tier": "T0",
+      "branch": "B",
+      "feature": "cse",
+      "rp_seed": null,
+      "alpha": 0.25,
+      "base_method": "B.LIN",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "B.RF1.CSE1",
+      "tier": "T0",
+      "branch": "B",
+      "feature": "cse",
+      "rp_seed": 67101,
+      "alpha": 1.0,
+      "base_method": "B.RF1",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "B.RF1.CSE025",
+      "tier": "T0",
+      "branch": "B",
+      "feature": "cse",
+      "rp_seed": 67101,
+      "alpha": 0.25,
+      "base_method": "B.RF1",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed semantic-interface contrast"
+    },
+    {
+      "method": "F.LOCK1e3",
+      "tier": "T0_REF",
+      "branch": "F",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "fixed",
+      "fixed_lambda": 0.001,
+      "purpose": "historical fixed-lambda audit; not fair-CV primary comparator"
+    },
+    {
+      "method": "G.LOCK5e4",
+      "tier": "T0_REF",
+      "branch": "G",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "fixed",
+      "fixed_lambda": 0.0005,
+      "purpose": "historical fixed-lambda audit; not fair-CV primary comparator"
+    },
+    {
+      "method": "G.LOCK1e3",
+      "tier": "T0_REF",
+      "branch": "G",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "fixed",
+      "fixed_lambda": 0.001,
+      "purpose": "historical fixed-lambda audit; not fair-CV primary comparator"
+    },
+    {
+      "method": "B.LOCK5e4",
+      "tier": "T0_REF",
+      "branch": "B",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "fixed",
+      "fixed_lambda": 0.0005,
+      "purpose": "historical fixed-lambda audit; not fair-CV primary comparator"
+    },
+    {
+      "method": "B.LOCK1e3",
+      "tier": "T0_REF",
+      "branch": "B",
+      "feature": "linear",
+      "rp_seed": null,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "fixed",
+      "fixed_lambda": 0.001,
+      "purpose": "historical fixed-lambda audit; not fair-CV primary comparator"
+    },
+    {
+      "method": "F.RF2",
+      "tier": "T1",
+      "branch": "F",
+      "feature": "relu_single",
+      "rp_seed": 67102,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "independent-map sensitivity; not primary substitution"
+    },
+    {
+      "method": "G.RF2",
+      "tier": "T1",
+      "branch": "G",
+      "feature": "relu_joint",
+      "rp_seed": 67102,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "independent-map sensitivity; not primary substitution"
+    },
+    {
+      "method": "B.RF2",
+      "tier": "T1",
+      "branch": "B",
+      "feature": "relu_joint",
+      "rp_seed": 67102,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "independent-map sensitivity; not primary substitution"
+    },
+    {
+      "method": "G.RF2.CSE1",
+      "tier": "T1",
+      "branch": "G",
+      "feature": "cse",
+      "rp_seed": 67102,
+      "alpha": 1.0,
+      "base_method": "G.RF2",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": ""
+    },
+    {
+      "method": "G.RF2.CSE025",
+      "tier": "T1",
+      "branch": "G",
+      "feature": "cse",
+      "rp_seed": 67102,
+      "alpha": 0.25,
+      "base_method": "G.RF2",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": ""
+    },
+    {
+      "method": "B.RF2.CSE1",
+      "tier": "T1",
+      "branch": "B",
+      "feature": "cse",
+      "rp_seed": 67102,
+      "alpha": 1.0,
+      "base_method": "B.RF2",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": ""
+    },
+    {
+      "method": "B.RF2.CSE025",
+      "tier": "T1",
+      "branch": "B",
+      "feature": "cse",
+      "rp_seed": 67102,
+      "alpha": 0.25,
+      "base_method": "B.RF2",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": ""
+    },
+    {
+      "method": "G.SPLIT1",
+      "tier": "T2A",
+      "branch": "G",
+      "feature": "relu_split",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "same total feature width; no cross-branch nonlinear unit"
+    },
+    {
+      "method": "B.SPLIT1",
+      "tier": "T2A",
+      "branch": "B",
+      "feature": "relu_split",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "same total feature width; no cross-branch nonlinear unit"
+    },
+    {
+      "method": "G.RPLIN1",
+      "tier": "T2B",
+      "branch": "G",
+      "feature": "random_linear",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "linear reparameterization/regularization diagnostic"
+    },
+    {
+      "method": "B.RPLIN1",
+      "tier": "T2B",
+      "branch": "B",
+      "feature": "random_linear",
+      "rp_seed": 67101,
+      "alpha": null,
+      "base_method": null,
+      "lambda_policy": "task1_group_cv",
+      "fixed_lambda": null,
+      "purpose": "linear reparameterization/regularization diagnostic"
+    },
+    {
+      "method": "G.RF1.CSEperm1",
+      "tier": "T2C",
+      "branch": "G",
+      "feature": "cse_permuted",
+      "rp_seed": 67101,
+      "alpha": 1.0,
+      "base_method": "G.RF1",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed wrong-text negative control, not permutation test"
+    },
+    {
+      "method": "B.RF1.CSEperm1",
+      "tier": "T2C",
+      "branch": "B",
+      "feature": "cse_permuted",
+      "rp_seed": 67101,
+      "alpha": 1.0,
+      "base_method": "B.RF1",
+      "lambda_policy": "inherit",
+      "fixed_lambda": null,
+      "purpose": "fixed wrong-text negative control, not permutation test"
+    }
+  ],
+  "expected_counts": {
+    "core_one_projection": {
+      "method_count": 19,
+      "stage_rows": 855,
+      "class_rows": 8721
+    },
+    "target_two_projections": {
+      "method_count": 26,
+      "stage_rows": 1170,
+      "class_rows": 11934
+    },
+    "full_with_extensions": {
+      "method_count": 32,
+      "stage_rows": 1440,
+      "class_rows": 14688
+    }
+  },
+  "primary_comparisons": [
+    "G.RF1 - G.LIN",
+    "B.RF1 - B.LIN"
+  ],
+  "secondary_comparisons": [
+    "F.RF1 - F.LIN",
+    "G.RF1 - F.RF1",
+    "B.RF1 - F.RF1",
+    "B.RF1 - G.RF1",
+    "G.RF1 - F.LIN",
+    "B.RF1 - F.LIN"
+  ],
+  "utility_gate": {
+    "final_ba_mean_gain_pp_min": 1.0,
+    "positive_parent_orders_min": 2,
+    "avg_ba_inc_gain_min": 0.0,
+    "final_tail_gain_min": 0.0,
+    "mean_final_old_current_loss_pp_max": 2.0,
+    "each_parent_final_old_current_loss_pp_max": 5.0,
+    "new_zero_recall_classes_any_stage_max": 0,
+    "primary_fixed_projection": 67101
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 68026,
+    "unit": "class-stratified identity component, paired",
+    "resample_parent_seed": false,
+    "rp2_as_independent_case": false
+  },
+  "access": {
+    "test": false,
+    "reserved": false,
+    "fit_can_read_val": false,
+    "future_train": false,
+    "old_train_in_same_logical_stream": false,
+    "temporary_train_features": "current task only; release after transaction",
+    "persist_sample_train_features_in_model": false,
+    "val_cache_reuse": "only evaluator after all states locked and full provenance verified"
+  },
+  "backup": {
+    "critical_set_destination_sha256_required_before_new_forwards": true,
+    "restore_parent_and_bank_required": true,
+    "whole_image_archive_bytewise_claim": "only if actually verified",
+    "destination": "independent NFS; private location in execution configuration"
+  },
+  "publication": {
+    "default": "commit_only",
+    "push_requires_explicit_current_authorization": true,
+    "include_private_arrays_ids_paths": false
+  },
+  "final_decision": "STOP"
+}

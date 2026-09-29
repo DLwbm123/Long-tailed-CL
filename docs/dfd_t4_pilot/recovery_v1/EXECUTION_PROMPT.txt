@@ -1,0 +1,70 @@
+请执行 DFD-P0R-v1：DFD-T4-P 的有限资产恢复与重建，不执行 D/R 训练。
+
+本指令是对原 DFD-T4-P-v1 的显式补充授权。原科学问题、D/R 数学定义、随机种子生成规则、12条Task4轨迹、120 task-epochs、5500正式steps、T读出、比较矩阵和科学判定门槛均不改变。仅允许按本指令处理缺失的派生读出与历史对照预测。原“禁止重评历史控制”的限制，只对下述固定模型、固定读出、固定val的一次重建开放；绝不开放重新训练、重新选参、重读旧fit或更换控制。
+
+本轮从 9a35764 所指的已交付版本开始。首先解析并记录完整commit SHA，不直接依赖随后可能移动的branch HEAD。读取并保留：
+- docs/dfd_t4_pilot/FINAL_REPORT_ZH.md
+- docs/dfd_t4_pilot/CONTROL_COMPATIBILITY.json
+- docs/dfd_t4_pilot/ASSET_AUDIT.json
+- docs/dfd_t4_pilot/SOURCE_AUDIT.json
+- docs/dfd_t4_pilot/DELIVERY_RECEIPT.json
+- docs/dfd_t4_pilot/PLAN.md 和 EXECUTION_PROMPT.txt
+- tools/audit_dfd_t4_assets.py、tools/dfd_t4_core.py，以及原父restore/fork、ridge和评价入口。
+
+原报告保持 BLOCKED_ASSET 历史事实，不覆盖成从未阻塞。本轮新增 docs/dfd_t4_pilot/recovery_v1/ 和私有 recovery_v1 输出目录，不改旧checkpoint、锁、分数及原源码字节。任何新恢复适配代码单独绑定SHA。先写 P0R_AMENDMENT_LOCK.json，列出本补充授权、操作范围及验收标准，再进行计算。
+
+一、先保护已找到的资产
+1. 六个CT3-P Task3父文件、共享权重和原manifest已经有文件SHA审计，但完整模型ordinary restore未执行，不得沿用“全部P0通过”的表述。
+2. 检查六父是否已有真实独立备份。现有DELIVERY_RECEIPT只覆盖新P0输出，parent_archives_copied=false，不能据此宣称父状态已获独立备份。已存在并可复读验证的副本不重复复制；不存在时，仅在已有授权NAS、空间预算内创建不可变副本并逐文件复读SHA。没有可用空间则报告，不删除旧资产腾空间。
+3. 只使用当前已授权连接、主机和项目存储，不连接已结束租期主机、不扩大目录权限、不新租服务器。不将NAS路径、认证信息、原图、样本身份或私有模型上传公开Git。
+
+二、完成一次有界恢复溯源，不再只按30个文件名搜索
+1. 以CONTROL_COMPATIBILITY中30项为逐项清单：18份Task4控制预测，以及12份Task3 C2/C3参考读出。
+2. 复用已有搜索记录，不再次盲目遍历相同目录。补查已有授权项目中的历史归档索引、备份清单、包内目录，以及CT5/CT6/CT9和后续诊断保存的副本。可以检查tar/zip/npz内的合法成员名与元数据，但禁止读取或解包原始图像、旧fit特征、test/reserved/oracle材料。仅提取已识别的允许恢复对象；评估分数与身份只进入私有评估空间。
+3. 文件重命名或放在包内不代表丢失；按原历史SHA识别真正相同的文件。不能仅因名称或汇总BA一致就认定找回。
+4. 无法访问、搜索未找到、文件损坏、SHA不匹配分别记录，不将它们合称“永久丢失”。
+5. 同时核验18个控制对应的固定模型、原W/足够的历史bank、原源码和val布局是否存在。六个D/R Task3父存在，不等于CT6/CT9 Task4控制模型或FZ1控制模型已经存在。
+
+三、Task3的12份C2/C3参考读出：允许CPU派生重建，但不得伪造独立回归
+1. 优先找回原NPZ并匹配原SHA。找回则保留原文件，不重算替代。
+2. 原NPZ仍缺失时，允许从SHA已核验的原父checkpoint提取对应stats(A)与T bank；分别检查S/mu/v/e/n/arrival/space_version/标签映射和有限性。当前公开审计主要验证了T，不能把A默认为已验证。
+3. 使用原固定ridge实现、原float64定义、lambda=0.001计算W。六旧类时：G=sym(S/6)，R=mu/6，solve(G+0.001 I,R)。不读任何fit/val图像，不改bank，不添加新的jitter、缩放或正则。
+4. 记录解析求解次数及原实现要求的残差，执行独立代数检查。数学检查只证明从这些bank重建W正确，不能证明重建W等于已经丢失的历史W。
+5. 状态分开：EXACT_ORIGINAL_RECOVERED、REBUILT_FROM_VERIFIED_PARENT、UNRECOVERABLE。重建文件放新目录、使用新SHA。没有独立历史W/数组证据时，independent_historical_W_match=NOT_AVAILABLE，不得写PASS。
+6. 原普通父恢复仍必须在原源码/参数/权重/manifest绑定下执行strict模型加载及网络指纹、RNG等检查。报告已定位的serve_ct3p.py原字节应从已知Git对象恢复并校验，不能修改父code_sha256来迁就新源码。
+7. 将“普通父状态恢复”与“fork后的外部历史W对照检查”拆成两个明确状态。禁止写一个重建W文件再用同一ridge输出与它比较、从而假装原独立检查通过。本补充授权仅允许在原独立W参考无法找回时，以显式记录证据缺口的重建检查替代该一项；不豁免其他恢复条件。
+
+四、Task4的18份控制预测：只允许固定已训练状态的重新评价
+固定控制为 HK/ISIC × 1993/1994/1995 × {CT5 F1、CT6 C3、CT9 B1T}。
+1. 优先复用匹配历史SHA的原sealed预测，不重复前向。
+2. 仍缺失的单元，只有在其原模型能够严格恢复、原Task4 W或足够的合法历史Task4 bank可用、原val样本/类别列/component顺序可核实时，才允许重建。
+3. CT6/CT9控制必须使用各自Task4末状态，不能使用现有Task3父或其他seed替代。FZ1必须同时具有原冻结Task1编码器与合法累计至Task4的原W或完整统计；仅有Task1权重和Task1 bank不足以重建八类读出。若缺Task4统计而必须重读旧fit，则该控制仍为UNRECOVERABLE。
+4. 如仅缺W、但其原Task4完整bank可用，允许按原固定ridge从bank重建，另记解析求解；不从原图重新拟合历史统计。
+5. 为每个可重建单元先锁定模型、W/bank来源、源码、预处理、精度、pointwise路由、batch布局、原val身份/component和类别列顺序。保留原有设备/确定性要求。不能通过改batch/AMP/TF32、lambda、校准、路由或选checkpoint来追求旧BA一致。
+6. 所有待重建单元的来源与布局先统一锁定，再集中执行。一次全量val前向/缺失控制；最多18个完整控制预测单元。少量确定性工程重复单独记账，不反复重评直到“看起来一致”。无autograd、无optimizer step，模型和bank/W在前后不变。
+7. 使用原验证集，不使用test/reserved；只评价截至Task4已见类。所有val读取与新预测次数如实计数。评估输出留在私有sealed目录，不进入学习器，不据结果改变Q、超参数或实验门槛。
+8. 逐样本schema、身份、标签、component和列映射必须与原manifest/锁一致；有旧逐类正确数/分母、混淆/错误表等时逐项回归。仅有四舍五入指标时按原记录精度检查，不能把舍入一致当成逐样本一致。
+9. 重建NPZ字节SHA不等于原SHA时，不可宣称找回原文件。没有旧逐样本证据可比较时，即使所有逐类数一致，也只记REBUILT_FIXED_CONTROL；历史逐样本一致性=UNKNOWN。此后配对统计使用新封存的实际逐样本输出，不从历史汇总表拼凑。
+10. 若固定重建与可核验历史离散计数/布局不一致，保存首份结果与差异证据并BLOCKED_REPRODUCTION；不得调实现、挑一份结果或放宽指标容差使其过关。实现修复须另写带原因的修订，不能覆盖首次失败。
+
+五、本轮边界与资源
+- D/R工程及正式optimizer steps均为0；不运行训练器，不改变Q或loss。
+- 不读取旧fit图像/旧逐样本fit特征、未来fit、test/reserved、Q11/oracle。
+- 允许已核验checkpoint内的合法汇总bank；允许历史val预测及其身份元数据，只用于私有评估恢复。
+- 建议本轮操作上限：一次新增有界溯源（主动搜索最多30分钟，不包括明确命中对象的限量校验传输）、单GPU串行重评累计最多1小时、最多18个完整控制预测单元。执行前实测存储空间；新增私有产物与备份副本合计最多3GiB，保留至少1GiB空闲。超限时保存已完成证据并停止，不自动扩配额。
+- 资源上限是本恢复步骤的边界，与原DFD训练预算分账；原训练预算不因本次恢复被偷偷扩大。
+- 存在可用副本就恢复，不为了生成新资产重复计算；没有必要上游状态就明确不可重建，不重训补齐。
+
+六、交付并停止
+交付 P0R_AMENDMENT_LOCK.json、RECOVERY_INVENTORY.json、SOURCE_RESTORE_AUDIT.json、PARENT_RESTORE_AUDIT.json、READOUT_REBUILD_AUDIT.json、CONTROL_REBUILD_LOCK.json、CONTROL_REPRODUCTION_AUDIT.json、RESOURCE_AND_ACCESS_LEDGER.json、BACKUP_RECEIPT.json、RECOVERY_REPORT_ZH.md。
+
+每个缺项均写清：找回原件、从已核验父状态派生、从固定控制重新评价、仍不可恢复，以及实际来源SHA和证据缺口。没有执行的检查写NOT_RUN，而不是PASS。
+
+最终状态分三种：
+A. READY_FOR_FULL_P0：全部必要控制和读出证据按本修订恢复，模型恢复/布局/备份等检查通过；只表示可以继续剩余真实梯度、checkpoint roundtrip和资源准入，不能宣称P0已全面通过。
+B. BLOCKED_UPSTREAM_STATE：固定控制模型、合法Task4统计或必要数据身份仍缺；列出精确对象，不减掉FZ1/FD1/FD10来启动训练。
+C. BLOCKED_REPRODUCTION：发现严格恢复、身份、数值或历史可验证计数不一致；列出差异，不绕过。
+
+即使状态为A，本轮也停止：formal_training_started=false；NEXT_DECISION=STOP。D/R的真实模型工程与正式训练须在本补充报告确认后继续原P0流程。不得把重建控制称为新的独立确认或原NPZ逐字节找回。
+
+先持久化全部新私有恢复资产和SHA复核，再完成公开报告。只公开源码、协议、聚合与非敏感哈希；本指令本身不新增push权限，遵守当前已明确授权的发布范围。不要覆盖历史报告或发布任何私有资产。

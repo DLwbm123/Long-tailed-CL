@@ -1,0 +1,130 @@
+请执行 DFD-T4-P-v1：现有 APART/解析记忆方法的 Task4 方向性 FD 有界试验。
+
+配套文件：DFD_T4_PILOT_PLAN_ZH.md。
+该文件 SHA256：0e91b213cae6d9483622e9c08a88e3b9bb05377ed32af58b298baa9095b1ae0d。
+先完整读取计划并校验字节 SHA。缺少文件或哈希不一致时停止，不凭对话摘要补写协议。
+本 prompt 由用户发送后，执行范围只限以下 P0→P1→P2；不能把历史“自主研究”授权解释为无界扩展本轮。
+本轮目标是得到固定矩阵的真实结果；准入通过后完成训练与交付，不只写脚手架。准入失败则准确交付 BLOCKED 及已完成工作，不伪造运行或成绩。
+
+【一、先核对已经完成的实验】
+仓库：DLwbm123/Long-tailed-CL。main 不是这些实验的最新汇总，按固定分支/提交读取。
+CT3-P：6f6e15fb63bb0ac4b4034d14f4ef0c5a16d3fb34。
+CT4-F：46c372794195ced17fe138328497b85b7d75c83e。
+CT5-F：2aaf822dece1776922a2fb3f2a23fe037cf0893d。
+CT6-F：344d87d22bfa786371d526ae338e4dbdc4746940。
+CT9-P：082302817113a385922cbc4847fe9c2a6e13f226。
+CT10-O 路由更正：9c60f601ad687070be8177cdb1b453ff2df16208。
+CT11-H：915bd2d96d02f6c5cb62254a040b6b713ff64ef4。
+
+优先读取 CT9 的 FINAL_REPORT_ZH、PROTOCOL_LOCK、父谱系和执行代码；读取 CT4-F、CT10-O 更正及 CT11-H 已交付结论。核对 tools/ct1_statistics.py、tools/ct3p_core.py、tools/run_ct9p.py 及实际依赖。
+冻结 Task1、Task4 beta=1 及固定神经头诊断已经做过，不重跑它们，不称为本轮新增实验。
+
+【二、固定科学范围】
+只做 HK/ISIC × 1993/1994/1995 × Task4。
+每个 case 的 D、R 均从同一个原 CT3-P beta10 Task3 末父状态分叉，继承该父的模型、合法 bank、配置和 RNG。
+Task4 教师为该父的独立冻结副本；禁止从原 U 状态、Task1 冻结状态、CT9 Task4 末状态或其他顺序起步。
+外部顺序不重排，无额外 S0；不改变既有增强、采样、CE scope、loss reductions、assignment、pull、路由、head 容量、optimizer 和读出。
+
+方法矩阵仅为：
+FZ1 = 历史冻结正常 Task1 编码器的 Task4 F1；复用。
+FD10_T = CT6 Task4 C3；复用。
+FD1_T = CT9 Task4 B1T；复用。
+D_T = 新旧类方向 FD + 原 T 读出。
+R_T = 新同秩随机方向 FD + 原 T 读出。
+只评价 T，不选 A/T，不改为神经头、P 融合、CLIP、GSR、Risk、ConCM、RFT 或新校准。
+底层 A 状态如为原 checkpoint 格式所需可原样维护，但不构造 Q、不进入本轮成绩。
+
+新增 12 条轨迹，每条只训练 Task4 的 10 epoch；共 120 task-epochs、预期 5500 正式 optimizer steps、12 个终态 checkpoint。
+最终 Task4 T 指标表 30 行、逐类表 240 行；其中新增 12/96、复用 18/144。
+从真实任务布局复核 CT9 六个 case 的 2750 steps，再核验本轮翻倍。若不一致 BLOCKED，不修改协议凑数。
+HK 仅每个顺序的前 8/23 类；ISIC 虽覆盖 8 类，也只是 beta10 前缀后的 Task4 条件干预。
+
+【三、唯一新训练规则】
+J(x) 沿用 ct3p_core.features：pointwise raw main/few 先拼接再整体 L2，预期 d=1536。
+delta = J_student(x) - stopgrad(J_teacher(x))。
+学生、教师共用真实 CE 的同一个增强张量 x；不重新抽增强。
+
+在正式更新前，从该父 Task3 的合法 T bank 读取 mu，形状必须 (1536,6)。
+不重提旧特征，不用 Q11/oracle，不重新归一化 mu 各列。
+M = (mu - mean(mu,axis=1,keepdims=True))/sqrt(6)。
+CPU float64 thin SVD，保留 s_i > max(1e-12,1e-8*s_max) 的全部方向，得到 Q_D。
+有效秩 r 应在 1..5；零秩/非有限/来源或空间错误 BLOCKED；低于5如实记录，不补列、不换方法。
+Q_D 固定整个 Task4，禁止每 epoch 重估。
+
+Q_R 采用同样 d、r 的标准正态矩阵经 reduced QR 得到，不刻意避开 Q_D。
+使用独立局部 NumPy PCG64 Generator，种子为 SHA256("DFD-T4-P-v1|random|{dataset}|{seed}|4") 前8字节 little-endian uint64；dataset 规范为 HK/ISIC。
+QR 符号规范为 R 对角线非负。保存 Q、种子和哈希。不得消耗训练/loader/增强/synthesis RNG，不选择多个随机投影的最好或最差结果。
+
+D: total = original_complete_real_loss + mean(sum(delta^2) + 9*sum((delta @ Q_D)^2))。
+R: total = original_complete_real_loss + mean(sum(delta^2) + 9*sum((delta @ Q_R)^2))。
+即 parallel=10、perpendicular=1，固定不搜索。
+不再除 d、r 或3，不做 trace 归一化，不加新权重/gate/课程/置信度项。
+D/R 的同谱同trace只控制特征度量，不能声称实际梯度或 AdamW 更新已经匹配。
+本轮只验证方向选择，不宣称已证明保护上的类别均衡或全网络无遗忘。
+
+【四、继承训练与严格恢复】
+AdamW：pool lr0.0003，其余可训练lr0.003，wd0.01，batch48，每任务重建 optimizer，cosine10epoch到1e-5；以实际原入口为准。
+原 main/sum CE mean、few/assignment sum、三项/3、负pull、assignment原定切换均不改。
+真实CE的原 batchwise=True 保留；FD和解析probe均pointwise，不混淆batch48与批次路由。
+无AMP/TF32，不新增参数/模型，不冻结额外keys，不将仅推理Linear补丁用于反传。
+
+保留原父普通 restore 的所有检查，先完整恢复，再在显式 fork 边界安装新方法。
+新状态另设 method、Q hash、10/1系数、design hash、新源代码hash、父SHA和来源锁；禁止改旧 checkpoint 元数据绕过校验。
+每个 D/R 重新恢复相同父 RNG、loader RNG、synthesis RNG；Q随机数与诊断不改变训练状态。
+teacher 独立无共享可变storage，整个任务指纹不变。所有FD与探针恢复flags、adapt_list、路由、RNG，不污染.grad和optimizer。
+T 全二阶矩更新、lambda0.001的class-balanced ridge、原标签映射和solver容忍不变。
+
+【五、P0：资产与工程准入】
+先建独立 worktree/分支和输出目录；不 reset/clean，不覆盖任何历史目录或 dirty changes。
+真正检查六父、共享权重、合法 T bank、原manifest/component、当期Task4 fit、三个历史控制sealed scores及各自锁。
+历史地址、PID和临时路径不等于当前可用；只使用现有获准资源，不购买/新租服务器。
+缺少必要资产时，输出 BLOCKED_ASSET、真实缺项与已完成检查；不从公开均值还原预测，不回读旧fit，不重训Task1–3，不换seed/数据集救援。
+
+CPU 合成检查须通过：正交、两种损失表达式、空Q=beta1、满Q=beta10、parallel=perpendicular回归、梯度解析式、D/R同谱、公共平移后中心化跨度不变。
+float64合成容忍1e-10；FP32 Q正交max_abs<=1e-5；真实旧FD回归atol1e-6/rtol1e-5；原ridge和restore容忍不放宽。
+合法Task4小批次检查学生可微、teacher不变、增强/RNG一致、完整real loss回归、checkpoint roundtrip及错误method/Q/系数/source/protocol拒绝。
+允许最多16个隔离工程optimizer steps，全部独立记账；其状态废弃，正式训练仍从原父重起。
+学生等于teacher时首batch FD=0属于预期，不据此改算法。
+全部六case准入与资源全矩阵预估通过后，生成并冻结 PROTOCOL_LOCK、SOURCE_LOCK、ASSET_LOCK、CONTROL_COMPATIBILITY，进入P1。
+
+【六、P1：固定训练与诊断】
+单GPU串行，顺序 ISIC→HK；各1993→1994→1995；每case D→R。
+12单元全部固定10epoch；不得先看新val效果决定剩余单元，不early-stop，不best-epoch，不换random seed。
+保留rolling以同锁恢复；工程失败、断连或资源超限保留日志与真实账本，不重复完成单元。
+建议预算：GPU进程驻留总计<=6h（含工程、评价、失败）；CPU后处理<=2h；新增持久<=3GiB，本地活跃/临时<=2GiB，空闲>=1GiB。先测吞吐和可恢复存储，不能为了预算改训练配方。
+不新建周期监测任务；普通日志/心跳允许。
+
+每epoch首batch记录main/few real梯度、加权FD梯度、cosine、实际AdamW更新量、parallel/perp漂移能量、Q/r/hash、分项loss和teacher指纹。
+real norm<=1e-12时比值记NA且保留绝对量，不用大比值在线调beta。
+原pull可能使total为负，负号不构成失败；非有限值、来源错、访问越界或loss账不一致才阻断。
+探针共120个epoch记录，不冒称完整轨迹梯度统计。不新增旧fit/Q11/oracle诊断。
+
+【七、P2：锁后评价与固定判定】
+全部12终态及T-W先锁，再统一释放本轮新val。参照分数仅核对布局和做固定比较，不反馈训练。
+主比较D_T−R_T；固定辅助为D−FD1、D−FD10、D−FZ1、R−FD1。
+每数据集独立报告Task4 BA、old/current/HM、tail及旧尾/当前尾、头中尾有效分母、每类correct/n/components、全部零召回、各seed配对和最差seed。
+频次分组沿用已锁定义且只报告已见类；空组NA。额外restricted及错误分解不能替代all-seen。
+条件性bootstrap沿用CT9经过验证的class/component配对实现，2000次，seed64201，跨方法共用抽样、保留跨顺序共享样本相关性；不重抽训练seed。
+明确val多轮开发、singleton、固定模型区间和未多重校正，不写独立确认。
+
+以下pp均为同布局配对后3顺序平均：
+M：D−R BA>=1.0，至少2/3配对BA>0；CI跨0则只记MECHANISM_TENTATIVE。
+U1：D−FD1 BA>=0.5，old>=0，current>=-1.0。
+U2：D−FD10 current>=2.0，old>=-1.0，BA>=0。
+U3：D−FZ1 BA>=1.0，HM>=0。
+S：每seed D−FD1 BA>=-2.0；有效tail的D−FD10平均>=-1.0；val n>=10且components>=5的类不能从FD10非零变成D新增零召回。所有小分母零召回也如实报告。
+
+M/U1/U2/U3/S全过：只输出REVIEW_FULL_HORIZON，建议另定全程实验；本轮仍STOP。
+效用过M不过：REGULARIZATION_EFFECT_ONLY，不宣称方向机制有效。
+M过效用或安全不过：MECHANISM_SIGNAL_NO_PROMOTION。
+主要门均不过：CLOSE_DFD_T4_PILOT，只关闭这项条件实验，不否定全部子空间路线。
+工程/访问/资产错误：BLOCKED，不能记为科学负结果。
+ISIC/HK单独判定，不互相抵消。
+禁止为通过阈值追加beta/rank/随机种子、切A、换head、开路线B或访问test。
+
+【八、交付后停止】
+交付计划规定的全部锁、manifest、30/240指标、配对差与条件区间、decision_gates、120epoch记录、120梯度探针、12可恢复checkpoint、访问/资源/完整性审计，以及FINAL_REPORT_ZH。
+结果按单元增量同步到持久端，完成前从另一端重新读取并核验SHA；不能只留在租期服务器。
+私有图像/身份/特征/W/checkpoint/逐样本分数不公开；无额外授权不自动push或新建共享。
+任何结论都写明是beta10前缀条件下Task4干预。不得称D已从Task2全程验证或HK23类有效。
+本轮统一 NEXT_DECISION=STOP；路线B只可在报告中提出需要另写计划的问题，不运行其训练。

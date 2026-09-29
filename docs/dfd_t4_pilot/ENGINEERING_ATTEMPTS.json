@@ -1,0 +1,22 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "FAILED_ENGINEERING",
+      "error": "BLOCKED_DATA_ACCESS while NumPy lazily imported numpy.testing",
+      "cause": "Path guard matched testing as a test-data prefix.",
+      "repair": "Match test/reserved directory or file stem exactly; image extension guard retained.",
+      "optimizer_steps": 0,
+      "GPU_seconds": 0,
+      "wall_seconds": null
+    },
+    {
+      "attempt": 2,
+      "status": "CPU_CHECKS_PASS_ASSET_BLOCKED",
+      "wall_seconds": 19.238251118920743,
+      "optimizer_steps": 0,
+      "GPU_seconds": 0
+    }
+  ],
+  "timing_note": "Successful asset audit is timed. Preliminary read-only inspections and first failed import are not instrumented; this is not a complete CPU runtime measurement."
+}

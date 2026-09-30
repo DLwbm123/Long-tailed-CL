@@ -1,0 +1,7 @@
+{
+  "status": "BLOCKED",
+  "type": "AssertionError",
+  "reason": "('BLOCKED_RESOURCE_ADMISSION', {'projected_GPU_seconds': 36717.63243719653, 'measured_training_projection_seconds': 15355.485509745777, 'measured_probe_projection_seconds': 14448.612987908069, 'projected_persistent_including_independent_bytes': 3176161309.3999996, 'GPU_limit': 21600, 'persistent_limit': 3221225472})",
+  "traceback": "Traceback (most recent call last):\n  File \"/tmp/n76.py\", line 367, in main\n    if not (PUB/'ENGINEERING_GATE.json').exists():engineering(r,parents)\n  File \"/tmp/n76.py\", line 299, in engineering\n    assert seconds<21600 and storage<3*1024**3,('BLOCKED_RESOURCE_ADMISSION',admission)\nAssertionError: ('BLOCKED_RESOURCE_ADMISSION', {'projected_GPU_seconds': 36717.63243719653, 'measured_training_projection_seconds': 15355.485509745777, 'measured_probe_projection_seconds': 14448.612987908069, 'projected_persistent_including_independent_bytes': 3176161309.3999996, 'GPU_limit': 21600, 'persistent_limit': 3221225472})\n",
+  "formal_steps": 0
+}

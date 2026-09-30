@@ -1,0 +1,134 @@
+DFD-T4-P-v1-M1：冻结参照后置的机制实验执行补充指令
+日期：2026-09-29
+状态：待执行的补充协议；本文件不表示训练已经启动。
+
+请基于已推送的 80f6132 恢复交付，执行“剩余真实工程准入 → P1固定训练 → P2统一评价 → 归档报告”。
+这次不再启动第三轮资产搜寻，不停留在资产审计/脚手架/READY报告阶段。满足下述必要条件后，在同一执行任务内继续正式训练，不需要用户另发一条“继续”。
+
+一、修订范围与优先级
+
+1. 仓库 DLwbm123/Long-tailed-CL，现有工作区/分支 exp/dfd-t4-p-v1。先解析80f6132为完整提交并记录；保留已有dirty changes，不reset/clean、不覆盖其他工作。
+2. 阅读该提交的：
+   docs/dfd_t4_pilot/PLAN.md
+   docs/dfd_t4_pilot/EXECUTION_PROMPT.txt
+   docs/dfd_t4_pilot/recovery_v1/RECOVERY_REPORT_ZH.md
+   docs/dfd_t4_pilot/recovery_v1/CONTROL_REBUILD_LOCK.json
+   docs/dfd_t4_pilot/recovery_v1/CONTROL_REPRODUCTION_AUDIT.json
+   docs/dfd_t4_pilot/recovery_v1/RECOVERY_INVENTORY.json
+   docs/dfd_t4_pilot/recovery_v1/FZ1_UPSTREAM_AUDIT.json
+   docs/dfd_t4_pilot/recovery_v1/BACKUP_RECEIPT.json
+   以及这些记录实际引用的源码、父谱系和私有资产锁。
+   已经核验并且内容没有变化的证据直接复用，不为形式完整重做恢复轮次。
+3. 本补充明确覆盖原协议中“必须先恢复全部FZ1才准许训练”和“P0-R恢复完即停止”的要求；不覆盖数据隔离、严格恢复、真实梯度、数值正确性、资源安全等要求。
+4. 原BLOCKED_ASSET和BLOCKED_UPSTREAM_STATE报告保持原样。新增 train_m1 目录记录本次修订及产物，不把过去状态改为PASS。
+5. 这是一项因资产不足而作出的、D/R结果产生前的范围收窄：保留方向机制及强弱FD比较，将冻结Task1优越性验收后置。不是独立确认研究，也不能宣称原五条件计划已经完整完成。
+6. FZ1仍保留在设计登记表和最终限制中，但不再是这次D/R训练及四条件配对评价的阻塞项。本轮不继续找FZ1，不回读旧fit重建它，不替换成其他冻结模型，不以公开均值伪造预测。
+
+二、现在必须具备的资产
+
+必需：六个CT3-P beta10 Task3父checkpoint、匹配的共享权重和原绑定源码、各父合法A/T bank、原Task4 fit与val布局、已保存的Q_D/Q_R、12份重建CT6/CT9 Task4控制预测及其来源锁。
+恢复报告已记录六父和12个控制模型ordinary restore通过；这些结果在输入哈希和执行环境保持兼容时可复用。启动时做必要的现存文件哈希/布局核验，不重复全面溯源。
+Task3重建W使用REBUILT_FROM_VERIFIED_PARENT标记；历史独立W匹配仍为NOT_AVAILABLE。
+CT6/CT9控制使用REBUILT_FIXED_CONTROL标记，采用恢复轮次真实新SHA；历史逐样本一致性仍为UNKNOWN。逐类计数一致不升级为原预测完全复现。
+核实控制预测中样本ID、真实标签、identity component、类别列顺序与本次评价布局对应。使用新封存的实际控制预测做配对，不用历史汇总表代替。
+只要上述必需资产和真实工程条件通过，不再因为FZ1六项UNRECOVERABLE、原历史NPZ字节未找回、原独立W匹配未知而退回BLOCKED。
+但模型/权重/源码/布局错误或已准入控制文件损坏仍是硬阻塞，不能忽略。
+
+三、固定矩阵与预算步数
+
+数据集ISIC、HK；原seed/order 1993、1994、1995；只运行Task4。
+每个case的D和R分别从同一个原CT3-P FD Task3父状态重新分叉，保持相同初始网络、训练RNG、loader RNG与synthesis RNG。不得从D终态启动R。
+新训练：D、R各6条，合计12条轨迹；每条10epoch；120 task-epochs；新增正式optimizer steps合计5500。
+每arm任务步数：ISIC1993=1280、ISIC1994=600、ISIC1995=600；HK1993=140、HK1994=10、HK1995=120。单arm合计2750。
+记录父状态继承steps与本次新增steps，不能把二者混计或清掉历史账。
+调度固定ISIC→HK，每数据集1993→1994→1995，每case D→R。
+复用控制：FD10_T=CT6 C3重建预测，FD1_T=CT9 B1T重建预测；不重新训练这两个控制，不重新评价择优。
+
+四、科学定义完全不变
+
+沿用原pointwise、main/few拼接后整体L2归一化的1536维J；学生可微，教师为该父网络独立冻结拷贝；真实loss和FD共用原训练增强张量x。
+delta = J_student(x) - stopgrad(J_teacher(x))。
+D: L_total = original_complete_real_loss + mean(||delta||^2 + 9*||delta @ Q_D||^2)。
+R: L_total = original_complete_real_loss + mean(||delta||^2 + 9*||delta @ Q_R||^2)。
+不得在以上penalty外再乘父beta=10；不得再除以1536、rank或3。
+Q必须复用P0已封存且哈希正确的矩阵；维度/正交性/来源复核。Q_D来自父Task3合法T bank的六旧类中心化均值，Q_R为原固定同秩随机基。整个Task4固定Q，不用当前/val结果更新。
+需要重算用于校验时，仍使用原DFD-T4-P-v1的随机种子键，不改用M1版本字符串，不能重抽随机方向。原数值有效秩规则不变；六例原审计秩为5。
+其余real loss、CE范围和reduction、assignment切换、pull、采样、增强、路由、可训练参数、学习率、优化器与统计输运不变。
+保持实际原AdamW入口：pool lr=0.0003，其他可训练参数lr=0.003，wd=0.01，batch48、drop_last=False；每任务重建optimizer，10epoch cosine到1e-5。原生FP32，AMP/TF32关闭，不将推理专用Linear补丁用于backward。
+只评价原T读出及原class-balanced ridge(lambda=0.001)，不择A/T、不换神经头、不融合、不引入新损失或路线B。
+
+五、必须完成的剩余P0：通过后立即进入P1
+
+补齐实际训练器、状态保存/恢复、终态评价和归档入口，不能只交付数学核或审计脚本。
+复用已通过且仍匹配的CPU数学检查、ordinary restore与备份证据；只补尚未完成的真实模型测试：
+- 合法Task4小批次上，学生FD梯度真实到达main/few adapter；教师独立、不变、无梯度。
+- 初始学生=教师时FD为0是预期；用隔离工程更新/扰动验证后续非零梯度，不能强行要求第一个batch非零。
+- 完整real loss原样回归；空Q/等系数等旧FD回归；禁止额外乘beta或错误reduction。
+- pointwise上下文完整恢复flags、pool路由、adapt_list和RNG；D/R对应batch ID和增强checksum对齐。
+- 新schema记录method、Q hash、系数、source/protocol/parent lineage；验证roundtrip、同锁中断恢复和错误method/Q/系数/source/protocol被拒绝。
+- 真实训练/保存/传输的显存、吞吐、空间与完整固定矩阵可容纳性。
+原容忍不放宽：真实FP32回归atol=1e-6、rtol=1e-5；Q FP32正交误差<=1e-5；原ridge残差<1e-10。
+隔离工程optimizer steps累计<=16，分账；正式训练重新从原父状态开始，工程派生状态不进入科学轨迹。
+六case工程准入全通过后，生成P0_M1_PASS_FZ1_DEFERRED与相应锁，直接调用P1训练，不再以READY_FOR_FULL_P0或新增恢复报告结束。
+真正发生梯度错误、恢复错误、数据越界、数值异常或资源不足时才BLOCKED并保留证据。不因FZ1缺失触发这类BLOCKED。
+
+六、锁与执行生命周期
+
+在第一步D/R正式更新之前保存AMENDMENT_M1.md和AMENDMENT_LOCK.json，明确FZ1后置、理由、证据范围、控制真实新SHA及D/R仍未训练。
+保存/引用PROTOCOL_LOCK、SOURCE_LOCK、ASSET_LOCK、CONTROL_COMPATIBILITY、SUBSPACE_AUDIT、ENGINEERING_GATE；新worker与原不可变科学依赖分别绑定，不编辑旧checkpoint/source字段骗过恢复。
+建议新产物位于docs/dfd_t4_pilot/train_m1及对应私有运行目录，旧报告保持只读。
+单worker串行跑完12条，不能因某case结果不好取消其余case，不能早停/选best epoch/增加seed或rank。
+每条保存终态，并用rolling checkpoint保证同锁恢复；无界自动重试禁止，已完成单元不重跑。
+准入通过后同一任务连续执行P1→P2→报告，只有真正错误才提前停；最终仍STOP，不自动扩任务或启动新方法。
+
+七、评价和证据范围
+
+全部12个新终态、T bank/W、训练账锁定后，才统一产生并释放D/R val结果。期间不得按val改方法或停止剩余训练。
+四个可计算条件：D_T、R_T、FD10_T、FD1_T，共24行Task4指标、192行逐类结果；其中新12/96、恢复控制12/96。
+另建6行FZ1 availability表，status=DEFERRED_MISSING_TASK4_READOUT，数值为空；不要把缺失当作0，也不要伪装完成原30/240有效比较表。
+保留12个重建控制的原模型来源、重建新SHA、历史逐样本一致性UNKNOWN；与D/R按真实ID/component/列顺序配对。
+主比较D−R；辅助D−FD1、D−FD10、R−FD1。FZ1历史聚合数可单独标注为背景，不进入新配对bootstrap、U3验收或方法选择。
+每数据集独立汇总三顺序，不把两个数据集混为一个总体。
+报告BA、old/current、HM、有效tail、旧尾/当前尾及头中尾分组、correct/n/components、全部零召回、最差seed、所有配对差值、restricted诊断和错误流向。
+频次定义、样本分母与协议一致；没有有效类别为NA。Task4之前的已锁统计仅作相应历史描述；缺失的纵向诊断字段记NOT_AVAILABLE，不编造，也不新开资产恢复阻止四条件终端比较。
+按原class/component共享配对bootstrap 2000次，seed64201；同样本跨方法/顺序保持共享抽样，固定训练模型和顺序，不当作独立训练总体置信区间。控制重建不是独立验证。
+120条epoch记录与120条首batch梯度探针；记录real和FD绝对范数、cosine、实际AdamW更新、parallel/perp能量、教师fingerprint、参数变化。real norm<=1e-12时ratio记NA。
+诊断不改变RNG、flags、.grad或optimizer，不在线调参。不把当前图像漂移当作旧图像真实漂移。
+
+八、判定规则：只后置U3，不降低其余阈值
+
+所有pp差值在同dataset/seed/layout配对后平均。
+M：D−R的BA>=1.0pp，且至少2/3配对>0；区间下界<=0时只能MECHANISM_TENTATIVE。
+U1：D−FD1的BA>=0.5pp，old>=0pp，current>=−1.0pp。
+U2：D−FD10的current>=2.0pp，old>=−1.0pp，BA>=0pp。
+S：每seed D−FD1 BA>=−2.0pp；tail有效时D−FD10平均tail>=−1.0pp；对val n>=10且components>=5的类，不得FD10非零而D新变为零召回。所有更小分母的零召回仍报告。
+U3保留原定义D−FZ1 BA>=1.0pp且HM>=0pp，但本轮status=NOT_EVALUABLE_MISSING_FZ1。不得写PASS、数值0或科学FAIL，不自动从合取判定里忽略缺项。
+完整方法验收status=PENDING_FZ1；full_method_promotion=false。
+即使M/U1/U2/S全通过，最强结论也只能是LOCAL_DIRECTIONAL_SIGNAL_PENDING_FZ1，不得宣布优于冻结编码器、原五条件全通过或自动进入完整序列。
+如已可计算的门未过，如实报告对应有限负结果；不因U3缺失而隐去已有负结果，也不把U3缺失解释成方法失效。
+无论正负，全部固定单元完成后停止。后续FZ1问题另行决策，本轮不承担新的恢复循环。
+
+九、数据、资源及持久化
+
+训练只允许每case Task4当前fit；旧fit、未来fit、test/reserved、oracle访问为0。不重训历史前缀或强弱FD，不用旧fit补FZ1。
+原资源预算与已授权主机范围不自动扩展：单GPU串行，原本轮GPU驻留上限6小时包含工程/正式/评价与失败尝试；CPU后处理<=2小时；沿用原3GiB新增持久/归档、2GiB新增本地活跃/临时和>=1GiB空闲限制。实际按原锁口径审计运行盘、主归档及独立备份，不以省略副本的方式隐瞒空间。
+P0/P0-R已发生资源另列且提供总账；不清零失败尝试。已存在且SHA合格的父备份/恢复资产直接引用，不重复复制消耗预算。
+预算或硬件不足是真阻塞，不为通过而缩epoch、改batch/精度或删除旧资产，不新租服务器、不创建新周期监测。
+私有产物逐单元增量同步主持久存储，终态checkpoint、Q、bank/W、sealed predictions和运行锁在独立端复读SHA确认后才回收登记临时副本。
+公开仅源码、聚合指标和不泄露私有路径/身份的审计；不上传图像、ID/component映射、Q/W/特征、逐样本预测或checkpoint。不自动push，除非本轮另有明确发布授权。
+
+十、交付与完成标准
+
+必须交付：修订及全部锁、真实ENGINEERING_GATE、FORK/ACCESS/RESOURCE审计、24/192结果表、6行FZ1缺失表、配对差值/条件区间/decision_gates、120epoch与120梯度记录、12可恢复终态、私有Q/W/预测、主与独立备份回执、FINAL_REPORT_ZH.md。
+报告区分：
+  execution_status=COMPLETE（只有固定矩阵、评价及交付实做完成时）
+  original_five_condition_plan_complete=false
+  mechanism_status=按M真实判定
+  U1/U2/S=按实测真实判定
+  U3=NOT_EVALUABLE_MISSING_FZ1
+  frozen_superiority=NOT_ESTABLISHED
+  full_method_promotion=false
+  NEXT_DECISION=STOP
+不得在未启动训练时写RUNNING；实际启动后给出入口命令、PID/时间、首个正式更新、当前进度与日志位置。不能用计划5500步代替实际进度。
+
+立即执行上述修订后的剩余P0；通过后连续完成12条D/R训练及统一评价。不要再因为FZ1缺失结束在资产阻塞报告。

@@ -1,0 +1,91 @@
+{
+  "study": "DFD-T4-P-v1-M1",
+  "worker_sha256": "f72fe83ab7ec5f194563d5adca53d320d4eb42659c54c19d56dc575ed363ac8c",
+  "report_sha256": "62886a3a8a2c6710d1e3fb4261165f4001eaa13b15d5259ac75ebf55531e8387",
+  "new_source_sha256": {
+    "run_dfd_m1.py": "f72fe83ab7ec5f194563d5adca53d320d4eb42659c54c19d56dc575ed363ac8c",
+    "report_dfd_m1.py": "62886a3a8a2c6710d1e3fb4261165f4001eaa13b15d5259ac75ebf55531e8387",
+    "dfd_m1_transfer.py": "202dffd776f59d7f38924d63e7cc188ea6f7dce9c50902cabcc29745c198c99d",
+    "dfd_t4_core.py": "0562af4a1e427e6e61671720038084143457c3c033f32c236c66568ab49a906f"
+  },
+  "amendment_sha256": "296f37459f36ae92e57cfa8f0ddaf2dcaffcecea9774db9927307adc61262aec",
+  "matrix": {
+    "datasets": [
+      "ISIC",
+      "HK"
+    ],
+    "seeds": [
+      1993,
+      1994,
+      1995
+    ],
+    "arms": [
+      "D",
+      "R"
+    ],
+    "epochs": 10,
+    "formal_steps": 5500
+  },
+  "frequency_groups": {
+    "HK": {
+      "head": [
+        2,
+        3,
+        4,
+        8,
+        9,
+        10,
+        13,
+        15
+      ],
+      "mid": [
+        1,
+        11,
+        12,
+        14,
+        18,
+        20,
+        22
+      ],
+      "tail": [
+        0,
+        5,
+        6,
+        7,
+        16,
+        17,
+        19,
+        21
+      ]
+    },
+    "ISIC": {
+      "head": [
+        0,
+        1
+      ],
+      "mid": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "tail": [
+        6,
+        7
+      ]
+    }
+  },
+  "bootstrap": {
+    "n": 2000,
+    "seed": 64201
+  },
+  "coefficients": [
+    10,
+    1
+  ],
+  "Q_source": "original_P0_sealed_Q",
+  "GPU_seconds_limit": 21600,
+  "persistent_bytes_limit": 3221225472,
+  "active_bytes_limit": 2147483648,
+  "engineering_step_limit": 16
+}

@@ -1,0 +1,29 @@
+{
+  "status": "BLOCKED_RESOURCE_TIME",
+  "GPU_limit_seconds": 21600,
+  "automated_conservative_projection": {
+    "projected_GPU_seconds": 36717.63243719653,
+    "measured_training_projection_seconds": 15355.485509745777,
+    "measured_probe_projection_seconds": 14448.612987908069,
+    "projected_persistent_including_independent_bytes": 3176161309.3999996,
+    "GPU_limit": 21600,
+    "persistent_limit": 3221225472
+  },
+  "resource_estimation_caveat": "Short 1-2 batch extraction timing includes fixed loader and model-sync overhead; scaling all of it per batch overestimates full-dataset extraction",
+  "full_extraction_calibration": {
+    "source": "REUSED_FULL_PROBE_TIMING.json",
+    "measured_rows": 6098,
+    "measured_batches": 128,
+    "measured_seconds": 123.401,
+    "projected_all_probe_batches": 6172,
+    "projected_probe_seconds": 5950.24196875
+  },
+  "optimistic_projection_seconds_excluding_additional_diagnostics_restores_saves_backups": 22296.41372083917,
+  "remaining_time_limit_seconds": 20609.313757656608,
+  "elapsed_including_failed_attempts_seconds": 990.6862423433922,
+  "formal_optimizer_steps": 0,
+  "engineering_optimizer_steps": 12,
+  "engineering_cases_passed": 6,
+  "FZ1_blocks_training": false,
+  "scope_change_required": "GPU residence limit only; fixed scientific matrix unchanged"
+}

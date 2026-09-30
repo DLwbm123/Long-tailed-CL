@@ -1,0 +1,34 @@
+{
+  "status": "VALID_RESOURCE_MEASUREMENT_FROM_FAILED_ENGINEERING_ATTEMPT",
+  "dataset": "ISIC",
+  "seed": 1993,
+  "rows": 6098,
+  "batches": 128,
+  "elapsed_seconds": 123.401,
+  "original_RESOURCE_LEDGER_sha256": "b55dd6bcf22dcbe9aec9ed247b97470f607d97bd130c5022388f911f33812aa1",
+  "source_ledger": {
+    "phase": "engineering",
+    "calls": {
+      "engineering_train_probe_rows": 6098,
+      "engineering_wrapper_calls": 129,
+      "engineering_internal_encoder_calls": 387,
+      "engineering_probe_milliseconds": 123401,
+      "engineering_train_rows": 48
+    },
+    "GPU_process_residence_seconds": 310.67529723094776,
+    "primary_new_bytes": 3068203,
+    "independent_backup_bytes": 98575,
+    "persistent_plus_backup_bytes": 3166778,
+    "active_temporary_bytes": 0,
+    "free_bytes": 387113858105344,
+    "peak_GPU_allocated_bytes": 18355846144,
+    "fit_image_reads": 7202,
+    "val_image_reads": 0,
+    "old_fit_reads": 0,
+    "future_fit_reads": 0,
+    "test_reserved_reads": 0,
+    "oracle_reads": 0,
+    "P0_P0R_usage": "Separate historical ledgers referenced by AMENDMENT_LOCK; existing verified assets are reused"
+  },
+  "reason": "Current-fit feature extraction completed before later routing-object comparison failed; zero optimizer updates in that attempt"
+}

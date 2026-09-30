@@ -1,0 +1,877 @@
+{
+  "study": "DFD-T4-P-v1-M1",
+  "base_commit": "80f61322129ecc851411c72195a0d87d0466411b",
+  "prompt_sha256": "4d7838b8a6c880030cee8211dc6655ddde042fa59db04a8320a21f52ebeb2975",
+  "reference_locks": {
+    "PLAN.md": "0e91b213cae6d9483622e9c08a88e3b9bb05377ed32af58b298baa9095b1ae0d",
+    "EXECUTION_PROMPT.txt": "eb9fd2e7e898b1080a4cdbd02c5070dd587bb3e40d21d88786b6b3c9e18a8ee7",
+    "recovery_v1/RECOVERY_REPORT_ZH.md": "8ba068e9944839453b012e566561f37cb82dc46ca6af291dd5ad275fcc90aa38",
+    "recovery_v1/CONTROL_REBUILD_LOCK.json": "18aaf52a354296305bb32cbd401e4f53f4bcdc5945afac093ac34e13731a7851",
+    "recovery_v1/CONTROL_REPRODUCTION_AUDIT.json": "584d63e7d77c7fa59213db652e8f8eb9ac4c90d2f44571322039c03eac9c922b",
+    "recovery_v1/RECOVERY_INVENTORY.json": "30b9b44b799d80697bd670e7fcd4c3f32e28cb6a15a3cfe1422ec95233c92611",
+    "recovery_v1/FZ1_UPSTREAM_AUDIT.json": "6fee24082ae59372bc94c2e892f2d671c13326da6c4efbc6d66e40e2c2e25fd3",
+    "recovery_v1/BACKUP_RECEIPT.json": "6cce76ae5548d64fb4c387e23b95345b99286d1329901f5beb797465ced9aef4",
+    "recovery_v1/RESOURCE_AND_ACCESS_LEDGER.json": "e27f21d6a1bb88ed282255d97aa783eef1d1a30277af038985089f569b115dba"
+  },
+  "FZ1": "DEFERRED_MISSING_TASK4_READOUT",
+  "reason": "Six Task4 frozen readouts unavailable; prospectively narrow scope before D/R results",
+  "D_R_formal_steps_at_amendment": 0,
+  "original_five_condition_plan_complete": false,
+  "full_method_promotion": false,
+  "control_new_SHA": [
+    {
+      "dataset": "HK",
+      "seed": 1993,
+      "method": "C3",
+      "file": "HK_1993_C3_t04.npz",
+      "sha256": "762be93561a32d45d3068588250b0802057bf3ca628e9cf10275b05840d66e96",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 0,
+          "n_images": 7,
+          "n_correct": 5,
+          "n_components": 7
+        },
+        {
+          "head_index": 1,
+          "original_label": 4,
+          "n_images": 165,
+          "n_correct": 141,
+          "n_components": 165
+        },
+        {
+          "head_index": 2,
+          "original_label": 12,
+          "n_images": 41,
+          "n_correct": 31,
+          "n_components": 41
+        },
+        {
+          "head_index": 3,
+          "original_label": 8,
+          "n_images": 153,
+          "n_correct": 152,
+          "n_components": 153
+        },
+        {
+          "head_index": 4,
+          "original_label": 2,
+          "n_images": 182,
+          "n_correct": 182,
+          "n_components": 182
+        },
+        {
+          "head_index": 5,
+          "original_label": 11,
+          "n_images": 61,
+          "n_correct": 40,
+          "n_components": 61
+        },
+        {
+          "head_index": 6,
+          "original_label": 17,
+          "n_images": 5,
+          "n_correct": 5,
+          "n_components": 5
+        },
+        {
+          "head_index": 7,
+          "original_label": 3,
+          "n_images": 157,
+          "n_correct": 133,
+          "n_components": 157
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "HK",
+      "seed": 1994,
+      "method": "C3",
+      "file": "HK_1994_C3_t04.npz",
+      "sha256": "eda2f8cc4670b0150945bfb1dde9edf42e1f4904d55264342840eb25d06e731c",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 22,
+          "n_images": 21,
+          "n_correct": 16,
+          "n_components": 21
+        },
+        {
+          "head_index": 1,
+          "original_label": 16,
+          "n_images": 8,
+          "n_correct": 8,
+          "n_components": 8
+        },
+        {
+          "head_index": 2,
+          "original_label": 12,
+          "n_images": 41,
+          "n_correct": 35,
+          "n_components": 41
+        },
+        {
+          "head_index": 3,
+          "original_label": 13,
+          "n_images": 160,
+          "n_correct": 152,
+          "n_components": 160
+        },
+        {
+          "head_index": 4,
+          "original_label": 21,
+          "n_images": 4,
+          "n_correct": 1,
+          "n_components": 4
+        },
+        {
+          "head_index": 5,
+          "original_label": 4,
+          "n_images": 165,
+          "n_correct": 165,
+          "n_components": 165
+        },
+        {
+          "head_index": 6,
+          "original_label": 19,
+          "n_images": 2,
+          "n_correct": 0,
+          "n_components": 2
+        },
+        {
+          "head_index": 7,
+          "original_label": 17,
+          "n_images": 5,
+          "n_correct": 4,
+          "n_components": 5
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "HK",
+      "seed": 1995,
+      "method": "C3",
+      "file": "HK_1995_C3_t04.npz",
+      "sha256": "9a792448c5662cb2abb5fd09789482070fcfe9ebb7feb6ac018ffdf69243d19e",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 9,
+          "n_images": 164,
+          "n_correct": 163,
+          "n_components": 164
+        },
+        {
+          "head_index": 1,
+          "original_label": 13,
+          "n_images": 160,
+          "n_correct": 154,
+          "n_components": 160
+        },
+        {
+          "head_index": 2,
+          "original_label": 16,
+          "n_images": 8,
+          "n_correct": 8,
+          "n_components": 8
+        },
+        {
+          "head_index": 3,
+          "original_label": 14,
+          "n_images": 60,
+          "n_correct": 60,
+          "n_components": 60
+        },
+        {
+          "head_index": 4,
+          "original_label": 15,
+          "n_images": 123,
+          "n_correct": 122,
+          "n_components": 123
+        },
+        {
+          "head_index": 5,
+          "original_label": 5,
+          "n_images": 1,
+          "n_correct": 0,
+          "n_components": 1
+        },
+        {
+          "head_index": 6,
+          "original_label": 12,
+          "n_images": 41,
+          "n_correct": 35,
+          "n_components": 41
+        },
+        {
+          "head_index": 7,
+          "original_label": 1,
+          "n_images": 113,
+          "n_correct": 113,
+          "n_components": 113
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1993,
+      "method": "C3",
+      "file": "ISIC_1993_C3_t04.npz",
+      "sha256": "f77e82200b93f3d80167710645ea478575dfdb8c187b18d2726418a578cb5a1f",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 4,
+          "n_images": 41,
+          "n_correct": 25,
+          "n_components": 38
+        },
+        {
+          "head_index": 1,
+          "original_label": 0,
+          "n_images": 44,
+          "n_correct": 34,
+          "n_components": 44
+        },
+        {
+          "head_index": 2,
+          "original_label": 3,
+          "n_images": 40,
+          "n_correct": 19,
+          "n_components": 37
+        },
+        {
+          "head_index": 3,
+          "original_label": 7,
+          "n_images": 24,
+          "n_correct": 13,
+          "n_components": 20
+        },
+        {
+          "head_index": 4,
+          "original_label": 5,
+          "n_images": 37,
+          "n_correct": 17,
+          "n_components": 34
+        },
+        {
+          "head_index": 5,
+          "original_label": 6,
+          "n_images": 26,
+          "n_correct": 23,
+          "n_components": 24
+        },
+        {
+          "head_index": 6,
+          "original_label": 2,
+          "n_images": 46,
+          "n_correct": 20,
+          "n_components": 45
+        },
+        {
+          "head_index": 7,
+          "original_label": 1,
+          "n_images": 37,
+          "n_correct": 20,
+          "n_components": 36
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1994,
+      "method": "C3",
+      "file": "ISIC_1994_C3_t04.npz",
+      "sha256": "cda7c7f240533468c8e0537e9538b59cd952a21d87cfb1afab9a9311b4a12641",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 3,
+          "n_images": 40,
+          "n_correct": 14,
+          "n_components": 37
+        },
+        {
+          "head_index": 1,
+          "original_label": 7,
+          "n_images": 24,
+          "n_correct": 13,
+          "n_components": 20
+        },
+        {
+          "head_index": 2,
+          "original_label": 4,
+          "n_images": 41,
+          "n_correct": 21,
+          "n_components": 38
+        },
+        {
+          "head_index": 3,
+          "original_label": 5,
+          "n_images": 37,
+          "n_correct": 17,
+          "n_components": 34
+        },
+        {
+          "head_index": 4,
+          "original_label": 1,
+          "n_images": 37,
+          "n_correct": 19,
+          "n_components": 36
+        },
+        {
+          "head_index": 5,
+          "original_label": 0,
+          "n_images": 44,
+          "n_correct": 35,
+          "n_components": 44
+        },
+        {
+          "head_index": 6,
+          "original_label": 6,
+          "n_images": 26,
+          "n_correct": 23,
+          "n_components": 24
+        },
+        {
+          "head_index": 7,
+          "original_label": 2,
+          "n_images": 46,
+          "n_correct": 20,
+          "n_components": 45
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1995,
+      "method": "C3",
+      "file": "ISIC_1995_C3_t04.npz",
+      "sha256": "970d3563f7f12fe822ac4d248563b27e8b2c0470a3938365661ceecba1a9d700",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 1,
+          "n_images": 37,
+          "n_correct": 21,
+          "n_components": 36
+        },
+        {
+          "head_index": 1,
+          "original_label": 3,
+          "n_images": 40,
+          "n_correct": 18,
+          "n_components": 37
+        },
+        {
+          "head_index": 2,
+          "original_label": 0,
+          "n_images": 44,
+          "n_correct": 36,
+          "n_components": 44
+        },
+        {
+          "head_index": 3,
+          "original_label": 6,
+          "n_images": 26,
+          "n_correct": 24,
+          "n_components": 24
+        },
+        {
+          "head_index": 4,
+          "original_label": 4,
+          "n_images": 41,
+          "n_correct": 24,
+          "n_components": 38
+        },
+        {
+          "head_index": 5,
+          "original_label": 5,
+          "n_images": 37,
+          "n_correct": 19,
+          "n_components": 34
+        },
+        {
+          "head_index": 6,
+          "original_label": 2,
+          "n_images": 46,
+          "n_correct": 22,
+          "n_components": 45
+        },
+        {
+          "head_index": 7,
+          "original_label": 7,
+          "n_images": 24,
+          "n_correct": 14,
+          "n_components": 20
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "HK",
+      "seed": 1993,
+      "method": "B1T",
+      "file": "HK_1993_B1T_t04.npz",
+      "sha256": "bc2f7dfd6a9e13f08a0aec43e7d7f07753b0a3df40bc70cc50a4758b1c1c124f",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 0,
+          "n_images": 7,
+          "n_correct": 5,
+          "n_components": 7
+        },
+        {
+          "head_index": 1,
+          "original_label": 4,
+          "n_images": 165,
+          "n_correct": 141,
+          "n_components": 165
+        },
+        {
+          "head_index": 2,
+          "original_label": 12,
+          "n_images": 41,
+          "n_correct": 31,
+          "n_components": 41
+        },
+        {
+          "head_index": 3,
+          "original_label": 8,
+          "n_images": 153,
+          "n_correct": 152,
+          "n_components": 153
+        },
+        {
+          "head_index": 4,
+          "original_label": 2,
+          "n_images": 182,
+          "n_correct": 182,
+          "n_components": 182
+        },
+        {
+          "head_index": 5,
+          "original_label": 11,
+          "n_images": 61,
+          "n_correct": 40,
+          "n_components": 61
+        },
+        {
+          "head_index": 6,
+          "original_label": 17,
+          "n_images": 5,
+          "n_correct": 5,
+          "n_components": 5
+        },
+        {
+          "head_index": 7,
+          "original_label": 3,
+          "n_images": 157,
+          "n_correct": 133,
+          "n_components": 157
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "HK",
+      "seed": 1994,
+      "method": "B1T",
+      "file": "HK_1994_B1T_t04.npz",
+      "sha256": "17f928eda6b707bbea00777c6beef029afc0f8439ebb0a075e76f3df3f90661c",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 22,
+          "n_images": 21,
+          "n_correct": 16,
+          "n_components": 21
+        },
+        {
+          "head_index": 1,
+          "original_label": 16,
+          "n_images": 8,
+          "n_correct": 8,
+          "n_components": 8
+        },
+        {
+          "head_index": 2,
+          "original_label": 12,
+          "n_images": 41,
+          "n_correct": 35,
+          "n_components": 41
+        },
+        {
+          "head_index": 3,
+          "original_label": 13,
+          "n_images": 160,
+          "n_correct": 152,
+          "n_components": 160
+        },
+        {
+          "head_index": 4,
+          "original_label": 21,
+          "n_images": 4,
+          "n_correct": 1,
+          "n_components": 4
+        },
+        {
+          "head_index": 5,
+          "original_label": 4,
+          "n_images": 165,
+          "n_correct": 165,
+          "n_components": 165
+        },
+        {
+          "head_index": 6,
+          "original_label": 19,
+          "n_images": 2,
+          "n_correct": 0,
+          "n_components": 2
+        },
+        {
+          "head_index": 7,
+          "original_label": 17,
+          "n_images": 5,
+          "n_correct": 4,
+          "n_components": 5
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "HK",
+      "seed": 1995,
+      "method": "B1T",
+      "file": "HK_1995_B1T_t04.npz",
+      "sha256": "a3ed84fb2d217fd3e2014892db3ad27f4fdcf6757be69c6a368dc4defde872dd",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 9,
+          "n_images": 164,
+          "n_correct": 163,
+          "n_components": 164
+        },
+        {
+          "head_index": 1,
+          "original_label": 13,
+          "n_images": 160,
+          "n_correct": 154,
+          "n_components": 160
+        },
+        {
+          "head_index": 2,
+          "original_label": 16,
+          "n_images": 8,
+          "n_correct": 8,
+          "n_components": 8
+        },
+        {
+          "head_index": 3,
+          "original_label": 14,
+          "n_images": 60,
+          "n_correct": 60,
+          "n_components": 60
+        },
+        {
+          "head_index": 4,
+          "original_label": 15,
+          "n_images": 123,
+          "n_correct": 122,
+          "n_components": 123
+        },
+        {
+          "head_index": 5,
+          "original_label": 5,
+          "n_images": 1,
+          "n_correct": 0,
+          "n_components": 1
+        },
+        {
+          "head_index": 6,
+          "original_label": 12,
+          "n_images": 41,
+          "n_correct": 35,
+          "n_components": 41
+        },
+        {
+          "head_index": 7,
+          "original_label": 1,
+          "n_images": 113,
+          "n_correct": 113,
+          "n_components": 113
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1993,
+      "method": "B1T",
+      "file": "ISIC_1993_B1T_t04.npz",
+      "sha256": "2b5e316e9bb55d3b5a683081a4c7f9a800d2c178e0a323e9a4123fc52ae2bba3",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 4,
+          "n_images": 41,
+          "n_correct": 25,
+          "n_components": 38
+        },
+        {
+          "head_index": 1,
+          "original_label": 0,
+          "n_images": 44,
+          "n_correct": 35,
+          "n_components": 44
+        },
+        {
+          "head_index": 2,
+          "original_label": 3,
+          "n_images": 40,
+          "n_correct": 20,
+          "n_components": 37
+        },
+        {
+          "head_index": 3,
+          "original_label": 7,
+          "n_images": 24,
+          "n_correct": 13,
+          "n_components": 20
+        },
+        {
+          "head_index": 4,
+          "original_label": 5,
+          "n_images": 37,
+          "n_correct": 17,
+          "n_components": 34
+        },
+        {
+          "head_index": 5,
+          "original_label": 6,
+          "n_images": 26,
+          "n_correct": 23,
+          "n_components": 24
+        },
+        {
+          "head_index": 6,
+          "original_label": 2,
+          "n_images": 46,
+          "n_correct": 22,
+          "n_components": 45
+        },
+        {
+          "head_index": 7,
+          "original_label": 1,
+          "n_images": 37,
+          "n_correct": 21,
+          "n_components": 36
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1994,
+      "method": "B1T",
+      "file": "ISIC_1994_B1T_t04.npz",
+      "sha256": "3a15c1987b7984c99973f8ac3272654fb576cce461f082f8169048eaf38a4ea9",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 3,
+          "n_images": 40,
+          "n_correct": 13,
+          "n_components": 37
+        },
+        {
+          "head_index": 1,
+          "original_label": 7,
+          "n_images": 24,
+          "n_correct": 13,
+          "n_components": 20
+        },
+        {
+          "head_index": 2,
+          "original_label": 4,
+          "n_images": 41,
+          "n_correct": 21,
+          "n_components": 38
+        },
+        {
+          "head_index": 3,
+          "original_label": 5,
+          "n_images": 37,
+          "n_correct": 17,
+          "n_components": 34
+        },
+        {
+          "head_index": 4,
+          "original_label": 1,
+          "n_images": 37,
+          "n_correct": 18,
+          "n_components": 36
+        },
+        {
+          "head_index": 5,
+          "original_label": 0,
+          "n_images": 44,
+          "n_correct": 35,
+          "n_components": 44
+        },
+        {
+          "head_index": 6,
+          "original_label": 6,
+          "n_images": 26,
+          "n_correct": 23,
+          "n_components": 24
+        },
+        {
+          "head_index": 7,
+          "original_label": 2,
+          "n_images": 46,
+          "n_correct": 24,
+          "n_components": 45
+        }
+      ],
+      "historical_discrete_count_differences": []
+    },
+    {
+      "dataset": "ISIC",
+      "seed": 1995,
+      "method": "B1T",
+      "file": "ISIC_1995_B1T_t04.npz",
+      "sha256": "94282c5a2e735fa4140939a35833889e4c301a99c7d765b87889f5e0040896ac",
+      "status": "REBUILT_FIXED_CONTROL",
+      "historical_per_sample_equality": "UNKNOWN",
+      "original_file_recovered": false,
+      "layout_verified": true,
+      "network_bank_RNG_unchanged": true,
+      "counts": [
+        {
+          "head_index": 0,
+          "original_label": 1,
+          "n_images": 37,
+          "n_correct": 21,
+          "n_components": 36
+        },
+        {
+          "head_index": 1,
+          "original_label": 3,
+          "n_images": 40,
+          "n_correct": 18,
+          "n_components": 37
+        },
+        {
+          "head_index": 2,
+          "original_label": 0,
+          "n_images": 44,
+          "n_correct": 36,
+          "n_components": 44
+        },
+        {
+          "head_index": 3,
+          "original_label": 6,
+          "n_images": 26,
+          "n_correct": 24,
+          "n_components": 24
+        },
+        {
+          "head_index": 4,
+          "original_label": 4,
+          "n_images": 41,
+          "n_correct": 23,
+          "n_components": 38
+        },
+        {
+          "head_index": 5,
+          "original_label": 5,
+          "n_images": 37,
+          "n_correct": 19,
+          "n_components": 34
+        },
+        {
+          "head_index": 6,
+          "original_label": 2,
+          "n_images": 46,
+          "n_correct": 22,
+          "n_components": 45
+        },
+        {
+          "head_index": 7,
+          "original_label": 7,
+          "n_images": 24,
+          "n_correct": 14,
+          "n_components": 20
+        }
+      ],
+      "historical_discrete_count_differences": []
+    }
+  ],
+  "control_historical_per_sample_equality": "UNKNOWN",
+  "NEXT_DECISION": "STOP_AFTER_FIXED_MATRIX"
+}

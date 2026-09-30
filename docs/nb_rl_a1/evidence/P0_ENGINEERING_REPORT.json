@@ -1,0 +1,72 @@
+{
+  "status": "BLOCKED_BUDGET",
+  "engineering_checks": "PASS",
+  "formal_training_started": false,
+  "formal_optimizer_steps": 0,
+  "engineering_steps": 67,
+  "wall_T0_unix": 1790762790.16527,
+  "elapsed_at_admission_seconds": 1378.5566103458405,
+  "forecasts": [
+    {
+      "epochs": 5,
+      "optimizer_steps": 35250,
+      "training_phase_seconds": 72997.68198510323,
+      "predicted_training_finish_hours": 20.660066276513632,
+      "remaining_seconds": 75342.14493781717,
+      "wall_hours_with_1_3_margin": 27.589818063752265,
+      "pass_training_deadline": false,
+      "pass_wall_deadline": false,
+      "native_rolling_only_counterfactual_wall_hours": 25.755444395246794,
+      "components_seconds": {
+        "updates": 49830.924956768285,
+        "gradient_diagnostics": 2194.0687708742917,
+        "batch_loading_hash_transfer": 4875.619897444267,
+        "loader_startup": 1225.7654980011284,
+        "task_fit_before_after": 8181.879048585672,
+        "rolling_save": 6217.322471789949,
+        "snapshot": 51.295739002525806,
+        "train_initialization": 114.80178166273981,
+        "statistics": 96.19282039627433,
+        "trained_stage_save": 209.81100057810545,
+        "frozen": 999.0699303702667,
+        "evaluation": 747.7996606305242,
+        "other_IO": 597.5933617131448
+      }
+    },
+    {
+      "epochs": 3,
+      "optimizer_steps": 21150,
+      "training_phase_seconds": 47239.68305155106,
+      "predicted_training_finish_hours": 13.505066572749138,
+      "remaining_seconds": 49584.14600426499,
+      "wall_hours_with_1_3_margin": 18.288318448858426,
+      "pass_training_deadline": false,
+      "pass_wall_deadline": false,
+      "native_rolling_only_counterfactual_wall_hours": 17.18769424775514,
+      "components_seconds": {
+        "updates": 29898.55497406097,
+        "gradient_diagnostics": 1316.441262524575,
+        "batch_loading_hash_transfer": 2925.37193846656,
+        "loader_startup": 735.4592988006771,
+        "task_fit_before_after": 8181.879048585672,
+        "rolling_save": 3730.39348307397,
+        "snapshot": 30.777443401515484,
+        "train_initialization": 114.80178166273981,
+        "statistics": 96.19282039627433,
+        "trained_stage_save": 209.81100057810545,
+        "frozen": 999.0699303702667,
+        "evaluation": 747.7996606305242,
+        "other_IO": 597.5933617131448
+      }
+    }
+  ],
+  "forecast_rule": "elapsed + 1.3 * measured training/statistics/evaluation/IO <=16h AND unpadded training finish <=12.5h",
+  "rolling_extrapolation": "measured full-state save scaled by native payload size using actual task rows; synthetic dense features used for IO only",
+  "transfer_accounting": "measured target reread transfer throughput; conservatively counted in full despite asynchronous operation",
+  "native_rolling_counterfactual": "measurement only, not applied; changes checkpoint encoding only",
+  "admitted_epochs": null,
+  "validation_images_read": 0,
+  "test_images_read": 0,
+  "utility_status": "NOT_EVALUABLE",
+  "NEXT_DECISION": "STOP"
+}

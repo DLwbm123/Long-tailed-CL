@@ -3,6 +3,7 @@
 长尾类别增量学习研究代码与实验报告，包含 CIFAR-100-LT 上的 GPA/TaConCM 诊断、APART + ConCM-lite，以及 HyperKvasir23 上的校准与动态几何实验。
 
 - [项目现状：数据集、方法与结果](docs/PROJECT_STATUS_20260914.md)
+- [NB-RL-A1 四卡实验：完整结果与审计](docs/nb_rl_a1/README.md)
 - [基础运行与 smoke 命令](experiments/README.md)
 - [医学数据集接口](docs/FOPRO_MEDICAL_DATASETS.md)
 - [APART + ConCM-lite 完整三种子结果](docs/APART_CONCM_STAGE1_HEADNORM_3SEED_FULL_RESULTS.md)

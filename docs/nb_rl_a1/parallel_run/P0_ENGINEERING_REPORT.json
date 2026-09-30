@@ -1,0 +1,138 @@
+{
+  "status": "PASS",
+  "engineering_status": "PASS",
+  "matrix_status": "NOT_STARTED",
+  "utility_status": "NOT_EVALUABLE",
+  "epochs": 3,
+  "formal_training_started": false,
+  "engineering_steps": 110,
+  "forecasts": [
+    {
+      "epochs": 5,
+      "optimizer_steps": 35250,
+      "predicted_GPU_hours": 20.02881698811093,
+      "remaining_wall_hours": 5.838512167684434,
+      "wall_hours_with_1_3_margin": 8.132311672526457,
+      "training_finish_hours": 5.857822859167182,
+      "pass_GPU": false,
+      "pass_wall": true,
+      "pass_training": true,
+      "components_GPU_seconds": {
+        "updates": 49830.924956768285,
+        "gradient_diagnostics": 2194.0687708742917,
+        "batch_loading_hash_transfer": 4875.619897444267,
+        "loader_startup": 1225.7654980011284,
+        "task_fit_before_after": 8181.879048585672,
+        "rolling_save": 1137.5184666978628,
+        "snapshot": 51.295739002525806,
+        "train_initialization": 114.80178166273981,
+        "statistics": 96.19282039627433,
+        "trained_stage_save": 209.81100057810545,
+        "frozen": 999.0699303702667,
+        "evaluation": 747.7996606305242,
+        "other_IO": 597.5933617131448,
+        "worker_import_and_exit_reserve": 435.0,
+        "report_and_final_backup_reserve": 600.0
+      }
+    },
+    {
+      "epochs": 3,
+      "optimizer_steps": 21150,
+      "predicted_GPU_hours": 13.43823995157889,
+      "remaining_wall_hours": 4.007796324203312,
+      "wall_hours_with_1_3_margin": 5.752381076000999,
+      "training_finish_hours": 4.02710701568606,
+      "pass_GPU": true,
+      "pass_wall": true,
+      "pass_training": true,
+      "components_GPU_seconds": {
+        "updates": 29898.55497406097,
+        "gradient_diagnostics": 1316.441262524575,
+        "batch_loading_hash_transfer": 2925.37193846656,
+        "loader_startup": 735.4592988006771,
+        "task_fit_before_after": 8181.879048585672,
+        "rolling_save": 682.5110800187177,
+        "snapshot": 30.777443401515484,
+        "train_initialization": 114.80178166273981,
+        "statistics": 96.19282039627433,
+        "trained_stage_save": 209.81100057810545,
+        "frozen": 999.0699303702667,
+        "evaluation": 747.7996606305242,
+        "other_IO": 597.5933617131448,
+        "worker_import_and_exit_reserve": 435.0,
+        "report_and_final_backup_reserve": 600.0
+      }
+    }
+  ],
+  "storage_forecast_bytes": 12905909983.2,
+  "admission_wall_margin": 1.3,
+  "GPU_margin_policy": "Cumulative launch-to-exit residence has an independent 16h hard stop; 1.3 admission margin applies to wall forecast as specified",
+  "prior_GPU_seconds": 806.4002244742587,
+  "wall_T0_unix": 1790762790.16527,
+  "elapsed_at_admission_seconds": 1952.0850763320923,
+  "parallel_probe": {
+    "status": "PASS",
+    "workers": [
+      {
+        "status": "PASS",
+        "GPU": "0",
+        "steps": 10,
+        "core_seconds": 1.3805178897455335,
+        "end_to_end_seconds": 1.52004164038226,
+        "extra_seconds": 0.13812163518741727,
+        "diagnostic_seconds": 5.998935667797923,
+        "validation_images": 0
+      },
+      {
+        "status": "PASS",
+        "GPU": "1",
+        "steps": 10,
+        "core_seconds": 1.3720269079785794,
+        "end_to_end_seconds": 1.5090166188310832,
+        "extra_seconds": 0.13765132473781705,
+        "diagnostic_seconds": 6.013088173698634,
+        "validation_images": 0
+      },
+      {
+        "status": "PASS",
+        "GPU": "2",
+        "steps": 10,
+        "core_seconds": 1.3669146369211376,
+        "end_to_end_seconds": 1.5031940101180226,
+        "extra_seconds": 0.13712692423723638,
+        "diagnostic_seconds": 5.970119677949697,
+        "validation_images": 0
+      },
+      {
+        "status": "PASS",
+        "GPU": "3",
+        "steps": 10,
+        "core_seconds": 1.3704087436199188,
+        "end_to_end_seconds": 1.507614754838869,
+        "extra_seconds": 0.1366687926929444,
+        "diagnostic_seconds": 6.002250561024994,
+        "validation_images": 0
+      }
+    ],
+    "engineering_steps": 107,
+    "GPU_seconds": 756.1000845702365,
+    "validation_images": 0
+  },
+  "native_recovery": {
+    "status": "PASS",
+    "native_checkpoint": true,
+    "result": {
+      "status": "PASS",
+      "next_distinct_real_batch_exact": true,
+      "restored_policy_actions_exact": true,
+      "optimizer_scheduler_sigma_global_rng_exact": true,
+      "task_transition_feature_mapping_unchanged": true,
+      "engineering_steps": 3
+    },
+    "GPU_seconds": 806.4002244742587
+  },
+  "original_single_GPU_gate": "private/single_gpu_admission/P0_ENGINEERING_REPORT.json",
+  "schedule": "18 independent train trajectories, global state seal, 6 frozen trajectories, global seal, 4 evaluation shards, paired report",
+  "runtime_safety": "Supervisor sums all child residence, checks every 2 seconds, reserves 60 seconds before GPU cap and 30 seconds before wall cap",
+  "image_scope": "No validation images read during admission; only seed1993 Task1 fit plus synthetic data"
+}

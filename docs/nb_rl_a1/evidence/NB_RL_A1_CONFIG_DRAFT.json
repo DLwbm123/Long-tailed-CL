@@ -1,0 +1,112 @@
+{
+  "experiment": "NB-RL-A1",
+  "version": "2026-09-30-v1",
+  "status": "DESIGN_NOT_RUN",
+  "assets_verified": false,
+  "training_started": false,
+  "publication_authorized": false,
+  "dataset": "ISIC",
+  "tasks": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "order_seeds": [
+    1993,
+    1994,
+    1995
+  ],
+  "separate_base_stage": false,
+  "start": "external_pretraining_and_untrained_feature_modules",
+  "replay_images": false,
+  "replay_old_per_sample_features": false,
+  "test_reserved_access": false,
+  "candidate": "R",
+  "controls": [
+    "S",
+    "H",
+    "K",
+    "G",
+    "E",
+    "F_S",
+    "F_R"
+  ],
+  "epochs_tiers": [
+    5,
+    3
+  ],
+  "tier_selection": "P0_throughput_only_before_validation",
+  "batch_size": 48,
+  "drop_last": false,
+  "feature_dim": 1536,
+  "routing": "pointwise",
+  "train_head": "task_start_fixed_analytic_head",
+  "primary_eval_head": "task_end_refit_analytic_head",
+  "ridge_lambda": 0.001,
+  "softmax_temperature": 1.0,
+  "optimizer": {
+    "name": "AdamW",
+    "lr": 0.0003,
+    "weight_decay": 0.01,
+    "min_lr": 1e-05,
+    "reinit_each_task": true,
+    "global_grad_clip": 1.0
+  },
+  "policy": {
+    "kind": "categorical_contextual_bandit",
+    "samples_per_image": 8,
+    "updates_per_batch": 1,
+    "ppo_clip": null,
+    "loo_baseline": true,
+    "aux_weight": 0.1,
+    "retention_alpha": 20.0,
+    "retention_weight": 0.5,
+    "retention_start_task": 2
+  },
+  "normalizer": {
+    "kind": "CTAN_inspired_lagged_enumerated_moment_EMA",
+    "beta": 0.999,
+    "initial_std": 0.5,
+    "denominator_floor": 0.05,
+    "reset_each_task": false
+  },
+  "precision": {
+    "training": "float32",
+    "analytic_solve": "float64",
+    "AMP": false,
+    "TF32": false
+  },
+  "budgets": {
+    "gpu_count": 1,
+    "wall_hours_max": 16,
+    "gpu_process_hours_max": 16,
+    "engineering_hours_max": 2.5,
+    "new_training_stop_hour": 12.5,
+    "new_forward_stop_hour": 14.5,
+    "engineering_optimizer_steps_max": 180,
+    "new_artifact_GiB_including_backup_proposed_max": 16,
+    "admission_margin": 1.3
+  },
+  "required_runtime_fields": [
+    "device_and_permissions",
+    "pretrained_weight_SHA",
+    "initial_feature_module_SHA",
+    "data_manifest_SHA",
+    "class_order_SHA",
+    "parameter_name_lock",
+    "environment_lock",
+    "measured_step_time",
+    "storage_free_bytes",
+    "backup_destination"
+  ],
+  "protocol_sha256": "4c943866c8d6bde9fe047ccccd6c562e11027ea7f1a0822800fd2c0241f5f2b8",
+  "frozen_reference_lineage": {
+    "F_S": "S_Task1",
+    "F_R": "R_Task1"
+  },
+  "expected_primary_rows": {
+    "stage": 96,
+    "class": 480
+  }
+}

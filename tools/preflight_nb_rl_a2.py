@@ -1,5 +1,6 @@
 """Bounded current-Task1 probe for the new conditions and native recovery."""
 import copy
+import hashlib
 import json
 import os
 import time
@@ -11,16 +12,17 @@ from nb_rl_a2_core import CONDITIONS, selfcheck
 
 def check(run):
     run.phase = 'engineering'
-    method = json.loads(os.environ['N78_JOB'])['method']
+    job = json.loads(os.environ['N78_JOB']); method = job['method']; seed = job.get('seed',1993)
     assert r.CFG['conditions'] == CONDITIONS
     math_result = selfcheck()
-    model = r.Model(1993); model.method = method
-    z, y, rows, extract_seconds = run.extract(model, 1993, 1, bounded=True)
+    model = r.Model(seed); model.method = method
+    initial_hash = r.delta_hash(model.delta())
+    z, y, rows, extract_seconds = run.extract(model, seed, 1, bounded=True)
     model.bank = r.append(r.empty(1536), z, y, range(2), 1)
     W2, _ = r.ridge(model.bank)
     rng = np.random.default_rng(84001)
     W = torch.tensor(np.column_stack([W2, rng.normal(size=(1536, 6)) * .01]), device='cuda', dtype=torch.float32)
-    ds = r.BatchDataset(run, 1993, 1, epoch=1, train=True, bounded=True)
+    ds = r.BatchDataset(run, seed, 1, epoch=1, train=True, bounded=True)
     batches = [(x.cuda(), yy.cuda()) for _, x, yy in r.loader(ds, True)]
     weights = torch.ones(8, device='cuda')
     anchor = copy.deepcopy(model.net).requires_grad_(False).eval()
@@ -48,6 +50,8 @@ def check(run):
     assert a1 is a2 is None and d1 == d2 and r.tensors_equal(after, model.snapshot())
     assert len(run.allowed) == 96 and run.forbidden == 0
     r.save('PARALLEL_PROBE.json', dict(status='PASS', method=method, steps=8,
+        seed=seed, **r.seed_fields(seed), initial_delta_sha256=initial_hash,
+        first_batch_sha256=hashlib.sha256(batches[0][0].cpu().numpy().tobytes()+batches[0][1].cpu().numpy().tobytes()).hexdigest(),
         GPU=os.environ['CUDA_VISIBLE_DEVICES'], core_seconds=float(np.median(durations[2:])),
         diagnostic_seconds=durations[1], bounded_extract_seconds=extract_seconds,
         validation_images=0, future_fit_images=0, mathematical_checks=math_result,

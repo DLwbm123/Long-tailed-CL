@@ -65,13 +65,14 @@ with tarfile.open(fileobj=buffer,mode='w') as tar:
    tar.add(p,arcname=p.name,recursive=False)
 sys.stdout.buffer.write(buffer.getvalue())
 '''
+    script=script.replace('/tmp/q84.json',cfg.get('remote_root_config','/tmp/q84.json'))
     content=subprocess.check_output(['ssh','-o','BatchMode=yes',cfg['host'],'python3 -'],input=script.encode(),timeout=75)
     records=read_public_archive(content)
     status=json.loads(records['RUN_STATUS.json'])['status']
     if status=='COMPLETE':
         complete=json.loads(records['COMPLETE.json'])
-        assert (complete['stage_rows'],complete['class_rows'],complete['new_steps'])==(60,300,14100)
-        for name,count in [('stage_metrics.csv',60),('class_metrics.csv',300)]:
+        assert (complete['stage_rows'],complete['class_rows'],complete['new_steps'])==tuple(cfg.get('expected_counts',(60,300,14100)))
+        for name,count in zip(('stage_metrics.csv','class_metrics.csv'),cfg.get('expected_counts',(60,300,14100))[:2]):
             assert len(list(csv.DictReader(io.StringIO(records[name]))))==count
     dest.mkdir(parents=True,exist_ok=True)
     for name,text in records.items():(dest/name).write_text(text)

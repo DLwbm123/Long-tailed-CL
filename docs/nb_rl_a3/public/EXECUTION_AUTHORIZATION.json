@@ -1,0 +1,86 @@
+{
+  "experiment": "NB-RL-A3",
+  "user_instruction": "好的，按照你的想法进行实验",
+  "wall_T0_unix": 1790863389.395781,
+  "T0_note": "Conservative 20-minute allowance for local preparation before this receipt; never reset after launch",
+  "methods": [
+    "A",
+    "C"
+  ],
+  "conditions": {
+    "A": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "C": {
+      "fd": 10.0,
+      "lr": 0.0001,
+      "exact": false
+    }
+  },
+  "epochs": 3,
+  "run_specs": {
+    "199301": {
+      "order_seed": 1993,
+      "training_seed": 73001
+    },
+    "199302": {
+      "order_seed": 1993,
+      "training_seed": 73002
+    },
+    "199401": {
+      "order_seed": 1994,
+      "training_seed": 73001
+    },
+    "199402": {
+      "order_seed": 1994,
+      "training_seed": 73002
+    },
+    "199501": {
+      "order_seed": 1995,
+      "training_seed": 73001
+    },
+    "199502": {
+      "order_seed": 1995,
+      "training_seed": 73002
+    }
+  },
+  "frozen_references": [
+    [
+      "F_S",
+      "A"
+    ]
+  ],
+  "gpu_indices": [
+    0,
+    2,
+    3
+  ],
+  "task1": "identical CE only, lr=3e-4; independently fresh initialization, paired by order and training seed",
+  "budgets": {
+    "gpu_count": 3,
+    "wall_hours": 16,
+    "cumulative_GPU_hours": 16,
+    "engineering_hours": 2.5,
+    "engineering_steps": 180,
+    "training_stop_hours": 12.5,
+    "forward_stop_hours": 14.5,
+    "storage_GiB_including_backup": 16
+  },
+  "expected": {
+    "train_trajectories": 12,
+    "train_stages": 48,
+    "frozen_trajectories": 6,
+    "stage_rows": 72,
+    "class_rows": 360,
+    "formal_steps": 14100
+  },
+  "base_commit": "14c7817b7caf0ec4583b4f73c99e915ec725b88b",
+  "publication_authorized": true,
+  "automatic_followon_experiments": false,
+  "hourly_monitor_authorized": false,
+  "validation_role": "training-randomness replication on previously used validation data",
+  "state": "PREPARING",
+  "formal_training_started": false
+}

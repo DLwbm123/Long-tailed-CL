@@ -36,15 +36,31 @@ OUT = PUB if WORKER is None else PRIVATE / 'workers' / WORKER
 OUT.mkdir(parents=True, exist_ok=True)
 METHODS = tuple(CFG.get('methods', ('S', 'H', 'K', 'G', 'R', 'E')))
 FROZEN_REFERENCES = CFG.get('frozen_references', [('F_S', 'S'), ('F_R', 'R')])
-if CFG.get('experiment') == 'NB-RL-A2':
+if CFG.get('experiment') in ('NB-RL-A2', 'NB-RL-A3'):
     from nb_rl_a2_core import objective
 
 
+RUN_SPECS = {int(k): v for k, v in CFG.get('run_specs', {}).items()}
+RUN_ORDERS = {k: ISIC_ORDERS[v['order_seed']] for k, v in RUN_SPECS.items()} if RUN_SPECS else ISIC_ORDERS
+RUN_IDS = tuple(RUN_ORDERS)
+
+
+def training_seed(run_id):
+    return RUN_SPECS.get(run_id, {}).get('training_seed', run_id)
+
+
+def seed_fields(run_id):
+    return dict(run_id=run_id, order_seed=RUN_SPECS.get(run_id, {}).get('order_seed', run_id),
+                training_seed=training_seed(run_id))
+
+
 def save(name, value):
+    if isinstance(value, dict) and 'seed' in value: value = dict(value, **seed_fields(value['seed']))
     write_json(OUT / name, value)
 
 
 def record(name, value):
+    if 'seed' in value: value = dict(value, **seed_fields(value['seed']))
     with (OUT / name).open('a') as f:
         f.write(json.dumps(value, allow_nan=False) + '\n')
 
@@ -80,7 +96,7 @@ class BatchDataset(Dataset):
     def __init__(self, owner, seed, task, epoch=0, split='train', train=False, bounded=False):
         spec = CFG['dataset']; classes = range(2 * (task - 1), 2 * task) if split == 'train' else range(2 * task)
         assert split == 'train' or owner.phase == 'evaluate'
-        self.base = Images(Path(spec['manifests']) / (split + '.csv'), spec['images'], ISIC_ORDERS[seed], classes, train)
+        self.base = Images(Path(spec['manifests']) / (split + '.csv'), spec['images'], RUN_ORDERS[seed], classes, train)
         self.base.rows.sort(key=lambda x: x['sample_id'])
         if bounded:
             self.base.rows = sum(([r for r in self.base.rows if r['target'] == c][:48] for c in classes), [])
@@ -93,16 +109,16 @@ class BatchDataset(Dataset):
     def __getitem__(self, index):
         # Augmentations are identical across methods and independent of action draws.
         with torch.random.fork_rng(devices=[]):
-            torch.manual_seed(self.seed * 10000019 + self.task * 100003 + self.epoch * 2003 + index)
+            torch.manual_seed(training_seed(self.seed) * 10000019 + self.task * 100003 + self.epoch * 2003 + index)
             result=self.base[index]
         return result
 
 
 class Model:
     def __init__(self, seed):
-        seed_all(seed)
+        seed_all(training_seed(seed))
         args = json.loads((Path(CFG['legacy']) / 'third_party/APART/exps/apart_cifar_shuffle.json').read_text())
-        args.update(nb_classes=8,nb_tasks=4,init_cls=2,increment=2,seed=seed,device=[torch.device('cuda:0')],
+        args.update(nb_classes=8,nb_tasks=4,init_cls=2,increment=2,seed=training_seed(seed),device=[torch.device('cuda:0')],
                     medical_v2=True,locked_weight_path=CFG['weight'],concm_stage1=False,
                     concm_stage1_eval_calibration=False,calibration_rule='none',save_task_checkpoints=False,
                     batchwise_prompt=False,shared_prompt_pool=False,shared_prompt_key=False)
@@ -119,7 +135,7 @@ class Model:
         self.parameters = [p for p in self.net.parameters() if p.requires_grad]
         assert self.parameters and all(n in self.nonshared for n in self.names)
         for pool in (self.net.backbone.pool, self.net.backbone.pool_few): pool.batchwise_prompt = False
-        self.seed = seed; self.sigma = .5; self.policy = torch.Generator(device='cuda').manual_seed(seed + 71000003)
+        self.seed = seed; self.sigma = .5; self.policy = torch.Generator(device='cuda').manual_seed(training_seed(seed) + 71000003)
         self.bank = empty(1536); self.opt = None; self.scheduler = None
         self.task = 0; self.epoch = 0; self.batch = 0; self.steps = 0; self.method = None
     def z(self, x, net=None):
@@ -136,7 +152,7 @@ class Model:
     def snapshot(self):
         return dict(delta=self.delta(),optimizer=self.opt.state_dict(),scheduler=self.scheduler.state_dict(),
                     sigma=self.sigma,policy_rng=self.policy.get_state(),global_rng=self.learner._capture_rng_state(),
-                    seed=self.seed,task=self.task,epoch=self.epoch,batch=self.batch,steps=self.steps,bank=self.bank,
+                    seed=self.seed,**seed_fields(self.seed),task=self.task,epoch=self.epoch,batch=self.batch,steps=self.steps,bank=self.bank,
                     loader_rule='stateless per sample; epoch permutation seeded by seed/task/epoch',
                     loader_rng=loader_generator(self.seed,self.task,self.epoch).get_state())
     def restore(self, state):
@@ -146,7 +162,7 @@ class Model:
 
 
 def loader_generator(seed, task, epoch):
-    return torch.Generator().manual_seed(seed * 100003 + task * 2003 + epoch)
+    return torch.Generator().manual_seed(training_seed(seed) * 100003 + task * 2003 + epoch)
 
 
 def loader(ds, shuffle=False):
@@ -261,7 +277,7 @@ def metadata():
         p=Path(spec['manifests'])/(split+'.csv');assert sha(p)==spec['manifest_sha256'][split]
         rows[split]=list(csv.DictReader(p.open()));assert len(rows[split])==spec['n_'+split]
     tasks={}
-    for seed,order in ISIC_ORDERS.items():
+    for seed,order in RUN_ORDERS.items():
         tasks[seed]=[]
         for t in range(4):
             nt=sum(int(x['original_label']) in order[2*t:2*t+2] for x in rows['train'])
@@ -419,14 +435,14 @@ def save_stage(run,model,method,task,W_start,W_final,extra):
                total_steps=model.steps,protocol_sha256=sha(PUB/'PROTOCOL_LOCK.json'),**extra)
     path=stage_path(method,model.seed,task);assert not path.exists(),'BLOCKED_STAGE_OVERWRITE'
     dump(path,state)
-    entry=dict(method=method,seed=model.seed,task=task,file=path.name,sha256=sha(path),bytes=path.stat().st_size,
+    entry=dict(method=method,seed=model.seed,**seed_fields(model.seed),task=task,file=path.name,sha256=sha(path),bytes=path.stat().st_size,
                new_steps=extra.get('task_steps',0),network_delta_sha256=extra['network_delta_sha256'])
     record('STAGE_RECEIPTS.jsonl',entry);enqueue([path],'stage_'+path.stem);run.resources();return entry
 
 
 def train_matrix(run,epochs,jobs=None):
     run.phase='formal';entries=[];formal_start=time.time()
-    for seed in (1993,1994,1995):
+    for seed in RUN_IDS:
         initial_hash=None
         for method in METHODS:
             if jobs is not None and (seed,method) not in jobs:continue
@@ -495,7 +511,7 @@ def train_matrix(run,epochs,jobs=None):
                 gc.collect();torch.cuda.empty_cache()
             del model;gc.collect();torch.cuda.empty_cache()
     matrix=json.loads((PUB/'METHOD_MATRIX.json').read_text())
-    expected_stages=4*len(METHODS)*3 if jobs is None else 4*len(jobs)
+    expected_stages=4*len(METHODS)*len(RUN_IDS) if jobs is None else 4*len(jobs)
     expected_steps=matrix['tiers'][str(epochs)] if jobs is None else sum(sum(t['batches'] for t in matrix['tasks'][str(seed)])*epochs for seed,method in jobs)
     assert len(entries)==expected_stages and run.counts['formal_steps']==expected_steps
     save('TRAINED_MATRIX_LOCK.json',dict(status='LOCKED',entries=entries,new_optimizer_steps=expected_steps,epochs=epochs,
@@ -506,7 +522,7 @@ def train_matrix(run,epochs,jobs=None):
 def frozen_matrix(run,entries,pairs=None):
     initial_entries=len(entries)
     run.phase='frozen_statistics'
-    for seed in (1993,1994,1995):
+    for seed in RUN_IDS:
         for method,owner in FROZEN_REFERENCES:
             if pairs is not None and (seed,method,owner) not in pairs:continue
             source=load(stage_path(owner,seed,1));model=Model(seed);model.restore_delta(source['delta']);model.bank=source['bank']
@@ -521,7 +537,7 @@ def frozen_matrix(run,entries,pairs=None):
                 del z;check_backlog()
             assert delta_hash(model.delta())==ref['network_delta_sha256']
             del model;gc.collect();torch.cuda.empty_cache()
-    assert len(entries)==initial_entries+4*(3*len(FROZEN_REFERENCES) if pairs is None else len(pairs))
+    assert len(entries)==initial_entries+4*(len(RUN_IDS)*len(FROZEN_REFERENCES) if pairs is None else len(pairs))
     save('ALL_STATES_LOCK.json',dict(status='LOCKED',entries=entries,unix=time.time(),validation_images_read=0))
     return entries
 
@@ -535,7 +551,7 @@ def evaluate_matrix(run,entries):
         if delta is None:delta=load(PRIVATE/'stages'/state['network_source'])['delta']
         model.restore_delta(delta);assert delta_hash(model.delta())==entry['network_delta_sha256']
         z,y,rows,_=run.extract(model,entry['seed'],entry['task'],split='val')
-        payload=dict(raw=z@state['W_final'],start_raw=z@state['W_start'],y=y,order=np.array(ISIC_ORDERS[entry['seed']][:2*entry['task']]),
+        payload=dict(raw=z@state['W_final'],start_raw=z@state['W_start'],y=y,order=np.array(RUN_ORDERS[entry['seed']][:2*entry['task']]),
                      ids=np.array([r['sample_id'] for r in rows]),component=np.array([r['identity_component'] for r in rows]),
                      original=np.array([int(r['original_label']) for r in rows]))
         p=PRIVATE/'sealed'/f"{entry['method']}_{entry['seed']}_t{entry['task']}.npz"
@@ -585,11 +601,16 @@ def main():
         elif role=='verify':verify_engineering(run)
         elif role=='parallel_probe':parallel_probe(run)
         elif role=='next_probe':
-            from preflight_nb_rl_a2 import check
+            if CFG.get('experiment') == 'NB-RL-A3':
+                from preflight_nb_rl_a3 import check
+            else:
+                from preflight_nb_rl_a2 import check
             check(run)
         elif role=='analyze':
             qualification();run.phase='report'
-            if CFG.get('experiment') == 'NB-RL-A2':
+            if CFG.get('experiment') == 'NB-RL-A3':
+                from report_nb_rl_a3 import report
+            elif CFG.get('experiment') == 'NB-RL-A2':
                 from report_nb_rl_a2 import report
             else:
                 from report_nb_rl_a1 import report

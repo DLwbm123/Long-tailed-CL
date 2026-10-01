@@ -13,7 +13,8 @@ SEEDS=(1993,1994,1995)
 GROUPS=dict(head=[0,1],mid=[2,3,4,5],tail=[6,7])
 
 
-def report(entries,root,methods=None,contrasts=None,analysis_only=False):
+def report(entries,root,methods=None,contrasts=None,analysis_only=False,seeds=None,aggregate_label="fixed_three_mean"):
+    seeds=SEEDS if seeds is None else tuple(seeds)
     root=Path(root);pub=root/'public';private=root/'private';start=time.monotonic()
     methods=METHODS if methods is None else tuple(methods)
     contrasts=tuple(('R',c) for c in ('S','H','K','F_S','F_R','G','E')) if contrasts is None else tuple(contrasts)
@@ -35,8 +36,8 @@ def report(entries,root,methods=None,contrasts=None,analysis_only=False):
                W_final_BA=m['balanced_accuracy'],refit_BA_change=m['balanced_accuracy']-ms['balanced_accuracy'],
                changed_predictions=int((a!=b).sum()),refit_corrected=int(((b!=v['y'])&(a==v['y'])).sum()),
                refit_new_errors=int(((b==v['y'])&(a!=v['y'])).sum()),head_selection=False))
-    assert len(stage)==12*len(methods) and len(classes)==60*len(methods) and set(data)=={(m,s,t) for m in methods for s in SEEDS for t in range(1,5)}
-    canonical=data[contrasts[0][0],1993,4];ids={sid:i for i,sid in enumerate(canonical['ids'])}
+    assert len(stage)==4*len(seeds)*len(methods) and len(classes)==20*len(seeds)*len(methods) and set(data)=={(m,s,t) for m in methods for s in seeds for t in range(1,5)}
+    canonical=data[contrasts[0][0],seeds[0],4];ids={sid:i for i,sid in enumerate(canonical['ids'])}
     weights=bootstrap_weights(canonical,2000,64201,range(8));boot={}
     for key,v in data.items():
         ix=np.array([ids[sid] for sid in v['ids']]);assert np.array_equal(v['original'],canonical['original'][ix])
@@ -49,7 +50,7 @@ def report(entries,root,methods=None,contrasts=None,analysis_only=False):
         boot[key]['MacroF1']=np.mean(f1,axis=0)
     final=[];summary=[];forgetting=[]
     for method in methods:
-        for seed in SEEDS:
+        for seed in seeds:
             ms=[point[method,seed,t] for t in range(1,5)]
             row=dict(ms[-1],AvgBA_inc=float(np.mean([v['balanced_accuracy'] for v in ms[1:]])),
                      AvgBA_all=float(np.mean([v['balanced_accuracy'] for v in ms])))
@@ -71,7 +72,7 @@ def report(entries,root,methods=None,contrasts=None,analysis_only=False):
     for candidate,control in contrasts:
         for metric,col in cols.items():
             diffs=[];samples=[]
-            for seed in SEEDS:
+            for seed in seeds:
                 a=final_by[candidate,seed][col];b=final_by[control,seed][col]
                 if metric=='AvgBA_inc':
                     sample=np.mean([boot[candidate,seed,t]['BA']-boot[control,seed,t]['BA'] for t in (2,3,4)],axis=0)
@@ -82,7 +83,7 @@ def report(entries,root,methods=None,contrasts=None,analysis_only=False):
                 diffs.append(difference);samples.append(sample)
                 paired.append(dict(contrast=candidate+'-'+control,seed=seed,metric=metric,difference_pp=difference,low=low,high=high))
             low,high=map(float,np.quantile(np.mean(samples,axis=0),[.025,.975]))
-            paired.append(dict(contrast=candidate+'-'+control,seed='fixed_three_mean',metric=metric,difference_pp=float(np.mean(diffs)),low=low,high=high))
+            paired.append(dict(contrast=candidate+'-'+control,seed=aggregate_label,metric=metric,difference_pp=float(np.mean(diffs)),low=low,high=high))
     if analysis_only:
         return dict(stage_metrics=stage,class_metrics=classes,final_metrics=final,dataset_summary=summary,
                     paired_differences=paired,bootstrap_intervals=paired,head_refit_diagnostics=head_diagnostics,
@@ -90,7 +91,7 @@ def report(entries,root,methods=None,contrasts=None,analysis_only=False):
     def pair(control,metric='Final_BA'):
         return next(v for v in paired if v['contrast']=='R-'+control and v['metric']==metric and v['seed']=='fixed_three_mean')
     def diff(control,metric='Final_BA'):return pair(control,metric)['difference_pp']
-    positives={c:sum(final_by['R',s]['balanced_accuracy']>final_by[c,s]['balanced_accuracy'] for s in SEEDS) for c in ('S','E')}
+    positives={c:sum(final_by['R',s]['balanced_accuracy']>final_by[c,s]['balanced_accuracy'] for s in seeds) for c in ('S','E')}
     utility=diff('S')>=1 and positives['S']>=2 and diff('S','AvgBA_inc')>=0
     violations=[]
     for control in ('S','F_R'):
@@ -99,7 +100,7 @@ def report(entries,root,methods=None,contrasts=None,analysis_only=False):
             baseline=next(v for v in classes if v['method']==control and v['task']==4 and v['seed']==pc['seed'] and v['original_label']==pc['original_label'])
             if baseline['recall']>0:violations.append(dict(control=control,seed=pc['seed'],original_label=pc['original_label'],n=pc['n_images']))
     safety=not violations and all(diff(c,'old')>=-2 and diff(c,'current')>=-2 and diff(c,'tail')>=0 and
-              all(final_by['R',s]['balanced_accuracy']-final_by[c,s]['balanced_accuracy']>=-2 for s in SEEDS) for c in ('S','F_R'))
+              all(final_by['R',s]['balanced_accuracy']-final_by[c,s]['balanced_accuracy']>=-2 for s in seeds) for c in ('S','F_R'))
     strong=all(diff(c)>=0 for c in ('H','K','F_S')) and diff('F_R')>=1
     retention=diff('G')>=.5 and diff('G','current')>=0 and diff('G','tail')>=0
     sampling=diff('E')>=.5 and positives['E']>=2

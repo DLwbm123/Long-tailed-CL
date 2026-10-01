@@ -14,7 +14,8 @@ CFG=json.loads((PRIVATE/'INPUT.json').read_text());MODE=os.environ['N78_MODE']
 PYTHON=CFG.get('python','/tmp/m62v/bin/python');ENTRY=CFG.get('entry','/tmp/p78.py')
 METHODS=tuple(CFG.get('methods',('S','H','K','G','R','E')))
 FROZEN=CFG.get('frozen_references',[('F_S','S'),('F_R','R')])
-N_STAGES=12*(len(METHODS)+len(FROZEN));N_CLASSES=60*(len(METHODS)+len(FROZEN))
+RUN_IDS=tuple(map(int,CFG.get('run_specs',{s:{} for s in (1993,1994,1995)})))
+N_STAGES=4*len(RUN_IDS)*(len(METHODS)+len(FROZEN));N_CLASSES=20*len(RUN_IDS)*(len(METHODS)+len(FROZEN))
 GPUS=tuple(CFG.get('gpu_indices',(0,1,2,3)))
 BASE=json.loads((PUB/'RESOURCE_LEDGER.json').read_text())
 PROCESS=[];RUNNING={};START=time.time();T0=CFG['wall_T0_unix']
@@ -139,10 +140,10 @@ def main():
         write(PUB/'PARALLEL_NATIVE_RECOVERY_CHECK.json',dict(status='PASS',native_checkpoint=True,result=results[0][1],GPU_seconds=residence()))
         return
     if MODE=='probe':
-        next_round=CFG.get('experiment')=='NB-RL-A2'
+        next_round=CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3')
         results=run_jobs('next_probe' if next_round else 'parallel_probe',
-                         [dict(method=m) for m in METHODS] if next_round else [{}]*4,'p')
-        assert sum(v['steps'] for r,v in results)==(32 if next_round else 40)
+                         CFG.get('probe_jobs',[dict(method=m) for m in METHODS]) if next_round else [{}]*4,'p')
+        assert sum(v['steps'] for r,v in results)==(8*len(CFG.get('probe_jobs',METHODS)) if next_round else 40)
         write(PUB/'PARALLEL_PROBE_SUMMARY.json',dict(status='PASS',workers=[v for r,v in results],
               engineering_steps=ledger()['counts']['engineering_steps'],GPU_seconds=residence(),validation_images=0))
         return
@@ -154,14 +155,14 @@ def main():
     recovery_files=[ROOT/p for p in CFG.get('recovery_files',
         ['public/PARALLEL_NATIVE_RECOVERY_CHECK.json','private/workers/q00/cursor_resume.pt'])]
     enqueue(list((ROOT/'source').glob('*.py'))+[PUB/'PROTOCOL_LOCK.json',PUB/'P0_ENGINEERING_REPORT.json',PUB/'PARALLEL_AUTHORIZATION.json']+recovery_files,'parallel_source_and_lock')
-    jobs=[dict(seed=s,method=m) for s in (1993,1994,1995) for m in METHODS]
+    jobs=[dict(seed=s,method=m) for s in RUN_IDS for m in METHODS]
     trained=run_jobs('train',jobs,'t');entries=[e for r,v in trained for e in v['entries']]
-    assert len(entries)==12*len(METHODS) and sum(v['counts']['formal_steps'] for r,v in trained)==read(PUB/'METHOD_MATRIX.json')['tiers'][str(lock['epochs'])]
+    assert len(entries)==4*len(RUN_IDS)*len(METHODS) and sum(v['counts']['formal_steps'] for r,v in trained)==read(PUB/'METHOD_MATRIX.json')['tiers'][str(lock['epochs'])]
     merge_records(trained)
     initials=[json.loads(line) for line in (PUB/'INITIALIZATION_BY_TRAJECTORY.jsonl').read_text().splitlines()]
-    for seed in (1993,1994,1995):
+    for seed in RUN_IDS:
         assert len({v['delta_sha256'] for v in initials if v['seed']==seed})==1
-        if CFG.get('experiment')=='NB-RL-A2':
+        if CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3'):
             assert len({v['network_delta_sha256'] for v in entries if v['seed']==seed and v['task']==1})==1,'BLOCKED_TASK1_MISMATCH'
         for task in range(1,5):
             for epoch in range(1,lock['epochs']+1):
@@ -170,7 +171,7 @@ def main():
                     assert (PRIVATE/'batch_checks'/(method+'_'+prefix)).read_text()==reference,'BLOCKED_BATCH_AUGMENTATION_MISMATCH'
     write(PUB/'TRAINED_MATRIX_LOCK.json',dict(status='LOCKED',entries=entries,epochs=lock['epochs'],new_optimizer_steps=sum(v['counts']['formal_steps'] for r,v in trained),
           batch_augmentation_equality=True,initialization_equality=True,unix=time.time()))
-    frozen=run_jobs('frozen',[dict(seed=s,method=m,owner=o) for s in (1993,1994,1995) for m,o in FROZEN],'f')
+    frozen=run_jobs('frozen',[dict(seed=s,method=m,owner=o) for s in RUN_IDS for m,o in FROZEN],'f')
     entries += [e for r,v in frozen for e in v['entries']]
     merge_records(trained+frozen)
     assert len(entries)==N_STAGES and len({(e['method'],e['seed'],e['task']) for e in entries})==N_STAGES

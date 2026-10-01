@@ -1,0 +1,127 @@
+{
+  "experiment": "NB-RL-A3",
+  "user_instruction": "好的，按照你的想法进行实验",
+  "wall_T0_unix": 1790863389.395781,
+  "T0_note": "Conservative 20-minute allowance for local preparation before this receipt; never reset after launch",
+  "methods": [
+    "A",
+    "C"
+  ],
+  "conditions": {
+    "A": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "C": {
+      "fd": 10.0,
+      "lr": 0.0001,
+      "exact": false
+    }
+  },
+  "epochs": 3,
+  "run_specs": {
+    "199301": {
+      "order_seed": 1993,
+      "training_seed": 73001
+    },
+    "199302": {
+      "order_seed": 1993,
+      "training_seed": 73002
+    },
+    "199401": {
+      "order_seed": 1994,
+      "training_seed": 73001
+    },
+    "199402": {
+      "order_seed": 1994,
+      "training_seed": 73002
+    },
+    "199501": {
+      "order_seed": 1995,
+      "training_seed": 73001
+    },
+    "199502": {
+      "order_seed": 1995,
+      "training_seed": 73002
+    }
+  },
+  "frozen_references": [
+    [
+      "F_S",
+      "A"
+    ]
+  ],
+  "gpu_indices": [
+    0,
+    2,
+    3
+  ],
+  "task1": "identical CE only, lr=3e-4; independently fresh initialization, paired by order and training seed",
+  "budgets": {
+    "gpu_count": 3,
+    "wall_hours": 16,
+    "cumulative_GPU_hours": 16,
+    "engineering_hours": 2.5,
+    "engineering_steps": 180,
+    "training_stop_hours": 12.5,
+    "forward_stop_hours": 14.5,
+    "storage_GiB_including_backup": 16
+  },
+  "expected": {
+    "train_trajectories": 12,
+    "train_stages": 48,
+    "frozen_trajectories": 6,
+    "stage_rows": 72,
+    "class_rows": 360,
+    "formal_steps": 14100
+  },
+  "base_commit": "14c7817b7caf0ec4583b4f73c99e915ec725b88b",
+  "publication_authorized": true,
+  "automatic_followon_experiments": false,
+  "hourly_monitor_authorized": false,
+  "validation_role": "training-randomness replication on previously used validation data",
+  "state": "LOCKED",
+  "formal_training_started": false,
+  "formal_lock": true,
+  "source_sha256": {
+    "nb_rl_a2_core.py": "3cf7782dbc67ee325b5f9c374c4e88dac607c6160f209569772a54f8d6e295a3",
+    "admit_nb_rl_a3.py": "709bbfff9612239ee48ff5954db1ac82b64647eed892c5b09e747a7137f512b5",
+    "nb_rl_a1_core.py": "df8fa42384049f11f5bd4ad8038a462c78b6f9ed686f6ef4a0768b8bc33d4ca0",
+    "preflight_nb_rl_a3.py": "e682be9571d92a800361ca62e72308452cd32b61ed1f23b9a0db4613baa44817",
+    "report_nb_rl_a3.py": "2647e1f726ea7d23cfd89f08bd5d9472d35753601af2711965bf7c032e7babfb",
+    "nb_rl_a1_parallel.py": "1a61390a42eacbb7b3596da48b812ed6e162744abdfbd972bf7d00039b185d43",
+    "run_nb_rl_a1.py": "d9d6f0d1f96bf39e7dbcf5a84cc2bdaf017d7928d140862340b9e3bb34988f41",
+    "report_nb_rl_a2.py": "48db5cc4586153b5b234785653ccbf1f995aa0ffc05b71847be2cc40a439d690",
+    "nb_rl_a1_transfer.py": "1d60e16724c1627b50c3b38ea0003a53fd4b56728718e3fb53b47bdd362f93d3",
+    "report_nb_rl_a1.py": "d24109a7901990ef6cb50314daede658e0b9de98df0fe7bf3a69fa5f245f0a19",
+    "preflight_nb_rl_a2.py": "870ec5b7fad9e96e24c1ebb6a7004f8982503bafc6fab87fafe715797f602f63"
+  },
+  "actual_source_commit": "0aec2c2726106ea79d32e62939b25e2e05c4f7d7",
+  "source_asset_lock": "SOURCE_AND_ASSET_LOCK.json",
+  "locked_before_first_update_unix": 1790864950.893242,
+  "wall_deadline_unix": 1790920989.395781,
+  "environment_lock": {
+    "python": "3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]",
+    "torch": "2.1.2+cu121",
+    "cuda_runtime": "12.1",
+    "platform": "Linux-5.15.0-190-generic-x86_64-with-glibc2.35",
+    "GPU_inventory": [
+      "0, NVIDIA A100-PCIE-40GB, 40445 MiB, 40960 MiB, 560.35.03",
+      "1, NVIDIA A100-PCIE-40GB, 20470 MiB, 40960 MiB, 560.35.03",
+      "2, NVIDIA A100-PCIE-40GB, 40445 MiB, 40960 MiB, 560.35.03",
+      "3, NVIDIA A100-PCIE-40GB, 40445 MiB, 40960 MiB, 560.35.03"
+    ],
+    "selected_GPU_indices": [
+      0,
+      2,
+      3
+    ],
+    "OMP_NUM_THREADS": 4,
+    "OPENBLAS_NUM_THREADS": 4,
+    "fp32": true,
+    "AMP": false,
+    "TF32": false,
+    "reused_from": "NB-RL-A2 external assets and environment; no trained checkpoint loaded"
+  }
+}

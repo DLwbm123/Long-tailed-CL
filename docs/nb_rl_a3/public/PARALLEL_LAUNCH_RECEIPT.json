@@ -1,0 +1,72 @@
+{
+  "status": "RUNNING_FIRST_UPDATES_VERIFIED",
+  "first_formal_updates": [
+    {
+      "worker": "t00",
+      "unix": 1790865161.447101,
+      "seed": 199301,
+      "method": "A",
+      "task": 1,
+      "pid": 159260,
+      "run_id": 199301,
+      "order_seed": 1993,
+      "training_seed": 73001
+    },
+    {
+      "worker": "t01",
+      "unix": 1790865161.4109218,
+      "seed": 199301,
+      "method": "C",
+      "task": 1,
+      "pid": 159262,
+      "run_id": 199301,
+      "order_seed": 1993,
+      "training_seed": 73001
+    },
+    {
+      "worker": "t02",
+      "unix": 1790865161.403012,
+      "seed": 199302,
+      "method": "A",
+      "task": 1,
+      "pid": 159264,
+      "run_id": 199302,
+      "order_seed": 1993,
+      "training_seed": 73002
+    }
+  ],
+  "neutral_process_commands": [
+    "159245       1 timeout --signal=TERM --kill-after=5 56002 /tmp/m62v/bin/python /tmp/v91m.py",
+    "159246  159245 /tmp/m62v/bin/python /tmp/v91m.py",
+    "159259  159246 timeout --signal=TERM --kill-after=5 43392 /tmp/m62v/bin/python /tmp/v91.py",
+    "159260  159259 /tmp/m62v/bin/python /tmp/v91.py",
+    "159261  159246 timeout --signal=TERM --kill-after=5 43392 /tmp/m62v/bin/python /tmp/v91.py",
+    "159262  159261 /tmp/m62v/bin/python /tmp/v91.py",
+    "159263  159246 timeout --signal=TERM --kill-after=5 43392 /tmp/m62v/bin/python /tmp/v91.py",
+    "159264  159263 /tmp/m62v/bin/python /tmp/v91.py",
+    "160022  159260 /tmp/m62v/bin/python /tmp/v91.py",
+    "160023  159262 /tmp/m62v/bin/python /tmp/v91.py",
+    "160024  159264 /tmp/m62v/bin/python /tmp/v91.py",
+    "160034  159260 /tmp/m62v/bin/python /tmp/v91.py",
+    "160035  159262 /tmp/m62v/bin/python /tmp/v91.py",
+    "160042  159264 /tmp/m62v/bin/python /tmp/v91.py",
+    "160043  159260 /tmp/m62v/bin/python /tmp/v91.py",
+    "160047  159262 /tmp/m62v/bin/python /tmp/v91.py",
+    "160054  159260 /tmp/m62v/bin/python /tmp/v91.py",
+    "160055  159264 /tmp/m62v/bin/python /tmp/v91.py",
+    "160057  159262 /tmp/m62v/bin/python /tmp/v91.py",
+    "160074  159264 /tmp/m62v/bin/python /tmp/v91.py"
+  ],
+  "nvidia_compute_processes": "GPU-688ed629-7a46-b62c-e3e4-0940e1649b5f, 159260, /tmp/m62v/bin/python, 0 MiB\nGPU-35be76e9-8ca5-1877-ddfe-27eb08f6721b, 159262, /tmp/m62v/bin/python, 0 MiB\nGPU-43e3d478-7979-ea29-8130-64a467b48a5c, 159264, /tmp/m62v/bin/python, 0 MiB",
+  "nvidia_device_usage": "0, 10635 MiB, 86 %\n2, 10635 MiB, 65 %\n3, 10635 MiB, 85 %",
+  "GPU_indices": [
+    0,
+    2,
+    3
+  ],
+  "stage_rows_expected": 72,
+  "class_rows_expected": 360,
+  "formal_steps_expected": 14100,
+  "source_commit": "0aec2c2726106ea79d32e62939b25e2e05c4f7d7",
+  "unix": 1790865188.6972797
+}

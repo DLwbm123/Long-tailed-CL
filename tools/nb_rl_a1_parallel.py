@@ -17,6 +17,9 @@ FROZEN=CFG.get('frozen_references',[('F_S','S'),('F_R','R')])
 RUN_IDS=tuple(map(int,CFG.get('run_specs',{s:{} for s in (1993,1994,1995)})))
 N_STAGES=4*len(RUN_IDS)*(len(METHODS)+len(FROZEN));N_CLASSES=20*len(RUN_IDS)*(len(METHODS)+len(FROZEN))
 GPUS=tuple(CFG.get('gpu_indices',(0,1,2,3)))
+GPU_LIMIT=min(57600.,float(CFG.get('gpu_budget_seconds',57600.)))
+if CFG.get('experiment')=='NB-RL-A4':
+    assert CFG.get('campaign_budget_authorized') is True and 'gpu_budget_seconds' in CFG and GPU_LIMIT>0,'BLOCKED_MISSING_CAMPAIGN_BUDGET'
 BASE=json.loads((PUB/'RESOURCE_LEDGER.json').read_text())
 PROCESS=[];RUNNING={};START=time.time();T0=CFG['wall_T0_unix']
 
@@ -31,7 +34,7 @@ def residence(now=None):
 
 def limits(role=None):
     now=time.time();elapsed=now-T0
-    assert elapsed<57600-30 and residence(now)<57600-60,'INCOMPLETE_BUDGET_16H'
+    assert elapsed<57600-30 and residence(now)<GPU_LIMIT-60,'INCOMPLETE_BUDGET_16H'
     if MODE in ('probe','check'):assert elapsed<9000,'BLOCKED_P0_BUDGET'
     if role=='train':assert elapsed<45000,'INCOMPLETE_BUDGET_TRAIN_12_5H'
     if role in ('frozen','evaluate'):assert elapsed<52200,'INCOMPLETE_BUDGET_FORWARD_14_5H'
@@ -63,7 +66,7 @@ def ledger():
         for item in read(path).get('items',[]):backup[item['file']]=item['bytes']
     value=dict(BASE,phase='parallel_'+MODE,counts=counts,wall_seconds=time.time()-T0,GPU_process_residence_seconds=residence(),
                primary_bytes=primary,independent_backup_bytes=sum(backup.values()),persistent_including_backup_bytes=primary+sum(backup.values()),
-               peak_GPU_allocated_bytes=peak,unix=time.time(),gpu_limit=len(GPUS),image_opens_by_worker=image_opens,
+               peak_GPU_allocated_bytes=peak,unix=time.time(),gpu_limit=len(GPUS),budget_GPU_seconds=GPU_LIMIT,image_opens_by_worker=image_opens,
                GPU_accounting='P0 prior plus sum of every child launch-to-exit duration, including import, IO and teardown',
                active_workers=[r['worker'] for p,l,r in RUNNING.values()])
     write(PUB/'RESOURCE_LEDGER.json',value)
@@ -140,7 +143,7 @@ def main():
         write(PUB/'PARALLEL_NATIVE_RECOVERY_CHECK.json',dict(status='PASS',native_checkpoint=True,result=results[0][1],GPU_seconds=residence()))
         return
     if MODE=='probe':
-        next_round=CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3')
+        next_round=CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3','NB-RL-A4')
         results=run_jobs('next_probe' if next_round else 'parallel_probe',
                          CFG.get('probe_jobs',[dict(method=m) for m in METHODS]) if next_round else [{}]*4,'p')
         assert sum(v['steps'] for r,v in results)==(8*len(CFG.get('probe_jobs',METHODS)) if next_round else 40)
@@ -162,7 +165,7 @@ def main():
     initials=[json.loads(line) for line in (PUB/'INITIALIZATION_BY_TRAJECTORY.jsonl').read_text().splitlines()]
     for seed in RUN_IDS:
         assert len({v['delta_sha256'] for v in initials if v['seed']==seed})==1
-        if CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3'):
+        if CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3','NB-RL-A4'):
             assert len({v['network_delta_sha256'] for v in entries if v['seed']==seed and v['task']==1})==1,'BLOCKED_TASK1_MISMATCH'
         for task in range(1,5):
             for epoch in range(1,lock['epochs']+1):

@@ -7,7 +7,10 @@ import time
 import numpy as np
 import torch
 import run_nb_rl_a1 as r
-from nb_rl_a2_core import CONDITIONS, selfcheck
+if r.CFG.get('experiment') == 'NB-RL-A4':
+    from nb_rl_a4_core import CONDITIONS, selfcheck
+else:
+    from nb_rl_a2_core import CONDITIONS, selfcheck
 
 
 def check(run):

@@ -1,0 +1,94 @@
+{
+  "experiment": "NB-RL-A4",
+  "status": "PREPARED_NOT_STARTED_AWAITING_TOTAL_GPU_BUDGET",
+  "candidate": "M",
+  "methods": [
+    "A",
+    "M"
+  ],
+  "conditions": {
+    "A": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "M": {
+      "fd": 10.0,
+      "lr": 0.0002,
+      "exact": false
+    }
+  },
+  "run_specs": {
+    "199301": {
+      "order_seed": 1993,
+      "training_seed": 73001
+    },
+    "199302": {
+      "order_seed": 1993,
+      "training_seed": 73002
+    },
+    "199401": {
+      "order_seed": 1994,
+      "training_seed": 73001
+    },
+    "199402": {
+      "order_seed": 1994,
+      "training_seed": 73002
+    },
+    "199501": {
+      "order_seed": 1995,
+      "training_seed": 73001
+    },
+    "199502": {
+      "order_seed": 1995,
+      "training_seed": 73002
+    }
+  },
+  "frozen_references": [
+    [
+      "F_S",
+      "A"
+    ]
+  ],
+  "epochs": 3,
+  "expected": {
+    "train_trajectories": 12,
+    "frozen_trajectories": 6,
+    "formal_steps": 14100,
+    "stage_rows": 72,
+    "class_rows": 360
+  },
+  "probe_jobs": [
+    {
+      "method": "A",
+      "seed": 199301
+    },
+    {
+      "method": "M",
+      "seed": 199301
+    },
+    {
+      "method": "A",
+      "seed": 199302
+    }
+  ],
+  "campaign_budget_authorized": false,
+  "gpu_budget_seconds": null,
+  "wall_T0_unix": null,
+  "primary_comparison": "M-A",
+  "frozen_comparison": "M-F_S",
+  "source_result_commit": "a8e217ceab84b11e2656b58e61c978763f84fd28",
+  "prior_run_experiment": "NB-RL-A3",
+  "per_round_limits": {
+    "wall_hours": 16,
+    "GPU_hours": 16,
+    "storage_GiB": 16,
+    "engineering_hours": 2.5,
+    "engineering_steps": 180,
+    "training_stop_hours": 12.5,
+    "forward_stop_hours": 14.5
+  },
+  "publication_authorized": true,
+  "preparation_GPU_seconds": 0,
+  "validation_role": "adaptive development using previously evaluated orders, training seeds, and validation set"
+}

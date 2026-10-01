@@ -38,6 +38,8 @@ METHODS = tuple(CFG.get('methods', ('S', 'H', 'K', 'G', 'R', 'E')))
 FROZEN_REFERENCES = CFG.get('frozen_references', [('F_S', 'S'), ('F_R', 'R')])
 if CFG.get('experiment') in ('NB-RL-A2', 'NB-RL-A3'):
     from nb_rl_a2_core import objective
+elif CFG.get('experiment') == 'NB-RL-A4':
+    from nb_rl_a4_core import objective
 
 
 RUN_SPECS = {int(k): v for k, v in CFG.get('run_specs', {}).items()}
@@ -601,14 +603,16 @@ def main():
         elif role=='verify':verify_engineering(run)
         elif role=='parallel_probe':parallel_probe(run)
         elif role=='next_probe':
-            if CFG.get('experiment') == 'NB-RL-A3':
+            if CFG.get('experiment') in ('NB-RL-A3','NB-RL-A4'):
                 from preflight_nb_rl_a3 import check
             else:
                 from preflight_nb_rl_a2 import check
             check(run)
         elif role=='analyze':
             qualification();run.phase='report'
-            if CFG.get('experiment') == 'NB-RL-A3':
+            if CFG.get('experiment') == 'NB-RL-A4':
+                from report_nb_rl_a4 import report
+            elif CFG.get('experiment') == 'NB-RL-A3':
                 from report_nb_rl_a3 import report
             elif CFG.get('experiment') == 'NB-RL-A2':
                 from report_nb_rl_a2 import report

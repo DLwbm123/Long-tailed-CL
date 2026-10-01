@@ -13,8 +13,10 @@ SEEDS=(1993,1994,1995)
 GROUPS=dict(head=[0,1],mid=[2,3,4,5],tail=[6,7])
 
 
-def report(entries,root):
+def report(entries,root,methods=None,contrasts=None,analysis_only=False):
     root=Path(root);pub=root/'public';private=root/'private';start=time.monotonic()
+    methods=METHODS if methods is None else tuple(methods)
+    contrasts=tuple(('R',c) for c in ('S','H','K','F_S','F_R','G','E')) if contrasts is None else tuple(contrasts)
     data={};point={};stage=[];classes=[];errors=[];head_diagnostics=[]
     for entry in entries:
         p=private/'sealed'/entry['prediction_file']
@@ -33,8 +35,8 @@ def report(entries,root):
                W_final_BA=m['balanced_accuracy'],refit_BA_change=m['balanced_accuracy']-ms['balanced_accuracy'],
                changed_predictions=int((a!=b).sum()),refit_corrected=int(((b!=v['y'])&(a==v['y'])).sum()),
                refit_new_errors=int(((b==v['y'])&(a!=v['y'])).sum()),head_selection=False))
-    assert len(stage)==96 and len(classes)==480 and set(data)=={(m,s,t) for m in METHODS for s in SEEDS for t in range(1,5)}
-    canonical=data['R',1993,4];ids={sid:i for i,sid in enumerate(canonical['ids'])}
+    assert len(stage)==12*len(methods) and len(classes)==60*len(methods) and set(data)=={(m,s,t) for m in methods for s in SEEDS for t in range(1,5)}
+    canonical=data[contrasts[0][0],1993,4];ids={sid:i for i,sid in enumerate(canonical['ids'])}
     weights=bootstrap_weights(canonical,2000,64201,range(8));boot={}
     for key,v in data.items():
         ix=np.array([ids[sid] for sid in v['ids']]);assert np.array_equal(v['original'],canonical['original'][ix])
@@ -46,7 +48,7 @@ def report(entries,root):
             f1.append(np.divide(200*tp,den,out=np.zeros(len(w)),where=den!=0))
         boot[key]['MacroF1']=np.mean(f1,axis=0)
     final=[];summary=[];forgetting=[]
-    for method in METHODS:
+    for method in methods:
         for seed in SEEDS:
             ms=[point[method,seed,t] for t in range(1,5)]
             row=dict(ms[-1],AvgBA_inc=float(np.mean([v['balanced_accuracy'] for v in ms[1:]])),
@@ -66,21 +68,25 @@ def report(entries,root):
               tail=float(np.mean([v['tail_recall'] for v in fs])),worst_seed_BA=min(v['balanced_accuracy'] for v in fs)))
     cols=dict(Final_BA='balanced_accuracy',MacroF1='macro_f1',old='old_macro_recall',current='current_macro_recall',tail='tail_recall',HM='HM',AvgBA_inc='AvgBA_inc')
     final_by={(v['method'],v['seed']):v for v in final};paired=[]
-    for control in ('S','H','K','F_S','F_R','G','E'):
+    for candidate,control in contrasts:
         for metric,col in cols.items():
             diffs=[];samples=[]
             for seed in SEEDS:
-                a=final_by['R',seed][col];b=final_by[control,seed][col]
+                a=final_by[candidate,seed][col];b=final_by[control,seed][col]
                 if metric=='AvgBA_inc':
-                    sample=np.mean([boot['R',seed,t]['BA']-boot[control,seed,t]['BA'] for t in (2,3,4)],axis=0)
+                    sample=np.mean([boot[candidate,seed,t]['BA']-boot[control,seed,t]['BA'] for t in (2,3,4)],axis=0)
                 else:
                     key='BA' if metric=='Final_BA' else metric
-                    sample=boot['R',seed,4][key]-boot[control,seed,4][key]
+                    sample=boot[candidate,seed,4][key]-boot[control,seed,4][key]
                 difference=a-b;low,high=map(float,np.quantile(sample,[.025,.975]))
                 diffs.append(difference);samples.append(sample)
-                paired.append(dict(contrast='R-'+control,seed=seed,metric=metric,difference_pp=difference,low=low,high=high))
+                paired.append(dict(contrast=candidate+'-'+control,seed=seed,metric=metric,difference_pp=difference,low=low,high=high))
             low,high=map(float,np.quantile(np.mean(samples,axis=0),[.025,.975]))
-            paired.append(dict(contrast='R-'+control,seed='fixed_three_mean',metric=metric,difference_pp=float(np.mean(diffs)),low=low,high=high))
+            paired.append(dict(contrast=candidate+'-'+control,seed='fixed_three_mean',metric=metric,difference_pp=float(np.mean(diffs)),low=low,high=high))
+    if analysis_only:
+        return dict(stage_metrics=stage,class_metrics=classes,final_metrics=final,dataset_summary=summary,
+                    paired_differences=paired,bootstrap_intervals=paired,head_refit_diagnostics=head_diagnostics,
+                    error_flows=errors,forgetting=forgetting,zero_recall_classes=[v for v in classes if v['recall']==0])
     def pair(control,metric='Final_BA'):
         return next(v for v in paired if v['contrast']=='R-'+control and v['metric']==metric and v['seed']=='fixed_three_mean')
     def diff(control,metric='Final_BA'):return pair(control,metric)['difference_pp']

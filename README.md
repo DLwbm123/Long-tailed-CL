@@ -4,6 +4,7 @@
 
 - [项目现状：数据集、方法与结果](docs/PROJECT_STATUS_20260914.md)
 - [NB-RL-A1 四卡实验：完整结果与审计](docs/nb_rl_a1/README.md)
+- [NB-RL-A2：保持强度与精确奖励开发实验](docs/nb_rl_a2/README.md)
 - [基础运行与 smoke 命令](experiments/README.md)
 - [医学数据集接口](docs/FOPRO_MEDICAL_DATASETS.md)
 - [APART + ConCM-lite 完整三种子结果](docs/APART_CONCM_STAGE1_HEADNORM_3SEED_FULL_RESULTS.md)

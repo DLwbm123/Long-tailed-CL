@@ -1,0 +1,84 @@
+{
+  "experiment": "NB-RL-A2",
+  "user_instruction": "好的，按照你的想法进行下一步实验",
+  "wall_T0_unix": 1790825282.543255,
+  "methods": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "conditions": {
+    "A": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "B": {
+      "fd": 30.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "C": {
+      "fd": 10.0,
+      "lr": 0.0001,
+      "exact": false
+    },
+    "D": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": true
+    }
+  },
+  "epochs": 3,
+  "seeds": [
+    1993,
+    1994,
+    1995
+  ],
+  "frozen_references": [
+    [
+      "F_S",
+      "A"
+    ]
+  ],
+  "gpu_indices": [
+    0,
+    2,
+    3
+  ],
+  "task1": "identical CE only, lr=3e-4; independent fresh initialization for every trajectory",
+  "auxiliary_starts_task": 2,
+  "auxiliary_weight": 0.1,
+  "budgets": {
+    "gpu_count": 3,
+    "wall_hours": 16,
+    "cumulative_GPU_hours": 16,
+    "engineering_hours": 2.5,
+    "engineering_steps": 180,
+    "training_stop_hours": 12.5,
+    "forward_stop_hours": 14.5,
+    "storage_GiB_including_backup": 16
+  },
+  "expected": {
+    "train_trajectories": 12,
+    "train_stages": 48,
+    "frozen_trajectories": 3,
+    "stage_rows": 60,
+    "class_rows": 300,
+    "formal_steps": 14100
+  },
+  "base_commit": "fbc4fa5083ed7a939859642362e987380b228029",
+  "publication_authorized": true,
+  "automatic_followon_experiments": false,
+  "hourly_monitor_authorized": false,
+  "validation_role": "adaptive development, not independent confirmation",
+  "state": "PREPARING",
+  "gpu_probe_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "gpu_choice_reason": "GPU1 shared-load probe 3.35 seconds versus 1.37 seconds on other devices; retain all conditions with three efficient GPUs"
+}

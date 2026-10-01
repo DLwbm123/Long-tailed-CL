@@ -1,0 +1,240 @@
+{
+  "status": "PASS",
+  "workers": [
+    {
+      "status": "PASS",
+      "method": "A",
+      "steps": 8,
+      "GPU": "0",
+      "core_seconds": 1.3766134830657393,
+      "diagnostic_seconds": 5.7607625257223845,
+      "bounded_extract_seconds": 3.468848836608231,
+      "validation_images": 0,
+      "future_fit_images": 0,
+      "mathematical_checks": {
+        "status": "PASS",
+        "identical_CE_Task1": true,
+        "A_equals_H": true,
+        "B_changes_only_FD": true,
+        "D_changes_only_exact_auxiliary": true,
+        "no_action_sampling": true
+      },
+      "next_distinct_real_batch_exact": true,
+      "optimizer_scheduler_sigma_rng_exact": true,
+      "gradient": {
+        "terms": {
+          "CE": {
+            "norm": 0.05219249775431958,
+            "weighted_norm": 0.05219249775431958
+          },
+          "FD": {
+            "norm": 0.002915132236901767,
+            "weighted_norm": 0.029151322369017667
+          },
+          "KL": {
+            "norm": 0.0009170952761372105,
+            "weighted_norm": 0.0
+          },
+          "PG": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          },
+          "Exact": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          }
+        },
+        "cosines": {
+          "CE_FD": -0.4396187674164711,
+          "CE_KL": -0.3146342507472895,
+          "CE_PG": null,
+          "CE_Exact": null,
+          "FD_KL": 0.45104715361064823,
+          "FD_PG": null,
+          "KL_PG": null,
+          "Exact_FD": null,
+          "Exact_KL": null,
+          "Exact_PG": null
+        }
+      },
+      "native_checkpoint_bytes": 143267931
+    },
+    {
+      "status": "PASS",
+      "method": "C",
+      "steps": 8,
+      "GPU": "2",
+      "core_seconds": 1.3721642894670367,
+      "diagnostic_seconds": 5.759883929975331,
+      "bounded_extract_seconds": 3.4700332330539823,
+      "validation_images": 0,
+      "future_fit_images": 0,
+      "mathematical_checks": {
+        "status": "PASS",
+        "identical_CE_Task1": true,
+        "A_equals_H": true,
+        "B_changes_only_FD": true,
+        "D_changes_only_exact_auxiliary": true,
+        "no_action_sampling": true
+      },
+      "next_distinct_real_batch_exact": true,
+      "optimizer_scheduler_sigma_rng_exact": true,
+      "gradient": {
+        "terms": {
+          "CE": {
+            "norm": 0.052003325875682786,
+            "weighted_norm": 0.052003325875682786
+          },
+          "FD": {
+            "norm": 0.000957450132753934,
+            "weighted_norm": 0.00957450132753934
+          },
+          "KL": {
+            "norm": 0.00030172993087210865,
+            "weighted_norm": 0.0
+          },
+          "PG": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          },
+          "Exact": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          }
+        },
+        "cosines": {
+          "CE_FD": -0.45279015405085876,
+          "CE_KL": -0.32790797501420094,
+          "CE_PG": null,
+          "CE_Exact": null,
+          "FD_KL": 0.4475267593944745,
+          "FD_PG": null,
+          "KL_PG": null,
+          "Exact_FD": null,
+          "Exact_KL": null,
+          "Exact_PG": null
+        }
+      },
+      "native_checkpoint_bytes": 143267931
+    },
+    {
+      "status": "PASS",
+      "method": "D",
+      "steps": 8,
+      "GPU": "3",
+      "core_seconds": 1.37871508509852,
+      "diagnostic_seconds": 5.814605733379722,
+      "bounded_extract_seconds": 3.470904708839953,
+      "validation_images": 0,
+      "future_fit_images": 0,
+      "mathematical_checks": {
+        "status": "PASS",
+        "identical_CE_Task1": true,
+        "A_equals_H": true,
+        "B_changes_only_FD": true,
+        "D_changes_only_exact_auxiliary": true,
+        "no_action_sampling": true
+      },
+      "next_distinct_real_batch_exact": true,
+      "optimizer_scheduler_sigma_rng_exact": true,
+      "gradient": {
+        "terms": {
+          "CE": {
+            "norm": 0.05219148477522182,
+            "weighted_norm": 0.05219148477522182
+          },
+          "FD": {
+            "norm": 0.00291584980573106,
+            "weighted_norm": 0.0291584980573106
+          },
+          "KL": {
+            "norm": 0.0009159460196962355,
+            "weighted_norm": 0.0
+          },
+          "PG": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          },
+          "Exact": {
+            "norm": 0.027042552056821316,
+            "weighted_norm": 0.002704255205682132
+          }
+        },
+        "cosines": {
+          "CE_FD": -0.4401438891354072,
+          "CE_KL": -0.316137436179751,
+          "CE_PG": null,
+          "CE_Exact": 0.9676755894274119,
+          "FD_KL": 0.4509569636346455,
+          "FD_PG": null,
+          "KL_PG": null,
+          "Exact_FD": -0.352040041508827,
+          "Exact_KL": -0.07170830263206572,
+          "Exact_PG": null
+        }
+      },
+      "native_checkpoint_bytes": 143267931
+    },
+    {
+      "status": "PASS",
+      "method": "B",
+      "steps": 8,
+      "GPU": "1",
+      "core_seconds": 3.3458120855502784,
+      "diagnostic_seconds": 15.375188881065696,
+      "bounded_extract_seconds": 6.271766266785562,
+      "validation_images": 0,
+      "future_fit_images": 0,
+      "mathematical_checks": {
+        "status": "PASS",
+        "identical_CE_Task1": true,
+        "A_equals_H": true,
+        "B_changes_only_FD": true,
+        "D_changes_only_exact_auxiliary": true,
+        "no_action_sampling": true
+      },
+      "next_distinct_real_batch_exact": true,
+      "optimizer_scheduler_sigma_rng_exact": true,
+      "gradient": {
+        "terms": {
+          "CE": {
+            "norm": 0.05219249775431958,
+            "weighted_norm": 0.05219249775431958
+          },
+          "FD": {
+            "norm": 0.002915132236901767,
+            "weighted_norm": 0.087453967107053
+          },
+          "KL": {
+            "norm": 0.0009170952761372105,
+            "weighted_norm": 0.0
+          },
+          "PG": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          },
+          "Exact": {
+            "norm": 0.0,
+            "weighted_norm": 0.0
+          }
+        },
+        "cosines": {
+          "CE_FD": -0.4396187674164711,
+          "CE_KL": -0.3146342507472895,
+          "CE_PG": null,
+          "CE_Exact": null,
+          "FD_KL": 0.45104715361064823,
+          "FD_PG": null,
+          "KL_PG": null,
+          "Exact_FD": null,
+          "Exact_KL": null,
+          "Exact_PG": null
+        }
+      },
+      "native_checkpoint_bytes": 143267931
+    }
+  ],
+  "engineering_steps": 32,
+  "GPU_seconds": 257.0850646495819,
+  "validation_images": 0
+}

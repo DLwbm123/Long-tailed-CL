@@ -51,10 +51,10 @@ def main():
         print(json.dumps(ack));return
     assert role=='relay'
     def command(host,op,key=None):
-        env='env N78_IO_CONFIG=/tmp/p78io.json N78_IO_ROLE='+op
+        env='env N78_IO_CONFIG='+cfg.get('remote_config','/tmp/p78io.json')+' N78_IO_ROLE='+op
         if key is not None:
             assert key.isdigit();env+=' N78_IO_ID='+key
-        return ['ssh','-o','BatchMode=yes','-o','ConnectTimeout=15',host,env+' python3 /tmp/p78io.py']
+        return ['ssh','-o','BatchMode=yes','-o','ConnectTimeout=15',host,env+' python3 '+cfg.get('remote_entry','/tmp/p78io.py')]
     failures=0
     while time.time()<cfg['wall_T0_unix']+57600:
         try:
@@ -71,7 +71,14 @@ def main():
             ack=json.loads(received.stdout);assert ack['id']==req['id'] and ack['items']==req['items']
             subprocess.run(command('my-gpu','ack'),input=json.dumps(ack).encode(),check=True,timeout=45)
             print('TRANSFER',req['id'],req['label'],len(req['items']),flush=True);failures=0
-            if req['label']=='completion_receipt':return
+            if req['label']=='completion_receipt':
+                if cfg.get('on_complete'):
+                    try:
+                        finished=subprocess.run(cfg['on_complete'],timeout=300)
+                    except subprocess.TimeoutExpired as error:
+                        raise RuntimeError('Completion publication timed out; no automatic rerun') from error
+                    if finished.returncode:raise SystemExit(finished.returncode)
+                return
         except (subprocess.SubprocessError,ConnectionError,OSError) as error:
             failures+=1;print(type(error).__name__,str(error),flush=True)
             if failures>=3:raise

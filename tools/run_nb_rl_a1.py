@@ -34,7 +34,10 @@ PRIVATE = ROOT / 'private'
 WORKER = os.environ.get('N78_WORKER')
 OUT = PUB if WORKER is None else PRIVATE / 'workers' / WORKER
 OUT.mkdir(parents=True, exist_ok=True)
-METHODS = ('S', 'H', 'K', 'G', 'R', 'E')
+METHODS = tuple(CFG.get('methods', ('S', 'H', 'K', 'G', 'R', 'E')))
+FROZEN_REFERENCES = CFG.get('frozen_references', [('F_S', 'S'), ('F_R', 'R')])
+if CFG.get('experiment') == 'NB-RL-A2':
+    from nb_rl_a2_core import objective
 
 
 def save(name, value):
@@ -118,7 +121,7 @@ class Model:
         for pool in (self.net.backbone.pool, self.net.backbone.pool_few): pool.batchwise_prompt = False
         self.seed = seed; self.sigma = .5; self.policy = torch.Generator(device='cuda').manual_seed(seed + 71000003)
         self.bank = empty(1536); self.opt = None; self.scheduler = None
-        self.task = 0; self.epoch = 0; self.batch = 0; self.steps = 0
+        self.task = 0; self.epoch = 0; self.batch = 0; self.steps = 0; self.method = None
     def z(self, x, net=None):
         return features(self.net if net is None else net, x, self.learner)
     def delta(self):
@@ -127,7 +130,8 @@ class Model:
         assert set(delta) == self.nonshared
         state = self.net.state_dict(); state.update(delta); self.net.load_state_dict(state, strict=True)
     def optimizer(self, epochs):
-        self.opt = torch.optim.AdamW(self.parameters,lr=.0003,weight_decay=.01)
+        lr = CFG.get('conditions', {}).get(self.method, {}).get('lr', .0003) if self.task > 1 else .0003
+        self.opt = torch.optim.AdamW(self.parameters,lr=lr,weight_decay=.01)
         self.scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.opt,T_max=epochs,eta_min=1e-5)
     def snapshot(self):
         return dict(delta=self.delta(),optimizer=self.opt.state_dict(),scheduler=self.scheduler.state_dict(),
@@ -426,7 +430,7 @@ def train_matrix(run,epochs,jobs=None):
         initial_hash=None
         for method in METHODS:
             if jobs is not None and (seed,method) not in jobs:continue
-            model=Model(seed)
+            model=Model(seed);model.method=method
             fresh_hash=delta_hash(model.delta())
             if initial_hash is None:initial_hash=fresh_hash
             assert fresh_hash==initial_hash and model.sigma==.5
@@ -491,7 +495,7 @@ def train_matrix(run,epochs,jobs=None):
                 gc.collect();torch.cuda.empty_cache()
             del model;gc.collect();torch.cuda.empty_cache()
     matrix=json.loads((PUB/'METHOD_MATRIX.json').read_text())
-    expected_stages=72 if jobs is None else 4*len(jobs)
+    expected_stages=4*len(METHODS)*3 if jobs is None else 4*len(jobs)
     expected_steps=matrix['tiers'][str(epochs)] if jobs is None else sum(sum(t['batches'] for t in matrix['tasks'][str(seed)])*epochs for seed,method in jobs)
     assert len(entries)==expected_stages and run.counts['formal_steps']==expected_steps
     save('TRAINED_MATRIX_LOCK.json',dict(status='LOCKED',entries=entries,new_optimizer_steps=expected_steps,epochs=epochs,
@@ -503,7 +507,7 @@ def frozen_matrix(run,entries,pairs=None):
     initial_entries=len(entries)
     run.phase='frozen_statistics'
     for seed in (1993,1994,1995):
-        for method,owner in [('F_S','S'),('F_R','R')]:
+        for method,owner in FROZEN_REFERENCES:
             if pairs is not None and (seed,method,owner) not in pairs:continue
             source=load(stage_path(owner,seed,1));model=Model(seed);model.restore_delta(source['delta']);model.bank=source['bank']
             model.sigma=source['sigma'];model.steps=source['total_steps'];model.policy.set_state(source['policy_rng'])
@@ -517,7 +521,7 @@ def frozen_matrix(run,entries,pairs=None):
                 del z;check_backlog()
             assert delta_hash(model.delta())==ref['network_delta_sha256']
             del model;gc.collect();torch.cuda.empty_cache()
-    assert len(entries)==initial_entries+4*(6 if pairs is None else len(pairs))
+    assert len(entries)==initial_entries+4*(3*len(FROZEN_REFERENCES) if pairs is None else len(pairs))
     save('ALL_STATES_LOCK.json',dict(status='LOCKED',entries=entries,unix=time.time(),validation_images_read=0))
     return entries
 
@@ -580,9 +584,15 @@ def main():
         if role=='engineering':engineering(run)
         elif role=='verify':verify_engineering(run)
         elif role=='parallel_probe':parallel_probe(run)
+        elif role=='next_probe':
+            from preflight_nb_rl_a2 import check
+            check(run)
         elif role=='analyze':
             qualification();run.phase='report'
-            from report_nb_rl_a1 import report
+            if CFG.get('experiment') == 'NB-RL-A2':
+                from report_nb_rl_a2 import report
+            else:
+                from report_nb_rl_a1 import report
             report(json.loads((PUB/'PREDICTIONS_LOCK.json').read_text())['entries'],ROOT)
             save('WORKER_COMPLETE.json',dict(status='COMPLETE',role=role,counts=run.counts,unix=time.time()))
         elif role in ('train','frozen','evaluate'):

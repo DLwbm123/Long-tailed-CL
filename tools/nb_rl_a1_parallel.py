@@ -11,7 +11,11 @@ import shutil
 
 ROOT=Path(os.environ['N78_ROOT']);PUB=ROOT/'public';PRIVATE=ROOT/'private'
 CFG=json.loads((PRIVATE/'INPUT.json').read_text());MODE=os.environ['N78_MODE']
-PYTHON='/tmp/m62v/bin/python';ENTRY='/tmp/p78.py'
+PYTHON=CFG.get('python','/tmp/m62v/bin/python');ENTRY=CFG.get('entry','/tmp/p78.py')
+METHODS=tuple(CFG.get('methods',('S','H','K','G','R','E')))
+FROZEN=CFG.get('frozen_references',[('F_S','S'),('F_R','R')])
+N_STAGES=12*(len(METHODS)+len(FROZEN));N_CLASSES=60*(len(METHODS)+len(FROZEN))
+GPUS=tuple(CFG.get('gpu_indices',(0,1,2,3)))
 BASE=json.loads((PUB/'RESOURCE_LEDGER.json').read_text())
 PROCESS=[];RUNNING={};START=time.time();T0=CFG['wall_T0_unix']
 
@@ -58,7 +62,7 @@ def ledger():
         for item in read(path).get('items',[]):backup[item['file']]=item['bytes']
     value=dict(BASE,phase='parallel_'+MODE,counts=counts,wall_seconds=time.time()-T0,GPU_process_residence_seconds=residence(),
                primary_bytes=primary,independent_backup_bytes=sum(backup.values()),persistent_including_backup_bytes=primary+sum(backup.values()),
-               peak_GPU_allocated_bytes=peak,unix=time.time(),gpu_limit=4,image_opens_by_worker=image_opens,
+               peak_GPU_allocated_bytes=peak,unix=time.time(),gpu_limit=len(GPUS),image_opens_by_worker=image_opens,
                GPU_accounting='P0 prior plus sum of every child launch-to-exit duration, including import, IO and teardown',
                active_workers=[r['worker'] for p,l,r in RUNNING.values()])
     write(PUB/'RESOURCE_LEDGER.json',value)
@@ -71,7 +75,7 @@ def run_jobs(role,jobs,prefix):
     while pending or RUNNING:
         limits(role)
         used={r['GPU'] for p,l,r in RUNNING.values()}
-        for gpu in (0,1,2,3):
+        for gpu in GPUS:
             if gpu in used or not pending:continue
             index,job=pending.pop(0);worker=prefix+f'{index:02d}';out=PRIVATE/'workers'/worker
             assert not out.exists(),'BLOCKED_WORKER_REUSE'
@@ -89,7 +93,7 @@ def run_jobs(role,jobs,prefix):
             if code is None:continue
             rec['ended']=time.time();rec['returncode']=code;log.close();del RUNNING[pid]
             assert code==0,f"BLOCKED_WORKER_{rec['worker']}_EXIT_{code}"
-            filename={'parallel_probe':'PARALLEL_PROBE.json','verify':'CURSOR_AND_TRANSITION_CHECK.json'}.get(role,'WORKER_COMPLETE.json')
+            filename={'parallel_probe':'PARALLEL_PROBE.json','next_probe':'PARALLEL_PROBE.json','verify':'CURSOR_AND_TRANSITION_CHECK.json'}.get(role,'WORKER_COMPLETE.json')
             result=read(PRIVATE/'workers'/rec['worker']/filename);finished.append((rec,result))
             print('END',rec['worker'],flush=True)
         if time.time()-last>15:ledger();last=time.time()
@@ -135,47 +139,54 @@ def main():
         write(PUB/'PARALLEL_NATIVE_RECOVERY_CHECK.json',dict(status='PASS',native_checkpoint=True,result=results[0][1],GPU_seconds=residence()))
         return
     if MODE=='probe':
-        results=run_jobs('parallel_probe',[{}]*4,'p')
-        assert sum(v['steps'] for r,v in results)==40
+        next_round=CFG.get('experiment')=='NB-RL-A2'
+        results=run_jobs('next_probe' if next_round else 'parallel_probe',
+                         [dict(method=m) for m in METHODS] if next_round else [{}]*4,'p')
+        assert sum(v['steps'] for r,v in results)==(32 if next_round else 40)
         write(PUB/'PARALLEL_PROBE_SUMMARY.json',dict(status='PASS',workers=[v for r,v in results],
               engineering_steps=ledger()['counts']['engineering_steps'],GPU_seconds=residence(),validation_images=0))
         return
     assert MODE=='formal'
     assert not (PUB/'COMPLETE.json').exists()
     write(PUB/'RUN_STATUS.json',dict(status='RUNNING',phase='train',unix=time.time(),supervisor_pid=os.getpid()))
-    lock=read(PUB/'PROTOCOL_LOCK.json');assert lock['epochs'] in (3,5) and lock['budgets']['gpu_count']==4
+    lock=read(PUB/'PROTOCOL_LOCK.json');assert lock['epochs'] in (3,5) and lock['budgets']['gpu_count']==len(GPUS)
     assert read(PUB/'P0_ENGINEERING_REPORT.json')['status']=='PASS'
-    enqueue(list((ROOT/'source').glob('*.py'))+[PUB/'PROTOCOL_LOCK.json',PUB/'P0_ENGINEERING_REPORT.json',PUB/'PARALLEL_AUTHORIZATION.json',PUB/'PARALLEL_NATIVE_RECOVERY_CHECK.json',PRIVATE/'workers/q00/cursor_resume.pt'],'parallel_source_and_lock')
-    jobs=[dict(seed=s,method=m) for s in (1993,1994,1995) for m in ('S','H','K','G','R','E')]
+    recovery_files=[ROOT/p for p in CFG.get('recovery_files',
+        ['public/PARALLEL_NATIVE_RECOVERY_CHECK.json','private/workers/q00/cursor_resume.pt'])]
+    enqueue(list((ROOT/'source').glob('*.py'))+[PUB/'PROTOCOL_LOCK.json',PUB/'P0_ENGINEERING_REPORT.json',PUB/'PARALLEL_AUTHORIZATION.json']+recovery_files,'parallel_source_and_lock')
+    jobs=[dict(seed=s,method=m) for s in (1993,1994,1995) for m in METHODS]
     trained=run_jobs('train',jobs,'t');entries=[e for r,v in trained for e in v['entries']]
-    assert len(entries)==72 and sum(v['counts']['formal_steps'] for r,v in trained)==read(PUB/'METHOD_MATRIX.json')['tiers'][str(lock['epochs'])]
+    assert len(entries)==12*len(METHODS) and sum(v['counts']['formal_steps'] for r,v in trained)==read(PUB/'METHOD_MATRIX.json')['tiers'][str(lock['epochs'])]
     merge_records(trained)
     initials=[json.loads(line) for line in (PUB/'INITIALIZATION_BY_TRAJECTORY.jsonl').read_text().splitlines()]
     for seed in (1993,1994,1995):
         assert len({v['delta_sha256'] for v in initials if v['seed']==seed})==1
+        if CFG.get('experiment')=='NB-RL-A2':
+            assert len({v['network_delta_sha256'] for v in entries if v['seed']==seed and v['task']==1})==1,'BLOCKED_TASK1_MISMATCH'
         for task in range(1,5):
             for epoch in range(1,lock['epochs']+1):
-                prefix=f'{seed}_t{task}_e{epoch}.jsonl';reference=(PRIVATE/'batch_checks'/('S_'+prefix)).read_text()
-                for method in ('H','K','G','R','E'):
+                prefix=f'{seed}_t{task}_e{epoch}.jsonl';reference=(PRIVATE/'batch_checks'/(METHODS[0]+'_'+prefix)).read_text()
+                for method in METHODS[1:]:
                     assert (PRIVATE/'batch_checks'/(method+'_'+prefix)).read_text()==reference,'BLOCKED_BATCH_AUGMENTATION_MISMATCH'
     write(PUB/'TRAINED_MATRIX_LOCK.json',dict(status='LOCKED',entries=entries,epochs=lock['epochs'],new_optimizer_steps=sum(v['counts']['formal_steps'] for r,v in trained),
           batch_augmentation_equality=True,initialization_equality=True,unix=time.time()))
-    frozen=run_jobs('frozen',[dict(seed=s,method=m,owner=o) for s in (1993,1994,1995) for m,o in [('F_S','S'),('F_R','R')]],'f')
+    frozen=run_jobs('frozen',[dict(seed=s,method=m,owner=o) for s in (1993,1994,1995) for m,o in FROZEN],'f')
     entries += [e for r,v in frozen for e in v['entries']]
     merge_records(trained+frozen)
-    assert len(entries)==96 and len({(e['method'],e['seed'],e['task']) for e in entries})==96
+    assert len(entries)==N_STAGES and len({(e['method'],e['seed'],e['task']) for e in entries})==N_STAGES
     write(PUB/'ALL_STATES_LOCK.json',dict(status='LOCKED',entries=entries,unix=time.time(),validation_images_read=0))
-    evaluated=run_jobs('evaluate',[dict(indices=list(range(i,96,4))) for i in range(4)],'e')
+    evaluated=run_jobs('evaluate',[dict(indices=list(range(i,N_STAGES,len(GPUS)))) for i in range(len(GPUS))],'e')
     predictions=[e for r,v in evaluated for e in v['entries']]
-    assert len(predictions)==96
+    assert len(predictions)==N_STAGES
     write(PUB/'PREDICTIONS_LOCK.json',dict(status='LOCKED',entries=predictions,unix=time.time()))
     run_jobs('analyze',[{}],'a');backlog(wait=True)
     final=ledger();assert final['counts']['formal_steps']==read(PUB/'METHOD_MATRIX.json')['tiers'][str(lock['epochs'])]
     write(PUB/'ACCESS_LEDGER.json',dict(final,scope='Per-process current task fit, then all-seen validation only after global ALL_STATES_LOCK'))
     write(PUB/'BACKUP_REPORT.json',dict(status='PASS',all_requests_acknowledged=True,independent_SHA_reread=True,
          P0_full_recovery_check='INDEPENDENT_RESTORE_CHECK.json',P0_next_update_check='CURSOR_AND_TRANSITION_CHECK.json'))
-    write(PUB/'COMPLETE.json',dict(execution_status='COMPLETE',matrix_status='COMPLETE',stage_rows=96,class_rows=480,
-          epochs=lock['epochs'],new_steps=final['counts']['formal_steps'],NEXT_DECISION='STOP',publication_status='AWAITING_AUTHORIZATION'))
+    write(PUB/'COMPLETE.json',dict(execution_status='COMPLETE',matrix_status='COMPLETE',stage_rows=N_STAGES,class_rows=N_CLASSES,
+          epochs=lock['epochs'],new_steps=final['counts']['formal_steps'],NEXT_DECISION='STOP',
+          publication_status='AUTHORIZED_PENDING_DELIVERY' if CFG.get('publication_authorized') else 'AWAITING_AUTHORIZATION'))
     write(PUB/'RUN_STATUS.json',dict(status='COMPLETE',unix=time.time()))
     enqueue(list(PUB.iterdir()),'completion_receipt');backlog(wait=True)
     write(PUB/'FINAL_BACKUP_ACK.json',dict(status='PASS',unix=time.time(),all_requests_acknowledged=True))
@@ -189,7 +200,7 @@ if __name__=='__main__':
         write(PUB/'RUN_STATUS.json',dict(status=status,reason=str(error),unix=time.time()))
         if MODE=='formal':
             write(PUB/'NEXT_DECISION.json',dict(NEXT_DECISION='STOP',matrix_status=status,utility_status='NOT_EVALUABLE',reason=str(error)))
-            (PUB/'FINAL_REPORT_ZH.md').write_text('# NB-RL-A1 未完成\n\n'+status+'：'+str(error)+'\n\n完整矩阵未完成；方法效用 NOT_EVALUABLE。保留已有状态与账本，不填补缺失结果。\n')
+            (PUB/'FINAL_REPORT_ZH.md').write_text('# '+CFG.get('experiment','NB-RL-A1')+' 未完成\n\n'+status+'：'+str(error)+'\n\n完整矩阵未完成；方法效用 NOT_EVALUABLE。保留已有状态与账本，不填补缺失结果。\n')
             try:enqueue(list(PUB.iterdir()),'completion_receipt');backlog(wait=True)
             except Exception:pass
         raise

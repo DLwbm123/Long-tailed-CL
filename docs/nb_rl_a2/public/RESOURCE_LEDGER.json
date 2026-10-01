@@ -2,36 +2,37 @@
   "wall_T0_unix": 1790825282.543255,
   "counts": {
     "engineering_steps": 32,
-    "formal_steps": 0,
-    "engineering_train_rows": 1920
+    "formal_steps": 150,
+    "engineering_train_rows": 1920,
+    "formal_train_rows": 40161
   },
-  "GPU_process_residence_seconds": 257.0850646495819,
+  "GPU_process_residence_seconds": 980.4816036224365,
   "peak_GPU_allocated_bytes": 10019062272,
-  "unix": 1790825574.7982686,
-  "phase": "parallel_probe",
-  "wall_seconds": 292.2550013065338,
-  "primary_bytes": 573216821,
-  "independent_backup_bytes": 0,
-  "persistent_including_backup_bytes": 573216821,
-  "gpu_limit": 4,
+  "unix": 1790826293.7373695,
+  "phase": "parallel_formal",
+  "wall_seconds": 1011.1941015720367,
+  "primary_bytes": 573291899,
+  "independent_backup_bytes": 143386465,
+  "persistent_including_backup_bytes": 716678364,
+  "gpu_limit": 3,
   "image_opens_by_worker": {
-    "p00": {
-      "fit": 192,
+    "t00": {
+      "fit": 13771,
       "val": 0
     },
-    "p01": {
-      "fit": 192,
+    "t01": {
+      "fit": 13771,
       "val": 0
     },
-    "p02": {
-      "fit": 192,
-      "val": 0
-    },
-    "p03": {
-      "fit": 192,
+    "t02": {
+      "fit": 13771,
       "val": 0
     }
   },
   "GPU_accounting": "P0 prior plus sum of every child launch-to-exit duration, including import, IO and teardown",
-  "active_workers": []
+  "active_workers": [
+    "t00",
+    "t01",
+    "t02"
+  ]
 }

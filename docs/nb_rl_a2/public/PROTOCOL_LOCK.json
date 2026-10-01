@@ -1,0 +1,123 @@
+{
+  "experiment": "NB-RL-A2",
+  "user_instruction": "好的，按照你的想法进行下一步实验",
+  "wall_T0_unix": 1790825282.543255,
+  "methods": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "conditions": {
+    "A": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "B": {
+      "fd": 30.0,
+      "lr": 0.0003,
+      "exact": false
+    },
+    "C": {
+      "fd": 10.0,
+      "lr": 0.0001,
+      "exact": false
+    },
+    "D": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": true
+    }
+  },
+  "epochs": 3,
+  "seeds": [
+    1993,
+    1994,
+    1995
+  ],
+  "frozen_references": [
+    [
+      "F_S",
+      "A"
+    ]
+  ],
+  "gpu_indices": [
+    0,
+    2,
+    3
+  ],
+  "task1": "identical CE only, lr=3e-4; independent fresh initialization for every trajectory",
+  "auxiliary_starts_task": 2,
+  "auxiliary_weight": 0.1,
+  "budgets": {
+    "gpu_count": 3,
+    "wall_hours": 16,
+    "cumulative_GPU_hours": 16,
+    "engineering_hours": 2.5,
+    "engineering_steps": 180,
+    "training_stop_hours": 12.5,
+    "forward_stop_hours": 14.5,
+    "storage_GiB_including_backup": 16
+  },
+  "expected": {
+    "train_trajectories": 12,
+    "train_stages": 48,
+    "frozen_trajectories": 3,
+    "stage_rows": 60,
+    "class_rows": 300,
+    "formal_steps": 14100
+  },
+  "base_commit": "fbc4fa5083ed7a939859642362e987380b228029",
+  "publication_authorized": true,
+  "automatic_followon_experiments": false,
+  "hourly_monitor_authorized": false,
+  "validation_role": "adaptive development, not independent confirmation",
+  "state": "LOCKED",
+  "gpu_probe_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "gpu_choice_reason": "GPU1 shared-load probe 3.35 seconds versus 1.37 seconds on other devices; retain all conditions with three efficient GPUs",
+  "formal_lock": true,
+  "source_sha256": {
+    "nb_rl_a2_core.py": "3cf7782dbc67ee325b5f9c374c4e88dac607c6160f209569772a54f8d6e295a3",
+    "nb_rl_a1_core.py": "df8fa42384049f11f5bd4ad8038a462c78b6f9ed686f6ef4a0768b8bc33d4ca0",
+    "nb_rl_a1_parallel.py": "204f4e15cd3d3d8a29fefebee2ec0941a0bdc4450f7822dc94c662e0fd2b7dda",
+    "run_nb_rl_a1.py": "e1e3d307f7f8025399fd661baa16739c8c4758290dbcaec8fd9dae9ea3949b23",
+    "report_nb_rl_a2.py": "48db5cc4586153b5b234785653ccbf1f995aa0ffc05b71847be2cc40a439d690",
+    "nb_rl_a1_transfer.py": "1d60e16724c1627b50c3b38ea0003a53fd4b56728718e3fb53b47bdd362f93d3",
+    "report_nb_rl_a1.py": "efc215f8cd9f8c66941d90c2c3fcf1019d9bd794e58756a547df44a869b88a89",
+    "admit_nb_rl_a2.py": "cc9dca8c5eacdcde5dc3863c20c3a516d23767bfc83dfa9540eebf4c4bbcd2c4",
+    "preflight_nb_rl_a2.py": "e6240e670a7a856810ef7952f6d4b633662ebfdf32e26ca4cfa9abdff816e920",
+    "publish_nb_rl_a2.py": "fca30917c73f4e2d74b8d807ac177e17be6855842433a2d8cddd1ed25ac6f772"
+  },
+  "actual_source_commit": "7c0ba268044423d4c5ee24c8657bcae5b1fcabdf",
+  "source_asset_lock": "SOURCE_AND_ASSET_LOCK.json",
+  "locked_before_first_update_unix": 1790826005.540316,
+  "wall_deadline_unix": 1790882882.543255,
+  "environment_lock": {
+    "python": "3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]",
+    "torch": "2.1.2+cu121",
+    "cuda_runtime": "12.1",
+    "platform": "Linux-5.15.0-190-generic-x86_64-with-glibc2.35",
+    "GPU_inventory": [
+      "0, NVIDIA A100-PCIE-40GB, 40445 MiB, 40960 MiB, 560.35.03",
+      "1, NVIDIA A100-PCIE-40GB, 20470 MiB, 40960 MiB, 560.35.03",
+      "2, NVIDIA A100-PCIE-40GB, 40445 MiB, 40960 MiB, 560.35.03",
+      "3, NVIDIA A100-PCIE-40GB, 40445 MiB, 40960 MiB, 560.35.03"
+    ],
+    "selected_GPU_indices": [
+      0,
+      2,
+      3
+    ],
+    "OMP_NUM_THREADS": 4,
+    "OPENBLAS_NUM_THREADS": 4,
+    "fp32": true,
+    "AMP": false,
+    "TF32": false
+  }
+}

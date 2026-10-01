@@ -1,6 +1,53 @@
 {
-  "NEXT_DECISION": "RUN_LOCKED_MATRIX_THEN_STOP",
-  "matrix_status": "NOT_STARTED",
-  "utility_status": "NOT_EVALUABLE",
-  "publication_status": "AUTHORIZED"
+  "engineering_status": "PASS",
+  "matrix_status": "COMPLETE",
+  "comparisons": {
+    "B": {
+      "utility": "PASS",
+      "safety": "FAIL",
+      "development_gate": false,
+      "required_BA_gain_pp": 1.0,
+      "positive_orders": 3,
+      "delta_BA_pp": 2.4464044682098725,
+      "conditional_interval": [
+        0.5162298524712727,
+        4.200658522782618
+      ],
+      "frozen_delta_BA_pp": 1.640226849664811,
+      "new_qualified_zero_recall": []
+    },
+    "C": {
+      "utility": "PASS",
+      "safety": "PASS",
+      "development_gate": true,
+      "required_BA_gain_pp": 1.0,
+      "positive_orders": 3,
+      "delta_BA_pp": 2.0652187900994883,
+      "conditional_interval": [
+        0.6523877175554024,
+        3.459348174058303
+      ],
+      "frozen_delta_BA_pp": 1.2590411715544267,
+      "new_qualified_zero_recall": []
+    },
+    "D": {
+      "utility": "NOT_PASSED",
+      "safety": "PASS",
+      "development_gate": false,
+      "required_BA_gain_pp": 0.5,
+      "positive_orders": 0,
+      "delta_BA_pp": -0.23881218174696292,
+      "conditional_interval": [
+        -0.6676674207043234,
+        0.12123393416299316
+      ],
+      "frozen_delta_BA_pp": -1.0449898002920246,
+      "new_qualified_zero_recall": []
+    }
+  },
+  "independent_confirmation": false,
+  "validation_role": "adaptive development after NB-RL-A1",
+  "sampling_added_value": "NOT_TESTED",
+  "NEXT_DECISION": "STOP",
+  "publication_status": "AUTHORIZED_PENDING_DELIVERY"
 }

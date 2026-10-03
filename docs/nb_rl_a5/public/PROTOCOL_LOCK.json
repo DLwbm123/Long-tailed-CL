@@ -85,9 +85,9 @@
   "automatic_followon_experiments": false,
   "hourly_monitor_authorized": false,
   "validation_role": "adaptive development; one new training seed and three previously used class orders",
-  "state": "RUNNING",
-  "formal_training_started": true,
-  "processes_started": true,
+  "state": "LOCKED",
+  "formal_training_started": false,
+  "processes_started": false,
   "publication_status": "AUTHORIZED",
   "probe_jobs": [
     {
@@ -110,7 +110,39 @@
   "single_round_authorized": true,
   "gpu_budget_seconds": 57600,
   "primary_comparison": "R-A",
-  "source_commit": "72596f9dbab50be3a83b87c00be8de55e431c530",
-  "supervisor_pid": 584628,
-  "started_unix": 1791036600.613672
+  "formal_lock": true,
+  "source_sha256": {
+    "nb_rl_a2_core.py": "3cf7782dbc67ee325b5f9c374c4e88dac607c6160f209569772a54f8d6e295a3",
+    "nb_rl_a1_core.py": "df8fa42384049f11f5bd4ad8038a462c78b6f9ed686f6ef4a0768b8bc33d4ca0",
+    "nb_rl_a1_parallel.py": "d66397bf93ddb93cc570614564737391c0ed91c7d9f2d2ba98f3eefb5b4d0767",
+    "run_nb_rl_a1.py": "8d063d11ab28df0856a16a7abbd541bf3c0bdb5ceab744ef61eb27b18325948d",
+    "report_nb_rl_a2.py": "48db5cc4586153b5b234785653ccbf1f995aa0ffc05b71847be2cc40a439d690",
+    "admit_nb_rl_a5.py": "ec510a9f1b239b8f4ce9be9be36455b7e3fa711e19fe4753614a1df9feabed6a",
+    "nb_rl_a5_core.py": "4b84b323139f2ebffdc7c8ab335fbf5770cf5a8eca62683ec52910aea4a71805",
+    "report_nb_rl_a5.py": "8909534fc4f05fb319be59e2341ef98deae71f400db720ef15aa3dee3169d44c",
+    "nb_rl_a1_transfer.py": "1d60e16724c1627b50c3b38ea0003a53fd4b56728718e3fb53b47bdd362f93d3",
+    "report_nb_rl_a1.py": "d24109a7901990ef6cb50314daede658e0b9de98df0fe7bf3a69fa5f245f0a19",
+    "preflight_nb_rl_a2.py": "50ed556f373d0b76a70426c01e468fd8f3746527f575b0efad510a3cdb33324d"
+  },
+  "actual_source_commit": "72596f9dbab50be3a83b87c00be8de55e431c530",
+  "source_asset_lock": "SOURCE_AND_ASSET_LOCK.json",
+  "locked_before_first_update_unix": 1791036568.2819684,
+  "wall_deadline_unix": 1791093659.129638,
+  "environment_lock": {
+    "python": "3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]",
+    "torch": "2.1.2+cu121",
+    "cuda_runtime": "12.1",
+    "platform": "Linux-5.15.0-190-generic-x86_64-with-glibc2.35",
+    "selected_GPU_indices": [
+      0,
+      2,
+      3
+    ],
+    "OMP_NUM_THREADS": 4,
+    "OPENBLAS_NUM_THREADS": 4,
+    "fp32": true,
+    "AMP": false,
+    "TF32": false,
+    "reused_from": "Prior immutable external assets and environment; no trained checkpoint loaded"
+  }
 }

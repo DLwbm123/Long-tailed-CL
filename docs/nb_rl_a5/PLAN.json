@@ -1,0 +1,113 @@
+{
+  "experiment": "NB-RL-A5",
+  "user_instruction": "我感觉目前的方法整体上满足不了顶尖论文的要求，所以看看能否继续测试一下 RL 的效果",
+  "wall_T0_unix": 1791036059.129638,
+  "T0_note": "User request time; includes all preparation and engineering, never reset",
+  "methods": [
+    "A",
+    "G",
+    "R",
+    "E"
+  ],
+  "conditions": {
+    "A": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false,
+      "reward_coefficient": 0.0
+    },
+    "G": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false,
+      "reward_coefficient": 0.5
+    },
+    "R": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": false,
+      "reward_coefficient": 0.5
+    },
+    "E": {
+      "fd": 10.0,
+      "lr": 0.0003,
+      "exact": true,
+      "reward_coefficient": 0.5
+    }
+  },
+  "epochs": 3,
+  "run_specs": {
+    "1993": {
+      "order_seed": 1993,
+      "training_seed": 74001
+    },
+    "1994": {
+      "order_seed": 1994,
+      "training_seed": 74001
+    },
+    "1995": {
+      "order_seed": 1995,
+      "training_seed": 74001
+    }
+  },
+  "frozen_references": [
+    [
+      "F_S",
+      "A"
+    ]
+  ],
+  "gpu_indices": [
+    0,
+    2,
+    3
+  ],
+  "task1": "identical CE only, lr=3e-4; independently fresh initialization, paired by order and training seed",
+  "budgets": {
+    "gpu_count": 3,
+    "wall_hours": 16,
+    "cumulative_GPU_hours": 16,
+    "engineering_hours": 2.5,
+    "engineering_steps": 180,
+    "training_stop_hours": 12.5,
+    "forward_stop_hours": 14.5,
+    "storage_GiB_including_backup": 16
+  },
+  "expected": {
+    "train_trajectories": 12,
+    "train_stages": 48,
+    "frozen_trajectories": 3,
+    "stage_rows": 60,
+    "class_rows": 300,
+    "formal_steps": 14100
+  },
+  "base_commit": "a45c16c2f3c640a519e6ed1cdcbb123278deb100",
+  "publication_authorized": true,
+  "automatic_followon_experiments": false,
+  "hourly_monitor_authorized": false,
+  "validation_role": "adaptive development; one new training seed and three previously used class orders",
+  "state": "PREPARING",
+  "formal_training_started": false,
+  "processes_started": false,
+  "publication_status": "AUTHORIZED",
+  "probe_jobs": [
+    {
+      "method": "A",
+      "seed": 1993
+    },
+    {
+      "method": "G",
+      "seed": 1993
+    },
+    {
+      "method": "R",
+      "seed": 1993
+    },
+    {
+      "method": "E",
+      "seed": 1993
+    }
+  ],
+  "single_round_authorized": true,
+  "gpu_budget_seconds": 57600,
+  "primary_comparison": "R-A"
+}

@@ -38,6 +38,8 @@ METHODS = tuple(CFG.get('methods', ('S', 'H', 'K', 'G', 'R', 'E')))
 FROZEN_REFERENCES = CFG.get('frozen_references', [('F_S', 'S'), ('F_R', 'R')])
 if CFG.get('experiment') in ('NB-RL-A2', 'NB-RL-A3'):
     from nb_rl_a2_core import objective
+elif CFG.get('experiment') == 'NB-RL-A5':
+    from nb_rl_a5_core import objective
 elif CFG.get('experiment') == 'NB-RL-A4':
     from nb_rl_a4_core import objective
 
@@ -610,7 +612,9 @@ def main():
             check(run)
         elif role=='analyze':
             qualification();run.phase='report'
-            if CFG.get('experiment') == 'NB-RL-A4':
+            if CFG.get('experiment') == 'NB-RL-A5':
+                from report_nb_rl_a5 import report
+            elif CFG.get('experiment') == 'NB-RL-A4':
                 from report_nb_rl_a4 import report
             elif CFG.get('experiment') == 'NB-RL-A3':
                 from report_nb_rl_a3 import report

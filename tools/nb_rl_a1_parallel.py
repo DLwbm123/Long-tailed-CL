@@ -20,6 +20,8 @@ GPUS=tuple(CFG.get('gpu_indices',(0,1,2,3)))
 GPU_LIMIT=min(57600.,float(CFG.get('gpu_budget_seconds',57600.)))
 if CFG.get('experiment')=='NB-RL-A4':
     assert CFG.get('campaign_budget_authorized') is True and 'gpu_budget_seconds' in CFG and GPU_LIMIT>0,'BLOCKED_MISSING_CAMPAIGN_BUDGET'
+if CFG.get('experiment')=='NB-RL-A5':
+    assert CFG.get('single_round_authorized') is True and 0<GPU_LIMIT<=57600,'BLOCKED_MISSING_SINGLE_ROUND_AUTHORITY'
 BASE=json.loads((PUB/'RESOURCE_LEDGER.json').read_text())
 PROCESS=[];RUNNING={};START=time.time();T0=CFG['wall_T0_unix']
 
@@ -143,7 +145,7 @@ def main():
         write(PUB/'PARALLEL_NATIVE_RECOVERY_CHECK.json',dict(status='PASS',native_checkpoint=True,result=results[0][1],GPU_seconds=residence()))
         return
     if MODE=='probe':
-        next_round=CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3','NB-RL-A4')
+        next_round=CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3','NB-RL-A4','NB-RL-A5')
         results=run_jobs('next_probe' if next_round else 'parallel_probe',
                          CFG.get('probe_jobs',[dict(method=m) for m in METHODS]) if next_round else [{}]*4,'p')
         assert sum(v['steps'] for r,v in results)==(8*len(CFG.get('probe_jobs',METHODS)) if next_round else 40)
@@ -165,7 +167,7 @@ def main():
     initials=[json.loads(line) for line in (PUB/'INITIALIZATION_BY_TRAJECTORY.jsonl').read_text().splitlines()]
     for seed in RUN_IDS:
         assert len({v['delta_sha256'] for v in initials if v['seed']==seed})==1
-        if CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3','NB-RL-A4'):
+        if CFG.get('experiment') in ('NB-RL-A2','NB-RL-A3','NB-RL-A4','NB-RL-A5'):
             assert len({v['network_delta_sha256'] for v in entries if v['seed']==seed and v['task']==1})==1,'BLOCKED_TASK1_MISMATCH'
         for task in range(1,5):
             for epoch in range(1,lock['epochs']+1):

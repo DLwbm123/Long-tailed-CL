@@ -7,7 +7,9 @@ import time
 import numpy as np
 import torch
 import run_nb_rl_a1 as r
-if r.CFG.get('experiment') == 'NB-RL-A4':
+if r.CFG.get('experiment') == 'NB-RL-A5':
+    from nb_rl_a5_core import CONDITIONS, selfcheck
+elif r.CFG.get('experiment') == 'NB-RL-A4':
     from nb_rl_a4_core import CONDITIONS, selfcheck
 else:
     from nb_rl_a2_core import CONDITIONS, selfcheck
@@ -40,7 +42,8 @@ def check(run):
         torch.cuda.synchronize(); durations.append(time.monotonic() - start)
         if gd is not None: diagnostics = gd
     assert diagnostics['terms']['FD']['weighted_norm'] > 0
-    if method == 'D': assert diagnostics['terms']['Exact']['weighted_norm'] > 0
+    if method in ('D','E'): assert diagnostics['terms']['Exact']['weighted_norm'] > 0
+    if method in ('G','R'): assert diagnostics['terms']['PG']['weighted_norm'] > 0
     # Restore and repeat the next distinct real batch, including all optimizer/RNG state.
     model.batch = 1
     state = copy.deepcopy(model.snapshot())
@@ -50,7 +53,7 @@ def check(run):
     after = copy.deepcopy(model.snapshot())
     model.restore(r.load(path))
     d2, _, a2 = r.step(run, model, anchor, x, yy, W, weights, method, 2)
-    assert a1 is a2 is None and d1 == d2 and r.tensors_equal(after, model.snapshot())
+    assert ((a1 is None and a2 is None) or (a1 is not None and a2 is not None and torch.equal(a1,a2))) and d1 == d2 and r.tensors_equal(after, model.snapshot())
     assert len(run.allowed) == 96 and run.forbidden == 0
     r.save('PARALLEL_PROBE.json', dict(status='PASS', method=method, steps=8,
         seed=seed, **r.seed_fields(seed), initial_delta_sha256=initial_hash,

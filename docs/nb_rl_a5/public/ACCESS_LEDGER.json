@@ -96,5 +96,6 @@
     }
   },
   "GPU_accounting": "P0 prior plus sum of every child launch-to-exit duration, including import, IO and teardown",
-  "active_workers": []
+  "active_workers": [],
+  "scope": "Per-process current task fit, then all-seen validation only after global ALL_STATES_LOCK"
 }

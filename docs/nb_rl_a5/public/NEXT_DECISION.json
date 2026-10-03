@@ -1,6 +1,58 @@
 {
-  "NEXT_DECISION": "RUN_LOCKED_MATRIX_THEN_STOP",
-  "matrix_status": "NOT_STARTED",
-  "utility_status": "NOT_EVALUABLE",
-  "publication_status": "AUTHORIZED"
+  "engineering_status": "PASS",
+  "matrix_status": "COMPLETE",
+  "comparisons": {
+    "G": {
+      "utility": "NOT_PASSED",
+      "safety": "FAIL",
+      "development_gate": false,
+      "frozen_net_gain": false,
+      "required_BA_gain_pp": 1.0,
+      "positive_orders": 0,
+      "delta_BA_pp": -1.3468375368560928,
+      "conditional_interval": [
+        -2.7514915978945425,
+        0.08700099943803362
+      ],
+      "frozen_delta_BA_pp": -2.0093616779724903,
+      "new_qualified_zero_recall": []
+    },
+    "R": {
+      "utility": "NOT_PASSED",
+      "safety": "FAIL",
+      "development_gate": false,
+      "frozen_net_gain": false,
+      "required_BA_gain_pp": 1.0,
+      "positive_orders": 0,
+      "delta_BA_pp": -0.7190218596634281,
+      "conditional_interval": [
+        -1.8598638481719179,
+        0.4205914613745966
+      ],
+      "frozen_delta_BA_pp": -1.3815460007798255,
+      "new_qualified_zero_recall": []
+    },
+    "E": {
+      "utility": "NOT_PASSED",
+      "safety": "FAIL",
+      "development_gate": false,
+      "frozen_net_gain": false,
+      "required_BA_gain_pp": 1.0,
+      "positive_orders": 0,
+      "delta_BA_pp": -0.8247651354756348,
+      "conditional_interval": [
+        -1.9703535248145765,
+        0.3303012836067993
+      ],
+      "frozen_delta_BA_pp": -1.4872892765920322,
+      "new_qualified_zero_recall": []
+    }
+  },
+  "independent_confirmation": false,
+  "validation_role": "adaptive development after A1-A3, new training seed74001",
+  "primary_comparison": "R-A",
+  "sampling_added_value": "NOT_PASSED",
+  "retention_added_value": "NOT_PASSED",
+  "NEXT_DECISION": "STOP",
+  "publication_status": "AUTHORIZED_PENDING_DELIVERY"
 }

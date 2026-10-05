@@ -1,0 +1,171 @@
+{
+  "scope": "Engineering pilot only; not an efficacy or rare-label confirmation experiment",
+  "seed": 74002,
+  "conditions": [
+    "A",
+    "R05",
+    "R01",
+    "P01",
+    "EP01",
+    "F_S"
+  ],
+  "epochs": 1,
+  "batch_size": 8,
+  "total_wall_seconds": 3600,
+  "max_steps_per_condition": 32,
+  "patient_split": "Seeded shuffle: 10% held-out validation patients; remaining patients alternate between stages",
+  "image_sampling": "Uniform without replacement within each patient partition; no positive enrichment",
+  "label_sequence": "Cumulative: seven frequency-rank-balanced labels, then all fourteen; future labels masked in stage 1",
+  "new_labels": [
+    [
+      "Infiltration",
+      "Nodule",
+      "Mass",
+      "Pleural_Thickening",
+      "Cardiomegaly",
+      "Fibrosis",
+      "Pneumonia"
+    ],
+    [
+      "Effusion",
+      "Atelectasis",
+      "Consolidation",
+      "Pneumothorax",
+      "Emphysema",
+      "Edema",
+      "Hernia"
+    ]
+  ],
+  "training_pool_positive_counts": {
+    "Atelectasis": 7502.0,
+    "Cardiomegaly": 1524.0,
+    "Effusion": 7898.0,
+    "Infiltration": 12532.0,
+    "Mass": 3659.0,
+    "Nodule": 4275.0,
+    "Pneumonia": 802.0,
+    "Pneumothorax": 2399.0,
+    "Consolidation": 2617.0,
+    "Edema": 1276.0,
+    "Emphysema": 1290.0,
+    "Fibrosis": 1141.0,
+    "Pleural_Thickening": 2044.0,
+    "Hernia": 128.0
+  },
+  "metric_groups": {
+    "head": [
+      "Infiltration",
+      "Effusion",
+      "Atelectasis",
+      "Nodule",
+      "Mass",
+      "Consolidation",
+      "Pneumothorax"
+    ],
+    "tail": [
+      "Pleural_Thickening",
+      "Cardiomegaly",
+      "Emphysema",
+      "Edema",
+      "Fibrosis",
+      "Pneumonia",
+      "Hernia"
+    ],
+    "introduced_stage1": [
+      "Infiltration",
+      "Nodule",
+      "Mass",
+      "Pleural_Thickening",
+      "Cardiomegaly",
+      "Fibrosis",
+      "Pneumonia"
+    ],
+    "introduced_stage2": [
+      "Effusion",
+      "Atelectasis",
+      "Consolidation",
+      "Pneumothorax",
+      "Emphysema",
+      "Edema",
+      "Hernia"
+    ]
+  },
+  "audit": {
+    "tasks": 2,
+    "train_images": 256,
+    "validation_images": 64,
+    "train_patients": 252,
+    "patient_overlap": 0,
+    "seen_labels": [
+      "Atelectasis",
+      "Cardiomegaly",
+      "Consolidation",
+      "Edema",
+      "Effusion",
+      "Emphysema",
+      "Fibrosis",
+      "Hernia",
+      "Infiltration",
+      "Mass",
+      "Nodule",
+      "Pleural_Thickening",
+      "Pneumonia",
+      "Pneumothorax"
+    ]
+  },
+  "training_positive_counts": [
+    {
+      "Atelectasis": 7,
+      "Cardiomegaly": 0,
+      "Effusion": 14,
+      "Infiltration": 15,
+      "Mass": 9,
+      "Nodule": 6,
+      "Pneumonia": 0,
+      "Pneumothorax": 6,
+      "Consolidation": 3,
+      "Edema": 2,
+      "Emphysema": 5,
+      "Fibrosis": 0,
+      "Pleural_Thickening": 4,
+      "Hernia": 0
+    },
+    {
+      "Atelectasis": 14,
+      "Cardiomegaly": 4,
+      "Effusion": 10,
+      "Infiltration": 22,
+      "Mass": 4,
+      "Nodule": 9,
+      "Pneumonia": 1,
+      "Pneumothorax": 4,
+      "Consolidation": 5,
+      "Edema": 3,
+      "Emphysema": 1,
+      "Fibrosis": 1,
+      "Pleural_Thickening": 3,
+      "Hernia": 0
+    }
+  ],
+  "validation_positive_counts": {
+    "Atelectasis": 8,
+    "Cardiomegaly": 1,
+    "Effusion": 10,
+    "Infiltration": 11,
+    "Mass": 3,
+    "Nodule": 7,
+    "Pneumonia": 1,
+    "Pneumothorax": 2,
+    "Consolidation": 4,
+    "Edema": 0,
+    "Emphysema": 0,
+    "Fibrosis": 1,
+    "Pleural_Thickening": 0,
+    "Hernia": 1
+  },
+  "threshold": 0.5,
+  "official_test_used": false,
+  "automatic_retry": false,
+  "automatic_expansion": false,
+  "source_commit": "950550700af474f0280140d91dcb27bcb0efd51f"
+}

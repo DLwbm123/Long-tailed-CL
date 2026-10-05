@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "scope": "CPU synthetic only; no NIH images or formal training",
+  "math": {
+    "masked_gradients_zero": true,
+    "teacher_detached": true,
+    "task1_identical": true,
+    "policy_rng_isolated": true,
+    "constant_reward_zero": true,
+    "equal_teacher_retention_constant": true,
+    "enumerated_groups": 256,
+    "raw_LOO_expectation_error": 6.661338147750939e-16
+  },
+  "statistics": {
+    "masked_binary_ridge_matches_direct": true,
+    "translation_exact": true,
+    "split_accumulation_exact": true,
+    "unobserved_label_inactive": true
+  },
+  "engine": {
+    "conditions": [
+      "A",
+      "R05",
+      "R01",
+      "P01",
+      "EP01",
+      "F_S"
+    ],
+    "two_tasks_each": true,
+    "task1_state_equal": true,
+    "stage_boundary_restore_exact": true,
+    "frozen_reference_unchanged": true,
+    "no_label_batch_skips_update": true,
+    "one_clip_and_optimizer_step_per_update": true,
+    "formal_gate_closed": true
+  },
+  "data_metrics": {
+    "test_and_patient_leakage_rejected": true,
+    "visibility_masks": true,
+    "perfect_and_undefined_metrics": true,
+    "tied_AP_AUROC": true,
+    "ranking_metrics_match_independent_references": true
+  },
+  "entrypoint": {
+    "status": "PASS",
+    "image_stream_to_reports": true,
+    "fourteen_labels": true,
+    "validation_after_all_stages": true,
+    "official_test_never_opened": true
+  },
+  "cuda_initialized": false
+}

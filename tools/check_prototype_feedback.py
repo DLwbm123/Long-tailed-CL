@@ -55,7 +55,9 @@ if __name__ == '__main__':
     same(checkpoint('A', 1), baseline)
     same(checkpoint('A', 1), checkpoint('B', 1))
     same(checkpoint('C', 1), checkpoint('D', 1))
-    assert any(not torch.equal(v, checkpoint('C', 1)['adapter'][k]) for k,v in checkpoint('A', 1)['adapter'].items())
+    # First-task errors can be equal, correctly leaving neutral weights unchanged.
+    control, feedback_state = checkpoint('A', 2), checkpoint('C', 2)
+    assert any(not torch.equal(v, feedback_state['adapter'][k]) for k,v in control['adapter'].items())
     result = dict(status='PASS', steps=16, receipts=receipts, delayed_feedback_math=True,
         old_unobserved_fn_not_estimated=True, control_first_task_matches_baseline=True,
         first_task_multi_pair_parity=True, feedback_changes_training=True, multi_graph_active=True,

@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "steps": 16,
+  "receipts": [
+    {
+      "condition": "A",
+      "steps": 4,
+      "elapsed_seconds": 109.20762657001615,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654194688
+    },
+    {
+      "condition": "B",
+      "steps": 4,
+      "elapsed_seconds": 81.325923781842,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654194688
+    },
+    {
+      "condition": "C",
+      "steps": 4,
+      "elapsed_seconds": 82.41668552020565,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654195712
+    },
+    {
+      "condition": "D",
+      "steps": 4,
+      "elapsed_seconds": 82.373089897912,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654195712
+    }
+  ],
+  "delayed_feedback_math": true,
+  "old_unobserved_fn_not_estimated": true,
+  "control_first_task_matches_baseline": true,
+  "first_task_multi_pair_parity": true,
+  "feedback_changes_training": true,
+  "multi_graph_active": true,
+  "effectiveness_claim": false,
+  "suite_gpu_residence_seconds": 370.62122905580327,
+  "source_commit": "a1b98beec52a2deeb20b114c5ef67aed6bb13b2a",
+  "checker_adjustment": "Initial check wrongly required unequal task-1 parameters despite equal zero errors; task-1 feedback correctly stays neutral. Check moved to task 2 where unequal errors and nonunit weights occur. Same receipts reused; no retraining or protocol change."
+}

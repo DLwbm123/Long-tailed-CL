@@ -12,7 +12,7 @@ from PIL import Image
 import torch
 from torch.utils.data import Dataset, DataLoader
 
-from prototype_analytic import empty, append, ridge, transport
+from prototype_analytic import empty, append, ridge, transport, move
 from run_multilabel import ApartFeatures
 
 
@@ -85,9 +85,9 @@ def run(config):
     output = Path(config['output'])
     if output.exists():
         raise ValueError('Fresh output required; no overwrite/retry')
-    if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph'):
+    if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph', 'graph_stage', 'no_shift', 'frozen_after_first'):
         raise ValueError('Unknown arm')
-    if config['method'] == 'full_graph':
+    if config['method'] in ('full_graph', 'graph_stage'):
         from prototype_graph import empty as make_bank, append as add, transport as graph_transport
     else:
         make_bank, add = empty, append
@@ -130,10 +130,12 @@ def run(config):
             counts = {c: int((y == c).sum()) for c in classes}
             sample_weights = torch.tensor([len(y)/(len(classes)*counts[c]) if c in classes else 0.
                                            for c in range(len(config['order']))], device='cuda')
-            for epoch in range(1, config['epochs'] + 1):
+            train_encoder = config['method'] != 'frozen_after_first' or task == 1
+            iterations = config['epochs'] if train_encoder else 1
+            for epoch in range(1, iterations + 1):
                 training.dataset.epoch = epoch; encoder.eval(); losses = []
                 status(status='RUNNING', phase='train', task=task, epoch=epoch)
-                for x, labels in training:
+                for x, labels in (training if train_encoder else []):
                     budget()
                     if steps >= config['max_steps']:
                         raise RuntimeError('INCOMPLETE_STEP_BUDGET')
@@ -152,22 +154,28 @@ def run(config):
                     norm = torch.nn.utils.clip_grad_norm_([p for p in encoder.parameters() if p.requires_grad], 5., error_if_nonfinite=True)
                     optimizer.step(); steps += 1
                     losses.append([float(fit.detach()), float(fd.detach()), float(norm)])
-                scheduler.step()
-                # All arms perform matched canonical passes and solves. Only head assignment differs.
-                after, after_y = extract(encoder, canonical, budget)
+                if train_encoder:
+                    scheduler.step()
+                # Trainable arms use matched canonical passes; the frozen control reuses unchanged features.
+                after, after_y = extract(encoder, canonical, budget) if train_encoder else (before, y)
                 if not np.array_equal(y, after_y):
                     raise ValueError('Canonical sample order changed')
-                if config['method'] == 'full_graph':
+                if config['method'] in ('full_graph', 'graph_stage'):
                     shifted, audit = graph_transport(bank, before, after, y, classes)
+                elif config['method'] == 'no_shift':
+                    shifted = move(bank, np.zeros_like(bank['mu']))
+                    audit = dict(global_shift_norm=0., mean_old_shift_norm=0.)
                 else:
                     shifted, audit = transport(bank, before, after, y, classes, config['method'] == 'epoch_local')
                 candidate = add(shifted, after, y, classes)
                 W_new, residual = ridge(candidate)
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, ridge_residual=residual,
                     head_relative_change=float(np.linalg.norm(W_new-head.cpu().numpy()) / max(np.linalg.norm(W_new), 1e-12)),
-                    mean_fit_loss=float(np.mean(losses, axis=0)[0]), mean_feature_loss=float(np.mean(losses, axis=0)[1]),
+                    mean_fit_loss=float(np.mean(losses, axis=0)[0]) if losses else 0.,
+                    mean_feature_loss=float(np.mean(losses, axis=0)[1]) if losses else 0.,
+                    trained_encoder=train_encoder,
                     **audit))
-                if config['method'] != 'stage_global' or epoch == config['epochs']:
+                if config['method'] not in ('stage_global', 'graph_stage', 'no_shift', 'frozen_after_first') or epoch == iterations:
                     head = torch.tensor(W_new, dtype=torch.float32, device='cuda')
                 save(output / 'diagnostics.json', diagnostics)
             bank = candidate

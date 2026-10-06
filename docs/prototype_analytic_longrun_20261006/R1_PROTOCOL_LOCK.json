@@ -1,0 +1,47 @@
+{
+  "program_started": 1791278041.9107835,
+  "program_deadline": 1791364441.9107835,
+  "wall_budget_seconds": 86400,
+  "gpu_budget_seconds": 57600,
+  "trajectory_limit": 16,
+  "admission_step_limit": 40,
+  "development_round_limit": 3,
+  "round": 1,
+  "methods": [
+    "graph_stage",
+    "no_shift",
+    "frozen_after_first"
+  ],
+  "seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "dataset": "ISIC",
+  "train_n": 18718,
+  "val_n": 295,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "expected_steps": {
+    "graph_stage": 588,
+    "no_shift": 588,
+    "frozen_after_first": 344
+  },
+  "reused_results_commit": "1bcc3f33c7fa9dda942e1501e806b11e229755d5",
+  "reused_methods": [
+    "stage_global",
+    "full_graph"
+  ],
+  "queue_gpu_reservations": {
+    "q0": 10800,
+    "q2": 7200
+  },
+  "test_access": false
+}

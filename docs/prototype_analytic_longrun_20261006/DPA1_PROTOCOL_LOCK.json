@@ -1,0 +1,66 @@
+{
+  "phase": "DPA1",
+  "arms": [
+    "cf_linear",
+    "cf_prototype",
+    "cf_weighted",
+    "cf_group"
+  ],
+  "seed": 74002,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "increment": 2,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "max_steps": 600,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "fd_weight": 10.0,
+  "fit_group_fraction": 0.8,
+  "meta_group_fraction": 0.2,
+  "actor_steps_per_epoch": 8,
+  "group_size": 4,
+  "group_blocks": 4,
+  "group_update_steps": 2,
+  "actor_lr": 0.05,
+  "sigma": 0.5,
+  "clip": [
+    0.8,
+    1.2
+  ],
+  "reference_kl": 0.01,
+  "weight_kl": 0.01,
+  "guard_tolerance": 1e-08,
+  "ess_fraction": 0.5,
+  "preflight_max_seconds": 300,
+  "preflight_optimizer_steps": 0,
+  "queue_max_seconds": 14400,
+  "queue_groups": [
+    [
+      "cf_linear",
+      "cf_weighted"
+    ],
+    [
+      "cf_prototype",
+      "cf_group"
+    ]
+  ],
+  "formal_attempts_before": 11,
+  "formal_attempts_after": 15,
+  "admission_steps_used": 40,
+  "deadline": 1791364441.9107835,
+  "automatic_retry": false,
+  "automatic_followup": false,
+  "test_accessed": false,
+  "independent_confirmation": false
+}

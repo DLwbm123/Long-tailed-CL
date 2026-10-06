@@ -16,8 +16,12 @@ if __name__ == '__main__':
         ds = Images(rows[:8], config['images'], transform(training), seed=74002)
         ds.epoch = 2
         a = list(DataLoader(ds, batch_size=4, num_workers=0))
-        b = list(DataLoader(ds, batch_size=4, num_workers=2, multiprocessing_context='spawn'))
-        assert len(a) == len(b)
-        for left, right in zip(a, b):
-            assert all(torch.equal(x, y) for x, y in zip(left, right))
+        loader = DataLoader(ds, batch_size=4, num_workers=2, multiprocessing_context='spawn',
+                            persistent_workers=not training)
+        for _ in range(1 if training else 3):
+            b = list(loader)
+            assert len(a) == len(b)
+            for left, right in zip(a, b):
+                assert all(torch.equal(x, y) for x, y in zip(left, right))
+        del loader
     print('PASS: canonical and augmented tensors/labels match with 0 versus 2 workers')

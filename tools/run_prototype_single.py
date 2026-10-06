@@ -152,7 +152,9 @@ def run(config):
         def loader(rows, training, task):
             ds = Images(rows, config['images'], transform(training), seed + task * 100003)
             workers = int(config.get('workers', 0))
-            options = dict(multiprocessing_context='spawn', prefetch_factor=2) if workers else {}
+            # Canonical inputs never change epoch; training workers must see the new augmentation epoch.
+            options = dict(multiprocessing_context='spawn', prefetch_factor=2,
+                           persistent_workers=not training) if workers else {}
             return DataLoader(ds, batch_size=config['batch_size'], shuffle=training, num_workers=workers,
                               generator=torch.Generator().manual_seed(seed + task * 2003), **options)
         bank = make_bank(encoder.dim); seen = []; diagnostics = []; head = None

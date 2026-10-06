@@ -4,6 +4,7 @@
 
 - [单标签原型解析：24 小时监测与自动改进计划](docs/prototype_analytic_longrun_20261006/PROGRAM_ZH.md)
 - [首轮诊断结果与第二轮改进](docs/prototype_analytic_longrun_20261006/round1/REPORT_ZH.md) · [R2 协议与验收](docs/prototype_analytic_longrun_20261006/R2_PROTOCOL_ZH.md)
+- [第二轮完整结果](docs/prototype_analytic_longrun_20261006/round2/REPORT_ZH.md) · [最后一轮协议与验收](docs/prototype_analytic_longrun_20261006/R3_PROTOCOL_ZH.md)
 - [PA2 完整单标签候选：多原型与可靠性图传播](docs/prototype_analytic_pa2/PROTOCOL_ZH.md)
 - [PA1 原型与解析分类头：single-label 开发协议](docs/prototype_analytic/PROTOCOL_ZH.md)
 - [项目现状：数据集、方法与结果](docs/PROJECT_STATUS_20260914.md)

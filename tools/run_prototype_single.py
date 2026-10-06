@@ -87,6 +87,19 @@ def old_readout_loss(z, reference, old_head):
     return ((z - reference.detach()) @ old_head.detach()).square().mean()
 
 
+def old_head_basis(head):
+    if head is None:
+        return None
+    u, s, _ = torch.linalg.svd(head.detach(), full_matrices=False)
+    return u[:, s > s.max() * max(head.shape) * torch.finfo(head.dtype).eps]
+
+
+def old_subspace_loss(z, reference, basis):
+    if basis is None:
+        return z.sum() * 0.
+    return ((z - reference.detach()) @ basis.detach()).square().sum(1).mean()
+
+
 def run(config):
     output = Path(config['output'])
     if output.exists():
@@ -94,7 +107,8 @@ def run(config):
     if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph', 'graph_stage', 'no_shift', 'frozen_after_first'):
         raise ValueError('Unknown arm')
     fd_weight, old_logit_weight = float(config.get('fd_weight', 10.)), float(config.get('old_logit_weight', 0.))
-    if not all(np.isfinite(w) and w >= 0 for w in (fd_weight, old_logit_weight)):
+    subspace_weight = float(config.get('subspace_weight', 0.))
+    if not all(np.isfinite(w) and w >= 0 for w in (fd_weight, old_logit_weight, subspace_weight)):
         raise ValueError('Invalid retention weight')
     if config['method'] in ('full_graph', 'graph_stage'):
         from prototype_graph import empty as make_bank, append as add, transport as graph_transport
@@ -127,6 +141,7 @@ def run(config):
         for task, classes in enumerate(tasks, 1):
             budget(); seen += classes
             old_head = head
+            basis = old_head_basis(old_head) if subspace_weight else None
             canonical = loader([r for r in train if r['label'] in classes], False, task)
             training = loader(canonical.dataset.rows, True, task)
             teacher = copy.deepcopy(encoder).requires_grad_(False).eval()
@@ -158,13 +173,14 @@ def run(config):
                     fit = (.5 * (z @ head - target).square().sum(1) * sample_weights[labels]).mean()
                     fd = (z - reference).square().sum(1).mean()
                     readout = old_readout_loss(z, reference, old_head) if old_logit_weight else z.new_zeros(())
-                    loss = fit + fd_weight * fd + old_logit_weight * readout
+                    subspace = old_subspace_loss(z, reference, basis) if subspace_weight else z.new_zeros(())
+                    loss = fit + fd_weight * fd + old_logit_weight * readout + subspace_weight * subspace
                     if not torch.isfinite(loss):
                         raise ValueError('Nonfinite training loss')
                     loss.backward()
                     norm = torch.nn.utils.clip_grad_norm_([p for p in encoder.parameters() if p.requires_grad], 5., error_if_nonfinite=True)
                     optimizer.step(); steps += 1
-                    losses.append([float(fit.detach()), float(fd.detach()), float(norm), float(readout.detach())])
+                    losses.append([float(fit.detach()), float(fd.detach()), float(norm), float(readout.detach()), float(subspace.detach())])
                 if train_encoder:
                     scheduler.step()
                 # Trainable arms use matched canonical passes; the frozen control reuses unchanged features.
@@ -187,6 +203,8 @@ def run(config):
                     mean_old_readout_loss=float(np.mean(losses, axis=0)[3]) if losses else 0.,
                     fd_weight=fd_weight, old_logit_weight=old_logit_weight,
                     old_head_classes=0 if old_head is None else old_head.shape[1],
+                    mean_old_subspace_loss=float(np.mean(losses, axis=0)[4]) if losses else 0.,
+                    subspace_weight=subspace_weight, old_subspace_rank=0 if basis is None else basis.shape[1],
                     trained_encoder=train_encoder,
                     **audit))
                 if config['method'] not in ('stage_global', 'graph_stage', 'no_shift', 'frozen_after_first') or epoch == iterations:

@@ -1,0 +1,59 @@
+{
+  "round": 3,
+  "frozen_before_training": true,
+  "hypothesis_source": "round2/REPORT_ZH.md",
+  "hypotheses": [
+    "Scale-invariant selective retention of previous head column space may improve old-class retention without isotropic FD40 plasticity loss"
+  ],
+  "conditions": [
+    {
+      "name": "global_subspace30",
+      "method": "stage_global",
+      "fd_weight": 10.0,
+      "old_logit_weight": 0.0,
+      "subspace_weight": 30.0
+    }
+  ],
+  "loss": "class-balanced squared fit + 10*mean_batch(sum_feature((z-teacher_z)^2)) + 30*mean_batch(sum_basis(((z-teacher_z)@Q)^2))",
+  "old_head": "Q from SVD of previous task FINAL head, before bootstrap; U columns where singular value > max(head.shape)*machine_eps*max(singular_values); fixed/detached throughout task; no old head -> zero penalty",
+  "limits": "Only current task images; no old images/features; no extra encoder pass; no independent test",
+  "dataset": "ISIC full original train/validation",
+  "train_n": 18718,
+  "val_n": 295,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "increment": 2,
+  "seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "clip": 5,
+  "ridge": 0.001,
+  "cosine_eta_min": 1e-05,
+  "updates_per_condition": 588,
+  "total_updates": 588,
+  "queue_timeout_seconds": 7200,
+  "parallel_gpus": 1,
+  "admission_updates": 4,
+  "comparisons": [
+    "PA2 stage_global primary matched baseline",
+    "R2 global_readout1 strongest candidate",
+    "R2 global_fd40",
+    "R1 frozen_after_first",
+    "R1 no_shift",
+    "R1 graph_stage"
+  ],
+  "gate": "Final BA >= stage_global +1pp, > strongest frozen/no-shift reference; tail loss <=0.5pp and forgetting increase <=1pp vs primary baseline; no independent test claim",
+  "source_commit": "This file and implementation are frozen in the Git commit recorded by private launch receipts",
+  "validation": "Scale invariance, rank deficiency and exact gradient/stopgrad tests; two-task real-image admission with 4 updates; first task matches baseline; second-task projection term nonzero"
+}

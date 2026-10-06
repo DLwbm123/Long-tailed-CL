@@ -1,0 +1,929 @@
+{
+  "source_commit": "67a0bc46ab9520af2ec2a9011fdbc496b7069356",
+  "queues": {
+    "q0": {
+      "status": "COMPLETE",
+      "started": 1791256943.6378548,
+      "ended": 1791260950.1854146,
+      "elapsed_seconds": 4006.5475580771454
+    },
+    "q1": {
+      "status": "COMPLETE",
+      "started": 1791256943.6210663,
+      "ended": 1791259490.125819,
+      "elapsed_seconds": 2546.5047594578937
+    }
+  },
+  "arms": {
+    "ISIC_stage_global": {
+      "STATUS": {
+        "steps": 588,
+        "elapsed_seconds": 2043.827249265276,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 12673299456
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9647058823529412,
+            "balanced_accuracy": 0.9642461197339246,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 0.9772727272727273
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7046979865771812,
+            "balanced_accuracy": 0.6832686622320768,
+            "tail_recall": 0.6244918699186992,
+            "per_class_recall": {
+              "4": 0.7073170731707317,
+              "0": 0.9090909090909091,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6320754716981132,
+            "balanced_accuracy": 0.6324434382361211,
+            "tail_recall": 0.5958242482632726,
+            "per_class_recall": {
+              "4": 0.5121951219512195,
+              "0": 0.8863636363636364,
+              "3": 0.525,
+              "7": 0.5,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5627118644067797,
+            "balanced_accuracy": 0.5695083901903891,
+            "tail_recall": 0.5422075452563258,
+            "per_class_recall": {
+              "4": 0.3902439024390244,
+              "0": 0.5909090909090909,
+              "3": 0.425,
+              "7": 0.5,
+              "5": 0.43243243243243246,
+              "6": 0.8461538461538461,
+              "2": 0.6956521739130435,
+              "1": 0.6756756756756757
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7123666525981279,
+        "final_balanced_accuracy": 0.5695083901903891,
+        "final_tail_recall": 0.5422075452563258,
+        "forgetting": 0.20525358421699877,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 172,
+          "ridge_residual": 8.865697677726667e-16,
+          "head_relative_change": 0.04916841439242704,
+          "mean_fit_loss": 0.051615766596135704,
+          "mean_feature_loss": 6.114068792369433e-05,
+          "global_shift_norm": 0.005057391244918108,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.008037624880671501,
+            0.0035004285164177418
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 9.384497615608433e-16,
+          "head_relative_change": 0.09026133823829242,
+          "mean_fit_loss": 0.04824523640753225,
+          "mean_feature_loss": 0.00011272379615970855,
+          "global_shift_norm": 0.00483365124091506,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.011348682455718517,
+            0.004317824263125658
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 365,
+          "ridge_residual": 9.463489949855998e-16,
+          "head_relative_change": 0.08876679996515106,
+          "mean_fit_loss": 0.13089559972286224,
+          "mean_feature_loss": 0.0010748121742272772,
+          "global_shift_norm": 0.03431008756160736,
+          "mean_old_shift_norm": 0.03431008756160736,
+          "observed_class_shift_norms": [
+            0.03621985763311386,
+            0.033228933811187744
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 386,
+          "ridge_residual": 9.137416644199867e-16,
+          "head_relative_change": 0.09397507686097209,
+          "mean_fit_loss": 0.11018752164783932,
+          "mean_feature_loss": 0.001682829084096565,
+          "global_shift_norm": 0.035711564123630524,
+          "mean_old_shift_norm": 0.035711564123630524,
+          "observed_class_shift_norms": [
+            0.03816261142492294,
+            0.03424285724759102
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 391,
+          "ridge_residual": 1.0242699901511787e-15,
+          "head_relative_change": 0.03502308193638608,
+          "mean_fit_loss": 0.1392635628581047,
+          "mean_feature_loss": 0.0001752871903590858,
+          "global_shift_norm": 0.02037021704018116,
+          "mean_old_shift_norm": 0.02037021704018116,
+          "observed_class_shift_norms": [
+            0.023168722167611122,
+            0.018277060240507126
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 396,
+          "ridge_residual": 1.0460472613526535e-15,
+          "head_relative_change": 0.0444561650259319,
+          "mean_fit_loss": 0.1203396663069725,
+          "mean_feature_loss": 0.0008932213997468353,
+          "global_shift_norm": 0.028282755985856056,
+          "mean_old_shift_norm": 0.028282757848501205,
+          "observed_class_shift_norms": [
+            0.03205073997378349,
+            0.025471003726124763
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 492,
+          "ridge_residual": 1.061547958626474e-15,
+          "head_relative_change": 0.13075245981101155,
+          "mean_fit_loss": 0.25556138219932717,
+          "mean_feature_loss": 0.002841773846284923,
+          "global_shift_norm": 0.04695439338684082,
+          "mean_old_shift_norm": 0.04695439338684082,
+          "observed_class_shift_norms": [
+            0.058106597512960434,
+            0.04802464321255684
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 588,
+          "ridge_residual": 1.0935298353105969e-15,
+          "head_relative_change": 0.13984500507416334,
+          "mean_fit_loss": 0.23216072733824453,
+          "mean_feature_loss": 0.0037992320915994546,
+          "global_shift_norm": 0.04694736748933792,
+          "mean_old_shift_norm": 0.04694736376404762,
+          "observed_class_shift_norms": [
+            0.061673689633607864,
+            0.04641321673989296
+          ]
+        }
+      ]
+    },
+    "ISIC_epoch_local": {
+      "STATUS": {
+        "steps": 588,
+        "elapsed_seconds": 1955.3515539192595,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 12673299456
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.6912751677852349,
+            "balanced_accuracy": 0.6719050258684404,
+            "tail_recall": 0.6244918699186992,
+            "per_class_recall": {
+              "4": 0.7073170731707317,
+              "0": 0.8636363636363636,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6226415094339622,
+            "balanced_accuracy": 0.6242117309190479,
+            "tail_recall": 0.5897266872876629,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.8863636363636364,
+              "3": 0.5,
+              "7": 0.5,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5627118644067797,
+            "balanced_accuracy": 0.5689236226285537,
+            "tail_recall": 0.5293532275239592,
+            "per_class_recall": {
+              "4": 0.36585365853658536,
+              "0": 0.5909090909090909,
+              "3": 0.45,
+              "7": 0.5,
+              "5": 0.40540540540540543,
+              "6": 0.8461538461538461,
+              "2": 0.717391304347826,
+              "1": 0.6756756756756757
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7101625338784008,
+        "final_balanced_accuracy": 0.5689236226285537,
+        "final_tail_recall": 0.5293532275239592,
+        "forgetting": 0.21344434149312197,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 172,
+          "ridge_residual": 8.865697677726667e-16,
+          "head_relative_change": 0.04916841439242704,
+          "mean_fit_loss": 0.051615766596135704,
+          "mean_feature_loss": 6.114068792369433e-05,
+          "global_shift_norm": 0.005057391244918108,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.008037624880671501,
+            0.0035004285164177418
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 8.778393299417488e-16,
+          "head_relative_change": 0.07390294137103066,
+          "mean_fit_loss": 0.04806467432658686,
+          "mean_feature_loss": 0.00011863238128277116,
+          "global_shift_norm": 0.006578169297426939,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.014923450537025928,
+            0.0033640158362686634
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 365,
+          "ridge_residual": 1.0448738060706594e-15,
+          "head_relative_change": 0.08725014281642114,
+          "mean_fit_loss": 0.13090667270478748,
+          "mean_feature_loss": 0.0010747513872393895,
+          "global_shift_norm": 0.03437520191073418,
+          "mean_old_shift_norm": 0.03449386647827209,
+          "observed_class_shift_norms": [
+            0.03629641979932785,
+            0.033285703510046005
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 386,
+          "ridge_residual": 1.0770402963867372e-15,
+          "head_relative_change": 0.043174278858322396,
+          "mean_fit_loss": 0.1347798534802028,
+          "mean_feature_loss": 0.0027461623817327478,
+          "global_shift_norm": 0.05693725124001503,
+          "mean_old_shift_norm": 0.057043781339744824,
+          "observed_class_shift_norms": [
+            0.058799128979444504,
+            0.05611714348196983
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 391,
+          "ridge_residual": 1.0373180057356923e-15,
+          "head_relative_change": 0.034425894166458214,
+          "mean_fit_loss": 0.1368319347500801,
+          "mean_feature_loss": 0.00024539221485611053,
+          "global_shift_norm": 0.02407570369541645,
+          "mean_old_shift_norm": 0.024395348176350876,
+          "observed_class_shift_norms": [
+            0.026884285733103752,
+            0.022017762064933777
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 396,
+          "ridge_residual": 1.0536791166748783e-15,
+          "head_relative_change": 0.01625637813599958,
+          "mean_fit_loss": 0.13781872540712356,
+          "mean_feature_loss": 0.0012287563527934252,
+          "global_shift_norm": 0.035288840532302856,
+          "mean_old_shift_norm": 0.03576787826719233,
+          "observed_class_shift_norms": [
+            0.03945609927177429,
+            0.03213341906666756
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 492,
+          "ridge_residual": 1.1386955081244554e-15,
+          "head_relative_change": 0.12764482559970752,
+          "mean_fit_loss": 0.2545010250372191,
+          "mean_feature_loss": 0.0028868160256176147,
+          "global_shift_norm": 0.046547356992959976,
+          "mean_old_shift_norm": 0.04673659888654943,
+          "observed_class_shift_norms": [
+            0.05777357146143913,
+            0.04775170609354973
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 588,
+          "ridge_residual": 1.1121636827699374e-15,
+          "head_relative_change": 0.04918838751336914,
+          "mean_fit_loss": 0.2560064943196873,
+          "mean_feature_loss": 0.005555463932978455,
+          "global_shift_norm": 0.05984121933579445,
+          "mean_old_shift_norm": 0.060199447983621764,
+          "observed_class_shift_norms": [
+            0.07753459364175797,
+            0.057491082698106766
+          ]
+        }
+      ]
+    },
+    "ISIC_full_graph": {
+      "STATUS": {
+        "steps": 588,
+        "elapsed_seconds": 2542.4558627689257,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 12673299456
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.6912751677852349,
+            "balanced_accuracy": 0.672320768662232,
+            "tail_recall": 0.6366869918699187,
+            "per_class_recall": {
+              "4": 0.7317073170731707,
+              "0": 0.8409090909090909,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6273584905660378,
+            "balanced_accuracy": 0.6282767715694545,
+            "tail_recall": 0.5958242482632726,
+            "per_class_recall": {
+              "4": 0.5121951219512195,
+              "0": 0.8863636363636364,
+              "3": 0.5,
+              "7": 0.5,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5525423728813559,
+            "balanced_accuracy": 0.5606952292033152,
+            "tail_recall": 0.535450788499569,
+            "per_class_recall": {
+              "4": 0.3902439024390244,
+              "0": 0.5909090909090909,
+              "3": 0.425,
+              "7": 0.5,
+              "5": 0.40540540540540543,
+              "6": 0.8461538461538461,
+              "2": 0.6521739130434783,
+              "1": 0.6756756756756757
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7092256313831407,
+        "final_balanced_accuracy": 0.5606952292033152,
+        "final_tail_recall": 0.535450788499569,
+        "forgetting": 0.21354596750938212,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 172,
+          "ridge_residual": 8.865697677726667e-16,
+          "head_relative_change": 0.04916841439242704,
+          "mean_fit_loss": 0.051615766596135704,
+          "mean_feature_loss": 6.114068792369433e-05,
+          "global_shift_norm": 0.005057391342489106,
+          "mean_old_shift_norm": 0.0,
+          "old_components": 0,
+          "current_components": 8,
+          "graph_edges": 16,
+          "graph_residual": 3.506841813939004e-16,
+          "anchor_reliability": [
+            0.9606073562623686,
+            0.8688851985733965,
+            0.9045812700046918,
+            0.8474747346017213,
+            0.996791745963308,
+            0.9946414104045143,
+            0.9929706944410895,
+            0.9956458724903375
+          ],
+          "mean_anchor_reliability": 0.9451997853426783,
+          "observed_component_shift_norms": [
+            0.008871317235877156,
+            0.008627266325400375,
+            0.008819488697207814,
+            0.00708334848805516,
+            0.004186269468095002,
+            0.004628262432591624,
+            0.003141818646399396,
+            0.0035614728081319216
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 8.778393299417488e-16,
+          "head_relative_change": 0.07390294137103066,
+          "mean_fit_loss": 0.04806467432658686,
+          "mean_feature_loss": 0.00011863238128277116,
+          "global_shift_norm": 0.00657816947553384,
+          "mean_old_shift_norm": 0.0,
+          "old_components": 0,
+          "current_components": 8,
+          "graph_edges": 16,
+          "graph_residual": 2.887467442130375e-16,
+          "anchor_reliability": [
+            0.9608340283610074,
+            0.8840016006693795,
+            0.9143635819951769,
+            0.8651823281018549,
+            0.9949163041218337,
+            0.9948495749369398,
+            0.9941323259508185,
+            0.9923811990046766
+          ],
+          "mean_anchor_reliability": 0.9500826178927109,
+          "observed_component_shift_norms": [
+            0.012599682700973287,
+            0.017727364905626816,
+            0.019753549513003236,
+            0.01678803666705165,
+            0.002860375743105807,
+            0.00590413062906771,
+            0.004202803630033335,
+            0.002494560162356815
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 365,
+          "ridge_residual": 9.847008501946416e-16,
+          "head_relative_change": 0.08430899662799907,
+          "mean_fit_loss": 0.13090667270478748,
+          "mean_feature_loss": 0.0010747513872393895,
+          "global_shift_norm": 0.034375201741443866,
+          "mean_old_shift_norm": 0.03463661592114734,
+          "old_components": 8,
+          "current_components": 5,
+          "graph_edges": 25,
+          "graph_residual": 5.368294600265223e-16,
+          "anchor_reliability": [
+            0.9822481109290675,
+            0.9690012952321836,
+            0.9791172111369231,
+            0.9609544104808605,
+            0.7617853121839557
+          ],
+          "mean_anchor_reliability": 0.930621267992598,
+          "observed_component_shift_norms": [
+            0.0405806296235273,
+            0.03619737054211329,
+            0.03487691901196371,
+            0.03358449423462087,
+            0.03328570487406149
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 386,
+          "ridge_residual": 9.295346977405999e-16,
+          "head_relative_change": 0.04191831027387113,
+          "mean_fit_loss": 0.13528513730991454,
+          "mean_feature_loss": 0.0027414220274381692,
+          "global_shift_norm": 0.0569146429731457,
+          "mean_old_shift_norm": 0.05720788914733578,
+          "old_components": 8,
+          "current_components": 5,
+          "graph_edges": 25,
+          "graph_residual": 5.317344172465872e-16,
+          "anchor_reliability": [
+            0.9824487084544766,
+            0.9694036010223155,
+            0.9794966828885895,
+            0.9615989446180309,
+            0.764802329866679
+          ],
+          "mean_anchor_reliability": 0.9315500533700183,
+          "observed_component_shift_norms": [
+            0.06612660503960664,
+            0.05705125302343255,
+            0.05601405515925165,
+            0.05362444037803004,
+            0.056103188097831096
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 391,
+          "ridge_residual": 1.1417863023356835e-15,
+          "head_relative_change": 0.03402139304278404,
+          "mean_fit_loss": 0.1368780717253685,
+          "mean_feature_loss": 0.00024422507849521937,
+          "global_shift_norm": 0.024051910506385166,
+          "mean_old_shift_norm": 0.024622366342803723,
+          "old_components": 13,
+          "current_components": 6,
+          "graph_edges": 37,
+          "graph_residual": 6.228662098754228e-16,
+          "anchor_reliability": [
+            0.9270217309921939,
+            0.32116665495906704,
+            0.8874751829841618,
+            0.9085432328155753,
+            0.8263654632605667,
+            0.30838323875561025
+          ],
+          "mean_anchor_reliability": 0.6964925839611958,
+          "observed_component_shift_norms": [
+            0.02473787274215631,
+            0.031663261211270416,
+            0.031168310981146526,
+            0.02764579148843392,
+            0.02174663986851386,
+            0.02735519455919498
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 396,
+          "ridge_residual": 1.046945804416856e-15,
+          "head_relative_change": 0.016023579000642513,
+          "mean_fit_loss": 0.13808436542749405,
+          "mean_feature_loss": 0.0012249211082234978,
+          "global_shift_norm": 0.03519533083476206,
+          "mean_old_shift_norm": 0.035966388678934404,
+          "old_components": 13,
+          "current_components": 6,
+          "graph_edges": 37,
+          "graph_residual": 6.459855344865004e-16,
+          "anchor_reliability": [
+            0.9276476058505466,
+            0.3228550437967506,
+            0.8881909372863632,
+            0.9090854777263104,
+            0.8281731569075728,
+            0.3133406915130672
+          ],
+          "mean_anchor_reliability": 0.6982154855134352,
+          "observed_component_shift_norms": [
+            0.03659470184788754,
+            0.04589438412847676,
+            0.04463350874953695,
+            0.04004084488443462,
+            0.03169987882983789,
+            0.039159899310345365
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 492,
+          "ridge_residual": 1.0555214541193005e-15,
+          "head_relative_change": 0.1258481247600297,
+          "mean_fit_loss": 0.2548872710516055,
+          "mean_feature_loss": 0.0028868857371738463,
+          "global_shift_norm": 0.046590142850844986,
+          "mean_old_shift_norm": 0.04725620157673857,
+          "old_components": 19,
+          "current_components": 8,
+          "graph_edges": 56,
+          "graph_residual": 8.229791277479423e-16,
+          "anchor_reliability": [
+            0.9901111595129363,
+            0.9905432436387891,
+            0.9874623905008806,
+            0.9838975685039342,
+            0.9909733594784534,
+            0.9887579892146321,
+            0.9868738133061106,
+            0.9914271263184642
+          ],
+          "mean_anchor_reliability": 0.988755831309275,
+          "observed_component_shift_norms": [
+            0.06138119648152049,
+            0.05809993770288149,
+            0.056602057981817645,
+            0.057081820547344675,
+            0.055201268971093564,
+            0.05586035392603757,
+            0.0405737200842364,
+            0.04268570807860655
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 588,
+          "ridge_residual": 1.0337459185886139e-15,
+          "head_relative_change": 0.049498579991835906,
+          "mean_fit_loss": 0.2576657285292943,
+          "mean_feature_loss": 0.005571482116162467,
+          "global_shift_norm": 0.05978072132172165,
+          "mean_old_shift_norm": 0.06055714139351851,
+          "old_components": 19,
+          "current_components": 8,
+          "graph_edges": 56,
+          "graph_residual": 8.119638530105078e-16,
+          "anchor_reliability": [
+            0.9901528543882013,
+            0.9906083208526237,
+            0.9875486235991175,
+            0.9839974374012037,
+            0.991002584280991,
+            0.9888111886158485,
+            0.9869528909274811,
+            0.9915068378717865
+          ],
+          "mean_anchor_reliability": 0.9888225922421567,
+          "observed_component_shift_norms": [
+            0.08112155285676648,
+            0.07699064318768531,
+            0.0774449986440183,
+            0.07594643132671176,
+            0.0662300225810268,
+            0.06618870509157752,
+            0.04913973080710815,
+            0.05206222504719263
+          ]
+        }
+      ]
+    }
+  }
+}

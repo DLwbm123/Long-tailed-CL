@@ -1,0 +1,874 @@
+{
+  "queues": {
+    "q0": {
+      "status": "COMPLETE",
+      "started": 1791278475.4920578,
+      "ended": 1791281663.9863777,
+      "elapsed_seconds": 3188.4943173108622
+    },
+    "q2": {
+      "status": "COMPLETE",
+      "started": 1791278475.4920166,
+      "ended": 1791280449.0011358,
+      "elapsed_seconds": 1973.5091210240498
+    }
+  },
+  "arms": {
+    "graph_stage": {
+      "STATUS": {
+        "steps": 588,
+        "elapsed_seconds": 1970.4320025509223,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 12673299456
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9647058823529412,
+            "balanced_accuracy": 0.9642461197339246,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 0.9772727272727273
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7114093959731543,
+            "balanced_accuracy": 0.6897819660014782,
+            "tail_recall": 0.6488821138211383,
+            "per_class_recall": {
+              "4": 0.7560975609756098,
+              "0": 0.8863636363636364,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6367924528301887,
+            "balanced_accuracy": 0.6364068528702674,
+            "tail_recall": 0.6080193702144921,
+            "per_class_recall": {
+              "4": 0.5609756097560976,
+              "0": 0.8863636363636364,
+              "3": 0.5,
+              "7": 0.5,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5559322033898305,
+            "balanced_accuracy": 0.5638675274776813,
+            "tail_recall": 0.5483051062319355,
+            "per_class_recall": {
+              "4": 0.4146341463414634,
+              "0": 0.6136363636363636,
+              "3": 0.425,
+              "7": 0.5,
+              "5": 0.43243243243243246,
+              "6": 0.8461538461538461,
+              "2": 0.6304347826086957,
+              "1": 0.6486486486486487
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7135756165208379,
+        "final_balanced_accuracy": 0.5638675274776813,
+        "final_tail_recall": 0.5483051062319355,
+        "forgetting": 0.1974006647787135,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 172,
+          "ridge_residual": 8.865697677726667e-16,
+          "head_relative_change": 0.04916841439242704,
+          "mean_fit_loss": 0.051615766596135704,
+          "mean_feature_loss": 6.114068792369433e-05,
+          "trained_encoder": true,
+          "global_shift_norm": 0.005057391342489106,
+          "mean_old_shift_norm": 0.0,
+          "old_components": 0,
+          "current_components": 8,
+          "graph_edges": 16,
+          "graph_residual": 3.506841813939004e-16,
+          "anchor_reliability": [
+            0.9606073562623686,
+            0.8688851985733965,
+            0.9045812700046918,
+            0.8474747346017213,
+            0.996791745963308,
+            0.9946414104045143,
+            0.9929706944410895,
+            0.9956458724903375
+          ],
+          "mean_anchor_reliability": 0.9451997853426783,
+          "observed_component_shift_norms": [
+            0.008871317235877156,
+            0.008627266325400375,
+            0.008819488697207814,
+            0.00708334848805516,
+            0.004186269468095002,
+            0.004628262432591624,
+            0.003141818646399396,
+            0.0035614728081319216
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 9.384497615608433e-16,
+          "head_relative_change": 0.09026133823829242,
+          "mean_fit_loss": 0.04824523640753225,
+          "mean_feature_loss": 0.00011272379615970855,
+          "trained_encoder": true,
+          "global_shift_norm": 0.00483365101477213,
+          "mean_old_shift_norm": 0.0,
+          "old_components": 0,
+          "current_components": 8,
+          "graph_edges": 16,
+          "graph_residual": 2.967636132206176e-16,
+          "anchor_reliability": [
+            0.9580772849857383,
+            0.8817112239991949,
+            0.911568492198265,
+            0.8616907837311448,
+            0.9959270053562993,
+            0.9954839441439899,
+            0.9947847795034644,
+            0.9944153336184761
+          ],
+          "mean_anchor_reliability": 0.9492073559420716,
+          "observed_component_shift_norms": [
+            0.00919825348826215,
+            0.014878429206347518,
+            0.015437592664785768,
+            0.013860450835700875,
+            0.0035579987728126925,
+            0.0074366572370635625,
+            0.004867524098876873,
+            0.003187590686681772
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 365,
+          "ridge_residual": 9.870704834026772e-16,
+          "head_relative_change": 0.08356925904432476,
+          "mean_fit_loss": 0.13089559972286224,
+          "mean_feature_loss": 0.0010748121742272772,
+          "trained_encoder": true,
+          "global_shift_norm": 0.03431008832144163,
+          "mean_old_shift_norm": 0.03456894125261192,
+          "old_components": 8,
+          "current_components": 5,
+          "graph_edges": 25,
+          "graph_residual": 6.589602551963564e-16,
+          "anchor_reliability": [
+            0.9822187755926362,
+            0.9691276273593151,
+            0.979138248505068,
+            0.9609738451190937,
+            0.7619413074309014
+          ],
+          "mean_anchor_reliability": 0.9306799608014028,
+          "observed_component_shift_norms": [
+            0.040417646937588605,
+            0.03604406519875899,
+            0.03489611808836723,
+            0.033466085664820934,
+            0.033228932669879356
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 386,
+          "ridge_residual": 1.107267812933018e-15,
+          "head_relative_change": 0.08895289116501612,
+          "mean_fit_loss": 0.11018752164783932,
+          "mean_feature_loss": 0.001682829084096565,
+          "trained_encoder": true,
+          "global_shift_norm": 0.03571156428497384,
+          "mean_old_shift_norm": 0.03607493758425169,
+          "old_components": 8,
+          "current_components": 5,
+          "graph_edges": 25,
+          "graph_residual": 4.741728150315699e-16,
+          "anchor_reliability": [
+            0.9823300209680351,
+            0.9692780149126887,
+            0.9792277854669111,
+            0.9611895729707836,
+            0.7615426952360852
+          ],
+          "mean_anchor_reliability": 0.9307136179109008,
+          "observed_component_shift_norms": [
+            0.044876377891687205,
+            0.03815994104832585,
+            0.0350086291722215,
+            0.033154012256356016,
+            0.034242855592225396
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 391,
+          "ridge_residual": 9.566218036185511e-16,
+          "head_relative_change": 0.03105221215292907,
+          "mean_fit_loss": 0.13934964090585708,
+          "mean_feature_loss": 0.00017380505305482076,
+          "trained_encoder": true,
+          "global_shift_norm": 0.020310083838434176,
+          "mean_old_shift_norm": 0.02090747153150688,
+          "old_components": 13,
+          "current_components": 6,
+          "graph_edges": 37,
+          "graph_residual": 7.209205157638103e-16,
+          "anchor_reliability": [
+            0.9266719887771537,
+            0.3203939902984113,
+            0.8871212493852206,
+            0.9082524062580597,
+            0.824865663716156,
+            0.3040435617233112
+          ],
+          "mean_anchor_reliability": 0.6952248100263855,
+          "observed_component_shift_norms": [
+            0.02033163615573714,
+            0.02743758474574328,
+            0.02807064082655704,
+            0.024170596191599003,
+            0.017941538540867254,
+            0.024142989841828177
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 396,
+          "ridge_residual": 1.0174597368786498e-15,
+          "head_relative_change": 0.039935148477695435,
+          "mean_fit_loss": 0.12047756463289261,
+          "mean_feature_loss": 0.0008900481392629444,
+          "trained_encoder": true,
+          "global_shift_norm": 0.02827845549057901,
+          "mean_old_shift_norm": 0.02900514904319699,
+          "old_components": 13,
+          "current_components": 6,
+          "graph_edges": 37,
+          "graph_residual": 7.216705772015946e-16,
+          "anchor_reliability": [
+            0.9273860698864438,
+            0.3217515167825119,
+            0.8879181880001976,
+            0.9088402173940928,
+            0.8272106804086118,
+            0.31034164942821807
+          ],
+          "mean_anchor_reliability": 0.6972413869833461,
+          "observed_component_shift_norms": [
+            0.029194842436494436,
+            0.03813191810338699,
+            0.03721120818913633,
+            0.0329597196682871,
+            0.02514198111617925,
+            0.03243404018884026
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 492,
+          "ridge_residual": 1.0984273276143027e-15,
+          "head_relative_change": 0.12659767661159943,
+          "mean_fit_loss": 0.25601768369476,
+          "mean_feature_loss": 0.0028434766850296,
+          "trained_encoder": true,
+          "global_shift_norm": 0.04707400070877794,
+          "mean_old_shift_norm": 0.0477714592700693,
+          "old_components": 19,
+          "current_components": 8,
+          "graph_edges": 56,
+          "graph_residual": 9.419814300281112e-16,
+          "anchor_reliability": [
+            0.9901620021336911,
+            0.9904949778809959,
+            0.9874815883737372,
+            0.9839409619220616,
+            0.9910213660539018,
+            0.9885598852674118,
+            0.9868452202419413,
+            0.9915309534591075
+          ],
+          "mean_anchor_reliability": 0.988754619416606,
+          "observed_component_shift_norms": [
+            0.06163958995635726,
+            0.05827201683656379,
+            0.05747609631536346,
+            0.057622367488417536,
+            0.055723647638647095,
+            0.05692488068384395,
+            0.04035389448007443,
+            0.0427274648149861
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 588,
+          "ridge_residual": 1.054398222607238e-15,
+          "head_relative_change": 0.13588980561987712,
+          "mean_fit_loss": 0.23258738669877252,
+          "mean_feature_loss": 0.0038061658124206588,
+          "trained_encoder": true,
+          "global_shift_norm": 0.04699578531156495,
+          "mean_old_shift_norm": 0.047715601010961346,
+          "old_components": 19,
+          "current_components": 8,
+          "graph_edges": 56,
+          "graph_residual": 8.891792485289575e-16,
+          "anchor_reliability": [
+            0.990155934544384,
+            0.9904945216671188,
+            0.9874877107376593,
+            0.9839582146134027,
+            0.9909885645390009,
+            0.9885327910395415,
+            0.9867364948067135,
+            0.9915147744949243
+          ],
+          "mean_anchor_reliability": 0.9887336258053431,
+          "observed_component_shift_norms": [
+            0.06384470316209517,
+            0.06108135622538863,
+            0.06345584990465432,
+            0.06045616016930193,
+            0.05396938505021271,
+            0.05463217604569269,
+            0.038727882299791926,
+            0.04179245730858911
+          ]
+        }
+      ]
+    },
+    "no_shift": {
+      "STATUS": {
+        "steps": 588,
+        "elapsed_seconds": 1970.5860117180273,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 12673299456
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9647058823529412,
+            "balanced_accuracy": 0.9642461197339246,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 0.9772727272727273
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.6778523489932886,
+            "balanced_accuracy": 0.6586890243902439,
+            "tail_recall": 0.5548780487804879,
+            "per_class_recall": {
+              "4": 0.6097560975609756,
+              "0": 0.75,
+              "3": 0.775,
+              "7": 0.5
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6462264150943396,
+            "balanced_accuracy": 0.6505286243091121,
+            "tail_recall": 0.6132929364636681,
+            "per_class_recall": {
+              "4": 0.36585365853658536,
+              "0": 0.75,
+              "3": 0.7,
+              "7": 0.5,
+              "5": 0.7027027027027027,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5016949152542373,
+            "balanced_accuracy": 0.5063921787576348,
+            "tail_recall": 0.42633592786031815,
+            "per_class_recall": {
+              "4": 0.1951219512195122,
+              "0": 0.38636363636363635,
+              "3": 0.225,
+              "7": 0.4166666666666667,
+              "5": 0.32432432432432434,
+              "6": 0.7692307692307693,
+              "2": 0.8695652173913043,
+              "1": 0.8648648648648649
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.6949639867977289,
+        "final_balanced_accuracy": 0.5063921787576348,
+        "final_tail_recall": 0.42633592786031815,
+        "forgetting": 0.412350496496838,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 172,
+          "ridge_residual": 8.865697677726667e-16,
+          "head_relative_change": 0.04916841439242704,
+          "mean_fit_loss": 0.051615766596135704,
+          "mean_feature_loss": 6.114068792369433e-05,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 9.384497615608433e-16,
+          "head_relative_change": 0.09026133823829242,
+          "mean_fit_loss": 0.04824523640753225,
+          "mean_feature_loss": 0.00011272379615970855,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 365,
+          "ridge_residual": 1.0515634913248503e-15,
+          "head_relative_change": 0.20239950109405822,
+          "mean_fit_loss": 0.13089559972286224,
+          "mean_feature_loss": 0.0010748121742272772,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 386,
+          "ridge_residual": 1.0619265837383764e-15,
+          "head_relative_change": 0.1995294464645452,
+          "mean_fit_loss": 0.11018752164783932,
+          "mean_feature_loss": 0.001682829084096565,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 391,
+          "ridge_residual": 1.0364351983914974e-15,
+          "head_relative_change": 0.09938872848509209,
+          "mean_fit_loss": 0.13927814364433289,
+          "mean_feature_loss": 0.00018956951898871922,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 396,
+          "ridge_residual": 1.0378213986018844e-15,
+          "head_relative_change": 0.12029919226990066,
+          "mean_fit_loss": 0.11983560770750046,
+          "mean_feature_loss": 0.0009185444097965956,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 492,
+          "ridge_residual": 1.0879240292934928e-15,
+          "head_relative_change": 0.2097111210288644,
+          "mean_fit_loss": 0.25106865384926397,
+          "mean_feature_loss": 0.002685438038800688,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 588,
+          "ridge_residual": 1.147630619798928e-15,
+          "head_relative_change": 0.2127143112247692,
+          "mean_fit_loss": 0.22764277349536619,
+          "mean_feature_loss": 0.00362300794707456,
+          "trained_encoder": true,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0
+        }
+      ]
+    },
+    "frozen_after_first": {
+      "STATUS": {
+        "steps": 344,
+        "elapsed_seconds": 1206.756000137888,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 12672605696
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9647058823529412,
+            "balanced_accuracy": 0.9642461197339246,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 0.9772727272727273
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7046979865771812,
+            "balanced_accuracy": 0.6786446784922394,
+            "tail_recall": 0.6402439024390244,
+            "per_class_recall": {
+              "4": 0.7804878048780488,
+              "0": 0.9090909090909091,
+              "3": 0.525,
+              "7": 0.5
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6462264150943396,
+            "balanced_accuracy": 0.6473147119488583,
+            "tail_recall": 0.6306311588323783,
+            "per_class_recall": {
+              "4": 0.6097560975609756,
+              "0": 0.8863636363636364,
+              "3": 0.475,
+              "7": 0.5416666666666666,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5491525423728814,
+            "balanced_accuracy": 0.5615540251177844,
+            "tail_recall": 0.610218802291973,
+            "per_class_recall": {
+              "4": 0.5853658536585366,
+              "0": 0.75,
+              "3": 0.375,
+              "7": 0.5,
+              "5": 0.43243243243243246,
+              "6": 0.9230769230769231,
+              "2": 0.41304347826086957,
+              "1": 0.5135135135135135
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7129398838232017,
+        "final_balanced_accuracy": 0.5615540251177844,
+        "final_tail_recall": 0.610218802291973,
+        "forgetting": 0.13339759467808246,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 172,
+          "ridge_residual": 8.865697677726667e-16,
+          "head_relative_change": 0.04916841439242704,
+          "mean_fit_loss": 0.051615766596135704,
+          "mean_feature_loss": 6.114068792369433e-05,
+          "trained_encoder": true,
+          "global_shift_norm": 0.005057391244918108,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.008037624880671501,
+            0.0035004285164177418
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 9.384497615608433e-16,
+          "head_relative_change": 0.09026133823829242,
+          "mean_fit_loss": 0.04824523640753225,
+          "mean_feature_loss": 0.00011272379615970855,
+          "trained_encoder": true,
+          "global_shift_norm": 0.00483365124091506,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.011348682455718517,
+            0.004317824263125658
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 344,
+          "ridge_residual": 9.62853222359268e-16,
+          "head_relative_change": 2.508758127237371e-08,
+          "mean_fit_loss": 0.0,
+          "mean_feature_loss": 0.0,
+          "trained_encoder": false,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 344,
+          "ridge_residual": 9.52638544549201e-16,
+          "head_relative_change": 2.536978099150318e-08,
+          "mean_fit_loss": 0.0,
+          "mean_feature_loss": 0.0,
+          "trained_encoder": false,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 344,
+          "ridge_residual": 9.730150003860483e-16,
+          "head_relative_change": 2.5686207426514165e-08,
+          "mean_fit_loss": 0.0,
+          "mean_feature_loss": 0.0,
+          "trained_encoder": false,
+          "global_shift_norm": 0.0,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  },
+  "gpu_seconds_used": 5412.920146327,
+  "source_commit": "90a1bc98fb594c32757a0ee35ca090d8f3453165"
+}

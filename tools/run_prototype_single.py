@@ -81,12 +81,21 @@ def extract(encoder, loader, budget):
     return np.concatenate(xs), np.concatenate(ys)
 
 
+def old_readout_loss(z, reference, old_head):
+    if old_head is None:
+        return z.sum() * 0.
+    return ((z - reference.detach()) @ old_head.detach()).square().mean()
+
+
 def run(config):
     output = Path(config['output'])
     if output.exists():
         raise ValueError('Fresh output required; no overwrite/retry')
     if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph', 'graph_stage', 'no_shift', 'frozen_after_first'):
         raise ValueError('Unknown arm')
+    fd_weight, old_logit_weight = float(config.get('fd_weight', 10.)), float(config.get('old_logit_weight', 0.))
+    if not all(np.isfinite(w) and w >= 0 for w in (fd_weight, old_logit_weight)):
+        raise ValueError('Invalid retention weight')
     if config['method'] in ('full_graph', 'graph_stage'):
         from prototype_graph import empty as make_bank, append as add, transport as graph_transport
     else:
@@ -113,10 +122,11 @@ def run(config):
             options = dict(multiprocessing_context='spawn', prefetch_factor=2) if workers else {}
             return DataLoader(ds, batch_size=config['batch_size'], shuffle=training, num_workers=workers,
                               generator=torch.Generator().manual_seed(seed + task * 2003), **options)
-        bank = make_bank(encoder.dim); seen = []; diagnostics = []
+        bank = make_bank(encoder.dim); seen = []; diagnostics = []; head = None
         tasks = [config['order'][i:i+config['increment']] for i in range(0, len(config['order']), config['increment'])]
         for task, classes in enumerate(tasks, 1):
             budget(); seen += classes
+            old_head = head
             canonical = loader([r for r in train if r['label'] in classes], False, task)
             training = loader(canonical.dataset.rows, True, task)
             teacher = copy.deepcopy(encoder).requires_grad_(False).eval()
@@ -147,13 +157,14 @@ def run(config):
                     target = torch.nn.functional.one_hot(lookup[labels], len(seen)).float()
                     fit = (.5 * (z @ head - target).square().sum(1) * sample_weights[labels]).mean()
                     fd = (z - reference).square().sum(1).mean()
-                    loss = fit + 10. * fd
+                    readout = old_readout_loss(z, reference, old_head) if old_logit_weight else z.new_zeros(())
+                    loss = fit + fd_weight * fd + old_logit_weight * readout
                     if not torch.isfinite(loss):
                         raise ValueError('Nonfinite training loss')
                     loss.backward()
                     norm = torch.nn.utils.clip_grad_norm_([p for p in encoder.parameters() if p.requires_grad], 5., error_if_nonfinite=True)
                     optimizer.step(); steps += 1
-                    losses.append([float(fit.detach()), float(fd.detach()), float(norm)])
+                    losses.append([float(fit.detach()), float(fd.detach()), float(norm), float(readout.detach())])
                 if train_encoder:
                     scheduler.step()
                 # Trainable arms use matched canonical passes; the frozen control reuses unchanged features.
@@ -173,6 +184,9 @@ def run(config):
                     head_relative_change=float(np.linalg.norm(W_new-head.cpu().numpy()) / max(np.linalg.norm(W_new), 1e-12)),
                     mean_fit_loss=float(np.mean(losses, axis=0)[0]) if losses else 0.,
                     mean_feature_loss=float(np.mean(losses, axis=0)[1]) if losses else 0.,
+                    mean_old_readout_loss=float(np.mean(losses, axis=0)[3]) if losses else 0.,
+                    fd_weight=fd_weight, old_logit_weight=old_logit_weight,
+                    old_head_classes=0 if old_head is None else old_head.shape[1],
                     trained_encoder=train_encoder,
                     **audit))
                 if config['method'] not in ('stage_global', 'graph_stage', 'no_shift', 'frozen_after_first') or epoch == iterations:

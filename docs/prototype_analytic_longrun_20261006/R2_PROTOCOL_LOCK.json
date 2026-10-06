@@ -1,0 +1,63 @@
+{
+  "round": 2,
+  "frozen_before_training": true,
+  "hypothesis_source": "round1/REPORT_ZH.md",
+  "hypotheses": [
+    "Stronger feature retention may preserve old classes without fully freezing adaptation",
+    "Old classifier output retention may preserve relevant feature directions with less interference to new classes"
+  ],
+  "conditions": [
+    {
+      "name": "global_fd40",
+      "method": "stage_global",
+      "fd_weight": 40.0,
+      "old_logit_weight": 0.0
+    },
+    {
+      "name": "global_readout1",
+      "method": "stage_global",
+      "fd_weight": 10.0,
+      "old_logit_weight": 1.0
+    }
+  ],
+  "loss": "class-balanced squared fit + fd_weight * mean_batch(sum_feature((z-teacher_z)^2)) + old_logit_weight * mean_batch_and_old_classes(((z-teacher_z) @ previous_task_final_head)^2)",
+  "old_head": "Previous task final analytic head captured before current task bootstrap; fixed and detached throughout task; teacher is task-start encoder with stopped gradients; first task readout loss is exactly zero",
+  "limits": "Current images only; no old images or per-sample old features; no extra teacher forward",
+  "dataset": "ISIC full original train/validation",
+  "train_n": 18718,
+  "val_n": 295,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "increment": 2,
+  "seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "clip": 5,
+  "ridge": 0.001,
+  "cosine_eta_min": 1e-05,
+  "updates_per_condition": 588,
+  "total_updates": 1176,
+  "queue_timeout_seconds": 7200,
+  "parallel_gpus": 2,
+  "admission_updates": 8,
+  "comparisons": [
+    "PA2 stage_global (primary matched baseline)",
+    "R1 frozen_after_first",
+    "R1 no_shift",
+    "R1 graph_stage"
+  ],
+  "gate": "Final BA >= stage_global +1pp, > strongest frozen/no-shift reference; tail loss <=0.5pp and forgetting increase <=1pp vs primary baseline; no independent test claim",
+  "source_commit": "This file and implementation are frozen in the Git commit recorded by private launch receipts",
+  "validation": "Math gradient and stop-gradient checks plus two-task real-image admission, 4 steps each. READOUT1 task1 must match unchanged baseline."
+}

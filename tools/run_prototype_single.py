@@ -120,7 +120,7 @@ def run(config):
     output = Path(config['output'])
     if output.exists():
         raise ValueError('Fresh output required; no overwrite/retry')
-    if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph', 'graph_stage', 'no_shift', 'frozen_after_first'):
+    if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph', 'graph_stage', 'graph_adaptive', 'no_shift', 'frozen_after_first'):
         raise ValueError('Unknown arm')
     fd_weight, old_logit_weight = float(config.get('fd_weight', 10.)), float(config.get('old_logit_weight', 0.))
     subspace_weight = float(config.get('subspace_weight', 0.))
@@ -129,7 +129,7 @@ def run(config):
         raise ValueError('error_feedback must be boolean')
     if not all(np.isfinite(w) and w >= 0 for w in (fd_weight, old_logit_weight, subspace_weight)):
         raise ValueError('Invalid retention weight')
-    if config['method'] in ('full_graph', 'graph_stage'):
+    if config['method'] in ('full_graph', 'graph_stage', 'graph_adaptive'):
         from prototype_graph import empty as make_bank, append as add, transport as graph_transport
     else:
         make_bank, add = empty, append
@@ -222,8 +222,8 @@ def run(config):
                 after, after_y = extract(encoder, canonical, budget) if train_encoder else (before, y)
                 if not np.array_equal(y, after_y):
                     raise ValueError('Canonical sample order changed')
-                if config['method'] in ('full_graph', 'graph_stage'):
-                    shifted, audit = graph_transport(bank, before, after, y, classes)
+                if config['method'] in ('full_graph', 'graph_stage', 'graph_adaptive'):
+                    shifted, audit = graph_transport(bank, before, after, y, classes, adaptive=config['method'] == 'graph_adaptive')
                 elif config['method'] == 'no_shift':
                     shifted = move(bank, np.zeros_like(bank['mu']))
                     audit = dict(global_shift_norm=0., mean_old_shift_norm=0.)
@@ -248,7 +248,7 @@ def run(config):
                     training_preupdate_confusion=confusion.cpu().tolist() if feedback else None,
                     trained_encoder=train_encoder,
                     **audit))
-                if config['method'] not in ('stage_global', 'graph_stage', 'no_shift', 'frozen_after_first') or epoch == iterations:
+                if config['method'] not in ('stage_global', 'graph_stage', 'graph_adaptive', 'no_shift', 'frozen_after_first') or epoch == iterations:
                     head = torch.tensor(W_new, dtype=torch.float32, device='cuda')
                 save(output / 'diagnostics.json', diagnostics)
             bank = candidate

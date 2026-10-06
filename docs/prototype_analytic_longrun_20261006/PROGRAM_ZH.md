@@ -64,3 +64,7 @@ GPU0 队列 no_shift 后 frozen_after_first，上限 3 小时；GPU2 队列 grap
 ## 2026-10-06 用户新增授权：EF1 固定四组
 
 用户在 R3 运行期间明确再次要求无独立 base 阶段，并授权立即运行多原型与类别错误反馈四组因子实验。原 R1–R3 开发已结束，无候选达到复核门槛；新 EF1 由此次明确指令授权，不视为自动 R4。详见 [EF1 协议](EF1_PROTOCOL_ZH.md)。保留原起点和全部总预算，四组完成后报告并暂停，不自动扩展。PROGRAM_STATE 的 phase=EF1 与 PREPARING_EF1/EF1_ADMISSION/RUNNING_EF1 状态优先于旧的三轮收尾逻辑；准备中不得重复启动。
+
+## 2026-10-06 用户新增授权：GATE1单候选验证
+
+EF1已完成并公开交付。用户随后明确要求验证留类校准的全局／图融合，见GATE1_PROTOCOL_ZH.md和GATE1_PROTOCOL_LOCK.json。复用EF1 A/B，只新增一个graph_adaptive候选；仍无base、RL、旧图像回放或验证反馈。GATE1阶段优先于旧EF1收尾逻辑，准备期间不重复启动。完成本候选并发布后暂停，不自动扩展。

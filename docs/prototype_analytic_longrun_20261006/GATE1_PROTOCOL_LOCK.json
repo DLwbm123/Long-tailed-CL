@@ -1,0 +1,78 @@
+{
+  "no_independent_base": true,
+  "no_old_s0_checkpoint": true,
+  "task_schedule": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "dataset": "ISIC original full train/validation",
+  "train_n": 18718,
+  "val_n": 295,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "cosine_eta_min": 1e-05,
+  "clip": 5,
+  "ridge": 0.001,
+  "fd_weight": 10.0,
+  "old_logit_weight": 0.0,
+  "subspace_weight": 0.0,
+  "phase": "GATE1",
+  "authorization": "User explicitly requested validation after RLAP-CLIP-inspired adaptive global/graph proposal, 2026-10-06",
+  "method": "graph_adaptive",
+  "error_feedback": false,
+  "controls": {
+    "A": "Completed EF1 A at 2dfdb838338ec00ea229345e47130b15d94d6355",
+    "B": "Completed EF1 B at 2dfdb838338ec00ea229345e47130b15d94d6355"
+  },
+  "new_formal_trajectories": 1,
+  "updates": 588,
+  "admission": {
+    "tasks": 2,
+    "epochs": 1,
+    "total_updates": 2,
+    "purpose": "native plumbing only; CPU oracle covers bounded fit and no held-target leakage"
+  },
+  "gate": {
+    "type": "one scalar shared across old components per transport",
+    "objective": "class-balanced squared error of held-current-class component drift predictions",
+    "formula": "clip(sum(w*(graph-global)*(target-global))/sum(w*(graph-global)^2),0,1)",
+    "degenerate": "g=0 if denominator<=1e-20",
+    "mask": "hide all drift and confidence of one current class; prior global drift recomputed from remaining classes only",
+    "geometry": "fixed feature geometry; use current-node induced subgraph of existing symmetric 3NN graph",
+    "weights": "component mass within class; each held class sums to 1",
+    "old_update": "global + g*(graph-global); coherent existing first/second-moment translation",
+    "limitation": "Calibration targets determine scalar gate; calibration gain is not independent evidence; current folds may not model old-class drift"
+  },
+  "unchanged": "graph nodes/clustering/reliability/regularization, analytic objective, feature retention, training samples and schedule",
+  "runtime": "canonical persistent workers, as verified in EF1 IO amendment",
+  "no_new_modules": [
+    "RL",
+    "MoE network",
+    "text encoder",
+    "sample reweighting",
+    "error feedback",
+    "new retention term"
+  ],
+  "screening": "Final BA >= A+1pp and > B, tail >= A-0.5pp, forgetting <= A+1pp; report all differences and READOUT1 descriptive reference",
+  "formal_queue_timeout_seconds": 7200,
+  "admission_timeout_seconds": 600,
+  "ledger": "Same original started/deadline,16GPUh,16 formal attempts,40 native updates; after admission40/40,after launch11/16; no budget reset",
+  "followup": "Fixed one candidate only; resume existing hourly monitor for GATE1 completion/publication then pause; no gate tuning or next phase without user request",
+  "privacy": "No old images/replay/test/validation-derived gate; public aggregates only"
+}

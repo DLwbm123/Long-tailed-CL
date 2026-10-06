@@ -1,0 +1,2909 @@
+{
+  "source_commit": "8076c91f748cc3c392a81cab2eeabab79c7e25db",
+  "suite": {
+    "status": "COMPLETE",
+    "started": 1791191685.1518352,
+    "ended": 1791213564.0765285,
+    "elapsed_seconds": 21878.924705336336
+  },
+  "arms": {
+    "ISIC_stage_global": {
+      "STATUS": {
+        "steps": 1761,
+        "elapsed_seconds": 5416.33650479326,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 7126205952
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7114093959731543,
+            "balanced_accuracy": 0.6902392830746489,
+            "tail_recall": 0.6122967479674797,
+            "per_class_recall": {
+              "4": 0.6829268292682927,
+              "0": 0.8863636363636364,
+              "3": 0.65,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6650943396226415,
+            "balanced_accuracy": 0.6663611355684527,
+            "tail_recall": 0.6398826124435881,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.8636363636363636,
+              "3": 0.575,
+              "7": 0.5,
+              "5": 0.6486486486486487,
+              "6": 0.9230769230769231
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5559322033898305,
+            "balanced_accuracy": 0.5615769741266825,
+            "tail_recall": 0.5202549524195865,
+            "per_class_recall": {
+              "4": 0.3170731707317073,
+              "0": 0.45454545454545453,
+              "3": 0.45,
+              "7": 0.4583333333333333,
+              "5": 0.4594594594594595,
+              "6": 0.8461538461538461,
+              "2": 0.8043478260869565,
+              "1": 0.7027027027027027
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7234467872168363,
+        "final_balanced_accuracy": 0.5615769741266825,
+        "final_tail_recall": 0.5202549524195865,
+        "forgetting": 0.2881744143939266,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 344,
+          "ridge_residual": 1.045650755185423e-15,
+          "head_relative_change": 0.0631096529779843,
+          "mean_fit_loss": 0.050962375823495,
+          "mean_feature_loss": 9.582904365129781e-05,
+          "global_shift_norm": 0.0032501828391104937,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0055314237251877785,
+            0.006790068931877613
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 688,
+          "ridge_residual": 8.065773408581549e-16,
+          "head_relative_change": 0.14326354103563843,
+          "mean_fit_loss": 0.04556193606397354,
+          "mean_feature_loss": 0.0002192579534726805,
+          "global_shift_norm": 0.009961514733731747,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.02067534811794758,
+            0.00280936760827899
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 3,
+          "steps": 1032,
+          "ridge_residual": 8.233764071109227e-16,
+          "head_relative_change": 0.1635778902482507,
+          "mean_fit_loss": 0.04131554598042871,
+          "mean_feature_loss": 0.0002891588225560723,
+          "global_shift_norm": 0.006551144644618034,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.01768217608332634,
+            0.00656931335106492
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 1074,
+          "ridge_residual": 9.57899144513609e-16,
+          "head_relative_change": 0.10476008974127687,
+          "mean_fit_loss": 0.12198644060464132,
+          "mean_feature_loss": 0.0014751598008886156,
+          "global_shift_norm": 0.030638134106993675,
+          "mean_old_shift_norm": 0.030638132244348526,
+          "observed_class_shift_norms": [
+            0.03260286897420883,
+            0.030121847987174988
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 1116,
+          "ridge_residual": 9.441808347965578e-16,
+          "head_relative_change": 0.11975801734451573,
+          "mean_fit_loss": 0.10502881991366546,
+          "mean_feature_loss": 0.0019555663789755534,
+          "global_shift_norm": 0.03606095910072327,
+          "mean_old_shift_norm": 0.03606095910072327,
+          "observed_class_shift_norms": [
+            0.03836783766746521,
+            0.03692960739135742
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 3,
+          "steps": 1158,
+          "ridge_residual": 9.87281533407133e-16,
+          "head_relative_change": 0.12296827372630022,
+          "mean_fit_loss": 0.09877533598669938,
+          "mean_feature_loss": 0.002077253599141148,
+          "global_shift_norm": 0.036370180547237396,
+          "mean_old_shift_norm": 0.036370180547237396,
+          "observed_class_shift_norms": [
+            0.03966067358851433,
+            0.036629240959882736
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 1168,
+          "ridge_residual": 9.852983360354752e-16,
+          "head_relative_change": 0.052610815394745075,
+          "mean_fit_loss": 0.13038420006632806,
+          "mean_feature_loss": 0.0005854162496689242,
+          "global_shift_norm": 0.031805649399757385,
+          "mean_old_shift_norm": 0.031805649399757385,
+          "observed_class_shift_norms": [
+            0.03584326058626175,
+            0.029404127970337868
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 1178,
+          "ridge_residual": 1.0156670214695062e-15,
+          "head_relative_change": 0.06290255865699063,
+          "mean_fit_loss": 0.10440529137849808,
+          "mean_feature_loss": 0.0017915725824423135,
+          "global_shift_norm": 0.033651966601610184,
+          "mean_old_shift_norm": 0.033651966601610184,
+          "observed_class_shift_norms": [
+            0.037986692041158676,
+            0.03226495161652565
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 3,
+          "steps": 1188,
+          "ridge_residual": 1.0939051910315328e-15,
+          "head_relative_change": 0.0653503137010127,
+          "mean_fit_loss": 0.10221018567681313,
+          "mean_feature_loss": 0.0016805203631520271,
+          "global_shift_norm": 0.03264922276139259,
+          "mean_old_shift_norm": 0.03264922276139259,
+          "observed_class_shift_norms": [
+            0.037759922444820404,
+            0.031005283817648888
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 1379,
+          "ridge_residual": 1.077995647483571e-15,
+          "head_relative_change": 0.13161400893525887,
+          "mean_fit_loss": 0.24498967935589597,
+          "mean_feature_loss": 0.003183736163671482,
+          "global_shift_norm": 0.04613588750362396,
+          "mean_old_shift_norm": 0.046135883778333664,
+          "observed_class_shift_norms": [
+            0.057849541306495667,
+            0.04978330805897713
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 1570,
+          "ridge_residual": 1.1093231494858326e-15,
+          "head_relative_change": 0.14222920051808363,
+          "mean_fit_loss": 0.22220938172952043,
+          "mean_feature_loss": 0.004131458433959341,
+          "global_shift_norm": 0.04605467990040779,
+          "mean_old_shift_norm": 0.04605467990040779,
+          "observed_class_shift_norms": [
+            0.05935925245285034,
+            0.05113770067691803
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 3,
+          "steps": 1761,
+          "ridge_residual": 1.0308915778875886e-15,
+          "head_relative_change": 0.14697035152725935,
+          "mean_fit_loss": 0.21663941162106878,
+          "mean_feature_loss": 0.004331759603801354,
+          "global_shift_norm": 0.04621632397174835,
+          "mean_old_shift_norm": 0.04621632397174835,
+          "observed_class_shift_norms": [
+            0.061623863875865936,
+            0.05094977840781212
+          ]
+        }
+      ]
+    },
+    "ISIC_epoch_global": {
+      "STATUS": {
+        "steps": 1761,
+        "elapsed_seconds": 5164.709936605301,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 7126205952
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9647058823529412,
+            "balanced_accuracy": 0.9634146341463414,
+            "tail_recall": 0.926829268292683,
+            "per_class_recall": {
+              "4": 0.926829268292683,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.6845637583892618,
+            "balanced_accuracy": 0.6580423133776793,
+            "tail_recall": 0.570630081300813,
+            "per_class_recall": {
+              "4": 0.6829268292682927,
+              "0": 0.8409090909090909,
+              "3": 0.65,
+              "7": 0.4583333333333333
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6698113207547169,
+            "balanced_accuracy": 0.6708656400729572,
+            "tail_recall": 0.6466393692003448,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.8636363636363636,
+              "3": 0.575,
+              "7": 0.5,
+              "5": 0.6756756756756757,
+              "6": 0.9230769230769231
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5491525423728814,
+            "balanced_accuracy": 0.5562702608169204,
+            "tail_recall": 0.5148165872251238,
+            "per_class_recall": {
+              "4": 0.2682926829268293,
+              "0": 0.4318181818181818,
+              "3": 0.425,
+              "7": 0.4583333333333333,
+              "5": 0.4864864864864865,
+              "6": 0.8461538461538461,
+              "2": 0.8043478260869565,
+              "1": 0.7297297297297297
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7121482121034747,
+        "final_balanced_accuracy": 0.5562702608169204,
+        "final_tail_recall": 0.5148165872251238,
+        "forgetting": 0.29324955605443415,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 344,
+          "ridge_residual": 1.045650755185423e-15,
+          "head_relative_change": 0.0631096529779843,
+          "mean_fit_loss": 0.050962375823495,
+          "mean_feature_loss": 9.582904365129781e-05,
+          "global_shift_norm": 0.0032501828391104937,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0055314237251877785,
+            0.006790068931877613
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 688,
+          "ridge_residual": 8.645526354984669e-16,
+          "head_relative_change": 0.11191554417460169,
+          "mean_fit_loss": 0.045375503025689094,
+          "mean_feature_loss": 0.00023170456710812327,
+          "global_shift_norm": 0.009936973452568054,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.021244199946522713,
+            0.0032992660999298096
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 3,
+          "steps": 1032,
+          "ridge_residual": 1.023649932009017e-15,
+          "head_relative_change": 0.07705987920074668,
+          "mean_fit_loss": 0.040028292244451855,
+          "mean_feature_loss": 0.00031289718576455166,
+          "global_shift_norm": 0.01125259418040514,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.026872336864471436,
+            0.004989533219486475
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 1074,
+          "ridge_residual": 9.449569291313498e-16,
+          "head_relative_change": 0.10629714753997442,
+          "mean_fit_loss": 0.1221806671293009,
+          "mean_feature_loss": 0.001477807934341919,
+          "global_shift_norm": 0.03053485043346882,
+          "mean_old_shift_norm": 0.03053485043346882,
+          "observed_class_shift_norms": [
+            0.032504577189683914,
+            0.030032990500330925
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 1116,
+          "ridge_residual": 9.33531241255669e-16,
+          "head_relative_change": 0.06393107796036321,
+          "mean_fit_loss": 0.12306497689513933,
+          "mean_feature_loss": 0.0032010223450405256,
+          "global_shift_norm": 0.05181771516799927,
+          "mean_old_shift_norm": 0.051817718893289566,
+          "observed_class_shift_norms": [
+            0.05232977494597435,
+            0.05445631965994835
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 3,
+          "steps": 1158,
+          "ridge_residual": 1.0698608923114881e-15,
+          "head_relative_change": 0.042272840930887914,
+          "mean_fit_loss": 0.1286981272555533,
+          "mean_feature_loss": 0.004473995749971696,
+          "global_shift_norm": 0.06443803757429123,
+          "mean_old_shift_norm": 0.06443803757429123,
+          "observed_class_shift_norms": [
+            0.06474816054105759,
+            0.06735377758741379
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 1168,
+          "ridge_residual": 1.0509838369896392e-15,
+          "head_relative_change": 0.054416903095561374,
+          "mean_fit_loss": 0.1273820161819458,
+          "mean_feature_loss": 0.0006812948297010735,
+          "global_shift_norm": 0.03400001674890518,
+          "mean_old_shift_norm": 0.03400001674890518,
+          "observed_class_shift_norms": [
+            0.03768227994441986,
+            0.03196350112557411
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 1178,
+          "ridge_residual": 1.0097233376315796e-15,
+          "head_relative_change": 0.0318895013532527,
+          "mean_fit_loss": 0.12599394097924232,
+          "mean_feature_loss": 0.0024883484118618073,
+          "global_shift_norm": 0.046221036463975906,
+          "mean_old_shift_norm": 0.046221036463975906,
+          "observed_class_shift_norms": [
+            0.05107474327087402,
+            0.044413648545742035
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 3,
+          "steps": 1188,
+          "ridge_residual": 1.1188156178910905e-15,
+          "head_relative_change": 0.013815310737756284,
+          "mean_fit_loss": 0.13053425326943396,
+          "mean_feature_loss": 0.0030685463454574345,
+          "global_shift_norm": 0.048960573971271515,
+          "mean_old_shift_norm": 0.048960570245981216,
+          "observed_class_shift_norms": [
+            0.05420490726828575,
+            0.0472959466278553
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 1379,
+          "ridge_residual": 1.0727485604861955e-15,
+          "head_relative_change": 0.1285440003256209,
+          "mean_fit_loss": 0.2424053911763336,
+          "mean_feature_loss": 0.0032019308283352125,
+          "global_shift_norm": 0.04572301357984543,
+          "mean_old_shift_norm": 0.04572301730513573,
+          "observed_class_shift_norms": [
+            0.05714523792266846,
+            0.04959344491362572
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 1570,
+          "ridge_residual": 1.0975939046393155e-15,
+          "head_relative_change": 0.05016845544466956,
+          "mean_fit_loss": 0.2408028352635069,
+          "mean_feature_loss": 0.005901725064348722,
+          "global_shift_norm": 0.05881810188293457,
+          "mean_old_shift_norm": 0.05881810188293457,
+          "observed_class_shift_norms": [
+            0.07362180203199387,
+            0.06282246857881546
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 3,
+          "steps": 1761,
+          "ridge_residual": 1.2115629164997352e-15,
+          "head_relative_change": 0.023775930917053746,
+          "mean_fit_loss": 0.24084266606737806,
+          "mean_feature_loss": 0.0068142557302148556,
+          "global_shift_norm": 0.06289586424827576,
+          "mean_old_shift_norm": 0.06289586424827576,
+          "observed_class_shift_norms": [
+            0.08039071410894394,
+            0.06623144447803497
+          ]
+        }
+      ]
+    },
+    "ISIC_epoch_local": {
+      "STATUS": {
+        "steps": 1761,
+        "elapsed_seconds": 5415.338016817812,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 7126205952
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9647058823529412,
+            "balanced_accuracy": 0.9634146341463414,
+            "tail_recall": 0.926829268292683,
+            "per_class_recall": {
+              "4": 0.926829268292683,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.6912751677852349,
+            "balanced_accuracy": 0.6684589800443459,
+            "tail_recall": 0.5914634146341464,
+            "per_class_recall": {
+              "4": 0.6829268292682927,
+              "0": 0.8409090909090909,
+              "3": 0.65,
+              "7": 0.5
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6650943396226415,
+            "balanced_accuracy": 0.6663611355684527,
+            "tail_recall": 0.6398826124435881,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.8636363636363636,
+              "3": 0.575,
+              "7": 0.5,
+              "5": 0.6486486486486487,
+              "6": 0.9230769230769231
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5525423728813559,
+            "balanced_accuracy": 0.5597266500003775,
+            "tail_recall": 0.5141573914439768,
+            "per_class_recall": {
+              "4": 0.2926829268292683,
+              "0": 0.4318181818181818,
+              "3": 0.45,
+              "7": 0.4583333333333333,
+              "5": 0.4594594594594595,
+              "6": 0.8461538461538461,
+              "2": 0.782608695652174,
+              "1": 0.7567567567567568
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7144903499398794,
+        "final_balanced_accuracy": 0.5597266500003775,
+        "final_tail_recall": 0.5141573914439768,
+        "forgetting": 0.28501784873736097,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 344,
+          "ridge_residual": 1.045650755185423e-15,
+          "head_relative_change": 0.0631096529779843,
+          "mean_fit_loss": 0.050962375823495,
+          "mean_feature_loss": 9.582904365129781e-05,
+          "global_shift_norm": 0.0032501828391104937,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0055314237251877785,
+            0.006790068931877613
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 688,
+          "ridge_residual": 8.645526354984669e-16,
+          "head_relative_change": 0.11191554417460169,
+          "mean_fit_loss": 0.045375503025689094,
+          "mean_feature_loss": 0.00023170456710812327,
+          "global_shift_norm": 0.009936973452568054,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.021244199946522713,
+            0.0032992660999298096
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 3,
+          "steps": 1032,
+          "ridge_residual": 1.023649932009017e-15,
+          "head_relative_change": 0.07705987920074668,
+          "mean_fit_loss": 0.040028292244451855,
+          "mean_feature_loss": 0.00031289718576455166,
+          "global_shift_norm": 0.01125259418040514,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.026872336864471436,
+            0.004989533219486475
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 1074,
+          "ridge_residual": 9.353586764351852e-16,
+          "head_relative_change": 0.1043517598387632,
+          "mean_fit_loss": 0.1221806671293009,
+          "mean_feature_loss": 0.001477807934341919,
+          "global_shift_norm": 0.03053485043346882,
+          "mean_old_shift_norm": 0.030637256257250223,
+          "observed_class_shift_norms": [
+            0.032504577189683914,
+            0.030032990500330925
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 1116,
+          "ridge_residual": 9.602121911133479e-16,
+          "head_relative_change": 0.061238432586892114,
+          "mean_fit_loss": 0.1234409748798325,
+          "mean_feature_loss": 0.0032029839154953756,
+          "global_shift_norm": 0.05184771120548248,
+          "mean_old_shift_norm": 0.05177531492693632,
+          "observed_class_shift_norms": [
+            0.05234557017683983,
+            0.054496560245752335
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 3,
+          "steps": 1158,
+          "ridge_residual": 1.1517373029782686e-15,
+          "head_relative_change": 0.04045022514999724,
+          "mean_fit_loss": 0.1292569034156345,
+          "mean_feature_loss": 0.004472970469145193,
+          "global_shift_norm": 0.06446916610002518,
+          "mean_old_shift_norm": 0.06437758882341069,
+          "observed_class_shift_norms": [
+            0.0647541731595993,
+            0.06741335988044739
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 1168,
+          "ridge_residual": 1.0046869412817303e-15,
+          "head_relative_change": 0.04936534436221235,
+          "mean_fit_loss": 0.12756868749856948,
+          "mean_feature_loss": 0.0006801855080993846,
+          "global_shift_norm": 0.03400671109557152,
+          "mean_old_shift_norm": 0.0343975454649652,
+          "observed_class_shift_norms": [
+            0.037681132555007935,
+            0.03197415918111801
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 1178,
+          "ridge_residual": 1.0664990178045185e-15,
+          "head_relative_change": 0.028434986639668838,
+          "mean_fit_loss": 0.1274377554655075,
+          "mean_feature_loss": 0.002479955577291548,
+          "global_shift_norm": 0.04615795984864235,
+          "mean_old_shift_norm": 0.04661974485664401,
+          "observed_class_shift_norms": [
+            0.0509173721075058,
+            0.0444319024682045
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 3,
+          "steps": 1188,
+          "ridge_residual": 1.1048249603419988e-15,
+          "head_relative_change": 0.011795335077921519,
+          "mean_fit_loss": 0.13253068849444388,
+          "mean_feature_loss": 0.0030512084951624273,
+          "global_shift_norm": 0.04886616766452789,
+          "mean_old_shift_norm": 0.04934845384618716,
+          "observed_class_shift_norms": [
+            0.05399041250348091,
+            0.04731583595275879
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 1379,
+          "ridge_residual": 1.160819518894552e-15,
+          "head_relative_change": 0.12809029723211024,
+          "mean_fit_loss": 0.24290811578640764,
+          "mean_feature_loss": 0.00321324638055067,
+          "global_shift_norm": 0.045797545462846756,
+          "mean_old_shift_norm": 0.045962587663426785,
+          "observed_class_shift_norms": [
+            0.05725924298167229,
+            0.049643222242593765
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 1570,
+          "ridge_residual": 1.0331480146006478e-15,
+          "head_relative_change": 0.05123001018661755,
+          "mean_fit_loss": 0.24207392100888397,
+          "mean_feature_loss": 0.0059398566043560265,
+          "global_shift_norm": 0.05888798087835312,
+          "mean_old_shift_norm": 0.059121325813770276,
+          "observed_class_shift_norms": [
+            0.0739596039056778,
+            0.06284132599830627
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 3,
+          "steps": 1761,
+          "ridge_residual": 1.0763591908954133e-15,
+          "head_relative_change": 0.024291152541175278,
+          "mean_fit_loss": 0.2422868219345652,
+          "mean_feature_loss": 0.00686643429890431,
+          "global_shift_norm": 0.06301258504390717,
+          "mean_old_shift_norm": 0.0633144895931445,
+          "observed_class_shift_norms": [
+            0.0809362530708313,
+            0.0662456676363945
+          ]
+        }
+      ]
+    },
+    "HK_stage_global": {
+      "STATUS": {
+        "steps": 642,
+        "elapsed_seconds": 2112.2329080249183,
+        "status": "COMPLETE",
+        "stages": 6,
+        "peak_gpu_bytes": 7126054912
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              0,
+              4,
+              12,
+              8
+            ],
+            "validation_n": 366,
+            "accuracy": 0.9836065573770492,
+            "balanced_accuracy": 0.9634146341463414,
+            "tail_recall": 0.9268292682926829,
+            "per_class_recall": {
+              "0": 1.0,
+              "4": 1.0,
+              "12": 0.8536585365853658,
+              "8": 1.0
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3
+            ],
+            "validation_n": 771,
+            "accuracy": 0.9040207522697795,
+            "balanced_accuracy": 0.8098885947062825,
+            "tail_recall": 0.6236933797909407,
+            "per_class_recall": {
+              "0": 0.2857142857142857,
+              "4": 0.8121212121212121,
+              "12": 0.5853658536585366,
+              "8": 0.9934640522875817,
+              "2": 1.0,
+              "11": 0.8852459016393442,
+              "17": 1.0,
+              "3": 0.9171974522292994
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13
+            ],
+            "validation_n": 964,
+            "accuracy": 0.8495850622406639,
+            "balanced_accuracy": 0.6611235352055039,
+            "tail_recall": 0.5047280294231514,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8242424242424242,
+              "12": 0.34146341463414637,
+              "8": 0.9803921568627451,
+              "2": 1.0,
+              "11": 0.2459016393442623,
+              "17": 0.8,
+              "3": 0.910828025477707,
+              "21": 0.25,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19
+            ],
+            "validation_n": 1223,
+            "accuracy": 0.8560915780866721,
+            "balanced_accuracy": 0.6243473423262952,
+            "tail_recall": 0.46461625546991403,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8242424242424242,
+              "12": 0.36585365853658536,
+              "8": 0.934640522875817,
+              "2": 1.0,
+              "11": 0.21311475409836064,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.25,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375,
+              "18": 0.5454545454545454,
+              "14": 0.9833333333333333,
+              "9": 0.9878048780487805,
+              "19": 0.0
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2
+            }
+          },
+          {
+            "task": 5,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19,
+              15,
+              6,
+              5,
+              20
+            ],
+            "validation_n": 1414,
+            "accuracy": 0.8500707213578501,
+            "balanced_accuracy": 0.5646742712485203,
+            "tail_recall": 0.3672725832925389,
+            "per_class_recall": {
+              "0": 0.14285714285714285,
+              "4": 0.8363636363636363,
+              "12": 0.43902439024390244,
+              "8": 0.9607843137254902,
+              "2": 1.0,
+              "11": 0.21311475409836064,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.0,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.95,
+              "18": 0.45454545454545453,
+              "14": 0.9666666666666667,
+              "9": 0.9878048780487805,
+              "19": 0.0,
+              "15": 0.991869918699187,
+              "6": 0.0,
+              "5": 0.0,
+              "20": 0.4090909090909091
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2,
+              "15": 123,
+              "6": 1,
+              "5": 1,
+              "20": 66
+            }
+          },
+          {
+            "task": 6,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19,
+              15,
+              6,
+              5,
+              20,
+              10,
+              7,
+              1
+            ],
+            "validation_n": 1698,
+            "accuracy": 0.8297997644287397,
+            "balanced_accuracy": 0.5908334791602378,
+            "tail_recall": 0.4091355629465386,
+            "per_class_recall": {
+              "0": 0.2857142857142857,
+              "4": 0.8303030303030303,
+              "12": 0.4634146341463415,
+              "8": 0.9477124183006536,
+              "2": 0.7857142857142857,
+              "11": 0.16393442622950818,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.0,
+              "16": 0.625,
+              "22": 0.7142857142857143,
+              "13": 0.94375,
+              "18": 0.45454545454545453,
+              "14": 0.9666666666666667,
+              "9": 0.9878048780487805,
+              "19": 0.0,
+              "15": 0.991869918699187,
+              "6": 0.0,
+              "5": 0.0,
+              "20": 0.2727272727272727,
+              "10": 0.8866666666666667,
+              "7": 1.0,
+              "1": 0.9646017699115044
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2,
+              "15": 123,
+              "6": 1,
+              "5": 1,
+              "20": 66,
+              "10": 150,
+              "7": 21,
+              "1": 113
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7023803094655302,
+        "final_balanced_accuracy": 0.5908334791602378,
+        "final_tail_recall": 0.4091355629465386,
+        "forgetting": 0.18363293264391156,
+        "forgetting_classes": 20,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 46,
+          "ridge_residual": 9.127328704401842e-16,
+          "head_relative_change": 0.04118443166470466,
+          "mean_fit_loss": 0.06514219004336906,
+          "mean_feature_loss": 0.00018098658533151888,
+          "global_shift_norm": 0.003453047713264823,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.005978092551231384,
+            0.003013746114447713,
+            0.005763234570622444,
+            0.0036586737260222435
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 92,
+          "ridge_residual": 8.901247046859305e-16,
+          "head_relative_change": 0.033530904477068975,
+          "mean_fit_loss": 0.05541500048306973,
+          "mean_feature_loss": 5.4204629913843036e-05,
+          "global_shift_norm": 0.004079077858477831,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.007007257081568241,
+            0.003936329390853643,
+            0.007018474396318197,
+            0.0030905641615390778
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 3,
+          "steps": 138,
+          "ridge_residual": 9.63686499676977e-16,
+          "head_relative_change": 0.04368424331572015,
+          "mean_fit_loss": 0.05773389254413221,
+          "mean_feature_loss": 6.974067305829679e-05,
+          "global_shift_norm": 0.005602171178907156,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.01031484268605709,
+            0.005028827581554651,
+            0.00952601432800293,
+            0.0031921935733407736
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 190,
+          "ridge_residual": 1.1493671123251747e-15,
+          "head_relative_change": 0.13736677236092756,
+          "mean_fit_loss": 0.09927750572275656,
+          "mean_feature_loss": 0.0011891811398247508,
+          "global_shift_norm": 0.02198544144630432,
+          "mean_old_shift_norm": 0.02198544144630432,
+          "observed_class_shift_norms": [
+            0.016913335770368576,
+            0.06828165799379349,
+            0.01497424952685833,
+            0.028135718777775764
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 242,
+          "ridge_residual": 1.1301839669536612e-15,
+          "head_relative_change": 0.14454162862548112,
+          "mean_fit_loss": 0.08143476561571543,
+          "mean_feature_loss": 0.0017474212016587933,
+          "global_shift_norm": 0.024232378229498863,
+          "mean_old_shift_norm": 0.024232378229498863,
+          "observed_class_shift_norms": [
+            0.018430376425385475,
+            0.0751982256770134,
+            0.021855462342500687,
+            0.03328962251543999
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 3,
+          "steps": 294,
+          "ridge_residual": 1.1106357073634932e-15,
+          "head_relative_change": 0.1441190761460693,
+          "mean_fit_loss": 0.07610236860525149,
+          "mean_feature_loss": 0.0018258978648541065,
+          "global_shift_norm": 0.023733941838145256,
+          "mean_old_shift_norm": 0.023733941838145256,
+          "observed_class_shift_norms": [
+            0.01857762597501278,
+            0.07399950176477432,
+            0.02481602132320404,
+            0.03205455094575882
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 319,
+          "ridge_residual": 1.1722370366061942e-15,
+          "head_relative_change": 0.14965905914494582,
+          "mean_fit_loss": 0.18320137917995452,
+          "mean_feature_loss": 0.0008896967058535665,
+          "global_shift_norm": 0.04891327768564224,
+          "mean_old_shift_norm": 0.048913273960351944,
+          "observed_class_shift_norms": [
+            0.032922420650720596,
+            0.12201547622680664,
+            0.034639909863471985,
+            0.02109670639038086
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 1.1709096781746293e-15,
+          "head_relative_change": 0.14947841299327227,
+          "mean_fit_loss": 0.1597100454568863,
+          "mean_feature_loss": 0.0016594668687321245,
+          "global_shift_norm": 0.047930922359228134,
+          "mean_old_shift_norm": 0.047930922359228134,
+          "observed_class_shift_norms": [
+            0.03076505847275257,
+            0.13465887308120728,
+            0.0305545162409544,
+            0.0199523214250803
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 3,
+          "steps": 369,
+          "ridge_residual": 1.3896386384546446e-15,
+          "head_relative_change": 0.14755062220511309,
+          "mean_fit_loss": 0.14684147596359254,
+          "mean_feature_loss": 0.0017329659964889289,
+          "global_shift_norm": 0.04666285216808319,
+          "mean_old_shift_norm": 0.04666285216808319,
+          "observed_class_shift_norms": [
+            0.030349761247634888,
+            0.13525262475013733,
+            0.029687469825148582,
+            0.01893899030983448
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 401,
+          "ridge_residual": 1.3175914635700562e-15,
+          "head_relative_change": 0.03864167378130721,
+          "mean_fit_loss": 0.18528834474273026,
+          "mean_feature_loss": 0.000606176319251972,
+          "global_shift_norm": 0.023327618837356567,
+          "mean_old_shift_norm": 0.023327618837356567,
+          "observed_class_shift_norms": [
+            0.03141094744205475,
+            0.028489038348197937,
+            0.014685411006212234,
+            0.02858050912618637
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 433,
+          "ridge_residual": 1.3236059325308135e-15,
+          "head_relative_change": 0.057085060350248996,
+          "mean_fit_loss": 0.16805545310489833,
+          "mean_feature_loss": 0.00104506368006696,
+          "global_shift_norm": 0.03077694959938526,
+          "mean_old_shift_norm": 0.03077694959938526,
+          "observed_class_shift_norms": [
+            0.04562906548380852,
+            0.03319498151540756,
+            0.01534212101250887,
+            0.0415649376809597
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 3,
+          "steps": 465,
+          "ridge_residual": 1.2305515446996396e-15,
+          "head_relative_change": 0.06283573173593426,
+          "mean_fit_loss": 0.1604448715224862,
+          "mean_feature_loss": 0.001179254248199868,
+          "global_shift_norm": 0.031046198680996895,
+          "mean_old_shift_norm": 0.031046204268932343,
+          "observed_class_shift_norms": [
+            0.047816768288612366,
+            0.03134344890713692,
+            0.014653238467872143,
+            0.0443970263004303
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 1,
+          "steps": 490,
+          "ridge_residual": 1.3239292737822643e-15,
+          "head_relative_change": 0.03870804728266185,
+          "mean_fit_loss": 0.18092012226581575,
+          "mean_feature_loss": 0.0006087932299124077,
+          "global_shift_norm": 0.024282801896333694,
+          "mean_old_shift_norm": 0.024282801896333694,
+          "observed_class_shift_norms": [
+            0.013399791903793812,
+            0.0364808663725853,
+            0.0278274267911911,
+            0.030298328027129173
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 2,
+          "steps": 515,
+          "ridge_residual": 1.5526732352297647e-15,
+          "head_relative_change": 0.045312911157105965,
+          "mean_fit_loss": 0.17675850570201873,
+          "mean_feature_loss": 0.0008231218834407627,
+          "global_shift_norm": 0.031149081885814667,
+          "mean_old_shift_norm": 0.031149081885814667,
+          "observed_class_shift_norms": [
+            0.016006965190172195,
+            0.04160086065530777,
+            0.05063292384147644,
+            0.03407813608646393
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 3,
+          "steps": 540,
+          "ridge_residual": 1.451677225644284e-15,
+          "head_relative_change": 0.051240906072395044,
+          "mean_fit_loss": 0.16920530587434768,
+          "mean_feature_loss": 0.000992704126983881,
+          "global_shift_norm": 0.034044038504362106,
+          "mean_old_shift_norm": 0.034044038504362106,
+          "observed_class_shift_norms": [
+            0.015086050145328045,
+            0.0468185730278492,
+            0.060740191489458084,
+            0.03564881905913353
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 1,
+          "steps": 574,
+          "ridge_residual": 1.4616097219031058e-15,
+          "head_relative_change": 0.05143664779098407,
+          "mean_fit_loss": 0.17014089840299942,
+          "mean_feature_loss": 0.0013328795184326522,
+          "global_shift_norm": 0.027069253847002983,
+          "mean_old_shift_norm": 0.02706925943493843,
+          "observed_class_shift_norms": [
+            0.030287684872746468,
+            0.052283283323049545,
+            0.03076878748834133
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 2,
+          "steps": 608,
+          "ridge_residual": 1.4350418989992227e-15,
+          "head_relative_change": 0.053498406222713936,
+          "mean_fit_loss": 0.16015377202454736,
+          "mean_feature_loss": 0.0016462635146180058,
+          "global_shift_norm": 0.031108589842915535,
+          "mean_old_shift_norm": 0.031108593568205833,
+          "observed_class_shift_norms": [
+            0.029689105227589607,
+            0.06821506470441818,
+            0.031279630959033966
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 3,
+          "steps": 642,
+          "ridge_residual": 1.4033927789537018e-15,
+          "head_relative_change": 0.054583017335442546,
+          "mean_fit_loss": 0.1545948960325297,
+          "mean_feature_loss": 0.0017293388647136882,
+          "global_shift_norm": 0.030088143423199654,
+          "mean_old_shift_norm": 0.030088141560554504,
+          "observed_class_shift_norms": [
+            0.029775533825159073,
+            0.06995153427124023,
+            0.03282785415649414
+          ]
+        }
+      ]
+    },
+    "HK_epoch_global": {
+      "STATUS": {
+        "steps": 642,
+        "elapsed_seconds": 1855.177997076884,
+        "status": "COMPLETE",
+        "stages": 6,
+        "peak_gpu_bytes": 7126054912
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              0,
+              4,
+              12,
+              8
+            ],
+            "validation_n": 366,
+            "accuracy": 0.9836065573770492,
+            "balanced_accuracy": 0.9634146341463414,
+            "tail_recall": 0.9268292682926829,
+            "per_class_recall": {
+              "0": 1.0,
+              "4": 1.0,
+              "12": 0.8536585365853658,
+              "8": 1.0
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3
+            ],
+            "validation_n": 771,
+            "accuracy": 0.9001297016861219,
+            "balanced_accuracy": 0.802325862223518,
+            "tail_recall": 0.5911730545876887,
+            "per_class_recall": {
+              "0": 0.2857142857142857,
+              "4": 0.8,
+              "12": 0.4878048780487805,
+              "8": 0.9934640522875817,
+              "2": 1.0,
+              "11": 0.9344262295081968,
+              "17": 1.0,
+              "3": 0.9171974522292994
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13
+            ],
+            "validation_n": 964,
+            "accuracy": 0.8340248962655602,
+            "balanced_accuracy": 0.6363562703942567,
+            "tail_recall": 0.4681426635694928,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8121212121212121,
+              "12": 0.12195121951219512,
+              "8": 0.9803921568627451,
+              "2": 1.0,
+              "11": 0.18032786885245902,
+              "17": 0.8,
+              "3": 0.910828025477707,
+              "21": 0.25,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19
+            ],
+            "validation_n": 1223,
+            "accuracy": 0.848732624693377,
+            "balanced_accuracy": 0.6132535314430052,
+            "tail_recall": 0.451066119968559,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8242424242424242,
+              "12": 0.24390243902439024,
+              "8": 0.934640522875817,
+              "2": 1.0,
+              "11": 0.16393442622950818,
+              "17": 0.4,
+              "3": 0.8980891719745223,
+              "21": 0.25,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375,
+              "18": 0.5454545454545454,
+              "14": 0.9833333333333333,
+              "9": 0.9878048780487805,
+              "19": 0.0
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2
+            }
+          },
+          {
+            "task": 5,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19,
+              15,
+              6,
+              5,
+              20
+            ],
+            "validation_n": 1414,
+            "accuracy": 0.8437057991513437,
+            "balanced_accuracy": 0.550867598422786,
+            "tail_recall": 0.345416390704639,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8363636363636363,
+              "12": 0.34146341463414637,
+              "8": 0.9477124183006536,
+              "2": 1.0,
+              "11": 0.19672131147540983,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.0,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375,
+              "18": 0.45454545454545453,
+              "14": 0.9666666666666667,
+              "9": 0.9878048780487805,
+              "19": 0.0,
+              "15": 0.991869918699187,
+              "6": 0.0,
+              "5": 0.0,
+              "20": 0.4090909090909091
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2,
+              "15": 123,
+              "6": 1,
+              "5": 1,
+              "20": 66
+            }
+          },
+          {
+            "task": 6,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19,
+              15,
+              6,
+              5,
+              20,
+              10,
+              7,
+              1
+            ],
+            "validation_n": 1698,
+            "accuracy": 0.8250883392226148,
+            "balanced_accuracy": 0.581017414709035,
+            "tail_recall": 0.3951982807165734,
+            "per_class_recall": {
+              "0": 0.14285714285714285,
+              "4": 0.8181818181818182,
+              "12": 0.43902439024390244,
+              "8": 0.9281045751633987,
+              "2": 0.7857142857142857,
+              "11": 0.11475409836065574,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.0,
+              "16": 0.625,
+              "22": 0.7142857142857143,
+              "13": 0.94375,
+              "18": 0.45454545454545453,
+              "14": 0.9666666666666667,
+              "9": 0.9817073170731707,
+              "19": 0.0,
+              "15": 0.991869918699187,
+              "6": 0.0,
+              "5": 0.0,
+              "20": 0.2878787878787879,
+              "10": 0.9,
+              "7": 1.0,
+              "1": 0.9646017699115044
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2,
+              "15": 123,
+              "6": 1,
+              "5": 1,
+              "20": 66,
+              "10": 150,
+              "7": 21,
+              "1": 113
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.6912058852231572,
+        "final_balanced_accuracy": 0.581017414709035,
+        "final_tail_recall": 0.3951982807165734,
+        "forgetting": 0.19773458982290398,
+        "forgetting_classes": 20,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 46,
+          "ridge_residual": 9.127328704401842e-16,
+          "head_relative_change": 0.04118443166470466,
+          "mean_fit_loss": 0.06514219004336906,
+          "mean_feature_loss": 0.00018098658533151888,
+          "global_shift_norm": 0.003453047713264823,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.005978092551231384,
+            0.003013746114447713,
+            0.005763234570622444,
+            0.0036586737260222435
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 92,
+          "ridge_residual": 9.56181903757515e-16,
+          "head_relative_change": 0.022911963437254112,
+          "mean_fit_loss": 0.055569544232085995,
+          "mean_feature_loss": 5.922306247710999e-05,
+          "global_shift_norm": 0.004364158492535353,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0075465296395123005,
+            0.0042559122666716576,
+            0.007483948487788439,
+            0.003360447706654668
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 3,
+          "steps": 138,
+          "ridge_residual": 9.084077146746792e-16,
+          "head_relative_change": 0.021444528033854868,
+          "mean_fit_loss": 0.0579468902281445,
+          "mean_feature_loss": 8.230610546888784e-05,
+          "global_shift_norm": 0.006240729708224535,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.011528706178069115,
+            0.00558615755289793,
+            0.010676427744328976,
+            0.0034328983165323734
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 190,
+          "ridge_residual": 1.0918463642848834e-15,
+          "head_relative_change": 0.13670898410321625,
+          "mean_fit_loss": 0.09916235026545249,
+          "mean_feature_loss": 0.00119355528421203,
+          "global_shift_norm": 0.021983027458190918,
+          "mean_old_shift_norm": 0.021983027458190918,
+          "observed_class_shift_norms": [
+            0.016837209463119507,
+            0.0681542307138443,
+            0.015029363334178925,
+            0.02813098020851612
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 242,
+          "ridge_residual": 1.1336704754619866e-15,
+          "head_relative_change": 0.06274877978117085,
+          "mean_fit_loss": 0.08740747605378811,
+          "mean_feature_loss": 0.00243233209878851,
+          "global_shift_norm": 0.03130953013896942,
+          "mean_old_shift_norm": 0.03130953013896942,
+          "observed_class_shift_norms": [
+            0.021742694079875946,
+            0.09145452082157135,
+            0.027063636109232903,
+            0.037908561527729034
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 3,
+          "steps": 294,
+          "ridge_residual": 1.1522063275146483e-15,
+          "head_relative_change": 0.028106477070683353,
+          "mean_fit_loss": 0.0852464590794765,
+          "mean_feature_loss": 0.0028582448095011595,
+          "global_shift_norm": 0.03459993377327919,
+          "mean_old_shift_norm": 0.03459993377327919,
+          "observed_class_shift_norms": [
+            0.023722093552350998,
+            0.0969788059592247,
+            0.03395595774054527,
+            0.04022390767931938
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 319,
+          "ridge_residual": 1.2763002835418671e-15,
+          "head_relative_change": 0.1513674727799465,
+          "mean_fit_loss": 0.1816043585538864,
+          "mean_feature_loss": 0.000911764883203432,
+          "global_shift_norm": 0.04899853095412254,
+          "mean_old_shift_norm": 0.048998527228832245,
+          "observed_class_shift_norms": [
+            0.03290644288063049,
+            0.12311721593141556,
+            0.03433454781770706,
+            0.021316491067409515
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 1.2296383005514918e-15,
+          "head_relative_change": 0.07306118726769782,
+          "mean_fit_loss": 0.17143849343061446,
+          "mean_feature_loss": 0.0025405332678928973,
+          "global_shift_norm": 0.0661468505859375,
+          "mean_old_shift_norm": 0.0661468505859375,
+          "observed_class_shift_norms": [
+            0.04396006092429161,
+            0.1729811728000641,
+            0.04466279596090317,
+            0.028065895661711693
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 3,
+          "steps": 369,
+          "ridge_residual": 1.324369902852942e-15,
+          "head_relative_change": 0.03175398243890902,
+          "mean_fit_loss": 0.1636262482404709,
+          "mean_feature_loss": 0.003169548399746418,
+          "global_shift_norm": 0.07354026287794113,
+          "mean_old_shift_norm": 0.07354026287794113,
+          "observed_class_shift_norms": [
+            0.048910364508628845,
+            0.19372448325157166,
+            0.04905321076512337,
+            0.029041549190878868
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 401,
+          "ridge_residual": 1.2155639184822374e-15,
+          "head_relative_change": 0.039256080299954074,
+          "mean_fit_loss": 0.18477001669816673,
+          "mean_feature_loss": 0.0006463477943725593,
+          "global_shift_norm": 0.023535994812846184,
+          "mean_old_shift_norm": 0.023535994812846184,
+          "observed_class_shift_norms": [
+            0.031518589705228806,
+            0.02857743762433529,
+            0.015177321620285511,
+            0.02889818139374256
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 433,
+          "ridge_residual": 1.288131862614418e-15,
+          "head_relative_change": 0.03733125006664679,
+          "mean_fit_loss": 0.17623295774683356,
+          "mean_feature_loss": 0.0012950576019647997,
+          "global_shift_norm": 0.036334529519081116,
+          "mean_old_shift_norm": 0.03633453696966171,
+          "observed_class_shift_norms": [
+            0.05247899144887924,
+            0.03919125720858574,
+            0.017207197844982147,
+            0.04886140301823616
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 3,
+          "steps": 465,
+          "ridge_residual": 1.366725837239724e-15,
+          "head_relative_change": 0.01851848373084074,
+          "mean_fit_loss": 0.1725319733377546,
+          "mean_feature_loss": 0.0016313857668137643,
+          "global_shift_norm": 0.0408383272588253,
+          "mean_old_shift_norm": 0.0408383272588253,
+          "observed_class_shift_norms": [
+            0.06012122705578804,
+            0.041556425392627716,
+            0.01754079945385456,
+            0.0572061762213707
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 1,
+          "steps": 490,
+          "ridge_residual": 1.434774579585749e-15,
+          "head_relative_change": 0.03984173341898767,
+          "mean_fit_loss": 0.1804729411005974,
+          "mean_feature_loss": 0.0006916351115796715,
+          "global_shift_norm": 0.024885127320885658,
+          "mean_old_shift_norm": 0.024885127320885658,
+          "observed_class_shift_norms": [
+            0.013495318591594696,
+            0.0381113737821579,
+            0.028427327051758766,
+            0.030890140682458878
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 2,
+          "steps": 515,
+          "ridge_residual": 1.4103189566978675e-15,
+          "head_relative_change": 0.025784207779456676,
+          "mean_fit_loss": 0.18777738869190216,
+          "mean_feature_loss": 0.0010341532831080258,
+          "global_shift_norm": 0.037245869636535645,
+          "mean_old_shift_norm": 0.037245869636535645,
+          "observed_class_shift_norms": [
+            0.019204366952180862,
+            0.05024776980280876,
+            0.057190634310245514,
+            0.04115850478410721
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 3,
+          "steps": 540,
+          "ridge_residual": 1.3477424080925267e-15,
+          "head_relative_change": 0.014585726621564446,
+          "mean_fit_loss": 0.18592982590198517,
+          "mean_feature_loss": 0.0014367844816297293,
+          "global_shift_norm": 0.0418696403503418,
+          "mean_old_shift_norm": 0.0418696403503418,
+          "observed_class_shift_norms": [
+            0.018668077886104584,
+            0.05840308219194412,
+            0.070217065513134,
+            0.04458295926451683
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 1,
+          "steps": 574,
+          "ridge_residual": 1.3958466181280374e-15,
+          "head_relative_change": 0.05139691964396389,
+          "mean_fit_loss": 0.16734273074304357,
+          "mean_feature_loss": 0.0013893566621631822,
+          "global_shift_norm": 0.026814265176653862,
+          "mean_old_shift_norm": 0.026814263314008713,
+          "observed_class_shift_norms": [
+            0.030409637838602066,
+            0.05152365192770958,
+            0.030773701146245003
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 2,
+          "steps": 608,
+          "ridge_residual": 1.4484336956427975e-15,
+          "head_relative_change": 0.025770686923782114,
+          "mean_fit_loss": 0.16354864528950522,
+          "mean_feature_loss": 0.0020607609116910573,
+          "global_shift_norm": 0.037889737635850906,
+          "mean_old_shift_norm": 0.03788973391056061,
+          "observed_class_shift_norms": [
+            0.03399494290351868,
+            0.080140121281147,
+            0.036785054951906204
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 3,
+          "steps": 642,
+          "ridge_residual": 1.3966759629406954e-15,
+          "head_relative_change": 0.013937278834090489,
+          "mean_fit_loss": 0.15986009292742787,
+          "mean_feature_loss": 0.0023408119279124283,
+          "global_shift_norm": 0.03957473114132881,
+          "mean_old_shift_norm": 0.03957473486661911,
+          "observed_class_shift_norms": [
+            0.03573145717382431,
+            0.08875692635774612,
+            0.03802044317126274
+          ]
+        }
+      ]
+    },
+    "HK_epoch_local": {
+      "STATUS": {
+        "steps": 642,
+        "elapsed_seconds": 1853.3066044901498,
+        "status": "COMPLETE",
+        "stages": 6,
+        "peak_gpu_bytes": 7126054912
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              0,
+              4,
+              12,
+              8
+            ],
+            "validation_n": 366,
+            "accuracy": 0.9836065573770492,
+            "balanced_accuracy": 0.9634146341463414,
+            "tail_recall": 0.9268292682926829,
+            "per_class_recall": {
+              "0": 1.0,
+              "4": 1.0,
+              "12": 0.8536585365853658,
+              "8": 1.0
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3
+            ],
+            "validation_n": 771,
+            "accuracy": 0.9027237354085603,
+            "balanced_accuracy": 0.8103454183462532,
+            "tail_recall": 0.6236933797909407,
+            "per_class_recall": {
+              "0": 0.2857142857142857,
+              "4": 0.8121212121212121,
+              "12": 0.5853658536585366,
+              "8": 0.9934640522875817,
+              "2": 1.0,
+              "11": 0.9016393442622951,
+              "17": 1.0,
+              "3": 0.9044585987261147
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13
+            ],
+            "validation_n": 964,
+            "accuracy": 0.8495850622406639,
+            "balanced_accuracy": 0.6604314000412977,
+            "tail_recall": 0.5006629887727448,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8303030303030303,
+              "12": 0.3170731707317073,
+              "8": 0.9803921568627451,
+              "2": 1.0,
+              "11": 0.26229508196721313,
+              "17": 0.8,
+              "3": 0.9044585987261147,
+              "21": 0.25,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19
+            ],
+            "validation_n": 1223,
+            "accuracy": 0.8560915780866721,
+            "balanced_accuracy": 0.6224730492211583,
+            "tail_recall": 0.4605922758361783,
+            "per_class_recall": {
+              "0": 0.0,
+              "4": 0.8303030303030303,
+              "12": 0.3902439024390244,
+              "8": 0.9411764705882353,
+              "2": 1.0,
+              "11": 0.21311475409836064,
+              "17": 0.4,
+              "3": 0.8980891719745223,
+              "21": 0.25,
+              "16": 0.875,
+              "22": 0.7619047619047619,
+              "13": 0.94375,
+              "18": 0.48484848484848486,
+              "14": 0.9833333333333333,
+              "9": 0.9878048780487805,
+              "19": 0.0
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2
+            }
+          },
+          {
+            "task": 5,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19,
+              15,
+              6,
+              5,
+              20
+            ],
+            "validation_n": 1414,
+            "accuracy": 0.847949080622348,
+            "balanced_accuracy": 0.562795938707078,
+            "tail_recall": 0.3666294717846824,
+            "per_class_recall": {
+              "0": 0.14285714285714285,
+              "4": 0.8424242424242424,
+              "12": 0.4146341463414634,
+              "8": 0.9607843137254902,
+              "2": 1.0,
+              "11": 0.21311475409836064,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.0,
+              "16": 0.875,
+              "22": 0.8095238095238095,
+              "13": 0.94375,
+              "18": 0.42424242424242425,
+              "14": 0.9666666666666667,
+              "9": 0.9878048780487805,
+              "19": 0.0,
+              "15": 0.991869918699187,
+              "6": 0.0,
+              "5": 0.0,
+              "20": 0.3787878787878788
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2,
+              "15": 123,
+              "6": 1,
+              "5": 1,
+              "20": 66
+            }
+          },
+          {
+            "task": 6,
+            "seen": [
+              0,
+              4,
+              12,
+              8,
+              2,
+              11,
+              17,
+              3,
+              21,
+              16,
+              22,
+              13,
+              18,
+              14,
+              9,
+              19,
+              15,
+              6,
+              5,
+              20,
+              10,
+              7,
+              1
+            ],
+            "validation_n": 1698,
+            "accuracy": 0.8250883392226148,
+            "balanced_accuracy": 0.5877504752076684,
+            "tail_recall": 0.4091355629465386,
+            "per_class_recall": {
+              "0": 0.2857142857142857,
+              "4": 0.8363636363636363,
+              "12": 0.4634146341463415,
+              "8": 0.9477124183006536,
+              "2": 0.7857142857142857,
+              "11": 0.16393442622950818,
+              "17": 0.4,
+              "3": 0.9044585987261147,
+              "21": 0.0,
+              "16": 0.625,
+              "22": 0.7142857142857143,
+              "13": 0.94375,
+              "18": 0.45454545454545453,
+              "14": 0.9666666666666667,
+              "9": 0.9878048780487805,
+              "19": 0.0,
+              "15": 0.991869918699187,
+              "6": 0.0,
+              "5": 0.0,
+              "20": 0.24242424242424243,
+              "10": 0.84,
+              "7": 1.0,
+              "1": 0.9646017699115044
+            },
+            "per_class_n": {
+              "0": 7,
+              "4": 165,
+              "12": 41,
+              "8": 153,
+              "2": 182,
+              "11": 61,
+              "17": 5,
+              "3": 157,
+              "21": 4,
+              "16": 8,
+              "22": 21,
+              "13": 160,
+              "18": 33,
+              "14": 60,
+              "9": 164,
+              "19": 2,
+              "15": 123,
+              "6": 1,
+              "5": 1,
+              "20": 66,
+              "10": 150,
+              "7": 21,
+              "1": 113
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7012018192782995,
+        "final_balanced_accuracy": 0.5877504752076684,
+        "final_tail_recall": 0.4091355629465386,
+        "forgetting": 0.1825507811475189,
+        "forgetting_classes": 20,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 46,
+          "ridge_residual": 9.127328704401842e-16,
+          "head_relative_change": 0.04118443166470466,
+          "mean_fit_loss": 0.06514219004336906,
+          "mean_feature_loss": 0.00018098658533151888,
+          "global_shift_norm": 0.003453047713264823,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.005978092551231384,
+            0.003013746114447713,
+            0.005763234570622444,
+            0.0036586737260222435
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 92,
+          "ridge_residual": 9.56181903757515e-16,
+          "head_relative_change": 0.022911963437254112,
+          "mean_fit_loss": 0.055569544232085995,
+          "mean_feature_loss": 5.922306247710999e-05,
+          "global_shift_norm": 0.004364158492535353,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.0075465296395123005,
+            0.0042559122666716576,
+            0.007483948487788439,
+            0.003360447706654668
+          ]
+        },
+        {
+          "task": 1,
+          "epoch": 3,
+          "steps": 138,
+          "ridge_residual": 9.084077146746792e-16,
+          "head_relative_change": 0.021444528033854868,
+          "mean_fit_loss": 0.0579468902281445,
+          "mean_feature_loss": 8.230610546888784e-05,
+          "global_shift_norm": 0.006240729708224535,
+          "mean_old_shift_norm": 0.0,
+          "observed_class_shift_norms": [
+            0.011528706178069115,
+            0.00558615755289793,
+            0.010676427744328976,
+            0.0034328983165323734
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 190,
+          "ridge_residual": 1.1801519585551392e-15,
+          "head_relative_change": 0.11330375432951564,
+          "mean_fit_loss": 0.09916235026545249,
+          "mean_feature_loss": 0.00119355528421203,
+          "global_shift_norm": 0.021983027458190918,
+          "mean_old_shift_norm": 0.027966437823276378,
+          "observed_class_shift_norms": [
+            0.016837209463119507,
+            0.0681542307138443,
+            0.015029363334178925,
+            0.02813098020851612
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 242,
+          "ridge_residual": 1.2428953958682698e-15,
+          "head_relative_change": 0.05982575103908381,
+          "mean_fit_loss": 0.09163456137936848,
+          "mean_feature_loss": 0.002639665769842955,
+          "global_shift_norm": 0.032377760857343674,
+          "mean_old_shift_norm": 0.040653313945035255,
+          "observed_class_shift_norms": [
+            0.021781278774142265,
+            0.09753581136465073,
+            0.027188705280423164,
+            0.03850949928164482
+          ]
+        },
+        {
+          "task": 2,
+          "epoch": 3,
+          "steps": 294,
+          "ridge_residual": 1.1646671710237302e-15,
+          "head_relative_change": 0.026093914445194842,
+          "mean_fit_loss": 0.0905006446947272,
+          "mean_feature_loss": 0.0032533435777832684,
+          "global_shift_norm": 0.036251652985811234,
+          "mean_old_shift_norm": 0.04514342742668087,
+          "observed_class_shift_norms": [
+            0.023715175688266754,
+            0.10678350925445557,
+            0.03411957249045372,
+            0.041168272495269775
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 319,
+          "ridge_residual": 1.3433168842263066e-15,
+          "head_relative_change": 0.12943238735519152,
+          "mean_fit_loss": 0.18162852108478547,
+          "mean_feature_loss": 0.0009556621091905981,
+          "global_shift_norm": 0.050108395516872406,
+          "mean_old_shift_norm": 0.053883850465334934,
+          "observed_class_shift_norms": [
+            0.03331875428557396,
+            0.12683077156543732,
+            0.03477570414543152,
+            0.021297721192240715
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 344,
+          "ridge_residual": 1.1625086154455467e-15,
+          "head_relative_change": 0.0688105051922954,
+          "mean_fit_loss": 0.17703261077404023,
+          "mean_feature_loss": 0.0027764271991327404,
+          "global_shift_norm": 0.06958914548158646,
+          "mean_old_shift_norm": 0.07543733161925356,
+          "observed_class_shift_norms": [
+            0.04515713453292847,
+            0.18487313389778137,
+            0.04613853618502617,
+            0.028311902657151222
+          ]
+        },
+        {
+          "task": 3,
+          "epoch": 3,
+          "steps": 369,
+          "ridge_residual": 1.245343423919997e-15,
+          "head_relative_change": 0.034239280358263326,
+          "mean_fit_loss": 0.16941793203353883,
+          "mean_feature_loss": 0.0036158631928265095,
+          "global_shift_norm": 0.07992561161518097,
+          "mean_old_shift_norm": 0.08667021108397865,
+          "observed_class_shift_norms": [
+            0.05100274458527565,
+            0.21486058831214905,
+            0.05155184119939804,
+            0.02934105321764946
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 401,
+          "ridge_residual": 1.3023419030302936e-15,
+          "head_relative_change": 0.03626847632023206,
+          "mean_fit_loss": 0.18490062863565981,
+          "mean_feature_loss": 0.0006550089956363081,
+          "global_shift_norm": 0.023798083886504173,
+          "mean_old_shift_norm": 0.0239047786212106,
+          "observed_class_shift_norms": [
+            0.03209806978702545,
+            0.028954319655895233,
+            0.014885584823787212,
+            0.029384030029177666
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 433,
+          "ridge_residual": 1.2420723546891806e-15,
+          "head_relative_change": 0.034368433632490966,
+          "mean_fit_loss": 0.1773232079576701,
+          "mean_feature_loss": 0.0013082099430903327,
+          "global_shift_norm": 0.03636784851551056,
+          "mean_old_shift_norm": 0.036579392741854594,
+          "observed_class_shift_norms": [
+            0.05270514264702797,
+            0.039393264800310135,
+            0.017037849873304367,
+            0.04900972917675972
+          ]
+        },
+        {
+          "task": 4,
+          "epoch": 3,
+          "steps": 465,
+          "ridge_residual": 1.2865662472601504e-15,
+          "head_relative_change": 0.017309936544493296,
+          "mean_fit_loss": 0.1741873084101826,
+          "mean_feature_loss": 0.0016378900545532815,
+          "global_shift_norm": 0.04057110846042633,
+          "mean_old_shift_norm": 0.04083227617817222,
+          "observed_class_shift_norms": [
+            0.05992908775806427,
+            0.04149145632982254,
+            0.017205113545060158,
+            0.05697403848171234
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 1,
+          "steps": 490,
+          "ridge_residual": 1.3294158911627232e-15,
+          "head_relative_change": 0.03430907650645056,
+          "mean_fit_loss": 0.1808703550696373,
+          "mean_feature_loss": 0.000700915209017694,
+          "global_shift_norm": 0.024763884022831917,
+          "mean_old_shift_norm": 0.025676771976262364,
+          "observed_class_shift_norms": [
+            0.013625525869429111,
+            0.03792551904916763,
+            0.028445158153772354,
+            0.030570875853300095
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 2,
+          "steps": 515,
+          "ridge_residual": 1.3594492727627593e-15,
+          "head_relative_change": 0.022970960001585862,
+          "mean_fit_loss": 0.18990329921245575,
+          "mean_feature_loss": 0.001012190191540867,
+          "global_shift_norm": 0.0365699827671051,
+          "mean_old_shift_norm": 0.03706312991686964,
+          "observed_class_shift_norms": [
+            0.01923058182001114,
+            0.04935456067323685,
+            0.05665898323059082,
+            0.039941221475601196
+          ]
+        },
+        {
+          "task": 5,
+          "epoch": 3,
+          "steps": 540,
+          "ridge_residual": 1.4604537085952975e-15,
+          "head_relative_change": 0.013513857788983442,
+          "mean_fit_loss": 0.18832956492900849,
+          "mean_feature_loss": 0.001397369704209268,
+          "global_shift_norm": 0.041123710572719574,
+          "mean_old_shift_norm": 0.041483157019938294,
+          "observed_class_shift_norms": [
+            0.018763691186904907,
+            0.057311441749334335,
+            0.06965204328298569,
+            0.04310162365436554
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 1,
+          "steps": 574,
+          "ridge_residual": 1.391351340503694e-15,
+          "head_relative_change": 0.04117331243553571,
+          "mean_fit_loss": 0.16967778565252528,
+          "mean_feature_loss": 0.0014045781135791913,
+          "global_shift_norm": 0.026869529858231544,
+          "mean_old_shift_norm": 0.027171172786808077,
+          "observed_class_shift_norms": [
+            0.03075365722179413,
+            0.0516858734190464,
+            0.030940067023038864
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 2,
+          "steps": 608,
+          "ridge_residual": 1.394395501571071e-15,
+          "head_relative_change": 0.02121716147657767,
+          "mean_fit_loss": 0.17114429526469288,
+          "mean_feature_loss": 0.002072400546988801,
+          "global_shift_norm": 0.0379461795091629,
+          "mean_old_shift_norm": 0.037333412897713615,
+          "observed_class_shift_norms": [
+            0.0338921882212162,
+            0.08036971837282181,
+            0.03728654235601425
+          ]
+        },
+        {
+          "task": 6,
+          "epoch": 3,
+          "steps": 642,
+          "ridge_residual": 1.5514040951202455e-15,
+          "head_relative_change": 0.01197240034442047,
+          "mean_fit_loss": 0.16770322445560903,
+          "mean_feature_loss": 0.0023517222280668862,
+          "global_shift_norm": 0.039818670600652695,
+          "mean_old_shift_norm": 0.03904049286424634,
+          "observed_class_shift_norms": [
+            0.03532370552420616,
+            0.08935298025608063,
+            0.03863117843866348
+          ]
+        }
+      ]
+    }
+  }
+}

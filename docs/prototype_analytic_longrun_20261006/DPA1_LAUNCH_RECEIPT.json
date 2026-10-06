@@ -1,0 +1,58 @@
+{
+  "preflight": {
+    "status": "PASS",
+    "encoder_dim": 1536,
+    "feature_norm_min": 0.9999998807907104,
+    "feature_norm_max": 1.0,
+    "gradient_norm": 0.005494196433573961,
+    "loss": 0.029947144715464377,
+    "optimizer_updates": 0,
+    "finite_head": true,
+    "batch_n": 64,
+    "process_residence_seconds": 191.6919271107763,
+    "source_commit": "b96b6915bf13b132a2aa348e2b7f3eb03bf524a1"
+  },
+  "formal": {
+    "status": "RUNNING",
+    "phase": "DPA1",
+    "source_commit": "f0687433046e04d53f33ecac2968e17ca66c533b",
+    "launch_time": 1791302882.80824,
+    "queues": [
+      {
+        "gpu": 0,
+        "arms": [
+          "cf_linear",
+          "cf_weighted"
+        ],
+        "pid": 1102468
+      },
+      {
+        "gpu": 2,
+        "arms": [
+          "cf_prototype",
+          "cf_group"
+        ],
+        "pid": 1102469
+      }
+    ],
+    "gpu_seconds_used_before_formal": 22323.66479426995,
+    "gpu_seconds_reserved": 28800,
+    "formal_slots_committed": 15,
+    "formal_slot_limit": 16,
+    "admission_steps_used": 40,
+    "admission_step_limit": 40,
+    "deadline": 1791364441.9107835
+  },
+  "monitor": {
+    "status": "ACTIVE",
+    "interval_hours": 1,
+    "success_screening": {
+      "candidate": "cf_group",
+      "control": "cf_linear",
+      "ba_gain_min": 0.01,
+      "tail_loss_max": 0.005,
+      "forgetting_increase_max": 0.01
+    }
+  },
+  "results_complete": false
+}

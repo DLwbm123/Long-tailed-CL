@@ -60,7 +60,16 @@
   "admission_steps_used": 40,
   "deadline": 1791364441.9107835,
   "automatic_retry": false,
-  "automatic_followup": false,
+  "automatic_followup": true,
   "test_accessed": false,
-  "independent_confirmation": false
+  "independent_confirmation": false,
+  "followup_scope": "User-authorized bounded evidence-driven continuation; at most one remaining formal slot; no reset of old limits",
+  "success_screening": {
+    "candidate": "cf_group",
+    "control": "cf_linear",
+    "final_ba_gain_min": 0.01,
+    "tail_recall_loss_max": 0.005,
+    "forgetting_increase_max": 0.01,
+    "independent_confirmation": false
+  }
 }

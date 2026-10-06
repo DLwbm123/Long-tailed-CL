@@ -100,6 +100,22 @@ def old_subspace_loss(z, reference, basis):
     return ((z - reference.detach()) @ basis.detach()).square().sum(1).mean()
 
 
+def error_factors(ema, classes):
+    factors = torch.ones_like(ema)
+    score = 1. + ema[classes]
+    factors[classes] = score / score.mean()
+    return factors.detach()
+
+
+@torch.no_grad()
+def update_errors(ema, labels, prediction, classes):
+    # Only observed current-class positives estimate FN; old-class FN is unavailable.
+    for c in classes:
+        selected = labels == c
+        if selected.any():
+            ema[c] = .9 * ema[c] + .1 * (prediction[selected] != c).float().mean()
+
+
 def run(config):
     output = Path(config['output'])
     if output.exists():
@@ -108,6 +124,9 @@ def run(config):
         raise ValueError('Unknown arm')
     fd_weight, old_logit_weight = float(config.get('fd_weight', 10.)), float(config.get('old_logit_weight', 0.))
     subspace_weight = float(config.get('subspace_weight', 0.))
+    feedback = config.get('error_feedback', False)
+    if type(feedback) is not bool:
+        raise ValueError('error_feedback must be boolean')
     if not all(np.isfinite(w) and w >= 0 for w in (fd_weight, old_logit_weight, subspace_weight)):
         raise ValueError('Invalid retention weight')
     if config['method'] in ('full_graph', 'graph_stage'):
@@ -155,10 +174,13 @@ def run(config):
             counts = {c: int((y == c).sum()) for c in classes}
             sample_weights = torch.tensor([len(y)/(len(classes)*counts[c]) if c in classes else 0.
                                            for c in range(len(config['order']))], device='cuda')
+            error_ema = torch.full((len(config['order']),), .5, device='cuda')
+            seen_tensor = torch.tensor(seen, device='cuda')
             train_encoder = config['method'] != 'frozen_after_first' or task == 1
             iterations = config['epochs'] if train_encoder else 1
             for epoch in range(1, iterations + 1):
-                training.dataset.epoch = epoch; encoder.eval(); losses = []
+                training.dataset.epoch = epoch; encoder.eval(); losses = []; feedback_ranges = []
+                confusion = torch.zeros((len(config['order']), len(config['order'])), dtype=torch.long, device='cuda')
                 status(status='RUNNING', phase='train', task=task, epoch=epoch)
                 for x, labels in (training if train_encoder else []):
                     budget()
@@ -170,7 +192,13 @@ def run(config):
                     with torch.no_grad():
                         reference = teacher(x)
                     target = torch.nn.functional.one_hot(lookup[labels], len(seen)).float()
-                    fit = (.5 * (z @ head - target).square().sum(1) * sample_weights[labels]).mean()
+                    scores = z @ head
+                    fit_weights = sample_weights[labels]
+                    if feedback:
+                        factors = error_factors(error_ema, classes)
+                        fit_weights = fit_weights * factors[labels]
+                        feedback_ranges.append([float(factors[classes].min()), float(factors[classes].max())])
+                    fit = (.5 * (scores - target).square().sum(1) * fit_weights).mean()
                     fd = (z - reference).square().sum(1).mean()
                     readout = old_readout_loss(z, reference, old_head) if old_logit_weight else z.new_zeros(())
                     subspace = old_subspace_loss(z, reference, basis) if subspace_weight else z.new_zeros(())
@@ -180,6 +208,11 @@ def run(config):
                     loss.backward()
                     norm = torch.nn.utils.clip_grad_norm_([p for p in encoder.parameters() if p.requires_grad], 5., error_if_nonfinite=True)
                     optimizer.step(); steps += 1
+                    if feedback:
+                        prediction = seen_tensor[scores.detach().argmax(1)]
+                        update_errors(error_ema, labels, prediction, classes)
+                        confusion += torch.bincount(labels * len(config['order']) + prediction,
+                            minlength=len(config['order']) ** 2).reshape_as(confusion)
                     losses.append([float(fit.detach()), float(fd.detach()), float(norm), float(readout.detach()), float(subspace.detach())])
                 if train_encoder:
                     scheduler.step()
@@ -205,6 +238,12 @@ def run(config):
                     old_head_classes=0 if old_head is None else old_head.shape[1],
                     mean_old_subspace_loss=float(np.mean(losses, axis=0)[4]) if losses else 0.,
                     subspace_weight=subspace_weight, old_subspace_rank=0 if basis is None else basis.shape[1],
+                    error_feedback=feedback,
+                    feedback_error_ema={str(c): float(error_ema[c]) for c in classes} if feedback else None,
+                    feedback_next_factors={str(c): float(error_factors(error_ema, classes)[c]) for c in classes} if feedback else None,
+                    feedback_applied_min=float(np.min(feedback_ranges)) if feedback_ranges else None,
+                    feedback_applied_max=float(np.max(feedback_ranges)) if feedback_ranges else None,
+                    training_preupdate_confusion=confusion.cpu().tolist() if feedback else None,
                     trained_encoder=train_encoder,
                     **audit))
                 if config['method'] not in ('stage_global', 'graph_stage', 'no_shift', 'frozen_after_first') or epoch == iterations:

@@ -1,0 +1,110 @@
+{
+  "phase": "EF1",
+  "authorization": "User explicitly requested immediate four-condition experiment on 2026-10-06 after framework discussion",
+  "no_independent_base": true,
+  "no_old_s0_checkpoint": true,
+  "task_schedule": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "dataset": "ISIC original full train/validation",
+  "train_n": 18718,
+  "val_n": 295,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "cosine_eta_min": 1e-05,
+  "clip": 5,
+  "ridge": 0.001,
+  "fd_weight": 10.0,
+  "old_logit_weight": 0.0,
+  "subspace_weight": 0.0,
+  "conditions": [
+    {
+      "name": "A",
+      "method": "stage_global",
+      "error_feedback": false
+    },
+    {
+      "name": "B",
+      "method": "graph_stage",
+      "error_feedback": false
+    },
+    {
+      "name": "C",
+      "method": "stage_global",
+      "error_feedback": true
+    },
+    {
+      "name": "D",
+      "method": "graph_stage",
+      "error_feedback": true
+    }
+  ],
+  "feedback": {
+    "initial_error_ema": 0.5,
+    "momentum": 0.9,
+    "signal": "Current class training pre-update argmax miss fraction; all-seen head; labels only from current task",
+    "lag": "Batch t uses state from t-1, then updates EMA from cached predictions before t optimizer step; no validation feedback",
+    "factor": "(1+ema_c)/mean_current_classes(1+ema); multiply only existing class-balanced squared fit weights",
+    "bounds": [
+      0.5,
+      2.0
+    ],
+    "absent_class": "leave EMA unchanged",
+    "task_transition": "Initialize each newly arriving current class to neutral prior; historical error is not used as current old-class FN",
+    "old_fp": "Current-negative confusion counts are diagnostics only; no complete old-class FP/FN claim",
+    "retention": "Fixed FD10; feedback never changes retention, lr, prototypes or analytic objective"
+  },
+  "multi_prototype": "Reuse R1 graph_stage unchanged: up to 4 clusters per class, support/noise reliability, global prior shrinkage, exact moments for assumed component shifts; module is a bundle, not isolated clustering causality",
+  "primary_contrasts": [
+    "C-A: feedback with global transport",
+    "D-B: feedback with multi-prototype graph",
+    "B-A: multi-prototype bundle without feedback",
+    "D-C: multi-prototype bundle with feedback",
+    "D-B-C+A: descriptive factorial interaction"
+  ],
+  "metrics": [
+    "final BA",
+    "average incremental BA",
+    "old/current recall",
+    "tail by training-frequency bottom half",
+    "forgetting",
+    "per-class denominators",
+    "actual residence and feedback/confusion diagnostics"
+  ],
+  "screening": "Combined D final BA >= A+1pp, D>B and D>C, tail >= A-0.5pp, forgetting <= A+1pp; report all contrasts regardless. Single seed interaction is descriptive, not statistical or independent confirmation",
+  "updates_per_arm": 588,
+  "total_formal_updates": 2352,
+  "admission_updates": 16,
+  "queue_layout": {
+    "GPU0": [
+      "A",
+      "C"
+    ],
+    "GPU2": [
+      "B",
+      "D"
+    ]
+  },
+  "queue_timeout_seconds": 10800,
+  "ledger": "Same PROGRAM_STATE original 24h deadline,16GPUh,16 formal attempts,40 admission updates; after admission38/40; after launch10/16 formal committed; no budget reset",
+  "followup": "Fixed EF1 matrix only; existing hourly monitor reports/publishes completion and pauses. No automatic EF2/grid/multilabel/RL or extra trajectories under this amendment",
+  "privacy": "No historical image replay, future task images, test, raw data or per-sample public outputs",
+  "source_commit": "Git source commit recorded in independent source_ef1 snapshot and launch receipts"
+}

@@ -85,8 +85,12 @@ def run(config):
     output = Path(config['output'])
     if output.exists():
         raise ValueError('Fresh output required; no overwrite/retry')
-    if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local'):
+    if config['method'] not in ('stage_global', 'epoch_global', 'epoch_local', 'full_graph'):
         raise ValueError('Unknown arm')
+    if config['method'] == 'full_graph':
+        from prototype_graph import empty as make_bank, append as add, transport as graph_transport
+    else:
+        make_bank, add = empty, append
     train, val = manifests(config)
     output.mkdir(parents=True)
     save(output / 'INPUT.private.json', config)
@@ -100,21 +104,25 @@ def run(config):
         seed = config['seed']
         random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
         torch.set_num_threads(4)
+        status(status='RUNNING', phase='initialize')
         encoder = ApartFeatures(config['legacy_repo'], config['weight'], len(config['order']), 'cuda:0', seed)
         from run_medical_v2 import transform
         def loader(rows, training, task):
             ds = Images(rows, config['images'], transform(training), seed + task * 100003)
-            return DataLoader(ds, batch_size=config['batch_size'], shuffle=training, num_workers=0,
-                              generator=torch.Generator().manual_seed(seed + task * 2003))
-        bank = empty(encoder.dim); seen = []; diagnostics = []
+            workers = int(config.get('workers', 0))
+            options = dict(multiprocessing_context='spawn', prefetch_factor=2) if workers else {}
+            return DataLoader(ds, batch_size=config['batch_size'], shuffle=training, num_workers=workers,
+                              generator=torch.Generator().manual_seed(seed + task * 2003), **options)
+        bank = make_bank(encoder.dim); seen = []; diagnostics = []
         tasks = [config['order'][i:i+config['increment']] for i in range(0, len(config['order']), config['increment'])]
         for task, classes in enumerate(tasks, 1):
             budget(); seen += classes
             canonical = loader([r for r in train if r['label'] in classes], False, task)
             training = loader(canonical.dataset.rows, True, task)
             teacher = copy.deepcopy(encoder).requires_grad_(False).eval()
+            status(status='RUNNING', phase='task_start_features', task=task)
             before, y = extract(teacher, canonical, budget)
-            W, residual = ridge(append(bank, before, y, classes))
+            W, residual = ridge(add(bank, before, y, classes))
             head = torch.tensor(W, dtype=torch.float32, device='cuda')
             optimizer = torch.optim.AdamW([p for p in encoder.parameters() if p.requires_grad], lr=config['lr'], weight_decay=.01)
             scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, config['epochs'], eta_min=1e-5)
@@ -149,8 +157,11 @@ def run(config):
                 after, after_y = extract(encoder, canonical, budget)
                 if not np.array_equal(y, after_y):
                     raise ValueError('Canonical sample order changed')
-                shifted, audit = transport(bank, before, after, y, classes, config['method'] == 'epoch_local')
-                candidate = append(shifted, after, y, classes)
+                if config['method'] == 'full_graph':
+                    shifted, audit = graph_transport(bank, before, after, y, classes)
+                else:
+                    shifted, audit = transport(bank, before, after, y, classes, config['method'] == 'epoch_local')
+                candidate = add(shifted, after, y, classes)
                 W_new, residual = ridge(candidate)
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, ridge_residual=residual,
                     head_relative_change=float(np.linalg.norm(W_new-head.cpu().numpy()) / max(np.linalg.norm(W_new), 1e-12)),

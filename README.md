@@ -2,6 +2,7 @@
 
 长尾类别增量学习研究代码与实验报告，包含 CIFAR-100-LT 上的 GPA/TaConCM 诊断、APART + ConCM-lite，以及 HyperKvasir23 上的校准与动态几何实验。
 
+- [PA2 完整单标签候选：多原型与可靠性图传播](docs/prototype_analytic_pa2/PROTOCOL_ZH.md)
 - [PA1 原型与解析分类头：single-label 开发协议](docs/prototype_analytic/PROTOCOL_ZH.md)
 - [项目现状：数据集、方法与结果](docs/PROJECT_STATUS_20260914.md)
 - [NB-RL-A1 四卡实验：完整结果与审计](docs/nb_rl_a1/README.md)

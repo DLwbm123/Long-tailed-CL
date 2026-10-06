@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "total_steps": 12,
+  "receipts": [
+    {
+      "method": "stage_global",
+      "steps": 4,
+      "elapsed_seconds": 92.23094460275024,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654178304,
+      "max_ridge_residual": 1.0960108711546213e-15
+    },
+    {
+      "method": "epoch_local",
+      "steps": 4,
+      "elapsed_seconds": 82.17893757810816,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654178304,
+      "max_ridge_residual": 1.1695783994608907e-15
+    },
+    {
+      "method": "full_graph",
+      "steps": 4,
+      "elapsed_seconds": 83.51985525013879,
+      "status": "COMPLETE",
+      "stages": 2,
+      "peak_gpu_bytes": 12654178304,
+      "max_ridge_residual": 1.079939759684423e-15
+    }
+  ],
+  "moment_and_graph_oracle": "PASS",
+  "loader_0_vs_2_workers": "exact canonical and augmentation parity",
+  "first_task_single_vs_full": "matched before old-memory intervention",
+  "last_graph_diagnostic": {
+    "task": 2,
+    "epoch": 2,
+    "steps": 4,
+    "ridge_residual": 1.079939759684423e-15,
+    "head_relative_change": 0.006971620118608058,
+    "mean_fit_loss": 0.09192850440740585,
+    "mean_feature_loss": 0.00022144766990095377,
+    "global_shift_norm": 0.013285488908897483,
+    "mean_old_shift_norm": 0.013336826835802585,
+    "old_components": 4,
+    "current_components": 4,
+    "graph_edges": 17,
+    "graph_residual": 5.371319113102908e-16,
+    "anchor_reliability": [
+      0.7815767321501589,
+      0.0,
+      0.7764560073786184,
+      0.1542323025154982
+    ],
+    "mean_anchor_reliability": 0.42806626051106883,
+    "observed_component_shift_norms": [
+      0.013156373311092056,
+      0.015647908795832378,
+      0.013694818212829824,
+      0.014897467526681564
+    ]
+  },
+  "effectiveness_claim": false
+}

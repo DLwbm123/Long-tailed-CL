@@ -1,0 +1,70 @@
+{
+  "run": "PA2",
+  "scope": "Single-label full-module development screening; not a paper reproduction",
+  "dataset": "ISIC",
+  "train_n": 18718,
+  "val_n": 295,
+  "train_counts": {
+    "4": 458,
+    "0": 10529,
+    "3": 1306,
+    "7": 27,
+    "5": 256,
+    "6": 44,
+    "2": 2835,
+    "1": 3263
+  },
+  "validation_counts": {
+    "4": 41,
+    "0": 44,
+    "3": 40,
+    "7": 24,
+    "5": 37,
+    "6": 26,
+    "2": 46,
+    "1": 37
+  },
+  "tasks": [
+    [
+      4,
+      0
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "expected_steps_per_arm": 588,
+  "max_steps_per_arm": 600,
+  "queues": {
+    "gpu0": [
+      "stage_global",
+      "epoch_local"
+    ],
+    "gpu1": [
+      "full_graph"
+    ]
+  },
+  "wall_seconds_per_queue": 7200,
+  "admission_steps": 12,
+  "prototype_rule": "min(4,max(1,n//16))",
+  "graph_neighbors": 3,
+  "global_prior_weight": 0.1,
+  "reliability_support_shrinkage": 8,
+  "source_base_commit": "443be080253538d90dc3510a866d19901d962355",
+  "test_access": false,
+  "automatic_retry": false,
+  "automatic_expansion": false
+}

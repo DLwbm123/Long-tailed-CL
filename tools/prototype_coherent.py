@@ -207,8 +207,19 @@ def advantages(rewards):
     return (rewards-rewards.mean())/(spread+1e-6), True
 
 
+def reward_change(ce, base_ce, old_loss, base_old, mode):
+    current = base_ce-ce
+    if mode == 'minimum':
+        changes = torch.cat([current, base_old-old_loss])
+        return changes.min()
+    if mode != 'mean':
+        raise ValueError('Unknown reward aggregation')
+    penalty = (old_loss-base_old).relu().mean() if len(base_old) else ce.new_zeros(())
+    return current.mean()-penalty
+
+
 def controller(old, x, y, group, difficulty, calibration_x, calibration_y,
-               seeds, parameter, reference, mode, generator, steps=8):
+               seeds, parameter, reference, mode, generator, steps=8, reward_mode='mean'):
     if mode not in ('gradient', 'group') or steps < 2 or steps % 2:
         raise ValueError('Invalid controller configuration')
     zeros = x.new_zeros(len(seeds))
@@ -226,8 +237,7 @@ def controller(old, x, y, group, difficulty, calibration_x, calibration_y,
         W, _ = head(bank)
         ce = class_ce(calibration_x, calibration_y, W)
         old_loss = old_square_losses(old, W)
-        penalty = (old_loss-base_old).relu().mean() if len(base_old) else ce.new_zeros(())
-        reward = base_ce.mean()-ce.mean()-penalty-.01*weight_kl(y, weights)
+        reward = reward_change(ce, base_ce, old_loss, base_old, reward_mode)-.01*weight_kl(y, weights)
         return reward, ce, old_loss, weights
 
     optimizer = torch.optim.Adam([parameter], lr=.05)
@@ -278,7 +288,7 @@ def controller(old, x, y, group, difficulty, calibration_x, calibration_y,
         ess_pass = bool((ess >= .5*counts).all())
         accepted = current_pass and old_pass and ess_pass
         selected = proposed if accepted else zeros
-    audit = dict(mode=mode, optimizer_steps=updates, group_reward_std=reward_spreads,
+    audit = dict(mode=mode, reward_mode=reward_mode, optimizer_steps=updates, group_reward_std=reward_spreads,
         clip_fraction=clipping, optimization_losses=losses, proposed_actions=proposed.tolist(),
         selected_actions=selected.tolist(), proposed_reward=float(reward), accepted=accepted,
         current_guard=current_pass, old_moment_guard=old_pass, effective_sample_guard=ess_pass,

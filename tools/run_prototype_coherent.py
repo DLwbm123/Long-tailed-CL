@@ -48,7 +48,7 @@ def cpu_bank(bank):
 
 def run(config):
     arm = config['method']
-    if arm not in ('cf_linear', 'cf_prototype', 'cf_weighted', 'cf_group'):
+    if arm not in ('cf_linear', 'cf_prototype', 'cf_weighted', 'cf_group', 'cf_group_min'):
         raise ValueError('Unknown coherent arm')
     output = Path(config['output'])
     if output.exists():
@@ -106,16 +106,32 @@ def run(config):
                 budget(); encoder.eval(); training.dataset.epoch = epoch
                 old = method.translate(bank, common_shift(before[fit_ids], current[fit_ids], y[fit_ids]))
                 status(status='RUNNING', phase='controller', task=task, epoch=epoch)
-                if arm in ('cf_weighted', 'cf_group') and not config.get('preflight', False):
+                if arm in ('cf_weighted', 'cf_group', 'cf_group_min') and not config.get('preflight', False):
                     actions, audit = method.controller(old, current[fit_ids], y[fit_ids], group[fit_ids],
                         difficulty[fit_ids], current[meta_ids], y[meta_ids], seeds, actor, reference_actor,
-                        'gradient' if arm == 'cf_weighted' else 'group', generator)
+                        'gradient' if arm == 'cf_weighted' else 'group', generator,
+                        reward_mode='minimum' if arm == 'cf_group_min' else 'mean')
                 else:
                     audit = dict(mode='uniform', optimizer_steps=0, accepted=True,
                                  selected_actions=actions.tolist())
                 weights = method.sample_weights(y[fit_ids], group[fit_ids], difficulty[fit_ids], actions)
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
                 W, R = method.head(candidate, strength)
+                reward_probe = None
+                if config.get('preflight', False) and arm == 'cf_group_min':
+                    state = method.descriptors(current[fit_ids], y[fit_ids], group[fit_ids], seeds, W)
+                    proposed = method.policy_mean(actor, state).tanh()
+                    probe_weights = method.sample_weights(y[fit_ids], group[fit_ids], difficulty[fit_ids], proposed)
+                    probe_bank = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], probe_weights)
+                    probe_head, _ = method.head(probe_bank)
+                    reward = method.reward_change(method.class_ce(current[meta_ids], y[meta_ids], probe_head),
+                        method.class_ce(current[meta_ids], y[meta_ids], W).detach(),
+                        method.old_square_losses(old, probe_head), method.old_square_losses(old, W).detach(), 'minimum')
+                    gradient = torch.autograd.grad(reward, actor)[0]
+                    if not torch.isfinite(gradient).all():
+                        raise ValueError('Nonfinite native reward gradient')
+                    reward_probe = dict(reward=float(reward.detach()), gradient_norm=float(gradient.norm()), optimizer_updates=0)
+                    del probe_bank, probe_head, reward, gradient
                 inverse, cross = method.proximal_base(old, R, len(seen))
                 losses = []
                 status(status='RUNNING', phase='train', task=task, epoch=epoch)
@@ -146,7 +162,7 @@ def run(config):
                         save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim,
                             feature_norm_min=float(z.norm(dim=1).min()), feature_norm_max=float(z.norm(dim=1).max()),
                             gradient_norm=float(norm), loss=float(loss.detach()), optimizer_updates=0,
-                            finite_head=bool(torch.isfinite(W).all()), batch_n=len(x)))
+                            finite_head=bool(torch.isfinite(W).all()), batch_n=len(x), reward_probe=reward_probe))
                         status(status='COMPLETE', preflight=True, optimizer_updates=0)
                         return
                     optimizer.step(); steps += 1

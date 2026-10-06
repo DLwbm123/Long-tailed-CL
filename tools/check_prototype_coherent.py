@@ -4,7 +4,7 @@ from torch.nn import functional as F
 
 from prototype_coherent import (empty, seed_components, memberships, sample_weights,
     append, translate, evidence, metric, head, proximal_base, proximal_head,
-    old_square_losses, advantages, controller)
+    old_square_losses, advantages, controller, reward_change)
 
 
 def check():
@@ -83,6 +83,17 @@ def check():
         {rows[i]['identity_component'] for i in meta})
     assert fit_split(rows, 74002) == (fit, meta) and len(meta) == 8
     assert torch.allclose(common_shift(x, x+d, y), d)
+    base = torch.tensor([1., 1.], dtype=dtype)
+    ce = torch.tensor([.8, 1.1], dtype=dtype); no_old = base[:0]
+    assert reward_change(ce, base, no_old, no_old, 'mean') > 0
+    assert reward_change(ce, base, no_old, no_old, 'minimum') < 0
+    assert reward_change(base-.1, base, base+.01, base, 'minimum') < 0
+    assert reward_change(base-.1, base, base-.02, base, 'minimum') > 0
+    parameter = torch.nn.Parameter(torch.zeros(6, dtype=dtype))
+    _, audit = controller(old, z, labels, group, difficulty, hold_x, hold_y,
+        seeds, parameter, parameter.detach().clone(), 'group', torch.Generator().manual_seed(928),
+        steps=2, reward_mode='minimum')
+    assert audit['optimizer_steps'] == 2 and audit['reward_mode'] == 'minimum'
     print('PASS: weighted moments, translation, explicit evidence-head equivalence, informative old risk,')
     print('      Woodbury/proximal oracle, envelope gradient, bounded weights, and both controllers')
 

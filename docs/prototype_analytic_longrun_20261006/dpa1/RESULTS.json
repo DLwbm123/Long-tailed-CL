@@ -1,0 +1,2393 @@
+{
+  "arms": {
+    "cf_linear": {
+      "STATUS": {
+        "steps": 476,
+        "elapsed_seconds": 1675.4523234544322,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 13259543552
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7114093959731543,
+            "balanced_accuracy": 0.6897819660014782,
+            "tail_recall": 0.6488821138211383,
+            "per_class_recall": {
+              "4": 0.7560975609756098,
+              "0": 0.8863636363636364,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6320754716981132,
+            "balanced_accuracy": 0.6351195899976387,
+            "tail_recall": 0.612338475905549,
+            "per_class_recall": {
+              "4": 0.5365853658536586,
+              "0": 0.8863636363636364,
+              "3": 0.475,
+              "7": 0.5416666666666666,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.559322033898305,
+            "balanced_accuracy": 0.5681497847291855,
+            "tail_recall": 0.5829699305309062,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.7272727272727273,
+              "3": 0.375,
+              "7": 0.5,
+              "5": 0.4594594594594595,
+              "6": 0.8846153846153846,
+              "2": 0.5434782608695652,
+              "1": 0.5675675675675675
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7171652742064659,
+        "final_balanced_accuracy": 0.5681497847291855,
+        "final_tail_recall": 0.5829699305309062,
+        "forgetting": 0.1674726000945513,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 138,
+          "arm": "cf_linear",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.012595301632554012,
+          "mean_fit_loss": 0.01380790640381639,
+          "mean_feature_loss": 3.929858414029814e-05
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 276,
+          "arm": "cf_linear",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.015478939212046515,
+          "mean_fit_loss": 0.01240852789942044,
+          "mean_feature_loss": 0.00013150523947210192
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 293,
+          "arm": "cf_linear",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.027385106433768566,
+          "mean_fit_loss": 0.04557719417653125,
+          "mean_feature_loss": 0.0006026315638925606
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 310,
+          "arm": "cf_linear",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.029940015867482378,
+          "mean_fit_loss": 0.051110125420324795,
+          "mean_feature_loss": 0.001047047447440598
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 314,
+          "arm": "cf_linear",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.012212438512971381,
+          "mean_fit_loss": 0.038905522654732835,
+          "mean_feature_loss": 7.134334009606391e-05
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 318,
+          "arm": "cf_linear",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.01516028834410302,
+          "mean_fit_loss": 0.03927932545221046,
+          "mean_feature_loss": 0.00025559115965734236
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 397,
+          "arm": "cf_linear",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.018758658467677974,
+          "mean_fit_loss": 0.06138828739025719,
+          "mean_feature_loss": 0.00039617938455194235
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 476,
+          "arm": "cf_linear",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.01550754649410665,
+          "mean_fit_loss": 0.06602781792823108,
+          "mean_feature_loss": 0.0003972200660589092
+        }
+      ]
+    },
+    "cf_prototype": {
+      "STATUS": {
+        "steps": 476,
+        "elapsed_seconds": 1712.0518866851926,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 13260313600
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7114093959731543,
+            "balanced_accuracy": 0.6897819660014782,
+            "tail_recall": 0.6488821138211383,
+            "per_class_recall": {
+              "4": 0.7560975609756098,
+              "0": 0.8863636363636364,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6320754716981132,
+            "balanced_accuracy": 0.6351195899976387,
+            "tail_recall": 0.612338475905549,
+            "per_class_recall": {
+              "4": 0.5365853658536586,
+              "0": 0.8863636363636364,
+              "3": 0.475,
+              "7": 0.5416666666666666,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5559322033898305,
+            "balanced_accuracy": 0.5650247847291856,
+            "tail_recall": 0.5829699305309062,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.7272727272727273,
+              "3": 0.35,
+              "7": 0.5,
+              "5": 0.4594594594594595,
+              "6": 0.8846153846153846,
+              "2": 0.5434782608695652,
+              "1": 0.5675675675675675
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7163840242064659,
+        "final_balanced_accuracy": 0.5650247847291856,
+        "final_tail_recall": 0.5829699305309062,
+        "forgetting": 0.17163926676121796,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 138,
+          "arm": "cf_prototype",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.012601104723707077,
+          "mean_fit_loss": 0.013813972502402697,
+          "mean_feature_loss": 3.8936816040866006e-05
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 276,
+          "arm": "cf_prototype",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.015216077537965262,
+          "mean_fit_loss": 0.012414782046241857,
+          "mean_feature_loss": 0.00013060041933583662
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 293,
+          "arm": "cf_prototype",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.027260718580918674,
+          "mean_fit_loss": 0.04565706850380944,
+          "mean_feature_loss": 0.0005974675852271236
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 310,
+          "arm": "cf_prototype",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.029882945956322123,
+          "mean_fit_loss": 0.05109202175693676,
+          "mean_feature_loss": 0.001043475078939296
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 314,
+          "arm": "cf_prototype",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.012131185505209592,
+          "mean_fit_loss": 0.03881318212465833,
+          "mean_feature_loss": 7.016195195319597e-05
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 318,
+          "arm": "cf_prototype",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.015063804045766073,
+          "mean_fit_loss": 0.03917696964915515,
+          "mean_feature_loss": 0.0002526228017813992
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 397,
+          "arm": "cf_prototype",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.018769670124042202,
+          "mean_fit_loss": 0.06140483172033176,
+          "mean_feature_loss": 0.00039592261646824147
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 476,
+          "arm": "cf_prototype",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "uniform",
+            "optimizer_steps": 0,
+            "accepted": true,
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.015512524547018316,
+          "mean_fit_loss": 0.06602381786326433,
+          "mean_feature_loss": 0.00039782731748138895
+        }
+      ]
+    },
+    "cf_weighted": {
+      "STATUS": {
+        "steps": 476,
+        "elapsed_seconds": 1700.6820992082357,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 13258926592
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7114093959731543,
+            "balanced_accuracy": 0.6897819660014782,
+            "tail_recall": 0.6488821138211383,
+            "per_class_recall": {
+              "4": 0.7560975609756098,
+              "0": 0.8863636363636364,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6320754716981132,
+            "balanced_accuracy": 0.6351195899976387,
+            "tail_recall": 0.612338475905549,
+            "per_class_recall": {
+              "4": 0.5365853658536586,
+              "0": 0.8863636363636364,
+              "3": 0.475,
+              "7": 0.5416666666666666,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5559322033898305,
+            "balanced_accuracy": 0.5650247847291856,
+            "tail_recall": 0.5829699305309062,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.7272727272727273,
+              "3": 0.35,
+              "7": 0.5,
+              "5": 0.4594594594594595,
+              "6": 0.8846153846153846,
+              "2": 0.5434782608695652,
+              "1": 0.5675675675675675
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7163840242064659,
+        "final_balanced_accuracy": 0.5650247847291856,
+        "final_tail_recall": 0.5829699305309062,
+        "forgetting": 0.17163926676121796,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 138,
+          "arm": "cf_weighted",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              0.0,
+              2.391959679010479e-05,
+              0.0032878140959987853,
+              0.00012586556023049997,
+              0.0013243369340920868,
+              0.0022314960360904456,
+              0.0010783819740064246,
+              6.993012835146521e-05
+            ],
+            "proposed_actions": [
+              0.07972982190882812,
+              0.041878742910201584,
+              0.05766587389273787,
+              0.057154727310673496,
+              0.04951740485678407,
+              0.021605727259265094,
+              0.03403736625212684,
+              0.0400951249832199
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 2.9854450376580315e-05,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": true,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              0.46593595048069636,
+              0.41095540077030324
+            ],
+            "neutral_class_ce": [
+              0.46592814208035,
+              0.411023329970445
+            ],
+            "historical_class_square_loss": [],
+            "neutral_historical_loss": [],
+            "class_effective_samples": [
+              363.97712572327737,
+              8420.833780493549
+            ],
+            "class_fit_n": [
+              364.0,
+              8421.0
+            ],
+            "parameter_norm": 0.12999437853774273
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.012601104723707077,
+          "mean_fit_loss": 0.013813972502402697,
+          "mean_feature_loss": 3.8936816040866006e-05
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 276,
+          "arm": "cf_weighted",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              0.00038078194002084975,
+              0.0032206912904993996,
+              0.0003994288882769399,
+              0.0005366472399646425,
+              0.0016405527836798818,
+              0.0010142045905156406,
+              0.00010834818388894417,
+              0.00019593067499067477
+            ],
+            "proposed_actions": [
+              -0.04237470485090155,
+              -0.05483585911350901,
+              -0.052056359265223034,
+              -0.04688594053442156,
+              -0.07905828379543647,
+              -0.09474695667518146,
+              -0.08693554062005279,
+              -0.08915994453333566
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 1.9721452499308358e-05,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": true,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              0.47267405904811755,
+              0.40261490514779713
+            ],
+            "neutral_class_ce": [
+              0.47293923776676616,
+              0.4023897460492711
+            ],
+            "historical_class_square_loss": [],
+            "neutral_historical_loss": [],
+            "class_effective_samples": [
+              363.9911961899575,
+              8420.235120450354
+            ],
+            "class_fit_n": [
+              364.0,
+              8421.0
+            ],
+            "parameter_norm": 0.12562859478469737
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.015216077537965262,
+          "mean_fit_loss": 0.012414782046241857,
+          "mean_feature_loss": 0.00013060041933583662
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 293,
+          "arm": "cf_weighted",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              2.355899342621611e-05,
+              0.0012680842460914001,
+              0.00024360320310488478,
+              0.000961116966616489,
+              0.000649271963510441,
+              0.00010266425682927878,
+              0.00015907196221665547,
+              0.0004722651399392358
+            ],
+            "proposed_actions": [
+              -0.022034242459782537,
+              -0.0294777528367017,
+              -0.021343057068118447,
+              -0.025420222052333182,
+              0.056028887133999526
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": -3.194725576077028e-05,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.1950569595517622,
+              1.1563951773394228
+            ],
+            "neutral_class_ce": [
+              1.1950299331125753,
+              1.1563953907519076
+            ],
+            "historical_class_square_loss": [
+              0.2532298476253567,
+              0.3029917096554384
+            ],
+            "neutral_historical_loss": [
+              0.2531929176815604,
+              0.3030171131498379
+            ],
+            "class_effective_samples": [
+              1056.994222933539,
+              21.999452922345338
+            ],
+            "class_fit_n": [
+              1057.0,
+              22.0
+            ],
+            "parameter_norm": 0.12190879205835502
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.027260718580918674,
+          "mean_fit_loss": 0.04565706850380944,
+          "mean_feature_loss": 0.0005974675852271236
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 310,
+          "arm": "cf_weighted",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              0.0003906136930280419,
+              0.0011261486365170845,
+              0.0003209688442216667,
+              6.0940950041910555e-05,
+              0.0005085461145194717,
+              0.00041004116877352845,
+              6.085648948140915e-05,
+              5.686119483448159e-05
+            ],
+            "proposed_actions": [
+              -0.13260898458025072,
+              -0.13106892654430086,
+              -0.12730401589568988,
+              -0.12927251833960587,
+              -0.0777778021443401
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": -4.3304807400597924e-07,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.1856572953649964,
+              1.154643982842279
+            ],
+            "neutral_class_ce": [
+              1.1855908179073322,
+              1.154837063662723
+            ],
+            "historical_class_square_loss": [
+              0.24105498687415483,
+              0.302289026505303
+            ],
+            "neutral_historical_loss": [
+              0.24095877352603157,
+              0.3022587276674924
+            ],
+            "class_effective_samples": [
+              1056.8481635243,
+              21.998963230453107
+            ],
+            "class_fit_n": [
+              1057.0,
+              22.0
+            ],
+            "parameter_norm": 0.14844100966551332
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.029882945956322123,
+          "mean_fit_loss": 0.05109202175693676,
+          "mean_feature_loss": 0.001043475078939296
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 314,
+          "arm": "cf_weighted",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              9.841625121052107e-05,
+              0.002602658956792904,
+              0.0002545224165270324,
+              0.0006330463980713161,
+              0.0015174043481040304,
+              0.0011466368237062453,
+              0.00037023199193987665,
+              9.071241362758097e-05
+            ],
+            "proposed_actions": [
+              -0.047114458597231325,
+              -0.03544001057328923,
+              -0.043547534175312354,
+              -0.046216626300024787,
+              0.005002069118616076,
+              -0.01108570047710817
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": -2.1066301747669217e-06,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.5929321926297573,
+              1.386644585469476
+            ],
+            "neutral_class_ce": [
+              1.5929147985334633,
+              1.3866780388342683
+            ],
+            "historical_class_square_loss": [
+              0.3992310374947855,
+              0.3658303823272775,
+              0.614684434389151,
+              0.15494652244018625
+            ],
+            "neutral_historical_loss": [
+              0.39921625590452803,
+              0.36582295145354937,
+              0.6146662415501725,
+              0.15494711571130348
+            ],
+            "class_effective_samples": [
+              203.99725940260373,
+              33.99998193703937
+            ],
+            "class_fit_n": [
+              204.0,
+              34.0
+            ],
+            "parameter_norm": 0.13289787677305123
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.012131185505209592,
+          "mean_fit_loss": 0.03881318212465833,
+          "mean_feature_loss": 7.016195195319597e-05
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 318,
+          "arm": "cf_weighted",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              0.0004253771655965368,
+              0.001208698517552304,
+              0.0003628090237165284,
+              0.00015521046839877563,
+              0.0006002634632662013,
+              0.0004722882892813472,
+              0.00012856908759512815,
+              0.00013665374522304
+            ],
+            "proposed_actions": [
+              -0.1451084288296424,
+              -0.12005699230469674,
+              -0.14409396383906725,
+              -0.14800504639188883,
+              -0.10780947969911159,
+              -0.11241455736134402
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": -0.0001357021823260973,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.5879630360374075,
+              1.3839031987388728
+            ],
+            "neutral_class_ce": [
+              1.5879596928084112,
+              1.3836763817186324
+            ],
+            "historical_class_square_loss": [
+              0.39468861838350455,
+              0.36561126200891314,
+              0.6148748275081982,
+              0.15434859749143393
+            ],
+            "neutral_historical_loss": [
+              0.39470071707152743,
+              0.365586937450355,
+              0.6148199167449276,
+              0.15437545134635866
+            ],
+            "class_effective_samples": [
+              203.97226236920753,
+              33.99359583844216
+            ],
+            "class_fit_n": [
+              204.0,
+              34.0
+            ],
+            "parameter_norm": 0.18132513426479438
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.015063804045766073,
+          "mean_fit_loss": 0.03917696964915515,
+          "mean_feature_loss": 0.0002526228017813992
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 397,
+          "arm": "cf_weighted",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              -0.00025585631455886485,
+              0.0037445488780068685,
+              6.8805765837801395e-06,
+              0.0006400474204267149,
+              0.0020549280140135322,
+              0.001371678956204104,
+              0.00012709489507955357,
+              -0.0002353287700135556
+            ],
+            "proposed_actions": [
+              -0.24825864429589223,
+              -0.25673700864030874,
+              -0.25586977235079505,
+              -0.247225436980378,
+              -0.2561577304018348,
+              -0.262713387739214,
+              -0.2659044172370854,
+              -0.2631928457188564
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.00033134631430095245,
+            "accepted": false,
+            "current_guard": true,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.9262016200059044,
+              1.8709512632442211
+            ],
+            "neutral_class_ce": [
+              1.9265089631318326,
+              1.871667694519857
+            ],
+            "historical_class_square_loss": [
+              0.5153628466598429,
+              0.5042312598135543,
+              0.7188117815915784,
+              0.2088814004812395,
+              0.5927039227787982,
+              0.12307210200723828
+            ],
+            "neutral_historical_loss": [
+              0.5149552544194504,
+              0.503928631343094,
+              0.7189754102323329,
+              0.2089435929167338,
+              0.5923485215607257,
+              0.1230794715688065
+            ],
+            "class_effective_samples": [
+              2308.595895658599,
+              2708.490788900523
+            ],
+            "class_fit_n": [
+              2310.0,
+              2710.0
+            ],
+            "parameter_norm": 0.21643439502818837
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.018769670124042202,
+          "mean_fit_loss": 0.06140483172033176,
+          "mean_feature_loss": 0.00039592261646824147
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 476,
+          "arm": "cf_weighted",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "gradient",
+            "optimizer_steps": 8,
+            "group_reward_std": [],
+            "clip_fraction": [],
+            "optimization_losses": [
+              0.0003342621115651111,
+              0.0014368810974433935,
+              0.00018033987252068053,
+              -0.00017311081538423558,
+              0.0005028242355037214,
+              0.0003511287537156014,
+              -0.00017825382412552356,
+              -0.0001991211913148167
+            ],
+            "proposed_actions": [
+              -0.14421719752904216,
+              -0.14778980709459566,
+              -0.15298322732336753,
+              -0.14592505937732128,
+              -0.15217943264208095,
+              -0.15476020319125208,
+              -0.1554140135417758,
+              -0.1502994422141363
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.0002096365178524047,
+            "accepted": false,
+            "current_guard": true,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.9088284008762357,
+              1.8598588049764795
+            ],
+            "neutral_class_ce": [
+              1.909018468128397,
+              1.8602802546578245
+            ],
+            "historical_class_square_loss": [
+              0.5073096909674881,
+              0.49727713060093437,
+              0.7201986141476222,
+              0.20715791333286415,
+              0.5916057042610676,
+              0.1213899161501355
+            ],
+            "neutral_historical_loss": [
+              0.507104415691442,
+              0.49711953432703504,
+              0.7203006009847355,
+              0.20719807916166744,
+              0.59139796161054,
+              0.12139984049493602
+            ],
+            "class_effective_samples": [
+              2309.511825537334,
+              2709.473219362577
+            ],
+            "class_fit_n": [
+              2310.0,
+              2710.0
+            ],
+            "parameter_norm": 0.16123994940193176
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.015512524547018316,
+          "mean_fit_loss": 0.06602381786326433,
+          "mean_feature_loss": 0.00039782731748138895
+        }
+      ]
+    },
+    "cf_group": {
+      "STATUS": {
+        "steps": 476,
+        "elapsed_seconds": 1664.4749511131085,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 13259059712
+      },
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              4,
+              0
+            ],
+            "validation_n": 85,
+            "accuracy": 0.9764705882352941,
+            "balanced_accuracy": 0.975609756097561,
+            "tail_recall": 0.9512195121951219,
+            "per_class_recall": {
+              "4": 0.9512195121951219,
+              "0": 1.0
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44
+            }
+          },
+          {
+            "task": 2,
+            "seen": [
+              4,
+              0,
+              3,
+              7
+            ],
+            "validation_n": 149,
+            "accuracy": 0.7114093959731543,
+            "balanced_accuracy": 0.6897819660014782,
+            "tail_recall": 0.6488821138211383,
+            "per_class_recall": {
+              "4": 0.7560975609756098,
+              "0": 0.8863636363636364,
+              "3": 0.575,
+              "7": 0.5416666666666666
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24
+            }
+          },
+          {
+            "task": 3,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6
+            ],
+            "validation_n": 212,
+            "accuracy": 0.6320754716981132,
+            "balanced_accuracy": 0.6351195899976387,
+            "tail_recall": 0.612338475905549,
+            "per_class_recall": {
+              "4": 0.5365853658536586,
+              "0": 0.8863636363636364,
+              "3": 0.475,
+              "7": 0.5416666666666666,
+              "5": 0.4864864864864865,
+              "6": 0.8846153846153846
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26
+            }
+          },
+          {
+            "task": 4,
+            "seen": [
+              4,
+              0,
+              3,
+              7,
+              5,
+              6,
+              2,
+              1
+            ],
+            "validation_n": 295,
+            "accuracy": 0.5559322033898305,
+            "balanced_accuracy": 0.5650247847291856,
+            "tail_recall": 0.5829699305309062,
+            "per_class_recall": {
+              "4": 0.4878048780487805,
+              "0": 0.7272727272727273,
+              "3": 0.35,
+              "7": 0.5,
+              "5": 0.4594594594594595,
+              "6": 0.8846153846153846,
+              "2": 0.5434782608695652,
+              "1": 0.5675675675675675
+            },
+            "per_class_n": {
+              "4": 41,
+              "0": 44,
+              "3": 40,
+              "7": 24,
+              "5": 37,
+              "6": 26,
+              "2": 46,
+              "1": 37
+            }
+          }
+        ],
+        "average_incremental_balanced_accuracy": 0.7163840242064659,
+        "final_balanced_accuracy": 0.5650247847291856,
+        "final_tail_recall": 0.5829699305309062,
+        "forgetting": 0.17163926676121796,
+        "forgetting_classes": 6,
+        "test_accessed": false,
+        "independent_confirmation": false
+      },
+      "diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 138,
+          "arm": "cf_group",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.00018311053634463762,
+              0.00019476023760192542,
+              0.00010414508951825445,
+              0.00028364818824059765
+            ],
+            "clip_fraction": [
+              0.0,
+              0.75,
+              0.0,
+              0.75,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "optimization_losses": [
+              5.551115123125783e-17,
+              -0.003542859004149703,
+              0.01932622694009238,
+              0.18287888812470246,
+              0.049453915434574745,
+              0.034426841592593835,
+              0.042913961680521924,
+              0.009563281239560233
+            ],
+            "proposed_actions": [
+              -0.4147922583042475,
+              -0.43725945642213093,
+              -0.46412384541701673,
+              -0.46240638468178125,
+              -0.5395052665044616,
+              -0.5312406110073665,
+              -0.5442417374115242,
+              -0.549597988520201
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": -8.548134788668662e-06,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": true,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              0.46452221731687465,
+              0.4124198068117383
+            ],
+            "neutral_class_ce": [
+              0.46592814208035,
+              0.411023329970445
+            ],
+            "historical_class_square_loss": [],
+            "neutral_historical_loss": [],
+            "class_effective_samples": [
+              363.2732195420537,
+              8393.811606826155
+            ],
+            "class_fit_n": [
+              364.0,
+              8421.0
+            ],
+            "parameter_norm": 0.4599492578503832
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.012601104723707077,
+          "mean_fit_loss": 0.013813972502402697,
+          "mean_feature_loss": 3.8936816040866006e-05
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 276,
+          "arm": "cf_group",
+          "fit_n": 8785,
+          "meta_n": 2202,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.00014439027552849002,
+              0.00039968867986456757,
+              0.000273403104461676,
+              0.00035666460558701806
+            ],
+            "clip_fraction": [
+              0.0,
+              0.5,
+              0.0,
+              1.0,
+              0.0,
+              0.75,
+              0.0,
+              0.25
+            ],
+            "optimization_losses": [
+              0.04812372965971025,
+              -0.09476182919868925,
+              0.019504495646743045,
+              0.056169384059738967,
+              0.01096370744182256,
+              -0.035676920114786084,
+              0.0074698624090710685,
+              -0.06611380046105057
+            ],
+            "proposed_actions": [
+              0.0497832403161465,
+              -0.15444818014983644,
+              -0.12439028180933134,
+              -0.15240761443693776,
+              -0.13468534655975106,
+              -0.19890774382673437,
+              -0.19747073209746738,
+              -0.1629041881848812
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.00014402781725355823,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": true,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              0.4721333738829092,
+              0.4029053284912838
+            ],
+            "neutral_class_ce": [
+              0.47293923776676616,
+              0.4023897460492711
+            ],
+            "historical_class_square_loss": [],
+            "neutral_historical_loss": [],
+            "class_effective_samples": [
+              363.9651945829768,
+              8418.076443758415
+            ],
+            "class_fit_n": [
+              364.0,
+              8421.0
+            ],
+            "parameter_norm": 0.5705059593100594
+          },
+          "prototype_count": 8,
+          "shift_norm": 0.015216077537965262,
+          "mean_fit_loss": 0.012414782046241857,
+          "mean_feature_loss": 0.00013060041933583662
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 293,
+          "arm": "cf_group",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.0004571779688997745,
+              0.00015099067013365393,
+              0.00023711243277465684,
+              0.00025130822429843795
+            ],
+            "clip_fraction": [
+              0.0,
+              1.0,
+              0.0,
+              0.75,
+              0.0,
+              0.5,
+              0.0,
+              1.0
+            ],
+            "optimization_losses": [
+              1.3877787807814457e-17,
+              -0.11779511865178077,
+              0.005075466998721701,
+              -0.10859431483799324,
+              0.017715390361575607,
+              -0.06882652463874822,
+              0.03524658523848161,
+              -0.046635525296377635
+            ],
+            "proposed_actions": [
+              -0.6805112422348174,
+              -0.6505942098151256,
+              -0.6780855262367754,
+              -0.6717086446126157,
+              -0.5241896197652679
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": -0.000157065270467179,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.1955072307275127,
+              1.155435333630052
+            ],
+            "neutral_class_ce": [
+              1.1950299331125753,
+              1.1563953907519076
+            ],
+            "historical_class_square_loss": [
+              0.2537820228239981,
+              0.30319724832786965
+            ],
+            "neutral_historical_loss": [
+              0.2531929176815604,
+              0.3030171131498379
+            ],
+            "class_effective_samples": [
+              1053.3825903573772,
+              21.955511313820118
+            ],
+            "class_fit_n": [
+              1057.0,
+              22.0
+            ],
+            "parameter_norm": 0.7243822800086474
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.027260718580918674,
+          "mean_fit_loss": 0.04565706850380944,
+          "mean_feature_loss": 0.0005974675852271236
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 310,
+          "arm": "cf_group",
+          "fit_n": 1079,
+          "meta_n": 254,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.00039208204912276855,
+              8.056211764863864e-05,
+              0.00020177884242064413,
+              0.0001664172816123354
+            ],
+            "clip_fraction": [
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.75
+            ],
+            "optimization_losses": [
+              0.05229293079831757,
+              -0.12114783626914488,
+              0.029555598308796505,
+              -0.01081288218472018,
+              0.039391221518402735,
+              0.03970104117027717,
+              0.03663779970353204,
+              -0.0812855237409998
+            ],
+            "proposed_actions": [
+              -0.5001182154660196,
+              -0.44562234349147184,
+              -0.5011931943276294,
+              -0.4791379649855258,
+              -0.40574020661041554
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 1.0157354545774346e-05,
+            "accepted": false,
+            "current_guard": false,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.1858507527151114,
+              1.1541468045157586
+            ],
+            "neutral_class_ce": [
+              1.1855908179073322,
+              1.154837063662723
+            ],
+            "historical_class_square_loss": [
+              0.24122969279898443,
+              0.30238240548392703
+            ],
+            "neutral_historical_loss": [
+              0.24095877352603157,
+              0.3022587276674924
+            ],
+            "class_effective_samples": [
+              1055.0802656760413,
+              21.97293643556529
+            ],
+            "class_fit_n": [
+              1057.0,
+              22.0
+            ],
+            "parameter_norm": 0.599323084999495
+          },
+          "prototype_count": 13,
+          "shift_norm": 0.029882945956322123,
+          "mean_fit_loss": 0.05109202175693676,
+          "mean_feature_loss": 0.001043475078939296
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 314,
+          "arm": "cf_group",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.0006680313853200208,
+              0.0007518572335822542,
+              0.0003665415130168377,
+              0.0008675770647358273
+            ],
+            "clip_fraction": [
+              0.0,
+              0.75,
+              0.0,
+              0.5,
+              0.0,
+              0.75,
+              0.0,
+              0.75
+            ],
+            "optimization_losses": [
+              -5.551115123125783e-17,
+              -0.13880792200442776,
+              0.003110699299887697,
+              -0.1209620430746522,
+              0.011783017440799744,
+              0.10190899959629723,
+              0.022617594474619022,
+              -0.012063898682343307
+            ],
+            "proposed_actions": [
+              0.10857451182775896,
+              -0.14216052557950584,
+              0.05670662037076446,
+              0.002289930994482622,
+              0.08346531904309028,
+              -0.22532980289217228
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.00021189790840262117,
+            "accepted": false,
+            "current_guard": true,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.5928583877521245,
+              1.3863038024754082
+            ],
+            "neutral_class_ce": [
+              1.5929147985334633,
+              1.3866780388342683
+            ],
+            "historical_class_square_loss": [
+              0.3991395047160198,
+              0.3658180097596563,
+              0.6146190028361151,
+              0.1549587631277144
+            ],
+            "neutral_historical_loss": [
+              0.39921625590452803,
+              0.36582295145354937,
+              0.6146662415501725,
+              0.15494711571130348
+            ],
+            "class_effective_samples": [
+              203.99260861978559,
+              33.99423388213991
+            ],
+            "class_fit_n": [
+              204.0,
+              34.0
+            ],
+            "parameter_norm": 0.7739131951784961
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.012131185505209592,
+          "mean_fit_loss": 0.03881318212465833,
+          "mean_feature_loss": 7.016195195319597e-05
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 318,
+          "arm": "cf_group",
+          "fit_n": 238,
+          "meta_n": 62,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.0003024454418372613,
+              0.00020587517467725135,
+              0.0003707597007656407,
+              0.0005848514504550045
+            ],
+            "clip_fraction": [
+              0.0,
+              0.5,
+              0.0,
+              0.0,
+              0.0,
+              0.25,
+              0.0,
+              0.0
+            ],
+            "optimization_losses": [
+              0.027193913323604796,
+              0.05641206179179219,
+              0.04851532451200318,
+              0.003508764525853164,
+              0.04240951004827902,
+              -0.03887605280448816,
+              0.02763924898379783,
+              0.04149267541658185
+            ],
+            "proposed_actions": [
+              0.040898843045480804,
+              -0.288242363541933,
+              0.005562675887002923,
+              -0.06685945733187706,
+              0.21004682094977095,
+              -0.2546077828979949
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.00038204479876517255,
+            "accepted": false,
+            "current_guard": true,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.5879394148446886,
+              1.3829137308089336
+            ],
+            "neutral_class_ce": [
+              1.5879596928084112,
+              1.3836763817186324
+            ],
+            "historical_class_square_loss": [
+              0.39467542084753826,
+              0.3655874535087882,
+              0.614788129000637,
+              0.15440471234619224
+            ],
+            "neutral_historical_loss": [
+              0.39470071707152743,
+              0.365586937450355,
+              0.6148199167449276,
+              0.15437545134635866
+            ],
+            "class_effective_samples": [
+              203.9966589934978,
+              33.9735292975844
+            ],
+            "class_fit_n": [
+              204.0,
+              34.0
+            ],
+            "parameter_norm": 0.9941727979554917
+          },
+          "prototype_count": 19,
+          "shift_norm": 0.015063804045766073,
+          "mean_fit_loss": 0.03917696964915515,
+          "mean_feature_loss": 0.0002526228017813992
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 397,
+          "arm": "cf_group",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.0003001924145995516,
+              0.0001294178880209813,
+              0.00020959176191984668,
+              0.00017992813374546085
+            ],
+            "clip_fraction": [
+              0.0,
+              0.75,
+              0.0,
+              0.25,
+              0.0,
+              0.5,
+              0.0,
+              1.0
+            ],
+            "optimization_losses": [
+              5.551115123125783e-17,
+              -0.016012702792540343,
+              0.003975102532591258,
+              -0.08757840902686051,
+              0.009895135889692817,
+              -0.10816899043052501,
+              0.022899318976018306,
+              -0.12855736450158492
+            ],
+            "proposed_actions": [
+              -0.45545603647005567,
+              -0.4782257700870841,
+              -0.5073967982442982,
+              -0.5280511852275556,
+              -0.47734757458874305,
+              -0.5201479249428255,
+              -0.560566955783032,
+              -0.5127426268988551
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.0006091031241927147,
+            "accepted": false,
+            "current_guard": true,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.9259374275899954,
+              1.8703417053060198
+            ],
+            "neutral_class_ce": [
+              1.9265089631318326,
+              1.871667694519857
+            ],
+            "historical_class_square_loss": [
+              0.5156930878688425,
+              0.5044830818928903,
+              0.7186659336068355,
+              0.208828981862628,
+              0.5930300184609122,
+              0.12306253541589096
+            ],
+            "neutral_historical_loss": [
+              0.5149552544194504,
+              0.503928631343094,
+              0.7189754102323329,
+              0.2089435929167338,
+              0.5923485215607257,
+              0.1230794715688065
+            ],
+            "class_effective_samples": [
+              2305.038143353005,
+              2704.409378771621
+            ],
+            "class_fit_n": [
+              2310.0,
+              2710.0
+            ],
+            "parameter_norm": 0.8757057777707302
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.018769670124042202,
+          "mean_fit_loss": 0.06140483172033176,
+          "mean_feature_loss": 0.00039592261646824147
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 476,
+          "arm": "cf_group",
+          "fit_n": 5020,
+          "meta_n": 1078,
+          "controller": {
+            "mode": "group",
+            "optimizer_steps": 8,
+            "group_reward_std": [
+              0.00016375990471509492,
+              0.00015823032639097236,
+              7.346810943130841e-05,
+              5.445912673411812e-05
+            ],
+            "clip_fraction": [
+              0.0,
+              1.0,
+              0.0,
+              0.5,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "optimization_losses": [
+              0.04297566229547736,
+              -0.03212292949189831,
+              0.09002882651834569,
+              0.055941668249070486,
+              0.12379428874346327,
+              0.10362142261895733,
+              0.10707072398781742,
+              0.11763206574592096
+            ],
+            "proposed_actions": [
+              -0.6701937108296487,
+              -0.688992512673057,
+              -0.7009735760482081,
+              -0.7081079270980986,
+              -0.6838109656985196,
+              -0.7130319014035771,
+              -0.7365282114545577,
+              -0.7112118576327631
+            ],
+            "selected_actions": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "proposed_reward": 0.0008539613165847895,
+            "accepted": false,
+            "current_guard": true,
+            "old_moment_guard": false,
+            "effective_sample_guard": true,
+            "calibration_class_ce": [
+              1.9082260223991452,
+              1.8584944311863907
+            ],
+            "neutral_class_ce": [
+              1.909018468128397,
+              1.8602802546578245
+            ],
+            "historical_class_square_loss": [
+              0.5080348469838645,
+              0.49776692152531377,
+              0.7198327582358878,
+              0.20702368055599307,
+              0.5923100550976771,
+              0.12135052028701909
+            ],
+            "neutral_historical_loss": [
+              0.507104415691442,
+              0.49711953432703504,
+              0.7203006009847355,
+              0.20719807916166744,
+              0.59139796161054,
+              0.12139984049493602
+            ],
+            "class_effective_samples": [
+              2300.37836258871,
+              2699.8573413401277
+            ],
+            "class_fit_n": [
+              2310.0,
+              2710.0
+            ],
+            "parameter_norm": 0.9753598612929343
+          },
+          "prototype_count": 27,
+          "shift_norm": 0.015512524547018316,
+          "mean_fit_loss": 0.06602381786326433,
+          "mean_feature_loss": 0.00039782731748138895
+        }
+      ]
+    }
+  },
+  "queues": [
+    {
+      "phase": "1",
+      "queue": "q0",
+      "gpu": 0,
+      "status": "COMPLETE",
+      "elapsed_seconds": 3188.4943173108622
+    },
+    {
+      "phase": "1",
+      "queue": "q2",
+      "gpu": 2,
+      "status": "COMPLETE",
+      "elapsed_seconds": 1973.5091210240498
+    },
+    {
+      "phase": "2",
+      "queue": "q0",
+      "gpu": 0,
+      "status": "COMPLETE",
+      "elapsed_seconds": 1935.2802239409648
+    },
+    {
+      "phase": "2",
+      "queue": "q2",
+      "gpu": 2,
+      "status": "COMPLETE",
+      "elapsed_seconds": 1935.0614591264166
+    },
+    {
+      "phase": "3",
+      "queue": "q0",
+      "gpu": 0,
+      "status": "COMPLETE",
+      "elapsed_seconds": 1969.468169269152
+    },
+    {
+      "phase": "EF1",
+      "queue": "q0",
+      "gpu": 0,
+      "status": "COMPLETE",
+      "elapsed_seconds": 3931.314204186201
+    },
+    {
+      "phase": "EF1",
+      "queue": "q2",
+      "gpu": 2,
+      "status": "COMPLETE",
+      "elapsed_seconds": 3931.520664727781
+    },
+    {
+      "phase": "GATE1",
+      "queue": "q0",
+      "gpu": 0,
+      "status": "COMPLETE",
+      "elapsed_seconds": 1954.3064523963258
+    },
+    {
+      "phase": "DPA1",
+      "queue": "q0",
+      "gpu": 0,
+      "status": "COMPLETE",
+      "elapsed_seconds": 3388.9995593382046
+    },
+    {
+      "phase": "DPA1",
+      "queue": "q2",
+      "gpu": 2,
+      "status": "COMPLETE",
+      "elapsed_seconds": 3388.8065769160166
+    }
+  ],
+  "budget": {
+    "at": 1791306557.8980355,
+    "gpu_seconds_used": 29101.47093052417,
+    "gpu_seconds_reserved": 0,
+    "admission_gpu_seconds": 939.0285327830352,
+    "diagnostic_gpu_seconds": 565.6816495051607,
+    "formal_slots": 15,
+    "admission_steps": 40,
+    "deadline": 1791364441.9107835
+  },
+  "source_commit": "f0687433046e04d53f33ecac2968e17ca66c533b",
+  "success_screening": {
+    "candidate": "cf_group",
+    "control": "cf_linear",
+    "final_ba_gain_min": 0.01,
+    "tail_recall_loss_max": 0.005,
+    "forgetting_increase_max": 0.01,
+    "independent_confirmation": false
+  },
+  "screening": {
+    "ba_gain": -0.0031249999999999334,
+    "tail_change": 0.0,
+    "forgetting_change": 0.004166666666666652,
+    "passed": false
+  }
+}

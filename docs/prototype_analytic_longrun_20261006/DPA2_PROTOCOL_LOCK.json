@@ -1,0 +1,69 @@
+{
+  "phase": "DPA2",
+  "arms": [
+    "cf_group_min"
+  ],
+  "seed": 74002,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "increment": 2,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "max_steps": 600,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "fd_weight": 10.0,
+  "fit_group_fraction": 0.8,
+  "meta_group_fraction": 0.2,
+  "actor_steps_per_epoch": 8,
+  "group_size": 4,
+  "group_blocks": 4,
+  "group_update_steps": 2,
+  "actor_lr": 0.05,
+  "sigma": 0.5,
+  "clip": [
+    0.8,
+    1.2
+  ],
+  "reference_kl": 0.01,
+  "weight_kl": 0.01,
+  "guard_tolerance": 1e-08,
+  "ess_fraction": 0.5,
+  "preflight_max_seconds": 300,
+  "preflight_optimizer_steps": 0,
+  "queue_max_seconds": 7200,
+  "queue_groups": [
+    [
+      "cf_group_min"
+    ]
+  ],
+  "formal_attempts_before": 15,
+  "formal_attempts_after": 16,
+  "admission_steps_used": 40,
+  "deadline": 1791364441.9107835,
+  "automatic_retry": false,
+  "automatic_followup": false,
+  "test_accessed": false,
+  "independent_confirmation": false,
+  "followup_scope": "User-authorized bounded evidence-driven continuation; at most one remaining formal slot; no reset of old limits",
+  "success_screening": {
+    "candidate": "cf_group_min",
+    "control": "cf_linear",
+    "final_ba_gain_min": 0.01,
+    "tail_recall_loss_max": 0.005,
+    "forgetting_increase_max": 0.01,
+    "independent_confirmation": false
+  },
+  "reward_aggregation": "minimum over each current CE improvement and each historical square-loss improvement",
+  "control_source": "DPA1 cf_linear and cf_group, f0687433046e04d53f33ecac2968e17ca66c533b"
+}

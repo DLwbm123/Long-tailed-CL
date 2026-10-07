@@ -1,0 +1,113 @@
+{
+  "source_commit": "c72353d5a487f6a6cb5c23eecde54c124d60a9c4",
+  "protocol_sha256": "07347c3f8c204ee72994a44cccea7c5e64dac8a99c86f536acbd71f7a56ec1e0",
+  "weight_sha256": "c401d219603ac3e20b6373c7b198c78d3a733f80b755d148bda3bc320ae69800",
+  "split_sha256": "5fbce4d7a8a3da4be0d6cb83bc74251d07350b6deb3b97d0d72e32e00c19464c",
+  "manifest_sha256": {
+    "train": "6c9113aaac70a3d0c976177d28d54fbaa3f0138f0fa74715c225014de6ee8abd",
+    "val": "f485459bb5636ef85bf5c023d3c8c7b988df2e51cdada25967e1888ab7581956"
+  },
+  "started": 1791342892.5381782,
+  "deadline": 1791429292.5381782,
+  "gpu_seconds_limit": 28800,
+  "formal_limit": 9,
+  "gpu_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "gamma": 0,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "fd": 10,
+  "batch_size": 64,
+  "epochs": 2,
+  "learning_rates": [
+    0.0003,
+    0.000155
+  ],
+  "weight_decay": 0.01,
+  "gradient_clip": 5,
+  "train_seed": 74002,
+  "order0": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "order1": [
+    4,
+    0,
+    5,
+    6,
+    2,
+    1,
+    3,
+    7
+  ],
+  "selection_order": [
+    "F",
+    "U",
+    "CB",
+    "UCB"
+  ],
+  "steps": {
+    "R": [
+      276,
+      34,
+      8,
+      158
+    ],
+    "F": [
+      276,
+      0,
+      0,
+      0
+    ],
+    "U": [
+      276,
+      66,
+      66,
+      68
+    ],
+    "CB": [
+      276,
+      34,
+      8,
+      158
+    ],
+    "UCB": [
+      276,
+      66,
+      66,
+      68
+    ]
+  },
+  "screening": {
+    "ba_min": 0.01,
+    "tail_min": -0.005,
+    "forgetting_max": 0.01
+  },
+  "rng": {
+    "seed": 74002,
+    "additional_seed": 74003,
+    "python": true,
+    "numpy": true,
+    "torch_cpu": true,
+    "torch_cuda": true,
+    "loader_generator": "seed+task*2003",
+    "augmentation": "seed+task*100003 + (block+cycle*1000)*1000003 + fit_index",
+    "restore_full_prefix_state": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "matmul_allow_tf32": false
+  },
+  "test_sealed": true,
+  "new_cycle_authorized_by": "\u7528\u6237\u660e\u786e\u8981\u6c42\u5728\u53ef\u7528 GPU \u4e0a\u6267\u884c\u672c\u534f\u8bae",
+  "prior_cycle_sealed": true
+}

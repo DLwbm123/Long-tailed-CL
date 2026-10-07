@@ -1,0 +1,132 @@
+{
+  "source_commit": "c72353d5a487f6a6cb5c23eecde54c124d60a9c4",
+  "historical_source_commit": "18491d2d2803c48be211e2f4cafdae6e8ed25263",
+  "source_files": {
+    "next1_support.py": "65e6891ec34ba22a9e1f373d00a4666f592a0a75f40fa9f490cafffb0ff55723",
+    "run_next1_cycle.py": "da023c61267cb46379bd4a64e4b25615e0cfd3109f12ff202b95e8bffc22868b",
+    "run_next1.py": "7828370e1f26c7160a6acd7472c0e6923a7eb4779eb12fe2ca4830a2934d8657",
+    "evaluate_next1.py": "97d869b10c648effd1963bc9550e8ef5dd6801d9de1ccfd722bb148a6cb584d3"
+  },
+  "python": "3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]",
+  "torch": "2.1.2+cu121",
+  "torchvision": "0.16.2+cu121",
+  "numpy": "1.26.4",
+  "timm": "1.0.15",
+  "cuda": "12.1",
+  "cudnn": 8902,
+  "weight_sha256": "c401d219603ac3e20b6373c7b198c78d3a733f80b755d148bda3bc320ae69800",
+  "split": {
+    "blocks": [
+      {
+        "task": 1,
+        "fit_n": 8785,
+        "meta_n": 2202
+      },
+      {
+        "task": 2,
+        "fit_n": 1079,
+        "meta_n": 254
+      },
+      {
+        "task": 3,
+        "fit_n": 238,
+        "meta_n": 62
+      },
+      {
+        "task": 4,
+        "fit_n": 5020,
+        "meta_n": 1078
+      }
+    ],
+    "sha256": "5fbce4d7a8a3da4be0d6cb83bc74251d07350b6deb3b97d0d72e32e00c19464c"
+  },
+  "protocol_sha256": "07347c3f8c204ee72994a44cccea7c5e64dac8a99c86f536acbd71f7a56ec1e0",
+  "manifest_sha256": {
+    "train": "6c9113aaac70a3d0c976177d28d54fbaa3f0138f0fa74715c225014de6ee8abd",
+    "val": "f485459bb5636ef85bf5c023d3c8c7b988df2e51cdada25967e1888ab7581956"
+  },
+  "class_mapping": {
+    "4": 0,
+    "0": 1,
+    "3": 2,
+    "7": 3,
+    "5": 4,
+    "6": 5,
+    "2": 6,
+    "1": 7
+  },
+  "counts": {
+    "train": 18718,
+    "val": 295,
+    "fit": 15122,
+    "meta": 3596
+  },
+  "historical": {
+    "A": {
+      "stages": 4,
+      "steps": 476,
+      "validation_n": 295,
+      "test_accessed": false
+    },
+    "B": {
+      "stages": 4,
+      "steps": 476,
+      "validation_n": 295,
+      "test_accessed": false
+    },
+    "C": {
+      "stages": 4,
+      "steps": 476,
+      "validation_n": 295,
+      "test_accessed": false
+    },
+    "D": {
+      "stages": 4,
+      "steps": 476,
+      "validation_n": 295,
+      "test_accessed": false
+    },
+    "E": {
+      "stages": 4,
+      "steps": 476,
+      "validation_n": 295,
+      "test_accessed": false
+    }
+  },
+  "rng": {
+    "seed": 74002,
+    "additional_seed": 74003,
+    "python": true,
+    "numpy": true,
+    "torch_cpu": true,
+    "torch_cuda": true,
+    "loader_generator": "seed+task*2003",
+    "augmentation": "seed+task*100003 + (block+cycle*1000)*1000003 + fit_index",
+    "restore_full_prefix_state": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "matmul_allow_tf32": false
+  },
+  "storage": {
+    "filesystem": "verified existing NFS",
+    "free_bytes": 386793516040192,
+    "cycle_cap_bytes": 34359738368
+  },
+  "cpu": {
+    "status": "PASS",
+    "elapsed_seconds": 3.105223787948489,
+    "optimizer_updates": 0,
+    "checks": [
+      "native closed-form/proximal envelope oracles",
+      "class-balanced FD scale",
+      "native first-cycle ordering",
+      "fixed block steps and learning rates",
+      "new reproducible real augmentation cycles",
+      "augmentation RNG preserved",
+      "full synthetic model parameters/buffers and RNG restore",
+      "confusion/masked denominators"
+    ]
+  },
+  "test_accessed": false,
+  "no_optimizer_updates_preflight": true
+}

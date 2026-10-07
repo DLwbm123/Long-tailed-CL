@@ -1,0 +1,40 @@
+{
+  "cpu_checks": {
+    "status": "PASS",
+    "cpu_core_seconds": 1.7944468889999996,
+    "checks": [
+      "seven bounded distinct actions",
+      "action zero exact identity",
+      "explicit non-row-normalized Hessian oracle",
+      "margin variance versus explicit samples",
+      "reward sign and zero identity",
+      "finite clipped policy update",
+      "warmed Adam parameters buffers and RNG exact two-step replay"
+    ],
+    "scientific_model_optimizer_updates": 0,
+    "toy_cpu_optimizer_updates": 5,
+    "test_accessed": false
+  },
+  "torch": "2.1.2+cu121",
+  "python": "3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]",
+  "runtime_snapshot": "CORE1 source_rev2 tools at 694cccbb2edc862a91cf94ef927d1d43a75afb1f",
+  "runtime_overrides": [
+    "pcrl_control.py",
+    "run_pcrl.py",
+    "run_pcrl_cycle.py",
+    "check_pcrl.py",
+    "run_core1_cycle.py"
+  ],
+  "shared_prefix": "NEXT1 main_prefix stage_1",
+  "shared_prefix_independent_repeat": false,
+  "split": "existing NEXT1 identity group fit/meta",
+  "storage_probe": "PASS",
+  "filesystem": "nfs4",
+  "gpus": [
+    "0, NVIDIA A100-PCIE-40GB, 40445 MiB",
+    "1, NVIDIA A100-PCIE-40GB, 40445 MiB",
+    "2, NVIDIA A100-PCIE-40GB, 40445 MiB",
+    "3, NVIDIA A100-PCIE-40GB, 40445 MiB"
+  ],
+  "test_accessed": false
+}

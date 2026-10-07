@@ -1,0 +1,77 @@
+{
+  "cpu": {
+    "exit_code": 0,
+    "stdout": "PASS: explicit-sample Hessian oracle, old moment identity, native reduction, Woodbury consistency, envelope gradient\nPASS: historical-only explicit Hessian, full/mean moments, active rows, no-history reduction, Woodbury, zero direct pair gradient, envelope gradient\n",
+    "stderr": "",
+    "wall_seconds": 5.9224357842467725,
+    "cpu_core_seconds": 4.164993999999999,
+    "gpu_seconds": 0,
+    "optimizer_updates": 0
+  },
+  "native": {
+    "PC_history": {
+      "status": "PASS",
+      "encoder_dim": 1536,
+      "feature_norm_min": 0.9999999403953552,
+      "feature_norm_max": 1.0,
+      "gradient_norm": 0.035969771444797516,
+      "loss": 0.18025055758115194,
+      "optimizer_updates": 0,
+      "finite_head": true,
+      "batch_n": 64,
+      "reward_probe": null,
+      "competition": {
+        "beta": 0.5,
+        "mode": "PC_history",
+        "class_order": [
+          4,
+          0,
+          3,
+          7
+        ],
+        "weights": [
+          [
+            0.0,
+            0.2791354864967839,
+            0.42487827132314293,
+            0.2959862421800732
+          ],
+          [
+            0.283496828442364,
+            0.0,
+            0.40556050541401817,
+            0.3109426661436178
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "entry_solve": {
+          "iterations": 8,
+          "relative_residual": 3.3708147827794517e-10
+        },
+        "solves": [
+          {
+            "iterations": 7,
+            "relative_residual": 4.196900414613336e-10
+          }
+        ],
+        "mean_pair_loss": 0.0,
+        "scope": "historical_only",
+        "historical_count": 2
+      },
+      "pair_loss": 0.02448198590815212,
+      "native_fd": 0.0,
+      "balanced_fd": 0.0
+    }
+  }
+}

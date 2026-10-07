@@ -1,0 +1,109 @@
+{
+  "source_commit": "5a9b215d013e806ba7bf77df174f5d57d11b093a",
+  "input_public_commit": "eb20af2aab37a4b775d94bd610af91b337f5b1a4",
+  "input_training_source_commit": "c72353d5a487f6a6cb5c23eecde54c124d60a9c4",
+  "source_files": {
+    "next2h_heads.py": "a36a0d55af38def97f0491ad8f18b6457defbb401a1bdb385871651cf74e7c5d",
+    "evaluate_next2h.py": "c036750ae2f0e2f717679ab6beee14029cd08d2eba9c9c2bf9c0909ce6e29fb6",
+    "run_next2h.py": "87720d60afc490b01a2fe4fad836be2b7ac93ac71a1f2e7b0ce4fe6df35b28f8"
+  },
+  "protocol_sha256": "889be784fd109eebb8d0068763db19e730192260c19b832ffcd444d67dfc55d2",
+  "started": 1791355829.9867165,
+  "deadline": 1791377429.9867165,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "seed": 74002,
+  "tail": [
+    4,
+    7,
+    5,
+    6
+  ],
+  "class_validation_n": [
+    41,
+    44,
+    40,
+    24,
+    37,
+    26,
+    46,
+    37
+  ],
+  "feature_dim": 1536,
+  "neural_updates": 0,
+  "backward_calls": 0,
+  "formal_readout_limit": 3,
+  "candidates": [
+    "C1",
+    "C2"
+  ],
+  "selection_order": [
+    "C1",
+    "C2"
+  ],
+  "C0": {
+    "gamma": 0,
+    "ridge": 0.001,
+    "proximal_at_boundary": 0,
+    "precision": "FP64 solve then FP32"
+  },
+  "C1": {
+    "metric": "Euclidean",
+    "normalize_means": false,
+    "bias": "-.5*norm(mu)^2",
+    "uniform_prior": true
+  },
+  "C2": {
+    "class_balanced": true,
+    "rho": 0.1,
+    "epsilon": 1e-06,
+    "tau_floor": 1e-12,
+    "precision": "FP64 Cholesky then FP32",
+    "eigenvalue_clipping": false,
+    "pseudoinverse": false
+  },
+  "tolerances": {
+    "residual": 1e-08,
+    "head_atol": 1e-06,
+    "head_rtol": 1e-05,
+    "PSD_relative": 1e-08,
+    "prediction_agreement": 1.0
+  },
+  "screen": {
+    "BA_min": 0.01,
+    "tail_min": -0.005,
+    "forgetting_max": 0.01,
+    "new_min": -0.01,
+    "reference": "R-ref"
+  },
+  "bootstrap": {
+    "draws": 2000,
+    "seed": 74102,
+    "min_valid": 1900,
+    "unit": "whole identity group",
+    "confidence": 0.95,
+    "replenish": false
+  },
+  "limits": {
+    "gpu_seconds": 7200,
+    "cpu_core_seconds": 28800,
+    "cpu_threads": 4,
+    "wall_seconds": 21600,
+    "persistent_bytes": 1073741824
+  },
+  "no_automatic_retry": true,
+  "no_monitoring": true,
+  "test_sealed": true,
+  "new_cycle_authorized": true,
+  "baseline_mismatch": "BLOCKED_BASELINE",
+  "missing_input": "BLOCKED_INPUT",
+  "budget_stop": "INCOMPLETE_BUDGET"
+}

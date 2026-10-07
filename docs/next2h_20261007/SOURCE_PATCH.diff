@@ -1,0 +1,664 @@
+diff --git a/docs/next2h_20261007/PROTOCOL_ZH.md b/docs/next2h_20261007/PROTOCOL_ZH.md
+new file mode 100644
+index 0000000..0ed2e21
+--- /dev/null
++++ b/docs/next2h_20261007/PROTOCOL_ZH.md
+@@ -0,0 +1,243 @@
++执行授权：用户在本会话明确要求“你直接启动”，现授权按本文执行NEXT2-H，仅A+B范围与固定资源上限，不授权自动追加训练或监测。输入文件的PROPOSED历史状态由运行锁与最终状态更新。
++
++# NEXT2-H：冻结表示下的分类头与跨类竞争隔离
++
++状态：PROPOSED / 未执行。本文是实验计划，不构成启动训练、评价、监测或远端写入的授权。NEXT1 保持 COMPLETE_NEGATIVE；新周期账目独立，历史账目不重置。
++
++## 1. 决策摘要
++
++本轮仅复用 NEXT1 的冻结 Task1 编码器 F、已保存的逐阶段类统计量，以及既有 R/F checkpoint 和开发验证结果。新增神经网络参数更新为 0，不重跑 Task1，不读取旧训练图像，不回放旧逐样本训练特征。
++
++先做实现与归因审计，再固定比较三个完整读出轨迹：F-C0（原生 cf_linear）、F-C1（欧氏 NCM）、F-C2（类平衡固定收缩共享协方差 LDA）。其中只有 C1、C2 是新候选。R 是冻结的外部性能参照，不新增训练。
++
++目标不是证明“掩码高，所以偏置校准一定有效”，而是检验：在相同冻结表示与同一统计 bank 下，改变全已见类读出规则是否改善最终 BA，且不以明显牺牲尾类、保持或新类学习为代价。
++
++本轮即使通过，也只产生 READY_FOR_REPLICATION，不自动追加训练、换 seed、换顺序、跑 Hyper-Kvasir 或访问 test。
++
++## 2. 依据与已知边界
++
++公开代码 tools/run_next1.py 的 cpu_bank 与 checkpoint 保存逻辑包含 bank.mu、bank.Q、bank.n、model、head 和 seen。tools/prototype_coherent.py 的 append 表明 mu 是类内权重和为 1 的均值，Q 是相同权重下的非中心二阶矩，不是协方差，也不是未经归一化的总和。NEXT1 的 actions=0，对应类内均匀权重。
++
++公开代码证明“保存逻辑存在”，不证明私有 checkpoint 现在仍可读取或与该代码完全一致。文件级哈希、内容和完整性必须在执行环境预检中核验。不得编造私有路径，不得从公开汇总数字反推或伪造统计量。
++
++既有 F/R 的任务掩码结果可作为动机，但掩码使用真实任务信息，只是固定分数下缩小候选集的诊断；不能作为部署结果，也不是任意分类器的普遍性能上界。旧候选集内变化与新增候选竞争的分解是条件于当前打分器的记账，不是对真实表示遗忘的完整因果识别。
++
++## 3. 固定范围
++
++| 项目 | 锁定值 |
++|---|---|
++| 交付提交 | eb20af2aab37a4b775d94bd610af91b337f5b1a4 |
++| NEXT1 记录的运行源码提交 | c72353d5a487f6a6cb5c23eecde54c124d60a9c4；核对补丁与文件哈希 |
++| 数据集 | ISIC；原训练清单 18,718，官方开发验证 295 |
++| 原 fit/meta | 15,122 / 3,596；不重划分、不重拟合统计 |
++| 顺序 | [4,0] → [3,7] → [5,6] → [2,1] |
++| 原训练 seed | 74002；不生成新训练 seed |
++| 尾类定义 | 固定原类号 {4,7,5,6} |
++| 阶段验证分母 | 85、149、212、295 |
++| 最终逐类分母 | 4:41，0:44，3:40，7:24，5:37，6:26，2:46，1:37 |
++| 特征维度 | 预期 1536，以实物 checkpoint/编码器核验 |
++| 特征与预处理 | 完全复用 NEXT1 的输出、归一化、eval 状态、图像预处理与确定性设置 |
++| 共享前缀 | 三个 F 读出轨迹及 R 都保留原 T1 cf_linear 预测和成绩；只从 T2 改读出 |
++| 神经训练 | 新增 0 optimizer.step；不创建训练器或优化器，不反向传播 |
++| 新分类器拟合输入 | 仅对应 stage_t 的 F bank 与 seen 类列表 |
++| test | 不加载图像、不读取标签、不做特征提取 |
++
++F 在本轮继承历史 T1 的 276 次更新，故不能把整条方法宣传为“从零无训练”；准确说法是“本轮新增神经更新为 0，Task1 后使用免梯度读出”。
++
++meta 历史上已在任务末参与拟合；它不是独立验证集。不得再次将其用作分类器、温度、偏置、收缩强度或 checkpoint 的选择数据。官方 val 是反复使用的开发集，下面所有结果均是开发筛选，不是独立确认。
++
++## 4. 执行顺序与数据隔离
++
++依次执行：
++
++PROTOCOL_LOCKED → INPUT_AUDIT → C0_RECONSTRUCTION_PASS → HEADS_READY → EVALUATION_UNLOCKED → REPORT → STOP。
++
++所有参数、臂定义、评价指标、选择顺序、数值容差、资源上限和缺失数据处置在读取新候选 val 分数前落盘。既有 R/F 分数的固定归因审计可以先做，但不得据此改动本协议中的候选和超参数。
++
++读取每个 F stage_t 的独立 bank，不用最终 bank 回填早期阶段。检查旧类 mu/Q/n 在 F 的后续阶段保持一致，且完整编码器参数和缓冲区哈希恒等。新增类别只在所属任务到达时进入头。
++
++C1/C2 的 T2—T4 所有头均拟合、序列化、哈希冻结后，统一开放新候选评价。不得看完一个候选再改另一个，不按中间 val 早停或选阶段。
++
++新候选需要验证特征 z，仅有历史 logits 不能代替特征。优先复用有合法来源和顺序校验的验证特征；没有时，在只读评价进程用同一 F 编码器对官方 295 张 val 统一提取一次，供所有 F 读出共享，再按各阶段 seen 筛选。所有头在此之前已经冻结；验证特征不得回流拟合、估计均值/协方差、做 PCA 或 transductive normalization。
++
++R 优先复用 NEXT1 已有逐阶段分数。缺失时只允许用对应既有 R checkpoint 做一次预先预算内重评分，不新增训练。若原始 checkpoint 或必要的私有输入缺失，记录 BLOCKED_INPUT，不以新的训练补齐。
++
++## 5. 阶段 A：实现一致性与归因审计
++
++### A0. 输入及闭式头审计
++
++检查四阶段 F checkpoint 的 model/head/bank/seen、原类号与 seen 列映射、数据清单和预处理哈希。逐样本配对需要私有样本键或可证明一致的清单行顺序；不能仅凭标签数组相同就认定样本已对齐。
++
++设 K 为已见类别数，d 为特征维度，mu_c 与 Q_c 来自当前 stage bank。原生 cf_linear 在任务边界的精确形式为：
++
++A = (sum_c Q_c) / K + 0.001 I
++B = [mu_1, ..., mu_K] / K
++W = solve(A, B)
++s(z) = z^T W
++
++这里 Q 已经按类内样本权重归一化。不能再除 n_c，不能改成按 n_c 池化，也不能省略 1/K 却保留相同 ridge。任务边界不加入训练批内使用的 proximal 0.01；gamma 固定为 0。
++
++复用原生 FP64 求解路径，并按原代码转为 FP32 头进行部署评分。预检先完成不需要新验证特征的参数/数值一致性检查；若没有缓存验证特征，逐样本预测一致性检查延后至全部新头冻结且统一特征提取完成之后，并且必须先于 C1/C2 效果评价通过。拟合残差 ||AW-B||_F / max(||B||_F, 1e-12) 应 ≤ 1e-8；重构头与原存储 FP32 头比较采用 atol=1e-6、rtol=1e-5。同一缓存特征上的原头与 C0 预测必须完全一致，并逐阶段核对原 R/F 指标及分母。
++
++如果重提取特征导致与历史预测不一致，必须先区分样本对齐、预处理、状态恢复和浮点近并列差异。候选评价暂停；不反复重跑追逐历史数字、不自动放宽容差、不将差异默认为随机波动。不能确认基线有效时终止为 BLOCKED_BASELINE。
++
++### A1. 旧类退化分解
++
++对每次转换 t=2,3,4，令 O_t 为此前已见类。在同一批旧类验证样本、同一类别集合上，逐类记录：
++
++r_prev(c)：t-1 模型在 O_t 上的召回。
++r_restricted(c)：t 模型分数仅保留 O_t 后的召回。
++r_all(c)：t 模型在全部已见类上的召回。
++
++D_internal(t) = mean_{c in O_t}[r_prev(c) - r_restricted(c)]
++D_competition(t) = mean_{c in O_t}[r_restricted(c) - r_all(c)]
++D_total(t) = D_internal(t) + D_competition(t)
++
++以 pp 输出，保留负 D_internal，不截断。掩码保持原 seen 列顺序和一致 tie-breaking；同一打分器下的 D_competition 不应为负。
++
++对新类同时计算当前新类候选集内召回与全已见类召回之间的差。每个方向输出混淆分组、正确数、分母和类宏平均；不能用整体准确率代替 BA。
++
++F 的 D_internal 可用于描述固定表示下的读出变化。R 的该项同时包含表示、统计搬运和分类头变化，不命名为“纯表示遗忘”。此分解与 max(previous)-final 标准遗忘不同，必须分开报告。
++
++对 C1，T2 同时发生 cf_linear→NCM 的切换，不能把该次 D_internal 都解释为新增类的影响。T3/T4 才检查 NCM 在固定旧类均值下的旧类内部排序不变性。即使此排序不变，新增类仍可夺走旧样本，故不宣称“零遗忘”。
++
++## 6. 阶段 B：固定三个读出轨迹
++
++| 臂 | T1 | T2—T4 | 是否新候选 |
++|---|---|---|---|
++| F-C0 | 原 cf_linear | 原 cf_linear 重构 | 否，匹配参照 |
++| F-C1 | 原 cf_linear | 欧氏最近类均值 NCM | 是 |
++| F-C2 | 原 cf_linear | 类平衡固定收缩共享协方差 LDA | 是 |
++
++R-ref 是既有持续适配 cf_linear 轨迹，只作性能比较，不在本轮重训。
++
++### C1：欧氏 NCM
++
++s_c(z) = z^T mu_c - 0.5 ||mu_c||^2
++
++等价于 argmin_c ||z-mu_c||^2。沿用原 encoder 输出的逐样本归一化，但不把 mu_c 再归一化，不转成 cosine-NCM，不增加类别先验、温度或任务偏置。
++
++C0 与 C1 同时改变了度量/头的构造与类别偏置形式。若 C1 更好，只能说“读出形式改变有效”，不能仅据此断言共享逆矩阵或无偏置头就是唯一根因。
++
++### C2：类平衡收缩 LDA
++
++Q_c 是非中心矩，因此先计算：
++
++C = (1/K) sum_c (Q_c - mu_c mu_c^T)
++C = (C + C^T) / 2
++tau = max(trace(C)/d, 1e-12)
++Sigma = 0.9 C + (0.1 + 1e-6) tau I
++
++每类等权；本轮使用二阶中心矩形式，不添加 n/(n-1) 校正，也不按 n_c 对类协方差加权。固定收缩 rho=0.1，1e-6 项为预先规定的数值稳定项。0.1 是本次预注册的工程选择，不声称是最优值或由 NEXT1 效果推得；不扫描 0.01/0.05/0.2 等变体。
++
++v_c = solve(Sigma, mu_c)
++b_c = -0.5 mu_c^T v_c
++s_c(z) = z^T v_c + b_c
++
++使用均匀类先验。共享协方差的 log-determinant 对所有类相同，评分中无需加入。实现使用 FP64 Cholesky/线性求解，不显式求逆，头和偏置转 FP32 后与 C0/C1 采用相同推理精度。
++
++不引入类特异协方差、FeCAM 的额外变换、Tukey、PCA、原型搬运、图模块、伪特征采样、融合或校准集拟合。本臂是受共享协方差判别启发的机制基线，不是完整 FeCAM/SLDA 复现，也不是新方法创新结论。
++
++### 合成测试与异常处置
++
++只在合成 CPU 数据上做：原生 ridge 求解重构、NCM 线性分数与直接距离等价、C2 在各向同性协方差下与 NCM 预测等价、标签/seen 列置换一致、矩汇总一次性与顺序累计一致、固定旧均值的 NCM 旧类两两分数差不变、掩码分解恒等式。
++
++实物输入检查有限值、维度、正计数、类质量定义、对称性和协方差数值半正定性。允许数值舍入造成的微小负特征值：lambda_min(C) >= -1e-8 * max(||C||_2, 1e-12)；超过即判统计异常。若固定 Sigma 的 Cholesky 失败，标记 NUMERICAL_FAILURE，停止该臂，不提高 shrinkage 自动重试，不临时切换伪逆或裁剪特征值。
++
++候选数值失败占用该候选名额；其他已锁定臂若输入没有共同异常可照原协议完成。共同 bank 或 C0 异常则全部停止。
++
++## 7. 指标、筛选与停止规则
++
++### 必须完整输出的指标
++
++每阶段全已见类 BA、总体准确率、逐类正确数/分母/召回、固定尾类在已见类中的宏召回、完整混淆矩阵；最终 BA、平均阶段 BA、最终尾类宏召回、最终旧六类宏召回、最终新两类宏召回；逐类首次召回、历史最高召回、最终召回、first-minus-final 和标准遗忘；A1 的旧类及新类竞争分解。
++
++标准遗忘为前 3 阶段可估计的六类 max(previous)-final 宏平均，保留负值，不截零；最终任务两类为 NA，不填 0。T1 使用同一原生 cf_linear 结果，避免通过回填不同的起始分数改变遗忘基准。
++
++### 开发初筛
++
++每个新候选同时与 R-ref 和 F-C0 报告差值。是否晋级必须相对 R-ref 判断，不能仅胜过 F。
++
++继承 NEXT1 三项门槛：
++
++- 最终 BA 差值 ≥ +1.0pp。
++- 最终尾类宏召回差值 ≥ -0.5pp。
++- 标准遗忘差值 ≤ +1.0pp。
++
++新增一个事先固定的塑性保护条件：最终 T4 两个新类宏召回差值 ≥ -1.0pp，防止以明显牺牲新类来换取较低遗忘。最终旧六类宏召回仍必须完整报告，但不临时追加新的挑选门槛。
++
++若历史 R 被精确复核，其数值参照为 BA=56.8149784729%，尾类=58.2969930531%，遗忘=16.7472600095pp，T4 新类宏召回=55.5522914219%。因此对应门槛约为 BA≥57.815%、尾类≥57.797%、遗忘≤17.747pp、新类宏召回≥54.552%。正式判断使用原始精度差值，不使用表格四舍五入后的数值。
++
++若两候选都通过，按预先固定 C1→C2 的简洁性优先顺序只选一个；不是先看哪个 BA 最高。C1 未过、C2 通过才选 C2。若无候选通过，COMPLETE_NEGATIVE，不追加偏置、温度、收缩强度、C1/C2 融合或改 FD。
++
++### 描述性不确定性
++
++私有身份组字段完整时，做 2000 次配对身份组 bootstrap，seed=74102。每次对 G 个身份组有放回抽取 G 个，整组进入；同一组权重用于所有臂、全部阶段。每次重算 BA、尾类及包含历史 max 的遗忘。
++
++某次抽样缺失必要类别则记该次无效，不无限补抽；有效次数少于 1900 时该指标区间记 NA。身份信息不可用时不假称做了组级 bootstrap；报告 NA 和原因，不静默改为独立样本检验。
++
++区间只描述当前开发样本的条件不确定性，不包含新训练 seed 或新数据分布的不确定性，不消除重复使用 val 的选择偏差，不作为独立确认或新增调参依据。
++
++## 8. 为什么本轮不做“换后续顺序”的确认
++
++在同一个冻结 Task1 编码器下，三种头只依赖当前已见类的固定均值/二阶矩及确定性规则。拥有相同最终已见类时，最终读出在精确算术下与 T2—T4 到达次序无关；浮点误差和 tie-breaking 另作工程核验。
++
++因此，仅排列 T2—T4 的任务顺序不能当作新的最终性能独立重复。它可改变阶段路径与标准遗忘，但不会自动提供新的最终 BA 证据。复用同一前缀、缓存或 bootstrap 都不能宣称“多 seed 确认”。
++
++通过当前开发筛选后，下一周期才另立含独立 Task1 seed/匹配 R 和未参与开发的评价设计；不得沿用本轮资源余额自动启动。本协议不授权那一周期。
++
++## 9. 资源上限
++
++| 资源 | 本轮上限 |
++|---|---:|
++| 新增神经训练轨迹/更新 | 0 / 0 |
++| 正式读出轨迹 | 3：C0、C1、C2 |
++| 新候选 | 2 |
++| 数据集/原训练 seed/类别顺序 | 1 / 1 / 1 |
++| GPU 累计驻留 | 2 GPU 小时 |
++| CPU | 并行最多 4 线程，累计最多 8 核时 |
++| 授权启动后的墙钟上限 | 6 小时；启动时落盘绝对截止时间 |
++| 新增持久化（含备份） | 1 GiB，并受项目现行总配额约束 |
++| 自动重试/额外调参/自动追加 | 0 / 0 / 0 |
++
++以上是停止上限，不是耗时预测。初始化、输入审计、模型/特征加载、特征提取、求解、评价、失败和已分配 GPU 的等待驻留都计入费用；多 GPU 时按实际分配设备驻留求和。未分配 GPU 的排队仅计墙钟。默认共享一次 F 验证特征提取，不为占满 GPU 复制同一工作。
++
++按 d=1536、K=8、FP64 计算，一份完整 Q 约 144 MiB；复用原始只读 bank，不复制整套编码器 checkpoint。新头、bias、必要评价缓存、日志及备份均计存储；不能删除历史结果腾配额。任一上限到达即 INCOMPLETE_BUDGET，不能把未完成当科学负结果。
++
++## 10. 拟实现接口与交付物
++
++以下是待新增接口，不代表仓库已有脚本：
++
++- tools/next2h_heads.py：validate_bank、build_cf_head、build_ncm_head、build_cblda_head、score。
++- tools/run_next2h.py：协议/预算/输入审计、对应阶段只读加载、三个读出轨迹生成、统一评价门控。
++- tools/evaluate_next2h.py：样本键对齐、全类/掩码评价、分解、配对表及描述性 bootstrap。
++- tests/test_next2h.py：第 6 节合成测试；不得依赖私有图像或 val。
++
++公开交付至少包含 PROTOCOL_ZH.md、PROTOCOL_LOCK.json、INPUT_AUDIT.json、HEAD_EQUIVALENCE.json、STAGE_METRICS.csv、CLASS_DIAGNOSTICS.csv、TRANSITION_DECOMPOSITION.csv、MAIN_SCREEN.json、BUDGET_LEDGER.json、REPORT_ZH.md 与最终状态。
++
++公开代码和聚合统计；私有路径、身份键、逐样本特征/分数、checkpoint 和原始日志不上传 GitHub。共享前缀、缓存复用、是否重评分、可用 bootstrap 次数和未完成原因都明确记录。
++
++最终状态只能按事实使用：BLOCKED_INPUT / BLOCKED_BASELINE / INCOMPLETE_BUDGET / COMPLETE_NEGATIVE / READY_FOR_REPLICATION。READY_FOR_REPLICATION 不是 COMPLETE_POSITIVE，也不是独立泛化确认。
++
++## 11. 可交给执行代理的提示词
++
++请将本文件作为 NEXT2-H 的冻结实验协议。当前任务仅为规划/实现准备，除非用户另外明确授权执行，不启动真实数据评价、训练、小时监测或远端发布。
++
++以仓库 DLwbm123/Long-tailed-CL 的提交 eb20af2aab37a4b775d94bd610af91b337f5b1a4 为公开输入，核对 NEXT1 记录的运行源码、协议与文件哈希，定位真实私有 checkpoint，不假造路径。只复用 NEXT1 的 F/R 和对应阶段统计；新增神经更新为 0，不读旧训练图像、不回放训练特征、不接触 test。
++
++先检查 bank.mu/Q/n、类别映射、编码器哈希和 C0 精确重构。Q 是类内归一化非中心二阶矩；原头是 (mean(Q)+0.001I)W=mu.T/K，不能漏掉类别平均、重复除样本数或加入 proximal。共同输入或基线失败立即停止。
++
++只允许 F-C0/F-C1/F-C2 三个读出轨迹。T1 沿用共同 cf_linear 预测，从 T2 切换。严格采用第 6 节 NCM 与 rho=0.1 的 CB-LDA 公式，不做 sweep 或自动数值重试。先冻结全部候选头和配置，再统一评价。
++
++用第 5、7 节的相同样本、固定类别集合完成全类/掩码分解和指标，配对按身份或可信清单键对齐。相对 R 满足原三门槛及新类 -1pp 保护条件才可晋级；两者同时通过按 C1→C2 选一个。历史重复使用的 val 与 meta 不称独立确认。
++
++执行获授权后仅覆盖本文件 A+B，预算遵守第 9 节。无候选通过则 COMPLETE_NEGATIVE；通过仅 READY_FOR_REPLICATION。均停止，不追加 seed、顺序、数据集、训练或监测。公开脱敏代码与聚合报告，私有样本信息留在私有环境。
++
++## 12. 依据索引
++
++1. NEXT1 报告：docs/next1_20261007/REPORT_ZH.md，提交 eb20af2aab37a4b775d94bd610af91b337f5b1a4。
++2. NEXT1 配置与环境：同目录 PROTOCOL_LOCK.json、SOURCE_ENV_AUDIT.json、PREFLIGHT.json。
++3. 统计/头定义：tools/prototype_coherent.py 的 append、head、translate；同一交付提交。
++4. 保存与评价路径：tools/run_next1.py、tools/evaluate_next1.py；同一交付提交。
++5. Hayes & Kanan, Lifelong Machine Learning with Deep Streaming Linear Discriminant Analysis, arXiv:1909.01520。用于已有冻结特征+判别读出思路的定位，不提供本协议 rho=0.1 的最优性保证。
++6. Goswami et al., FeCAM: Exploiting the Heterogeneity of Class Distributions in Exemplar-Free Continual Learning, NeurIPS 2023, arXiv:2309.14062。用于协方差度量的相关工作定位；本协议不是完整 FeCAM 复现。
+diff --git a/tests/test_next2h.py b/tests/test_next2h.py
+new file mode 100644
+index 0000000..6a09469
+--- /dev/null
++++ b/tests/test_next2h.py
+@@ -0,0 +1,6 @@
++"""CPU-only synthetic protocol checks; no private inputs."""
++import sys
++from pathlib import Path
++sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
++from next2h_heads import self_check
++if __name__=='__main__':self_check()
+diff --git a/tools/evaluate_next2h.py b/tools/evaluate_next2h.py
+new file mode 100644
+index 0000000..ecb0d68
+--- /dev/null
++++ b/tools/evaluate_next2h.py
+@@ -0,0 +1,92 @@
++"""Aggregate scoring, fixed-set transition accounting and paired group bootstrap."""
++import numpy as np
++from next1_support import summarize
++
++ORDER=[4,0,3,7,5,6,2,1]
++TAIL={4,7,5,6}
++
++
++def evaluate(stages,labels):
++    reports=[];learning={}
++    for task,scores in enumerate(stages,1):
++        seen=ORDER[:2*task];mask=np.isin(labels,seen);y=labels[mask];p=np.asarray(seen)[scores.argmax(1)]
++        recalls={str(c):float((p[y==c]==c).mean()) for c in seen}
++        reports.append(dict(task=task,seen=seen,validation_n=len(y),accuracy=float((p==y).mean()),
++            balanced_accuracy=float(np.mean(list(recalls.values()))),per_class_recall=recalls,
++            per_class_n={str(c):int((y==c).sum()) for c in seen},tail_recall=float(np.mean([recalls[str(c)] for c in seen if c in TAIL])),
++            score_diagnostics=summarize(scores,y,seen)))
++    for c in ORDER:
++        available=[r for r in reports if str(c) in r['per_class_recall']];v=[r['per_class_recall'][str(c)] for r in available]
++        learning[str(c)]=dict(first_task=available[0]['task'],first_recall=v[0],historical_max_recall=max(v),final_recall=v[-1],
++            first_minus_final=v[0]-v[-1],standard_forgetting=max(v[:-1])-v[-1] if len(v)>1 else None)
++    final=reports[-1]['per_class_recall'];forgetting=np.mean([learning[str(c)]['standard_forgetting'] for c in ORDER[:6]])
++    return dict(stages=reports,class_learning=learning,final_balanced_accuracy=reports[-1]['balanced_accuracy'],
++        average_incremental_balanced_accuracy=float(np.mean([r['balanced_accuracy'] for r in reports])),
++        final_tail_recall=reports[-1]['tail_recall'],forgetting=float(forgetting),
++        final_old_recall=float(np.mean([final[str(c)] for c in ORDER[:6]])),
++        final_new_recall=float(np.mean([final[str(c)] for c in ORDER[6:]])),test_accessed=False,independent_confirmation=False)
++
++
++def transitions(stages,labels):
++    rows=[]
++    for task in (2,3,4):
++        old=ORDER[:2*(task-1)];seen=ORDER[:2*task];new=seen[-2:]
++        prev=stages[task-2];now=stages[task-1];yp=labels[np.isin(labels,old)];yn=labels[np.isin(labels,seen)]
++        previous=np.asarray(old)[prev.argmax(1)];all_prediction=np.asarray(seen)[now.argmax(1)]
++        restricted_old=np.asarray(old)[now[:,:len(old)].argmax(1)]
++        restricted_new=np.asarray(new)[now[:,len(old):].argmax(1)]
++        values=[]
++        for c in old:
++            a=int((previous[yp==c]==c).sum());b=int((restricted_old[yn==c]==c).sum());d=int((all_prediction[yn==c]==c).sum());n=int((yn==c).sum())
++            row=dict(task=task,class_id=c,group='old',n=n,previous_correct=a,restricted_correct=b,all_correct=d,
++                D_internal=(a-b)/n,D_competition=(b-d)/n,D_total=(a-d)/n)
++            assert row['D_competition']>=0;values.append(row);rows.append(row)
++        rows.append(dict(task=task,class_id='macro',group='old',n=sum(v['n'] for v in values),
++            previous_correct=sum(v['previous_correct'] for v in values),restricted_correct=sum(v['restricted_correct'] for v in values),all_correct=sum(v['all_correct'] for v in values),
++            **{key:float(np.mean([v[key] for v in values])) for key in ('D_internal','D_competition','D_total')}))
++        for c in new:
++            n=int((yn==c).sum());a=int((restricted_new[yn==c]==c).sum());b=int((all_prediction[yn==c]==c).sum())
++            rows.append(dict(task=task,class_id=c,group='new',n=n,previous_correct=None,restricted_correct=a,all_correct=b,
++                D_internal=None,D_competition=(a-b)/n,D_total=None))
++        selected=[v for v in rows if v['task']==task and v['group']=='new']
++        rows.append(dict(task=task,class_id='macro',group='new',n=sum(v['n'] for v in selected),previous_correct=None,
++            restricted_correct=sum(v['restricted_correct'] for v in selected),all_correct=sum(v['all_correct'] for v in selected),D_internal=None,
++            D_competition=float(np.mean([v['D_competition'] for v in selected])),D_total=None))
++    return rows
++
++
++def differences(a,b):
++    keys=['final_balanced_accuracy','final_tail_recall','forgetting','final_new_recall','final_old_recall']
++    d={k:a[k]-b[k] for k in keys}
++    d['passed']=d[keys[0]]>=.01 and d[keys[1]]>=-.005 and d[keys[2]]<=.01 and d[keys[3]]>=-.01
++    return d
++
++
++def bootstrap(scores,labels,groups,budget):
++    if len(groups)!=len(labels) or any(not g for g in groups):return dict(status='NA',reason='Missing identity groups')
++    unique=sorted(set(groups));codes=np.asarray([unique.index(g) for g in groups]);rng=np.random.default_rng(74102)
++    values={name:[] for name in scores};invalid=0
++    truth=np.asarray([ORDER.index(int(c)) for c in labels]);masks=[truth<2*t for t in (1,2,3,4)]
++    predictions={a:[s.argmax(1) for s in stages] for a,stages in scores.items()}
++    for iteration in range(2000):
++        if iteration%25==0:budget()
++        weights=np.bincount(rng.integers(len(unique),size=len(unique)),minlength=len(unique))[codes]
++        denominator=np.bincount(truth,weights,minlength=8)
++        if (denominator==0).any():invalid+=1;continue
++        for arm,pred in predictions.items():
++            recalls=np.full((4,8),np.nan)
++            for i,mask in enumerate(masks):
++                correct=pred[i]==truth[mask];numerator=np.bincount(truth[mask],weights[mask]*correct,minlength=8)
++                recalls[i,:2*(i+1)]=numerator[:2*(i+1)]/denominator[:2*(i+1)]
++            final=recalls[-1];values[arm].append([final.mean(),final[[0,3,4,5]].mean(),
++                (np.nanmax(recalls[:3,:6],axis=0)-final[:6]).mean(),final[6:].mean(),final[:6].mean()])
++    keys=['final_balanced_accuracy','final_tail_recall','forgetting','final_new_recall','final_old_recall']
++    def intervals(a):
++        return {key:dict(valid_replicates=len(a),low=float(np.quantile(a[:,i],.025)),high=float(np.quantile(a[:,i],.975)))
++            if len(a)>=1900 else dict(valid_replicates=len(a),low=None,high=None,reason='Fewer than1900 valid draws') for i,key in enumerate(keys)}
++    arrays={a:np.asarray(v).reshape(-1,5) for a,v in values.items()}
++    return dict(status='COMPLETE',draws=2000,invalid_draws=invalid,seed=74102,identity_groups=len(unique),
++        confidence=.95,absolute={a:intervals(v) for a,v in arrays.items()},
++        versus_R={a:intervals(v-arrays['R']) for a,v in arrays.items() if a!='R'},
++        versus_C0={a:intervals(v-arrays['C0']) for a,v in arrays.items() if a not in ('R','C0')},
++        independent_confirmation=False,conditional_development_uncertainty_only=True)
+diff --git a/tools/next2h_heads.py b/tools/next2h_heads.py
+new file mode 100644
+index 0000000..55b288b
+--- /dev/null
++++ b/tools/next2h_heads.py
+@@ -0,0 +1,67 @@
++"""Fixed NEXT2-H heads from class-normalized moments; no neural training."""
++import torch
++import prototype_coherent as native
++
++
++def validate_bank(bank):
++    mu,Q=bank['mu'].double(),bank['Q'].double();k,d=mu.shape
++    if Q.shape!=(k,d,d) or len(bank['n'])!=k or any(n<=0 for n in bank['n']):raise ValueError('Invalid bank dimensions/counts')
++    if not torch.isfinite(mu).all() or not torch.isfinite(Q).all():raise ValueError('Nonfinite bank')
++    scale=max(float(Q.norm()),1e-12)
++    if float((Q-Q.transpose(1,2)).norm())>1e-8*scale:raise ValueError('Asymmetric second moments')
++    covariance=(Q-mu[:,:,None]*mu[:,None,:]).mean(0)
++    covariance=(covariance+covariance.T)/2
++    eigenvalues=torch.linalg.eigvalsh(covariance);spectral=max(float(eigenvalues.abs().max()),1e-12)
++    if float(eigenvalues.min()) < -1e-8*spectral:raise ValueError('Non-PSD class-balanced covariance')
++    return covariance,dict(classes=k,dim=d,counts=bank['n'],covariance_min_eigenvalue=float(eigenvalues.min()),covariance_spectral_norm=spectral)
++
++
++def build_cf_head(bank):
++    W,_=native.head(bank,strength=0.);k=len(bank['n']);d=bank['mu'].shape[1]
++    A=bank['Q'].sum(0)/k+.001*torch.eye(d,dtype=torch.float64);B=bank['mu'].T/k
++    residual=float((A@W-B).norm()/B.norm().clamp_min(1e-12))
++    if residual>1e-8:raise ValueError('C0 solve residual exceeds fixed tolerance')
++    return dict(weight=W.float(),bias=torch.zeros(k),residual=residual)
++
++
++def build_ncm_head(bank):
++    mu=bank['mu'].double()
++    return dict(weight=mu.T.float(),bias=(-.5*mu.square().sum(1)).float())
++
++
++def build_cblda_head(bank,covariance):
++    d=covariance.shape[0];tau=max(float(covariance.trace()/d),1e-12)
++    sigma=.9*covariance+(.1+1e-6)*tau*torch.eye(d,dtype=torch.float64)
++    chol=torch.linalg.cholesky(sigma)
++    V=torch.cholesky_solve(bank['mu'].double().T,chol)
++    if not torch.isfinite(V).all():raise ValueError('Nonfinite C2 head')
++    return dict(weight=V.float(),bias=(-.5*(bank['mu'].T*V).sum(0)).float(),tau=tau,rho=.1)
++
++
++def score(z,head):return z@head['weight'].numpy()+head['bias'].numpy()
++
++
++def self_check():
++    torch.manual_seed(74101);x=torch.randn(24,5,dtype=torch.float64);y=torch.arange(3).repeat_interleave(8)
++    mu=torch.stack([x[y==c].mean(0) for c in range(3)])
++    Q=torch.stack([x[y==c].T@x[y==c]/8 for c in range(3)])
++    bank=dict(mu=mu,Q=Q,n=[8]*3,components=[]);C,_=validate_bank(bank);h=build_cf_head(bank)
++    expected=torch.linalg.solve(Q.mean(0)+.001*torch.eye(5,dtype=torch.float64),mu.T/3)
++    assert torch.allclose(h['weight'].double(),expected,atol=1e-6,rtol=1e-5)
++    z=torch.randn(9,5,dtype=torch.float64);ncm=z@mu.T-.5*mu.square().sum(1)
++    distances=-(z[:,None,:]-mu[None]).square().sum(2)/2
++    assert torch.equal(ncm.argmax(1),distances.argmax(1))
++    iso=dict(mu=mu,Q=torch.stack([torch.outer(v,v)+2*torch.eye(5,dtype=torch.float64) for v in mu]),n=[8]*3,components=[])
++    C,_=validate_bank(iso);lda=build_cblda_head(iso,C)
++    assert torch.equal((z.float()@lda['weight']+lda['bias']).argmax(1),ncm.argmax(1))
++    permutation=torch.tensor([2,0,1]);permuted=dict(mu=mu[permutation],Q=Q[permutation],n=[8]*3,components=[])
++    hp=build_cf_head(permuted);assert torch.allclose(hp['weight'],h['weight'][:,permutation])
++    for c in range(3):
++        a=x[y==c][:4];b=x[y==c][4:]
++        assert torch.allclose((a.sum(0)+b.sum(0))/8,mu[c])
++        assert torch.allclose((a.T@a+b.T@b)/8,Q[c])
++    old=ncm[:,:2];expanded=torch.cat([old,ncm[:,2:]],1)
++    assert torch.equal(old[:,0]-old[:,1],expanded[:,0]-expanded[:,1])
++    previous=torch.tensor([.8,.7]);restricted=torch.tensor([.9,.6]);all_recall=torch.tensor([.5,.4])
++    assert torch.allclose((previous-all_recall).mean(),(previous-restricted).mean()+(restricted-all_recall).mean())
++    print('PASS: ridge/NCM/isotropic LDA, class permutation, sequential moments, NCM internal order, decomposition')
+diff --git a/tools/run_next2h.py b/tools/run_next2h.py
+new file mode 100644
+index 0000000..0e73dc9
+--- /dev/null
++++ b/tools/run_next2h.py
+@@ -0,0 +1,226 @@
++"""NEXT2-H bounded readout-only cycle. Private configuration on stdin."""
++import csv
++import hashlib
++import json
++import os
++from pathlib import Path
++import resource
++import signal
++import subprocess
++import sys
++import time
++
++START_CPU=time.process_time()
++import numpy as np
++import torch
++from next1_support import digest_file,state_digest
++from run_prototype_single import save,manifests
++from next2h_heads import validate_bank,build_cf_head,build_ncm_head,build_cblda_head,score,self_check
++from evaluate_next2h import ORDER,evaluate,transitions,differences,bootstrap
++
++
++def feature_extract(c):
++    from run_multilabel import ApartFeatures
++    from run_prototype_single import Images,extract
++    from torch.utils.data import DataLoader
++    start=time.monotonic();torch.set_num_threads(3);seed=74002;torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
++    encoder=ApartFeatures(c['legacy_repo'],c['weight'],8,'cuda:0',seed)
++    state=torch.load(c['f_prefix'],map_location='cpu',weights_only=False);encoder.load_state_dict(state['model'],strict=True);encoder.eval()
++    del state
++    from run_medical_v2 import transform
++    _,val=manifests(c)
++    ds=Images(val,c['images'],transform(False),seed+400012)
++    loader=DataLoader(ds,batch_size=64,shuffle=False,num_workers=0,generator=torch.Generator().manual_seed(seed+8012))
++    def limit():
++        if time.monotonic()-start>=590:raise TimeoutError('Feature extraction residence cap')
++    with torch.inference_mode():z,y=extract(encoder,loader,limit)
++    np.savez_compressed(c['features_output'],features=z,labels=y)
++    save(Path(c['feature_receipt']),dict(optimizer_updates=0,backward_calls=0,validation_n=len(y),
++        feature_dim=z.shape[1],peak_gpu_bytes=torch.cuda.max_memory_allocated(),elapsed_seconds=time.monotonic()-start))
++
++
++def run(c):
++    root=Path(c['root']);public=root/'public';started=c['started'];deadline=c['deadline'];gpu_elapsed=0.;active=None;formal=[];phase='PROTOCOL_LOCKED';metrics={};heads={};failure={}
++    def ledger():
++        child=resource.getrusage(resource.RUSAGE_CHILDREN);cpu=time.process_time()-START_CPU+child.ru_utime+child.ru_stime
++        if active is not None and active.poll() is None:
++            try:
++                stat=Path('/proc/'+str(active.pid)+'/stat').read_text().split();cpu+=(int(stat[13])+int(stat[14]))/os.sysconf('SC_CLK_TCK')
++            except FileNotFoundError:pass
++        size=sum(p.stat().st_size for p in root.rglob('*') if p.is_file() and not p.is_symlink())
++        gpu=gpu_elapsed+(time.time()-c['gpu_started'] if active is not None else 0.)
++        return dict(started=started,deadline=deadline,wall_seconds=time.time()-started,gpu_seconds=gpu,gpu_seconds_limit=7200,
++            cpu_seconds=cpu,cpu_core_hours=cpu/3600,cpu_core_seconds_limit=28800,max_cpu_threads=4,
++            persistent_bytes=size,persistent_bytes_limit=1024**3,formal_readouts=formal,readout_limit=3,new_candidates=2,
++            neural_updates=0,backward_calls=0,phase=phase,feature_extractions=int(gpu>0),gpu_reserved_seconds=max(0,600-(time.time()-c['gpu_started'])) if active is not None else 0.)
++    def budget():
++        x=ledger();save(public/'BUDGET_LEDGER.json',x)
++        if time.time()>=deadline or x['gpu_seconds']>=7200 or x['cpu_seconds']>=28800 or x['persistent_bytes']>=1024**3:raise RuntimeError('INCOMPLETE_BUDGET')
++    def state(status='RUNNING',**kw):
++        budget();save(root/'PROGRAM_STATE.json',dict(status=status,phase=phase,publication_verified=False,neural_updates=0,test_accessed=False,**kw))
++    def hashed(path):
++        budget();v=digest_file(path);budget();return v
++    def table(name,rows):
++        if not rows:return
++        keys=list(dict.fromkeys(k for r in rows for k in r))
++        with (public/name).open('w') as f:
++            w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(rows)
++    try:
++        torch.set_num_threads(4);state();self_check();phase='INPUT_AUDIT';state()
++        old=Path(c['next1_root']);base=c['base'];train,val=manifests(base)
++        assert len(train)==18718 and len(val)==295
++        old_env=json.loads((old/'public/SOURCE_ENV_AUDIT.json').read_text());assert old_env['source_commit']=='c72353d5a487f6a6cb5c23eecde54c124d60a9c4'
++        for filename,expected in old_env['source_files'].items():assert hashed(old/'source/tools'/filename)==expected
++        for part in ('train','val'):assert hashed(Path(base['manifest'])/(part+'.csv'))==old_env['manifest_sha256'][part]
++        assert hashed(base['weight'])==old_env['weight_sha256']
++        assert hashed(old/'split.private.json')==old_env['split']['sha256']
++        label_array=np.asarray([r['label'] for r in val]);groups=[r['identity_component'] for r in val]
++        assert len(set(r['relative_path'] for r in val))==295
++        previous=None;encoder_hash=None;inputs=[];cached={};file_hashes={};c0_checks=[];covariances={}
++        old_results=json.loads((old/'public/RESULTS.json').read_text())['records']
++        for arm in ('R','F'):
++            cfg=json.loads((old/('eval_main_'+arm+'.private.json')).read_text());assert cfg['seed']==74002 and cfg['order']==ORDER
++            assert Path(cfg['manifest'])==Path(base['manifest']) and Path(cfg['models'][arm])==old/('main_'+arm)
++            cached[arm]=[]
++            for task in range(1,5):
++                path=old/('main_'+arm)/f'stage_{task}.pt';resolved=path.resolve()
++                if str(resolved) not in file_hashes:file_hashes[str(resolved)]=hashed(resolved)
++                data=np.load(old/('eval_main_'+arm)/(arm+f'_stage_{task}.private.npz'))
++                rows=np.isin(label_array,ORDER[:2*task]);assert np.array_equal(data['labels'],label_array[rows])
++                assert data['scores'].shape==(int(rows.sum()),2*task)
++                assert np.array_equal(data['prediction'],np.asarray(ORDER[:2*task])[data['scores'].argmax(1)])
++                cached[arm].append(data['scores'].copy());data.close()
++                if arm=='R':continue
++                state_value=torch.load(path,map_location='cpu',weights_only=False)
++                assert state_value['seen']==ORDER[:2*task] and state_value['steps']==276
++                model_hash=state_digest(state_value['model']);encoder_hash=encoder_hash or model_hash;assert model_hash==encoder_hash
++                bank=state_value['bank'];assert bank['mu'].shape==(2*task,1536)
++                C,audit=validate_bank(bank)
++                for i,n in enumerate(bank['n']):
++                    assert n==sum(r['label']==ORDER[i] for r in train)
++                    mass=sum(float(comp['mass']) for comp in bank['components'] if comp['label']==i);assert abs(mass-1)<1e-8
++                    assert abs(float(bank['Q'][i].trace())-1)<1e-5
++                if previous:
++                    n=len(previous['n']);assert torch.equal(bank['mu'][:n],previous['mu']) and torch.equal(bank['Q'][:n],previous['Q']) and bank['n'][:n]==previous['n']
++                previous={k:bank[k] for k in ('mu','Q','n')}
++                h=build_cf_head(bank);assert torch.allclose(h['weight'],state_value['head'],atol=1e-6,rtol=1e-5)
++                c0_checks.append(dict(task=task,residual=h['residual'],head_max_absolute_difference=float((h['weight']-state_value['head']).abs().max()),parameter_equivalence=True))
++                covariances[task]=C
++                head=h if task>1 else dict(weight=state_value['head'],bias=torch.zeros(2))
++                heads.setdefault('C0',[]).append(head)
++                directory=root/'heads_C0';directory.mkdir(exist_ok=True);torch.save(head,directory/f'stage_{task}.pt')
++                if task==1:
++                    for name in ('C1','C2'):
++                        heads[name]=[dict(weight=state_value['head'],bias=torch.zeros(2))]
++                        directory=root/('heads_'+name);directory.mkdir(exist_ok=True);torch.save(heads[name][0],directory/'stage_1.pt')
++                inputs.append(dict(task=task,seen=state_value['seen'],encoder_sha256=model_hash,checkpoint_sha256=file_hashes[str(resolved)],**audit))
++                del state_value,bank,C
++        for arm in ('R','F'):
++            reconstructed=evaluate(cached[arm],label_array);expected=old_results['main_'+arm]['metrics']
++            for a,b in zip(reconstructed['stages'],expected['stages']):assert a['per_class_recall']==b['per_class_recall'] and a['per_class_n']==b['per_class_n']
++        save(public/'INPUT_AUDIT.json',dict(status='PASS',frozen_model=True,old_moments_unchanged=True,stages=inputs,
++            checkpoint_hashes=list(file_hashes.values()),weight_sha256=old_env['weight_sha256'],manifest_sha256=old_env['manifest_sha256'],split_sha256=old_env['split']['sha256'],
++            trusted_sample_alignment=dict(source_evaluator_sha256=old_env['source_files']['evaluate_next1.py'],
++                manifest_rows_unique=True,manifest_hash_verified=True,evaluation_configs_verified=True,
++                deterministic_unshuffled_manifest_order=True,cached_labels_match_manifest_subsets=True),
++            preprocessing_source_sha256=hashed(Path(base['legacy_repo'])/'tools/run_medical_v2.py'),
++            synthetic_tests='PASS',neural_updates=0,test_accessed=False))
++        phase='C0_RECONSTRUCTION_PASS';state();save(public/'HEAD_EQUIVALENCE.json',dict(parameter_checks=c0_checks,prediction_check='PENDING_FROZEN_HEAD_FEATURE_EXTRACTION'))
++        for task in (2,3,4):
++            budget();state_value=torch.load(old/'main_F'/f'stage_{task}.pt',map_location='cpu',weights_only=False);bank=state_value['bank']
++            for name in ('C1','C2'):
++                if name in failure:continue
++                try:head=build_ncm_head(bank) if name=='C1' else build_cblda_head(bank,covariances[task])
++                except (torch.linalg.LinAlgError,ValueError):failure[name]='NUMERICAL_FAILURE';continue
++                heads[name].append(head);torch.save(head,root/('heads_'+name)/f'stage_{task}.pt')
++            del state_value,bank
++        formal.extend(['C0','C1','C2']);head_hashes={name:{f'stage_{t}':hashed(root/('heads_'+name)/f'stage_{t}.pt') for t in range(1,len(values)+1)} for name,values in heads.items()}
++        save(public/'HEADS_FROZEN.json',dict(head_hashes=head_hashes,failures=failure,freeze_time=time.time(),rho=.1,numerical_epsilon=1e-6))
++        phase='HEADS_READY';state()
++        available=subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.free','--format=csv,noheader,nounits'],text=True)
++        gpus=[int(line.split(',')[0]) for line in available.splitlines() if int(line.split(',')[1])>=16000]
++        if not gpus:raise RuntimeError('BLOCKED_INPUT: no GPU with sufficient memory')
++        gpu=min(gpus);config=dict(base,f_prefix=str(old/'main_F/stage_1.pt'),features_output=str(root/'features.private.npz'),feature_receipt=str(root/'feature_receipt.json'))
++        save(root/'feature.private.json',config);torch.set_num_threads(1)
++        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),OMP_NUM_THREADS='3',MKL_NUM_THREADS='3',OPENBLAS_NUM_THREADS='3',Q97_MODE='features',Q97_SOURCE=str(root/'source/tools'))
++        c['gpu_started']=time.time()
++        with (root/'feature.private.json').open('rb') as inp,(root/'feature.private.log').open('wb') as log:
++            active=subprocess.Popen([c['python'],'/tmp/q97w.py'],stdin=inp,stdout=log,stderr=subprocess.STDOUT,env=env,start_new_session=True)
++        save(root/'FEATURE_PROCESS.json',dict(pid=active.pid,gpu=gpu,started=c['gpu_started']))
++        while active.poll() is None:
++            budget()
++            if time.time()-c['gpu_started']>=598:raise RuntimeError('INCOMPLETE_BUDGET: feature residence cap')
++            time.sleep(1)
++        code=active.returncode;gpu_elapsed=time.time()-c['gpu_started'];active=None;torch.set_num_threads(4)
++        if code:raise RuntimeError('BLOCKED_INPUT: feature worker failure')
++        data=np.load(root/'features.private.npz');z=data['features'];assert np.array_equal(data['labels'],label_array) and z.shape==(295,1536)
++        assert np.isfinite(z).all();data.close();prediction_checks=[];new_scores={}
++        for task in range(1,5):
++            mask=np.isin(label_array,ORDER[:2*task]);sample=z[mask]
++            # Original stored and reconstructed heads must agree on the same features.
++            state_value=torch.load(old/'main_F'/f'stage_{task}.pt',map_location='cpu',weights_only=False)
++            original=sample@state_value['head'].numpy();reconstructed=score(sample,heads['C0'][task-1])
++            if not np.array_equal(original.argmax(1),reconstructed.argmax(1)) or not np.array_equal(original.argmax(1),cached['F'][task-1].argmax(1)):
++                raise RuntimeError('BLOCKED_BASELINE: reconstructed or historical F predictions differ')
++            prediction_checks.append(dict(task=task,n=len(sample),reconstructed_prediction_agreement=1.,historical_prediction_agreement=1.,
++                historical_score_max_difference=float(np.abs(original-cached['F'][task-1]).max())))
++            del state_value
++        save(public/'HEAD_EQUIVALENCE.json',dict(parameter_checks=c0_checks,prediction_checks=prediction_checks,status='PASS'))
++        phase='EVALUATION_UNLOCKED';state()
++        for name,values in heads.items():
++            if name in failure:continue
++            new_scores[name]=[cached['F'][0]]+[score(z[np.isin(label_array,ORDER[:2*t])],values[t-1]) for t in (2,3,4)]
++        new_scores['R']=cached['R'];metrics={name:evaluate(value,label_array) for name,value in new_scores.items()}
++        decompositions={name:transitions(value,label_array) for name,value in new_scores.items()}
++        for name,values in new_scores.items():
++            for task,value in enumerate(values,1):np.savez_compressed(root/(name+f'_stage_{task}.private.npz'),scores=value,labels=label_array[np.isin(label_array,ORDER[:2*task])])
++        comparisons={name:dict(versus_R=differences(metrics[name],metrics['R']),versus_C0=differences(metrics[name],metrics['C0'])) for name in ('C1','C2') if name in metrics}
++        selected=next((name for name in ('C1','C2') if name in comparisons and comparisons[name]['versus_R']['passed']),None)
++        uncertainty=bootstrap(new_scores,label_array,groups,budget);save(public/'BOOTSTRAP.json',uncertainty)
++        status='READY_FOR_REPLICATION' if selected else 'COMPLETE_NEGATIVE'
++        save(public/'MAIN_SCREEN.json',dict(comparisons=comparisons,selected_candidate=selected,status=status,failures=failure))
++        save(public/'RESULTS.json',dict(metrics=metrics,decompositions=decompositions,comparisons=comparisons,selected_candidate=selected,status=status,
++            failures=failure,neural_updates=0,independent_confirmation=False,test_accessed=False))
++        table('STAGE_METRICS.csv',[dict(arm=name,**{k:v for k,v in row.items() if k not in ('seen','per_class_recall','per_class_n','score_diagnostics')}) for name,value in metrics.items() for row in value['stages']])
++        table('CLASS_DIAGNOSTICS.csv',[dict(arm=name,class_id=label,val_n=value['stages'][-1]['per_class_n'][label],**row) for name,value in metrics.items() for label,row in value['class_learning'].items()])
++        table('TRANSITION_DECOMPOSITION.csv',[dict(arm=name,**{k:v*100 if k.startswith('D_') and v is not None else v for k,v in row.items()}) for name,rows in decompositions.items() for row in rows])
++        phase='REPORT';state(status,selected_candidate=selected);make_report(public,metrics,comparisons,status,selected,uncertainty,ledger(),decompositions)
++        phase='STOP';state(status,selected_candidate=selected)
++    except BaseException as exc:
++        if active is not None:
++            try:os.killpg(active.pid,signal.SIGTERM)
++            except ProcessLookupError:pass
++            try:active.wait(timeout=5)
++            except subprocess.TimeoutExpired:os.killpg(active.pid,signal.SIGKILL);active.wait()
++            gpu_elapsed+=time.time()-c['gpu_started'];active=None
++        reason=str(exc);status=reason.split(':')[0] if reason.startswith(('BLOCKED_','INCOMPLETE_')) else 'BLOCKED_INPUT'
++        save(public/'RESULTS.json',dict(status=status,reason=reason,metrics=metrics,failures=failure,neural_updates=0,test_accessed=False))
++        save(public/'BUDGET_LEDGER.json',ledger());save(root/'PROGRAM_STATE.json',dict(status=status,phase='STOP',reason=reason,publication_verified=False,neural_updates=0,test_accessed=False))
++        (public/'REPORT_ZH.md').write_text('# NEXT2-H 未完成报告\n\n状态：'+status+'。输入、数值或资源未完成不作为科学负结果。\n\n原因：'+reason+'\n\n无新增神经更新、无自动重试，私有原始输入与日志不公开。\n')
++        raise
++
++
++def make_report(public,metrics,comparisons,status,selected,uncertainty,cost,decompositions):
++    lines=['# NEXT2-H 冻结表示读出实验','',f'状态：{status}；选定候选：{selected or "无"}。本轮新增神经更新0，沿用历史Task1的276更新；不称从零无训练。所有候选头冻结后共享一次F验证特征提取，T1保留原cf_linear分数。','',
++        '|臂|最终BA (%)|平均BA (%)|尾类 (%)|遗忘 (pp)|旧六类 (%)|新两类 (%)|','|---|---:|---:|---:|---:|---:|---:|']
++    for name,v in metrics.items():lines.append('|'+name+'|'+'|'.join(f'{100*v[k]:.4f}' for k in ('final_balanced_accuracy','average_incremental_balanced_accuracy','final_tail_recall','forgetting','final_old_recall','final_new_recall'))+'|')
++    lines+=['','C0为原生cf_linear重构，C1欧氏NCM（均值不再归一化），C2类平衡rho=0.1固定收缩共享协方差LDA，无先验/温度/偏置调参。相对R四条件：BA≥+1pp，尾类≥−0.5pp，遗忘≤+1pp，新两类≥−1pp；原始精度判断。两个都通过按C1→C2选择。','']
++    for name,v in comparisons.items():
++        for control,d in v.items():lines.append(f"- {name} {control}：BA{100*d['final_balanced_accuracy']:+.4f}pp，尾类{100*d['final_tail_recall']:+.4f}pp，遗忘{100*d['forgetting']:+.4f}pp，新类{100*d['final_new_recall']:+.4f}pp；通过={d['passed']}。")
++    lines+=['','## 旧类退化分解','', '|臂|转换|内部变化pp|新增竞争pp|总下降pp|','|---|---:|---:|---:|---:|']
++    for name,rows in decompositions.items():
++        for r in rows:
++            if r['group']=='old' and r['class_id']=='macro':lines.append(f"|{name}|{r['task']}|{100*r['D_internal']:.4f}|{100*r['D_competition']:.4f}|{100*r['D_total']:.4f}|")
++    lines+=['','这只是条件于当前打分器的记账。F内部项描述固定表示的读出变化；R内部项混合表示/搬运/头变化。C1的T2还包含从cf_linear切换到NCM；T3/T4才检查固定旧均值的内部排序。掩码不是部署性能，且不是任意分类器普遍上界。内部项保留负值，不能与max(previous)−final标准遗忘混称。',
++        '',f"配对身份组bootstrap固定2000次、seed74102，身份组{uncertainty.get('identity_groups','NA')}；无效抽样{uncertainty.get('invalid_draws','NA')}，不足1900有效样本的指标区间为NA，详见BOOTSTRAP。同一组权重用于所有臂/阶段，95%百分位区间只描述当前开发样本条件不确定性，不是独立确认。",'',
++        f"GPU驻留{cost['gpu_seconds']:.4f}秒；CPU消耗{cost['cpu_seconds']:.4f}核秒；持久化{cost['persistent_bytes']}bytes（最终账本含报告自身）；正式读出3，新候选2，神经更新0。加载、审计、求解、评价与失败全部纳入账本；未复制历史checkpoint/bank。",'',
++        '四阶段85/149/212/295分母、逐类首次/历史最高/最终召回及遗忘见CSV；最后两类标准遗忘NA。全部混淆与分组正确数在RESULTS。统计Q是类内归一化非中心二阶矩，C0无额外proximal，C2未改rho或裁剪特征值。',
++        '官方val反复复用，meta历史参与拟合，均不是独立确认；本轮不读旧训练图像，不读test。通过仅READY_FOR_REPLICATION，失败COMPLETE_NEGATIVE，均停止，不自动新seed/顺序/数据集/训练或监测。',
++        '公开源码、协议、头等价/输入审计、聚合指标/诊断/成本与报告；私有路径、身份键、逐样本特征/分数、checkpoint与原始日志不上传GitHub。']
++    (public/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n')
++
++
++if __name__=='__main__':
++    config=json.load(sys.stdin)
++    if os.environ.get('Q97_MODE')=='features':feature_extract(config)
++    else:run(config)

@@ -27,8 +27,8 @@ def screen(candidate, reference):
     return result
 
 
-def report(root, records, result):
-    public = root/'public'; mechanisms = {}
+def report(root, records, result, public=None):
+    public = public or root/'public'; public.mkdir(exist_ok=True); mechanisms = {}
     for p in sorted(root.glob('*/diagnostics.json')):
         mechanisms[p.parent.name] = json.loads(p.read_text())
     boundaries = {p.parent.name+'/'+p.name:json.loads(p.read_text()) for p in root.glob('*/boundary_*.json')}
@@ -45,7 +45,7 @@ def report(root, records, result):
                 history=[r['per_class_recall'][label] for r in value['metrics']['stages'] if label in r['per_class_recall']]
                 writer.writerow([name,label,value['metrics']['stages'][-1]['per_class_n'][label],row['first_task'],row['first_recall'],max(history),row['final_recall'],row['first_minus_final'],row['standard_forgetting']])
     lines=['# CORE1 原型引导竞争约束：阶段结果','',
-        '完整候选PC；PC_uniform与PC_mean为预先固定消融。原型决定类对竞争权重；完整二阶矩计算平方间隔代理；适配器持续训练。推理仍为线性头。','',
+        '完整候选及固定消融以本波协议为准。原型决定类对竞争权重，二阶矩计算历史代理；适配器持续训练，推理仍为线性头。','',
         '|设置|最终BA %|平均BA %|尾类 %|遗忘 pp|新两类 %|','|---|---:|---:|---:|---:|---:|']
     for name,value in records.items():
         m=value['metrics'];last=m['stages'][-1];new=np.mean([last['per_class_recall'][str(c)] for c in last['seen'][-2:]])
@@ -59,16 +59,19 @@ def report(root, records, result):
 
 
 def run(c):
-    root=Path(c['root']);public=root/'public'
+    root=Path(c['root']);public=root/'public'/c.get('wave','main');public.mkdir(exist_ok=True)
+    wave=c.get('wave','main');primary=c.get('primary','PC');arms=c.get('arms',['R','PC','PC_uniform','PC_mean'])
     lock=(root/'coordinator.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     previous=json.loads((root/'PROGRAM_STATE.json').read_text())
     if previous['status'] not in ('READY','AWAITING_ANALYSIS'):
         raise ValueError('Coordinator requires READY or a frozen follow-up')
-    ledger_path=public/'BUDGET_LEDGER.json'
+    ledger_path=root/'public/BUDGET_LEDGER.json'
     old_ledger=json.loads(ledger_path.read_text()) if ledger_path.exists() else {}
     jobs=old_ledger.get('jobs',[]);active={};phase='PREFLIGHT';records={}
     failures=[];formal=list(old_ledger.get('formal_ids',[]));result={}
     if (public/'RESULTS.json').exists(): records=json.loads((public/'RESULTS.json').read_text()).get('records',{})
+    if c.get('reference_result'):
+        records[c['reference_id']]=json.loads(Path(c['reference_result']).read_text())
     def ledger():
         rows=[];total=0.;reserved=0.;diagnostic=0.
         for j in jobs:
@@ -84,12 +87,12 @@ def run(c):
         return dict(started=c['started'],deadline=c['deadline'],phase=phase,total_gpu_seconds=total,
             gpu_reserved_seconds=reserved,gpu_limit_seconds=115200,diagnostic_gpu_seconds=diagnostic,diagnostic_limit_seconds=3600,
             formal_ids=formal,formal_used=len(formal),formal_limit=20,storage_limit_bytes=c['storage_limit_bytes'],jobs=rows,
-            test_accessed=False,independent_confirmation=False)
+            test_accessed=False,independent_confirmation=False,diagnostic_cpu_core_seconds=c.get('diagnostic_cpu_core_seconds',0.))
     def state(status='RUNNING',**fields):
         value=ledger();save(ledger_path,value)
         save(root/'PROGRAM_STATE.json',dict(status=status,phase=phase,started=c['started'],deadline=c['deadline'],
             gpu_seconds_used=value['total_gpu_seconds'],gpu_seconds_reserved=value['gpu_reserved_seconds'],formal_used=len(formal),
-            revision_used=c.get('revision',0),publication_verified=False,test_accessed=False,**fields))
+            revision_used=c.get('revision',0),wave=wave,primary=primary,main_publication_sha=c.get('main_publication_sha'),publication_verified=False,test_accessed=False,**fields))
         save(root/'EVALUATION_GATE.json',dict(phase=phase))
     def reap():
         for key,p in list(active.items()):
@@ -138,11 +141,11 @@ def run(c):
             formal.append(spec['id'])
         config=dict(c['base'],**spec['config'],max_wall_seconds=spec['cap']-10,output=str(root/spec['id']))
         cfg=root/(spec['id']+'.private.json');save(cfg,config)
-        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),Q98_SOURCE=str(root/'source/tools'),Q98_KIND='train' if spec['kind']=='preflight' else spec['kind'],
+        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),Q98_SOURCE=c.get('source_dir',str(root/'source/tools')),Q98_KIND='train' if spec['kind']=='preflight' else spec['kind'],
             OMP_NUM_THREADS='4',MKL_NUM_THREADS='4',OPENBLAS_NUM_THREADS='4',PYTHONUNBUFFERED='1')
         with cfg.open('rb') as inp,(root/(spec['id']+'.private.log')).open('wb') as out:
-            process=subprocess.Popen([c['python'],'/tmp/q98w.py'],stdin=inp,stdout=out,stderr=subprocess.STDOUT,env=env,start_new_session=True)
-        jobs.append(dict(id=spec['id'],kind=spec['kind'],cap=spec['cap'],gpu=gpu,pid=process.pid,started=time.time()))
+            process=subprocess.Popen([c['python'],c.get('worker_entry','/tmp/q98w.py')],stdin=inp,stdout=out,stderr=subprocess.STDOUT,env=env,start_new_session=True)
+        jobs.append(dict(id=spec['id'],kind=spec['kind'],cap=spec['cap'],gpu=gpu,pid=process.pid,started=time.time(),source_commit=c.get('source_commit')))
         active[spec['id']]=process;state()
         command=subprocess.check_output(['ps','-p',str(process.pid),'-o','args='],text=True)
         if any(word in command for word in ('wangbomin','LongTailed','core1','prototype')):raise RuntimeError('NON_NEUTRAL_PROCESS')
@@ -184,43 +187,47 @@ def run(c):
             save(root/item['id']/'TRANSITIONS.json',transitions(stages,labels))
     try:
         state()
-        schedule([spec('preflight_'+a,a,74002,c['prefix'],True) for a in ('PC','PC_mean')])
-        preflights={a:json.loads((root/('preflight_'+a)/'PREFLIGHT.json').read_text()) for a in ('PC','PC_mean')}
+        preflight_arms=c.get('preflight_arms',['PC','PC_mean'])
+        schedule([spec(wave+'_preflight_'+a,a,74002,c['prefix'],True) for a in preflight_arms])
+        preflights={a:json.loads((root/(wave+'_preflight_'+a)/'PREFLIGHT.json').read_text()) for a in preflight_arms}
         if failures or any(p['optimizer_updates']!=0 or p['status']!='PASS' for p in preflights.values()):raise RuntimeError('PREFLIGHT_FAILED')
         save(public/'PREFLIGHT.json',dict(cpu=c['cpu_checks'],native=preflights))
         phase='TRAIN_MAIN';state()
-        names=['main_'+a for a in ('R','PC','PC_uniform','PC_mean')]
-        schedule([spec(n,n[5:],74002,c['prefix']) for n in names])
+        names=[wave+'_'+a for a in arms]
+        schedule([spec(wave+'_'+a,a,74002,c['prefix']) for a in arms])
         phase='EVALUATE_MAIN';state();evaluate(names)
-        result=dict(records=records,failures=failures,independent_confirmation=False,test_accessed=False)
-        if all(n in records for n in names):
-            result['main_screen']={a:screen(records['main_'+a],records['main_R']) for a in ('PC','PC_uniform','PC_mean')}
-            result['paired_predictions']=pair_tables({n:root/('eval_'+n) for n in names},names)
-            result['screen_success']=result['main_screen']['PC']['passed']
+        reference=c.get('reference_id',wave+'_R');primary_id=wave+'_'+primary
+        compared=[n for n in names if n!=reference]
+        result=dict(records=records,failures=failures,independent_confirmation=False,test_accessed=False,primary_candidate=primary,reference=reference,wave=wave)
+        if reference in records:
+            result['main_screen']={n:screen(records[n],records[reference]) for n in compared if n in records}
+            paired=[reference]+[n for n in compared if n in records]
+            result['paired_predictions']=pair_tables({n:root/('eval_'+n) for n in paired},paired)
+            result['screen_success']=primary_id in result['main_screen'] and result['main_screen'][primary_id]['passed']
         else:result['screen_success']=False
-        save(public/'RESULTS.json',result);report(root,records,result)
+        save(public/'RESULTS.json',result);report(root,records,result,public)
         if result['screen_success'] and not failures:
             phase='TRAIN_ROBUSTNESS';state(screen_success=True)
-            names=[f'seed{s}_{a}' for s in (74003,74004) for a in ('R','PC')]
-            schedule([spec(f'seed{s}_{a}',a,s) for s in (74003,74004) for a in ('R','PC')])
+            names=[f'{wave}_seed{seed}_{a}' for seed in (74003,74004) for a in ('R',primary)]
+            schedule([spec(f'{wave}_seed{seed}_{a}',a,seed) for seed in (74003,74004) for a in ('R',primary)])
             phase='EVALUATE_ROBUSTNESS';state();evaluate(names)
             robust={}
-            for s in (74003,74004):
-                if all(f'seed{s}_{a}' in records for a in ('R','PC')):
-                    d=screen(records[f'seed{s}_PC'],records[f'seed{s}_R'])
+            for seed in (74003,74004):
+                if all(f'{wave}_seed{seed}_{a}' in records for a in ('R',primary)):
+                    d=screen(records[f'{wave}_seed{seed}_{primary}'],records[f'{wave}_seed{seed}_R'])
                     d['passed']=d['ba']>0 and d['tail']>=-.005 and d['forgetting']<=.01 and d['new_recall']>=-.01
-                    robust[str(s)]=d
+                    robust[str(seed)]=d
             result['robustness']=robust
-            result['macro_ba_difference']=float(np.mean([result['main_screen']['PC']['ba']]+[d['ba'] for d in robust.values()]))
+            result['macro_ba_difference']=float(np.mean([result['main_screen'][primary_id]['ba']]+[d['ba'] for d in robust.values()]))
             result['robustness_success']=len(robust)==2 and all(d['passed'] for d in robust.values()) and result['macro_ba_difference']>=.01
         result.update(records=records,failures=failures)
-        phase='WAVE_COMPLETE';save(public/'RESULTS.json',result);report(root,records,result)
+        phase='WAVE_COMPLETE';save(public/'RESULTS.json',result);report(root,records,result,public)
         state('READY_FOR_TRANSFER' if result.get('robustness_success') else 'AWAITING_ANALYSIS',
             screen_success=result['screen_success'],robustness_success=result.get('robustness_success',False),failures=failures)
     except BaseException as exc:
         terminate();phase='WAVE_STOPPED'
         result.update(records=records,failures=failures,error=str(exc),screen_success=False,independent_confirmation=False,test_accessed=False)
-        save(public/'RESULTS.json',result);report(root,records,result)
+        save(public/'RESULTS.json',result);report(root,records,result,public)
         hard=any(s in str(exc) for s in ('DEADLINE','BUDGET','RESERVATION','FORMAL_LIMIT','STORAGE_QUOTA'))
         state('STOPPED_BUDGET' if hard else 'AWAITING_ANALYSIS',error=str(exc),failures=failures)
         raise

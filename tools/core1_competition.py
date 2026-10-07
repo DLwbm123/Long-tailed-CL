@@ -66,7 +66,7 @@ def pcg(operator, rhs, precondition, initial, tolerance=1e-9, iterations=128):
 
 
 def solve(q, mu, mass, a, beta=.5, mean_only=False, previous=None,
-          proximal=0., inverse=None, x=None, alpha=None, native=None):
+          proximal=0., inverse=None, x=None, alpha=None, native=None, pair_linear=None):
     if beta < 0 or proximal < 0:
         raise ValueError('Nonnegative penalties required')
     d = q.shape[1]; eye = torch.eye(d, dtype=q.dtype, device=q.device)
@@ -92,7 +92,9 @@ def solve(q, mu, mass, a, beta=.5, mean_only=False, previous=None,
         return native, dict(iterations=0, relative_residual=residual)
     lap, targets = laplacians(a)
     qp = pair_moments(q, mu, mass, mean_only)
-    rhs = rhs+beta*(mu.T @ targets)
+    if pair_linear is not None and (pair_linear.shape != rhs.shape or not torch.isfinite(pair_linear).all()):
+        raise ValueError('Invalid competition target cross moment')
+    rhs = rhs+beta*(mu.T @ targets if pair_linear is None else pair_linear)
     def operator(w):
         return base @ w+beta*torch.einsum('cdk,ckl->dl', qp @ w, lap)
     return pcg(operator, rhs, precondition, native)

@@ -1,0 +1,66 @@
+{
+  "cycle": "CORE1",
+  "source_commit": "7bea624545c0b6bfcb4afb3ea9321d34d049f43e",
+  "started": 1791357556.0368915,
+  "deadline": 1791443956.0368915,
+  "formal_ids": [
+    "main_R",
+    "main_PC",
+    "main_PC_uniform",
+    "main_PC_mean"
+  ],
+  "jobs": [
+    {
+      "id": "preflight_PC",
+      "kind": "preflight",
+      "gpu": 0,
+      "pid": 1225724,
+      "started": 1791357904.2060103,
+      "cap": 600
+    },
+    {
+      "id": "preflight_PC_mean",
+      "kind": "preflight",
+      "gpu": 1,
+      "pid": 1225726,
+      "started": 1791357904.235941,
+      "cap": 600
+    },
+    {
+      "id": "main_R",
+      "kind": "train",
+      "gpu": 0,
+      "pid": 1227064,
+      "started": 1791357966.9122336,
+      "cap": 5400
+    },
+    {
+      "id": "main_PC",
+      "kind": "train",
+      "gpu": 1,
+      "pid": 1227066,
+      "started": 1791357966.9730809,
+      "cap": 5400
+    },
+    {
+      "id": "main_PC_uniform",
+      "kind": "train",
+      "gpu": 2,
+      "pid": 1227068,
+      "started": 1791357967.0287204,
+      "cap": 5400
+    },
+    {
+      "id": "main_PC_mean",
+      "kind": "train",
+      "gpu": 3,
+      "pid": 1227076,
+      "started": 1791357967.0645232,
+      "cap": 5400
+    }
+  ],
+  "status": "RUNNING",
+  "phase": "TRAIN_MAIN",
+  "snapshot_time": 1791358046.5341012,
+  "test_accessed": false
+}

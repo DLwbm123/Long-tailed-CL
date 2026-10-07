@@ -1,0 +1,69 @@
+{
+  "cycle": "CORE1",
+  "started": 1791357556.0368915,
+  "deadline": 1791443956.0368915,
+  "source_base_commit": "c0aeba7918d98728fff108ac381add30f3c82846",
+  "runtime_dependency_snapshot": "NEXT1 c72353d5a487f6a6cb5c23eecde54c124d60a9c4",
+  "gpu_seconds_limit": 115200,
+  "diagnostic_seconds_limit": 3600,
+  "formal_limit": 20,
+  "revision_limit": 2,
+  "storage_limit_bytes": 68719476736,
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "train_cap_seconds": 5400,
+  "eval_cap_seconds": 600,
+  "preflight_cap_seconds": 600,
+  "max_engineering_optimizer_updates": 0,
+  "arms": [
+    "R",
+    "PC",
+    "PC_uniform",
+    "PC_mean"
+  ],
+  "primary_candidate": "PC",
+  "beta": 0.5,
+  "margin": 1.0,
+  "uniform_floor": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "fd": 10.0,
+  "pcg_tolerance": 1e-09,
+  "residual_max": 1e-08,
+  "pcg_max_iterations": 128,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "seed": 74002,
+  "replication_seeds": [
+    74003,
+    74004
+  ],
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "logical_updates": [
+    276,
+    34,
+    8,
+    158
+  ],
+  "initial_actual_updates_per_arm": 200,
+  "source_files": {
+    "tools/core1_competition.py": "e9c9511ca38d63fac2b2e9564db3346c3acfb78741202b492b9bf6dc18f64923",
+    "tools/run_core1.py": "7e98944199079caacd294c36837e5d34bd2911ffbff31b2a4aa795a36a992dcb",
+    "tools/run_core1_cycle.py": "e0afb0b28b59e186a77906474dc25bc8f54e9b27476e062f89bea6274a4bddc9"
+  },
+  "test_accessed": false
+}

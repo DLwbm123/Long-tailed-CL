@@ -1,0 +1,62 @@
+{
+  "cycle": "FINALHEAD1",
+  "started": 1791381834.5099926,
+  "deadline": 1791389034.5099926,
+  "gpu_seconds_limit": 3600,
+  "diagnostic_seconds_limit": 300,
+  "formal_limit": 1,
+  "revision_limit": 0,
+  "storage_limit_bytes": 8589934592,
+  "train_cap_seconds": 1800,
+  "eval_cap_seconds": 600,
+  "primary": "FINALHEAD",
+  "arms": [
+    "FINALHEAD"
+  ],
+  "seed": 74002,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "reused_source_commit": "dd2206ffa40c8dac4762be74f06f44c4a540c1ce",
+  "reused_cycle_final_commit": "6e2c2341ad4abfc3b8f4190b3f2c9a7bd94805aa",
+  "reused_encoder_arm": "FIXED1",
+  "reused_encoder_updates": 476,
+  "new_optimizer_updates": 0,
+  "candidate_actions": 7,
+  "decision_tasks": [
+    2,
+    3,
+    4
+  ],
+  "reference_action": 1,
+  "bootstrap_replicates": 512,
+  "bootstrap_quantile": 0.95,
+  "bootstrap_quantile_method": "higher",
+  "min_lower_proxy_bound": 1e-08,
+  "min_meta_identity_groups_per_class": 2,
+  "refit_fixed1_atol": 2e-06,
+  "refit_fixed1_rtol": 2e-06,
+  "solver_residual_limit": 1e-08,
+  "screen": {
+    "reference": "R",
+    "ba_gain": 0.01,
+    "tail_floor": -0.005,
+    "forgetting_ceiling": 0.01,
+    "new_floor": -0.01,
+    "strictly_above": [
+      "FIXED1",
+      "PC"
+    ],
+    "additional_protection_reference": "FIXED1"
+  },
+  "stop_after_screen": true,
+  "test_accessed": false,
+  "independent_confirmation": false
+}

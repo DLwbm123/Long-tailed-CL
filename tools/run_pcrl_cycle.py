@@ -33,6 +33,16 @@ def report(root, records, result, public=None):
     tables(root,records,result,public)
     controllers={p.parent.name:json.loads(p.read_text()) for p in root.glob('*/CONTROLLER.json')}
     save(public/'CONTROLLER_DIAGNOSTICS.json',controllers)
+    if result.get('primary_candidate') == 'FINALHEAD':
+        text = (public/'REPORT_ZH.md').read_text()
+        text = text.replace('# CORE1 原型引导竞争约束：阶段结果', '# FINALHEAD 重拟合一致选择：阶段结果')
+        text = text.replace('完整候选及固定消融以本波协议为准。原型决定类对竞争权重，二阶矩计算历史代理；适配器持续训练，推理仍为线性头。',
+            '复用 FIXED1 完整编码器轨迹；当前 fit 拟合全部七个任务末分类头，meta 身份组重采样评分；候选无可信代理改善则保留动作1。没有新增适配器或策略更新。')
+        text = text.replace('固定初筛要求：PC−R最终BA至少+1pp', '固定初筛要求：FINALHEAD−R最终BA至少+1pp')
+        text = text.replace('所有正负结果和失败保留。只有完整候选满足门槛才进入预注册复核；否则等待预算内有明确证据的机制修订。',
+            '还须最终 BA 严格高于 FIXED1 和 PC，且相对 FIXED1 的尾类、遗忘、新类保护通过。首轮只运行一个封存候选；通过后另行冻结新种子复核，不自动扩大本波。所有正负结果和失败保留。')
+        (public/'REPORT_ZH.md').write_text(text)
+        return
     rows=['# 原型竞争预算 RL 验证','',
         '七动作小型组相对策略；相同预算 GREEDY 控制。旧类风险仅为共同平移二阶统计代理。',
         '每个决策四个采样分支加一个 PC 参考，各进行最多两步真实适配器更新；全部计入总成本。',
@@ -57,6 +67,8 @@ def report(root, records, result, public=None):
 def run(c):
     root=Path(c['root']);public=root/'public'/c.get('wave','main');public.mkdir(exist_ok=True)
     wave=c.get('wave','main');primary=c.get('primary','RL');arms=c.get('arms',['R','PC','GREEDY','RL'])
+    gpu_limit=c.get('gpu_limit_seconds',115200);diagnostic_limit=c.get('diagnostic_limit_seconds',3600)
+    formal_limit=c.get('formal_limit',20)
     lock=(root/'coordinator.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     previous=json.loads((root/'PROGRAM_STATE.json').read_text())
     if previous['status'] not in ('READY','AWAITING_ANALYSIS'):
@@ -86,8 +98,8 @@ def run(c):
             rows.append(dict(j,elapsed_seconds=elapsed,diagnostic_seconds=extra,worker_status=s.get('status'),worker_phase=s.get('phase'),
                 logical_updates=s.get('steps'),actual_updates=s.get('actual_updates'),retained_updates=s.get('retained_updates'),rollout_updates=s.get('rollout_updates'),policy_updates=s.get('policy_updates'),peak_gpu_bytes=s.get('peak_gpu_bytes')))
         return dict(started=c['started'],deadline=c['deadline'],phase=phase,total_gpu_seconds=total,
-            gpu_reserved_seconds=reserved,gpu_limit_seconds=115200,diagnostic_gpu_seconds=diagnostic,diagnostic_limit_seconds=3600,
-            formal_ids=formal,formal_used=len(formal),formal_limit=20,storage_limit_bytes=c['storage_limit_bytes'],jobs=rows,
+            gpu_reserved_seconds=reserved,gpu_limit_seconds=gpu_limit,diagnostic_gpu_seconds=diagnostic,diagnostic_limit_seconds=diagnostic_limit,
+            formal_ids=formal,formal_used=len(formal),formal_limit=formal_limit,storage_limit_bytes=c['storage_limit_bytes'],jobs=rows,
             test_accessed=False,independent_confirmation=False,diagnostic_cpu_core_seconds=c.get('diagnostic_cpu_core_seconds',0.))
     def state(status='RUNNING',**fields):
         value=ledger();save(ledger_path,value)
@@ -116,7 +128,7 @@ def run(c):
     def poll():
         reap();value=ledger()
         if time.time()>=c['deadline']:raise RuntimeError('DEADLINE')
-        if value['total_gpu_seconds']>=115200 or value['diagnostic_gpu_seconds']>=3600:raise RuntimeError('BUDGET')
+        if value['total_gpu_seconds']>=gpu_limit or value['diagnostic_gpu_seconds']>=diagnostic_limit:raise RuntimeError('BUDGET')
         for j in jobs:
             if j['id'] in active and time.time()-j['started']>=j['cap']:
                 p=active[j['id']]
@@ -133,12 +145,12 @@ def run(c):
     def launch(spec,gpu):
         value=ledger()
         if any(j['id']==spec['id'] for j in jobs):raise RuntimeError('NO_RETRY')
-        if value['total_gpu_seconds']+value['gpu_reserved_seconds']+spec['cap']+40>115200:raise RuntimeError('NO_RESERVATION')
-        if spec['kind']=='preflight' and value['diagnostic_gpu_seconds']+sum(max(0,j['cap']-(time.time()-j['started'])) for j in jobs if j['id'] in active and j['kind']=='preflight')+spec['cap']>3600:
+        if value['total_gpu_seconds']+value['gpu_reserved_seconds']+spec['cap']+40>gpu_limit:raise RuntimeError('NO_RESERVATION')
+        if spec['kind']=='preflight' and value['diagnostic_gpu_seconds']+sum(max(0,j['cap']-(time.time()-j['started'])) for j in jobs if j['id'] in active and j['kind']=='preflight')+spec['cap']>diagnostic_limit:
             raise RuntimeError('NO_DIAGNOSTIC_RESERVATION')
         if time.time()+spec['cap']>c['deadline']:raise RuntimeError('NO_DEADLINE_RESERVATION')
         if spec['kind']=='train':
-            if len(formal)>=20:raise RuntimeError('FORMAL_LIMIT')
+            if len(formal)>=formal_limit:raise RuntimeError('FORMAL_LIMIT')
             formal.append(spec['id'])
         config=dict(c['base'],**spec['config'],max_wall_seconds=spec['cap']-10,output=str(root/spec['id']))
         cfg=root/(spec['id']+'.private.json');save(cfg,config)
@@ -166,7 +178,7 @@ def run(c):
         config=dict(method=arm,seed=seed,split_file=c['split_file'])
         if prefix:config['prefix']=prefix
         if preflight:config['preflight']=True
-        return dict(id=name,kind='preflight' if preflight else 'train',cap=900 if preflight else 7200,config=config)
+        return dict(id=name,kind='preflight' if preflight else 'train',cap=900 if preflight else c.get('train_cap_seconds',7200),config=config)
     def evaluate(names):
         specs=[]
         for name in names:
@@ -211,8 +223,16 @@ def run(c):
             rl_ba=records[primary_id]['metrics']['final_balanced_accuracy']
             result['rl_above_controls']={a:rl_ba>records[wave+'_'+a]['metrics']['final_balanced_accuracy'] for a in controls if wave+'_'+a in records}
             result['screen_success']=len(result['rl_above_controls'])==len(controls) and all(result['rl_above_controls'].values()) and not failures
+        for name in c.get('protection_references',[]):
+            if name not in records or primary_id not in records:
+                result['screen_success']=False
+                continue
+            guard=screen(records[primary_id],records[name])
+            guard['passed']=guard['tail']>=-.005 and guard['forgetting']<=.01 and guard['new_recall']>=-.01
+            result.setdefault('additional_protection',{})[name]=guard
+            result['screen_success']=result['screen_success'] and guard['passed']
         save(public/'RESULTS.json',result);report(root,records,result,public)
-        if result['screen_success'] and not failures:
+        if result['screen_success'] and not failures and not c.get('stop_after_screen',False):
             phase='TRAIN_ROBUSTNESS';state(screen_success=True)
             names=[f'{wave}_seed{seed}_{a}' for seed in (74003,74004) for a in replication_arms]
             schedule([spec(f'{wave}_seed{seed}_{a}',a,seed) for seed in (74003,74004) for a in replication_arms])

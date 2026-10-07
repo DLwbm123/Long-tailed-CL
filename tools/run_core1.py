@@ -50,7 +50,7 @@ def cpu_bank(bank):
 
 def run(config):
     arm = config['method']
-    if arm not in ('R', 'PC', 'PC_uniform', 'PC_mean'):
+    if arm not in ('R', 'PC', 'PC_uniform', 'PC_mean', 'PC_history', 'PC_history_uniform', 'PC_history_mean'):
         raise ValueError('Unknown coherent arm')
     output = Path(config['output'])
     if output.exists():
@@ -84,7 +84,8 @@ def run(config):
             x, y = extract(model, data, budget)
             return torch.as_tensor(x, device='cuda', dtype=torch.float64), torch.as_tensor(y, device='cuda')
         strength = 0.
-        mean_only = arm == 'PC_mean'
+        mean_only = arm in ('PC_mean', 'PC_history_mean')
+        historical_only = arm.startswith('PC_history')
         beta = 0. if arm == 'R' else .5
         bank = method.empty(encoder.dim, 'cuda'); seen = []; diagnostics = []
         actor = torch.zeros(6, dtype=torch.float64, device='cuda', requires_grad=True)
@@ -137,13 +138,15 @@ def run(config):
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
                 W, R = method.head(candidate, strength)
                 block_beta = beta if task > 1 else 0.
-                pair_weights = competition.competition(candidate, W, 'uniform' if arm == 'PC_uniform' else 'prototype')
+                pair_weights = competition.competition(candidate, W, 'uniform' if arm.endswith('_uniform') else 'prototype',
+                    historical_count=len(bank['n']) if historical_only else None)
                 if block_beta:
                     W, entry_solve = competition.bank_head(candidate, pair_weights, block_beta, mean_only)
                 else:
                     entry_solve = dict(iterations=0, relative_residual=0.)
                 pair_audit = dict(beta=block_beta, mode=arm, class_order=seen.copy(),
-                    weights=pair_weights.tolist(), entry_solve=entry_solve, solves=[], mean_pair_loss=0.)
+                    weights=pair_weights.tolist(), entry_solve=entry_solve, solves=[], mean_pair_loss=0.,
+                    scope='historical_only' if historical_only else 'all_classes', historical_count=len(bank['n']))
                 pair_losses = []
                 reward_probe = None
                 inverse, cross = method.proximal_base(old, R, len(seen))
@@ -241,7 +244,8 @@ def run(config):
             W, _ = method.head(bank, strength)
             boundary_competition = None
             if beta and task > 1:
-                a = competition.competition(bank, W, 'uniform' if arm == 'PC_uniform' else 'prototype')
+                a = competition.competition(bank, W, 'uniform' if arm.endswith('_uniform') else 'prototype',
+                    historical_count=len(seen)-len(classes) if historical_only else None)
                 W, solve_audit = competition.bank_head(bank, a, beta, mean_only)
                 boundary_competition = dict(weights=a.tolist(), solve=solve_audit, beta=beta, class_order=seen.copy())
             adapter = {k: p.detach().cpu() for k, p in encoder.named_parameters() if p.requires_grad}

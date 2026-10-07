@@ -2,13 +2,11 @@
 import torch
 
 
-def competition(bank, reference, mode='prototype'):
+def competition(bank, reference, mode='prototype', historical_count=None):
     k = len(bank['n'])
     if k < 2 or mode not in ('prototype', 'uniform'):
         raise ValueError('Competition requires at least two classes and a valid mode')
     uniform = (1-torch.eye(k, dtype=reference.dtype, device=reference.device))/(k-1)
-    if mode == 'uniform':
-        return uniform
     hardness = torch.zeros_like(uniform)
     for c in bank['components']:
         label = c['label']; scores = c['center'] @ reference
@@ -16,9 +14,14 @@ def competition(bank, reference, mode='prototype'):
     hardness.fill_diagonal_(0)
     total = hardness.sum(1, keepdim=True)
     directed = torch.where(total > 1e-12, hardness/total.clamp_min(1e-12), uniform)
-    a = .5*uniform+.5*directed
+    a = uniform if mode == 'uniform' else .5*uniform+.5*directed
     if not torch.isfinite(a).all() or not torch.allclose(a.sum(1), torch.ones(k, device=a.device, dtype=a.dtype)):
         raise ValueError('Invalid competition mass')
+    if historical_count is not None:
+        if not isinstance(historical_count, int) or not 0 <= historical_count <= k:
+            raise ValueError('Invalid historical class count')
+        # Keep historical row mass unchanged; current labels retain native supervision.
+        a[historical_count:] = 0
     return a.detach()
 
 

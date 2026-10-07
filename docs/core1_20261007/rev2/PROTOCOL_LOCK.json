@@ -1,0 +1,87 @@
+{
+  "cycle": "CORE1",
+  "started": 1791357556.0368915,
+  "deadline": 1791443956.0368915,
+  "source_base_commit": "c0aeba7918d98728fff108ac381add30f3c82846",
+  "runtime_dependency_snapshot": "NEXT1 c72353d5a487f6a6cb5c23eecde54c124d60a9c4",
+  "gpu_seconds_limit": 115200,
+  "diagnostic_seconds_limit": 3600,
+  "formal_limit": 20,
+  "revision_limit": 2,
+  "storage_limit_bytes": 68719476736,
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "train_cap_seconds": 5400,
+  "eval_cap_seconds": 600,
+  "preflight_cap_seconds": 600,
+  "max_engineering_optimizer_updates": 0,
+  "arms": [
+    "PC_history",
+    "PC_history_uniform",
+    "PC_history_mean"
+  ],
+  "primary_candidate": "PC_history",
+  "beta": 0.5,
+  "margin": 1.0,
+  "uniform_floor": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "fd": 10.0,
+  "pcg_tolerance": 1e-09,
+  "residual_max": 1e-08,
+  "pcg_max_iterations": 128,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "seed": 74002,
+  "replication_seeds": [
+    74003,
+    74004
+  ],
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "logical_updates": [
+    276,
+    34,
+    8,
+    158
+  ],
+  "initial_actual_updates_per_arm": 200,
+  "source_files": {
+    "tools/core1_competition.py": "22fe7ebf7ba3962d56709a444eb651202997f5b7c4e02dfed5f9a3cc76139e78",
+    "tools/run_core1.py": "f5c9b1a9cb4197877abf3ea53d3b8e3dc5029dea3ea82e890f100a6ac2de29cb",
+    "tools/run_core1_cycle.py": "8f1a6045784ebb7b2f19e54299e144f0024c59922c61a8cdf8937337ebc257eb",
+    "tests/test_core1_history.py": "3f582cd118f31b31ea4d5b4b78e1682acf0dd9ef2cd34725086cb6f70ba1476d"
+  },
+  "test_accessed": false,
+  "wave": "rev2",
+  "revision_used": 2,
+  "reference_id": "main_R",
+  "mechanism_reference_id": "main_PC",
+  "inherited_gpu_seconds": 6326.538903713226,
+  "inherited_diagnostic_gpu_seconds": 272.33991235494614,
+  "inherited_formal_used": 7,
+  "diagnostic_cpu_core_seconds": 12.043535527,
+  "rev1_publication_sha": "cb39f2632bfe9bb3639cb8221b628018e782b20e",
+  "old_target": "constant margin 1 as main_PC",
+  "competition_scope": "historical rows only; current rows zero; historical mass unchanged at 1/K",
+  "preflight_arms": [
+    "PC_history"
+  ],
+  "formal_after_main": 10,
+  "conditional_replication_formal": 4,
+  "conditional_transfer_formal": 6,
+  "remaining_revisions": 0
+}

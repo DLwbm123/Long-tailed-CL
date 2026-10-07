@@ -1,0 +1,104 @@
+{
+  "checked_at": 1791370998.226375,
+  "source_commit": "8656e226924358e6c252c7292b0b835ecc4db231",
+  "status": "RUNNING",
+  "phase": "TRAIN_MAIN",
+  "formal_used": 4,
+  "preflight": {
+    "status": "PASS",
+    "optimizer_updates": 0,
+    "native": {
+      "fit": 0.04497647308342313,
+      "fd": 0.0,
+      "norm": 0.04939252510666847,
+      "pair": 0.053086382011371974,
+      "loss": 0.21483128994736944,
+      "solve": {
+        "iterations": 8,
+        "relative_residual": 4.4983170005647546e-10
+      },
+      "gradient_check": null
+    },
+    "changed": {
+      "fit": 0.04809843593306366,
+      "fd": 0.0,
+      "norm": 0.049233704805374146,
+      "pair": 0.054049003081066097,
+      "loss": 0.2158642047420859,
+      "solve": {
+        "iterations": 9,
+        "relative_residual": 1.5267995690946984e-10
+      },
+      "gradient_check": null
+    },
+    "risk_reference": [
+      0.09488152012938389,
+      0.1535090779104072,
+      1.1631670819502202,
+      1.3058029056205052
+    ],
+    "risk_changed": [
+      0.0887583444116343,
+      0.1473512985612401,
+      1.1805156992527883,
+      1.3084687006212719
+    ],
+    "reward": 0.011598192096572122,
+    "head_difference": 0.07071059351892807,
+    "action_mass": 4.0,
+    "restore_verified": true,
+    "identical_replay": true,
+    "branch_horizon_updates": 0,
+    "probe_fit_n": 86,
+    "probe_meta_n": 69,
+    "peak_gpu_bytes": 12880550400
+  },
+  "jobs": [
+    {
+      "id": "main_R",
+      "gpu": 0,
+      "started": 1791370958.0719576,
+      "worker_status": "RUNNING",
+      "worker_phase": "task_start_features",
+      "actual_updates": 0
+    },
+    {
+      "id": "main_PC",
+      "gpu": 1,
+      "started": 1791370958.1401052,
+      "worker_status": "RUNNING",
+      "worker_phase": "task_start_features",
+      "actual_updates": 0
+    },
+    {
+      "id": "main_GREEDY",
+      "gpu": 2,
+      "started": 1791370958.1736598,
+      "worker_status": "RUNNING",
+      "worker_phase": "task_start_features",
+      "actual_updates": 0
+    },
+    {
+      "id": "main_RL",
+      "gpu": 3,
+      "started": 1791370958.2078896,
+      "worker_status": "RUNNING",
+      "worker_phase": "task_start_features",
+      "actual_updates": 0
+    }
+  ],
+  "neutral_commands_verified": true,
+  "gpus": [
+    "0, 37488 MiB, 43 %",
+    "1, 37488 MiB, 44 %",
+    "2, 37488 MiB, 64 %",
+    "3, 37488 MiB, 41 %"
+  ],
+  "automation_status": "ACTIVE",
+  "automation_interval": "hourly",
+  "gpu_seconds_used": 245.25018739700317,
+  "gpu_seconds_reserved": 28641.009651899338,
+  "test_accessed": false,
+  "results_complete": false,
+  "verified_process_count": 25
+}

@@ -1,0 +1,32 @@
+{
+  "cpu": {
+    "status": "PASS",
+    "elapsed_seconds": 3.105223787948489,
+    "optimizer_updates": 0,
+    "checks": [
+      "native closed-form/proximal envelope oracles",
+      "class-balanced FD scale",
+      "native first-cycle ordering",
+      "fixed block steps and learning rates",
+      "new reproducible real augmentation cycles",
+      "augmentation RNG preserved",
+      "full synthetic model parameters/buffers and RNG restore",
+      "confusion/masked denominators"
+    ]
+  },
+  "native": {
+    "status": "PASS",
+    "encoder_dim": 1536,
+    "feature_norm_min": 0.9999998807907104,
+    "feature_norm_max": 1.0,
+    "gradient_norm": 0.005512698087841272,
+    "loss": 0.030509216083665726,
+    "optimizer_updates": 0,
+    "finite_head": true,
+    "batch_n": 64,
+    "reward_probe": null,
+    "native_fd": 0.0,
+    "balanced_fd": 0.0
+  },
+  "zero_optimizer_updates": true
+}

@@ -33,7 +33,8 @@ def report(root, records, result, public=None):
     tables(root,records,result,public)
     controllers={p.parent.name:json.loads(p.read_text()) for p in root.glob('*/CONTROLLER.json')}
     save(public/'CONTROLLER_DIAGNOSTICS.json',controllers)
-    if result.get('primary_candidate') == 'FINALHEAD':
+    if result.get('primary_candidate') in ('FINALHEAD', 'PAIRHEAD'):
+        primary = result['primary_candidate']
         text = (public/'REPORT_ZH.md').read_text()
         text = text.replace('# CORE1 原型引导竞争约束：阶段结果', '# FINALHEAD 重拟合一致选择：阶段结果')
         text = text.replace('完整候选及固定消融以本波协议为准。原型决定类对竞争权重，二阶矩计算历史代理；适配器持续训练，推理仍为线性头。',
@@ -41,6 +42,10 @@ def report(root, records, result, public=None):
         text = text.replace('固定初筛要求：PC−R最终BA至少+1pp', '固定初筛要求：FINALHEAD−R最终BA至少+1pp')
         text = text.replace('所有正负结果和失败保留。只有完整候选满足门槛才进入预注册复核；否则等待预算内有明确证据的机制修订。',
             '还须最终 BA 严格高于 FIXED1 和 PC，且相对 FIXED1 的尾类、遗忘、新类保护通过。首轮只运行一个封存候选；通过后另行冻结新种子复核，不自动扩大本波。所有正负结果和失败保留。')
+        if primary == 'PAIRHEAD':
+            text = text.replace('FINALHEAD 重拟合一致选择', 'PAIRHEAD 类对风险重分配').replace('FINALHEAD−R', 'PAIRHEAD−R')
+            text = text.replace('复用 FIXED1 完整编码器轨迹；当前 fit 拟合全部七个任务末分类头，meta 身份组重采样评分；候选无可信代理改善则保留动作1。没有新增适配器或策略更新。',
+                '复用 FIXED1 编码器与训练统计；每类面向旧/新组的预算分别守恒，保留一半原权重，另一半按训练矩统计的标准化类对间隔风险分配。唯一固定候选，无 meta 选择、无参数搜索、无新增优化器更新。')
         (public/'REPORT_ZH.md').write_text(text)
         return
     rows=['# 原型竞争预算 RL 验证','',

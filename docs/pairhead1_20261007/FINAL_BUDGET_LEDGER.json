@@ -1,0 +1,61 @@
+{
+  "started": 1791385626.7853377,
+  "deadline": 1791389226.7853377,
+  "phase": "WAVE_COMPLETE",
+  "total_gpu_seconds": 103.884530544281,
+  "gpu_reserved_seconds": 0.0,
+  "gpu_limit_seconds": 1200,
+  "diagnostic_gpu_seconds": 0.0,
+  "diagnostic_limit_seconds": 120,
+  "formal_ids": [
+    "main_PAIRHEAD"
+  ],
+  "formal_used": 1,
+  "formal_limit": 1,
+  "storage_limit_bytes": 4294967296,
+  "jobs": [
+    {
+      "id": "main_PAIRHEAD",
+      "kind": "train",
+      "cap": 300,
+      "gpu": 0,
+      "pid": 1341815,
+      "started": 1791385765.6717153,
+      "source_commit": "cc5e3a0630980e6206f8b6261894cafecbd9b9ea",
+      "elapsed_seconds": 35.10462045669556,
+      "exit_code": 0,
+      "diagnostic_seconds": 0.0,
+      "worker_status": "TRAINED",
+      "worker_phase": "SELECTION_SEALED",
+      "logical_updates": 476,
+      "actual_updates": 0,
+      "retained_updates": 0,
+      "rollout_updates": 0,
+      "policy_updates": 0,
+      "peak_gpu_bytes": 406429696
+    },
+    {
+      "id": "eval_main_PAIRHEAD",
+      "kind": "eval",
+      "cap": 600,
+      "gpu": 0,
+      "pid": 1341933,
+      "started": 1791385803.513611,
+      "source_commit": "cc5e3a0630980e6206f8b6261894cafecbd9b9ea",
+      "elapsed_seconds": 68.77991008758545,
+      "exit_code": 0,
+      "diagnostic_seconds": 0.0,
+      "worker_status": "COMPLETE",
+      "worker_phase": null,
+      "logical_updates": null,
+      "actual_updates": null,
+      "retained_updates": null,
+      "rollout_updates": null,
+      "policy_updates": null,
+      "peak_gpu_bytes": null
+    }
+  ],
+  "test_accessed": false,
+  "independent_confirmation": false,
+  "diagnostic_cpu_core_seconds": 0.5635115250000009
+}

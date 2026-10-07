@@ -45,6 +45,23 @@ def run():
     assert p.update(f,valid,actions,[0.,0.,0.,0.],prior)==0
     p.update(f,valid,torch.tensor([0,1,2,3]),[0.,1.,-.5,.3],prior)
     assert torch.isfinite(p.theta).all() and torch.isclose(p.probabilities(f,valid).sum(),torch.tensor(1.,dtype=x.dtype))
+    # Independent scalar reward oracle and action permutation rule for the shared actor.
+    forecasts=torch.stack([reference,reference*.9,reference*1.1,reference*.95,
+                           reference*1.05,reference*.98,reference*1.02])
+    response=control.response_features(forecasts,2,[0,3])
+    scores=torch.tensor([control.reward(v,reference,2,[0,3]) for v in forecasts],dtype=x.dtype)
+    assert torch.allclose(response[:,0],torch.tanh(scores/.01),atol=1e-12)
+    assert torch.equal(response[0],torch.zeros(5,dtype=x.dtype))
+    actor=control.ResponsePolicy(31);prob=actor.probabilities(response,valid)
+    assert int(prob.argmax())==1
+    permutation=torch.tensor([0,2,3,4,5,6,1])
+    assert torch.allclose(actor.probabilities(response[permutation],valid),prob[permutation])
+    assert int(actor.probabilities(response[permutation],valid).argmax())==6
+    actions=torch.tensor([0,1,2,3]);actor.update(response,valid,actions,scores[actions],prob.detach())
+    assert actor.updates==2 and actor.theta.abs().max()>0 and torch.isfinite(actor.theta).all()
+    assert torch.allclose(actor.probabilities(response[permutation],valid),actor.probabilities(response,valid)[permutation])
+    shared=control.ResponsePolicy(31,False)
+    assert torch.equal(shared.probabilities(response,valid),torch.full((7,),1/7,dtype=x.dtype))
     # A warmed Adam optimizer and mutable buffer must both round-trip.
     model=nn.Linear(5,4).double();model.register_buffer('counter',torch.zeros(1));opt=torch.optim.AdamW(model.parameters(),lr=.01)
     def step():
@@ -60,8 +77,10 @@ def run():
     return dict(status='PASS',cpu_core_seconds=time.process_time()-started,
         checks=['seven bounded distinct actions','action zero exact identity','explicit non-row-normalized Hessian oracle',
                 'margin variance versus explicit samples','reward sign and zero identity','finite clipped policy update',
+                'response score versus scalar reward oracle','zero reference and permutation equivariance',
+                'action ranking responds to changed descriptors','shared actor learns finite residual',
                 'warmed Adam parameters buffers and RNG exact two-step replay'],
-        scientific_model_optimizer_updates=0,toy_cpu_optimizer_updates=5,test_accessed=False)
+        scientific_model_optimizer_updates=0,toy_cpu_optimizer_updates=5,toy_policy_updates=4,test_accessed=False)
 
 
 if __name__=='__main__':print(json.dumps(run(),indent=2))

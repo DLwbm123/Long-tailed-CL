@@ -1,0 +1,117 @@
+{
+  "cycle": "PCRL2",
+  "started": 1791377487.321597,
+  "deadline": 1791463887.321597,
+  "gpu_seconds_limit": 115200,
+  "diagnostic_seconds_limit": 3600,
+  "formal_limit": 20,
+  "revision_limit": 0,
+  "storage_limit_bytes": 68719476736,
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "train_cap_seconds": 7200,
+  "eval_cap_seconds": 600,
+  "preflight_cap_seconds": 900,
+  "engineering_optimizer_updates": 0,
+  "arms": [
+    "FIXED1",
+    "RESPONSE0",
+    "RL_SHARED",
+    "RL_RESPONSE"
+  ],
+  "primary": "RL_RESPONSE",
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "main_seed": 74002,
+  "replication_seeds": [
+    74003,
+    74004
+  ],
+  "logical_updates": [
+    276,
+    34,
+    8,
+    158
+  ],
+  "retained_updates_main": 200,
+  "rollout_updates_adaptive": 150,
+  "decision_count": 16,
+  "action_count": 7,
+  "policy_shape": [
+    4
+  ],
+  "policy_lr": 0.02,
+  "policy_steps_per_decision": 2,
+  "clip_ratio": 0.2,
+  "uniform_kl": 0.01,
+  "probe_per_class_per_split_max": 64,
+  "half_budget_floor": 0.5,
+  "beta": 0.5,
+  "fd": 10.0,
+  "margin": 1.0,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "pcg_target": 1e-09,
+  "residual_max": 1e-08,
+  "pcg_max_iter": 128,
+  "screen": {
+    "BA_gain_pp": 1.0,
+    "tail_min_pp": -0.5,
+    "forgetting_max_pp": 1.0,
+    "last_new_min_pp": -1.0,
+    "strictly_above_controls": [
+      "PC",
+      "GREEDY",
+      "RL",
+      "FIXED1",
+      "RESPONSE0"
+    ]
+  },
+  "test_accessed": false,
+  "action_response_scale": 0.01,
+  "shared_residual_bound": 0.5,
+  "reference_zero": true,
+  "reused_records": [
+    "R",
+    "PC",
+    "GREEDY",
+    "RL"
+  ],
+  "reused_source_commit": "8656e226924358e6c252c7292b0b835ecc4db231",
+  "reused_results_commit": "e88e5a66260002646d5ffe82f66d979961cb6504",
+  "reused_prior_cycle_gpu_seconds": 7059.702908277512,
+  "replication_arms": [
+    "R",
+    "PC",
+    "RESPONSE0",
+    "RL_RESPONSE"
+  ],
+  "replication_controls": [
+    "PC",
+    "RESPONSE0"
+  ],
+  "ablations": [
+    "RL_RESPONSE_uniform",
+    "RL_RESPONSE_mean"
+  ],
+  "initial_policy": {
+    "RL_RESPONSE": "analytic response",
+    "RESPONSE0": "analytic response without learning",
+    "RL_SHARED": "uniform no analytic score",
+    "FIXED1": "constant action1"
+  },
+  "frozen_encoder_forecast": true,
+  "maximum_new_main_adapter_updates": 1250
+}

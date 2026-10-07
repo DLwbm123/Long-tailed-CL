@@ -115,6 +115,30 @@ class Policy:
         return 2
 
 
+def response_features(values, old, tail):
+    """Action descriptors from frozen-encoder head forecasts, relative to action 0."""
+    gain = (values[0] - values) / values[0].clamp_min(.1)
+    negative = gain.clamp_max(0)
+    parts = torch.stack([gain.mean(1), negative[:, :old].mean(1),
+                         negative[:, old:].mean(1),
+                         negative[:, tail].mean(1) if tail else gain.new_zeros(len(gain))], 1)
+    return torch.cat([torch.tanh(parts.sum(1, keepdim=True)/.01),
+                      torch.tanh(parts/.01)], 1).detach().cpu().double()
+
+
+class ResponsePolicy(Policy):
+    """One shared scoring rule; no action-specific intercepts or class identifiers."""
+    def __init__(self, seed, anchored=True):
+        super().__init__(seed)
+        self.theta = torch.zeros(4, dtype=torch.float64, requires_grad=True)
+        self.optimizer = torch.optim.Adam([self.theta], lr=.02)
+        self.anchored = anchored
+
+    def probabilities(self, features, valid):
+        logits = (features[:, 0] if self.anchored else 0.) + features[:, 1:] @ (.5*self.theta.tanh())
+        return logits.masked_fill(~valid, -torch.inf).softmax(0)
+
+
 class Snapshot:
     """Only adapters and buffers are mutable; frozen weights stay shared."""
     def __init__(self, model, optimizer):

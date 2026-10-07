@@ -52,7 +52,9 @@ def cpu_bank(bank):
 
 def run(config):
     arm = config['method']
-    if arm not in ('R', 'PC', 'RL', 'GREEDY', 'RL_uniform', 'RL_mean'):
+    response = arm.startswith('RL_RESPONSE') or arm in ('RESPONSE0', 'RL_SHARED')
+    if arm not in ('R', 'PC', 'RL', 'GREEDY', 'RL_uniform', 'RL_mean', 'FIXED1',
+                   'RESPONSE0', 'RL_SHARED', 'RL_RESPONSE', 'RL_RESPONSE_uniform', 'RL_RESPONSE_mean'):
         raise ValueError('Unknown coherent arm')
     output = Path(config['output'])
     if output.exists():
@@ -63,9 +65,9 @@ def run(config):
     started, steps = time.monotonic(), 0
     diagnostic_seconds = 0.
     rollout_updates = 0
-    policy = control.Policy(config['seed'])
+    policy = control.ResponsePolicy(config['seed'], arm!='RL_SHARED') if response else control.Policy(config['seed'])
     selected_action = 0
-    adaptive = arm in ('RL', 'GREEDY', 'RL_uniform', 'RL_mean')
+    adaptive = response or arm in ('RL', 'GREEDY', 'RL_uniform', 'RL_mean')
     initial_steps = 0
     def budget():
         if time.monotonic()-started >= config['max_wall_seconds']:
@@ -90,7 +92,7 @@ def run(config):
             x, y = extract(model, data, budget)
             return torch.as_tensor(x, device='cuda', dtype=torch.float64), torch.as_tensor(y, device='cuda')
         strength = 0.
-        mean_only = arm == 'RL_mean'
+        mean_only = arm.endswith('_mean')
         historical_only = False
         beta = 0. if arm == 'R' else .5
         bank = method.empty(encoder.dim, 'cuda'); seen = []; diagnostics = []; all_controller_audits = []
@@ -147,13 +149,15 @@ def run(config):
                 tail_labels = set(sorted(config['order'], key=lambda c:(-sum(r['label']==c for r in train),c))[4:])
                 tail_indices = [i for i,c in enumerate(seen) if c in tail_labels]
                 @torch.no_grad()
-                def probe(head):
+                def probe(head, details=False):
                     observed, labels_probe = features(encoder, probe_loader)
                     if not torch.equal(lookup[labels_probe], probe_y):
                         raise ValueError('Probe order mismatch')
                     delta = common_shift(before[probe_fit], observed[:len(probe_fit)], y[probe_fit])
                     translated = method.translate(bank, delta)
                     value = control.risks(translated, head, observed[len(probe_fit):], y[probe_meta])
+                    if details:
+                        return value, float(delta.norm()), (translated, observed[len(probe_fit):], y[probe_meta])
                     return value, float(delta.norm())
             actions = before.new_zeros(len(seeds))
             optimizer = torch.optim.AdamW([p for p in encoder.parameters() if p.requires_grad], lr=config['lr'], weight_decay=.01)
@@ -225,6 +229,33 @@ def run(config):
                         pair=float(pair.detach()), loss=float(loss.detach()), solve=solve_audit, gradient_check=check)
 
                 base_pairs = pair_weights.clone()
+                if arm=='FIXED1' and task>1:
+                    selected_action=1
+                    pair_weights=control.allocation(base_pairs,len(bank['n']),selected_action)
+                @torch.no_grad()
+                def forecast(cached, head, context):
+                    encoded=[]
+                    for batch in cached:
+                        x,labels,indices=[v.cuda() for v in batch]
+                        z=encoder(x).double()
+                        alpha=len(fit_ids)*weights[indices]/(len(seen)*len(x))
+                        target=F.one_hot(lookup[labels],len(seen)).double()
+                        moments=competition.moments(old,z,lookup[labels],alpha,len(seen))
+                        encoded.append((z,alpha,target,moments))
+                    translated,probe_x,probe_labels=context
+                    values=[];residual=0.
+                    for action in range(7):
+                        budget();virtual=head.clone()
+                        allocation=control.allocation(base_pairs,len(bank['n']),action)
+                        for z,alpha,target,(q,mu,mass) in encoded:
+                            previous=virtual
+                            native=method.proximal_head(z,target,alpha,inverse,cross,previous)
+                            virtual,audit=competition.solve(q,mu,mass,allocation,block_beta,mean_only,
+                                previous,.01,inverse,z,alpha,native)
+                            residual=max(residual,audit['relative_residual'])
+                        values.append(control.risks(translated,virtual,probe_x,probe_labels))
+                    values=torch.stack(values)
+                    return control.response_features(values,len(bank['n']),tail_indices),values,residual
                 controller_audits = []
                 iterator = iter(support.batches(training, 'R', task, epoch)); pending = deque()
                 block_n = support.block_steps('R', task, len(fit_ids))
@@ -248,11 +279,23 @@ def run(config):
                         if not torch.equal(reference_w, replay_w) or native_check['loss'] != replay_check['loss']:
                             raise ValueError('Real zero-update branch replay differs')
                         snap.restore(optimizer); snap.verify(optimizer)
+                        response_audit=None
+                        if response:
+                            _,_,context=probe(W,True)
+                            response_state,predicted,residual=forecast([pending[0]],W,context)
+                            if not torch.isfinite(response_state).all() or response_state[1:].abs().max()<=1e-12:
+                                raise ValueError('Inactive or nonfinite action responses')
+                            if not torch.equal(response_state[0],torch.zeros(5,dtype=torch.float64)):
+                                raise ValueError('Reference response must be zero')
+                            if not torch.allclose(predicted[0],base_risk,atol=1e-10,rtol=1e-10) or not torch.allclose(predicted[1],changed_risk,atol=1e-10,rtol=1e-10):
+                                raise ValueError('Frozen response differs from zero-update branch oracle')
+                            response_audit=dict(features=response_state.tolist(),risk=predicted.tolist(),max_residual=residual)
+                            snap.restore(optimizer);snap.verify(optimizer)
                         save(output/'PREFLIGHT.json', dict(status='PASS', optimizer_updates=0,
                             native=native_check, changed=changed_check, risk_reference=base_risk.tolist(),
                             risk_changed=changed_risk.tolist(), reward=control.reward(changed_risk,base_risk,len(bank['n']),tail_indices),
                             head_difference=float((reference_w-changed_w).norm()), action_mass=changed.sum().item(),
-                            restore_verified=True, identical_replay=True, branch_horizon_updates=0,
+                            response=response_audit, restore_verified=True, identical_replay=True, branch_horizon_updates=0,
                             probe_fit_n=len(probe_fit), probe_meta_n=len(probe_meta), peak_gpu_bytes=torch.cuda.max_memory_allocated()))
                         status(status='COMPLETE', preflight=True, optimizer_updates=0)
                         return
@@ -262,15 +305,20 @@ def run(config):
                         cached = list(pending)[:horizon]
                         snap = control.Snapshot(encoder, optimizer)
                         old_count = len(bank['n'])
-                        entry_risk, shift = probe(W)
-                        feat = control.state(candidate, W, base_pairs, entry_risk, old_count,
-                            tail_indices, batch_index/max(1,block_n-1), shift)
+                        branch_started=time.monotonic();forecast_risk=None;forecast_residual=None
+                        if response:
+                            entry_risk,shift,context=probe(W,True)
+                            feat,forecast_risk,forecast_residual=forecast(cached,W,context)
+                        else:
+                            entry_risk, shift = probe(W)
+                            feat = control.state(candidate, W, base_pairs, entry_risk, old_count,
+                                tail_indices, batch_index/max(1,block_n-1), shift)
                         valid = torch.ones(7, dtype=torch.bool)
                         mass = (control.masks(len(seen),old_count,base_pairs.device)*base_pairs).sum((1,2))
                         for g in range(3):
                             if mass[g]<=0: valid[1+2*g:3+2*g]=False
-                        chosen, prior = policy.propose(feat, valid, greedy=arm=='GREEDY')
-                        branch_results=[]; branch_solve_max=0.; branch_started=time.monotonic()
+                        chosen, prior = policy.propose(feat, valid, greedy=arm in ('GREEDY','RESPONSE0'))
+                        branch_results=[]; branch_solve_max=0.
                         for action in [0]+chosen.tolist():
                             snap.restore(optimizer); snap.verify(optimizer)
                             branch_w = W.clone()
@@ -289,7 +337,7 @@ def run(config):
                             selected_action=([0]+chosen.tolist())[best]
                             policy_steps=0
                         else:
-                            policy_steps=policy.update(feat,valid,chosen,values,prior)
+                            policy_steps=0 if arm=='RESPONSE0' else policy.update(feat,valid,chosen,values,prior)
                             selected_action=int(policy.probabilities(feat,valid).argmax())
                         pair_weights=control.allocation(base_pairs,old_count,selected_action)
                         controller_audits.append(dict(batch_index=batch_index, horizon=horizon,
@@ -299,6 +347,8 @@ def run(config):
                             policy_updates=policy_steps, state=feat.tolist(), restored=True,
                             rollout_updates=5*horizon, seconds=time.monotonic()-branch_started,
                             max_residual=branch_solve_max,
+                            forecast_risks=None if forecast_risk is None else forecast_risk.tolist(),
+                            forecast_max_residual=forecast_residual,
                             base_group_mass=mass.tolist(), selected_group_mass=(control.masks(len(seen),old_count,base_pairs.device)*pair_weights).sum((1,2)).tolist(),
                             probe_fit_n=len(probe_fit),probe_meta_n=len(probe_meta)))
                         save(output/'CONTROLLER.json',dict(decisions=all_controller_audits+controller_audits,
@@ -357,7 +407,7 @@ def run(config):
             if beta and task > 1:
                 a = competition.competition(bank, W, 'uniform' if arm.endswith('_uniform') else 'prototype',
                     historical_count=len(seen)-len(classes) if historical_only else None)
-                if adaptive: a = control.allocation(a,len(seen)-len(classes),selected_action)
+                if adaptive or arm=='FIXED1': a = control.allocation(a,len(seen)-len(classes),selected_action)
                 W, solve_audit = competition.bank_head(bank, a, beta, mean_only)
                 boundary_competition = dict(weights=a.tolist(), solve=solve_audit, beta=beta, class_order=seen.copy())
             adapter = {k: p.detach().cpu() for k, p in encoder.named_parameters() if p.requires_grad}

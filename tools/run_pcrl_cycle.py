@@ -33,10 +33,12 @@ def report(root, records, result, public=None):
     tables(root,records,result,public)
     controllers={p.parent.name:json.loads(p.read_text()) for p in root.glob('*/CONTROLLER.json')}
     save(public/'CONTROLLER_DIAGNOSTICS.json',controllers)
-    rows=['# PCRL1：原型竞争预算 RL 验证','',
+    rows=['# 原型竞争预算 RL 验证','',
         '七动作小型组相对策略；相同预算 GREEDY 控制。旧类风险仅为共同平移二阶统计代理。',
         '每个决策四个采样分支加一个 PC 参考，各进行最多两步真实适配器更新；全部计入总成本。',
-        '主路径采用更新后策略最大概率动作；GREEDY 才在采样分支与参考中选择最高奖励。','',
+        '主路径采用更新后策略最大概率动作；GREEDY 才在采样分支与参考中选择最高奖励。',
+        'PCRL2：RESPONSE0 使用固定解析预测；RL_RESPONSE 加共享可学习残差；RL_SHARED 去掉固定评分；FIXED1 始终动作1。',
+        '主候选、复用对照和追加波以本周期 PROTOCOL_LOCK.json 为准。','',
         '|设置|最终 BA %|平均 BA %|尾类 %|遗忘 pp|最后新类 %|',
         '|---|---:|---:|---:|---:|---:|']
     for name,value in records.items():
@@ -44,8 +46,8 @@ def report(root, records, result, public=None):
         new=np.mean([last['per_class_recall'][str(c)] for c in last['seen'][-2:]])
         rows.append(f"|{name}|{m['final_balanced_accuracy']*100:.4f}|{m['average_incremental_balanced_accuracy']*100:.4f}|{m['final_tail_recall']*100:.4f}|{m['forgetting']*100:.4f}|{new*100:.4f}|")
     rows += ['', '## 判定', '', '```json', json.dumps({k:v for k,v in result.items() if k!='records'},ensure_ascii=False,indent=2), '```', '',
-        '初筛：RL 相对匹配 R 最终 BA ≥ +1 pp、尾类 ≥ −0.5 pp、遗忘增加 ≤ 1 pp、新两类 ≥ −1 pp；还需最终 BA 严格高于 PC 和 GREEDY。',
-        '通过才追加 seed74003/74004 的全部四臂。每个新 seed 对 R 的 BA > 0 且保护通过，三 seed 平均 BA 差 ≥ 1 pp，平均 RL BA 高于 PC 和 GREEDY，才进入固定模块消融。',
+        '初筛：RL 相对匹配 R 最终 BA ≥ +1 pp、尾类 ≥ −0.5 pp、遗忘增加 ≤ 1 pp、新两类 ≥ −1 pp；还需最终 BA 严格高于协议列出的全部对照。',
+        '通过才追加 seed74003/74004 的全部四臂。每个新 seed 对 R 的 BA > 0 且保护通过，三 seed 平均 BA 差 ≥ 1 pp，平均候选 BA 高于全部预注册稳健性对照，才进入固定模块消融。',
         '共享 T1 前缀不算独立重复；meta 属于训练来源且参与任务末 refit，官方 val 为反复复用的开发集。test 封存。',
         '历史代理风险不是真实召回或遗忘保证；短视 contextual bandit，不宣称长期 RL 收益。全负结果、失败、分支及策略更新均保留。',
         'HK 迁移需先核验完整23类资产、泛化评估及成本并冻结附录；未经此步骤不会启动。', '']
@@ -66,6 +68,11 @@ def run(c):
     if (public/'RESULTS.json').exists(): records=json.loads((public/'RESULTS.json').read_text()).get('records',{})
     if c.get('reference_result'):
         records[c['reference_id']]=json.loads(Path(c['reference_result']).read_text())
+    for name,path in c.get('reference_records',{}).items():
+        records[name]=json.loads(Path(path).read_text())
+    controls=c.get('controls',['PC','GREEDY'])
+    replication_arms=c.get('replication_arms',arms)
+    replication_controls=c.get('replication_controls',['PC','GREEDY'])
     def ledger():
         rows=[];total=0.;reserved=0.;diagnostic=0.
         for j in jobs:
@@ -191,24 +198,24 @@ def run(c):
         schedule([spec(wave+'_'+a,a,74002,c['prefix']) for a in arms])
         phase='EVALUATE_MAIN';state();evaluate(names)
         reference=c.get('reference_id',wave+'_R');primary_id=wave+'_'+primary
-        compared=[n for n in names if n!=reference]
+        compared=[n for n in records if n!=reference]
         result=dict(records=records,failures=failures,independent_confirmation=False,test_accessed=False,primary_candidate=primary,reference=reference,wave=wave)
         if reference in records:
             result['main_screen']={n:screen(records[n],records[reference]) for n in compared if n in records}
             paired=[reference]+[n for n in compared if n in records]
-            result['paired_predictions']=pair_tables({n:root/('eval_'+n) for n in paired},paired)
-            result['screen_success']=primary_id in result['main_screen'] and result['main_screen'][primary_id]['passed']
+            result['paired_predictions']=pair_tables({n:Path(c['reference_records'][n]).parent if n in c.get('reference_records',{}) else root/('eval_'+n) for n in paired},paired)
+            result['screen_success']=all(n in records for n in names) and primary_id in result['main_screen'] and result['main_screen'][primary_id]['passed']
         else:result['screen_success']=False
         save(public/'RESULTS.json',result);report(root,records,result,public)
         if result['screen_success']:
             rl_ba=records[primary_id]['metrics']['final_balanced_accuracy']
-            result['rl_above_controls']={a:rl_ba>records[wave+'_'+a]['metrics']['final_balanced_accuracy'] for a in ('PC','GREEDY') if wave+'_'+a in records}
-            result['screen_success']=len(result['rl_above_controls'])==2 and all(result['rl_above_controls'].values()) and not failures
+            result['rl_above_controls']={a:rl_ba>records[wave+'_'+a]['metrics']['final_balanced_accuracy'] for a in controls if wave+'_'+a in records}
+            result['screen_success']=len(result['rl_above_controls'])==len(controls) and all(result['rl_above_controls'].values()) and not failures
         save(public/'RESULTS.json',result);report(root,records,result,public)
         if result['screen_success'] and not failures:
             phase='TRAIN_ROBUSTNESS';state(screen_success=True)
-            names=[f'{wave}_seed{seed}_{a}' for seed in (74003,74004) for a in arms]
-            schedule([spec(f'{wave}_seed{seed}_{a}',a,seed) for seed in (74003,74004) for a in arms])
+            names=[f'{wave}_seed{seed}_{a}' for seed in (74003,74004) for a in replication_arms]
+            schedule([spec(f'{wave}_seed{seed}_{a}',a,seed) for seed in (74003,74004) for a in replication_arms])
             phase='EVALUATE_ROBUSTNESS';state();evaluate(names)
             robust={}
             for seed in (74003,74004):
@@ -218,15 +225,16 @@ def run(c):
                     robust[str(seed)]=d
             result['robustness']=robust
             result['macro_ba_difference']=float(np.mean([result['main_screen'][primary_id]['ba']]+[d['ba'] for d in robust.values()]))
-            control_complete=all(p+'_'+a in records for p in (wave,wave+'_seed74003',wave+'_seed74004') for a in arms)
+            control_complete=all(p+'_'+a in records for p in (wave,wave+'_seed74003',wave+'_seed74004') for a in replication_arms)
             result['mean_rl_control_differences']={a:float(np.mean([
                 records[p+'_'+primary]['metrics']['final_balanced_accuracy']-records[p+'_'+a]['metrics']['final_balanced_accuracy']
-                for p in (wave, wave+'_seed74003', wave+'_seed74004')])) for a in ('PC','GREEDY')} if control_complete else {}
+                for p in (wave, wave+'_seed74003', wave+'_seed74004')])) for a in replication_controls} if control_complete else {}
             result['robustness_success']=control_complete and len(robust)==2 and all(d['passed'] for d in robust.values()) and result['macro_ba_difference']>=.01 and all(v>0 for v in result['mean_rl_control_differences'].values()) and not failures
             if result['robustness_success']:
                 phase='TRAIN_ABLATIONS';state()
-                names=[wave+'_'+a for a in ('RL_uniform','RL_mean')]
-                schedule([spec(wave+'_'+a,a,74002,c['prefix']) for a in ('RL_uniform','RL_mean')])
+                ablations=c.get('ablations',['RL_uniform','RL_mean'])
+                names=[wave+'_'+a for a in ablations]
+                schedule([spec(wave+'_'+a,a,74002,c['prefix']) for a in ablations])
                 phase='EVALUATE_MAIN';state();evaluate(names)
                 result['ablations_complete']=all(n in records for n in names)
         result.update(records=records,failures=failures)

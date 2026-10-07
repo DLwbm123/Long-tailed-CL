@@ -1,0 +1,1918 @@
+{
+  "cycle": "PCRL2",
+  "status": "STOPPED_SCREEN_FAILED",
+  "phase": "CYCLE_CLOSED",
+  "source_commit": "dd2206ffa40c8dac4762be74f06f44c4a540c1ce",
+  "completed_at": 1791380223.7172663,
+  "completed_at_shanghai": "2026-10-07T21:37:03.717266+08:00",
+  "screen_success": false,
+  "robustness_success": false,
+  "paper_evidence_ready": false,
+  "stop_reason": "BA_GAIN_BELOW_ONE_PP_AND_RL_BELOW_ALL_REGISTERED_CONTROLS",
+  "metrics": {
+    "main_R": {
+      "ba": 0.5681497847291855,
+      "average_ba": 0.7171652742064659,
+      "tail": 0.5829699305309062,
+      "forgetting": 0.1674726000945513,
+      "new_recall": 0.5555229142185664
+    },
+    "main_PC": {
+      "ba": 0.5814504513106051,
+      "average_ba": 0.7186215766353956,
+      "tail": 0.5685753765022058,
+      "forgetting": 0.188338893216942,
+      "new_recall": 0.6125146886016452
+    },
+    "main_GREEDY": {
+      "ba": 0.5752587178090889,
+      "average_ba": 0.7197343971402826,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1656407580188068,
+      "new_recall": 0.5446533490011751
+    },
+    "main_RL": {
+      "ba": 0.5779761091134368,
+      "average_ba": 0.7186379306905553,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1585375009155497,
+      "new_recall": 0.5555229142185664
+    },
+    "main_FIXED1": {
+      "ba": 0.5779761091134368,
+      "average_ba": 0.7186379306905553,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1585375009155497,
+      "new_recall": 0.5555229142185664
+    },
+    "main_RESPONSE0": {
+      "ba": 0.5779761091134368,
+      "average_ba": 0.7204137449663697,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1656407580188068,
+      "new_recall": 0.5555229142185664
+    },
+    "main_RL_SHARED": {
+      "ba": 0.5779761091134368,
+      "average_ba": 0.7186379306905553,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1585375009155497,
+      "new_recall": 0.5555229142185664
+    },
+    "main_RL_RESPONSE": {
+      "ba": 0.5748511091134368,
+      "average_ba": 0.7178566806905553,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1627041675822164,
+      "new_recall": 0.5555229142185664
+    }
+  },
+  "rl_differences_pp": {
+    "main_R": {
+      "ba": 0.6701324384251306,
+      "average_ba": 0.06914064840893852,
+      "tail": -0.4779169413315798,
+      "forgetting": -0.47684325123349136,
+      "new_recall": 0.0
+    },
+    "main_PC": {
+      "ba": -0.659934219716829,
+      "average_ba": -0.07648959448403048,
+      "tail": 0.9615384615384581,
+      "forgetting": -2.56347256347256,
+      "new_recall": -5.699177438307879
+    },
+    "main_GREEDY": {
+      "ba": -0.04076086956520397,
+      "average_ba": -0.18777164497273402,
+      "tail": 0.0,
+      "forgetting": -0.29365904365903917,
+      "new_recall": 1.0869565217391242
+    },
+    "main_RL": {
+      "ba": -0.31249999999999334,
+      "average_ba": -0.07812499999999556,
+      "tail": 0.0,
+      "forgetting": 0.41666666666667074,
+      "new_recall": 0.0
+    },
+    "main_FIXED1": {
+      "ba": -0.31249999999999334,
+      "average_ba": -0.07812499999999556,
+      "tail": 0.0,
+      "forgetting": 0.41666666666667074,
+      "new_recall": 0.0
+    },
+    "main_RESPONSE0": {
+      "ba": -0.31249999999999334,
+      "average_ba": -0.2557064275814369,
+      "tail": 0.0,
+      "forgetting": -0.29365904365903917,
+      "new_recall": 0.0
+    },
+    "main_RL_SHARED": {
+      "ba": -0.31249999999999334,
+      "average_ba": -0.07812499999999556,
+      "tail": 0.0,
+      "forgetting": 0.41666666666667074,
+      "new_recall": 0.0
+    }
+  },
+  "screen_checks": {
+    "ba_gain": false,
+    "tail": true,
+    "forgetting": true,
+    "new_recall": true,
+    "above_PC": false,
+    "above_GREEDY": false,
+    "above_RL": false,
+    "above_FIXED1": false,
+    "above_RESPONSE0": false
+  },
+  "controllers": {
+    "main_RESPONSE0": {
+      "decisions": [
+        {
+          "decision": 1,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.012262462675645833,
+            -0.11104072751709046,
+            -0.12161742379893274,
+            0.009863565136669153,
+            -0.01088226636832326,
+            0.0004418877516991265
+          ],
+          "selected_forecast_reward": 0.012262462675645833,
+          "selected_actual_reward": 0.012793613237818732,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.012793613237818732,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.7261119212025682,
+            0.6199434019242583,
+            0.44262291488051647,
+            0.6635456043977932
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 2,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.011229024435518181,
+            -0.07517012156388371,
+            -0.07929739402699423,
+            0.007931937992813954,
+            -0.011139780183515803,
+            0.0009721342964243672
+          ],
+          "selected_forecast_reward": 0.011229024435518181,
+          "selected_actual_reward": 0.011234416957536202,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011234416957536202,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7765557254676736,
+            -1.7185204264886211,
+            0.47098235051047393,
+            0.47098235051047393
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 3,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.011369717630244152,
+            -0.08963879736475176,
+            -0.09857365292136284,
+            0.008735173009776439,
+            -0.008782802889832124,
+            0.00026159784078101016
+          ],
+          "selected_forecast_reward": 0.011369717630244152,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 6,
+          "best_evaluated_reward": 2.506883733758517e-05,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -0.8708420602171175,
+            0.9963327404440611,
+            -1.1213012481939386,
+            0.9958105679669952
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 4,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.0115926415580754,
+            -0.0947877570606846,
+            -0.10326091912792401,
+            0.009292388262097363,
+            -0.009635573722916128,
+            0.00048992487104414
+          ],
+          "selected_forecast_reward": 0.0115926415580754,
+          "selected_actual_reward": 0.011616646818296878,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011616646818296878,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -0.6451728796710466,
+            -0.6451728796710466,
+            1.7256838285623284,
+            -0.4353380692202352
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 5,
+          "selected": 0,
+          "forecast_best": 0,
+          "forecast_rewards": [
+            0.0,
+            -0.0007392289657970593,
+            -0.02992192704644515,
+            -0.04266848176284762,
+            -0.0005174509669180864,
+            -0.00027309745168708496,
+            -0.002533220901674625
+          ],
+          "selected_forecast_reward": 0.0,
+          "selected_actual_reward": 0.0,
+          "selected_evaluated": true,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -0.6003622805045926,
+            0.9658911896686375,
+            -1.3316364339928055,
+            0.9661075248287606
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 6,
+          "selected": 0,
+          "forecast_best": 0,
+          "forecast_rewards": [
+            0.0,
+            -0.000642740159503356,
+            -0.03161264574496936,
+            -0.04487516073242638,
+            -0.0006562216447741263,
+            -0.0004923192863888158,
+            -0.0024019855828956048
+          ],
+          "selected_forecast_reward": 0.0,
+          "selected_actual_reward": 0.0,
+          "selected_evaluated": true,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.343355423862847,
+            0.9645228033407285,
+            0.9618588291024893,
+            -0.5830262085803709
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 7,
+          "selected": 4,
+          "forecast_best": 4,
+          "forecast_rewards": [
+            0.0,
+            0.00491879664866047,
+            -0.03545067487299104,
+            -0.0635207105995935,
+            0.005077531407769105,
+            0.0018340453347891598,
+            -0.010276556822845596
+          ],
+          "selected_forecast_reward": 0.005077531407769105,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.005373298108071814,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.6758603613964421,
+            -1.7181777524948258,
+            0.6758603613964421,
+            0.3664570297019414
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 8,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005472319417626777,
+            -0.03473180979973686,
+            -0.062400943357841486,
+            0.004968155330215244,
+            0.0012740730386873378,
+            -0.010436285832278791
+          ],
+          "selected_forecast_reward": 0.005472319417626777,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.648835310298072,
+            0.7996527087537484,
+            0.7996527087537484,
+            0.04952989279057633
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 9,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.004603360086526007,
+            -0.032663376855599675,
+            -0.05755623975819604,
+            0.0040489123642794625,
+            0.0009073194028369593,
+            -0.00899515786087876
+          ],
+          "selected_forecast_reward": 0.004603360086526007,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 5,
+          "best_evaluated_reward": 0.0016867026158676958,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            1.2133110370376583,
+            -1.523728261497057,
+            0.43623270896983646,
+            -0.12581548451043786
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 10,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005409333475518457,
+            -0.03487366187850485,
+            -0.0653324785269456,
+            0.005089852530382016,
+            0.0014740790410896522,
+            -0.012761193944594513
+          ],
+          "selected_forecast_reward": 0.005409333475518457,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005781369980797453,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.6078572423311851,
+            -1.730808330264695,
+            0.5150938456023251,
+            0.6078572423311851
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 11,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005759532381590455,
+            -0.03622272778340613,
+            -0.06773088004935174,
+            0.005428038596138687,
+            0.0015861839471027045,
+            -0.013004995295627804
+          ],
+          "selected_forecast_reward": 0.005759532381590455,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            1.4431242942664517,
+            -0.9325554945224305,
+            0.4219866947784098,
+            -0.9325554945224305
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 12,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.003976675824296415,
+            -0.03268701342607043,
+            -0.05888594174540393,
+            0.00370744073978984,
+            0.0010422578905118305,
+            -0.009817431113734178
+          ],
+          "selected_forecast_reward": 0.003976675824296415,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.0036833290047246624,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7576840240331522,
+            0.16526225796264163,
+            -1.6806303060289458,
+            0.7576840240331522
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 13,
+          "selected": 4,
+          "forecast_best": 4,
+          "forecast_rewards": [
+            0.0,
+            0.00415263469274596,
+            -0.03327029166435359,
+            -0.06122478524522719,
+            0.004168355711371467,
+            0.0014313005045080232,
+            -0.01112338378968294
+          ],
+          "selected_forecast_reward": 0.004168355711371467,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.2705243713015526,
+            -0.896650878738451,
+            -0.896650878738451,
+            1.5227773861753489
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 14,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.004636933279418397,
+            -0.03461300495495829,
+            -0.06338936595246497,
+            0.004310429510919923,
+            0.001195592508162395,
+            -0.011347390211990528
+          ],
+          "selected_forecast_reward": 0.004636933279418397,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.0000000000000002,
+            1.0,
+            1.0,
+            -1.0000000000000002
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 15,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005742874972374501,
+            -0.03666455726664429,
+            -0.06663015261270175,
+            0.005711195913697327,
+            0.0018995489100496886,
+            -0.011676045075993943
+          ],
+          "selected_forecast_reward": 0.005742874972374501,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005832601349150989,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            1.233661473538154,
+            -1.4653586427472776,
+            0.5056957519174499,
+            -0.27399858270832644
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 16,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.007038809449457239,
+            -0.040087216022604136,
+            -0.07352067563563622,
+            0.006649917055511562,
+            0.0019355658507099758,
+            -0.01325266963892073
+          ],
+          "selected_forecast_reward": 0.007038809449457239,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.006894040206676619,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7850473978198114,
+            0.7850473978198114,
+            -1.6610617620585983,
+            0.09096696641897535
+          ],
+          "residual_overrides_noop": false
+        }
+      ],
+      "selected_actions": {
+        "1": 12,
+        "0": 2,
+        "4": 2
+      },
+      "selection_sequence": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        4,
+        1,
+        1,
+        1
+      ],
+      "policy_updates": 0,
+      "rollout_updates": 150,
+      "duplicate_proposals": 11,
+      "forecast_mae": 0.0021256229225642804,
+      "forecast_sign_agreement": 1.0,
+      "forecast_sign_n": 49,
+      "forecast_pair_order_agreement": 0.9903846153846154,
+      "forecast_pair_order_n": 104,
+      "forecast_match_scope": "unique sampled nonzero actions per decision; rank includes known zero reference",
+      "residual_overrides_noop_decisions": [],
+      "all_restored": true,
+      "max_branch_residual": 9.622243417720172e-10,
+      "max_forecast_residual": 9.648689875960058e-10,
+      "final_probabilities": [
+        0.14306031735423158,
+        0.2624581736381279,
+        0.05266364911187569,
+        0.05262899288633931,
+        0.25593976467580537,
+        0.17319904168236003,
+        0.06005006065126013
+      ]
+    },
+    "main_RL_SHARED": {
+      "decisions": [
+        {
+          "decision": 1,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.012262462675645833,
+            -0.11104072751709046,
+            -0.12161742379893274,
+            0.009863565136669153,
+            -0.01088226636832326,
+            0.0004418877516991265
+          ],
+          "selected_forecast_reward": 0.012262462675645833,
+          "selected_actual_reward": 0.012793613237818732,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.012793613237818732,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.7261119212025682,
+            0.6199434019242583,
+            0.44262291488051647,
+            0.6635456043977932
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 2,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.011229024435518181,
+            -0.07517012156388371,
+            -0.07929739402699423,
+            0.007931937992813954,
+            -0.011139780183515803,
+            0.0009721342964243672
+          ],
+          "selected_forecast_reward": 0.011229024435518181,
+          "selected_actual_reward": 0.011234416957536202,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011234416957536202,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7765557254676736,
+            -1.7185204264886211,
+            0.47098235051047393,
+            0.47098235051047393
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 3,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.011369717630244152,
+            -0.08963879736475176,
+            -0.09857365292136284,
+            0.008735173009776439,
+            -0.008782802889832124,
+            0.00026159784078101016
+          ],
+          "selected_forecast_reward": 0.011369717630244152,
+          "selected_actual_reward": 0.011605827776643223,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011605827776643223,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7425352970950742,
+            0.49042125730512987,
+            -1.7228320611299928,
+            0.4898755067297885
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 4,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.0115926415580754,
+            -0.0947877570606846,
+            -0.10326091912792401,
+            0.009292388262097363,
+            -0.009635573722916128,
+            0.00048992487104414
+          ],
+          "selected_forecast_reward": 0.0115926415580754,
+          "selected_actual_reward": 0.011616646818296878,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011616646818296878,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -0.6451728796710466,
+            -0.6451728796710466,
+            1.7256838285623284,
+            -0.4353380692202352
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 5,
+          "selected": 1,
+          "forecast_best": 0,
+          "forecast_rewards": [
+            0.0,
+            -0.0007392289657970593,
+            -0.02992192704644515,
+            -0.04266848176284762,
+            -0.0005174509669180864,
+            -0.00027309745168708496,
+            -0.002533220901674625
+          ],
+          "selected_forecast_reward": -0.0007392289657970593,
+          "selected_actual_reward": -0.00023556481598427034,
+          "selected_evaluated": true,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            -0.6003622805045926,
+            0.9658911896686375,
+            -1.3316364339928055,
+            0.9661075248287606
+          ],
+          "residual_overrides_noop": true
+        },
+        {
+          "decision": 6,
+          "selected": 1,
+          "forecast_best": 0,
+          "forecast_rewards": [
+            0.0,
+            -0.0006420093731966197,
+            -0.0316160352301846,
+            -0.04488029209607866,
+            -0.0006552185589984794,
+            -0.0004914639375799165,
+            -0.002401839500380742
+          ],
+          "selected_forecast_reward": -0.0006420093731966197,
+          "selected_actual_reward": -0.00045486714806475953,
+          "selected_evaluated": true,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            -1.343585447423458,
+            0.964448898335325,
+            0.9618195958587192,
+            -0.5826830467705861
+          ],
+          "residual_overrides_noop": true
+        },
+        {
+          "decision": 7,
+          "selected": 1,
+          "forecast_best": 4,
+          "forecast_rewards": [
+            0.0,
+            0.004917741775362768,
+            -0.03544676032892189,
+            -0.0635118469789472,
+            0.005076459157846042,
+            0.0018336639380912866,
+            -0.01027385581790401
+          ],
+          "selected_forecast_reward": 0.004917741775362768,
+          "selected_actual_reward": 0.005371552398526599,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.005371552398526599,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.5773502691896258,
+            0.5773502691896258,
+            0.5773502691896258,
+            -1.7320508075688774
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 8,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.0056010294876694885,
+            -0.034913939043901596,
+            -0.06268416182361869,
+            0.005076776572377236,
+            0.0012931706276322627,
+            -0.010474684870606526
+          ],
+          "selected_forecast_reward": 0.0056010294876694885,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005540293693911782,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            1.5433647701726556,
+            -0.1438622490644446,
+            -0.1438622490644446,
+            -1.255640272043767
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 9,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.0046004672034070425,
+            -0.03265477640383632,
+            -0.05753168501636107,
+            0.004047302977816216,
+            0.0009076094039617403,
+            -0.008983854836962797
+          ],
+          "selected_forecast_reward": 0.0046004672034070425,
+          "selected_actual_reward": 0.0044147468460170244,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.004551295455444439,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            0.3683538197914779,
+            0.6825015318808599,
+            -1.718398471236482,
+            0.6675431195641442
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 10,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005416961659589456,
+            -0.03488959684513883,
+            -0.06536691038532033,
+            0.005097454064355628,
+            0.0014765939389274922,
+            -0.012771013041919214
+          ],
+          "selected_forecast_reward": 0.005416961659589456,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005788431476136234,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.607912912240524,
+            -1.7308037271742334,
+            0.514977902693185,
+            0.607912912240524
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 11,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005767419094629297,
+            -0.03624256192137057,
+            -0.06777002028144805,
+            0.005435928132210987,
+            0.0015888869791688054,
+            -0.01301354466252428
+          ],
+          "selected_forecast_reward": 0.005767419094629297,
+          "selected_actual_reward": 0.005426503104475939,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.005426503104475939,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.9334440512631905,
+            -0.9989274072932043,
+            1.0644107633232185,
+            -0.9989274072932043
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 12,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.003978990812466523,
+            -0.03269139279959634,
+            -0.058894794770290845,
+            0.0037101176405519957,
+            0.001043459593253757,
+            -0.009819434037903061
+          ],
+          "selected_forecast_reward": 0.003978990812466523,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.0036864900248817587,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7576451328548545,
+            0.16536499998372925,
+            -1.6806552656934381,
+            0.7576451328548545
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 13,
+          "selected": 1,
+          "forecast_best": 4,
+          "forecast_rewards": [
+            0.0,
+            0.004147378182708068,
+            -0.03325514672344805,
+            -0.06118947700262461,
+            0.004163588923800576,
+            0.0014300611350460974,
+            -0.011111620160717909
+          ],
+          "selected_forecast_reward": 0.004147378182708068,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.00422490375564759,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -0.35898758175310175,
+            0.9935726312418864,
+            -1.4754359204594465,
+            0.8408508709706617
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 14,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.004657400414306355,
+            -0.03450889450320655,
+            -0.0630795005651957,
+            0.004316135797951136,
+            0.001184030368880274,
+            -0.011233832651418014
+          ],
+          "selected_forecast_reward": 0.004657400414306355,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -0.10418348091151536,
+            0.8497460002246234,
+            0.8497460002246234,
+            -1.5953085195377315
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 15,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005736233677316837,
+            -0.036614389701938976,
+            -0.06650760168239365,
+            0.005699931909801252,
+            0.0018917195841107626,
+            -0.011635674756275957
+          ],
+          "selected_forecast_reward": 0.005736233677316837,
+          "selected_actual_reward": 0.005718595875952897,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005820528964821666,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            0.899724911902487,
+            -1.522481157092841,
+            -0.27113090683591756,
+            0.8938871520262713
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 16,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.007021185746828754,
+            -0.04003488301849249,
+            -0.07339634629730041,
+            0.006629558506146091,
+            0.0019264156302136153,
+            -0.013210197146890566
+          ],
+          "selected_forecast_reward": 0.007021185746828754,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.006874586303306843,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.5773502691896257,
+            0.5773502691896257,
+            0.5773502691896257,
+            -1.7320508075688774
+          ],
+          "residual_overrides_noop": false
+        }
+      ],
+      "selected_actions": {
+        "1": 16
+      },
+      "selection_sequence": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "policy_updates": 32,
+      "rollout_updates": 150,
+      "duplicate_proposals": 11,
+      "forecast_mae": 0.001557727558494864,
+      "forecast_sign_agreement": 1.0,
+      "forecast_sign_n": 49,
+      "forecast_pair_order_agreement": 0.9714285714285714,
+      "forecast_pair_order_n": 105,
+      "forecast_match_scope": "unique sampled nonzero actions per decision; rank includes known zero reference",
+      "residual_overrides_noop_decisions": [
+        5,
+        6
+      ],
+      "all_restored": true,
+      "max_branch_residual": 9.622243417720172e-10,
+      "max_forecast_residual": 9.648689875960058e-10,
+      "final_probabilities": [
+        0.14816771373831988,
+        0.219140075179078,
+        0.07560629390782,
+        0.06881010949997333,
+        0.21408343568046037,
+        0.1668644423371417,
+        0.10732792965720676
+      ]
+    },
+    "main_RL_RESPONSE": {
+      "decisions": [
+        {
+          "decision": 1,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.012262462675645833,
+            -0.11104072751709046,
+            -0.12161742379893274,
+            0.009863565136669153,
+            -0.01088226636832326,
+            0.0004418877516991265
+          ],
+          "selected_forecast_reward": 0.012262462675645833,
+          "selected_actual_reward": 0.012793613237818732,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.012793613237818732,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.7248657444603563,
+            0.6239730760484674,
+            0.4289691135588,
+            0.6719235548530887
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 2,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.011229024435518181,
+            -0.07517012156388371,
+            -0.07929739402699423,
+            0.007931937992813954,
+            -0.011139780183515803,
+            0.0009721342964243672
+          ],
+          "selected_forecast_reward": 0.011229024435518181,
+          "selected_actual_reward": 0.011234416957536202,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011234416957536202,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            1.0,
+            1.0,
+            -1.0000000000000002,
+            -1.0000000000000002
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 3,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.011369717630244152,
+            -0.08963879736475176,
+            -0.09857365292136284,
+            0.008735173009776439,
+            -0.008782802889832124,
+            0.00026159784078101016
+          ],
+          "selected_forecast_reward": 0.011369717630244152,
+          "selected_actual_reward": 0.011605827776643223,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011605827776643223,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.7425352970950742,
+            0.49042125730512987,
+            -1.7228320611299928,
+            0.4898755067297885
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 4,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.0115926415580754,
+            -0.0947877570606846,
+            -0.10326091912792401,
+            0.009292388262097363,
+            -0.009635573722916128,
+            0.00048992487104414
+          ],
+          "selected_forecast_reward": 0.0115926415580754,
+          "selected_actual_reward": 0.011616646818296878,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.011616646818296878,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.5455445885608503,
+            -1.7317244928684261,
+            0.5930899521537879,
+            0.5930899521537879
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 5,
+          "selected": 4,
+          "forecast_best": 0,
+          "forecast_rewards": [
+            0.0,
+            -0.0007392289657970593,
+            -0.02992192704644515,
+            -0.04266848176284762,
+            -0.0005174509669180864,
+            -0.00027309745168708496,
+            -0.002533220901674625
+          ],
+          "selected_forecast_reward": -0.0005174509669180864,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.5774227467528679,
+            0.5772053072388698,
+            -1.7320508007446056,
+            0.5774227467528679
+          ],
+          "residual_overrides_noop": true
+        },
+        {
+          "decision": 6,
+          "selected": 1,
+          "forecast_best": 0,
+          "forecast_rewards": [
+            0.0,
+            -0.0006377479148414866,
+            -0.03163123451333803,
+            -0.044902838046550764,
+            -0.0006516340791283357,
+            -0.0004910511937333564,
+            -0.002403718945899385
+          ],
+          "selected_forecast_reward": -0.0006377479148414866,
+          "selected_actual_reward": -0.0004498147932009023,
+          "selected_evaluated": true,
+          "best_evaluated": 0,
+          "best_evaluated_reward": 0.0,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            -1.1527079372192843,
+            -0.11993603728818183,
+            1.5973288591090258,
+            -0.3246848846015602
+          ],
+          "residual_overrides_noop": true
+        },
+        {
+          "decision": 7,
+          "selected": 1,
+          "forecast_best": 4,
+          "forecast_rewards": [
+            0.0,
+            0.004917841066271123,
+            -0.03544685172396883,
+            -0.06351174632783918,
+            0.005076412656426721,
+            0.001833532155063456,
+            -0.010273644153971207
+          ],
+          "selected_forecast_reward": 0.004917841066271123,
+          "selected_actual_reward": 0.005371997865238466,
+          "selected_evaluated": true,
+          "best_evaluated": 1,
+          "best_evaluated_reward": 0.005371997865238466,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.577350269189626,
+            0.577350269189626,
+            0.577350269189626,
+            -1.732050807568877
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 8,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005600745010012707,
+            -0.03491316827697307,
+            -0.06268212837254782,
+            0.005076354654520736,
+            0.001292916611402177,
+            -0.010473916438780224
+          ],
+          "selected_forecast_reward": 0.005600745010012707,
+          "selected_actual_reward": 0.0053906177327153505,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005540333682644048,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            0.6953577340700723,
+            -1.7143689180537622,
+            0.3388818276180235,
+            0.6801293563656666
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 9,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.004599808153651963,
+            -0.032652640726980375,
+            -0.057526647687380764,
+            0.004046350969471776,
+            0.000907045755056019,
+            -0.00898222594576632
+          ],
+          "selected_forecast_reward": 0.004599808153651963,
+          "selected_actual_reward": 0.004414225426265969,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.004551018509056308,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            -0.9994036201711431,
+            1.048238115946439,
+            -0.9994036201711431,
+            0.9505691243958467
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 10,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.0054163075273713415,
+            -0.03488753505618935,
+            -0.06536385458807724,
+            0.005096742469069492,
+            0.0014763107608035215,
+            -0.012770967536046281
+          ],
+          "selected_forecast_reward": 0.0054163075273713415,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.005788245863779676,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.577350269189626,
+            0.577350269189626,
+            -1.732050807568877,
+            0.577350269189626
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 11,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005767099658967555,
+            -0.03624170304220938,
+            -0.06776789330924585,
+            0.005435497133285453,
+            0.0015886448878630176,
+            -0.01301280916884372
+          ],
+          "selected_forecast_reward": 0.005767099658967555,
+          "selected_actual_reward": 0.005427275822807013,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.006122000848332429,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            -1.7214410405013247,
+            0.6640488594090536,
+            0.3933433216832167,
+            0.6640488594090536
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 12,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.00397953206404391,
+            -0.0326931172094727,
+            -0.058898865708707684,
+            0.0037107313194101356,
+            0.001043729388460553,
+            -0.009820622053728023
+          ],
+          "selected_forecast_reward": 0.00397953206404391,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.003687933337860567,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.6322656777521496,
+            0.4633986072700602,
+            -1.7279299627743592,
+            0.6322656777521496
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 13,
+          "selected": 1,
+          "forecast_best": 4,
+          "forecast_rewards": [
+            0.0,
+            0.004149320906811038,
+            -0.03325971555833932,
+            -0.06119768324128648,
+            0.004165204863690193,
+            0.0014303518424121251,
+            -0.011112967999970701
+          ],
+          "selected_forecast_reward": 0.004149320906811038,
+          "selected_actual_reward": 0.004148464593333638,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.004227088791294697,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            0.6604413302241003,
+            0.6654565989292678,
+            -1.7217176137646732,
+            0.395819684611305
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 14,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.004657177031201945,
+            -0.03450738439734785,
+            -0.06307338943013427,
+            0.004315349171476943,
+            0.0011832939482152695,
+            -0.011230573997490525
+          ],
+          "selected_forecast_reward": 0.004657177031201945,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 5,
+          "best_evaluated_reward": 0.0013539548872076325,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            -1.0,
+            1.0,
+            1.0,
+            -1.0
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 15,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.005733483483980334,
+            -0.03660794589758051,
+            -0.06649165627600756,
+            0.0056969765412823985,
+            0.0018905377524534614,
+            -0.011629898659926089
+          ],
+          "selected_forecast_reward": 0.005733483483980334,
+          "selected_actual_reward": 0.005715650013996483,
+          "selected_evaluated": true,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.0058161935755831826,
+          "known_better": true,
+          "sampled_relative_advantages": [
+            0.6473232900020504,
+            -1.7258097475723335,
+            0.4368060435836981,
+            0.641680413986585
+          ],
+          "residual_overrides_noop": false
+        },
+        {
+          "decision": 16,
+          "selected": 1,
+          "forecast_best": 1,
+          "forecast_rewards": [
+            0.0,
+            0.00701420465373187,
+            -0.04001817417950398,
+            -0.07336181196092595,
+            0.0066227528839226096,
+            0.0019242923721585446,
+            -0.013200728601285738
+          ],
+          "selected_forecast_reward": 0.00701420465373187,
+          "selected_actual_reward": null,
+          "selected_evaluated": false,
+          "best_evaluated": 4,
+          "best_evaluated_reward": 0.006867065069139224,
+          "known_better": false,
+          "sampled_relative_advantages": [
+            0.5773502691896256,
+            0.5773502691896256,
+            0.5773502691896256,
+            -1.7320508075688774
+          ],
+          "residual_overrides_noop": false
+        }
+      ],
+      "selected_actions": {
+        "1": 15,
+        "4": 1
+      },
+      "selection_sequence": [
+        1,
+        1,
+        1,
+        1,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "policy_updates": 32,
+      "rollout_updates": 150,
+      "duplicate_proposals": 15,
+      "forecast_mae": 0.0005593346702559757,
+      "forecast_sign_agreement": 1.0,
+      "forecast_sign_n": 44,
+      "forecast_pair_order_agreement": 0.9431818181818182,
+      "forecast_pair_order_n": 88,
+      "forecast_match_scope": "unique sampled nonzero actions per decision; rank includes known zero reference",
+      "residual_overrides_noop_decisions": [
+        5,
+        6
+      ],
+      "all_restored": true,
+      "max_branch_residual": 9.622243417720172e-10,
+      "max_forecast_residual": 9.648689875960058e-10,
+      "final_probabilities": [
+        0.12257658317805857,
+        0.3191779096269892,
+        0.025649217616792095,
+        0.023644419691173237,
+        0.304692149041853,
+        0.16492047451081193,
+        0.03933924633432207
+      ]
+    }
+  },
+  "paired_predictions": [
+    {
+      "stage": 1,
+      "a": "main_RL",
+      "b": "main_FIXED1",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 1,
+      "a": "main_RL",
+      "b": "main_RESPONSE0",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 1,
+      "a": "main_RL",
+      "b": "main_RL_SHARED",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 1,
+      "a": "main_RL",
+      "b": "main_RL_RESPONSE",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 1,
+      "a": "main_FIXED1",
+      "b": "main_RESPONSE0",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 1,
+      "a": "main_FIXED1",
+      "b": "main_RL_SHARED",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 1,
+      "a": "main_FIXED1",
+      "b": "main_RL_RESPONSE",
+      "n": 85,
+      "prediction_agreement": 1.0,
+      "both_correct": 83,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 2
+    },
+    {
+      "stage": 2,
+      "a": "main_RL",
+      "b": "main_FIXED1",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 2,
+      "a": "main_RL",
+      "b": "main_RESPONSE0",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 2,
+      "a": "main_RL",
+      "b": "main_RL_SHARED",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 2,
+      "a": "main_RL",
+      "b": "main_RL_RESPONSE",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 2,
+      "a": "main_FIXED1",
+      "b": "main_RESPONSE0",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 2,
+      "a": "main_FIXED1",
+      "b": "main_RL_SHARED",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 2,
+      "a": "main_FIXED1",
+      "b": "main_RL_RESPONSE",
+      "n": 149,
+      "prediction_agreement": 1.0,
+      "both_correct": 106,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 43
+    },
+    {
+      "stage": 3,
+      "a": "main_RL",
+      "b": "main_FIXED1",
+      "n": 212,
+      "prediction_agreement": 1.0,
+      "both_correct": 134,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 78
+    },
+    {
+      "stage": 3,
+      "a": "main_RL",
+      "b": "main_RESPONSE0",
+      "n": 212,
+      "prediction_agreement": 0.9764150943396226,
+      "both_correct": 133,
+      "a_only_correct": 1,
+      "b_only_correct": 3,
+      "both_wrong": 75
+    },
+    {
+      "stage": 3,
+      "a": "main_RL",
+      "b": "main_RL_SHARED",
+      "n": 212,
+      "prediction_agreement": 1.0,
+      "both_correct": 134,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 78
+    },
+    {
+      "stage": 3,
+      "a": "main_RL",
+      "b": "main_RL_RESPONSE",
+      "n": 212,
+      "prediction_agreement": 0.9952830188679245,
+      "both_correct": 134,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 78
+    },
+    {
+      "stage": 3,
+      "a": "main_FIXED1",
+      "b": "main_RESPONSE0",
+      "n": 212,
+      "prediction_agreement": 0.9764150943396226,
+      "both_correct": 133,
+      "a_only_correct": 1,
+      "b_only_correct": 3,
+      "both_wrong": 75
+    },
+    {
+      "stage": 3,
+      "a": "main_FIXED1",
+      "b": "main_RL_SHARED",
+      "n": 212,
+      "prediction_agreement": 1.0,
+      "both_correct": 134,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 78
+    },
+    {
+      "stage": 3,
+      "a": "main_FIXED1",
+      "b": "main_RL_RESPONSE",
+      "n": 212,
+      "prediction_agreement": 0.9952830188679245,
+      "both_correct": 134,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 78
+    },
+    {
+      "stage": 4,
+      "a": "main_RL",
+      "b": "main_FIXED1",
+      "n": 295,
+      "prediction_agreement": 1.0,
+      "both_correct": 168,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    },
+    {
+      "stage": 4,
+      "a": "main_RL",
+      "b": "main_RESPONSE0",
+      "n": 295,
+      "prediction_agreement": 1.0,
+      "both_correct": 168,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    },
+    {
+      "stage": 4,
+      "a": "main_RL",
+      "b": "main_RL_SHARED",
+      "n": 295,
+      "prediction_agreement": 1.0,
+      "both_correct": 168,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    },
+    {
+      "stage": 4,
+      "a": "main_RL",
+      "b": "main_RL_RESPONSE",
+      "n": 295,
+      "prediction_agreement": 0.9966101694915255,
+      "both_correct": 167,
+      "a_only_correct": 1,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    },
+    {
+      "stage": 4,
+      "a": "main_FIXED1",
+      "b": "main_RESPONSE0",
+      "n": 295,
+      "prediction_agreement": 1.0,
+      "both_correct": 168,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    },
+    {
+      "stage": 4,
+      "a": "main_FIXED1",
+      "b": "main_RL_SHARED",
+      "n": 295,
+      "prediction_agreement": 1.0,
+      "both_correct": 168,
+      "a_only_correct": 0,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    },
+    {
+      "stage": 4,
+      "a": "main_FIXED1",
+      "b": "main_RL_RESPONSE",
+      "n": 295,
+      "prediction_agreement": 0.9966101694915255,
+      "both_correct": 167,
+      "a_only_correct": 1,
+      "b_only_correct": 0,
+      "both_wrong": 127
+    }
+  ],
+  "fixed1_reproduces_old_rl_predictions_all_stages": true,
+  "max_retained_solve_residual": {
+    "main_FIXED1": 9.007165633010951e-10,
+    "main_RESPONSE0": 8.77360767044279e-10,
+    "main_RL_SHARED": 9.007165633010951e-10,
+    "main_RL_RESPONSE": 9.008311288131551e-10
+  },
+  "formal_attempts": 4,
+  "gpu_seconds_used": 8313.860087871552,
+  "gpu_reserved_seconds": 0,
+  "diagnostic_gpu_seconds_included": 237.70505912648514,
+  "retained_updates": 800,
+  "rollout_updates": 450,
+  "actual_adapter_updates": 1250,
+  "policy_updates": 64,
+  "failures": [],
+  "unrun": [
+    "two new seeds",
+    "RL_RESPONSE_uniform",
+    "RL_RESPONSE_mean",
+    "HyperKvasir transfer"
+  ],
+  "unrun_reason": "pre-registered initial screen failed",
+  "test_accessed": false,
+  "independent_confirmation": false,
+  "completion_audit_cpu_core_seconds": 0.14663770999999998,
+  "completion_audit_gpu_seconds": 0,
+  "completion_audit_optimizer_updates": 0
+}

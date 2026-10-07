@@ -1,0 +1,209 @@
+{
+  "cycle": "PCRL1",
+  "status": "STOPPED_SCREEN_FAILED",
+  "phase": "CYCLE_CLOSED",
+  "source_commit": "8656e226924358e6c252c7292b0b835ecc4db231",
+  "completed_at": 1791373191.8442564,
+  "completed_at_shanghai": "2026-10-07T19:39:51.844256+08:00",
+  "screen_success": false,
+  "robustness_success": false,
+  "paper_evidence_ready": false,
+  "stop_reason": "BA_GAIN_BELOW_ONE_PP_AND_RL_BELOW_FIXED_PC",
+  "metrics": {
+    "main_R": {
+      "ba": 0.5681497847291855,
+      "average_ba": 0.7171652742064659,
+      "tail": 0.5829699305309062,
+      "forgetting": 0.1674726000945513,
+      "new_recall": 0.5555229142185664
+    },
+    "main_PC": {
+      "ba": 0.5814504513106051,
+      "average_ba": 0.7186215766353956,
+      "tail": 0.5685753765022058,
+      "forgetting": 0.188338893216942,
+      "new_recall": 0.6125146886016452
+    },
+    "main_GREEDY": {
+      "ba": 0.5752587178090889,
+      "average_ba": 0.7197343971402826,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1656407580188068,
+      "new_recall": 0.5446533490011751
+    },
+    "main_RL": {
+      "ba": 0.5779761091134368,
+      "average_ba": 0.7186379306905553,
+      "tail": 0.5781907611175904,
+      "forgetting": 0.1585375009155497,
+      "new_recall": 0.5555229142185664
+    }
+  },
+  "rl_differences_pp": {
+    "main_R": {
+      "ba": 0.9826324384251239,
+      "average_ba": 0.14726564840893408,
+      "tail": -0.4779169413315798,
+      "forgetting": -0.8935099179001621,
+      "new_recall": 0.0
+    },
+    "main_PC": {
+      "ba": -0.34743421971683563,
+      "average_ba": 0.0016354055159650827,
+      "tail": 0.9615384615384581,
+      "forgetting": -2.980139230139231,
+      "new_recall": -5.699177438307879
+    },
+    "main_GREEDY": {
+      "ba": 0.27173913043478937,
+      "average_ba": -0.10964664497273846,
+      "tail": 0.0,
+      "forgetting": -0.7103257103257099,
+      "new_recall": 1.0869565217391242
+    }
+  },
+  "screen_checks": {
+    "ba_gain": false,
+    "tail": true,
+    "forgetting": true,
+    "new_recall": true,
+    "above_PC": false,
+    "above_GREEDY": true
+  },
+  "ba_threshold_shortfall_pp": 0.017367561574876067,
+  "controllers": {
+    "main_GREEDY": {
+      "decisions": 16,
+      "selected_actions": {
+        "1": 4,
+        "6": 1,
+        "0": 6,
+        "5": 1,
+        "4": 4
+      },
+      "selection_sequence": [
+        1,
+        1,
+        6,
+        1,
+        0,
+        0,
+        1,
+        0,
+        5,
+        4,
+        0,
+        4,
+        0,
+        0,
+        4,
+        4
+      ],
+      "nonzero_action_rate": 0.625,
+      "proposal_count": 64,
+      "positive_proposals": 19,
+      "zero_proposals": 4,
+      "negative_proposals": 41,
+      "reward_min": -0.1225225657336442,
+      "reward_max": 0.012793613237818732,
+      "policy_updates": 0,
+      "rollout_updates": 150,
+      "branch_seconds": 867.3144560055807,
+      "all_restored": true,
+      "max_residual": 9.622243417720172e-10,
+      "probe_counts": [
+        [
+          86,
+          69
+        ],
+        [
+          98,
+          62
+        ],
+        [
+          128,
+          128
+        ]
+      ]
+    },
+    "main_RL": {
+      "decisions": 16,
+      "selected_actions": {
+        "1": 16
+      },
+      "selection_sequence": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "nonzero_action_rate": 1.0,
+      "proposal_count": 64,
+      "positive_proposals": 40,
+      "zero_proposals": 3,
+      "negative_proposals": 21,
+      "reward_min": -0.1225225657336442,
+      "reward_max": 0.012793613237818732,
+      "policy_updates": 30,
+      "rollout_updates": 150,
+      "branch_seconds": 865.9980644700117,
+      "all_restored": true,
+      "max_residual": 9.622243417720172e-10,
+      "probe_counts": [
+        [
+          86,
+          69
+        ],
+        [
+          98,
+          62
+        ],
+        [
+          128,
+          128
+        ]
+      ]
+    }
+  },
+  "max_retained_solve_residual": {
+    "main_R": 0.0,
+    "main_PC": 9.613484585208654e-10,
+    "main_GREEDY": 9.934847858004133e-10,
+    "main_RL": 9.007165633010951e-10
+  },
+  "baseline_CORE1_parity": {
+    "main_R": true,
+    "main_PC": true
+  },
+  "formal_attempts": 4,
+  "gpu_seconds_used": 7059.702908277512,
+  "diagnostic_gpu_seconds_included": 203.03650317667052,
+  "gpu_reserved_seconds": 0,
+  "retained_updates": 800,
+  "rollout_updates": 300,
+  "actual_adapter_updates": 1100,
+  "policy_updates": 30,
+  "formal_train_to_evaluation_seconds": 2233.772298812866,
+  "failures": [],
+  "unrun": [
+    "two new seeds",
+    "RL_uniform",
+    "RL_mean",
+    "HyperKvasir transfer"
+  ],
+  "unrun_reason": "pre-registered initial screen failed",
+  "test_accessed": false,
+  "independent_confirmation": false
+}

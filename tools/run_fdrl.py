@@ -32,6 +32,9 @@ def run(config):
     arm=config['method']
     if arm not in ('R','FD5','FD10','FD20','RANDOM','GRADIENT','GREEDY','FDRL','SHUFFLED','COMP10','COMP_FDRL'):
         raise ValueError('Unknown FD arm')
+    fixed_only=config.get('fixed_only',False)
+    if fixed_only and (arm not in ('R','FD10') or config.get('base_competition',True)):
+        raise ValueError('Fixed-only mode requires FD10 without competition')
     learned=arm in ('FDRL','SHUFFLED','COMP_FDRL')
     compete=arm!='R' and (config.get('base_competition',True) or arm in ('COMP10','COMP_FDRL'))
     full_task=config.get('full_task_returns',False)
@@ -39,8 +42,9 @@ def run(config):
     drift=config.get('drift','translation')
     if drift not in ('translation','affine'):raise ValueError('Unknown drift model')
     if warm_episodes not in (4,16):raise ValueError('Unregistered warmup length')
-    expected_warm=warm_episodes*32+(warm_episodes//2*8 if varied else 0)
-    update_cap=476+600+expected_warm
+    expected_warm=0 if fixed_only else warm_episodes*32+(warm_episodes//2*8 if varied else 0)
+    expected_branches=0 if fixed_only else 600
+    update_cap=476+expected_branches+expected_warm
     output=Path(config['output']);output.mkdir(parents=True,exist_ok=False)
     save(output/'INPUT.private.json',config)
     start=time.monotonic();steps=0;initial_steps=0;rollouts=0;warm_updates=0;diagnostic_seconds=0.
@@ -203,7 +207,7 @@ def run(config):
                         drift=drift,perturbed_drift=perturbed[4]['drift'],perturbed_risk=perturbed[0].tolist(),
                         max_residual=solve['relative_residual'],peak_gpu_bytes=torch.cuda.max_memory_allocated()))
                     status(status='COMPLETE',preflight=True,optimizer_updates=0);return
-                if task==2 and epoch==1:
+                if task==2 and epoch==1 and not fixed_only:
                     fit_rows=[rows[i] for i in fi.tolist()]
                     if not varied:
                         warm_loader=loader(fit_rows,True,task+20);warm_loader.dataset.epoch=1
@@ -249,7 +253,7 @@ def run(config):
                     history.append(state.clone());policy_state=state
                     if arm=='SHUFFLED':policy_state=history[int(torch.randint(len(history),(1,),generator=shuffle_rng))]
                     branch_rewards=[];branch_risks=[];max_residual=0.
-                    if task>1:
+                    if task>1 and not fixed_only:
                         snap=Snapshot(encoder,optimizer)
                         for action in range(3):
                             snap.restore(optimizer);head=W.clone()
@@ -280,7 +284,7 @@ def run(config):
                         if not torch.equal(after_y,raw_y):raise ValueError('Canonical order changed')
                         full=readout(current,fi,mi,y,before);terminal_reward=ctl.reward(initial_full,full[0],old_count,tail);r+=terminal_reward
                     if task>1:
-                        if abs(r-branch_rewards[action])>1e-8:raise ValueError('Retained path differs from matched branch')
+                        if not fixed_only and abs(r-branch_rewards[action])>1e-8:raise ValueError('Retained path differs from matched branch')
                         trajectory.append(dict(policy_state=policy_state,action=action,behavior=p,reward=r))
                         audit=dict(task=task,epoch=epoch,batch=first,horizon=len(cached),state=state.tolist(),policy_state=policy_state.tolist(),
                             probabilities=p.tolist(),selected_action=action,fd_weight=ctl.ACTIONS[action],reward=r,terminal_reward=terminal_reward,
@@ -307,8 +311,10 @@ def run(config):
                 class_meta_risks=full[0].tolist(),solve=solve,steps=steps,fit_only=True,meta_prototypes=0))
             del teacher,canonical,training,probe_loader,before,current,seeds,group,difficulty
         expected=200 if initial_steps else 476
-        if steps!=476 or steps-initial_steps!=expected or rollouts!=600+expected_warm or warm_updates!=expected_warm:
+        if steps!=476 or steps-initial_steps!=expected or rollouts!=expected_branches+expected_warm or warm_updates!=expected_warm:
             raise ValueError('Frozen update accounting mismatch')
+        if fixed_only and (policy.updates or any(d['fd_weight']!=10. or d['branch_rewards'] for d in decisions)):
+            raise ValueError('Fixed-only mode performed adaptive work')
         status(status='TRAINED',stages=4,peak_gpu_bytes=torch.cuda.max_memory_allocated())
     except BaseException as exc:
         status(status='INCOMPLETE',error=str(exc));raise

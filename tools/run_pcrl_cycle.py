@@ -33,6 +33,25 @@ def report(root, records, result, public=None):
     tables(root,records,result,public)
     controllers={p.parent.name:json.loads(p.read_text()) for p in root.glob('*/CONTROLLER.json')}
     save(public/'CONTROLLER_DIAGNOSTICS.json',controllers)
+    if result.get('cycle') == 'FIXED_DRIFT1':
+        lines=['# 固定 FD10：共同平移与仿射搬运完整增量对照','',
+            '两臂复用同一 T1 前缀、永久 fit/meta 划分与 seed74002；唯一方法差异是历史统计搬运。',
+            '无竞争项、原型证据项、策略预热、试探分支或策略更新；各臂新增200步，复用前缀276步。',
+            '按块记录的风险和梯度仅用于诊断，不选择动作；FD始终为10。','',
+            '|设置|最终BA %|平均BA %|尾类 %|遗忘 pp|新两类 %|',
+            '|---|---:|---:|---:|---:|---:|']
+        for name,value in records.items():
+            m=value['metrics'];last=m['stages'][-1]
+            new=np.mean([last['per_class_recall'][str(c)] for c in last['seen'][-2:]])
+            lines.append(f"|{name}|{m['final_balanced_accuracy']*100:.4f}|{m['average_incremental_balanced_accuracy']*100:.4f}|{m['final_tail_recall']*100:.4f}|{m['forgetting']*100:.4f}|{new*100:.4f}|")
+        lines+=['','仿射相对平移初筛：最终BA至少+1pp、尾类不低于−0.5pp、遗忘增加不超过1pp、新类不低于−1pp。',
+            '本波结束后停止并分析；不因通过门槛自动增加种子、调度校准或RL训练。',
+            '官方val是反复使用的开发集，单种子与共享前缀不构成独立确认；test保持封存。',
+            '仿射矩公式对给定映射精确，当前类到旧类的漂移外推仍是假设。',
+            'FDRL3失败结论保持不变，本波由用户另行授权检查固定底座，不是恢复原RL主筛。','',
+            '```json',json.dumps({k:v for k,v in result.items() if k!='records'},ensure_ascii=False,indent=2),'```','']
+        (public/'REPORT_ZH.md').write_text('\n'.join(lines))
+        return
     if result.get('primary_candidate') == 'FDRL':
         text=(public/'REPORT_ZH.md').read_text()
         text=text.replace('# CORE1 原型引导竞争约束：阶段结果','# FDRL1 蒸馏强度时序调度：阶段结果')

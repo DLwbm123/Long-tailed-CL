@@ -33,6 +33,17 @@ def report(root, records, result, public=None):
     tables(root,records,result,public)
     controllers={p.parent.name:json.loads(p.read_text()) for p in root.glob('*/CONTROLLER.json')}
     save(public/'CONTROLLER_DIAGNOSTICS.json',controllers)
+    if result.get('primary_candidate') == 'FDRL':
+        text=(public/'REPORT_ZH.md').read_text()
+        text=text.replace('# CORE1 原型引导竞争约束：阶段结果','# FDRL1 蒸馏强度时序调度：阶段结果')
+        text=text.replace('完整候选及固定消融以本波协议为准。原型决定类对竞争权重，二阶矩计算历史代理；适配器持续训练，推理仍为线性头。',
+            'FD 取 5/10/20；FDRL 主路径实际采样，用跨块折扣回报训练小型 actor–critic。拟合与奖励统计永久隔离。所有九臂均计费相同的三动作分支和四个短预热过程。')
+        text=text.replace('固定初筛要求：PC−R最终BA至少+1pp','固定初筛要求：FDRL−匹配R最终BA至少+1pp')
+        text=text.replace('所有正负结果和失败保留。只有完整候选满足门槛才进入预注册复核；否则等待预算内有明确证据的机制修订。',
+            '还须超过 FD5/10/20、随机、梯度规则、贪心和因果历史状态打乱对照；通过后仅运行冻结的两组新种子。没有自动方法修订或 HK 迁移。')
+        text += '\nmeta 仅提供训练反馈，不参与拟合；旧类只保存独立类级奖励矩统计。旧类共同平移仍为近似，官方 val 仍为开发集。\n'
+        (public/'REPORT_ZH.md').write_text(text)
+        return
     if result.get('primary_candidate') in ('FINALHEAD', 'PAIRHEAD'):
         primary = result['primary_candidate']
         text = (public/'REPORT_ZH.md').read_text()
@@ -210,6 +221,9 @@ def run(c):
         preflights={a:json.loads((root/(wave+'_preflight_'+a)/'PREFLIGHT.json').read_text()) for a in preflight_arms}
         if failures or any(p['optimizer_updates']!=0 or p['status']!='PASS' for p in preflights.values()):raise RuntimeError('PREFLIGHT_FAILED')
         save(public/'PREFLIGHT.json',dict(cpu=c['cpu_checks'],native=preflights))
+        if c.get('prepared_prefix_arm'):
+            c['prefix']=str(root/(wave+'_preflight_'+c['prepared_prefix_arm'])/'prepared_prefix.pt')
+            if not Path(c['prefix']).is_file():raise ValueError('Missing prepared disjoint prefix')
         phase='TRAIN_MAIN';state()
         names=[wave+'_'+a for a in arms]
         schedule([spec(wave+'_'+a,a,74002,c['prefix']) for a in arms])

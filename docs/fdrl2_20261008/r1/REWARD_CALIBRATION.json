@@ -1,0 +1,3126 @@
+{
+  "summary": {
+    "status": "STOPPED_REWARD_GATE",
+    "passed": false,
+    "gates": {
+      "enough_informative_pairs": true,
+      "pairwise_reward_order": false,
+      "missed_old_recall_harm": false,
+      "mean_class_balanced_recall_regret": false,
+      "enough_action_effects": true
+    },
+    "completed": 20,
+    "informative_pairs": 60,
+    "pairwise_agreement": 0.25,
+    "false_safe_branches": 44,
+    "branch_count": 60,
+    "informative_episodes": 9,
+    "mean_recall_regret": 0.01015625,
+    "actual_updates": 1040,
+    "independent_confirmation": false,
+    "scope": "end-of-T1 pseudo-incremental training diagnostic",
+    "test_accessed": false
+  },
+  "records": [
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81000,
+      "reverse": false,
+      "start_depth": 0,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.07591090812370066,
+            0.056143801516740435
+          ],
+          "proxy_after": [
+            0.07073230991468143,
+            0.041917681840161335
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07591090812370058,
+              0.056143801516740435
+            ],
+            "recall": [
+              0.90625,
+              0.9375
+            ],
+            "margin": [
+              0.5719485887580926,
+              0.8634911744547987
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.15491773749760715,
+              0.041917681840161335
+            ],
+            "recall": [
+              0.8125,
+              0.984375
+            ],
+            "margin": [
+              0.26902606134033585,
+              0.8880742121940784
+            ]
+          },
+          "proxy_reward": 0.9702358942799163,
+          "oracle_reward": -19.04040135964769
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.07591090812370066,
+            0.056143801516740435
+          ],
+          "proxy_after": [
+            0.07186732227598658,
+            0.044463492371367305
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07591090812370058,
+              0.056143801516740435
+            ],
+            "recall": [
+              0.90625,
+              0.9375
+            ],
+            "margin": [
+              0.5719485887580926,
+              0.8634911744547987
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.13699142975896123,
+              0.044463492371367305
+            ],
+            "recall": [
+              0.8125,
+              0.984375
+            ],
+            "margin": [
+              0.32061035193417764,
+              0.8824447241852432
+            ]
+          },
+          "proxy_reward": 0.7861947496543606,
+          "oracle_reward": -14.686114951546505
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.07591090812370066,
+            0.056143801516740435
+          ],
+          "proxy_after": [
+            0.07340341546123574,
+            0.0482945925794655
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07591090812370058,
+              0.056143801516740435
+            ],
+            "recall": [
+              0.90625,
+              0.9375
+            ],
+            "margin": [
+              0.5719485887580926,
+              0.8634911744547987
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.114477130670641,
+              0.0482945925794655
+            ],
+            "recall": [
+              0.875,
+              0.96875
+            ],
+            "margin": [
+              0.39586930831392747,
+              0.8745586993717254
+            ]
+          },
+          "proxy_reward": 0.5178350799869925,
+          "oracle_reward": -9.249095189871358
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12886048256,
+      "elapsed_seconds": 166.0135753978975
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81000,
+      "reverse": false,
+      "start_depth": 8,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.07650938583957212,
+            0.051786104353378666
+          ],
+          "proxy_after": [
+            0.07083969903220233,
+            0.037614788147101334
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07650938583957201,
+              0.051786104353378666
+            ],
+            "recall": [
+              0.890625,
+              0.9375
+            ],
+            "margin": [
+              0.5755562548764128,
+              0.8739221275662266
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.16858549107979515,
+              0.037614788147101334
+            ],
+            "recall": [
+              0.796875,
+              0.984375
+            ],
+            "margin": [
+              0.23382320425438807,
+              0.8987479993829585
+            ]
+          },
+          "proxy_reward": 0.992050150682356,
+          "oracle_reward": -22.310460499741918
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.07650938583957212,
+            0.051786104353378666
+          ],
+          "proxy_after": [
+            0.07238295142033435,
+            0.04076201568516581
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07650938583957201,
+              0.051786104353378666
+            ],
+            "recall": [
+              0.890625,
+              0.9375
+            ],
+            "margin": [
+              0.5755562548764128,
+              0.8739221275662266
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.14441270136068635,
+              0.04076201568516581
+            ],
+            "recall": [
+              0.8125,
+              0.984375
+            ],
+            "margin": [
+              0.3012646846913162,
+              0.8913672819518559
+            ]
+          },
+          "proxy_reward": 0.7575261543725311,
+          "oracle_reward": -16.42462444686794
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.07650938583957212,
+            0.051786104353378666
+          ],
+          "proxy_after": [
+            0.07401704718614416,
+            0.04447276331834546
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07650938583957201,
+              0.051786104353378666
+            ],
+            "recall": [
+              0.890625,
+              0.9375
+            ],
+            "margin": [
+              0.5755562548764128,
+              0.8739221275662266
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.11797003334497798,
+              0.04447276331834546
+            ],
+            "recall": [
+              0.859375,
+              0.984375
+            ],
+            "margin": [
+              0.38860666087082535,
+              0.8840497058119782
+            ]
+          },
+          "proxy_reward": 0.49028398442305837,
+          "oracle_reward": -9.999494824599832
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12886310400,
+      "elapsed_seconds": 195.35899201128632
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81000,
+      "reverse": true,
+      "start_depth": 0,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.057313065762266135,
+            0.08674695597748446
+          ],
+          "proxy_after": [
+            0.052486942080250176,
+            0.07634711860817812
+          ],
+          "oracle_before": {
+            "loss": [
+              0.057313065762266274,
+              0.08674695597748446
+            ],
+            "recall": [
+              0.9375,
+              0.921875
+            ],
+            "margin": [
+              0.7790788910385423,
+              0.5284938147763143
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.06145970763508937,
+              0.07634711860817812
+            ],
+            "recall": [
+              0.921875,
+              0.9375
+            ],
+            "margin": [
+              0.7341661184796193,
+              0.5609326757212345
+            ]
+          },
+          "proxy_reward": 0.7612980525661145,
+          "oracle_reward": -0.10200441245814817
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.057313065762266135,
+            0.08674695597748446
+          ],
+          "proxy_after": [
+            0.05392497341827451,
+            0.0784776987650029
+          ],
+          "oracle_before": {
+            "loss": [
+              0.057313065762266274,
+              0.08674695597748446
+            ],
+            "recall": [
+              0.9375,
+              0.921875
+            ],
+            "margin": [
+              0.7790788910385423,
+              0.5284938147763143
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.061631109098420275,
+              0.0784776987650029
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.7278318340665361,
+              0.5528008397496007
+            ]
+          },
+          "proxy_reward": 0.5828674778236586,
+          "oracle_reward": -0.23424363979902274
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.057313065762266135,
+            0.08674695597748446
+          ],
+          "proxy_after": [
+            0.05503730525797995,
+            0.08086536629111522
+          ],
+          "oracle_before": {
+            "loss": [
+              0.057313065762266274,
+              0.08674695597748446
+            ],
+            "recall": [
+              0.9375,
+              0.921875
+            ],
+            "margin": [
+              0.7790788910385423,
+              0.5284938147763143
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.06129314173063247,
+              0.08086536629111522
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.7289800452863335,
+              0.5447149043581236
+            ]
+          },
+          "proxy_reward": 0.4078675095327708,
+          "oracle_reward": -0.30293191093646726
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 163.9082788042724
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81000,
+      "reverse": true,
+      "start_depth": 8,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.0536537814229322,
+            0.08738004924788939
+          ],
+          "proxy_after": [
+            0.04933217590895522,
+            0.0756575963839666
+          ],
+          "oracle_before": {
+            "loss": [
+              0.053653781422932256,
+              0.08738004924788939
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.7897814468404639,
+              0.5319218478389198
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.06071260778575399,
+              0.0756575963839666
+            ],
+            "recall": [
+              0.921875,
+              0.9375
+            ],
+            "margin": [
+              0.7204178271988857,
+              0.5665347616059543
+            ]
+          },
+          "proxy_reward": 0.8022029188949884,
+          "oracle_reward": -0.47270131122712084
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.0536537814229322,
+            0.08738004924788939
+          ],
+          "proxy_after": [
+            0.05067833245421155,
+            0.07867005065762625
+          ],
+          "oracle_before": {
+            "loss": [
+              0.053653781422932256,
+              0.08738004924788939
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.7897814468404639,
+              0.5319218478389198
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.059527389264964245,
+              0.07867005065762625
+            ],
+            "recall": [
+              0.921875,
+              0.9375
+            ],
+            "margin": [
+              0.7239306012591102,
+              0.5563285970805503
+            ]
+          },
+          "proxy_reward": 0.5842723779491896,
+          "oracle_reward": -0.4455412467916413
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.0536537814229322,
+            0.08738004924788939
+          ],
+          "proxy_after": [
+            0.05165536547842964,
+            0.08150505906419966
+          ],
+          "oracle_before": {
+            "loss": [
+              0.053653781422932256,
+              0.08738004924788939
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.7897814468404639,
+              0.5319218478389198
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.05825799091886233,
+              0.08150505906419966
+            ],
+            "recall": [
+              0.921875,
+              0.9375
+            ],
+            "margin": [
+              0.7313516188765871,
+              0.5476929483657549
+            ]
+          },
+          "proxy_reward": 0.3936703064096145,
+          "oracle_reward": -0.3968819152050246
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 174.8410963760689
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81001,
+      "reverse": false,
+      "start_depth": 0,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.0745917673195362,
+            0.06287913231193494
+          ],
+          "proxy_after": [
+            0.07061386762311928,
+            0.04594167502588446
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07459176731953607,
+              0.06287913231193494
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.5766616482651514,
+              0.7544944288847759
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.14670522964730548,
+              0.04594167502588446
+            ],
+            "recall": [
+              0.875,
+              0.984375
+            ],
+            "margin": [
+              0.2953155411853615,
+              0.8018365312982675
+            ]
+          },
+          "proxy_reward": 1.0457678491233704,
+          "oracle_reward": -17.18149271763983
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.0745917673195362,
+            0.06287913231193494
+          ],
+          "proxy_after": [
+            0.07119760457719909,
+            0.04857623783121015
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07459176731953607,
+              0.06287913231193494
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.5766616482651514,
+              0.7544944288847759
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.1319515998190834,
+              0.04857623783121015
+            ],
+            "recall": [
+              0.890625,
+              0.984375
+            ],
+            "margin": [
+              0.33946240891479773,
+              0.7919892438829422
+            ]
+          },
+          "proxy_reward": 0.8848528611530952,
+          "oracle_reward": -13.624813400850591
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.0745917673195362,
+            0.06287913231193494
+          ],
+          "proxy_after": [
+            0.07217720884343792,
+            0.05276244546401418
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07459176731953607,
+              0.06287913231193494
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.5766616482651514,
+              0.7544944288847759
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.11290131217263878,
+              0.05276244546401418
+            ],
+            "recall": [
+              0.890625,
+              0.984375
+            ],
+            "margin": [
+              0.40344329789546984,
+              0.780434714757872
+            ]
+          },
+          "proxy_reward": 0.6265622662009522,
+          "oracle_reward": -9.07155187087964
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 161.47443447029218
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81001,
+      "reverse": false,
+      "start_depth": 8,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.07659527991454812,
+            0.06057947589485606
+          ],
+          "proxy_after": [
+            0.0720158922257163,
+            0.04177378707778776
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07659527991454822,
+              0.06057947589485606
+            ],
+            "recall": [
+              0.90625,
+              0.984375
+            ],
+            "margin": [
+              0.5743759068110217,
+              0.7604819662911928
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.15912070122082725,
+              0.04177378707778776
+            ],
+            "recall": [
+              0.84375,
+              0.984375
+            ],
+            "margin": [
+              0.26222515389716916,
+              0.8106694881994297
+            ]
+          },
+          "proxy_reward": 1.1692538252950055,
+          "oracle_reward": -19.691070885716343
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.07659527991454812,
+            0.06057947589485606
+          ],
+          "proxy_after": [
+            0.07302349579563483,
+            0.045517829799333234
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07659527991454822,
+              0.06057947589485606
+            ],
+            "recall": [
+              0.90625,
+              0.984375
+            ],
+            "margin": [
+              0.5743759068110217,
+              0.7604819662911928
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.13696177322387054,
+              0.045517829799333234
+            ],
+            "recall": [
+              0.875,
+              0.984375
+            ],
+            "margin": [
+              0.32765332602348607,
+              0.7988738492542469
+            ]
+          },
+          "proxy_reward": 0.9316715107218057,
+          "oracle_reward": -14.338541022554441
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.07659527991454812,
+            0.06057947589485606
+          ],
+          "proxy_after": [
+            0.07431827921555778,
+            0.05095139584498004
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07659527991454822,
+              0.06057947589485606
+            ],
+            "recall": [
+              0.90625,
+              0.984375
+            ],
+            "margin": [
+              0.5743759068110217,
+              0.7604819662911928
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.11091883446939291,
+              0.05095139584498004
+            ],
+            "recall": [
+              0.890625,
+              0.984375
+            ],
+            "margin": [
+              0.41861568973371943,
+              0.7847415234039532
+            ]
+          },
+          "proxy_reward": 0.5952540374433178,
+          "oracle_reward": -8.099484636217372
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 174.41843505762517
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81001,
+      "reverse": true,
+      "start_depth": 0,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.05394470695904924,
+            0.07180811793300769
+          ],
+          "proxy_after": [
+            0.05060784313367622,
+            0.06319861397871676
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05394470695904939,
+              0.07180811793300769
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7353711303696753,
+              0.6226568461338535
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.05596896747996952,
+              0.06319861397871676
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.710820819398218,
+              0.6497893096976111
+            ]
+          },
+          "proxy_reward": 0.5973183889831972,
+          "oracle_reward": 0.12683611957652746
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.05394470695904924,
+            0.07180811793300769
+          ],
+          "proxy_after": [
+            0.05138105168983709,
+            0.06495403537502263
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05394470695904939,
+              0.07180811793300769
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7353711303696753,
+              0.6226568461338535
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.05747391280389528,
+              0.06495403537502263
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.6975768748403661,
+              0.6435960195744148
+            ]
+          },
+          "proxy_reward": 0.47088689135986045,
+          "oracle_reward": -0.1866767488276303
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.05394470695904924,
+            0.07180811793300769
+          ],
+          "proxy_after": [
+            0.05214356061509873,
+            0.06683122152117166
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05394470695904939,
+              0.07180811793300769
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7353711303696753,
+              0.6226568461338535
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.058006318733748743,
+              0.06683122152117166
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.6944644829031985,
+              0.6368682429363077
+            ]
+          },
+          "proxy_reward": 0.3389021377893271,
+          "oracle_reward": -0.3603969456131013
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 156.12442179583013
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81001,
+      "reverse": true,
+      "start_depth": 8,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.05068930961624141,
+            0.07071382622699493
+          ],
+          "proxy_after": [
+            0.04784124856836802,
+            0.060994173309612626
+          ],
+          "oracle_before": {
+            "loss": [
+              0.050689309616241504,
+              0.07071382622699493
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7520662806498019,
+              0.6331784864285175
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.05705956340881892,
+              0.060994173309612626
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.6944635003629194,
+              0.6613191436485867
+            ]
+          },
+          "proxy_reward": 0.6283856982627845,
+          "oracle_reward": -0.4695554230174967
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.05068930961624141,
+            0.07071382622699493
+          ],
+          "proxy_after": [
+            0.04860238038496412,
+            0.06368953783006986
+          ],
+          "oracle_before": {
+            "loss": [
+              0.050689309616241504,
+              0.07071382622699493
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7520662806498019,
+              0.6331784864285175
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.056479848986078975,
+              0.06368953783006986
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.6965578368539075,
+              0.6529266026586058
+            ]
+          },
+          "proxy_reward": 0.4555608814101178,
+          "oracle_reward": -0.5173664856293673
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.05068930961624141,
+            0.07071382622699493
+          ],
+          "proxy_after": [
+            0.04919739412722601,
+            0.06583255576270386
+          ],
+          "oracle_before": {
+            "loss": [
+              0.050689309616241504,
+              0.07071382622699493
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7520662806498019,
+              0.6331784864285175
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.05569075992665553,
+              0.06583255576270386
+            ],
+            "recall": [
+              0.96875,
+              0.9375
+            ],
+            "margin": [
+              0.7020944203543513,
+              0.6459432215712668
+            ]
+          },
+          "proxy_reward": 0.31865929766532325,
+          "oracle_reward": -0.5061540233475502
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 199.2552658491768
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81002,
+      "reverse": false,
+      "start_depth": 0,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.0968275495541408,
+            0.08207238450324772
+          ],
+          "proxy_after": [
+            0.08990198964587703,
+            0.06691320425908896
+          ],
+          "oracle_before": {
+            "loss": [
+              0.096827549554141,
+              0.08207238450324772
+            ],
+            "recall": [
+              0.890625,
+              0.890625
+            ],
+            "margin": [
+              0.5278905592261925,
+              0.6759630898578108
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.17121226347397145,
+              0.06691320425908896
+            ],
+            "recall": [
+              0.8125,
+              0.9375
+            ],
+            "margin": [
+              0.25300500553863425,
+              0.6999500302012505
+            ]
+          },
+          "proxy_reward": 1.1042370076211263,
+          "oracle_reward": -17.838219467749674
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.0968275495541408,
+            0.08207238450324772
+          ],
+          "proxy_after": [
+            0.09140838903716048,
+            0.06900281470278756
+          ],
+          "oracle_before": {
+            "loss": [
+              0.096827549554141,
+              0.08207238450324772
+            ],
+            "recall": [
+              0.890625,
+              0.890625
+            ],
+            "margin": [
+              0.5278905592261925,
+              0.6759630898578108
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.15502122967054302,
+              0.06900281470278756
+            ],
+            "recall": [
+              0.828125,
+              0.921875
+            ],
+            "margin": [
+              0.2988715164243342,
+              0.6964365314814817
+            ]
+          },
+          "proxy_reward": 0.9244365158720242,
+          "oracle_reward": -13.894941539077498
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.0968275495541408,
+            0.08207238450324772
+          ],
+          "proxy_after": [
+            0.09345348110496565,
+            0.07286962393899035
+          ],
+          "oracle_before": {
+            "loss": [
+              0.096827549554141,
+              0.08207238450324772
+            ],
+            "recall": [
+              0.890625,
+              0.890625
+            ],
+            "margin": [
+              0.5278905592261925,
+              0.6759630898578108
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.13305720761009782,
+              0.07286962393899035
+            ],
+            "recall": [
+              0.859375,
+              0.90625
+            ],
+            "margin": [
+              0.3721497359047008,
+              0.6901825138401281
+            ]
+          },
+          "proxy_reward": 0.6288414506716258,
+          "oracle_reward": -8.597276485776337
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 157.9159118612297
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81002,
+      "reverse": false,
+      "start_depth": 8,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.09669865289239982,
+            0.07706469111699213
+          ],
+          "proxy_after": [
+            0.08924268468775276,
+            0.06075575545350349
+          ],
+          "oracle_before": {
+            "loss": [
+              0.09669865289239979,
+              0.07706469111699213
+            ],
+            "recall": [
+              0.890625,
+              0.90625
+            ],
+            "margin": [
+              0.538932703772828,
+              0.6909599090112807
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.18363672098896078,
+              0.06075575545350349
+            ],
+            "recall": [
+              0.796875,
+              0.9375
+            ],
+            "margin": [
+              0.22457842724121752,
+              0.7173026645906172
+            ]
+          },
+          "proxy_reward": 1.1882451934067846,
+          "oracle_reward": -20.919070240965816
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.09669865289239982,
+            0.07706469111699213
+          ],
+          "proxy_after": [
+            0.09115563681783523,
+            0.06342307164515582
+          ],
+          "oracle_before": {
+            "loss": [
+              0.09669865289239979,
+              0.07706469111699213
+            ],
+            "recall": [
+              0.890625,
+              0.90625
+            ],
+            "margin": [
+              0.538932703772828,
+              0.6909599090112807
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.16001581673167053,
+              0.06342307164515582
+            ],
+            "recall": [
+              0.8125,
+              0.921875
+            ],
+            "margin": [
+              0.2916641087847669,
+              0.7131013550996442
+            ]
+          },
+          "proxy_reward": 0.9592317773200452,
+          "oracle_reward": -15.147209986225871
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.09669865289239982,
+            0.07706469111699213
+          ],
+          "proxy_after": [
+            0.09343490800395782,
+            0.0678367730153217
+          ],
+          "oracle_before": {
+            "loss": [
+              0.09669865289239979,
+              0.07706469111699213
+            ],
+            "recall": [
+              0.890625,
+              0.90625
+            ],
+            "margin": [
+              0.538932703772828,
+              0.6909599090112807
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.13237099077036169,
+              0.0678367730153217
+            ],
+            "recall": [
+              0.859375,
+              0.921875
+            ],
+            "margin": [
+              0.38419531749928143,
+              0.7058076242068161
+            ]
+          },
+          "proxy_reward": 0.6245831495056211,
+          "oracle_reward": -8.456688564406953
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 171.04972651507705
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81002,
+      "reverse": true,
+      "start_depth": 0,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.04480303009122644,
+            0.09421490046281908
+          ],
+          "proxy_after": [
+            0.04246299655995789,
+            0.08688449159029593
+          ],
+          "oracle_before": {
+            "loss": [
+              0.04480303009122625,
+              0.09421490046281908
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.792355937716793,
+              0.552637944344888
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.049013771179153044,
+              0.08688449159029593
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7798835954898404,
+              0.5768361164049964
+            ]
+          },
+          "proxy_reward": 0.4835221201895848,
+          "oracle_reward": -0.26509071956286184
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.04480303009122644,
+            0.09421490046281908
+          ],
+          "proxy_after": [
+            0.04282128043236971,
+            0.08674645446665646
+          ],
+          "oracle_before": {
+            "loss": [
+              0.04480303009122625,
+              0.09421490046281908
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.792355937716793,
+              0.552637944344888
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.04981511666923063,
+              0.08674645446665646
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.751882571612032,
+              0.5747072461004146
+            ]
+          },
+          "proxy_reward": 0.47250978275096694,
+          "oracle_reward": -0.3783906868925262
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.04480303009122644,
+            0.09421490046281908
+          ],
+          "proxy_after": [
+            0.04344372402967128,
+            0.08843537580931349
+          ],
+          "oracle_before": {
+            "loss": [
+              0.04480303009122625,
+              0.09421490046281908
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.792355937716793,
+              0.552637944344888
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.049091606578960285,
+              0.08843537580931349
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7496460634669719,
+              0.568398857378512
+            ]
+          },
+          "proxy_reward": 0.3569415357530373,
+          "oracle_reward": -0.35431024048482584
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 159.6404558699578
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81002,
+      "reverse": true,
+      "start_depth": 8,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.041480401234848696,
+            0.09535181289756371
+          ],
+          "proxy_after": [
+            0.039150761958155866,
+            0.08445250164173101
+          ],
+          "oracle_before": {
+            "loss": [
+              0.04148040123484861,
+              0.09535181289756371
+            ],
+            "recall": [
+              0.96875,
+              0.890625
+            ],
+            "margin": [
+              0.8043775407979735,
+              0.5570719900484589
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.04914780263213829,
+              0.08445250164173101
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7530886262973076,
+              0.5888836240988898
+            ]
+          },
+          "proxy_reward": 0.6614475266262764,
+          "oracle_reward": -0.6051446468018168
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.041480401234848696,
+            0.09535181289756371
+          ],
+          "proxy_after": [
+            0.039815888214814965,
+            0.08670403193474203
+          ],
+          "oracle_before": {
+            "loss": [
+              0.04148040123484861,
+              0.09535181289756371
+            ],
+            "recall": [
+              0.96875,
+              0.890625
+            ],
+            "margin": [
+              0.8043775407979735,
+              0.5570719900484589
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.04785648340039416,
+              0.08670403193474203
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7503355431332055,
+              0.5805890882893877
+            ]
+          },
+          "proxy_reward": 0.5156146991427704,
+          "oracle_reward": -0.5240232766907483
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.041480401234848696,
+            0.09535181289756371
+          ],
+          "proxy_after": [
+            0.04020844404286972,
+            0.08885524164475586
+          ],
+          "oracle_before": {
+            "loss": [
+              0.04148040123484861,
+              0.09535181289756371
+            ],
+            "recall": [
+              0.96875,
+              0.890625
+            ],
+            "margin": [
+              0.8043775407979735,
+              0.5570719900484589
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.04642113361997029,
+              0.08885524164475586
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7519691461952216,
+              0.5737501824418414
+            ]
+          },
+          "proxy_reward": 0.38842642223934143,
+          "oracle_reward": -0.41628129512785855
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 187.88392157107592
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81003,
+      "reverse": false,
+      "start_depth": 0,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.07715070602347607,
+            0.0884449586756639
+          ],
+          "proxy_after": [
+            0.07314115424275675,
+            0.06827211879837984
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07715070602347615,
+              0.0884449586756639
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.5535914586067437,
+              0.6390829872969697
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.14519462669282301,
+              0.06827211879837984
+            ],
+            "recall": [
+              0.859375,
+              0.953125
+            ],
+            "margin": [
+              0.29691012685304397,
+              0.6873317911818309
+            ]
+          },
+          "proxy_reward": 1.2091195829001693,
+          "oracle_reward": -16.002338173472513
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.07715070602347607,
+            0.0884449586756639
+          ],
+          "proxy_after": [
+            0.07389377326607266,
+            0.07153407816982713
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07715070602347615,
+              0.0884449586756639
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.5535914586067437,
+              0.6390829872969697
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.12888568234967324,
+              0.07153407816982713
+            ],
+            "recall": [
+              0.875,
+              0.953125
+            ],
+            "margin": [
+              0.34522202679353287,
+              0.6778678933303296
+            ]
+          },
+          "proxy_reward": 1.0083906631620092,
+          "oracle_reward": -12.088200056257433
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.07715070602347607,
+            0.0884449586756639
+          ],
+          "proxy_after": [
+            0.0750680312048751,
+            0.07670447623697049
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07715070602347615,
+              0.0884449586756639
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.5535914586067437,
+              0.6390829872969697
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.10845426448585224,
+              0.07670447623697049
+            ],
+            "recall": [
+              0.890625,
+              0.953125
+            ],
+            "margin": [
+              0.4161765620648221,
+              0.6643867186976175
+            ]
+          },
+          "proxy_reward": 0.6911578628647191,
+          "oracle_reward": -7.238865493659352
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12886048256,
+      "elapsed_seconds": 159.50835200073197
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81003,
+      "reverse": false,
+      "start_depth": 8,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.0760754161776942,
+            0.0848316216520894
+          ],
+          "proxy_after": [
+            0.07153888802200431,
+            0.06270130371479624
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07607541617769426,
+              0.0848316216520894
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.5665096244450147,
+              0.6528574871981849
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.1560139311679164,
+              0.06270130371479624
+            ],
+            "recall": [
+              0.84375,
+              0.96875
+            ],
+            "margin": [
+              0.27251047544934304,
+              0.7055899734130398
+            ]
+          },
+          "proxy_reward": 1.333342304649153,
+          "oracle_reward": -18.878112850690876
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.0760754161776942,
+            0.0848316216520894
+          ],
+          "proxy_after": [
+            0.07267515473956304,
+            0.06673907260787901
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07607541617769426,
+              0.0848316216520894
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.5665096244450147,
+              0.6528574871981849
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.13161538813144533,
+              0.06673907260787901
+            ],
+            "recall": [
+              0.875,
+              0.953125
+            ],
+            "margin": [
+              0.3439555669124114,
+              0.6936143963051308
+            ]
+          },
+          "proxy_reward": 1.0746405241170778,
+          "oracle_reward": -12.980365536227248
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.0760754161776942,
+            0.0848316216520894
+          ],
+          "proxy_after": [
+            0.07405525212065617,
+            0.07295594055291782
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07607541617769426,
+              0.0848316216520894
+            ],
+            "recall": [
+              0.9375,
+              0.90625
+            ],
+            "margin": [
+              0.5665096244450147,
+              0.6528574871981849
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.10650504804962077,
+              0.07295594055291782
+            ],
+            "recall": [
+              0.890625,
+              0.953125
+            ],
+            "margin": [
+              0.4317534079234839,
+              0.6778043010885213
+            ]
+          },
+          "proxy_reward": 0.6947922578104809,
+          "oracle_reward": -7.01362391302305
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12886310400,
+      "elapsed_seconds": 170.49770247377455
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81003,
+      "reverse": true,
+      "start_depth": 0,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.058258277731619235,
+            0.09031830974272448
+          ],
+          "proxy_after": [
+            0.0545592320484381,
+            0.08019945092718597
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05825827773161919,
+              0.09031830974272448
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.8140349993215883,
+              0.5418192502968888
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.06256632638146892,
+              0.08019945092718597
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7683528573907044,
+              0.5693660178266714
+            ]
+          },
+          "proxy_reward": 0.6908952249359821,
+          "oracle_reward": -0.14026435670053336
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.058258277731619235,
+            0.09031830974272448
+          ],
+          "proxy_after": [
+            0.055417763030619016,
+            0.08166372290163827
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05825827773161919,
+              0.09031830974272448
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.8140349993215883,
+              0.5418192502968888
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.062436603936864954,
+              0.08166372290163827
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7566911159835814,
+              0.5646458321400699
+            ]
+          },
+          "proxy_reward": 0.5747550771043213,
+          "oracle_reward": -0.19401958873255382
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.058258277731619235,
+            0.09031830974272448
+          ],
+          "proxy_after": [
+            0.056441649470812316,
+            0.08381277557120312
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05825827773161919,
+              0.09031830974272448
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.8140349993215883,
+              0.5418192502968888
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.06185932261460873,
+              0.08381277557120312
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7576068505978168,
+              0.5580431532092323
+            ]
+          },
+          "proxy_reward": 0.4161081216164139,
+          "oracle_reward": -0.21488002387236305
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 154.86802114685997
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81003,
+      "reverse": true,
+      "start_depth": 8,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.05507720348254741,
+            0.0889863580695148
+          ],
+          "proxy_after": [
+            0.0514807225173784,
+            0.07696165699155881
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05507720348254741,
+              0.0889863580695148
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.8183251036921778,
+              0.551946717780865
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.063019202593684,
+              0.07696165699155881
+            ],
+            "recall": [
+              0.953125,
+              0.921875
+            ],
+            "margin": [
+              0.7332307119817273,
+              0.582645711511571
+            ]
+          },
+          "proxy_reward": 0.7810591021562501,
+          "oracle_reward": -0.5900648127726893
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.05507720348254741,
+            0.0889863580695148
+          ],
+          "proxy_after": [
+            0.05250540714457441,
+            0.07968592081606857
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05507720348254741,
+              0.0889863580695148
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.8183251036921778,
+              0.551946717780865
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.061121998227316496,
+              0.07968592081606857
+            ],
+            "recall": [
+              0.953125,
+              0.90625
+            ],
+            "margin": [
+              0.7392667303824333,
+              0.5751202689036019
+            ]
+          },
+          "proxy_reward": 0.5936116795709614,
+          "oracle_reward": -0.44169734904305136
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.05507720348254741,
+            0.0889863580695148
+          ],
+          "proxy_after": [
+            0.053490329244436696,
+            0.0821734721010129
+          ],
+          "oracle_before": {
+            "loss": [
+              0.05507720348254741,
+              0.0889863580695148
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.8183251036921778,
+              0.551946717780865
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.05959314445158214,
+              0.0821734721010129
+            ],
+            "recall": [
+              0.953125,
+              0.890625
+            ],
+            "margin": [
+              0.7495001168054513,
+              0.5678997286006958
+            ]
+          },
+          "proxy_reward": 0.4199880103306304,
+          "oracle_reward": -0.33674684693011486
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 193.20648695528507
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81004,
+      "reverse": false,
+      "start_depth": 0,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.10182316496737692,
+            0.06059719690612185
+          ],
+          "proxy_after": [
+            0.0916748897959423,
+            0.04634938976199835
+          ],
+          "oracle_before": {
+            "loss": [
+              0.1018231649673769,
+              0.06059719690612185
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.47187627603273863,
+              0.7452230743536247
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.18485273313688094,
+              0.04634938976199835
+            ],
+            "recall": [
+              0.78125,
+              0.96875
+            ],
+            "margin": [
+              0.1901996843880985,
+              0.7745074518497128
+            ]
+          },
+          "proxy_reward": 1.2198041157779065,
+          "oracle_reward": -20.04500168516984
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.10182316496737692,
+            0.06059719690612185
+          ],
+          "proxy_after": [
+            0.09394161001049706,
+            0.04862736557202057
+          ],
+          "oracle_before": {
+            "loss": [
+              0.1018231649673769,
+              0.06059719690612185
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.47187627603273863,
+              0.7452230743536247
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.16777323924946447,
+              0.04862736557202057
+            ],
+            "recall": [
+              0.796875,
+              0.96875
+            ],
+            "margin": [
+              0.23612111113960574,
+              0.7691177881301665
+            ]
+          },
+          "proxy_reward": 0.9925693145490574,
+          "oracle_reward": -15.88902700381683
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.10182316496737692,
+            0.06059719690612185
+          ],
+          "proxy_after": [
+            0.09689226196966089,
+            0.052285768487676076
+          ],
+          "oracle_before": {
+            "loss": [
+              0.1018231649673769,
+              0.06059719690612185
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.47187627603273863,
+              0.7452230743536247
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.14566335412706463,
+              0.052285768487676076
+            ],
+            "recall": [
+              0.828125,
+              0.96875
+            ],
+            "margin": [
+              0.30223449418939186,
+              0.7609685443787773
+            ]
+          },
+          "proxy_reward": 0.6621165708080905,
+          "oracle_reward": -10.544475868999644
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 159.49164430005476
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81004,
+      "reverse": false,
+      "start_depth": 8,
+      "pseudo_order": [
+        4,
+        0
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.10191237484843335,
+            0.056047518842642224
+          ],
+          "proxy_after": [
+            0.09089404991209499,
+            0.04179601254198058
+          ],
+          "oracle_before": {
+            "loss": [
+              0.1019123748484334,
+              0.056047518842642224
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.4767206052020093,
+              0.7598061718940727
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.19833536967222068,
+              0.04179601254198058
+            ],
+            "recall": [
+              0.765625,
+              0.984375
+            ],
+            "margin": [
+              0.1587762432347737,
+              0.7883995261683149
+            ]
+          },
+          "proxy_reward": 1.2634915618500004,
+          "oracle_reward": -23.393173390913734
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.10191237484843335,
+            0.056047518842642224
+          ],
+          "proxy_after": [
+            0.09400912010594015,
+            0.044581971853973335
+          ],
+          "oracle_before": {
+            "loss": [
+              0.1019123748484334,
+              0.056047518842642224
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.4767206052020093,
+              0.7598061718940727
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.1739952273791134,
+              0.044581971853973335
+            ],
+            "recall": [
+              0.796875,
+              0.96875
+            ],
+            "margin": [
+              0.2224532329615744,
+              0.7815735588832556
+            ]
+          },
+          "proxy_reward": 0.9684400865581047,
+          "oracle_reward": -17.447435783236557
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.10191237484843335,
+            0.056047518842642224
+          ],
+          "proxy_after": [
+            0.09723824941834164,
+            0.04845660347615192
+          ],
+          "oracle_before": {
+            "loss": [
+              0.1019123748484334,
+              0.056047518842642224
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.4767206052020093,
+              0.7598061718940727
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.1433911468209083,
+              0.04845660347615192
+            ],
+            "recall": [
+              0.828125,
+              0.96875
+            ],
+            "margin": [
+              0.31610318923695696,
+              0.773219333632998
+            ]
+          },
+          "proxy_reward": 0.613252039829101,
+          "oracle_reward": -9.99014722479421
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 174.31641499092802
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81004,
+      "reverse": true,
+      "start_depth": 0,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.07901624065243507,
+            0.06300313786630157
+          ],
+          "proxy_after": [
+            0.07418117884123043,
+            0.054847091776695556
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07901624065243493,
+              0.06300313786630157
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6760443599007055,
+              0.605200198075418
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.08764882469885697,
+              0.054847091776695556
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6142786085869265,
+              0.6340972442183962
+            ]
+          },
+          "proxy_reward": 0.6495553950405325,
+          "oracle_reward": -0.887085302483006
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.07901624065243507,
+            0.06300313786630157
+          ],
+          "proxy_after": [
+            0.07531953666920777,
+            0.05631052282496037
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07901624065243493,
+              0.06300313786630157
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6760443599007055,
+              0.605200198075418
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.08759259198619893,
+              0.05631052282496037
+            ],
+            "recall": [
+              0.890625,
+              0.953125
+            ],
+            "margin": [
+              0.6083296195188417,
+              0.6277339658091396
+            ]
+          },
+          "proxy_reward": 0.5194659512284251,
+          "oracle_reward": -0.9518219479975397
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.07901624065243507,
+            0.06300313786630157
+          ],
+          "proxy_after": [
+            0.0766139010682404,
+            0.057905729669587847
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07901624065243493,
+              0.06300313786630157
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6760443599007055,
+              0.605200198075418
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.086679607548276,
+              0.057905729669587847
+            ],
+            "recall": [
+              0.890625,
+              0.953125
+            ],
+            "margin": [
+              0.6117184021894413,
+              0.6212073900582661
+            ]
+          },
+          "proxy_reward": 0.37498738904541973,
+          "oracle_reward": -0.8946346245404746
+        }
+      ],
+      "actual_updates": 48,
+      "expected_updates": 48,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876525056,
+      "elapsed_seconds": 160.03980026068166
+    },
+    {
+      "status": "COMPLETE",
+      "audit_seed": 81004,
+      "reverse": true,
+      "start_depth": 8,
+      "pseudo_order": [
+        0,
+        4
+      ],
+      "arms": [
+        {
+          "action": 0,
+          "fd_weight": 5.0,
+          "proxy_before": [
+            0.07620564834409854,
+            0.061704299897467854
+          ],
+          "proxy_after": [
+            0.0719225651885449,
+            0.05338383675542785
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07620564834409845,
+              0.061704299897467854
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.6823010852863522,
+              0.6163145133936573
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.08820644043096988,
+              0.05338383675542785
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6025580345121582,
+              0.6444951249962818
+            ]
+          },
+          "proxy_reward": 0.6301773148796825,
+          "oracle_reward": -1.3840956559287152
+        },
+        {
+          "action": 1,
+          "fd_weight": 10.0,
+          "proxy_before": [
+            0.07620564834409854,
+            0.061704299897467854
+          ],
+          "proxy_after": [
+            0.07311437387584757,
+            0.05557184197445135
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07620564834409845,
+              0.061704299897467854
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.6823010852863522,
+              0.6163145133936573
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.08562935732986168,
+              0.05557184197445135
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6122265090357331,
+              0.6358087061009166
+            ]
+          },
+          "proxy_reward": 0.46118661956337376,
+          "oracle_reward": -1.1069334517136604
+        },
+        {
+          "action": 2,
+          "fd_weight": 20.0,
+          "proxy_before": [
+            0.07620564834409854,
+            0.061704299897467854
+          ],
+          "proxy_after": [
+            0.07431458419707426,
+            0.05746440932104854
+          ],
+          "oracle_before": {
+            "loss": [
+              0.07620564834409845,
+              0.061704299897467854
+            ],
+            "recall": [
+              0.921875,
+              0.953125
+            ],
+            "margin": [
+              0.6823010852863522,
+              0.6163145133936573
+            ]
+          },
+          "oracle_after": {
+            "loss": [
+              0.08347583692961522,
+              0.05746440932104854
+            ],
+            "recall": [
+              0.90625,
+              0.953125
+            ],
+            "margin": [
+              0.6229214370569922,
+              0.628946980520323
+            ]
+          },
+          "proxy_reward": 0.30654773617217956,
+          "oracle_reward": -0.8785337590065501
+        }
+      ],
+      "actual_updates": 56,
+      "expected_updates": 56,
+      "meta_counts": [
+        64,
+        64
+      ],
+      "fit_meta_identity_disjoint": true,
+      "calibration_task": 1,
+      "shared_prefix_already_saw_both_pseudo_classes": true,
+      "real_old_images_accessed": false,
+      "future_images_accessed": false,
+      "validation_images_accessed": false,
+      "test_accessed": false,
+      "model_retained": false,
+      "restore_verified": true,
+      "peak_gpu_bytes": 12876787200,
+      "elapsed_seconds": 209.278091434855
+    }
+  ]
+}

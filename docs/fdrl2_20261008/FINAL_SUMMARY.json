@@ -1,0 +1,51 @@
+{
+  "status": "STOPPED_REWARD_GATE",
+  "completed_at": 1791447299.968917,
+  "completed_shanghai": "2026-10-08T16:14:59.968917+08:00",
+  "calibration": {
+    "status": "STOPPED_REWARD_GATE",
+    "passed": false,
+    "gates": {
+      "enough_informative_pairs": true,
+      "pairwise_reward_order": false,
+      "missed_old_recall_harm": false,
+      "mean_class_balanced_recall_regret": false,
+      "enough_action_effects": true
+    },
+    "completed": 20,
+    "informative_pairs": 60,
+    "pairwise_agreement": 0.25,
+    "false_safe_branches": 44,
+    "branch_count": 60,
+    "informative_episodes": 9,
+    "mean_recall_regret": 0.01015625,
+    "actual_updates": 1040,
+    "independent_confirmation": false,
+    "scope": "end-of-T1 pseudo-incremental training diagnostic",
+    "test_accessed": false
+  },
+  "total_gpu_seconds": 4075.419022798538,
+  "total_gpu_hours": 1.1320608396662606,
+  "initial_admission_gpu_seconds": 528.9751665592194,
+  "actual_updates": 1040,
+  "formal_jobs": 0,
+  "source_commit": "ef153df7265a0c193aa83a1a7ff62fd19596383d",
+  "audit": {
+    "status": "PASS",
+    "checks": [
+      "all 20 corrected jobs exited normally",
+      "1040 actual updates and original zero-update failures retained",
+      "independent scalar reward recomputation",
+      "independent pair order, missed-harm and regret calculation",
+      "fit/meta and image-access receipts",
+      "residence ledger sum and zero formal jobs"
+    ],
+    "max_reward_recalculation_error": 0,
+    "cpu_core_seconds": 0.00023799999999999516,
+    "extra_gpu_seconds": 0,
+    "extra_scientific_updates": 0,
+    "limitation": "Recomputed from recorded aggregates; no new image forward or model loading."
+  },
+  "independent_confirmation": false,
+  "test_accessed": false
+}

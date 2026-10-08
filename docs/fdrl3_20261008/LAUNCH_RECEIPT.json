@@ -1,0 +1,232 @@
+{
+  "observed_at": 1791450146.3318431,
+  "status": "RUNNING",
+  "phase": "CALIBRATE_REWARD",
+  "source_commit": "2646876446704c3b3bf0be24e2cac0a8e752a5b4",
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "active_jobs": [
+    {
+      "id": "calibration_00",
+      "gpu": 0,
+      "pid": 1516395,
+      "status": "RUNNING",
+      "phase": "calibration_features",
+      "actual_updates": 0,
+      "error": null
+    },
+    {
+      "id": "calibration_01",
+      "gpu": 1,
+      "pid": 1516397,
+      "status": "RUNNING",
+      "phase": "calibration_features",
+      "actual_updates": 0,
+      "error": null
+    },
+    {
+      "id": "calibration_02",
+      "gpu": 2,
+      "pid": 1516399,
+      "status": "RUNNING",
+      "phase": "calibration_features",
+      "actual_updates": 0,
+      "error": null
+    },
+    {
+      "id": "calibration_03",
+      "gpu": 3,
+      "pid": 1516407,
+      "status": "RUNNING",
+      "phase": "calibration_features",
+      "actual_updates": 0,
+      "error": null
+    }
+  ],
+  "preflight": {
+    "cpu": {
+      "affine": {
+        "status": "PASS",
+        "checks": [
+          "primal and dual fitting versus augmented least squares",
+          "class balancing invariant to within-class replication",
+          "identity and translation reduction",
+          "non-diagonal moments versus transformed explicit samples",
+          "historical risk versus per-sample loss",
+          "component center, empty memory and invalid input guards"
+        ],
+        "scientific_optimizer_updates": 0,
+        "cpu_core_seconds": 1.6415738979999999
+      },
+      "legacy": {
+        "status": "PASS",
+        "checks": [
+          "empirical class-balanced risk identity",
+          "translated moment oracle",
+          "reward protection arithmetic",
+          "discounted temporal returns",
+          "state bounds",
+          "on-policy behavior guard",
+          "categorical main-path sampling",
+          "one-transition actor credit"
+        ],
+        "toy_policy_updates": 2,
+        "scientific_optimizer_updates": 0,
+        "cpu_core_seconds": 0.8442070910000004
+      },
+      "task_returns": {
+        "status": "PASS",
+        "checks": [
+          "empirical loss, recall and competitor margin oracle",
+          "two-class pseudo-task moment/oracle identity",
+          "task-end reward reaches first-epoch action with unchanged behavior",
+          "reward admission accepts aligned and rejects reversed or incomplete evidence"
+        ],
+        "toy_policy_updates": 1,
+        "scientific_optimizer_updates": 0,
+        "cpu_core_seconds": 0.016410853000000003
+      },
+      "status": "PASS"
+    },
+    "native": {
+      "FDRL": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "restore_verified": true,
+        "action_gradient_norms": [
+          0.031413160264492035,
+          0.030178707093000412
+        ],
+        "meta_fit_identity_disjoint": true,
+        "fit_counts": [
+          364,
+          8421
+        ],
+        "meta_counts": [
+          94,
+          2108
+        ],
+        "initial_risk": [
+          0.17739574972543054,
+          0.13909517646823172,
+          0.3215940682415729,
+          0.20752879520972398
+        ],
+        "state": [
+          0.5,
+          0.5,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.1569376534763468,
+          0.2585570211374448,
+          0.19012058415390976,
+          0.3109475744266421,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9515651295079117,
+          0.552546815254057
+        ],
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "sampled_action": 2,
+        "drift": "affine",
+        "perturbed_drift": {
+          "kind": "affine",
+          "regularization": 0.001,
+          "observations": 86,
+          "classes": 2,
+          "relative_residual": 7.405928557423102e-16,
+          "identity_change_norm": 0.0038893535362156677,
+          "translation_mse": 1.1946643008465628e-07,
+          "fitted_mse": 8.392021633659571e-09
+        },
+        "perturbed_risk": [
+          0.17740384033616607,
+          0.13909834001427973,
+          0.32153414423056575,
+          0.20753386396955845
+        ],
+        "max_residual": 0.0,
+        "peak_gpu_bytes": 13124143616
+      },
+      "LEGACY": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "restore_verified": true,
+        "action_gradient_norms": [
+          0.031413160264492035,
+          0.030178707093000412
+        ],
+        "meta_fit_identity_disjoint": true,
+        "fit_counts": [
+          364,
+          8421
+        ],
+        "meta_counts": [
+          94,
+          2108
+        ],
+        "initial_risk": [
+          0.17739574972543043,
+          0.1390951764682315,
+          0.3215940682415729,
+          0.20752879520972392
+        ],
+        "state": [
+          0.5,
+          0.5,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.15693765347634667,
+          0.25855702113744466,
+          0.19012058415390964,
+          0.3109475744266421,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9515651295079117,
+          0.552546815254057
+        ],
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "sampled_action": 2,
+        "drift": "translation",
+        "perturbed_drift": {
+          "kind": "translation"
+        },
+        "perturbed_risk": [
+          0.17733829893550335,
+          0.13907052300330375,
+          0.3213967192824695,
+          0.20754090288459964
+        ],
+        "max_residual": 0.0,
+        "peak_gpu_bytes": 13124143616
+      }
+    }
+  },
+  "total_gpu_seconds": 402.41890048980713,
+  "formal_used": 0,
+  "process_tree_neutral": true,
+  "gpu_process_names_neutral": true,
+  "automation_id": "fdrl3",
+  "automation_status": "ACTIVE",
+  "scientific_success": false
+}

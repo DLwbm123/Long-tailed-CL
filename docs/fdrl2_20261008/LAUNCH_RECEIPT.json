@@ -1,0 +1,165 @@
+{
+  "observed_at": 1791445682.8748722,
+  "cycle": "FDRL2",
+  "source_commit": "5ea136339c0e58f8bf78b4a6f0a97d4b1cd23685",
+  "status": "RUNNING",
+  "phase": "CALIBRATE_REWARD",
+  "configured_gpu_count": 4,
+  "active_gpu_ids": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "active_jobs": [
+    {
+      "id": "calibration_12",
+      "kind": "calibration",
+      "gpu": 0,
+      "worker_status": "INCOMPLETE",
+      "worker_phase": null,
+      "actual_updates": 0
+    },
+    {
+      "id": "calibration_13",
+      "kind": "calibration",
+      "gpu": 1,
+      "worker_status": "INCOMPLETE",
+      "worker_phase": null,
+      "actual_updates": 0
+    },
+    {
+      "id": "calibration_14",
+      "kind": "calibration",
+      "gpu": 2,
+      "worker_status": "INCOMPLETE",
+      "worker_phase": null,
+      "actual_updates": 0
+    },
+    {
+      "id": "calibration_15",
+      "kind": "calibration",
+      "gpu": 3,
+      "worker_status": "INCOMPLETE",
+      "worker_phase": null,
+      "actual_updates": 0
+    }
+  ],
+  "formal_used": 0,
+  "gpu_seconds_used": 452.6716465950012,
+  "diagnostic_seconds": 452.6716465950012,
+  "cpu_checks": "PASS",
+  "neutral_process_commands_verified": true,
+  "preflight": [
+    {
+      "id": "main_preflight_FDRL",
+      "result": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "restore_verified": true,
+        "action_gradient_norms": [
+          0.031413160264492035,
+          0.030178707093000412
+        ],
+        "meta_fit_identity_disjoint": true,
+        "fit_counts": [
+          364,
+          8421
+        ],
+        "meta_counts": [
+          94,
+          2108
+        ],
+        "initial_risk": [
+          0.17739574972543043,
+          0.1390951764682315,
+          0.3215940682415729,
+          0.20752879520972392
+        ],
+        "state": [
+          0.5,
+          0.5,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.15693765347634667,
+          0.25855702113744466,
+          0.19012058415390964,
+          0.3109475744266421,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9515651295079117,
+          0.552546815254057
+        ],
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "sampled_action": 2,
+        "max_residual": 0.0,
+        "peak_gpu_bytes": 13048272896
+      }
+    },
+    {
+      "id": "main_preflight_COMP_FDRL",
+      "result": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "restore_verified": true,
+        "action_gradient_norms": [
+          0.051385655999183655,
+          0.05015268549323082
+        ],
+        "meta_fit_identity_disjoint": true,
+        "fit_counts": [
+          364,
+          8421
+        ],
+        "meta_counts": [
+          94,
+          2108
+        ],
+        "initial_risk": [
+          0.16567310356664527,
+          0.13019796872554762,
+          0.3421022029810207,
+          0.21313438665724488
+        ],
+        "state": [
+          0.5,
+          0.5,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.1468657144253773,
+          0.27069932855212225,
+          0.1871709038190501,
+          0.3293528606279085,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9515651295079117,
+          0.552546815254057
+        ],
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "sampled_action": 2,
+        "max_residual": 3.1623856318113644e-10,
+        "peak_gpu_bytes": 13124143104
+      }
+    }
+  ],
+  "other_hosts_gpu_jobs_started": false,
+  "automation_id": "fdrl2",
+  "automation_status": "ACTIVE",
+  "scientific_effect_established": false
+}

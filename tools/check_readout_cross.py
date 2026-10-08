@@ -3,7 +3,7 @@ import time
 import numpy as np
 import torch
 import prototype_coherent as method
-from run_readout_cross import rebuild,decompose,diagonal_guard,paired
+from run_readout_cross import rebuild,decompose,diagonal_guard,paired,metrics
 
 
 def check():
@@ -29,9 +29,22 @@ def check():
     truth=np.array([0,1,2,3]);u=np.eye(4);v=u.copy();v[2,0]=2
     p=paired(u,v,truth)
     assert p['shift_only_correct']==1 and p['within_new_correct_cross_group_failure']['newly_failed']==1
+    old_labels=torch.arange(6).repeat_interleave(6);old_x=unit(36)
+    old=method.append(method.empty(6),old_x,old_labels,old_labels,torch.full((36,),1/6,dtype=torch.float64))
+    late_labels=labels+4;late_seeds=method.seed_components(before,late_labels)
+    s,Ws,Gs,Hs,_=rebuild(old,before,after,late_labels,'SHIFT',late_seeds)
+    a,Wa,Ga,Ha,_=rebuild(old,before,after,late_labels,'AFFINE',late_seeds)
+    dm,_,late_error=decompose(Gs,Ga,Hs,Ha,Ws,Wa)
+    assert dm[:,6:].abs().max()<1e-12 and torch.allclose(s['Q'][6:],a['Q'][6:])
+    u=np.eye(8);v=u.copy();v[6,4]=2
+    assert paired(u,v,np.arange(8))['within_new_correct_cross_group_failure']['newly_failed']==1
+    v=u.copy();v[2,6]=2
+    late=metrics(v,np.arange(8),list(range(8)))
+    assert late['old_BA']==5/6 and late['new_BA']==1
     return dict(status='PASS',optimizer_updates=0,gpu_seconds=0,cpu_core_seconds=time.process_time()-started,
-        head_identity_relative_error=error,checks=['matched new moments','identity mapping','head difference identity',
-            'diagonal mismatch rejected','paired cross-group failure'])
+        head_identity_relative_error=error,T4_head_identity_relative_error=late_error,
+        checks=['matched new moments','identity mapping','head difference identity',
+            'diagonal mismatch rejected','paired cross-group failure','six-old two-new boundary and reconstruction'])
 
 
 if __name__=='__main__':

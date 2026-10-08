@@ -1,0 +1,232 @@
+{
+  "cycle": "FDRL2",
+  "source_base": "4129dbfb8a36eb607f7d8605297af8915dd04d12",
+  "started": 1791445245.10386,
+  "deadline": 1791531645.10386,
+  "gpu_seconds_limit": 172800,
+  "diagnostic_seconds_limit": 14400,
+  "formal_limit": 19,
+  "revision_limit": 0,
+  "storage_limit_bytes": 103079215104,
+  "worker_pool": "4 A100 40GB GPUs only",
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "calibration_cap_seconds": 600,
+  "train_cap_seconds": 9000,
+  "eval_cap_seconds": 600,
+  "preflight_cap_seconds": 900,
+  "calibration_specs": [
+    {
+      "audit_seed": 81000,
+      "reverse": false,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81000,
+      "reverse": false,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81000,
+      "reverse": true,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81000,
+      "reverse": true,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81001,
+      "reverse": false,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81001,
+      "reverse": false,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81001,
+      "reverse": true,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81001,
+      "reverse": true,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81002,
+      "reverse": false,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81002,
+      "reverse": false,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81002,
+      "reverse": true,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81002,
+      "reverse": true,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81003,
+      "reverse": false,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81003,
+      "reverse": false,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81003,
+      "reverse": true,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81003,
+      "reverse": true,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81004,
+      "reverse": false,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81004,
+      "reverse": false,
+      "start_depth": 8
+    },
+    {
+      "audit_seed": 81004,
+      "reverse": true,
+      "start_depth": 0
+    },
+    {
+      "audit_seed": 81004,
+      "reverse": true,
+      "start_depth": 8
+    }
+  ],
+  "calibration_updates": 1040,
+  "calibration_gate": {
+    "informative_pair_count_min": 20,
+    "pair_difference_tolerance": 0.0001,
+    "pairwise_agreement_min": 0.6666666666666666,
+    "false_safe_fraction_max": 0.1,
+    "old_recall_harm": 0.01,
+    "mean_recall_regret_max": 0.01,
+    "informative_episodes_min": 5,
+    "episode_recall_range_min": 0.01
+  },
+  "primary": "FDRL",
+  "arms": [
+    "R",
+    "FD5",
+    "FD20",
+    "RANDOM",
+    "GREEDY",
+    "FDRL",
+    "SHUFFLED",
+    "COMP10",
+    "COMP_FDRL"
+  ],
+  "controls": [
+    "FD5",
+    "FD20",
+    "RANDOM",
+    "GREEDY",
+    "SHUFFLED",
+    "COMP10",
+    "COMP_FDRL"
+  ],
+  "seed": 74002,
+  "order": [
+    4,
+    0,
+    3,
+    7,
+    5,
+    6,
+    2,
+    1
+  ],
+  "fit_n": 15122,
+  "meta_n": 3596,
+  "base_competition": false,
+  "full_task_returns": true,
+  "varied_warmup": true,
+  "warmup_episodes": 16,
+  "warmup_depths": [
+    0,
+    8
+  ],
+  "warmup_first_class_masses": [
+    0.25,
+    0.5,
+    0.75,
+    0.5
+  ],
+  "warmup_steps": 576,
+  "branch_steps": 600,
+  "retained_main_steps": 200,
+  "main_total_steps": 1376,
+  "new_seed_total_steps": 1652,
+  "main_decisions": 28,
+  "online_policy_updates": 3,
+  "fd_actions": [
+    5,
+    10,
+    20
+  ],
+  "horizon": 8,
+  "policy_lr": 0.003,
+  "discount": 0.95,
+  "entropy_coefficient": 0.01,
+  "value_coefficient": 0.5,
+  "actor_hidden": 32,
+  "screen": {
+    "ba_gain": 0.01,
+    "tail_floor": -0.005,
+    "forgetting_ceiling": 0.01,
+    "new_floor": -0.01,
+    "strictly_above": [
+      "FD5",
+      "FD20",
+      "RANDOM",
+      "GREEDY",
+      "SHUFFLED",
+      "COMP10",
+      "COMP_FDRL"
+    ]
+  },
+  "replication_seeds": [
+    74003,
+    74004
+  ],
+  "replication_arms": [
+    "R",
+    "FD5",
+    "FD20",
+    "FDRL",
+    "COMP10"
+  ],
+  "no_hk": true,
+  "fit_only": true,
+  "separate_meta_moments": true,
+  "test_accessed": false,
+  "independent_confirmation": false
+}

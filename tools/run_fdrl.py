@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from torch.nn import functional as F
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, WeightedRandomSampler
 
 import core1_competition as competition
 import fdrl_control as ctl
@@ -29,8 +29,15 @@ def device_bank(bank):
 
 def run(config):
     arm=config['method']
-    if arm not in ('R','FD5','FD10','FD20','RANDOM','GRADIENT','GREEDY','FDRL','SHUFFLED'):
+    if arm not in ('R','FD5','FD10','FD20','RANDOM','GRADIENT','GREEDY','FDRL','SHUFFLED','COMP10','COMP_FDRL'):
         raise ValueError('Unknown FD arm')
+    learned=arm in ('FDRL','SHUFFLED','COMP_FDRL')
+    compete=arm!='R' and (config.get('base_competition',True) or arm in ('COMP10','COMP_FDRL'))
+    full_task=config.get('full_task_returns',False)
+    varied=config.get('varied_warmup',False);warm_episodes=int(config.get('warmup_episodes',4))
+    if warm_episodes not in (4,16):raise ValueError('Unregistered warmup length')
+    expected_warm=warm_episodes*32+(warm_episodes//2*8 if varied else 0)
+    update_cap=476+600+expected_warm
     output=Path(config['output']);output.mkdir(parents=True,exist_ok=False)
     save(output/'INPUT.private.json',config)
     start=time.monotonic();steps=0;initial_steps=0;rollouts=0;warm_updates=0;diagnostic_seconds=0.
@@ -49,11 +56,11 @@ def run(config):
         train,_=manifests(config)
         encoder=ApartFeatures(config['legacy_repo'],config['weight'],8,'cuda:0',seed)
         from run_medical_v2 import transform
-        def loader(rows,training,task):
+        def loader(rows,training,task,sampler=None):
             ds=(IndexedImages if training else Images)(rows,config['images'],transform(training),seed+task*100003)
             workers=int(config.get('workers',4))
             opts=dict(multiprocessing_context='spawn',prefetch_factor=2,persistent_workers=not training) if workers else {}
-            return DataLoader(ds,batch_size=64,shuffle=training,num_workers=workers,
+            return DataLoader(ds,batch_size=64,shuffle=training and sampler is None,sampler=sampler,num_workers=workers,
                 generator=torch.Generator().manual_seed(seed+task*2003),**opts)
         @torch.no_grad()
         def features(model,data):
@@ -61,7 +68,7 @@ def run(config):
             return torch.as_tensor(x,device='cuda',dtype=torch.float64),torch.as_tensor(y,device='cuda')
         def fitted(b,old):
             native,_=method.head(b,0.)
-            if not old or arm=='R':return native,dict(relative_residual=0.,iterations=0)
+            if not old or not compete:return native,dict(relative_residual=0.,iterations=0)
             a=allocation(competition.competition(b,native),old,1)
             return competition.bank_head(b,a,.5)
         bank=method.empty(encoder.dim,'cuda');meta_bank=method.empty(encoder.dim,'cuda');seen=[];W=None
@@ -92,7 +99,7 @@ def run(config):
                 fit_counts=bank['n'],meta_counts=meta_bank['n'],independent_repeat=False))
         for task,classes in enumerate(tasks,1):
             if task<start_task:continue
-            seen+=classes;old_count=len(bank['n']);beta=.5 if old_count and arm!='R' else 0.
+            seen+=classes;old_count=len(bank['n']);beta=.5 if old_count and compete else 0.
             rows=[r for r in train if r['label'] in classes];fi,mi=support.fixed_split(rows,config)
             if {rows[i]['identity_component'] for i in fi}&{rows[i]['identity_component'] for i in mi}:raise ValueError('Fit-meta identity overlap')
             fi=torch.tensor(fi,device='cuda');mi=torch.tensor(mi,device='cuda')
@@ -128,7 +135,7 @@ def run(config):
             params=[p for p in encoder.parameters() if p.requires_grad]
             optimizer=torch.optim.AdamW(params,lr=config['lr'],weight_decay=.01)
             scheduler=torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,2,eta_min=1e-5)
-            previous_risk=None
+            previous_risk=None;trajectory=[]
             for epoch in (1,2):
                 budget();encoder.eval();training.dataset.epoch=epoch
                 old=method.translate(bank,common_shift(before[fi],current[fi],y[fi]))
@@ -157,7 +164,7 @@ def run(config):
                     if not torch.isfinite(loss):raise ValueError('Nonfinite adapter loss')
                     loss.backward();norm=torch.nn.utils.clip_grad_norm_(params,5.,error_if_nonfinite=True)
                     if kind:
-                        if steps-initial_steps+rollouts>=1204:raise RuntimeError('ADAPTER_UPDATE_CAP')
+                        if steps-initial_steps+rollouts>=update_cap:raise RuntimeError('ADAPTER_UPDATE_CAP')
                         optimizer.step()
                         if kind!='retained':rollouts+=1
                         if kind=='warmup':warm_updates+=1
@@ -186,25 +193,42 @@ def run(config):
                         max_residual=solve['relative_residual'],peak_gpu_bytes=torch.cuda.max_memory_allocated()))
                     status(status='COMPLETE',preflight=True,optimizer_updates=0);return
                 if task==2 and epoch==1:
-                    warm_loader=loader([rows[i] for i in fi.tolist()],True,task+20);warm_loader.dataset.epoch=1
-                    warm_batches=list(itertools.islice(warm_loader,32));del warm_loader
+                    fit_rows=[rows[i] for i in fi.tolist()]
+                    if not varied:
+                        warm_loader=loader(fit_rows,True,task+20);warm_loader.dataset.epoch=1
+                        warm_batches=list(itertools.islice(warm_loader,32));del warm_loader
                     snap=Snapshot(encoder,optimizer);entry=W.clone();warm_audits=[]
-                    for episode in range(4):
-                        snap.restore(optimizer);head=entry.clone();trajectory=[];risk,_,_,shift,_=probe();prior=risk
+                    for episode in range(warm_episodes):
+                        snap.restore(optimizer);head=entry.clone();warm_trajectory=[]
+                        depth=8*(episode%2) if varied else 0
+                        if varied:
+                            mass=(.25,.5,.75,.5)[episode%4]
+                            counts={c:sum(r['label']==c for r in fit_rows) for c in classes}
+                            sw=[(mass if r['label']==classes[0] else 1-mass)/counts[r['label']] for r in fit_rows]
+                            sampler=WeightedRandomSampler(sw,(32+depth)*64,replacement=True,
+                                generator=torch.Generator().manual_seed(seed+9227+episode*2003))
+                            warm_loader=loader(fit_rows,True,task+20+episode,sampler);warm_loader.dataset.epoch=episode+1
+                            warm_batches=list(warm_loader);del warm_loader
+                            for batch in warm_batches[:depth]:head,_=update(batch,head,1,'warmup')
+                            warm_batches=warm_batches[depth:]
+                        risk,_,_,shift,_=probe();prior=risk;warm_initial=risk.clone()
                         for block in range(4):
                             cached=[warm_batches[(block*8+j)%len(warm_batches)] for j in range(8)]
                             state,_=context(cached[0],head,risk,prior,shift,[.5,0.,block/4]);action,p=policy.sample(state)
                             for batch in cached:head,_=update(batch,head,action,'warmup')
                             after,_,_,next_shift,_=probe();r=ctl.reward(risk,after,old_count,tail)
-                            if block==3:r+=ctl.reward(initial_full,readout(features(encoder,canonical)[0],fi,mi,y,before)[0],old_count,tail)
-                            trajectory.append(dict(policy_state=state,action=action,behavior=p,reward=r));prior,risk,shift=risk,after,next_shift
+                            if block==3:
+                                r+=ctl.reward(warm_initial,after,old_count,tail) if varied else ctl.reward(initial_full,readout(features(encoder,canonical)[0],fi,mi,y,before)[0],old_count,tail)
+                            warm_trajectory.append(dict(policy_state=state,action=action,behavior=p,reward=r));prior,risk,shift=risk,after,next_shift
                             status(status='RUNNING',phase='policy_warmup',task=task,episode=episode+1,block=block+1)
-                        audit=policy.update(trajectory)
-                        warm_audits.append(dict(episode=episode+1,actions=[r['action'] for r in trajectory],rewards=[r['reward'] for r in trajectory],**audit))
+                        audit=policy.update(warm_trajectory)
+                        warm_audits.append(dict(episode=episode+1,start_depth=depth,first_class_sampling_mass=mass if varied else None,
+                            actions=[r['action'] for r in warm_trajectory],rewards=[r['reward'] for r in warm_trajectory],**audit))
                     snap.restore(optimizer);snap.verify(optimizer);W=entry;del warm_batches
                     save(output/'WARMUP.json',dict(episodes=warm_audits,adapter_updates=warm_updates,discarded_model_updates=True,
-                        scope='arrived Task 2 short continuations, reset to the same start',validation_accessed=False))
-                trajectory=[];iterator=iter(training);n=len(training);block_audits=[]
+                        scope='arrived Task 2 varied class sampling and 0/8-step starts' if varied else 'arrived Task 2 short continuations, reset to the same start',validation_accessed=False))
+                if not full_task:trajectory=[]
+                iterator=iter(training);n=len(training);block_audits=[]
                 risk,_,_,shift,_=probe();previous_risk=risk if previous_risk is None else previous_risk
                 for first in range(0,n,8):
                     cached=list(itertools.islice(iterator,min(8,n-first)))
@@ -225,7 +249,7 @@ def run(config):
                             branch_rewards.append(r);branch_risks.append(after.tolist());max_residual=max(max_residual,solve['relative_residual'])
                         snap.restore(optimizer);snap.verify(optimizer)
                     p,_=policy.forward(policy_state);p=p.detach()
-                    if task==1 or arm in ('R','FD10'):action=1
+                    if task==1 or arm in ('R','FD10','COMP10'):action=1
                     elif arm=='FD5':action=0
                     elif arm=='FD20':action=2
                     elif arm=='RANDOM':action=int(torch.randint(3,(1,),generator=choice_rng))
@@ -235,7 +259,7 @@ def run(config):
                         action=min(range(3),key=lambda a:abs(np.log(ctl.ACTIONS[a]/target)))
                     elif arm=='GREEDY':action=max(range(3),key=lambda a:(branch_rewards[a],a==1,-a))
                     else:action,p=policy.sample(policy_state)
-                    if arm not in ('FDRL','SHUFFLED') or task==1:
+                    if not learned or task==1:
                         p=torch.full((3,),1/3,dtype=torch.float64) if arm=='RANDOM' and task>1 else F.one_hot(torch.tensor(action),3).double()
                     for batch in cached:
                         W,detail=update(batch,W,action,'retained');steps+=1;max_residual=max(max_residual,detail['solve']['relative_residual'])
@@ -250,16 +274,17 @@ def run(config):
                         audit=dict(task=task,epoch=epoch,batch=first,horizon=len(cached),state=state.tolist(),policy_state=policy_state.tolist(),
                             probabilities=p.tolist(),selected_action=action,fd_weight=ctl.ACTIONS[action],reward=r,terminal_reward=terminal_reward,
                             branch_rewards=branch_rewards,branch_risks=branch_risks,before_risk=risk.tolist(),after_risk=after.tolist(),
-                            gradient=gradient,max_residual=max(max_residual,solve['relative_residual']),behavior='sampled' if arm in ('FDRL','SHUFFLED') else arm)
+                            gradient=gradient,max_residual=max(max_residual,solve['relative_residual']),behavior='sampled' if learned else arm)
                         decisions.append(audit);block_audits.append(audit)
                         save(output/'CONTROLLER.json',dict(decisions=decisions,policy_updates=policy.updates,rollout_updates=rollouts))
                     previous_risk,risk,shift=risk,after,next_shift
                     status(status='RUNNING',phase='train_blocks',task=task,epoch=epoch,batch=first)
-                update_audit=policy.update(trajectory) if task>1 and arm in ('FDRL','SHUFFLED') else None
+                update_audit=policy.update(trajectory) if task>1 and learned and (not full_task or epoch==2) else None
                 scheduler.step()
                 if epoch!=2:current,after_y=features(encoder,canonical)
                 diagnostics.append(dict(task=task,epoch=epoch,steps=steps,fit_n=len(fi),meta_n=len(mi),
-                    block_count=len(block_audits),policy_update=update_audit))
+                    block_count=len(block_audits),return_scope='task' if full_task else 'epoch',
+                    trajectory_length=len(trajectory),policy_update=update_audit))
                 save(output/'diagnostics.json',diagnostics)
             full=readout(current,fi,mi,y,before);_,W,new_bank,shift,solve=full
             meta_bank=ctl.meta_append(method.translate(meta_bank,shift),current[mi],y[mi]);bank=new_bank
@@ -271,7 +296,8 @@ def run(config):
                 class_meta_risks=full[0].tolist(),solve=solve,steps=steps,fit_only=True,meta_prototypes=0))
             del teacher,canonical,training,probe_loader,before,current,seeds,group,difficulty
         expected=200 if initial_steps else 476
-        if steps!=476 or steps-initial_steps!=expected or rollouts!=728:raise ValueError('Frozen update accounting mismatch')
+        if steps!=476 or steps-initial_steps!=expected or rollouts!=600+expected_warm or warm_updates!=expected_warm:
+            raise ValueError('Frozen update accounting mismatch')
         status(status='TRAINED',stages=4,peak_gpu_bytes=torch.cuda.max_memory_allocated())
     except BaseException as exc:
         status(status='INCOMPLETE',error=str(exc));raise

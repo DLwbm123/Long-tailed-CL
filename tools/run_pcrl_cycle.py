@@ -42,6 +42,14 @@ def report(root, records, result, public=None):
         text=text.replace('所有正负结果和失败保留。只有完整候选满足门槛才进入预注册复核；否则等待预算内有明确证据的机制修订。',
             '还须超过 FD5/10/20、随机、梯度规则、贪心和因果历史状态打乱对照；通过后仅运行冻结的两组新种子。没有自动方法修订或 HK 迁移。')
         text += '\nmeta 仅提供训练反馈，不参与拟合；旧类只保存独立类级奖励矩统计。旧类共同平移仍为近似，官方 val 仍为开发集。\n'
+        if result.get('cycle')=='FDRL2':
+            text=text.replace('FDRL1 蒸馏强度时序调度','FDRL2 完整任务回报与奖励校准')
+            text=text.replace('FD 取 5/10/20；FDRL 主路径实际采样，用跨块折扣回报训练小型 actor–critic。拟合与奖励统计永久隔离。所有九臂均计费相同的三动作分支和四个短预热过程。',
+                'FD 取 5/10/20；FDRL 在同一任务两个 epoch 内固定行为策略，任务结束统一更新。R 底座无竞争项；COMP10/COMP_FDRL 单独检查竞争项。拟合与奖励永久隔离；每臂均计入16次不同采样比例与0/8步起点的预热，以及三动作分支成本。')
+            text=text.replace('还须超过 FD5/10/20、随机、梯度规则、贪心和因果历史状态打乱对照；通过后仅运行冻结的两组新种子。没有自动方法修订或 HK 迁移。',
+                '20个已到达 T2 类伪增量校准全部完成并通过冻结奖励门槛，才进入正式训练。候选还须超过 FD5/20、随机、贪心、状态打乱和竞争项对照；通过后仅追加两组冻结新种子。无自动修订或 HK 迁移。')
+            if 'reward_calibration' in result:
+                text+='\n## 奖励校准\n\n```json\n'+json.dumps(result['reward_calibration'],ensure_ascii=False,indent=2)+'\n```\n'
         (public/'REPORT_ZH.md').write_text(text)
         return
     if result.get('primary_candidate') in ('FINALHEAD', 'PAIRHEAD'):
@@ -92,7 +100,7 @@ def run(c):
     ledger_path=root/'public/BUDGET_LEDGER.json'
     old_ledger=json.loads(ledger_path.read_text()) if ledger_path.exists() else {}
     jobs=old_ledger.get('jobs',[]);active={};phase='PREFLIGHT';records={}
-    failures=[];formal=list(old_ledger.get('formal_ids',[]));result={}
+    failures=[];formal=list(old_ledger.get('formal_ids',[]));result=dict(cycle=c.get('cycle'),primary_candidate=primary)
     if (public/'RESULTS.json').exists(): records=json.loads((public/'RESULTS.json').read_text()).get('records',{})
     if c.get('reference_result'):
         records[c['reference_id']]=json.loads(Path(c['reference_result']).read_text())
@@ -108,7 +116,7 @@ def run(c):
             sfile=root/j['id']/'STATUS.json'
             try:s=json.loads(sfile.read_text())
             except (FileNotFoundError,json.JSONDecodeError):s={}
-            extra=elapsed if j['kind']=='preflight' else min(elapsed,s.get('diagnostic_gpu_seconds',0.))
+            extra=elapsed if j['kind'] in ('preflight','calibration') else min(elapsed,s.get('diagnostic_gpu_seconds',0.))
             total+=elapsed;diagnostic+=extra
             if j['id'] in active:reserved+=max(0,j['cap']-elapsed)
             rows.append(dict(j,elapsed_seconds=elapsed,diagnostic_seconds=extra,worker_status=s.get('status'),worker_phase=s.get('phase'),
@@ -162,7 +170,7 @@ def run(c):
         value=ledger()
         if any(j['id']==spec['id'] for j in jobs):raise RuntimeError('NO_RETRY')
         if value['total_gpu_seconds']+value['gpu_reserved_seconds']+spec['cap']+40>gpu_limit:raise RuntimeError('NO_RESERVATION')
-        if spec['kind']=='preflight' and value['diagnostic_gpu_seconds']+sum(max(0,j['cap']-(time.time()-j['started'])) for j in jobs if j['id'] in active and j['kind']=='preflight')+spec['cap']>diagnostic_limit:
+        if spec['kind'] in ('preflight','calibration') and value['diagnostic_gpu_seconds']+sum(max(0,j['cap']-(time.time()-j['started'])) for j in jobs if j['id'] in active and j['kind'] in ('preflight','calibration'))+spec['cap']>diagnostic_limit:
             raise RuntimeError('NO_DIAGNOSTIC_RESERVATION')
         if time.time()+spec['cap']>c['deadline']:raise RuntimeError('NO_DEADLINE_RESERVATION')
         if spec['kind']=='train':
@@ -224,13 +232,31 @@ def run(c):
         if c.get('prepared_prefix_arm'):
             c['prefix']=str(root/(wave+'_preflight_'+c['prepared_prefix_arm'])/'prepared_prefix.pt')
             if not Path(c['prefix']).is_file():raise ValueError('Missing prepared disjoint prefix')
+        if c.get('calibration_specs'):
+            from summarize_fdrl_calibration import summarize
+            phase='CALIBRATE_REWARD';state()
+            schedule([dict(id=f'calibration_{i:02d}',kind='calibration',cap=c['calibration_cap_seconds'],
+                config=dict(x,prefix=c['prefix'],split_file=c['split_file'])) for i,x in enumerate(c['calibration_specs'])])
+            calibration=[]
+            for i in range(len(c['calibration_specs'])):
+                path=root/f'calibration_{i:02d}'/'CALIBRATION.json'
+                if path.exists():calibration.append(json.loads(path.read_text()))
+            gate=summarize(calibration,len(c['calibration_specs']))
+            gate['passed']=gate['passed'] and not failures
+            save(public/'REWARD_CALIBRATION.json',dict(summary=gate,records=calibration))
+            result.update(reward_calibration=gate,records=records,failures=failures,screen_success=False,
+                independent_confirmation=False,test_accessed=False)
+            if not gate['passed']:
+                phase='WAVE_COMPLETE';save(public/'RESULTS.json',result);report(root,records,result,public)
+                state('STOPPED_REWARD_GATE',screen_success=False,robustness_success=False,failures=failures)
+                return
         phase='TRAIN_MAIN';state()
         names=[wave+'_'+a for a in arms]
         schedule([spec(wave+'_'+a,a,74002,c['prefix']) for a in arms])
         phase='EVALUATE_MAIN';state();evaluate(names)
         reference=c.get('reference_id',wave+'_R');primary_id=wave+'_'+primary
         compared=[n for n in records if n!=reference]
-        result=dict(records=records,failures=failures,independent_confirmation=False,test_accessed=False,primary_candidate=primary,reference=reference,wave=wave)
+        result.update(records=records,failures=failures,independent_confirmation=False,test_accessed=False,primary_candidate=primary,reference=reference,wave=wave)
         if reference in records:
             result['main_screen']={n:screen(records[n],records[reference]) for n in compared if n in records}
             paired=[reference]+[n for n in compared if n in records]

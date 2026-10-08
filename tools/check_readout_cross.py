@@ -34,6 +34,23 @@ def check():
     late_labels=labels+4;late_seeds=method.seed_components(before,late_labels)
     s,Ws,Gs,Hs,_=rebuild(old,before,after,late_labels,'SHIFT',late_seeds)
     a,Wa,Ga,Ha,_=rebuild(old,before,after,late_labels,'AFFINE',late_seeds)
+    m,Wm,Gm,Hm,_=rebuild(old,before,after,late_labels,'AFFINE_MEAN',late_seeds)
+    shifted=old_x+a['mu'][old_labels]-old['mu'][old_labels]
+    explicit=method.append(method.empty(6),shifted,old_labels,old_labels,
+                           torch.full((36,),1/6,dtype=torch.float64))
+    assert torch.allclose(m['mu'][:6],explicit['mu'],atol=1e-12,rtol=1e-12)
+    assert torch.allclose(m['Q'][:6],explicit['Q'],atol=1e-12,rtol=1e-12)
+    assert torch.equal(m['mu'],a['mu']) and torch.equal(Hm,Ha)
+    assert torch.equal(m['Q'][6:],a['Q'][6:])
+    assert torch.allclose(Ga-Gm,(a['Q'][:6]-m['Q'][:6]).sum(0)/8,atol=1e-12)
+    for component in m['components'][:6]:
+        assert torch.allclose(component['center'],explicit['mu'][component['label']],atol=1e-12)
+    loss=(shifted@Wm-torch.nn.functional.one_hot(old_labels,8)).square().sum(1)
+    expected_loss=torch.stack([loss[old_labels==k].mean() for k in range(6)])
+    subset=dict(m,mu=m['mu'][:6],Q=m['Q'][:6],n=m['n'][:6])
+    assert torch.allclose(method.old_square_losses(subset,Wm),expected_loss,atol=1e-12,rtol=1e-12)
+    neutral,_,_,_,_=rebuild(old,before,before,late_labels,'AFFINE_MEAN',late_seeds)
+    assert torch.allclose(neutral['Q'][:6],old['Q'],atol=1e-12)
     dm,_,late_error=decompose(Gs,Ga,Hs,Ha,Ws,Wa)
     assert dm[:,6:].abs().max()<1e-12 and torch.allclose(s['Q'][6:],a['Q'][6:])
     u=np.eye(8);v=u.copy();v[6,4]=2
@@ -44,7 +61,8 @@ def check():
     return dict(status='PASS',optimizer_updates=0,gpu_seconds=0,cpu_core_seconds=time.process_time()-started,
         head_identity_relative_error=error,T4_head_identity_relative_error=late_error,
         checks=['matched new moments','identity mapping','head difference identity',
-            'diagonal mismatch rejected','paired cross-group failure','six-old two-new boundary and reconstruction'])
+            'diagonal mismatch rejected','paired cross-group failure','six-old two-new boundary and reconstruction',
+            'affine means with covariance preserved versus class-translated explicit samples and loss'])
 
 
 if __name__=='__main__':

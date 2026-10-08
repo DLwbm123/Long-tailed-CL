@@ -72,9 +72,17 @@ def rebuild(bank, before, after, labels, drift, seeds):
     if drift=='SHIFT':
         shift = common_shift(before,after,labels)
         old = method.translate(bank,shift); audit = dict(kind='translation')
-    elif drift=='AFFINE':
+    elif drift in ('AFFINE','AFFINE_MEAN'):
         mapping = affine_moments.fit(before,after,labels)
         old = affine_moments.transport(bank,mapping); audit = mapping['diagnostics']
+        if drift=='AFFINE_MEAN':
+            mu, moved = bank['mu'], old['mu']
+            # Class-specific translation preserves covariance and component offsets.
+            old['Q'] = (bank['Q']-mu[:,:,None]*mu[:,None,:]
+                        +moved[:,:,None]*moved[:,None,:])
+            old['components'] = [dict(c,center=c['center']+moved[c['label']]-mu[c['label']])
+                                 for c in bank['components']]
+            audit = dict(audit,kind='affine_mean_preserved_covariance')
     else:
         raise ValueError('Unfrozen readout')
     group,difficulty = method.memberships(after,labels,seeds)

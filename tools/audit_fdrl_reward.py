@@ -1,6 +1,5 @@
-"""Paired real-adapter calibration using only the two already-arrived T2 classes."""
+"""Paired real-adapter calibration at the end of the already-arrived T1 task."""
 import copy
-import itertools
 import json
 import random
 import time
@@ -15,7 +14,6 @@ import fdrl_control as ctl
 import next1_support as support
 import prototype_coherent as method
 from pcrl_control import Snapshot
-from run_fdrl import device_bank
 from run_multilabel import ApartFeatures
 from run_pcrl import IndexedImages
 from run_prototype_single import Images, extract, manifests, save
@@ -50,11 +48,8 @@ def run(c):
         prefix = torch.load(c['prefix'], map_location='cpu', weights_only=False)
         if prefix['steps'] != 276 or prefix['seen'] != c['order'][:2] or not prefix.get('fit_only'):
             raise ValueError('A fit-only T1 prefix with separate meta moments is required')
-        encoder = ApartFeatures(c['legacy_repo'], c['weight'], 8, 'cuda:0', seed)
-        encoder.load_state_dict(prefix['model'], strict=True); encoder.eval()
-        old_labels = c['order'][:2]
-        pair = c['order'][2:4][::(-1 if c['reverse'] else 1)]
-        seen = old_labels+pair; rows = [r for r in train if r['label'] in pair]
+        pair = c['order'][:2][::(-1 if c['reverse'] else 1)]
+        seen = pair; rows = [r for r in train if r['label'] in pair]
         fit, meta = support.fixed_split(rows, c)
         if {rows[i]['identity_component'] for i in fit} & {rows[i]['identity_component'] for i in meta}:
             raise ValueError('Fit/meta identity overlap')
@@ -68,6 +63,8 @@ def run(c):
         fit, meta = support.fixed_split(rows, c)
         if any(sum(rows[i]['label'] == label for i in meta) < 8 for label in pair):
             raise ValueError('Insufficient pseudo-class meta support')
+        encoder = ApartFeatures(c['legacy_repo'], c['weight'], 8, 'cuda:0', seed)
+        encoder.load_state_dict(prefix['model'], strict=True); encoder.eval()
         from run_medical_v2 import transform
         def loader(items, training, salt):
             ds = (IndexedImages if training else Images)(items, c['images'], transform(training), seed+salt)
@@ -81,7 +78,8 @@ def run(c):
             return torch.as_tensor(x, dtype=torch.float64, device='cuda'), torch.tensor([seen.index(int(v)) for v in labels], device='cuda')
         status(status='RUNNING', phase='calibration_features')
         before, y = features(); fi = torch.tensor(fit, device='cuda'); mi = torch.tensor(meta, device='cuda')
-        bank = device_bank(prefix['bank']); meta_bank = device_bank(prefix['meta_bank'])
+        # The prefix encoder has seen both current T1 classes; these are calibration pseudo-tasks.
+        bank = method.empty(encoder.dim,'cuda'); meta_bank = method.empty(encoder.dim,'cuda')
         params = [p for p in encoder.parameters() if p.requires_grad]
         optimizer = torch.optim.AdamW(params, lr=c['lr'], weight_decay=.01)
         teacher = copy.deepcopy(encoder).requires_grad_(False).eval()
@@ -91,14 +89,14 @@ def run(c):
             weights = method.sample_weights(labels, group, difficulty, x.new_zeros(len(seeds)))
             return method.append(bank, x, labels, group, weights)
         joint = append(bank, before[fi], y[fi]); head, metric = method.head(joint, 0.)
-        inverse, cross = method.proximal_base(bank, metric, 4)
+        inverse, cross = method.proximal_base(bank, metric, 2)
         def step(batch, head, action, inverse, cross, class_count):
             nonlocal updates
             budget(); x, labels, _ = [v.cuda() for v in batch]
             optimizer.zero_grad(set_to_none=True); z = encoder(x)
             with torch.no_grad():
-                target = F.one_hot(lookup[labels], 4).double(); reference = teacher(x)
-                weights = z.new_full((len(x),), class_count/(4*len(x)), dtype=torch.float64)
+                target = F.one_hot(lookup[labels], 2).double(); reference = teacher(x)
+                weights = z.new_full((len(x),), class_count/(2*len(x)), dtype=torch.float64)
                 head = method.proximal_head(z.detach().double(), target, weights, inverse, cross, head)
             loss = .5*(weights*(z.double()@head-target).square().sum(1)).sum()+ctl.ACTIONS[action]*(z-reference).square().sum(1).mean()
             if not torch.isfinite(loss): raise ValueError('Nonfinite calibration loss')
@@ -111,19 +109,19 @@ def run(c):
         for i in range(int(c['start_depth'])):
             head = step(batches[i % len(batches)], head, 1, inverse, cross, 2)
         anchor, _ = features()
-        shift = torch.stack([(anchor-before)[fi][y[fi] == k].mean(0) for k in (2, 3)]).mean(0)
+        shift = torch.stack([(anchor-before)[fi][y[fi] == k].mean(0) for k in (0, 1)]).mean(0)
         bank = method.translate(bank, shift); meta_bank = method.translate(meta_bank, shift)
-        old_fit = fi[y[fi] == 2]; new_fit = fi[y[fi] == 3]; old_meta = mi[y[mi] == 2]
+        old_fit = fi[y[fi] == 0]; new_fit = fi[y[fi] == 1]; old_meta = mi[y[mi] == 0]
         bank = append(bank, anchor[old_fit], y[old_fit])
         meta_bank = ctl.meta_append(meta_bank, anchor[old_meta], y[old_meta])
         teacher.load_state_dict(encoder.state_dict(), strict=True)
         optimizer = torch.optim.AdamW(params, lr=c['lr'], weight_decay=.01)
         joint = append(bank, anchor[new_fit], y[new_fit]); head, metric = method.head(joint, 0.)
-        inverse, cross = method.proximal_base(bank, metric, 4)
+        inverse, cross = method.proximal_base(bank, metric, 2)
         training = loader([rows[i] for i in new_fit.tolist()], True, 300)
         batches = list(training)
         baseline = empirical(anchor[mi], y[mi], head)
-        base_proxy = ctl.risks(meta_bank, head, anchor[mi[y[mi] == 3]], y[mi[y[mi] == 3]])[2:]
+        base_proxy = ctl.risks(meta_bank, head, anchor[mi[y[mi] == 1]], y[mi[y[mi] == 1]])
         snap = Snapshot(encoder, optimizer); initial_head = head.clone()
         tail_raw = set(sorted(c['order'], key=lambda k:(-sum(r['label'] == k for r in train), k))[4:])
         tail = [i for i, label in enumerate(pair) if label in tail_raw]
@@ -136,7 +134,7 @@ def run(c):
             predicted_old = method.translate(bank, displacement)
             refit, _ = method.head(append(predicted_old, after[new_fit], y[new_fit]), 0.)
             proxy = ctl.risks(method.translate(meta_bank, displacement), refit,
-                after[mi[y[mi] == 3]], y[mi[y[mi] == 3]])[2:]
+                after[mi[y[mi] == 1]], y[mi[y[mi] == 1]])
             oracle = empirical(after[mi], y[mi], refit)
             true_before = torch.tensor(baseline['loss'], device='cuda', dtype=torch.float64)
             true_after = torch.tensor(oracle['loss'], device='cuda', dtype=torch.float64)
@@ -148,7 +146,8 @@ def run(c):
         snap.restore(optimizer); snap.verify(optimizer)
         result = dict(status='COMPLETE', audit_seed=seed, reverse=c['reverse'], start_depth=c['start_depth'],
             pseudo_order=pair, arms=rows_out, actual_updates=updates, expected_updates=c['start_depth']+48,
-            meta_counts=[int((y[mi] == k).sum()) for k in (2, 3)], fit_meta_identity_disjoint=True,
+            meta_counts=[int((y[mi] == k).sum()) for k in (0, 1)], fit_meta_identity_disjoint=True,
+            calibration_task=1,shared_prefix_already_saw_both_pseudo_classes=True,
             real_old_images_accessed=False, future_images_accessed=False, validation_images_accessed=False,
             test_accessed=False, model_retained=False, restore_verified=True, peak_gpu_bytes=torch.cuda.max_memory_allocated(),
             elapsed_seconds=time.monotonic()-started)

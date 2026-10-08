@@ -47,7 +47,7 @@ def report(root, records, result, public=None):
             text=text.replace('FD 取 5/10/20；FDRL 主路径实际采样，用跨块折扣回报训练小型 actor–critic。拟合与奖励统计永久隔离。所有九臂均计费相同的三动作分支和四个短预热过程。',
                 'FD 取 5/10/20；FDRL 在同一任务两个 epoch 内固定行为策略，任务结束统一更新。R 底座无竞争项；COMP10/COMP_FDRL 单独检查竞争项。拟合与奖励永久隔离；每臂均计入16次不同采样比例与0/8步起点的预热，以及三动作分支成本。')
             text=text.replace('还须超过 FD5/10/20、随机、梯度规则、贪心和因果历史状态打乱对照；通过后仅运行冻结的两组新种子。没有自动方法修订或 HK 迁移。',
-                '20个已到达 T2 类伪增量校准全部完成并通过冻结奖励门槛，才进入正式训练。候选还须超过 FD5/20、随机、贪心、状态打乱和竞争项对照；通过后仅追加两组冻结新种子。无自动修订或 HK 迁移。')
+                '20个 T1 结束时的伪增量校准全部完成并通过冻结奖励门槛，才进入正式训练。候选还须超过 FD5/20、随机、贪心、状态打乱和竞争项对照；通过后仅追加两组冻结新种子。无自动修订或 HK 迁移。')
             if 'reward_calibration' in result:
                 text+='\n## 奖励校准\n\n```json\n'+json.dumps(result['reward_calibration'],ensure_ascii=False,indent=2)+'\n```\n'
         (public/'REPORT_ZH.md').write_text(text)
@@ -129,7 +129,7 @@ def run(c):
         value=ledger();save(ledger_path,value)
         save(root/'PROGRAM_STATE.json',dict(status=status,phase=phase,started=c['started'],deadline=c['deadline'],
             gpu_seconds_used=value['total_gpu_seconds'],gpu_seconds_reserved=value['gpu_reserved_seconds'],formal_used=len(formal),
-            revision_used=0,wave=wave,primary=primary,main_publication_sha=c.get('main_publication_sha'),publication_verified=False,test_accessed=False,**fields))
+            revision_used=0,engineering_recovery_used=c.get('engineering_recovery_used',0),wave=wave,primary=primary,main_publication_sha=c.get('main_publication_sha'),publication_verified=False,test_accessed=False,**fields))
         save(root/'EVALUATION_GATE.json',dict(phase=phase))
     def reap():
         for key,p in list(active.items()):
@@ -235,11 +235,12 @@ def run(c):
         if c.get('calibration_specs'):
             from summarize_fdrl_calibration import summarize
             phase='CALIBRATE_REWARD';state()
-            schedule([dict(id=f'calibration_{i:02d}',kind='calibration',cap=c['calibration_cap_seconds'],
+            calibration_prefix=c.get('calibration_id_prefix','calibration')
+            schedule([dict(id=f'{calibration_prefix}_{i:02d}',kind='calibration',cap=c['calibration_cap_seconds'],
                 config=dict(x,prefix=c['prefix'],split_file=c['split_file'])) for i,x in enumerate(c['calibration_specs'])])
             calibration=[]
             for i in range(len(c['calibration_specs'])):
-                path=root/f'calibration_{i:02d}'/'CALIBRATION.json'
+                path=root/f'{calibration_prefix}_{i:02d}'/'CALIBRATION.json'
                 if path.exists():calibration.append(json.loads(path.read_text()))
             gate=summarize(calibration,len(c['calibration_specs']))
             gate['passed']=gate['passed'] and not failures

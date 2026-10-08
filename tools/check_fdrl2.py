@@ -3,6 +3,7 @@ import copy
 import time
 import torch
 import fdrl_control as ctl
+import prototype_coherent as method
 from audit_fdrl_reward import empirical
 from summarize_fdrl_calibration import summarize
 
@@ -14,6 +15,8 @@ def run():
     values=empirical(x,y,w)
     assert values['recall']==[1.,1.] and values['margin']==[1.,3.]
     assert values['loss']==[2.5,5.]
+    bank=ctl.meta_append(method.empty(2),x[y==0],y[y==0])
+    assert torch.allclose(ctl.risks(bank,w,x[y==1],y[y==1]),torch.tensor(values['loss'],dtype=x.dtype))
     policy=ctl.Policy(19);trajectory=[]
     for i in range(4):
         state=torch.zeros(16,dtype=torch.float64);state[0]=i/4
@@ -34,7 +37,7 @@ def run():
         for a in r['arms']:a['oracle_reward']=-a['proxy_reward']
     assert not summarize(records)['passed'] and summarize(records)['pairwise_agreement']==0
     assert not summarize(records[:19])['passed']
-    return dict(status='PASS',checks=['empirical loss, recall and competitor margin oracle',
+    return dict(status='PASS',checks=['empirical loss, recall and competitor margin oracle','two-class pseudo-task moment/oracle identity',
         'task-end reward reaches first-epoch action with unchanged behavior',
         'reward admission accepts aligned and rejects reversed or incomplete evidence'],
         toy_policy_updates=1,scientific_optimizer_updates=0,cpu_core_seconds=time.process_time()-start)

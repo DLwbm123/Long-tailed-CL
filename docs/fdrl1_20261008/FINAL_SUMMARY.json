@@ -1,0 +1,1164 @@
+{
+  "cycle": "FDRL1",
+  "status": "STOPPED_SCREEN_FAILED",
+  "phase": "CYCLE_CLOSED",
+  "source_commit": "2da329f0ce191ec126a7818f6168ebbe86cecfce",
+  "completed_at": 1791441767.285059,
+  "completed_at_shanghai": "2026-10-08T14:42:47.285059+08:00",
+  "screen_success": false,
+  "metrics": {
+    "main_R": {
+      "ba": 0.5617383858999713,
+      "average_ba": 0.709045470535562,
+      "tail": 0.5873281231512939,
+      "forgetting": 0.15542005420054203,
+      "new_recall": 0.5472972972972974
+    },
+    "main_FD5": {
+      "ba": 0.5552209751010122,
+      "average_ba": 0.7071537936405712,
+      "tail": 0.5198339756266586,
+      "forgetting": 0.23058452021866657,
+      "new_recall": 0.63689776733255
+    },
+    "main_FD10": {
+      "ba": 0.552035790374205,
+      "average_ba": 0.7053742595091681,
+      "tail": 0.5553000819769112,
+      "forgetting": 0.17410875398680278,
+      "new_recall": 0.5202702702702703
+    },
+    "main_FD20": {
+      "ba": 0.558184232209948,
+      "average_ba": 0.7114045013286132,
+      "tail": 0.5912262520494227,
+      "forgetting": 0.14861368489417273,
+      "new_recall": 0.47414806110458285
+    },
+    "main_RANDOM": {
+      "ba": 0.5519902833927224,
+      "average_ba": 0.7067468505730701,
+      "tail": 0.5613976429525209,
+      "forgetting": 0.18734510563778858,
+      "new_recall": 0.5067567567567568
+    },
+    "main_GRADIENT": {
+      "ba": 0.552035790374205,
+      "average_ba": 0.7053742595091681,
+      "tail": 0.5553000819769112,
+      "forgetting": 0.17410875398680278,
+      "new_recall": 0.5202702702702703
+    },
+    "main_GREEDY": {
+      "ba": 0.5661111266161637,
+      "average_ba": 0.7103717583486274,
+      "tail": 0.5302506422933253,
+      "forgetting": 0.21189765153179785,
+      "new_recall": 0.63689776733255
+    },
+    "main_FDRL": {
+      "ba": 0.5487827210752714,
+      "average_ba": 0.705056419013703,
+      "tail": 0.560738447171374,
+      "forgetting": 0.1625286317359488,
+      "new_recall": 0.4850176263219741
+    },
+    "main_SHUFFLED": {
+      "ba": 0.5487827210752714,
+      "average_ba": 0.705056419013703,
+      "tail": 0.560738447171374,
+      "forgetting": 0.1625286317359488,
+      "new_recall": 0.4850176263219741
+    }
+  },
+  "differences_pp": {
+    "main_R": {
+      "ba": -1.2955664824699897,
+      "average_ba": -0.39890515218590217,
+      "tail": -2.6589675979919902,
+      "forgetting": 0.7108577535406779,
+      "new_recall": -6.227967097532328
+    },
+    "main_FD5": {
+      "ba": -0.643825402574083,
+      "average_ba": -0.20973746268682092,
+      "tail": 4.090447154471544,
+      "forgetting": -6.805588848271777,
+      "new_recall": -15.18801410105759
+    },
+    "main_FD10": {
+      "ba": -0.3253069298933653,
+      "average_ba": -0.031784049546512705,
+      "tail": 0.5438365194462835,
+      "forgetting": -1.1580122250853975,
+      "new_recall": -3.525264394829619
+    },
+    "main_FD20": {
+      "ba": -0.9401511134676577,
+      "average_ba": -0.6348082314910242,
+      "tail": -3.0487804878048697,
+      "forgetting": 1.3914946841776077,
+      "new_recall": 1.0869565217391242
+    },
+    "main_RANDOM": {
+      "ba": -0.3207562317451007,
+      "average_ba": -0.16904315593671004,
+      "tail": -0.06591957811469262,
+      "forgetting": -2.4816473901839773,
+      "new_recall": -2.1739130434782705
+    },
+    "main_GRADIENT": {
+      "ba": -0.3253069298933653,
+      "average_ba": -0.031784049546512705,
+      "tail": 0.5438365194462835,
+      "forgetting": -1.1580122250853975,
+      "new_recall": -3.525264394829619
+    },
+    "main_GREEDY": {
+      "ba": -1.7328405540892322,
+      "average_ba": -0.5315339334924452,
+      "tail": 3.0487804878048697,
+      "forgetting": -4.936901979584904,
+      "new_recall": -15.18801410105759
+    },
+    "main_SHUFFLED": {
+      "ba": 0.0,
+      "average_ba": 0.0,
+      "tail": 0.0,
+      "forgetting": 0.0,
+      "new_recall": 0.0
+    }
+  },
+  "screen_checks": {
+    "ba_gain": false,
+    "tail": false,
+    "forgetting": true,
+    "new_recall": false,
+    "fd10_tail": true,
+    "fd10_forgetting": true,
+    "fd10_new_recall": false,
+    "above_FD5": false,
+    "above_FD10": false,
+    "above_FD20": false,
+    "above_RANDOM": false,
+    "above_GRADIENT": false,
+    "above_GREEDY": false,
+    "above_SHUFFLED": false
+  },
+  "failed_checks": [
+    "ba_gain",
+    "tail",
+    "new_recall",
+    "fd10_new_recall",
+    "above_FD5",
+    "above_FD10",
+    "above_FD20",
+    "above_RANDOM",
+    "above_GRADIENT",
+    "above_GREEDY",
+    "above_SHUFFLED"
+  ],
+  "controllers": {
+    "main_R": {
+      "decisions": 28,
+      "action_counts": {
+        "10": 28
+      },
+      "action_sequence": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean_normalized_entropy": 0.0,
+      "last_normalized_entropy": -0.0,
+      "max_solve_residual": 0.0,
+      "max_reward_reconstruction_error": 2.7755575615628914e-17,
+      "chosen_proxy_best_count": 1,
+      "mean_proxy_best_gap": 0.06954089496919837,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_FD5": {
+      "decisions": 28,
+      "action_counts": {
+        "5": 28
+      },
+      "action_sequence": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "mean_normalized_entropy": 0.0,
+      "last_normalized_entropy": -0.0,
+      "max_solve_residual": 9.982601214038754e-10,
+      "max_reward_reconstruction_error": 1.3877787807814457e-17,
+      "chosen_proxy_best_count": 26,
+      "mean_proxy_best_gap": 0.007295680610087133,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_FD10": {
+      "decisions": 28,
+      "action_counts": {
+        "10": 28
+      },
+      "action_sequence": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean_normalized_entropy": 0.0,
+      "last_normalized_entropy": -0.0,
+      "max_solve_residual": 9.715034909813131e-10,
+      "max_reward_reconstruction_error": 5.551115123125783e-17,
+      "chosen_proxy_best_count": 3,
+      "mean_proxy_best_gap": 0.10574587610907137,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_FD20": {
+      "decisions": 28,
+      "action_counts": {
+        "20": 28
+      },
+      "action_sequence": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mean_normalized_entropy": 0.0,
+      "last_normalized_entropy": -0.0,
+      "max_solve_residual": 9.92736530859767e-10,
+      "max_reward_reconstruction_error": 2.7755575615628914e-17,
+      "chosen_proxy_best_count": 0,
+      "mean_proxy_best_gap": 0.11704116913838095,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_RANDOM": {
+      "decisions": 28,
+      "action_counts": {
+        "20": 7,
+        "10": 9,
+        "5": 12
+      },
+      "action_sequence": [
+        20,
+        20,
+        10,
+        10,
+        5,
+        5,
+        10,
+        5,
+        5,
+        5,
+        10,
+        5,
+        5,
+        10,
+        20,
+        10,
+        20,
+        5,
+        10,
+        5,
+        20,
+        5,
+        20,
+        10,
+        20,
+        5,
+        5,
+        10
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "mean_normalized_entropy": 0.9999999999999998,
+      "last_normalized_entropy": 0.9999999999999998,
+      "max_solve_residual": 9.94479847358628e-10,
+      "max_reward_reconstruction_error": 2.7755575615628914e-17,
+      "chosen_proxy_best_count": 10,
+      "mean_proxy_best_gap": 0.0921595994038779,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_GRADIENT": {
+      "decisions": 28,
+      "action_counts": {
+        "10": 28
+      },
+      "action_sequence": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean_normalized_entropy": 0.0,
+      "last_normalized_entropy": -0.0,
+      "max_solve_residual": 9.715034909813131e-10,
+      "max_reward_reconstruction_error": 5.551115123125783e-17,
+      "chosen_proxy_best_count": 3,
+      "mean_proxy_best_gap": 0.10574587610907137,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_GREEDY": {
+      "decisions": 28,
+      "action_counts": {
+        "10": 2,
+        "5": 26
+      },
+      "action_sequence": [
+        10,
+        10,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "policy_updates": 4,
+      "last_behavior_probabilities": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "mean_normalized_entropy": 0.0,
+      "last_normalized_entropy": -0.0,
+      "max_solve_residual": 9.987520131601442e-10,
+      "max_reward_reconstruction_error": 2.7755575615628914e-17,
+      "chosen_proxy_best_count": 28,
+      "mean_proxy_best_gap": 0.0,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_FDRL": {
+      "decisions": 28,
+      "action_counts": {
+        "20": 9,
+        "10": 10,
+        "5": 9
+      },
+      "action_sequence": [
+        20,
+        20,
+        10,
+        10,
+        10,
+        5,
+        20,
+        5,
+        10,
+        20,
+        10,
+        5,
+        20,
+        5,
+        10,
+        10,
+        5,
+        10,
+        5,
+        20,
+        5,
+        10,
+        20,
+        5,
+        10,
+        5,
+        20,
+        20
+      ],
+      "policy_updates": 10,
+      "last_behavior_probabilities": [
+        0.3191601568722205,
+        0.3730541288432742,
+        0.3077857142845053
+      ],
+      "mean_normalized_entropy": 0.9979498067373938,
+      "last_normalized_entropy": 0.9967335533087408,
+      "max_solve_residual": 9.92736530859767e-10,
+      "max_reward_reconstruction_error": 1.1102230246251565e-16,
+      "chosen_proxy_best_count": 10,
+      "mean_proxy_best_gap": 0.10333170579615682,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    },
+    "main_SHUFFLED": {
+      "decisions": 28,
+      "action_counts": {
+        "20": 9,
+        "10": 10,
+        "5": 9
+      },
+      "action_sequence": [
+        20,
+        20,
+        10,
+        10,
+        10,
+        5,
+        20,
+        5,
+        10,
+        20,
+        10,
+        5,
+        20,
+        5,
+        10,
+        10,
+        5,
+        10,
+        5,
+        20,
+        5,
+        10,
+        20,
+        5,
+        10,
+        5,
+        20,
+        20
+      ],
+      "policy_updates": 10,
+      "last_behavior_probabilities": [
+        0.3210534797880753,
+        0.3670687063407263,
+        0.3118778138711983
+      ],
+      "mean_normalized_entropy": 0.9977833824181053,
+      "last_normalized_entropy": 0.9976451075522387,
+      "max_solve_residual": 9.92736530859767e-10,
+      "max_reward_reconstruction_error": 1.1102230246251565e-16,
+      "chosen_proxy_best_count": 10,
+      "mean_proxy_best_gap": 0.10333170579615682,
+      "boundary_counts": [
+        {
+          "task": 2,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5
+          ]
+        },
+        {
+          "task": 3,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10
+          ]
+        },
+        {
+          "task": 4,
+          "fit_counts": [
+            364,
+            8421,
+            1057,
+            22,
+            204,
+            34,
+            2310,
+            2710
+          ],
+          "meta_counts": [
+            94,
+            2108,
+            249,
+            5,
+            52,
+            10,
+            525,
+            553
+          ]
+        }
+      ]
+    }
+  },
+  "shuffled_comparison": {
+    "same_actions": 28,
+    "total_actions": 28,
+    "identical_predictions_by_stage": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "changed_inputs": 23,
+    "max_probability_difference": 0.022947520663184284
+  },
+  "gpu_seconds_used": 46561.64826440811,
+  "gpu_reserved_seconds": 0,
+  "formal_attempts": 9,
+  "actual_optimizer_updates": 8352,
+  "retained_updates": 1800,
+  "counterfactual_updates": 5400,
+  "warmup_updates": 1152,
+  "policy_updates": 48,
+  "failures": [],
+  "unrun": [
+    "new seeds",
+    "method revision",
+    "HyperKvasir transfer"
+  ],
+  "unrun_reason": "frozen main screen failed",
+  "test_accessed": false,
+  "independent_confirmation": false,
+  "paper_evidence_ready": false,
+  "completion_audit_cpu_core_seconds": 1.022376217
+}

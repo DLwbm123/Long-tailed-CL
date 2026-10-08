@@ -1,0 +1,70 @@
+{
+  "cpu": {
+    "status": "PASS",
+    "checks": [
+      "empirical class-balanced risk identity",
+      "translated moment oracle",
+      "reward protection arithmetic",
+      "discounted temporal returns",
+      "state bounds",
+      "on-policy behavior guard",
+      "categorical main-path sampling",
+      "one-transition actor credit"
+    ],
+    "toy_policy_updates": 2,
+    "scientific_optimizer_updates": 0,
+    "cpu_core_seconds": 1.7323471220000002
+  },
+  "native": {
+    "FDRL": {
+      "status": "PASS",
+      "optimizer_updates": 0,
+      "restore_verified": true,
+      "action_gradient_norms": [
+        0.051385655999183655,
+        0.05015268549323082
+      ],
+      "meta_fit_identity_disjoint": true,
+      "fit_counts": [
+        364,
+        8421
+      ],
+      "meta_counts": [
+        94,
+        2108
+      ],
+      "initial_risk": [
+        0.16567310356664527,
+        0.13019796872554762,
+        0.3421022029810207,
+        0.21313438665724488
+      ],
+      "state": [
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.1468657144253773,
+        0.27069932855212225,
+        0.1871709038190501,
+        0.3293528606279085,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9515651295079117,
+        0.552546815254057
+      ],
+      "probabilities": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "sampled_action": 2,
+      "max_residual": 3.1623856318113644e-10,
+      "peak_gpu_bytes": 13173668352
+    }
+  }
+}

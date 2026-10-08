@@ -1,0 +1,124 @@
+{
+  "campaign": "THREE_DATASET1",
+  "user_selected_method": "original_complete_prototype_evidence_and_RL_weights",
+  "datasets": {
+    "ISIC": {
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "imbalance": "natural",
+      "evaluation": "existing development validation"
+    },
+    "HK": {
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "imbalance": "natural",
+      "evaluation": "existing development validation"
+    },
+    "CIFAR100LT": {
+      "task_sizes": [
+        50,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "imbalance": "floor(500*0.01**(class_id/99))",
+      "evaluation": "official balanced test after all training"
+    }
+  },
+  "orders": [
+    "ordered",
+    "shuffled"
+  ],
+  "same_samples_across_orders": true,
+  "arms": [
+    "cf_linear",
+    "cf_prototype",
+    "cf_weighted",
+    "cf_group"
+  ],
+  "primary": "cf_group",
+  "formal_attempts": 24,
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs_per_task": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "max_steps_per_trajectory": 1000,
+  "encoder": "existing locked ViT-B/16 backbone with trainable adapter pools; 1536D unit features",
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "max_prototypes_per_class": 4,
+  "controller_updates_per_epoch": 8,
+  "group_size": 4,
+  "group_blocks": 4,
+  "actor_lr": 0.05,
+  "sigma": 0.5,
+  "clip": [
+    0.8,
+    1.2
+  ],
+  "reference_kl": 0.01,
+  "weight_kl": 0.01,
+  "weighting": "half uniform + half class softmax(log(2)*prototype_action*difficulty)",
+  "guards": "all current meta class CE and all historical moment losses no worse than uniform +1e-8; ESS >= half class fit size",
+  "task_end_refit": "all current training rows including meta; no old images or per-sample feature replay",
+  "old_statistics_transport": "common class-mean shift",
+  "budget": {
+    "separate_user_authorized_campaign": true,
+    "wall_seconds": 172800,
+    "gpu_seconds": 172800,
+    "formal_cap_seconds_each": 6600,
+    "native_preflight_cap_seconds": 900,
+    "gpus": [
+      0,
+      1,
+      2
+    ],
+    "preflight_encoder_updates": 0,
+    "preflight_policy_updates_max": 8
+  },
+  "primary_metrics": [
+    "average_incremental_accuracy",
+    "final_accuracy",
+    "task_forgetting",
+    "many_medium_few_accuracy"
+  ],
+  "additional_metrics": [
+    "balanced_accuracy",
+    "rank_tail_recall",
+    "per_class_recall",
+    "class_forgetting",
+    "activation_diagnostics"
+  ],
+  "automatic_retry": false,
+  "automatic_tuning": false,
+  "automatic_extra_seeds": false,
+  "clinical_test_access": false,
+  "public_delivery": "code, protocol, aggregate results and report; no private manifests, images or checkpoints",
+  "paper_alignment": "data-order semantics and CIFAR IF100/50+5x10; not a GPA algorithm or published-score reproduction",
+  "engineering_recovery": "User authorized diagnose, repair, continue; preserve completed cells, immutable attempts, original deadline and cumulative cost",
+  "monitoring": "hourly heartbeat, stop after delivery or hard budget limit",
+  "primary_order": "shuffled",
+  "secondary_order": "ordered head-to-tail stress test",
+  "medical_primary_metrics": [
+    "average_incremental_balanced_accuracy",
+    "final_balanced_accuracy",
+    "final_tail_recall",
+    "forgetting"
+  ],
+  "current_round": "single-seed screening; final multi-seed confirmation is not automatically added"
+}

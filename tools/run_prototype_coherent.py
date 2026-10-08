@@ -14,6 +14,7 @@ from torch.utils.data import DataLoader
 import prototype_coherent as method
 from run_multilabel import ApartFeatures
 from run_prototype_single import Images, extract, manifests, save
+from lt_benchmark import task_blocks, benchmark_metrics
 
 
 class IndexedImages(Images):
@@ -83,11 +84,15 @@ def run(config):
         bank = method.empty(encoder.dim, 'cuda'); seen = []; diagnostics = []
         actor = torch.zeros(6, dtype=torch.float64, device='cuda', requires_grad=True)
         generator = torch.Generator(device='cuda').manual_seed(seed+911)
-        tasks = [config['order'][i:i+config['increment']] for i in range(0, len(config['order']), config['increment'])]
+        sizes = config.get('task_sizes')
+        if sizes is None:
+            sizes = [len(config['order'][i:i+config['increment']])
+                     for i in range(0, len(config['order']), config['increment'])]
+        tasks = task_blocks(config['order'], sizes)
         for task, classes in enumerate(tasks, 1):
             budget(); seen += classes
             rows = [r for r in train if r['label'] in classes]
-            fit_ids, meta_ids = fit_split(rows, seed+task*100003)
+            fit_ids, meta_ids = fit_split(rows, config.get('split_seed', seed+task*100003))
             fit_ids = torch.as_tensor(fit_ids, device='cuda'); meta_ids = torch.as_tensor(meta_ids, device='cuda')
             canonical = loader(rows, False, task)
             training = loader([rows[i] for i in fit_ids.tolist()], True, task)
@@ -106,7 +111,8 @@ def run(config):
                 budget(); encoder.eval(); training.dataset.epoch = epoch
                 old = method.translate(bank, common_shift(before[fit_ids], current[fit_ids], y[fit_ids]))
                 status(status='RUNNING', phase='controller', task=task, epoch=epoch)
-                if arm in ('cf_weighted', 'cf_group', 'cf_group_min') and not config.get('preflight', False):
+                if arm in ('cf_weighted', 'cf_group', 'cf_group_min') and (
+                        not config.get('preflight', False) or config.get('preflight_controller', False)):
                     actions, audit = method.controller(old, current[fit_ids], y[fit_ids], group[fit_ids],
                         difficulty[fit_ids], current[meta_ids], y[meta_ids], seeds, actor, reference_actor,
                         'gradient' if arm == 'cf_weighted' else 'group', generator,
@@ -117,6 +123,12 @@ def run(config):
                 weights = method.sample_weights(y[fit_ids], group[fit_ids], difficulty[fit_ids], actions)
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
                 W, R = method.head(candidate, strength)
+                neutral_weights = method.sample_weights(y[fit_ids], group[fit_ids], difficulty[fit_ids], torch.zeros_like(actions))
+                activation = dict(prototype_strength=strength,
+                    prototype_metric_relative_change=float((R-torch.eye(len(R),device=R.device,dtype=R.dtype)).norm()/len(R)**.5),
+                    selected_action_max_abs=float(actions.abs().max()),
+                    weight_l1_change=float((weights-neutral_weights).abs().sum()),
+                    policy_optimizer_steps=audit['optimizer_steps'])
                 reward_probe = None
                 if config.get('preflight', False) and arm == 'cf_group_min':
                     state = method.descriptors(current[fit_ids], y[fit_ids], group[fit_ids], seeds, W)
@@ -162,7 +174,8 @@ def run(config):
                         save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim,
                             feature_norm_min=float(z.norm(dim=1).min()), feature_norm_max=float(z.norm(dim=1).max()),
                             gradient_norm=float(norm), loss=float(loss.detach()), optimizer_updates=0,
-                            finite_head=bool(torch.isfinite(W).all()), batch_n=len(x), reward_probe=reward_probe))
+                            finite_head=bool(torch.isfinite(W).all()), batch_n=len(x), reward_probe=reward_probe,
+                            activation=activation, controller=audit))
                         status(status='COMPLETE', preflight=True, optimizer_updates=0)
                         return
                     optimizer.step(); steps += 1
@@ -172,7 +185,7 @@ def run(config):
                 if not torch.equal(raw_y, after_y):
                     raise ValueError('Canonical order changed')
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, arm=arm,
-                    fit_n=len(fit_ids), meta_n=len(meta_ids), controller=audit,
+                    fit_n=len(fit_ids), meta_n=len(meta_ids), controller=audit, activation=activation,
                     prototype_count=len(candidate['components']),
                     shift_norm=float(common_shift(before[fit_ids], current[fit_ids], y[fit_ids]).norm()),
                     mean_fit_loss=float(np.mean(losses, axis=0)[0]),
@@ -208,10 +221,12 @@ def run(config):
             if previous:
                 forgetting.append(max(previous)-reports[-1]['per_class_recall'][str(c)])
         save(output/'metrics.json', dict(stages=reports,
+            **benchmark_metrics(reports, tasks, {c:sum(r['label']==c for r in train) for c in config['order']}),
             average_incremental_balanced_accuracy=float(np.mean([r['balanced_accuracy'] for r in reports])),
             final_balanced_accuracy=reports[-1]['balanced_accuracy'], final_tail_recall=reports[-1]['tail_recall'],
             forgetting=float(np.mean(forgetting)), forgetting_classes=len(forgetting),
-            test_accessed=False, independent_confirmation=False))
+            test_accessed=config.get('evaluation_split') == 'official_test',
+            evaluation_split=config.get('evaluation_split', 'development_validation'), independent_confirmation=False))
         status(status='COMPLETE', stages=len(tasks), peak_gpu_bytes=torch.cuda.max_memory_allocated())
     except BaseException as exc:
         status(status='INCOMPLETE', error=str(exc)); raise

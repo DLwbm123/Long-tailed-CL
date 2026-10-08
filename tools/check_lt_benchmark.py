@@ -23,6 +23,8 @@ def main():
     records,pending,done=recovery_plan(dict(c,recovery_note='diagnosed and fixed fixture'),old)
     assert done=={'A':'A'} and pending[0]['attempt_id']=='B_repair1'
     assert sum(r['elapsed_seconds'] for r in records)==130
+    unlimited=dict(c,gpu_seconds_limit=None,jobs=[dict(id='A',cap_seconds=None)])
+    assert len(recovery_plan(unlimited,None)[1])==1
     try:
         recovery_plan(dict(c,gpu_seconds_limit=2000,recovery_note='x'),old)
         raise AssertionError('Budget reset accepted')

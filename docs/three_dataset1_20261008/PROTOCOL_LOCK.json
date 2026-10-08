@@ -80,16 +80,17 @@
   "budget": {
     "separate_user_authorized_campaign": true,
     "wall_seconds": 172800,
-    "gpu_seconds": 172800,
-    "formal_cap_seconds_each": 6600,
-    "native_preflight_cap_seconds": 900,
+    "gpu_seconds": null,
+    "formal_cap_seconds_each": null,
+    "native_preflight_cap_seconds": null,
     "gpus": [
       0,
       1,
       2
     ],
     "preflight_encoder_updates": 0,
-    "preflight_policy_updates_max": 8
+    "preflight_policy_updates_max": 8,
+    "gpu_limit_removed_by_user": "2026-10-09: \u4e0d\u8981\u6709 gpu \u65f6\u957f\u9650\u5236; retain previously authorized 48h wall window"
   },
   "primary_metrics": [
     "average_incremental_accuracy",
@@ -120,5 +121,6 @@
     "final_tail_recall",
     "forgetting"
   ],
-  "current_round": "single-seed screening; final multi-seed confirmation is not automatically added"
+  "current_round": "single-seed screening; final multi-seed confirmation is not automatically added",
+  "continuation_authorization": "Hourly inspect/analyze; continue research within ISIC/HK/CIFAR original full-method scope and original 48h wall window; freeze each follow-up before launch; preserve all costs, failures and negative outcomes"
 }

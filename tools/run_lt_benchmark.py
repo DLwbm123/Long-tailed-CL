@@ -29,7 +29,7 @@ def recovery_plan(c, previous):
         count = sum(r.get('logical_id',r['id'])==name for r in records)
         pending.append(dict(job,attempt_id=name if not count else f'{name}_repair{count}'))
     spent = sum(r.get('elapsed_seconds',0.) for r in records)
-    if spent+sum(j['cap_seconds']+60 for j in pending) > c['gpu_seconds_limit']:
+    if c['gpu_seconds_limit'] is not None and spent+sum(j['cap_seconds']+60 for j in pending) > c['gpu_seconds_limit']:
         raise ValueError('Remaining budget cannot reserve all unfinished trajectories')
     return records,pending,done
 
@@ -86,7 +86,7 @@ def run(c):
             reap(); total = record()
             if any(r.get('exit_code',0) != 0 or r.get('status','COMPLETE') != 'COMPLETE' for r in records[initial_records:]):
                 raise RuntimeError('Job failed; diagnose before audited recovery')
-            if time.time() >= deadline or total >= c['gpu_seconds_limit']:
+            if time.time() >= deadline or (c['gpu_seconds_limit'] is not None and total >= c['gpu_seconds_limit']):
                 raise TimeoutError('Campaign budget exhausted')
             if any(time.time()-r['started'] >= r['cap_seconds'] for p,r in active.values()):
                 raise TimeoutError('Job residence cap exhausted')
@@ -99,16 +99,17 @@ def run(c):
                 spec = pending[0]
                 if spec['id'] != 'PREFLIGHT' and not preflight_ok: continue
                 if free[gpu] < spec['minimum_free_mib']: continue
-                if time.time()+spec['cap_seconds'] > deadline: raise TimeoutError('Cannot admit job before deadline')
+                cap = min(spec['cap_seconds'] or float('inf'), deadline-time.time())
+                if cap <= 30: raise TimeoutError('Campaign wall deadline reached')
                 pending.pop(0)
                 name = spec['attempt_id']
-                config = dict(spec['config'],output=str(root/name),max_wall_seconds=spec['cap_seconds']-30)
+                config = dict(spec['config'],output=str(root/name),max_wall_seconds=cap-30)
                 env = dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),OMP_NUM_THREADS='4',MKL_NUM_THREADS='4')
                 with (root/(name+'.private.log')).open('w') as stream:
                     p = subprocess.Popen([c['python'],'-u',c['worker_entry']],stdin=subprocess.PIPE,
                         stdout=stream,stderr=subprocess.STDOUT,env=env,text=True,start_new_session=True)
                 r = dict(id=name,logical_id=spec['id'],gpu=gpu,pid=p.pid,started=time.time(),
-                         cap_seconds=spec['cap_seconds'],source_commit=c['source_commit'])
+                         cap_seconds=cap,source_commit=c['source_commit'])
                 records.append(r); active[name] = (p,r)
                 p.stdin.write(json.dumps(config));p.stdin.close();record()
             if active and all(time.time()-r['started']>12 for p,r in active.values()):

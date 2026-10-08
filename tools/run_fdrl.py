@@ -16,6 +16,7 @@ import core1_competition as competition
 import fdrl_control as ctl
 import next1_support as support
 import prototype_coherent as method
+import affine_moments
 from pcrl_control import Snapshot, allocation
 from run_multilabel import ApartFeatures
 from run_pcrl import IndexedImages, common_shift, cpu_bank
@@ -35,6 +36,8 @@ def run(config):
     compete=arm!='R' and (config.get('base_competition',True) or arm in ('COMP10','COMP_FDRL'))
     full_task=config.get('full_task_returns',False)
     varied=config.get('varied_warmup',False);warm_episodes=int(config.get('warmup_episodes',4))
+    drift=config.get('drift','translation')
+    if drift not in ('translation','affine'):raise ValueError('Unknown drift model')
     if warm_episodes not in (4,16):raise ValueError('Unregistered warmup length')
     expected_warm=warm_episodes*32+(warm_episodes//2*8 if varied else 0)
     update_cap=476+600+expected_warm
@@ -117,14 +120,20 @@ def run(config):
                 return torch.tensor(chosen,device='cuda')
             pf,pm=subset(fi,11),subset(mi,29);pi=torch.cat([pf,pm]);probe_loader=loader([rows[i] for i in pi.tolist()],False,task)
             @torch.no_grad()
+            def transported(base,observed,labels):
+                shift=common_shift(base,observed,labels)
+                if drift=='affine' and old_count:
+                    mapping=affine_moments.fit(base,observed,labels)
+                    return affine_moments.transport(bank,mapping),affine_moments.transport(meta_bank,mapping),shift,mapping['diagnostics']
+                return method.translate(bank,shift),method.translate(meta_bank,shift),shift,dict(kind='translation')
+            @torch.no_grad()
             def readout(observed,fit_ids,meta_ids,labels,base):
-                shift=common_shift(base[fit_ids],observed[fit_ids],labels[fit_ids])
-                old=method.translate(bank,shift);old_meta=method.translate(meta_bank,shift)
+                old,old_meta,shift,drift_audit=transported(base[fit_ids],observed[fit_ids],labels[fit_ids])
                 g,d=method.memberships(observed[fit_ids],labels[fit_ids],seeds)
                 sw=method.sample_weights(labels[fit_ids],g,d,observed.new_zeros(len(seeds)))
                 b=method.append(old,observed[fit_ids],labels[fit_ids],g,sw);head,solve=fitted(b,old_count)
                 risk=ctl.risks(old_meta,head,observed[meta_ids],labels[meta_ids])
-                return risk,head,b,shift,solve
+                return risk,head,b,shift,dict(solve,drift=drift_audit),old_meta
             @torch.no_grad()
             def probe():
                 observed,labels=features(encoder,probe_loader)
@@ -138,7 +147,7 @@ def run(config):
             previous_risk=None;trajectory=[]
             for epoch in (1,2):
                 budget();encoder.eval();training.dataset.epoch=epoch
-                old=method.translate(bank,common_shift(before[fi],current[fi],y[fi]))
+                old=transported(before[fi],current[fi],y[fi])[0]
                 candidate=method.append(old,current[fi],y[fi],group[fi],weights)
                 W,R=method.head(candidate,0.);pairs=competition.competition(candidate,W)
                 if beta:W,_=competition.bank_head(candidate,pairs,beta);pairs=allocation(pairs,old_count,1)
@@ -178,6 +187,7 @@ def run(config):
                     # Probe a nonzero displacement without an optimizer update, then restore exactly.
                     with torch.no_grad():
                         for p in params:p.add_(1e-4)
+                    perturbed=probe()
                     post=Snapshot(encoder,optimizer);norms=[];heads=[]
                     for action in (0,2):
                         post.restore(optimizer);head,detail=update(batch,W,action,diagnose=True)
@@ -185,11 +195,12 @@ def run(config):
                     post.restore(optimizer)
                     if abs(norms[0]-norms[1])<=1e-12:raise ValueError('FD actions do not affect adapter gradient')
                     snap.restore(optimizer);snap.verify(optimizer)
-                    risk,_,_,shift,solve=probe();state,grad=context(batch,W,risk,risk,shift,[.5,.5,0.])
+                    risk,_,_,shift,solve,_=probe();state,grad=context(batch,W,risk,risk,shift,[.5,.5,0.])
                     sample,p=policy.sample(state)
                     save(output/'PREFLIGHT.json',dict(status='PASS',optimizer_updates=0,restore_verified=True,
                         action_gradient_norms=norms,meta_fit_identity_disjoint=True,fit_counts=bank['n'],meta_counts=meta_bank['n'],
                         initial_risk=risk.tolist(),state=state.tolist(),probabilities=p.tolist(),sampled_action=sample,
+                        drift=drift,perturbed_drift=perturbed[4]['drift'],perturbed_risk=perturbed[0].tolist(),
                         max_residual=solve['relative_residual'],peak_gpu_bytes=torch.cuda.max_memory_allocated()))
                     status(status='COMPLETE',preflight=True,optimizer_updates=0);return
                 if task==2 and epoch==1:
@@ -211,12 +222,12 @@ def run(config):
                             warm_batches=list(warm_loader);del warm_loader
                             for batch in warm_batches[:depth]:head,_=update(batch,head,1,'warmup')
                             warm_batches=warm_batches[depth:]
-                        risk,_,_,shift,_=probe();prior=risk;warm_initial=risk.clone()
+                        risk,_,_,shift,_,_=probe();prior=risk;warm_initial=risk.clone()
                         for block in range(4):
                             cached=[warm_batches[(block*8+j)%len(warm_batches)] for j in range(8)]
                             state,_=context(cached[0],head,risk,prior,shift,[.5,0.,block/4]);action,p=policy.sample(state)
                             for batch in cached:head,_=update(batch,head,action,'warmup')
-                            after,_,_,next_shift,_=probe();r=ctl.reward(risk,after,old_count,tail)
+                            after,_,_,next_shift,_,_=probe();r=ctl.reward(risk,after,old_count,tail)
                             if block==3:
                                 r+=ctl.reward(warm_initial,after,old_count,tail) if varied else ctl.reward(initial_full,readout(features(encoder,canonical)[0],fi,mi,y,before)[0],old_count,tail)
                             warm_trajectory.append(dict(policy_state=state,action=action,behavior=p,reward=r));prior,risk,shift=risk,after,next_shift
@@ -229,7 +240,7 @@ def run(config):
                         scope='arrived Task 2 varied class sampling and 0/8-step starts' if varied else 'arrived Task 2 short continuations, reset to the same start',validation_accessed=False))
                 if not full_task:trajectory=[]
                 iterator=iter(training);n=len(training);block_audits=[]
-                risk,_,_,shift,_=probe();previous_risk=risk if previous_risk is None else previous_risk
+                risk,_,_,shift,_,_=probe();previous_risk=risk if previous_risk is None else previous_risk
                 for first in range(0,n,8):
                     cached=list(itertools.islice(iterator,min(8,n-first)))
                     if not cached:raise ValueError('Empty training block')
@@ -244,7 +255,7 @@ def run(config):
                             snap.restore(optimizer);head=W.clone()
                             for batch in cached:
                                 head,detail=update(batch,head,action,'branch');max_residual=max(max_residual,detail['solve']['relative_residual'])
-                            after,_,_,_,solve=probe();r=ctl.reward(risk,after,old_count,tail)
+                            after,_,_,_,solve,_=probe();r=ctl.reward(risk,after,old_count,tail)
                             if terminal:r+=ctl.reward(initial_full,readout(features(encoder,canonical)[0],fi,mi,y,before)[0],old_count,tail)
                             branch_rewards.append(r);branch_risks.append(after.tolist());max_residual=max(max_residual,solve['relative_residual'])
                         snap.restore(optimizer);snap.verify(optimizer)
@@ -263,7 +274,7 @@ def run(config):
                         p=torch.full((3,),1/3,dtype=torch.float64) if arm=='RANDOM' and task>1 else F.one_hot(torch.tensor(action),3).double()
                     for batch in cached:
                         W,detail=update(batch,W,action,'retained');steps+=1;max_residual=max(max_residual,detail['solve']['relative_residual'])
-                    after,_,_,next_shift,solve=probe();r=ctl.reward(risk,after,old_count,tail);terminal_reward=0.
+                    after,_,_,next_shift,solve,_=probe();r=ctl.reward(risk,after,old_count,tail);terminal_reward=0.
                     if terminal:
                         current,after_y=features(encoder,canonical)
                         if not torch.equal(after_y,raw_y):raise ValueError('Canonical order changed')
@@ -274,7 +285,7 @@ def run(config):
                         audit=dict(task=task,epoch=epoch,batch=first,horizon=len(cached),state=state.tolist(),policy_state=policy_state.tolist(),
                             probabilities=p.tolist(),selected_action=action,fd_weight=ctl.ACTIONS[action],reward=r,terminal_reward=terminal_reward,
                             branch_rewards=branch_rewards,branch_risks=branch_risks,before_risk=risk.tolist(),after_risk=after.tolist(),
-                            gradient=gradient,max_residual=max(max_residual,solve['relative_residual']),behavior='sampled' if learned else arm)
+                            gradient=gradient,max_residual=max(max_residual,solve['relative_residual']),drift=solve['drift'],behavior='sampled' if learned else arm)
                         decisions.append(audit);block_audits.append(audit)
                         save(output/'CONTROLLER.json',dict(decisions=decisions,policy_updates=policy.updates,rollout_updates=rollouts))
                     previous_risk,risk,shift=risk,after,next_shift
@@ -286,8 +297,8 @@ def run(config):
                     block_count=len(block_audits),return_scope='task' if full_task else 'epoch',
                     trajectory_length=len(trajectory),policy_update=update_audit))
                 save(output/'diagnostics.json',diagnostics)
-            full=readout(current,fi,mi,y,before);_,W,new_bank,shift,solve=full
-            meta_bank=ctl.meta_append(method.translate(meta_bank,shift),current[mi],y[mi]);bank=new_bank
+            full=readout(current,fi,mi,y,before);_,W,new_bank,shift,solve,old_meta=full
+            meta_bank=ctl.meta_append(old_meta,current[mi],y[mi]);bank=new_bank
             model={k:v.detach().cpu() for k,v in encoder.state_dict().items()}
             torch.save(dict(model=model,adapter={k:p.detach().cpu() for k,p in encoder.named_parameters() if p.requires_grad},
                 head=W.float().cpu(),bank=cpu_bank(bank),meta_bank=cpu_bank(meta_bank),seen=seen.copy(),steps=steps,

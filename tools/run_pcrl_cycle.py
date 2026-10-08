@@ -50,6 +50,15 @@ def report(root, records, result, public=None):
                 '20个 T1 结束时的伪增量校准全部完成并通过冻结奖励门槛，才进入正式训练。候选还须超过 FD5/20、随机、贪心、状态打乱和竞争项对照；通过后仅追加两组冻结新种子。无自动修订或 HK 迁移。')
             if 'reward_calibration' in result:
                 text+='\n## 奖励校准\n\n```json\n'+json.dumps(result['reward_calibration'],ensure_ascii=False,indent=2)+'\n```\n'
+        if result.get('cycle')=='FDRL3':
+            text=text.replace('FDRL1 蒸馏强度时序调度','FDRL3 仿射统计搬运与奖励校准')
+            text=text.replace('FD 取 5/10/20；FDRL 主路径实际采样，用跨块折扣回报训练小型 actor–critic。拟合与奖励统计永久隔离。所有九臂均计费相同的三动作分支和四个短预热过程。',
+                '七个仿射搬运臂与一个共同平移 LEGACY 对照；FD 取5/10/20。仿射映射只拟合当前 fit 成对特征，恒等先验岭系数0.001，统一变换类均值、二阶矩及原型中心。各臂均有16次预热和相同三动作分支成本；完整任务结束更新策略。')
+            text=text.replace('还须超过 FD5/10/20、随机、梯度规则、贪心和因果历史状态打乱对照；通过后仅运行冻结的两组新种子。没有自动方法修订或 HK 迁移。',
+                '20个T2伪任务校准先通过冻结奖励门槛才启动八臂主筛；校准专用身份隔离划分不改变正式划分。候选须超过固定、随机、贪心、状态打乱及 LEGACY 对照。通过才追加两组新种子的R/FD5/FD20/FDRL，无自动修订或HK。')
+            text=text.replace('旧类共同平移仍为近似','仿射映射对旧类仍是外推近似，LEGACY保留共同平移')
+            if 'reward_calibration' in result:
+                text+='\n## 奖励校准\n\n```json\n'+json.dumps(result['reward_calibration'],ensure_ascii=False,indent=2)+'\n```\n'
         (public/'REPORT_ZH.md').write_text(text)
         return
     if result.get('primary_candidate') in ('FINALHEAD', 'PAIRHEAD'):
@@ -200,6 +209,7 @@ def run(c):
         poll()
     def spec(name,arm,seed,prefix=None,preflight=False):
         config=dict(method=arm,seed=seed,split_file=c['split_file'])
+        config.update(c.get('arm_overrides',{}).get(arm,{}))
         if prefix:config['prefix']=prefix
         if preflight:config['preflight']=True
         return dict(id=name,kind='preflight' if preflight else 'train',cap=900 if preflight else c.get('train_cap_seconds',7200),config=config)
@@ -237,12 +247,14 @@ def run(c):
             phase='CALIBRATE_REWARD';state()
             calibration_prefix=c.get('calibration_id_prefix','calibration')
             schedule([dict(id=f'{calibration_prefix}_{i:02d}',kind='calibration',cap=c['calibration_cap_seconds'],
-                config=dict(x,prefix=c['prefix'],split_file=c['split_file'])) for i,x in enumerate(c['calibration_specs'])])
+                config=dict(x,prefix=c['prefix'],split_file=c.get('calibration_split_file',c['split_file']))) for i,x in enumerate(c['calibration_specs'])])
             calibration=[]
             for i in range(len(c['calibration_specs'])):
                 path=root/f'{calibration_prefix}_{i:02d}'/'CALIBRATION.json'
                 if path.exists():calibration.append(json.loads(path.read_text()))
             gate=summarize(calibration,len(c['calibration_specs']))
+            if len(calibration)==len(c['calibration_specs']) and all(r.get('translation_arms') for r in calibration):
+                gate['paired_translation_diagnostic']=summarize([dict(r,arms=r['translation_arms']) for r in calibration],len(calibration))
             gate['passed']=gate['passed'] and not failures
             save(public/'REWARD_CALIBRATION.json',dict(summary=gate,records=calibration))
             result.update(reward_calibration=gate,records=records,failures=failures,screen_success=False,

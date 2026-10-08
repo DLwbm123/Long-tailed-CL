@@ -37,7 +37,8 @@ def summarize(records, expected=20):
         gates=gates, completed=len(records), informative_pairs=len(pairs), pairwise_agreement=agreement,
         false_safe_branches=false_safe, branch_count=3*expected, informative_episodes=information,
         mean_recall_regret=sum(recall_regrets)/expected, actual_updates=sum(r['actual_updates'] for r in records),
-        independent_confirmation=False, scope='end-of-T1 pseudo-incremental training diagnostic', test_accessed=False)
+        independent_confirmation=False, scope='current-task pseudo-incremental training diagnostic',
+        calibration_tasks=sorted({r.get('calibration_task',1) for r in records}),test_accessed=False)
 
 
 if __name__ == '__main__':

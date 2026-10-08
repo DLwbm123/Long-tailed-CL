@@ -1,0 +1,44 @@
+{
+  "affine": {
+    "status": "PASS",
+    "checks": [
+      "primal and dual fitting versus augmented least squares",
+      "class balancing invariant to within-class replication",
+      "identity and translation reduction",
+      "non-diagonal moments versus transformed explicit samples",
+      "historical risk versus per-sample loss",
+      "component center, empty memory and invalid input guards"
+    ],
+    "scientific_optimizer_updates": 0,
+    "cpu_core_seconds": 1.6415738979999999
+  },
+  "legacy": {
+    "status": "PASS",
+    "checks": [
+      "empirical class-balanced risk identity",
+      "translated moment oracle",
+      "reward protection arithmetic",
+      "discounted temporal returns",
+      "state bounds",
+      "on-policy behavior guard",
+      "categorical main-path sampling",
+      "one-transition actor credit"
+    ],
+    "toy_policy_updates": 2,
+    "scientific_optimizer_updates": 0,
+    "cpu_core_seconds": 0.8442070910000004
+  },
+  "task_returns": {
+    "status": "PASS",
+    "checks": [
+      "empirical loss, recall and competitor margin oracle",
+      "two-class pseudo-task moment/oracle identity",
+      "task-end reward reaches first-epoch action with unchanged behavior",
+      "reward admission accepts aligned and rejects reversed or incomplete evidence"
+    ],
+    "toy_policy_updates": 1,
+    "scientific_optimizer_updates": 0,
+    "cpu_core_seconds": 0.016410853000000003
+  },
+  "status": "PASS"
+}

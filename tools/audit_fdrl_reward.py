@@ -13,6 +13,7 @@ from torch.utils.data import DataLoader
 import fdrl_control as ctl
 import next1_support as support
 import prototype_coherent as method
+import affine_moments
 from pcrl_control import Snapshot
 from run_multilabel import ApartFeatures
 from run_pcrl import IndexedImages
@@ -34,7 +35,7 @@ def empirical(x, y, head):
 def run(c):
     output = Path(c['output']); output.mkdir(parents=True, exist_ok=False)
     save(output/'INPUT.private.json', c)
-    started = time.monotonic(); updates = 0; rows_out = []
+    started = time.monotonic(); updates = 0; rows_out = []; translation_rows = []
     def budget():
         if time.monotonic()-started >= c['max_wall_seconds']:
             raise RuntimeError('CALIBRATION_WALL_BUDGET')
@@ -48,7 +49,9 @@ def run(c):
         prefix = torch.load(c['prefix'], map_location='cpu', weights_only=False)
         if prefix['steps'] != 276 or prefix['seen'] != c['order'][:2] or not prefix.get('fit_only'):
             raise ValueError('A fit-only T1 prefix with separate meta moments is required')
-        pair = c['order'][:2][::(-1 if c['reverse'] else 1)]
+        pair = c.get('calibration_classes',c['order'][:2])[::(-1 if c['reverse'] else 1)]
+        drift = c.get('drift','translation')
+        if drift not in ('translation','affine'):raise ValueError('Unknown calibration drift')
         seen = pair; rows = [r for r in train if r['label'] in pair]
         fit, meta = support.fixed_split(rows, c)
         if {rows[i]['identity_component'] for i in fit} & {rows[i]['identity_component'] for i in meta}:
@@ -131,9 +134,11 @@ def run(c):
                 head = step(batches[i % len(batches)], head, action, inverse, cross, 1)
             after, _ = features()
             displacement = (after[new_fit]-anchor[new_fit]).mean(0)
-            predicted_old = method.translate(bank, displacement)
+            mapping = affine_moments.fit(anchor[new_fit],after[new_fit],y[new_fit]) if drift=='affine' else None
+            predicted_old = affine_moments.transport(bank,mapping) if mapping else method.translate(bank, displacement)
+            predicted_meta = affine_moments.transport(meta_bank,mapping) if mapping else method.translate(meta_bank, displacement)
             refit, _ = method.head(append(predicted_old, after[new_fit], y[new_fit]), 0.)
-            proxy = ctl.risks(method.translate(meta_bank, displacement), refit,
+            proxy = ctl.risks(predicted_meta, refit,
                 after[mi[y[mi] == 1]], y[mi[y[mi] == 1]])
             oracle = empirical(after[mi], y[mi], refit)
             true_before = torch.tensor(baseline['loss'], device='cuda', dtype=torch.float64)
@@ -141,13 +146,25 @@ def run(c):
             rows_out.append(dict(action=action, fd_weight=ctl.ACTIONS[action], proxy_before=base_proxy.tolist(),
                 proxy_after=proxy.tolist(), oracle_before=baseline, oracle_after=oracle,
                 proxy_reward=ctl.reward(base_proxy, proxy, 1, tail),
-                oracle_reward=ctl.reward(true_before, true_after, 1, tail)))
+                oracle_reward=ctl.reward(true_before, true_after, 1, tail),
+                drift=mapping['diagnostics'] if mapping else dict(kind='translation')))
+            if mapping:
+                translated_fit=method.translate(bank,displacement)
+                translated_head,_=method.head(append(translated_fit,after[new_fit],y[new_fit]),0.)
+                translated_risk=ctl.risks(method.translate(meta_bank,displacement),translated_head,
+                    after[mi[y[mi]==1]],y[mi[y[mi]==1]])
+                translated_oracle=empirical(after[mi],y[mi],translated_head)
+                translation_rows.append(dict(action=action,fd_weight=ctl.ACTIONS[action],proxy_before=base_proxy.tolist(),
+                    proxy_after=translated_risk.tolist(),oracle_before=baseline,oracle_after=translated_oracle,
+                    proxy_reward=ctl.reward(base_proxy,translated_risk,1,tail),
+                    oracle_reward=ctl.reward(true_before,true_before.new_tensor(translated_oracle['loss']),1,tail)))
             status(status='RUNNING', phase='calibration_branches', completed_actions=action+1)
         snap.restore(optimizer); snap.verify(optimizer)
         result = dict(status='COMPLETE', audit_seed=seed, reverse=c['reverse'], start_depth=c['start_depth'],
             pseudo_order=pair, arms=rows_out, actual_updates=updates, expected_updates=c['start_depth']+48,
             meta_counts=[int((y[mi] == k).sum()) for k in (0, 1)], fit_meta_identity_disjoint=True,
-            calibration_task=1,shared_prefix_already_saw_both_pseudo_classes=True,
+            calibration_task=c.get('calibration_task',1),shared_prefix_already_saw_both_pseudo_classes=set(pair)<=set(prefix['seen']),
+            drift=drift,translation_arms=translation_rows,fit_counts=[int((y[fi]==k).sum()) for k in (0,1)],
             real_old_images_accessed=False, future_images_accessed=False, validation_images_accessed=False,
             test_accessed=False, model_retained=False, restore_verified=True, peak_gpu_bytes=torch.cuda.max_memory_allocated(),
             elapsed_seconds=time.monotonic()-started)

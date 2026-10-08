@@ -1,0 +1,219 @@
+{
+  "observed_at": 1791454506.1406384,
+  "status": "RUNNING",
+  "phase": "TRAIN_MAIN",
+  "source_commit": "1d2e0996d29a521f79575e539d25d75a2ed8775c",
+  "gpus": [
+    0,
+    2
+  ],
+  "coordinator_pid": 1562120,
+  "jobs": [
+    {
+      "id": "main_preflight_SHIFT",
+      "kind": "preflight",
+      "gpu": 0,
+      "pid": 1562147,
+      "status": "COMPLETE",
+      "phase": null,
+      "actual_updates": 0,
+      "exit_code": 0
+    },
+    {
+      "id": "main_preflight_AFFINE",
+      "kind": "preflight",
+      "gpu": 2,
+      "pid": 1562149,
+      "status": "COMPLETE",
+      "phase": null,
+      "actual_updates": 0,
+      "exit_code": 0
+    },
+    {
+      "id": "main_SHIFT",
+      "kind": "train",
+      "gpu": 0,
+      "pid": 1564129,
+      "status": "RUNNING",
+      "phase": "task_start_features",
+      "actual_updates": 0,
+      "exit_code": null
+    },
+    {
+      "id": "main_AFFINE",
+      "kind": "train",
+      "gpu": 2,
+      "pid": 1564131,
+      "status": "RUNNING",
+      "phase": "task_start_features",
+      "actual_updates": 0,
+      "exit_code": null
+    }
+  ],
+  "cpu_checks": {
+    "affine": {
+      "status": "PASS",
+      "checks": [
+        "primal and dual fitting versus augmented least squares",
+        "class balancing invariant to within-class replication",
+        "identity and translation reduction",
+        "non-diagonal moments versus transformed explicit samples",
+        "historical risk versus per-sample loss",
+        "component center, empty memory and invalid input guards"
+      ],
+      "scientific_optimizer_updates": 0,
+      "cpu_core_seconds": 0.19970565199999868
+    },
+    "fixed": {
+      "status": "PASS",
+      "checks": [
+        "fixed-mode rejects adaptive arms and competition before any file or GPU access"
+      ],
+      "scientific_optimizer_updates": 0,
+      "cpu_core_seconds": 7.440599999952724e-05
+    },
+    "status": "PASS",
+    "empty_failure_report": "PASS"
+  },
+  "native_preflight": {
+    "SHIFT": {
+      "status": "PASS",
+      "optimizer_updates": 0,
+      "restore_verified": true,
+      "action_gradient_norms": [
+        0.031413160264492035,
+        0.030178707093000412
+      ],
+      "meta_fit_identity_disjoint": true,
+      "fit_counts": [
+        364,
+        8421
+      ],
+      "meta_counts": [
+        94,
+        2108
+      ],
+      "initial_risk": [
+        0.17739574972543043,
+        0.1390951764682315,
+        0.3215940682415729,
+        0.20752879520972392
+      ],
+      "state": [
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.15693765347634667,
+        0.25855702113744466,
+        0.19012058415390964,
+        0.3109475744266421,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9515651295079117,
+        0.552546815254057
+      ],
+      "probabilities": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "sampled_action": 2,
+      "drift": "translation",
+      "perturbed_drift": {
+        "kind": "translation"
+      },
+      "perturbed_risk": [
+        0.17733829893550335,
+        0.13907052300330375,
+        0.3213967192824695,
+        0.20754090288459964
+      ],
+      "max_residual": 0.0,
+      "peak_gpu_bytes": 13173950976
+    },
+    "AFFINE": {
+      "status": "PASS",
+      "optimizer_updates": 0,
+      "restore_verified": true,
+      "action_gradient_norms": [
+        0.031413160264492035,
+        0.030178707093000412
+      ],
+      "meta_fit_identity_disjoint": true,
+      "fit_counts": [
+        364,
+        8421
+      ],
+      "meta_counts": [
+        94,
+        2108
+      ],
+      "initial_risk": [
+        0.17739574972543054,
+        0.13909517646823172,
+        0.3215940682415729,
+        0.20752879520972398
+      ],
+      "state": [
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.1569376534763468,
+        0.2585570211374448,
+        0.19012058415390976,
+        0.3109475744266421,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9515651295079117,
+        0.552546815254057
+      ],
+      "probabilities": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "sampled_action": 2,
+      "drift": "affine",
+      "perturbed_drift": {
+        "kind": "affine",
+        "regularization": 0.001,
+        "observations": 86,
+        "classes": 2,
+        "relative_residual": 7.405928557423102e-16,
+        "identity_change_norm": 0.0038893535362156677,
+        "translation_mse": 1.1946643008465628e-07,
+        "fitted_mse": 8.392021633659571e-09
+      },
+      "perturbed_risk": [
+        0.17740384033616607,
+        0.13909834001427973,
+        0.32153414423056575,
+        0.20753386396955845
+      ],
+      "max_residual": 0.0,
+      "peak_gpu_bytes": 13173950976
+    }
+  },
+  "stage_gpu_seconds": 427.08669114112854,
+  "stage_gpu_seconds_reserved": 14207.743265390396,
+  "formal_used": 2,
+  "formal_limit": 2,
+  "prior_cycle_gpu_seconds": 2924.4736495018005,
+  "deadline": 1791535947.9124362,
+  "process_tree_neutral": true,
+  "gpu_process_names_neutral": true,
+  "automation_id": "fd10",
+  "automation_status": "ACTIVE",
+  "scientific_success": false,
+  "test_accessed": false
+}

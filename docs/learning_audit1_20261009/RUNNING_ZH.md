@@ -1,4 +1,6 @@
-# LEARNING-AUDIT1 启动回执
+# LEARNING-AUDIT1 启动回执（历史）
+
+更新：12/12状态已于北京时间2026-10-09 14:30:49完成，见[完成报告](results/REPORT_ZH.md)、[全部读出表](results/TABLE_ZH.md)和[审计](results/AUDIT.json)。下文保留启动记录。
 
 北京时间2026-10-09 14:21:21启动，状态RUNNING_NOT_RESULTS。三个后台suite均存在，worker已进入固定checkpoint的训练侧/开发侧特征提取，无启动错误。GPU0/1/2各运行一组，GPU3未使用；已有其他进程不受干预。
 

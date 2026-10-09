@@ -69,11 +69,16 @@ def pcg(operator, rhs, precondition, initial, tolerance=1e-9, iterations=128):
 
 
 def solve(q, mu, mass, a, beta=.5, mean_only=False, previous=None,
-          proximal=0., inverse=None, x=None, alpha=None, native=None, pair_linear=None):
+          proximal=0., inverse=None, x=None, alpha=None, native=None, pair_linear=None,
+          regularizer=None):
     if beta < 0 or proximal < 0:
         raise ValueError('Nonnegative penalties required')
     d = q.shape[1]; eye = torch.eye(d, dtype=q.dtype, device=q.device)
-    base = q.sum(0)+(.001+proximal)*eye
+    if regularizer is not None and (regularizer.shape != eye.shape or
+            not torch.isfinite(regularizer).all() or
+            not torch.allclose(regularizer, regularizer.T, atol=1e-10, rtol=1e-10)):
+        raise ValueError('Invalid prototype regularizer')
+    base = q.sum(0)+(.001+proximal)*eye if regularizer is None else q.sum(0)+.001*regularizer+proximal*eye
     rhs = mu.T.clone()
     if proximal:
         if previous is None: raise ValueError('Missing proximal reference')
@@ -103,9 +108,9 @@ def solve(q, mu, mass, a, beta=.5, mean_only=False, previous=None,
     return pcg(operator, rhs, precondition, native)
 
 
-def bank_head(bank, a, beta=.5, mean_only=False):
+def bank_head(bank, a, beta=.5, mean_only=False, regularizer=None):
     k = len(bank['n']); mass = bank['mu'].new_full((k,), 1/k)
-    return solve(bank['Q']/k, bank['mu']/k, mass, a, beta, mean_only)
+    return solve(bank['Q']/k, bank['mu']/k, mass, a, beta, mean_only, regularizer=regularizer)
 
 
 def pair_loss(old, x, y, alpha, w, a, mean_only=False):

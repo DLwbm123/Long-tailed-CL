@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "preflights": {
+    "hierarchy": {
+      "status": "PASS",
+      "encoder_dim": 1536,
+      "adapter_updates": 0,
+      "policy_updates": 0,
+      "gradient_norm": 0.016649693250656128,
+      "activation": {
+        "extra_columns": 1,
+        "prior_delta": 0.048167377752885016
+      },
+      "batch_solve": {
+        "iterations": 8,
+        "relative_residual": 7.899841849137358e-10
+      },
+      "peak_gpu_bytes": 12731367936
+    },
+    "local": {
+      "status": "PASS",
+      "encoder_dim": 1536,
+      "adapter_updates": 0,
+      "policy_updates": 0,
+      "gradient_norm": 0.016829634085297585,
+      "activation": {
+        "extra_columns": 16,
+        "prior_delta": 0.910745657427719
+      },
+      "batch_solve": {
+        "iterations": 8,
+        "relative_residual": 7.908446326012329e-10
+      },
+      "peak_gpu_bytes": 12928380416
+    },
+    "base": {
+      "status": "PASS",
+      "encoder_dim": 1536,
+      "adapter_updates": 0,
+      "policy_updates": 0,
+      "gradient_norm": 0.016649698838591576,
+      "activation": {
+        "extra_columns": 0,
+        "prior_delta": 0.0
+      },
+      "batch_solve": {
+        "iterations": 8,
+        "relative_residual": 7.901809038338663e-10
+      },
+      "peak_gpu_bytes": 12731367936
+    }
+  },
+  "all_preflight_adapter_updates": 0,
+  "all_preflight_policy_updates": 0,
+  "neutral_command_lines_verified": true,
+  "preflight_costs": [
+    {
+      "job": "preflight_local",
+      "operation": "train",
+      "gpu": 2,
+      "returncode": 0,
+      "residence_seconds": 114.73049037810415
+    },
+    {
+      "job": "preflight_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 114.85668904008344
+    },
+    {
+      "job": "preflight_hierarchy",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 114.96037863567472
+    }
+  ]
+}

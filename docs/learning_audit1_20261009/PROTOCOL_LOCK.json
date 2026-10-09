@@ -1,0 +1,47 @@
+{
+  "round": "learning_audit1_20261009",
+  "source_parent": "b57270fc49292245de05548e4cc916b1c6076f24",
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 73447.80242463294,
+  "seed": 74002,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "jobs": [
+    {
+      "dataset": "ISIC",
+      "arm": "static_pc",
+      "stages": [
+        1,
+        2,
+        3
+      ],
+      "gpu": 0
+    },
+    {
+      "dataset": "HK",
+      "arm": "static_pc",
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "gpu": 1
+    },
+    {
+      "dataset": "HK",
+      "arm": "edge_rl",
+      "stages": [
+        2,
+        5,
+        6
+      ],
+      "gpu": 2
+    }
+  ],
+  "head_atol": 1e-06,
+  "head_rtol": 1e-05
+}

@@ -77,7 +77,7 @@ def run(config):
             record=dict(dataset=spec['dataset'],task=spec['task'],cohort=previous_results['cohort'],seen=seen,current=current,tail=tail,
                 selected=selected,primary_method='within_stable',choice_audits=choice_audits,stability=stability,
                 gaussian_batches=probability.cpu().tolist(),meta_accuracy=meta_acc.cpu().tolist(),
-                meta_support={str(seen[c]):dict(identities=n,images=sum(raw_y[i]==seen[c] for i in mi)) for c,n in support.items()},
+                meta_support={str(seen[c]):dict(identities=n,images=int(sum(raw_y[i]==seen[c] for i in mi))) for c,n in support.items()},
                 allocations=alloc_audits,existing_head_reconstruction_errors=errors,gaussian_covariance=covariance,
                 independent_confirmation=False,selection_used_development_labels=False,old_uncertainty_not_certified=True,
                 identity_deletion_scope='current meta only; no population confidence guarantee')

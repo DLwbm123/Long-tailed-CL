@@ -1,0 +1,83 @@
+{
+  "failed_attempt": {
+    "statuses": {
+      "ISIC": {
+        "status": "INCOMPLETE",
+        "prepared_states": [],
+        "evaluated_states": [],
+        "elapsed_seconds": 19.13575420482084,
+        "cpu_process_seconds": 7.499379792999999,
+        "image_rows": 0,
+        "adapter_updates": 0,
+        "policy_updates": 0,
+        "test_accessed": false,
+        "error": "Object of type int64 is not JSON serializable"
+      },
+      "HK_mid": {
+        "status": "INCOMPLETE",
+        "prepared_states": [],
+        "evaluated_states": [],
+        "elapsed_seconds": 19.43824874376878,
+        "cpu_process_seconds": 5.867801316,
+        "image_rows": 0,
+        "adapter_updates": 0,
+        "policy_updates": 0,
+        "test_accessed": false,
+        "error": "Object of type int64 is not JSON serializable"
+      },
+      "HK_late": {
+        "status": "INCOMPLETE",
+        "prepared_states": [],
+        "evaluated_states": [],
+        "elapsed_seconds": 19.8972276779823,
+        "cpu_process_seconds": 7.754327185,
+        "image_rows": 0,
+        "adapter_updates": 0,
+        "policy_updates": 0,
+        "test_accessed": false,
+        "error": "Object of type int64 is not JSON serializable"
+      }
+    },
+    "suites": {
+      "ISIC": {
+        "status": "INCOMPLETE",
+        "started": 1791550705.8203115,
+        "completed": [],
+        "active": "ISIC",
+        "error": "ISIC: exit 1; no automatic retry",
+        "elapsed_seconds": 23.089833251666278
+      },
+      "HK_mid": {
+        "status": "INCOMPLETE",
+        "started": 1791550705.8203099,
+        "completed": [],
+        "active": "HK_mid",
+        "error": "HK_mid: exit 1; no automatic retry",
+        "elapsed_seconds": 23.13328396389261
+      },
+      "HK_late": {
+        "status": "INCOMPLETE",
+        "started": 1791550705.820056,
+        "completed": [],
+        "active": "HK_late",
+        "error": "HK_late: exit 1; no automatic retry",
+        "elapsed_seconds": 23.191839386709034
+      }
+    }
+  },
+  "failed_total_suite_seconds": 69.41495660226792,
+  "repair_selfcheck": {
+    "status": "PASS",
+    "cpu_seconds": 0.2900155099999999,
+    "serialization_regression": "PASS",
+    "image_rows": 0,
+    "adapter_updates": 0,
+    "policy_updates": 0
+  },
+  "original_source_commit": "2b9622303550b2316756478aa5e88a3fff91442a",
+  "reason": "NumPy int64 meta image count failed JSON serialization before any development readout",
+  "fix": "Convert metadata image count to Python int; no scientific change",
+  "failed_outputs_preserved": true,
+  "original_deadline": 1791648863.9076865,
+  "budget_policy": "Subtract failed suite residence from each original 1800-second limit; original total cap and deadline unchanged"
+}

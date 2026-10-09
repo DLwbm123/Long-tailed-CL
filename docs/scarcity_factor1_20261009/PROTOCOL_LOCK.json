@@ -1,0 +1,109 @@
+{
+  "round": "scarcity_factor1_20261009",
+  "source_parent": "2aef7eb0b8c1b337e33567f014266196bfe9a5d9",
+  "jobs": [
+    {
+      "name": "ISIC",
+      "gpu": 0,
+      "states": [
+        {
+          "name": "ISIC_T2_cached",
+          "dataset": "ISIC",
+          "task": 2,
+          "cached_shard": "ISIC_A",
+          "seed_offset": 102
+        },
+        {
+          "name": "ISIC_T3",
+          "dataset": "ISIC",
+          "task": 3,
+          "seed_offset": 103
+        }
+      ]
+    },
+    {
+      "name": "HK_mid",
+      "gpu": 1,
+      "states": [
+        {
+          "name": "HK_T2_cached",
+          "dataset": "HK",
+          "task": 2,
+          "cached_shard": "HK",
+          "seed_offset": 202
+        },
+        {
+          "name": "HK_T4",
+          "dataset": "HK",
+          "task": 4,
+          "seed_offset": 204
+        }
+      ]
+    },
+    {
+      "name": "HK_late",
+      "gpu": 2,
+      "states": [
+        {
+          "name": "HK_T6",
+          "dataset": "HK",
+          "task": 6,
+          "seed_offset": 206
+        }
+      ]
+    }
+  ],
+  "states": 5,
+  "heads": [
+    "zero",
+    "full_plus",
+    "full_minus",
+    "row_plus",
+    "row_minus",
+    "within_plus",
+    "within_minus"
+  ],
+  "head_readouts": 105,
+  "primary_method": "within_stable",
+  "primary_partition": "fit-only full development; cached and full-trajectory states separated",
+  "fixed_rule_selection": "No dataset-specific signs selected; both signs reported everywhere",
+  "integration_seed": 74002,
+  "integration_batches": 8,
+  "integration_samples_per_batch": 4096,
+  "split_seed": 93003,
+  "reuse_split": true,
+  "known_excluded_development_classes": {
+    "ISIC": [],
+    "HK": [
+      5,
+      6,
+      19
+    ]
+  },
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 82882.35188715719,
+  "suite_wall_seconds": 1800,
+  "maximum_new_gpu_suite_seconds": 5400,
+  "adapter_updates": 0,
+  "policy_updates": 0,
+  "image_rows": 0,
+  "test_accessed": false,
+  "reconstruction_atol": 1e-06,
+  "reconstruction_rtol": 1e-05,
+  "max_solve_residual": 1e-08,
+  "frozen_dependencies": [
+    "feedback_information1_20261009",
+    "decision_prob1_20261009_repair2",
+    "feedback_cross1_20261009",
+    "action_trace1_20261009",
+    "holdout_audit1_20261009",
+    "learning_audit1_20261009",
+    "edge_budget1_20261009",
+    "three_dataset1_20261008"
+  ],
+  "allocation_floor": 0.5,
+  "stability": "Every current meta identity leave-one-out must reproduce point winner; otherwise zero. Old uncertainty not certified.",
+  "barrier": "All five training-only choices saved before development metrics; no A or B labels in selection.",
+  "stop": "One frozen matrix, publish all results and costs, stop. No automatic tuning, new seeds, training or expansion.",
+  "independent_confirmation": false
+}

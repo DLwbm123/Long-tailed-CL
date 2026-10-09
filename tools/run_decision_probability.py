@@ -49,8 +49,8 @@ def run(config):
             row['label'] = int(row['original_label'])
         return rows
     def encoder(original):
-        from run_medical_v2 import transform
         model = ApartFeatures(original['legacy_repo'], original['weight'], len(original['order']), 'cuda:0', original['seed'])
+        from run_medical_v2 import transform
         model.eval().requires_grad_(False)
         return model, transform(False)
     def features(model, transform, original, rows, task):

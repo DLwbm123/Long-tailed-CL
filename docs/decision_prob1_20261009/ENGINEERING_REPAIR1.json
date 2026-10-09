@@ -1,0 +1,18 @@
+{
+  "failed_source_commit": "2bae075ee0a1daa0e98a10ea73739e7b1bea4730",
+  "failure": "New-state encoder helper imported run_medical_v2 before ApartFeatures registered the existing legacy module path: No module named models.",
+  "fix": "Construct ApartFeatures before importing transform, matching existing working feature-extraction code.",
+  "failed_suite_seconds": {"ISIC": 16.312285938765854, "HK_mid": 16.611189811956137, "HK_late": 7.740419544279575},
+  "failed_total_suite_seconds": 40.663895295001566,
+  "prior_closed_plus_failed_gpu_seconds": 80065.19087868463,
+  "failed_adapter_updates": 0,
+  "failed_policy_updates": 0,
+  "failed_image_reads": 0,
+  "failed_development_reads": 0,
+  "cached_selections_written_before_failure": 2,
+  "scientific_selection_outputs_inspected_before_repair": false,
+  "cpu_import_preflight": {"status": "PASS", "elapsed_seconds": 9.569151629228145, "image_reads": 0, "updates": 0},
+  "preflight_path_lookup_error": "One read-only preflight initially looked for the lock inside source/docs; corrected to the existing root lock before model loading.",
+  "repair_scope": "One separately registered engineering repair of the same five states in a fresh output directory. Preserve failed output and account its cost; no scientific configuration change, no extra seeds or candidates, no deadline reset.",
+  "original_deadline": 1791648863.9076865
+}

@@ -1,4 +1,6 @@
-# HOLDOUT-AUDIT1 已启动（非结果）
+# HOLDOUT-AUDIT1 启动历史（现已完成）
+
+2026-10-09 14:54:08 全部完成；[完整结果报告](results/REPORT_ZH.md)。以下保留原启动记录。
 
 北京时间 2026-10-09 14:45:23 启动。科学源提交 `17dfbdb10c788b444a6bce8cb25ed4459def3831`，方案见 [冻结协议](PROTOCOL_ZH.md)。
 

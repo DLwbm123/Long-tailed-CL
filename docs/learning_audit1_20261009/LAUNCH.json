@@ -1,0 +1,46 @@
+{
+  "status": "RUNNING_NOT_RESULTS",
+  "source_commit": "aae5750e4ec13dd5f97768d304a28356410716c2",
+  "started": 1791526881.9909627,
+  "checked_at": 1791526951.988125,
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 73447.80242463294,
+  "cpu_check_seconds": 11.276502860999999,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "jobs": [
+    {
+      "name": "ISIC_static_pc",
+      "gpu": 0,
+      "stages": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "HK_static_pc",
+      "gpu": 1,
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "name": "HK_edge_rl",
+      "gpu": 2,
+      "stages": [
+        2,
+        5,
+        6
+      ]
+    }
+  ],
+  "process_identity_check": "PASS: three coordinators and workers use neutral entries; GPU processes match workers",
+  "startup_log_check": "No errors; existing timm deprecation warnings only"
+}

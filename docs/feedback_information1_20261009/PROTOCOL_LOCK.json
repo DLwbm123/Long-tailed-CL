@@ -1,0 +1,112 @@
+{
+  "round": "feedback_information1_20261009",
+  "source_parent": "b1e1e184420201e31e50ad070506b4a81c1c151f",
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 82433.18928220589,
+  "jobs": [
+    {
+      "name": "ISIC",
+      "gpu": 0,
+      "states": [
+        {
+          "name": "ISIC_T2_cached",
+          "dataset": "ISIC",
+          "task": 2,
+          "cached_shard": "ISIC_A",
+          "seed_offset": 102
+        },
+        {
+          "name": "ISIC_T3",
+          "dataset": "ISIC",
+          "task": 3,
+          "seed_offset": 103
+        }
+      ]
+    },
+    {
+      "name": "HK_mid",
+      "gpu": 1,
+      "states": [
+        {
+          "name": "HK_T2_cached",
+          "dataset": "HK",
+          "task": 2,
+          "cached_shard": "HK",
+          "seed_offset": 202
+        },
+        {
+          "name": "HK_T4",
+          "dataset": "HK",
+          "task": 4,
+          "seed_offset": 204
+        }
+      ]
+    },
+    {
+      "name": "HK_late",
+      "gpu": 2,
+      "states": [
+        {
+          "name": "HK_T6",
+          "dataset": "HK",
+          "task": 6,
+          "seed_offset": 206
+        }
+      ]
+    }
+  ],
+  "frozen_dependencies": [
+    "decision_prob1_20261009_repair2",
+    "feedback_cross1_20261009",
+    "action_trace1_20261009",
+    "holdout_audit1_20261009",
+    "learning_audit1_20261009",
+    "edge_budget1_20261009",
+    "three_dataset1_20261008"
+  ],
+  "states": 5,
+  "head_configurations": 35,
+  "existing_frozen_heads": 33,
+  "added_readout_ablations": [
+    "linear_ridge",
+    "prototype_ridge"
+  ],
+  "primary_partition": "fit-only only; no all-refit reselection or new all-refit experiment",
+  "full_head_readouts": 525,
+  "adapter_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "old_training_images_read": 0,
+  "expected_current_training_image_passes": 13895,
+  "split_seed": 93003,
+  "integration_seed": 74002,
+  "integration_batches": 8,
+  "integration_samples_per_batch": 4096,
+  "minimum_development_identities_per_class": 4,
+  "known_excluded_development_classes": {
+    "ISIC": [],
+    "HK": [
+      5,
+      6,
+      19
+    ]
+  },
+  "split": "One deterministic class-stratified identity split; B floor(n/2), A remainder. No repeated splits. Cross-class identities fail. Classes with fewer than four identities excluded from split diagnosis only, retained in full evaluation and score outputs.",
+  "head_ablations": "Same fixed static_pc encoder and fit bank: native.head(strength=0) and native.head(strength=1), ridge=.001. Existing static_pc zero remains the primary baseline; no assumption ablations are worse. This is terminal readout ablation, not independently trained weaker encoders.",
+  "feedback": "Two privileged diagnostic sources on A: empirical class recalls and joint Gaussian of the same rounded score samples. Gaussian retains cross-class and cross-candidate score correlations. No new train-side method is claimed.",
+  "integration": "Empirical population covariance with divisor n. Exact low-rank factor when n<=H*K, otherwise eigendecomposition; clip negative roundoff only, fail below -1e-8. Eight batches of 4096, same normals across candidates; no covariance tuning or budget increase.",
+  "selector": "Same covered-class all/old/current/tail means and original group protection. Gain must exceed max(1e-8,2*paired numerical SE); empirical means repeat eight times, SE zero. Separate fixed 17 edge and 17 norm families, lower index ties, fallback zero. Added ablation heads are not new selectable candidates.",
+  "conditional_transport": "Each current class: Gaussian of its current fit scores versus Gaussian of its before-fit features translated using other current classes only. Target class excluded from common-shift fit. Compare both with empirical same-fit and original held-out meta recalls. Target class DID participate in encoder training; this is conditional class-exclusion transport diagnosis, not genuine unseen-old-class validation.",
+  "barrier": "All five A selections saved before any B or full-development metrics are computed. Full cached feature files and split metadata may be loaded earlier. Historical development data were previously viewed; B is not a new independent confirmation set.",
+  "protection_tiers": [
+    "unconstrained",
+    "old/current/tail_group_non_decrease",
+    "per_class_non_decrease",
+    "no_previously_correct_sample_hurt"
+  ],
+  "baselines_report": "Full-class absolute BA and old/new/tail recalls for all three terminal readouts. Report common frozen candidate-library headroom relative to each reference, separating static baseline differences from adaptive headroom; no causal claim that encoder strength was varied.",
+  "stop": "Complete fixed 5-state matrix and publish all aggregate results, failures and cost, then stop. No extra seeds, splits, candidates, RL, encoder updates, threshold changes, old training images, test or CIFAR access. No tuning on B.",
+  "reconstruction_atol": 1e-06,
+  "reconstruction_rtol": 1e-05,
+  "max_solve_residual": 1e-08
+}

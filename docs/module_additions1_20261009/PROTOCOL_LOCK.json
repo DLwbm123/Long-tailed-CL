@@ -1,0 +1,138 @@
+{
+  "campaign": "module_additions1_20261009",
+  "authorization": "User requested all four recommended single-module additions, hourly monitoring, GPU0/1/2",
+  "baseline": "existing non-RL static_pc from edge_budget1_20261009",
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "modules": [
+    "base",
+    "hierarchy",
+    "local",
+    "paced",
+    "fusion"
+  ],
+  "formal_trajectories": 10,
+  "priority": [
+    "base",
+    "hierarchy",
+    "local",
+    "paced",
+    "fusion"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "expected_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "total_formal_updates": 3220,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "pilot_native_preflights": [
+    "ISIC_base",
+    "ISIC_hierarchy",
+    "ISIC_local"
+  ],
+  "preflight_adapter_updates": 0,
+  "campaign_wall_hours": 24,
+  "wall_policy": "Fresh bounded cycle, not a reset or reuse of prior campaign budget; retain prior cumulative 83019.613531 GPU residence seconds separately",
+  "evaluation": "All ten complete training first; fixed development validation only; historical base per-class recalls must reproduce",
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "module_definitions": {
+    "hierarchy": "HASTEN-inspired: seen-class family mean visual anchors appended to existing P at unit total norm per family, families with >=2 seen children only; R=(I+PP^T)^-1, original mu/Q untouched. Coarse name-based research families, not validated medical ontology; no CLIP/hyperbolic/GPT/future images.",
+    "local": "COMPOSE-inspired: same two ViT branch final tokens, four fixed quadrants, CLS cosine-softmax patch pooling, per-image mean centering/L2 normalization, per-class mean local anchors at 1/2 scale per region added to P. Existing global feature/head retained. No slots/router/replay/Chamfer/support adaptation. Historical local centers use existing global shift proxy.",
+    "paced": "PaLoRA-inspired history pacing: task adapter parameter-increment vectors; 95% energy effective rank of historical Gram; whole original cosine LR schedule scaled by 1/sqrt(max(1,R)). This is parameter-update history rank, not original LoRA effective rank/nullspace; no original theorem claimed.",
+    "fusion": "DAF-inspired task-end-only Eq3/14 fusion; historical arithmetic mean prior, previous global and optimized current adapter; alpha1.25 and beta clip[.001,.499]. Curvature uses mean squared batch CE gradients from one canonical current-fit pass (batch approximation, not per-example Fisher). Near-zero displacement uses curvature-only beta. Current initial global adapter retained instead of resetting to prior; fused features re-extracted and bank transported by original proxy."
+  },
+  "paper_urls": [
+    "https://arxiv.org/abs/2511.15633",
+    "https://arxiv.org/abs/2605.11710",
+    "https://arxiv.org/abs/2610.04226",
+    "https://arxiv.org/abs/2601.21341"
+  ],
+  "independent_confirmation": false,
+  "finish": "Publish code and anonymous results/report to project GitHub via proxy, then pause same hourly monitor. No automatic next cycle."
+}

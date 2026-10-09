@@ -1,0 +1,112 @@
+{
+  "round": "action_trace1_20261009",
+  "source_parent": "1d6949c32115043a1902d305323c10ae118612f3",
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 75764.55037662527,
+  "seed": 74002,
+  "split_seed": 74002,
+  "task": 2,
+  "starting_arm": "static_pc",
+  "starting_stage": 1,
+  "epochs_per_candidate": 1,
+  "batch_size": 64,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "clip_grad_norm": 5.0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "candidate_dimension": 8,
+  "candidates_per_dataset": 17,
+  "coefficient_basis": "index0=zero; index2d+1=+unit(d); index2d+2=-unit(d); d=0..7",
+  "original_proxy_gate": 1e-08,
+  "force_all_frozen_candidates_for_diagnostic": true,
+  "expected_unique_forks": 34,
+  "expected_actual_forks": 35,
+  "expected_adapter_updates": 682,
+  "cpu_selfchecks_seconds": [
+    11.693661262,
+    10.903088010000001
+  ],
+  "preflight_adapter_updates": 0,
+  "preflight_policy_updates": 0,
+  "jobs": [
+    {
+      "name": "ISIC_A",
+      "dataset": "ISIC",
+      "gpu": 0,
+      "candidate_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "expected_fit": 2292,
+      "expected_meta": 587,
+      "expected_steps_per_candidate": 36
+    },
+    {
+      "name": "HK",
+      "dataset": "HK",
+      "gpu": 1,
+      "candidate_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "expected_fit": 93,
+      "expected_meta": 24,
+      "expected_steps_per_candidate": 2
+    },
+    {
+      "name": "ISIC_B",
+      "dataset": "ISIC",
+      "gpu": 2,
+      "candidate_ids": [
+        0,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "expected_fit": 2292,
+      "expected_meta": 587,
+      "expected_steps_per_candidate": 36
+    }
+  ],
+  "cuts": [
+    "immediate",
+    "encoder_only",
+    "trained",
+    "fit_refit",
+    "all_refit"
+  ],
+  "development_barrier": "All 35 paired training forks complete before any development image read"
+}

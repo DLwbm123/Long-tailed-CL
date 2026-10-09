@@ -1,0 +1,115 @@
+{
+  "round": "decision_prob1_20261009",
+  "source_parent": "4ef9d8789458504d71529ef9c409493951a8be10",
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 80024.52698338963,
+  "jobs": [
+    {
+      "name": "ISIC",
+      "gpu": 0,
+      "states": [
+        {
+          "name": "ISIC_T2_cached",
+          "dataset": "ISIC",
+          "task": 2,
+          "cached_shard": "ISIC_A",
+          "seed_offset": 102
+        },
+        {
+          "name": "ISIC_T3",
+          "dataset": "ISIC",
+          "task": 3,
+          "seed_offset": 103
+        }
+      ]
+    },
+    {
+      "name": "HK_mid",
+      "gpu": 1,
+      "states": [
+        {
+          "name": "HK_T2_cached",
+          "dataset": "HK",
+          "task": 2,
+          "cached_shard": "HK",
+          "seed_offset": 202
+        },
+        {
+          "name": "HK_T4",
+          "dataset": "HK",
+          "task": 4,
+          "seed_offset": 204
+        }
+      ]
+    },
+    {
+      "name": "HK_late",
+      "gpu": 2,
+      "states": [
+        {
+          "name": "HK_T6",
+          "dataset": "HK",
+          "task": 6,
+          "seed_offset": 206
+        }
+      ]
+    }
+  ],
+  "frozen_dependencies": [
+    "feedback_cross1_20261009",
+    "action_trace1_20261009",
+    "holdout_audit1_20261009",
+    "learning_audit1_20261009",
+    "edge_budget1_20261009",
+    "three_dataset1_20261008"
+  ],
+  "adapter_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "states": 5,
+  "unique_heads_per_partition": 33,
+  "partitions": [
+    "fit",
+    "all"
+  ],
+  "expected_head_readouts": 330,
+  "edge_candidates": 17,
+  "norm_candidates": 17,
+  "norm_tau": [
+    0.0,
+    0.0625,
+    0.125,
+    0.1875,
+    0.25,
+    0.3125,
+    0.375,
+    0.4375,
+    0.5,
+    0.5625,
+    0.625,
+    0.6875,
+    0.75,
+    0.8125,
+    0.875,
+    0.9375,
+    1.0
+  ],
+  "norm_zero_shared_with_edge_zero": true,
+  "gaussian": "Class score joint Gaussian induced by stored mu and Q-mu*mu.T; no shrinkage or data-dependent covariance tuning; clip only negative numerical eigenvalues, fail if eigenvalue below -1e-8.",
+  "integration_seed": 74002,
+  "integration_batches": 8,
+  "integration_samples_per_batch": 4096,
+  "samples_per_class": 32768,
+  "shared_draws_across_heads": true,
+  "primary": "Fit-only terminal heads on static_pc encoder; original current identity split; current meta excluded from bank, transport, and fitting.",
+  "selector": "Maximize equal-class hybrid accuracy (Gaussian old classes, observed current meta). Require mean old/current/tail changes >= -1e-12 and total gain > max(1e-8, 2*paired numerical integration SE). Tie lower index; no eligible head => zero.",
+  "original_reward_baseline": "Same 17 terminal fit-only edge heads, same fit-only statistics, current meta, original penalties/KL/gate; not the previous pre-training reward.",
+  "simple_baseline": "Column norm exponent tau=i/16, i=0..16, on the same zero-action fit head; same hybrid selector and protection rules.",
+  "secondary": "Apply fit-selected action or norm tau to all-refit with no reselection; report every head only after all states selections are locked.",
+  "calibration": "Current classes treated as statistics-only classes: fit Gaussian predictions versus held-out current meta. Descriptive and used for the closing recommendation, never to retune formulas or integration budgets in this run.",
+  "barrier": "All three workers complete all five state selections before any development feature/metric read. Failed selection closes development for all workers.",
+  "reconstruction_atol": 1e-06,
+  "reconstruction_rtol": 1e-05,
+  "max_solve_residual": 1e-08,
+  "stop": "Complete frozen candidates and readouts, report all results and costs, publish, stop. No training, additional candidates, seeds, integration increase, covariance tuning or selection changes based on development."
+}

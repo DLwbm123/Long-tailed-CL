@@ -51,6 +51,9 @@ def run(config):
     arm = config['method']
     if arm not in ('cf_linear', 'cf_prototype', 'cf_weighted', 'cf_group', 'cf_group_min'):
         raise ValueError('Unknown coherent arm')
+    execution_mode = config.get('execution_mode', 'strict')
+    if execution_mode not in ('strict', 'diagnostic_proposal') or (execution_mode != 'strict' and arm != 'cf_group'):
+        raise ValueError('Diagnostic execution requires cf_group')
     output = Path(config['output'])
     if output.exists():
         raise ValueError('Fresh output required; no overwrite or automatic retry')
@@ -116,7 +119,8 @@ def run(config):
                     actions, audit = method.controller(old, current[fit_ids], y[fit_ids], group[fit_ids],
                         difficulty[fit_ids], current[meta_ids], y[meta_ids], seeds, actor, reference_actor,
                         'gradient' if arm == 'cf_weighted' else 'group', generator,
-                        reward_mode='minimum' if arm == 'cf_group_min' else 'mean')
+                        reward_mode='minimum' if arm == 'cf_group_min' else 'mean',
+                        execution_mode=execution_mode)
                 else:
                     audit = dict(mode='uniform', optimizer_steps=0, accepted=True,
                                  selected_actions=actions.tolist())

@@ -219,9 +219,11 @@ def reward_change(ce, base_ce, old_loss, base_old, mode):
 
 
 def controller(old, x, y, group, difficulty, calibration_x, calibration_y,
-               seeds, parameter, reference, mode, generator, steps=8, reward_mode='mean'):
+               seeds, parameter, reference, mode, generator, steps=8, reward_mode='mean', execution_mode='strict'):
     if mode not in ('gradient', 'group') or steps < 2 or steps % 2:
         raise ValueError('Invalid controller configuration')
+    if execution_mode not in ('strict', 'diagnostic_proposal'):
+        raise ValueError('Unknown execution mode')
     zeros = x.new_zeros(len(seeds))
     neutral_weights = sample_weights(y, group, difficulty, zeros)
     neutral_bank = append(old, x, y, group, neutral_weights)
@@ -287,8 +289,8 @@ def controller(old, x, y, group, difficulty, calibration_x, calibration_y,
         old_pass = bool((old_loss <= base_old+1e-8).all())
         ess_pass = bool((ess >= .5*counts).all())
         accepted = current_pass and old_pass and ess_pass
-        selected = proposed if accepted else zeros
-    audit = dict(mode=mode, reward_mode=reward_mode, optimizer_steps=updates, group_reward_std=reward_spreads,
+        selected = proposed if accepted or execution_mode == 'diagnostic_proposal' else zeros
+    audit = dict(mode=mode, execution_mode=execution_mode, reward_mode=reward_mode, optimizer_steps=updates, group_reward_std=reward_spreads,
         clip_fraction=clipping, optimization_losses=losses, proposed_actions=proposed.tolist(),
         selected_actions=selected.tolist(), proposed_reward=float(reward), accepted=accepted,
         current_guard=current_pass, old_moment_guard=old_pass, effective_sample_guard=ess_pass,

@@ -75,6 +75,20 @@ def check():
             seeds, parameter, parameter.detach().clone(), mode, torch.Generator().manual_seed(928), steps=2)
         assert audit['optimizer_steps'] == 2 and parameter.detach().norm() > 0
         assert torch.isfinite(selected).all() and (selected.abs() <= 1.).all()
+    strict_parameter = torch.nn.Parameter(torch.zeros(6, dtype=dtype))
+    proposal_parameter = torch.nn.Parameter(torch.zeros(6, dtype=dtype))
+    selected_strict, strict_audit = controller(old, z, labels, group, difficulty, hold_x, hold_y,
+        seeds, strict_parameter, strict_parameter.detach().clone(), 'group',
+        torch.Generator().manual_seed(928), steps=2)
+    selected_proposal, proposal_audit = controller(old, z, labels, group, difficulty, hold_x, hold_y,
+        seeds, proposal_parameter, proposal_parameter.detach().clone(), 'group',
+        torch.Generator().manual_seed(928), steps=2, execution_mode='diagnostic_proposal')
+    assert torch.equal(strict_parameter, proposal_parameter)
+    assert strict_audit['proposed_actions'] == proposal_audit['proposed_actions']
+    assert torch.equal(selected_proposal, selected_proposal.new_tensor(proposal_audit['proposed_actions']))
+    for key in ('accepted', 'current_guard', 'old_moment_guard', 'effective_sample_guard'):
+        assert strict_audit[key] == proposal_audit[key]
+    assert torch.equal(selected_strict, selected_proposal if strict_audit['accepted'] else torch.zeros_like(selected_strict))
     from run_prototype_coherent import fit_split, common_shift
     rows = [dict(label=c, identity_component=f'{c}-{i//2}') for c in (4, 0) for i in range(20)]
     fit, meta = fit_split(rows, 74002)

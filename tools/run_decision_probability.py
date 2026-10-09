@@ -2,6 +2,7 @@
 import csv
 import json
 from pathlib import Path
+import random
 import sys
 import time
 
@@ -49,6 +50,9 @@ def run(config):
             row['label'] = int(row['original_label'])
         return rows
     def encoder(original):
+        # Frozen routing keys are initialized, not included in adapter checkpoints.
+        random.seed(original['seed']); np.random.seed(original['seed'])
+        torch.manual_seed(original['seed']); torch.cuda.manual_seed_all(original['seed'])
         model = ApartFeatures(original['legacy_repo'], original['weight'], len(original['order']), 'cuda:0', original['seed'])
         from run_medical_v2 import transform
         model.eval().requires_grad_(False)
@@ -134,7 +138,7 @@ def run(config):
             # The optional all-refit changes only the head, never the locked selection.
             all_bank, _ = rebuild(old, before, after, y, fit, True); all_heads, _ = heads(all_bank, old_count)
             error = float((all_heads[0].float().cpu()-saved_all.float()).abs().max())
-            assert torch.allclose(all_heads[0].float().cpu(), saved_all.float(), atol=1e-6, rtol=1e-5)
+            assert torch.allclose(all_heads[0].float().cpu(), saved_all.float(), atol=1e-6, rtol=1e-5), f'Zero-head reconstruction error: {error}'
             record['zero_all_head_reconstruction_error'] = error
             torch.save(dict(fit_heads=fit_heads.cpu(), all_heads=all_heads.cpu(), adapter=adapter,
                             current_features=after.cpu(), labels=raw_y, fit_indices=fi, meta_indices=mi), target/'HEADS.private.pt')

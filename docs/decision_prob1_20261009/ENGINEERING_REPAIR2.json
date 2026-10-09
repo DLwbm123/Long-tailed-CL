@@ -1,0 +1,14 @@
+{
+  "failed_source_commit": "634f3080e533b01caf09ec978635081c29c3f537",
+  "failure": "Full-trajectory zero-action head reconstruction failed. Encoder construction omitted the original RNG initialization, so frozen randomly initialized routing keys were not restored by adapter-only checkpoints.",
+  "evidence": "ApartFeatures retains pool adapter parameters only; both prompt_key parameters are frozen and absent from the saved adapter. CPU two-construction check with original seed reproduced both routing keys exactly.",
+  "fix": "Before every encoder construction, initialize Python, NumPy, and Torch RNGs with original training seed 74002, matching the source training and previous diagnostic loaders. Keep reconstruction tolerance unchanged and include the observed error in failure status.",
+  "scientific_configuration_changed": false,
+  "new_seed_added": false,
+  "development_readouts_before_repair": 0,
+  "scientific_selection_outputs_inspected_before_repair": false,
+  "failed_output_preserved": true,
+  "cost_accounting": "Retain complete actual suite residence from both failed attempts in the closing ledger, including any time spent before the reconstruction failure. No budget or deadline reset.",
+  "scope": "One fresh repair attempt of the same frozen five states and 330 development readouts; no training, tuning, extra candidate or test read.",
+  "original_deadline": 1791648863.9076865
+}

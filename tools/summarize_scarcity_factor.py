@@ -170,7 +170,7 @@ def table(result):
             lines+=['','| 训练侧选择器 | 已选头 | ΔBA | Δold | Δcurrent | Δtail |','|---|---|---:|---:|---:|---:|']
             for k,v in r['partitions'][split]['selected'].items():lines.append('| '+k+' | '+v['key']+' | '+' | '.join(f'{x*100:.4f}' for x in v['BA_gain'].values())+' |')
         lines+=['','删除稳定性（仅当前meta身份）：',json.dumps(r['stability'],ensure_ascii=False),'']
-    return '\n'.join(lines)+'\n'
+    return '\n'.join(lines).rstrip()+'\n'
 
 
 def self_check():

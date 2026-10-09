@@ -341,4 +341,3 @@ A/B排除类别：[5, 6, 19]
 
 删除稳定性（仅当前meta身份）：
 {"full": {"identity_deletions": 260, "same_winner": 260, "unsupported_deletions": 0, "winner_counts": {"zero": 260, "full_plus": 0, "full_minus": 0}, "primary_point": "zero", "stable_choice": "zero", "population_confidence_guarantee": false}, "row": {"identity_deletions": 260, "same_winner": 260, "unsupported_deletions": 0, "winner_counts": {"zero": 260, "row_plus": 0, "row_minus": 0}, "primary_point": "zero", "stable_choice": "zero", "population_confidence_guarantee": false}, "within": {"identity_deletions": 260, "same_winner": 260, "unsupported_deletions": 0, "winner_counts": {"zero": 260, "within_plus": 0, "within_minus": 0}, "primary_point": "zero", "stable_choice": "zero", "population_confidence_guarantee": false}}
-

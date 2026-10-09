@@ -1,0 +1,68 @@
+{
+  "source_commit": "b57270fc49292245de05548e4cc916b1c6076f24",
+  "original_deadline": 1791648863.9076865,
+  "started": 1791514553.8804758,
+  "preflight_gpu_seconds": 353.1475372314453,
+  "prior_closed_gpu_seconds": 50760.155485622585,
+  "scientific_status": "RUNNING_NOT_RESULTS",
+  "schedule": [
+    {
+      "dataset": "ISIC",
+      "gpu": 0,
+      "planned_jobs": [
+        "ISIC_static_pc",
+        "ISIC_coarse_rl",
+        "ISIC_edge_rl",
+        "ISIC_edge_search"
+      ]
+    },
+    {
+      "dataset": "HK",
+      "gpu": 1,
+      "planned_jobs": [
+        "HK_static_pc",
+        "HK_coarse_rl",
+        "HK_edge_rl",
+        "HK_edge_search"
+      ]
+    },
+    {
+      "dataset": "CIFAR100LT",
+      "gpu": 2,
+      "planned_jobs": [
+        "CIFAR100LT_static_pc",
+        "CIFAR100LT_coarse_rl",
+        "CIFAR100LT_edge_rl",
+        "CIFAR100LT_edge_search"
+      ]
+    }
+  ],
+  "current_round": "edge_budget1_20261009",
+  "native_preflights": "3/3 PASS; zero adapter updates; no scientific utility claim",
+  "startup_checked_at": 1791514678.5188591,
+  "startup": {
+    "ISIC": {
+      "status": "RUNNING",
+      "phase": "train",
+      "task": 1,
+      "epoch": 1,
+      "steps": 0
+    },
+    "HK": {
+      "status": "RUNNING",
+      "phase": "train",
+      "task": 1,
+      "epoch": 1,
+      "steps": 0
+    },
+    "CIFAR100LT": {
+      "status": "RUNNING",
+      "phase": "train",
+      "task": 1,
+      "epoch": 1,
+      "steps": 0
+    }
+  },
+  "neutral_process_arguments_verified": true,
+  "no_observed_startup_error": true
+}

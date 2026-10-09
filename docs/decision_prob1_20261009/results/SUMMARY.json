@@ -1,0 +1,4331 @@
+{
+  "ISIC_T2_cached": {
+    "dataset": "ISIC",
+    "task": 2,
+    "cohort": "previous_one_epoch_task2",
+    "selected": {
+      "zero": "edge_00",
+      "original_reward": "edge_07",
+      "decision": "edge_00",
+      "norm_decision": "edge_00"
+    },
+    "calibration": {
+      "current_classes": {
+        "2": {
+          "support": {
+            "fit_images": 2258,
+            "fit_identities": 934,
+            "meta_images": 577,
+            "meta_identities": 234
+          },
+          "zero_gaussian": 0.696990966796875,
+          "zero_meta": 0.6481802426343154,
+          "edge_accuracy_MAE": 0.047350021394972096,
+          "edge_delta_MAE": 0.0036814572286358108,
+          "edge_three_way_sign_agreement": 13,
+          "edge_nonzero_meta_deltas": 13,
+          "edge_delta_correlation": 0.9913875221587689
+        },
+        "6": {
+          "support": {
+            "fit_images": 34,
+            "fit_identities": 26,
+            "meta_images": 10,
+            "meta_identities": 7
+          },
+          "zero_gaussian": 1.0,
+          "zero_meta": 0.9,
+          "edge_accuracy_MAE": 0.09999999999999998,
+          "edge_delta_MAE": 0.0,
+          "edge_three_way_sign_agreement": 16,
+          "edge_nonzero_meta_deltas": 0,
+          "edge_delta_correlation": null
+        }
+      },
+      "edge_accuracy_MAE": 0.07367501069748604,
+      "edge_delta_MAE": 0.0018407286143179054,
+      "interpretation": "Training-side descriptive calibration; the same current meta also selects heads. No independent generalization or old-class transport test."
+    },
+    "partitions": {
+      "fit": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6087873296250814,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6087873296250814,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6087873296250814,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6087873296250814,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.020764667106130508,
+                "old": 0.03114700065919576,
+                "current": 0.0,
+                "tail": 0.03114700065919576
+              },
+              "BA": 0.629551996731212,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975607,
+                "7": 0.0,
+                "5": 0.027027027027026973,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "group": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.020764667106130508,
+                "old": 0.03114700065919576,
+                "current": 0.0,
+                "tail": 0.03114700065919576
+              },
+              "BA": 0.629551996731212,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975607,
+                "7": 0.0,
+                "5": 0.027027027027026973,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.020764667106130508,
+                "old": 0.03114700065919576,
+                "current": 0.0,
+                "tail": 0.03114700065919576
+              },
+              "BA": 0.629551996731212,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975607,
+                "7": 0.0,
+                "5": 0.027027027027026973,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.020764667106130508,
+                "old": 0.03114700065919576,
+                "current": 0.0,
+                "tail": 0.03114700065919576
+              },
+              "BA": 0.629551996731212,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975607,
+                "7": 0.0,
+                "5": 0.027027027027026973,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_05",
+              "BA_gain": {
+                "all": 0.018605378361475928,
+                "old": 0.018292682926829285,
+                "current": 0.019230769230769218,
+                "tail": 0.027908067542213894
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731714,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.038461538461538436
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "group": {
+              "key": "norm_05",
+              "BA_gain": {
+                "all": 0.018605378361475928,
+                "old": 0.018292682926829285,
+                "current": 0.019230769230769218,
+                "tail": 0.027908067542213894
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731714,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.038461538461538436
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "norm_05",
+              "BA_gain": {
+                "all": 0.018605378361475928,
+                "old": 0.018292682926829285,
+                "current": 0.019230769230769218,
+                "tail": 0.027908067542213894
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731714,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.038461538461538436
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "norm_05",
+              "BA_gain": {
+                "all": 0.018605378361475928,
+                "old": 0.018292682926829285,
+                "current": 0.019230769230769218,
+                "tail": 0.027908067542213894
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731714,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.038461538461538436
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_01",
+          "edge_02",
+          "edge_03",
+          "edge_04",
+          "edge_13",
+          "edge_14"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.05601783308279375,
+          "original_reward_vs_BA": -0.8057949835755716
+        }
+      },
+      "all": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.620448263542113,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": 0.0069444444444444475,
+              "old": 0.010416666666666671,
+              "current": 0.0,
+              "tail": 0.010416666666666671
+            },
+            "BA": 0.6273927079865574,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.041666666666666685,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 1,
+            "hurt": 0,
+            "prediction_changed": 1,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.620448263542113,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.620448263542113,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.020460346348469338,
+                "old": 0.03612530213139968,
+                "current": -0.010869565217391353,
+                "tail": 0.03612530213139968
+              },
+              "BA": 0.6409086098905824,
+              "per_class_recall_gain": {
+                "4": 0.04878048780487798,
+                "7": 0.041666666666666685,
+                "5": 0.05405405405405406,
+                "1": 0.0,
+                "2": -0.021739130434782705,
+                "6": 0.0
+              },
+              "helped": 5,
+              "hurt": 1,
+              "prediction_changed": 8,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_07",
+              "BA_gain": {
+                "all": 0.0069444444444444475,
+                "old": 0.010416666666666671,
+                "current": 0.0,
+                "tail": 0.010416666666666671
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.041666666666666685,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 1,
+              "hurt": 0,
+              "prediction_changed": 1,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_07",
+              "BA_gain": {
+                "all": 0.0069444444444444475,
+                "old": 0.010416666666666671,
+                "current": 0.0,
+                "tail": 0.010416666666666671
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.041666666666666685,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 1,
+              "hurt": 0,
+              "prediction_changed": 1,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_07",
+              "BA_gain": {
+                "all": 0.0069444444444444475,
+                "old": 0.010416666666666671,
+                "current": 0.0,
+                "tail": 0.010416666666666671
+              },
+              "BA": 0.6273927079865574,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.041666666666666685,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 1,
+              "hurt": 0,
+              "prediction_changed": 1,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.620448263542113,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "group": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.620448263542113,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.620448263542113,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.620448263542113,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_06",
+          "edge_07",
+          "edge_13"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": -0.578766992834638,
+          "original_reward_vs_BA": 0.5476922549643218
+        }
+      }
+    }
+  },
+  "ISIC_T3": {
+    "dataset": "ISIC",
+    "task": 3,
+    "cohort": "existing_full_two_epoch_static_trajectory",
+    "selected": {
+      "zero": "edge_00",
+      "original_reward": "edge_07",
+      "decision": "edge_07",
+      "norm_decision": "edge_00"
+    },
+    "calibration": {
+      "current_classes": {
+        "0": {
+          "support": {
+            "fit_images": 8386,
+            "fit_identities": 5242,
+            "meta_images": 2143,
+            "meta_identities": 1310
+          },
+          "zero_gaussian": 0.80157470703125,
+          "zero_meta": 0.755949603359776,
+          "edge_accuracy_MAE": 0.045231025580410145,
+          "edge_delta_MAE": 0.0007829216669165417,
+          "edge_three_way_sign_agreement": 13,
+          "edge_nonzero_meta_deltas": 14,
+          "edge_delta_correlation": 0.9809086921615155
+        },
+        "3": {
+          "support": {
+            "fit_images": 1048,
+            "fit_identities": 639,
+            "meta_images": 258,
+            "meta_identities": 160
+          },
+          "zero_gaussian": 0.68218994140625,
+          "zero_meta": 0.624031007751938,
+          "edge_accuracy_MAE": 0.05757911358584131,
+          "edge_delta_MAE": 0.0052437597466993766,
+          "edge_three_way_sign_agreement": 11,
+          "edge_nonzero_meta_deltas": 14,
+          "edge_delta_correlation": 0.8362554077170785
+        }
+      },
+      "edge_accuracy_MAE": 0.051405069583125726,
+      "edge_delta_MAE": 0.003013340706807959,
+      "interpretation": "Training-side descriptive calibration; the same current meta also selects heads. No independent generalization or old-class transport test."
+    },
+    "partitions": {
+      "fit": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.5583868449722108,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0,
+              "0": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0027173913043478243,
+              "old": -0.003623188405797099,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.555669453667863,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": -0.021739130434782594,
+              "6": 0.0,
+              "0": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 1,
+            "prediction_changed": 1,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "decision": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0027173913043478243,
+              "old": -0.003623188405797099,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.555669453667863,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": -0.021739130434782594,
+              "6": 0.0,
+              "0": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 1,
+            "prediction_changed": 1,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.5583868449722108,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0,
+              "0": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.032271446769723565,
+                "old": 0.0384831411475102,
+                "current": 0.013636363636363669,
+                "tail": 0.080785816304109
+              },
+              "BA": 0.5906582917419344,
+              "per_class_recall_gain": {
+                "4": 0.14634146341463417,
+                "7": 0.041666666666666685,
+                "5": 0.13513513513513514,
+                "1": -0.027027027027026973,
+                "2": -0.06521739130434784,
+                "6": 0.0,
+                "0": -0.022727272727272707,
+                "3": 0.050000000000000044
+              },
+              "helped": 14,
+              "hurt": 5,
+              "prediction_changed": 25,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.032271446769723565,
+                "old": 0.0384831411475102,
+                "current": 0.013636363636363669,
+                "tail": 0.080785816304109
+              },
+              "BA": 0.5906582917419344,
+              "per_class_recall_gain": {
+                "4": 0.14634146341463417,
+                "7": 0.041666666666666685,
+                "5": 0.13513513513513514,
+                "1": -0.027027027027026973,
+                "2": -0.06521739130434784,
+                "6": 0.0,
+                "0": -0.022727272727272707,
+                "3": 0.050000000000000044
+              },
+              "helped": 14,
+              "hurt": 5,
+              "prediction_changed": 25,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_01",
+              "BA_gain": {
+                "all": 0.015573500329597895,
+                "old": 0.020764667106130525,
+                "current": 0.0,
+                "tail": 0.03114700065919579
+              },
+              "BA": 0.5739603453018087,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975613,
+                "7": 0.0,
+                "5": 0.02702702702702703,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0,
+                "0": 0.0,
+                "3": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 9,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_01",
+              "BA_gain": {
+                "all": 0.015573500329597895,
+                "old": 0.020764667106130525,
+                "current": 0.0,
+                "tail": 0.03114700065919579
+              },
+              "BA": 0.5739603453018087,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975613,
+                "7": 0.0,
+                "5": 0.02702702702702703,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0,
+                "0": 0.0,
+                "3": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 9,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_07",
+              "BA_gain": {
+                "all": 0.02146139861542832,
+                "old": 0.024827319366025623,
+                "current": 0.011363636363636409,
+                "tail": 0.01829268292682927
+              },
+              "BA": 0.5798482435876391,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731708,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.05405405405405406,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.022727272727272818,
+                "3": 0.0
+              },
+              "helped": 8,
+              "hurt": 1,
+              "prediction_changed": 14,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "norm_07",
+              "BA_gain": {
+                "all": 0.02146139861542832,
+                "old": 0.024827319366025623,
+                "current": 0.011363636363636409,
+                "tail": 0.01829268292682927
+              },
+              "BA": 0.5798482435876391,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731708,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.05405405405405406,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.022727272727272818,
+                "3": 0.0
+              },
+              "helped": 8,
+              "hurt": 1,
+              "prediction_changed": 14,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "norm_07",
+              "BA_gain": {
+                "all": 0.02146139861542832,
+                "old": 0.024827319366025623,
+                "current": 0.011363636363636409,
+                "tail": 0.01829268292682927
+              },
+              "BA": 0.5798482435876391,
+              "per_class_recall_gain": {
+                "4": 0.07317073170731708,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.05405405405405406,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.022727272727272818,
+                "3": 0.0
+              },
+              "helped": 8,
+              "hurt": 1,
+              "prediction_changed": 14,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_sample": {
+              "key": "norm_03",
+              "BA_gain": {
+                "all": 0.012393067957092371,
+                "old": 0.008569545154911021,
+                "current": 0.02386363636363642,
+                "tail": 0.0060975609756097615
+              },
+              "BA": 0.5707799129293032,
+              "per_class_recall_gain": {
+                "4": 0.024390243902439046,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.027027027027027084,
+                "2": 0.0,
+                "6": 0.0,
+                "0": 0.022727272727272818,
+                "3": 0.025000000000000022
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 5,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_01",
+          "edge_03",
+          "edge_04",
+          "edge_05",
+          "edge_13",
+          "edge_14"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": -0.7381104809748236,
+          "original_reward_vs_BA": -0.47298816656059517
+        }
+      },
+      "all": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.5583886362650943,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0,
+              "0": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": 0.0028409090909091023,
+              "old": 0.0,
+              "current": 0.011363636363636409,
+              "tail": 0.0
+            },
+            "BA": 0.5612295453560034,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0,
+              "0": 0.022727272727272818,
+              "3": 0.0
+            },
+            "helped": 1,
+            "hurt": 0,
+            "prediction_changed": 1,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "decision": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": 0.0028409090909091023,
+              "old": 0.0,
+              "current": 0.011363636363636409,
+              "tail": 0.0
+            },
+            "BA": 0.5612295453560034,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0,
+              "0": 0.022727272727272818,
+              "3": 0.0
+            },
+            "helped": 1,
+            "hurt": 0,
+            "prediction_changed": 1,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.5583886362650943,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "7": 0.0,
+              "5": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "6": 0.0,
+              "0": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.022387898720083253,
+                "old": 0.029471743747989786,
+                "current": 0.0011363636363636576,
+                "tail": 0.06183393759613273
+              },
+              "BA": 0.5807765349851776,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975613,
+                "7": 0.041666666666666685,
+                "5": 0.10810810810810811,
+                "1": -0.027027027027026973,
+                "2": -0.043478260869565244,
+                "6": 0.0,
+                "0": -0.022727272727272707,
+                "3": 0.025000000000000022
+              },
+              "helped": 10,
+              "hurt": 4,
+              "prediction_changed": 21,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_13",
+              "BA_gain": {
+                "all": 0.022387898720083253,
+                "old": 0.029471743747989786,
+                "current": 0.0011363636363636576,
+                "tail": 0.06183393759613273
+              },
+              "BA": 0.5807765349851776,
+              "per_class_recall_gain": {
+                "4": 0.09756097560975613,
+                "7": 0.041666666666666685,
+                "5": 0.10810810810810811,
+                "1": -0.027027027027026973,
+                "2": -0.043478260869565244,
+                "6": 0.0,
+                "0": -0.022727272727272707,
+                "3": 0.025000000000000022
+              },
+              "helped": 10,
+              "hurt": 4,
+              "prediction_changed": 21,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_16",
+              "BA_gain": {
+                "all": 0.0030487804878048808,
+                "old": 0.004065040650406508,
+                "current": 0.0,
+                "tail": 0.0060975609756097615
+              },
+              "BA": 0.5614374167528993,
+              "per_class_recall_gain": {
+                "4": 0.024390243902439046,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0,
+                "0": 0.0,
+                "3": 0.0
+              },
+              "helped": 1,
+              "hurt": 0,
+              "prediction_changed": 1,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_16",
+              "BA_gain": {
+                "all": 0.0030487804878048808,
+                "old": 0.004065040650406508,
+                "current": 0.0,
+                "tail": 0.0060975609756097615
+              },
+              "BA": 0.5614374167528993,
+              "per_class_recall_gain": {
+                "4": 0.024390243902439046,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "6": 0.0,
+                "0": 0.0,
+                "3": 0.0
+              },
+              "helped": 1,
+              "hurt": 0,
+              "prediction_changed": 1,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_04",
+              "BA_gain": {
+                "all": 0.01812852721853253,
+                "old": 0.020762278715619125,
+                "current": 0.010227272727272751,
+                "tail": 0.012195121951219523
+              },
+              "BA": 0.5765171634836269,
+              "per_class_recall_gain": {
+                "4": 0.04878048780487809,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.05405405405405406,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.045454545454545525,
+                "3": -0.025000000000000022
+              },
+              "helped": 7,
+              "hurt": 1,
+              "prediction_changed": 10,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "norm_04",
+              "BA_gain": {
+                "all": 0.01812852721853253,
+                "old": 0.020762278715619125,
+                "current": 0.010227272727272751,
+                "tail": 0.012195121951219523
+              },
+              "BA": 0.5765171634836269,
+              "per_class_recall_gain": {
+                "4": 0.04878048780487809,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.05405405405405406,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.045454545454545525,
+                "3": -0.025000000000000022
+              },
+              "helped": 7,
+              "hurt": 1,
+              "prediction_changed": 10,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "norm_01",
+              "BA_gain": {
+                "all": 0.011655861370866688,
+                "old": 0.011753269706610114,
+                "current": 0.011363636363636409,
+                "tail": 0.012195121951219523
+              },
+              "BA": 0.5700444976359611,
+              "per_class_recall_gain": {
+                "4": 0.04878048780487809,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.022727272727272818,
+                "3": 0.0
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 5,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "norm_01",
+              "BA_gain": {
+                "all": 0.011655861370866688,
+                "old": 0.011753269706610114,
+                "current": 0.011363636363636409,
+                "tail": 0.012195121951219523
+              },
+              "BA": 0.5700444976359611,
+              "per_class_recall_gain": {
+                "4": 0.04878048780487809,
+                "7": 0.0,
+                "5": 0.0,
+                "1": 0.0,
+                "2": 0.021739130434782594,
+                "6": 0.0,
+                "0": 0.022727272727272818,
+                "3": 0.0
+              },
+              "helped": 4,
+              "hurt": 0,
+              "prediction_changed": 5,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_01",
+          "edge_04",
+          "edge_05",
+          "edge_07",
+          "edge_11",
+          "edge_13",
+          "edge_16"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": -0.6666849573142047,
+          "original_reward_vs_BA": 0.13333699146284095
+        }
+      }
+    }
+  },
+  "HK_T2_cached": {
+    "dataset": "HK",
+    "task": 2,
+    "cohort": "previous_one_epoch_task2",
+    "selected": {
+      "zero": "edge_00",
+      "original_reward": "edge_07",
+      "decision": "edge_04",
+      "norm_decision": "edge_00"
+    },
+    "calibration": {
+      "current_classes": {
+        "16": {
+          "support": {
+            "fit_images": 27,
+            "fit_identities": 27,
+            "meta_images": 7,
+            "meta_identities": 7
+          },
+          "zero_gaussian": 0.913543701171875,
+          "zero_meta": 0.42857142857142855,
+          "edge_accuracy_MAE": 0.48483584107471117,
+          "edge_delta_MAE": 0.0089263916015625,
+          "edge_three_way_sign_agreement": 0,
+          "edge_nonzero_meta_deltas": 0,
+          "edge_delta_correlation": null
+        },
+        "7": {
+          "support": {
+            "fit_images": 66,
+            "fit_identities": 66,
+            "meta_images": 17,
+            "meta_identities": 17
+          },
+          "zero_gaussian": 1.0,
+          "zero_meta": 1.0,
+          "edge_accuracy_MAE": 0.0,
+          "edge_delta_MAE": 0.0,
+          "edge_three_way_sign_agreement": 16,
+          "edge_nonzero_meta_deltas": 0,
+          "edge_delta_correlation": null
+        }
+      },
+      "edge_accuracy_MAE": 0.24241792053735559,
+      "edge_delta_MAE": 0.00446319580078125,
+      "interpretation": "Training-side descriptive calibration; the same current meta also selects heads. No independent generalization or old-class transport test."
+    },
+    "partitions": {
+      "fit": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.661107824395833,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0017413479052823348,
+              "old": -0.0020092475830180787,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6593664764905507,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.006666666666666599,
+              "11": -0.03278688524590162,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 1,
+            "hurt": 2,
+            "prediction_changed": 3,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "decision": {
+            "key": "edge_04",
+            "BA_gain": {
+              "all": 0.0011770451770451698,
+              "old": 0.0013581290504367345,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6622848695728784,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.01098901098901095,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.006666666666666599,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 3,
+            "hurt": 0,
+            "prediction_changed": 5,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.661107824395833,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0037427017427017336,
+                "old": 0.004318502010809693,
+                "current": 0.0,
+                "tail": 0.002083333333333326
+              },
+              "BA": 0.6648505261385348,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": 0.016666666666666607,
+                "12": 0.0,
+                "10": 0.013333333333333308,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 7,
+              "hurt": 1,
+              "prediction_changed": 9,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0037427017427017336,
+                "old": 0.004318502010809693,
+                "current": 0.0,
+                "tail": 0.002083333333333326
+              },
+              "BA": 0.6648505261385348,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": 0.016666666666666607,
+                "12": 0.0,
+                "10": 0.013333333333333308,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 7,
+              "hurt": 1,
+              "prediction_changed": 9,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0037427017427017336,
+                "old": 0.004318502010809693,
+                "current": 0.0,
+                "tail": 0.002083333333333326
+              },
+              "BA": 0.6648505261385348,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": 0.016666666666666607,
+                "12": 0.0,
+                "10": 0.013333333333333308,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 7,
+              "hurt": 1,
+              "prediction_changed": 9,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_sample": {
+              "key": "edge_01",
+              "BA_gain": {
+                "all": 0.0011770451770451698,
+                "old": 0.0013581290504367345,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6622848695728784,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.006666666666666599,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 3,
+              "hurt": 0,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_03",
+              "BA_gain": {
+                "all": 0.0010928961748633893,
+                "old": 0.0012610340479192951,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6622007205706965,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 2,
+              "hurt": 1,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "norm_03",
+              "BA_gain": {
+                "all": 0.0010928961748633893,
+                "old": 0.0012610340479192951,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6622007205706965,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 2,
+              "hurt": 1,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "norm_03",
+              "BA_gain": {
+                "all": 0.0010928961748633893,
+                "old": 0.0012610340479192951,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6622007205706965,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 2,
+              "hurt": 1,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_sample": {
+              "key": "norm_01",
+              "BA_gain": {
+                "all": 0.0004444444444444399,
+                "old": 0.0005128205128205076,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6615522688402776,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.006666666666666599,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 1,
+              "hurt": 0,
+              "prediction_changed": 2,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_01",
+          "edge_04",
+          "edge_05",
+          "edge_14",
+          "edge_15"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.972131643731882,
+          "original_reward_vs_BA": -0.46244625507450143
+        }
+      },
+      "all": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6600149282209696,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0010928961748633893,
+              "old": -0.0012610340479192951,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6589220320461063,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": -0.016393442622950838,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 0,
+            "hurt": 1,
+            "prediction_changed": 2,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "decision": {
+            "key": "edge_04",
+            "BA_gain": {
+              "all": 0.001981785063752273,
+              "old": 0.0022866750735603147,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.661996713284722,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.013333333333333308,
+              "11": 0.016393442622950782,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 3,
+            "hurt": 0,
+            "prediction_changed": 4,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6600149282209696,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0030055743714280177,
+                "old": 0.00346797042857079,
+                "current": 0.0,
+                "tail": -0.0009654471544715548
+              },
+              "BA": 0.6630205025923978,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": 0.016666666666666607,
+                "12": -0.024390243902439046,
+                "10": 0.026666666666666616,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 9,
+              "hurt": 2,
+              "prediction_changed": 11,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_04",
+              "BA_gain": {
+                "all": 0.001981785063752273,
+                "old": 0.0022866750735603147,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.661996713284722,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.013333333333333308,
+                "11": 0.016393442622950782,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 3,
+              "hurt": 0,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_04",
+              "BA_gain": {
+                "all": 0.001981785063752273,
+                "old": 0.0022866750735603147,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.661996713284722,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.013333333333333308,
+                "11": 0.016393442622950782,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 3,
+              "hurt": 0,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_04",
+              "BA_gain": {
+                "all": 0.001981785063752273,
+                "old": 0.0022866750735603147,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.661996713284722,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.013333333333333308,
+                "11": 0.016393442622950782,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 3,
+              "hurt": 0,
+              "prediction_changed": 4,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_02",
+              "BA_gain": {
+                "all": 0.0020971167088720006,
+                "old": 0.0024197500486984624,
+                "current": 0.0,
+                "tail": -0.0030487804878048808
+              },
+              "BA": 0.6621120449298417,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": -0.024390243902439046,
+                "10": 0.006666666666666599,
+                "11": 0.04918032786885246,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 4,
+              "hurt": 1,
+              "prediction_changed": 7,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6600149282209696,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6600149282209696,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6600149282209696,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_01",
+          "edge_04",
+          "edge_05",
+          "edge_09",
+          "edge_14",
+          "edge_15"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.9796208375935537,
+          "original_reward_vs_BA": -0.41859904311835794
+        }
+      }
+    }
+  },
+  "HK_T4": {
+    "dataset": "HK",
+    "task": 4,
+    "cohort": "existing_full_two_epoch_static_trajectory",
+    "selected": {
+      "zero": "edge_00",
+      "original_reward": "edge_07",
+      "decision": "edge_11",
+      "norm_decision": "edge_00"
+    },
+    "calibration": {
+      "current_classes": {
+        "9": {
+          "support": {
+            "fit_images": 508,
+            "fit_identities": 508,
+            "meta_images": 127,
+            "meta_identities": 127
+          },
+          "zero_gaussian": 0.998565673828125,
+          "zero_meta": 0.9921259842519685,
+          "edge_accuracy_MAE": 0.005181175185994663,
+          "edge_delta_MAE": 0.001966596588375058,
+          "edge_three_way_sign_agreement": 12,
+          "edge_nonzero_meta_deltas": 4,
+          "edge_delta_correlation": 0.7969049323880283
+        },
+        "18": {
+          "support": {
+            "fit_images": 102,
+            "fit_identities": 102,
+            "meta_images": 25,
+            "meta_identities": 25
+          },
+          "zero_gaussian": 0.715789794921875,
+          "zero_meta": 0.44,
+          "edge_accuracy_MAE": 0.2765706858915441,
+          "edge_delta_MAE": 0.00590980529785156,
+          "edge_three_way_sign_agreement": 6,
+          "edge_nonzero_meta_deltas": 6,
+          "edge_delta_correlation": 0.8488746876271654
+        }
+      },
+      "edge_accuracy_MAE": 0.14087593053876937,
+      "edge_delta_MAE": 0.003938200943113309,
+      "interpretation": "Training-side descriptive calibration; the same current meta also selects heads. No independent generalization or old-class transport test."
+    },
+    "partitions": {
+      "fit": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6279238842467162,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0007974481658692177,
+              "old": -0.0008912655971479493,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.627126436080847,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": -0.015151515151515138,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 1,
+            "prediction_changed": 1,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "decision": {
+            "key": "edge_11",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6279238842467162,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6279238842467162,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.006100916627232418,
+                "old": 0.006818671524553879,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6340248008739485,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.06060606060606061,
+                "1": 0.0,
+                "2": 0.02197802197802201,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.033333333333333326,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 14,
+              "hurt": 1,
+              "prediction_changed": 20,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.006100916627232418,
+                "old": 0.006818671524553879,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6340248008739485,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.06060606060606061,
+                "1": 0.0,
+                "2": 0.02197802197802201,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.033333333333333326,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 14,
+              "hurt": 1,
+              "prediction_changed": 20,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.006100916627232418,
+                "old": 0.006818671524553879,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6340248008739485,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.06060606060606061,
+                "1": 0.0,
+                "2": 0.02197802197802201,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.033333333333333326,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 14,
+              "hurt": 1,
+              "prediction_changed": 20,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_sample": {
+              "key": "edge_15",
+              "BA_gain": {
+                "all": 0.0035443417669474594,
+                "old": 0.0039613231512942194,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6314682260136636,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.04545454545454547,
+                "1": 0.0,
+                "2": 0.005494505494505475,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950782,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 5,
+              "hurt": 0,
+              "prediction_changed": 6,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_07",
+              "BA_gain": {
+                "all": 0.009305980618295935,
+                "old": 0.008618270673211323,
+                "current": 0.015151515151515138,
+                "tail": 0.002754820936639116
+              },
+              "BA": 0.6372298648650121,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.06060606060606061,
+                "1": -0.008849557522123797,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": -0.020000000000000018,
+                "11": 0.1147540983606557,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276
+              },
+              "helped": 13,
+              "hurt": 5,
+              "prediction_changed": 30,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "norm_07",
+              "BA_gain": {
+                "all": 0.009305980618295935,
+                "old": 0.008618270673211323,
+                "current": 0.015151515151515138,
+                "tail": 0.002754820936639116
+              },
+              "BA": 0.6372298648650121,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.06060606060606061,
+                "1": -0.008849557522123797,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": -0.020000000000000018,
+                "11": 0.1147540983606557,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276
+              },
+              "helped": 13,
+              "hurt": 5,
+              "prediction_changed": 30,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6279238842467162,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6279238842467162,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_05",
+          "edge_06",
+          "edge_09",
+          "edge_14",
+          "edge_15"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.6217120655160597,
+          "original_reward_vs_BA": -0.033843197114785506
+        }
+      },
+      "all": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6295187805784546,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6295187805784546,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "decision": {
+            "key": "edge_11",
+            "BA_gain": {
+              "all": 0.0010866326655800322,
+              "old": 0.001214471802707095,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6306054132440346,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.015151515151515138,
+              "1": 0.0,
+              "2": 0.005494505494505475,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 2,
+            "hurt": 0,
+            "prediction_changed": 2,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6295187805784546,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0057500394342499565,
+                "old": 0.0046439834675128765,
+                "current": 0.015151515151515138,
+                "tail": 0.002754820936639116
+              },
+              "BA": 0.6352688200127045,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.030303030303030276,
+                "1": 0.0,
+                "2": 0.02197802197802201,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.026666666666666616,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276
+              },
+              "helped": 12,
+              "hurt": 1,
+              "prediction_changed": 18,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0057500394342499565,
+                "old": 0.0046439834675128765,
+                "current": 0.015151515151515138,
+                "tail": 0.002754820936639116
+              },
+              "BA": 0.6352688200127045,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.030303030303030276,
+                "1": 0.0,
+                "2": 0.02197802197802201,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.026666666666666616,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276
+              },
+              "helped": 12,
+              "hurt": 1,
+              "prediction_changed": 18,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0057500394342499565,
+                "old": 0.0046439834675128765,
+                "current": 0.015151515151515138,
+                "tail": 0.002754820936639116
+              },
+              "BA": 0.6352688200127045,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.030303030303030276,
+                "1": 0.0,
+                "2": 0.02197802197802201,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.026666666666666616,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276
+              },
+              "helped": 12,
+              "hurt": 1,
+              "prediction_changed": 18,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": false
+            },
+            "per_sample": {
+              "key": "edge_06",
+              "BA_gain": {
+                "all": 0.003189792663476871,
+                "old": 0.0,
+                "current": 0.030303030303030276,
+                "tail": 0.005509641873278232
+              },
+              "BA": 0.6327085732419314,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.06060606060606055
+              },
+              "helped": 2,
+              "hurt": 0,
+              "prediction_changed": 3,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_04",
+              "BA_gain": {
+                "all": 0.009259811227024333,
+                "old": 0.006784138394553045,
+                "current": 0.030303030303030276,
+                "tail": 0.005509641873278232
+              },
+              "BA": 0.6387785918054788,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.030303030303030276,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": -0.01333333333333342,
+                "11": 0.09836065573770492,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.06060606060606055
+              },
+              "helped": 11,
+              "hurt": 3,
+              "prediction_changed": 22,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "norm_04",
+              "BA_gain": {
+                "all": 0.009259811227024333,
+                "old": 0.006784138394553045,
+                "current": 0.030303030303030276,
+                "tail": 0.005509641873278232
+              },
+              "BA": 0.6387785918054788,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.030303030303030276,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": -0.01333333333333342,
+                "11": 0.09836065573770492,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.06060606060606055
+              },
+              "helped": 11,
+              "hurt": 3,
+              "prediction_changed": 22,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6295187805784546,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6295187805784546,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_01",
+          "edge_02",
+          "edge_04",
+          "edge_05",
+          "edge_06",
+          "edge_08",
+          "edge_09",
+          "edge_11",
+          "edge_14",
+          "edge_15"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.5885043779664537,
+          "original_reward_vs_BA": -0.2011344076594209
+        }
+      }
+    }
+  },
+  "HK_T6": {
+    "dataset": "HK",
+    "task": 6,
+    "cohort": "existing_full_two_epoch_static_trajectory",
+    "selected": {
+      "zero": "edge_00",
+      "original_reward": "edge_07",
+      "decision": "edge_15",
+      "norm_decision": "edge_00"
+    },
+    "calibration": {
+      "current_classes": {
+        "8": {
+          "support": {
+            "fit_images": 523,
+            "fit_identities": 523,
+            "meta_images": 131,
+            "meta_identities": 131
+          },
+          "zero_gaussian": 0.995025634765625,
+          "zero_meta": 0.9770992366412213,
+          "edge_accuracy_MAE": 0.017105520494218717,
+          "edge_delta_MAE": 0.0010819908316808818,
+          "edge_three_way_sign_agreement": 6,
+          "edge_nonzero_meta_deltas": 2,
+          "edge_delta_correlation": 0.5285953063578638
+        },
+        "3": {
+          "support": {
+            "fit_images": 515,
+            "fit_identities": 515,
+            "meta_images": 129,
+            "meta_identities": 129
+          },
+          "zero_gaussian": 0.8846435546875,
+          "zero_meta": 0.875968992248062,
+          "edge_accuracy_MAE": 0.008752574998931254,
+          "edge_delta_MAE": 0.002788395844688707,
+          "edge_three_way_sign_agreement": 7,
+          "edge_nonzero_meta_deltas": 6,
+          "edge_delta_correlation": 0.8520822883056695
+        }
+      },
+      "edge_accuracy_MAE": 0.012929047746574985,
+      "edge_delta_MAE": 0.0019351933381847944,
+      "interpretation": "Training-side descriptive calibration; the same current meta also selects heads. No independent generalization or old-class transport test."
+    },
+    "partitions": {
+      "fit": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6255249954905535,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0020302814315643985,
+              "old": -0.002223641567903865,
+              "current": 0.0,
+              "tail": -0.0025252525252525276
+            },
+            "BA": 0.6234947140589892,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": -0.016393442622950838,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": -0.03030303030303033,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 2,
+            "prediction_changed": 2,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "decision": {
+            "key": "edge_15",
+            "BA_gain": {
+              "all": -0.0016885634443097777,
+              "old": -0.0015460729746444063,
+              "current": -0.0031847133757961776,
+              "tail": -0.003968253968253972
+            },
+            "BA": 0.6238364320462437,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": -0.04761904761904767,
+              "20": 0.015151515151515138,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": -0.006369426751592355
+            },
+            "helped": 1,
+            "hurt": 2,
+            "prediction_changed": 4,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6255249954905535,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.003048666125788427,
+                "old": 0.0033310857110622812,
+                "current": 8.326048041296108e-05,
+                "tail": -0.005357142857142866
+              },
+              "BA": 0.6285736616163419,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": -0.04761904761904767,
+                "20": 0.06060606060606061,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": -0.01666666666666672,
+                "12": 0.0,
+                "10": 0.039999999999999925,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.006249999999999978,
+                "21": 0.0,
+                "8": 0.006535947712418277,
+                "3": -0.006369426751592355
+              },
+              "helped": 15,
+              "hurt": 3,
+              "prediction_changed": 23,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_09",
+              "BA_gain": {
+                "all": 0.00036890645586297514,
+                "old": 0.00040404040404040133,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6258939019464165,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": -0.00666666666666671,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 1,
+              "hurt": 1,
+              "prediction_changed": 2,
+              "group_protection": true,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6255249954905535,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6255249954905535,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_05",
+              "BA_gain": {
+                "all": 0.0069916670070515295,
+                "old": 0.008256222557359236,
+                "current": -0.006286166271179394,
+                "tail": -0.004864410657093597
+              },
+              "BA": 0.6325166624976051,
+              "per_class_recall_gain": {
+                "4": 0.0060606060606061,
+                "5": 0.0,
+                "6": 0.0,
+                "22": -0.04761904761904767,
+                "20": 0.12121212121212122,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": -0.01666666666666672,
+                "12": -0.024390243902439046,
+                "10": -0.026666666666666727,
+                "11": 0.13114754098360654,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.006535947712418277,
+                "3": -0.019108280254777066
+              },
+              "helped": 20,
+              "hurt": 11,
+              "prediction_changed": 41,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6255249954905535,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6255249954905535,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6255249954905535,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_09",
+          "edge_14"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.3908828911994151,
+          "original_reward_vs_BA": 0.055488107583513184
+        }
+      },
+      "all": {
+        "selected": {
+          "zero": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6245693995326514,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          },
+          "original_reward": {
+            "key": "edge_07",
+            "BA_gain": {
+              "all": -0.0007770868474274729,
+              "old": -0.001154401154401154,
+              "current": 0.0031847133757961776,
+              "tail": -0.0025252525252525276
+            },
+            "BA": 0.6237923126852241,
+            "per_class_recall_gain": {
+              "4": 0.0060606060606061,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": -0.03030303030303033,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.006369426751592355
+            },
+            "helped": 2,
+            "hurt": 1,
+            "prediction_changed": 3,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "decision": {
+            "key": "edge_15",
+            "BA_gain": {
+              "all": -0.000435368860172852,
+              "old": -0.00047683256114169507,
+              "current": 0.0,
+              "tail": -0.003968253968253972
+            },
+            "BA": 0.6241340306724786,
+            "per_class_recall_gain": {
+              "4": 0.0060606060606061,
+              "5": 0.0,
+              "6": 0.0,
+              "22": -0.04761904761904767,
+              "20": 0.015151515151515138,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.016393442622950838,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.0
+            },
+            "helped": 3,
+            "hurt": 1,
+            "prediction_changed": 5,
+            "group_protection": false,
+            "per_class_protection": false,
+            "per_sample_protection": false
+          },
+          "norm_decision": {
+            "key": "edge_00",
+            "BA_gain": {
+              "all": 0.0,
+              "old": 0.0,
+              "current": 0.0,
+              "tail": 0.0
+            },
+            "BA": 0.6245693995326514,
+            "per_class_recall_gain": {
+              "4": 0.0,
+              "5": 0.0,
+              "6": 0.0,
+              "22": 0.0,
+              "20": 0.0,
+              "1": 0.0,
+              "2": 0.0,
+              "15": 0.0,
+              "14": 0.0,
+              "12": 0.0,
+              "10": 0.0,
+              "11": 0.0,
+              "19": 0.0,
+              "16": 0.0,
+              "7": 0.0,
+              "0": 0.0,
+              "17": 0.0,
+              "9": 0.0,
+              "18": 0.0,
+              "13": 0.0,
+              "21": 0.0,
+              "8": 0.0,
+              "3": 0.0
+            },
+            "helped": 0,
+            "hurt": 0,
+            "prediction_changed": 0,
+            "group_protection": true,
+            "per_class_protection": true,
+            "per_sample_protection": true
+          }
+        },
+        "oracles": {
+          "edge": {
+            "unconstrained": {
+              "key": "edge_14",
+              "BA_gain": {
+                "all": 0.0037541844589242934,
+                "old": 0.004111725835964702,
+                "current": 0.0,
+                "tail": -0.005357142857142866
+              },
+              "BA": 0.6283235839915758,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": -0.04761904761904767,
+                "20": 0.06060606060606061,
+                "1": 0.0,
+                "2": 0.01098901098901095,
+                "15": 0.0,
+                "14": -0.01666666666666672,
+                "12": 0.0,
+                "10": 0.039999999999999925,
+                "11": 0.032786885245901676,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.006249999999999978,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 15,
+              "hurt": 2,
+              "prediction_changed": 22,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_09",
+              "BA_gain": {
+                "all": 0.0013715199032376512,
+                "old": 0.0015021408464031417,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6259409194358891,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 2,
+              "hurt": 0,
+              "prediction_changed": 2,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_09",
+              "BA_gain": {
+                "all": 0.0013715199032376512,
+                "old": 0.0015021408464031417,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6259409194358891,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 2,
+              "hurt": 0,
+              "prediction_changed": 2,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_09",
+              "BA_gain": {
+                "all": 0.0013715199032376512,
+                "old": 0.0015021408464031417,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6259409194358891,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.015151515151515138,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.016393442622950838,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 2,
+              "hurt": 0,
+              "prediction_changed": 2,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          },
+          "norm": {
+            "unconstrained": {
+              "key": "norm_05",
+              "BA_gain": {
+                "all": 0.007406826755727451,
+                "old": 0.009325462970861943,
+                "current": -0.01273885350318471,
+                "tail": -0.004864410657093597
+              },
+              "BA": 0.631976226288379,
+              "per_class_recall_gain": {
+                "4": 0.012121212121212088,
+                "5": 0.0,
+                "6": 0.0,
+                "22": -0.04761904761904767,
+                "20": 0.12121212121212122,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": -0.01666666666666672,
+                "12": -0.024390243902439046,
+                "10": -0.026666666666666727,
+                "11": 0.14754098360655737,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.030303030303030276,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": -0.02547770700636942
+              },
+              "helped": 21,
+              "hurt": 12,
+              "prediction_changed": 42,
+              "group_protection": false,
+              "per_class_protection": false,
+              "per_sample_protection": false
+            },
+            "group": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6245693995326514,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_class": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6245693995326514,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            },
+            "per_sample": {
+              "key": "edge_00",
+              "BA_gain": {
+                "all": 0.0,
+                "old": 0.0,
+                "current": 0.0,
+                "tail": 0.0
+              },
+              "BA": 0.6245693995326514,
+              "per_class_recall_gain": {
+                "4": 0.0,
+                "5": 0.0,
+                "6": 0.0,
+                "22": 0.0,
+                "20": 0.0,
+                "1": 0.0,
+                "2": 0.0,
+                "15": 0.0,
+                "14": 0.0,
+                "12": 0.0,
+                "10": 0.0,
+                "11": 0.0,
+                "19": 0.0,
+                "16": 0.0,
+                "7": 0.0,
+                "0": 0.0,
+                "17": 0.0,
+                "9": 0.0,
+                "18": 0.0,
+                "13": 0.0,
+                "21": 0.0,
+                "8": 0.0,
+                "3": 0.0
+              },
+              "helped": 0,
+              "hurt": 0,
+              "prediction_changed": 0,
+              "group_protection": true,
+              "per_class_protection": true,
+              "per_sample_protection": true
+            }
+          }
+        },
+        "positive_edge_candidates": [
+          "edge_02",
+          "edge_03",
+          "edge_08",
+          "edge_09",
+          "edge_14"
+        ],
+        "correlations": {
+          "hybrid_edge_vs_BA": 0.4414470480258694,
+          "original_reward_vs_BA": -0.013488659800790453
+        }
+      }
+    }
+  }
+}

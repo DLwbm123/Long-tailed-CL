@@ -1,0 +1,53 @@
+{
+  "round": "decision_prob1_20261009",
+  "attempt": "repair2",
+  "status": "RUNNING_NOT_RESULTS",
+  "source_commit": "615f7678c95e94009e1c724436d604d73a6701c0",
+  "launched_at": 1791540167.8694363,
+  "checked_at": 1791540217.8932226,
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "jobs": {
+    "ISIC": {
+      "status": "RUNNING",
+      "completed_states": [
+        "ISIC_T2_cached"
+      ],
+      "evaluated_states": [],
+      "phase": "training_features_before",
+      "active_state": "ISIC_T3",
+      "adapter_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false
+    },
+    "HK_mid": {
+      "status": "RUNNING",
+      "completed_states": [
+        "HK_T2_cached"
+      ],
+      "evaluated_states": [],
+      "phase": "training_features_before",
+      "active_state": "HK_T4",
+      "adapter_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false
+    },
+    "HK_late": {
+      "status": "RUNNING",
+      "completed_states": [],
+      "evaluated_states": [],
+      "phase": "training_features_before",
+      "active_state": "HK_T6",
+      "adapter_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false
+    }
+  },
+  "process_command_check": "PASS: coordinators, workers, data-loader children and GPU process paths neutral",
+  "initial_failure_gpu_seconds": 40.663895295001566,
+  "repair1": "Preserved; HK workers failed reconstruction, ISIC still extracting at this snapshot; full suite costs pending. No development readout in either failed attempt.",
+  "original_deadline": 1791648863.9076865
+}

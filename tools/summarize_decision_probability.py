@@ -125,15 +125,23 @@ def summarize(data, lock, repair):
                                       original_reward_vs_BA=correlation([rewards[k] for k in KEYS[:17]], [rows[k]['BA_gain']['all'] for k in KEYS[:17]])))
             output[key] = summary
     assert len(set(all_states)) == lock['states'] == 5
+    assert all(data['cached_selection_exact_match'].values())
     costs = {k: v['elapsed_seconds'] for k, v in data['suites'].items()}
-    failed = repair['failed_total_suite_seconds']; total = sum(costs.values())+failed
+    failed_costs = {}
+    for attempt, failure in data['failed_attempts'].items():
+        assert all(v['status'] == 'INCOMPLETE' for v in failure['suites'].values())
+        assert all(not v['evaluated_states'] and not v['test_accessed'] for v in failure['statuses'].values())
+        failed_costs[attempt] = {k: v['elapsed_seconds'] for k, v in failure['suites'].items()}
+    assert abs(sum(failed_costs['initial'].values())-repair['failed_total_suite_seconds']) < 1e-9
+    failed = sum(sum(v.values()) for v in failed_costs.values()); total = sum(costs.values())+failed
     return dict(summary=output, comparisons=comparisons,
         audit=dict(status='PASS', states=len(all_states), head_readouts=5*33*2, selector_candidate_checks=checks,
                    maximum_solve_residual=max(s['maximum_solve_residual'] for s in data['statuses'].values()),
                    zero_head_reconstruction_checks=5, adapter_updates=0, policy_updates=0, test_accessed=False,
                    image_rows=sum(s['image_rows'] for s in data['statuses'].values()),
+                   cached_selection_exact_match=data['cached_selection_exact_match'],
                    selection_barrier='All three SELECT_COMPLETE receipts present; all five choices reproduced from pre-DEV aggregates.'),
-        budget=dict(prior_closed_gpu_seconds=lock['prior_closed_gpu_seconds'], failed_attempt_suite_seconds=repair['failed_suite_seconds'],
+        budget=dict(prior_closed_gpu_seconds=lock['prior_closed_gpu_seconds'], failed_attempt_suite_seconds=failed_costs,
                     repair_suite_seconds=costs, round_gpu_seconds=total, cumulative_gpu_seconds=lock['prior_closed_gpu_seconds']+total,
                     worker_cpu_seconds={k: v['cpu_process_seconds'] for k, v in data['statuses'].items()},
                     cpu_import_preflight_seconds=repair['cpu_import_preflight']['elapsed_seconds'], original_deadline=lock['original_deadline'],

@@ -1,0 +1,102 @@
+{
+  "round": "feedback_cross1_20261009",
+  "source_parent": "cfbb64a25897459b64a98e5b596b5c85f12a9175",
+  "previous_result_commit": "cfbb64a25897459b64a98e5b596b5c85f12a9175",
+  "frozen_dependency_source": "858cc8d001bca1563e0d1f0928a237db509fd27f",
+  "original_deadline": 1791648863.9076865,
+  "prior_closed_gpu_seconds": 79939.7105246149,
+  "jobs": [
+    {
+      "name": "ISIC_A",
+      "dataset": "ISIC",
+      "gpu": 0,
+      "candidate_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "name": "HK",
+      "dataset": "HK",
+      "gpu": 1,
+      "candidate_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "name": "ISIC_B",
+      "dataset": "ISIC",
+      "gpu": 2,
+      "candidate_ids": [
+        0,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "partitions": [
+    "fit",
+    "all"
+  ],
+  "cells": [
+    "B00",
+    "B01",
+    "B10",
+    "B11"
+  ],
+  "expected_actual_candidate_records": 35,
+  "expected_unique_candidates": 34,
+  "expected_logical_readouts": 280,
+  "adapter_updates": 0,
+  "policy_updates": 0,
+  "image_reads": 0,
+  "test_accessed": false,
+  "source_features": "Saved current training and development features from ACTION-TRACE1 only; train manifest labels for the original tail definition",
+  "comparison": "B_ij: encoder trained under i in {zero,action}, final head rebuilt under j in {zero,action}",
+  "protection_tiers": [
+    "overall_BA_positive",
+    "old_and_current_group_BA_nondecreasing",
+    "every_class_recall_nondecreasing",
+    "no_previously_correct_sample_hurt"
+  ],
+  "primary_partition": "all",
+  "secondary_partition": "fit",
+  "original_proxy_gate": 1e-08,
+  "gain_zero_tolerance": 1e-12,
+  "reconstruction_atol": 1e-06,
+  "reconstruction_rtol": 1e-05,
+  "max_solve_residual": 1e-08,
+  "within_encoder_feedback": "B11 vs B10, original risk penalties and KL; reproduce saved post_feedback",
+  "branch_feedback": "B11 vs B00 risk components only; no invented cross-encoder KL or trained terminal reward",
+  "development_uses": "Retrospective diagnosis and finite-set descriptive contrasts only; never policy feedback or independent confirmation",
+  "stopping": "Finish all frozen readouts, aggregate and publish, stop. No new candidates, epochs, seeds, policy optimization, tuning, or automatic retry."
+}

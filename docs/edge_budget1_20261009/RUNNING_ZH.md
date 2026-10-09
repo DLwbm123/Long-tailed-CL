@@ -1,4 +1,6 @@
-# EDGE-BUDGET1 启动回执
+# EDGE-BUDGET1 启动回执（历史）
+
+更新：12/12条已于2026-10-09 13:32:21全部完成。见[结果表](results/REPORT_ZH.md)、[完成分析](results/ANALYSIS_ZH.md)与[审计](results/AUDIT.json)。两个医学初筛均未通过，本配置停止新增训练；以下保留原启动记录。
 
 正式启动：2026-10-09 10:55:53，最近启动检查：2026-10-09 10:57:58，均为北京时间。状态为RUNNING_NOT_RESULTS，尚无正式效果结论。
 

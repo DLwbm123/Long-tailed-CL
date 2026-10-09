@@ -4,6 +4,31 @@ from pathlib import Path
 import sys
 
 
+def public_diagnostic(d):
+    # Keep decision evidence without exporting learned coefficients or pair matrices.
+    c = d['controller']
+    rewards = [r for group in c.get('samples', []) for r in group['rewards']]
+    result = {k: d[k] for k in ('task', 'epoch', 'steps', 'arm')}
+    result['controller'] = {k: c[k] for k in (
+        'policy_updates', 'head_evaluations', 'proposed_reward', 'executed',
+        'original_current_guard', 'original_old_guard', 'relative_pair_l1',
+        'max_solve_residual')}
+    result['controller']['sample_reward_summary'] = dict(
+        count=len(rewards), above_execution_threshold=sum(r > 1e-8 for r in rewards),
+        minimum=min(rewards) if rewards else None, maximum=max(rewards) if rewards else None)
+    result['max_batch_solve_residual'] = d['max_batch_solve_residual']
+    if 'boundary_competition' in d:
+        b = d['boundary_competition']
+        base, selected = b['base_pairs'], b['selected_pairs']
+        mass = sum(map(sum, base))
+        result['boundary_competition'] = dict(
+            relative_pair_l1=sum(abs(a-z) for row, other in zip(base, selected)
+                                 for a, z in zip(row, other))/mass,
+            solve=b['solve'], new_policy_updates=b['new_policy_updates'],
+            refit_uses_all_current_training=b['refit_uses_all_current_training'])
+    return result
+
+
 def summarize(config):
     root, output = Path(config['root']), Path(config['output'])
     protocol = json.loads((root/'PROTOCOL_LOCK.json').read_text())
@@ -45,7 +70,8 @@ def summarize(config):
             final = m['stages'][-1]
             new_classes = final['seen'][-private['task_sizes'][-1]:]
             m['final_new_class_recall'] = sum(final['per_class_recall'][str(c)] for c in new_classes)/len(new_classes)
-            records[name] = dict(status=status, metrics=m, activation=activation, diagnostics=ds)
+            records[name] = dict(status=status, metrics=m, activation=activation,
+                                 diagnostics=[public_diagnostic(d) for d in ds])
             keys = ['average_incremental_balanced_accuracy', 'final_balanced_accuracy', 'final_tail_recall',
                     'task_forgetting', 'final_new_class_recall']
             vals = '|'.join(f'{100*m[k]:.4f}' for k in keys)

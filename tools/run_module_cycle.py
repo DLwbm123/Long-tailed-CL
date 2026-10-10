@@ -59,6 +59,14 @@ def run(config):
                     raise ValueError('Incomplete training barrier')
             state['phase']='EVALUATE';state['training_sealed_at']=time.time();write()
             if phase(config['jobs'],'evaluate'):
+                for candidate,control in config.get('paired_global_controls',[]):
+                    a=json.loads((root/'runs'/candidate/'metrics.json').read_text())
+                    b=json.loads((root/'runs'/control/'metrics.json').read_text())
+                    if len(a['stages'])!=len(b['stages']) or any(
+                            x['global_per_class_recall']!=y['per_class_recall']
+                            for x,y in zip(a['stages'],b['stages'])):
+                        raise ValueError('Candidate global predictions differ from transport control')
+                if config.get('paired_global_controls'):state['paired_global_controls_equal']=True
                 state['status']='COMPLETE';state['phase']='AWAIT_PUBLIC_DELIVERY';state['ended']=time.time();write();return
     state['status']='INCOMPLETE';state['phase']='STOPPED_DEPENDENCIES';state['ended']=time.time();write()
 

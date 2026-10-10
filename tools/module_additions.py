@@ -6,7 +6,7 @@ from torch.nn import functional as F
 
 import prototype_coherent as native
 
-ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion')
+ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout')
 # Research groupings from class names, not a validated clinical ontology.
 FAMILIES = {
     'ISIC': {0:'melanocytic', 1:'melanocytic', 2:'keratinocytic',
@@ -30,7 +30,7 @@ def metric(bank, arm, dataset, seen, local=None):
             ids = [i for i,c in enumerate(seen) if families[c] == family]
             if len(ids) > 1:
                 extra.append(F.normalize(bank['mu'][ids].mean(0), dim=0))
-    if arm == 'local':
+    if arm in ('local', 'local_transport', 'local_readout'):
         if local is None or local.shape != (len(seen),4,bank['mu'].shape[1]):
             raise ValueError('Missing current/old local aggregate statistics')
         extra = [v/2 for v in F.normalize(local, dim=-1).reshape(-1,local.shape[-1])]
@@ -99,8 +99,18 @@ def local_memory(previous, shift, current, labels):
     if current is None:return None
     means=torch.stack([current[labels==c].mean(0) for c in sorted(labels.unique().tolist())])
     if previous is None:return means
-    # shortcut: old local moments use the existing common-shift proxy; validate separately if promising.
-    return torch.cat([previous+shift[None,None,:],means])
+    if shift.shape not in ((current.shape[-1],), current.shape[1:]):
+        raise ValueError('Expected global or per-region common shift')
+    # shortcut: common regional displacement is not class-specific transport; revisit if evidence supports it.
+    return torch.cat([previous+shift[None,...],means])
+
+
+def local_scores(parts, centers):
+    if parts.ndim!=3 or centers.ndim!=3 or parts.shape[1:]!=centers.shape[1:]:
+        raise ValueError('Local query and class center dimensions differ')
+    scores=torch.einsum('nrd,krd->nk',F.normalize(parts,dim=-1),F.normalize(centers,dim=-1))/parts.shape[1]
+    if not torch.isfinite(scores).all():raise ValueError('Nonfinite local readout')
+    return scores
 
 
 class Updates:
@@ -177,6 +187,16 @@ def self_check():
     parts=local_parts(tokens);assert parts.shape==(2,4,8) and torch.isfinite(parts).all()
     lp=torch.randn(18,4,7,dtype=x.dtype);mem=local_memory(None,x.new_zeros(7),lp,y)
     r,a=metric(bank,'local','ISIC',[0,1,2],mem);assert a['extra_columns']==12 and torch.linalg.eigvalsh(r).min()>0
+    shift=torch.arange(28,dtype=x.dtype).reshape(4,7)/100
+    transported=local_memory(mem,shift,lp,y)
+    assert torch.allclose(transported[:3],mem+shift) and torch.equal(transported[3:],mem)
+    legacy=local_memory(mem,x[0],lp,y);assert torch.equal(legacy[:3],mem+x[0])
+    queries=torch.eye(3,dtype=x.dtype)[:,None,:].repeat(1,4,1)
+    score=local_scores(queries,queries)
+    assert torch.equal(score,torch.eye(3,dtype=x.dtype)) and torch.equal(local_scores(queries*7,queries*2),score)
+    wt,rt,_=head(bank,'local_transport','ISIC',[0,1,2],mem)
+    wr,rr,_=head(bank,'local_readout','ISIC',[0,1,2],mem)
+    assert torch.equal(wt,wr) and torch.equal(rt,rr)
     layer=torch.nn.Linear(3,2);u=Updates(layer,'paced');u.begin()
     with torch.no_grad():layer.weight.add_(.1)
     u.finish(1);u.begin();assert u.rank==1 and u.multiplier==1

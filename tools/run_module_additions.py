@@ -27,6 +27,8 @@ def run(config):
         raise ValueError('Fresh output required; preserve all previous attempts')
     arm = config['module']
     if arm not in modules.ARMS: raise ValueError('Unknown module')
+    if arm=='local_readout' and config.get('local_readout_weight')!=.25:
+        raise ValueError('Frozen local readout amplitude differs')
     controller = edge.Controller('static_pc', config['seed'])
     train, val = manifests(config)
     output.mkdir(parents=True)
@@ -61,7 +63,7 @@ def run(config):
                 num_workers=workers, generator=torch.Generator().manual_seed(seed+task*2003), **options)
 
         def features(model, data):
-            return modules.extract(model, data, budget, arm == 'local')
+            return modules.extract(model, data, budget, arm.startswith('local'))
 
         tasks = task_blocks(config['order'], config['task_sizes'])
         ranked = sorted(config['order'], key=lambda c: (-sum(r['label'] == c for r in train), c))
@@ -97,7 +99,8 @@ def run(config):
                 shift = common_shift(before[fit_ids], current[fit_ids], y[fit_ids])
                 old = method.translate(bank, shift)
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
-                local_candidate = modules.local_memory(local_bank, shift, current_local[fit_ids] if current_local is not None else None, y[fit_ids])
+                local_shift = common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in ('local_transport','local_readout') else shift
+                local_candidate = modules.local_memory(local_bank, local_shift, current_local[fit_ids] if current_local is not None else None, y[fit_ids])
                 native_head, metric, activation = modules.head(candidate, arm, config['name'], seen, local_candidate)
                 base_pairs = competition.competition(candidate, native_head)
                 status(status='RUNNING', phase='controller', task=task, epoch=epoch)
@@ -139,7 +142,14 @@ def run(config):
                     if config.get('preflight', False):
                         if not torch.isfinite(norm) or norm <= 0:
                             raise ValueError('Missing adapter gradient')
-                        save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim,
+                        readout_check={}
+                        if arm=='local_readout':
+                            score=modules.local_scores(current_local[fit_ids[:len(x)]],local_candidate)
+                            readout_check=dict(local_readout_shape_valid=score.shape==(len(x),len(seen)),
+                                local_readout_max_abs=float(score.abs().max()),local_readout_weight=config['local_readout_weight'])
+                            if not readout_check['local_readout_shape_valid'] or readout_check['local_readout_max_abs']>1+1e-6:
+                                raise ValueError('Native local readout check failed')
+                        save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim, **readout_check,
                             adapter_updates=0, policy_updates=controller.updates, task=task, epoch=epoch,
                             gradient_norm=float(norm), loss=float(loss.detach()), controller=audit, activation=activation,
                             batch_solve=solve, batch_n=len(x), peak_gpu_bytes=torch.cuda.max_memory_allocated()))
@@ -155,6 +165,7 @@ def run(config):
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, arm=config['method'],
                     fit_n=len(fit_ids), meta_n=len(meta_ids), controller=audit, activation=activation,
                     history_rank=updates.rank, learning_rate_multiplier=updates.multiplier,
+                    local_transport_norm=float(local_shift.norm()) if arm in ('local_transport','local_readout') else 0.,
                     max_batch_solve_residual=max(solves), prototype_count=len(candidate['components']),
                     mean_fit_loss=float(np.mean(losses, axis=0)[0]),
                     mean_pair_loss=float(np.mean(losses, axis=0)[1]),
@@ -176,7 +187,10 @@ def run(config):
             # Match the existing protocol: meta joins the task-end refit, never independent validation.
             shift = common_shift(before, current, y)
             old = method.translate(bank, shift)
-            local_bank = modules.local_memory(local_bank, shift, current_local, y)
+            local_shift=common_shift(before_local,current_local,y) if arm in ('local_transport','local_readout') else shift
+            local_bank = modules.local_memory(local_bank, local_shift, current_local, y)
+            if arm in ('local_transport','local_readout'):
+                diagnostics[-1]['boundary_local_transport_norm']=float(local_shift.norm())
             all_weights = method.sample_weights(y, group, difficulty, zeros)
             bank = method.append(old, current, y, group, all_weights)
             native_head, metric, activation = modules.head(bank, arm, config['name'], seen, local_bank)
@@ -224,9 +238,23 @@ def evaluate(config):
         rows=[r for r in val if r['label'] in seen]
         loader=DataLoader(Images(rows,config['images'],transform(False),seed+task*100003),
             batch_size=config['batch_size'],num_workers=0,shuffle=False)
-        x,labels=extract(encoder,loader,budget);pred=np.asarray(seen)[(x@state['head'].numpy()).argmax(1)]
+        if config['module']=='local_readout':
+            x,labels,parts=modules.extract(encoder,loader,budget,True)
+            global_score=x @ state['head'].to(x)
+            local_score=modules.local_scores(parts,state['module_memory'].to(parts))
+            scores=global_score+config['local_readout_weight']*local_score
+            global_pred=np.asarray(seen)[global_score.argmax(1).cpu().numpy()]
+            global_labels=labels.cpu().numpy()
+            local_audit=dict(global_per_class_recall={str(c):float((global_pred[global_labels==c]==c).mean()) for c in seen},
+                local_score_rms=float(local_score.square().mean().sqrt()),
+                readout_weight=config['local_readout_weight'],
+                readout_changed_predictions_n=int((scores.argmax(1)!=global_score.argmax(1)).sum()))
+            pred=np.asarray(seen)[scores.argmax(1).cpu().numpy()];labels=labels.cpu().numpy()
+        else:
+            x,labels=extract(encoder,loader,budget);pred=np.asarray(seen)[(x@state['head'].numpy()).argmax(1)]
+            local_audit={}
         recalls={str(c):float((pred[labels==c]==c).mean()) for c in seen}
-        reports.append(dict(task=task,seen=seen,validation_n=len(labels),accuracy=float((pred==labels).mean()),
+        reports.append(dict(task=task,seen=seen,validation_n=len(labels),accuracy=float((pred==labels).mean()),**local_audit,
             balanced_accuracy=float(np.mean(list(recalls.values()))),per_class_recall=recalls,
             per_class_n={str(c):int((labels==c).sum()) for c in seen},
             tail_recall=float(np.mean([recalls[str(c)] for c in seen if c in tail])) if tail.intersection(seen) else None))

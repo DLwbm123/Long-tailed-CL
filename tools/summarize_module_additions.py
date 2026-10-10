@@ -12,7 +12,7 @@ def summarize(snapshot,destination):
     rows=[]
     for dataset in ('ISIC','HK'):
         base=snapshot['runs'][dataset+'_base']['metrics']
-        for arm in ('base','hierarchy','local','paced','fusion'):
+        for arm in snapshot.get('modules',('base','hierarchy','local','paced','fusion')):
             run=snapshot['runs'][dataset+'_'+arm];m=run['metrics']
             if run['status']['status']!='COMPLETE' or m['test_accessed']:
                 raise ValueError('Incomplete or invalid aggregate input')
@@ -30,7 +30,7 @@ def summarize(snapshot,destination):
         writer=csv.writer(stream);writer.writerow(['dataset','module',*fields,'screen_passed'])
         for row in rows:writer.writerow([row['dataset'],row['module'],*[row[f] for f in fields],row['development_screen_passed']])
     lines=['# 单模块增量实验报告','',
-           '全部10条固定轨迹完成。结果是单种子、单顺序、已反复查看开发集上的增量比较，不是独立确认；四个模块是论文思想迁移，不是原论文复现。','',
+           snapshot.get('description','全部10条固定轨迹完成。结果是单种子、单顺序、已反复查看开发集上的增量比较，不是独立确认；四个模块是论文思想迁移，不是原论文复现。'),'',
            '|数据集|模块|最终BA %|尾类 %|遗忘 pp|旧类 %|新类 %|ΔBA pp|开发门槛|',
            '|---|---|---:|---:|---:|---:|---:|---:|---|']
     for r in rows:
@@ -41,7 +41,7 @@ def summarize(snapshot,destination):
     lines+=['',f'本轮所有成功/失败进程驻留合计 {seconds:.3f} 秒，约 {seconds/3600:.4f} GPU小时；是进程驻留而非纯GPU计算。历史成本不重置。',
             '', '层级与局部证据修改原型先验，保持线性推理；步幅控制基于历史参数更新向量秩；融合使用当前fit的batch梯度平方曲率近似。详见冻结协议。',
             '', '只发布协议、源码、匿名类级聚合、模块激活与成本；影像、身份、模型权重、特征、原型向量、私有配置和原始日志不公开。',
-            '', '完成本矩阵后停止，不按开发结果自动组合、调参、换种子或继续训练。']
+            '', '冻结矩阵结束后先公开所有结果。后续研究依照独立预注册及用户授权，不在原轮重跑、调参或更换种子。']
     (destination/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n')
 
 

@@ -1,0 +1,129 @@
+{
+  "campaign": "module_local2_20261010",
+  "authorization": "User authorized autonomous modular improvement after delivery of each completed round",
+  "baseline": "reuse exact source-validated module_additions1 base metrics on both datasets",
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "modules": [
+    "base_reused",
+    "local_transport",
+    "local_readout"
+  ],
+  "formal_trajectories": 4,
+  "priority": [
+    "local_transport",
+    "local_readout"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "expected_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "total_formal_updates": 1288,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "pilot_native_preflights": [
+    "ISIC_local_readout",
+    "HK_local_readout"
+  ],
+  "preflight_adapter_updates": 0,
+  "campaign_wall_hours": 24,
+  "wall_policy": "Fresh bounded cycle, not a reset or reuse of prior campaign budget; retain prior cumulative 83019.613531 GPU residence seconds separately",
+  "evaluation": "All ten complete training first; fixed development validation only; historical base per-class recalls must reproduce",
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "module_definitions": {
+    "local_transport": "Control: same four-quadrant pooling and 1/2 local-prior anchors as previous local arm; transport old local class means with per-region class-balanced mean current feature displacement. Global original mu/Q transport unchanged; prediction uses global analytical head only.",
+    "local_readout": "Candidate: training identical to local_transport; add fixed 0.25 times mean of four region cosine similarities to normalized stored seen-class local centers to original global analytical logits. No validation-calibrated amplitude, support images, new learned head, old-image replay, future classes or class-specific transport. Both arms retain ViT/adapter/global statistics/competition/FD10."
+  },
+  "paper_urls": [],
+  "independent_confirmation": false,
+  "finish": "Deliver all positive/negative results and cost via proxy before any next scientific round; keep hourly monitor active unless full goal plus preregistered confirmation is achieved",
+  "prior_closed_gpu_residence_seconds": 102512.79120288556,
+  "local_readout_weight": 0.25,
+  "paired_global_control": "candidate global per-class recall must equal local_transport at every task; fail closed",
+  "evidence": "Previous local improved ISIC BA 1.28998pp/tail 3.31246pp, but HK BA 0.01330pp/tail 0 despite activated prior. Transport versus direct readout is a new discriminable hypothesis; not an amplitude search."
+}

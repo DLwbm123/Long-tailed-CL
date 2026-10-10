@@ -63,6 +63,14 @@ def synthetic_organ(config):
     return False
 
 
+def verify_historical_baseline(config,reports,metrics):
+    if config['module']=='base' and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config)):
+        historical=json.loads(Path(config['historical_metrics']).read_text())
+        if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
+            raise ValueError('Matched static-PC historical baseline differs')
+        metrics['historical_baseline_recalls_equal']=True
+
+
 def run(config):
     official_cifar(config)
     synthetic_path(config)
@@ -376,7 +384,49 @@ def check_trained_local_readout(config):
         save(output/'STATUS.json',dict(status='INCOMPLETE',steps=0,policy_updates=0,error=str(exc)));raise
 
 
+def check_frozen_evaluation_source(config):
+    if not synthetic_organ(config) or config['module'] not in ('base','local_transport'):
+        raise ValueError('Evaluation repair escaped frozen OrganAMNIST arms')
+    if config['expected_steps']!=0 or config['source_stage_steps']!=[128,182,186,198,212]:
+        raise ValueError('Evaluation repair/source budget differs')
+    output=Path(config['output'])
+    if output.exists():raise ValueError('Fresh evaluation repair output required')
+    output.mkdir(parents=True);save(output/'INPUT.private.json',config)
+    torch.set_num_threads(4);started=time.monotonic();audits=[]
+    try:
+        for task,source_steps in enumerate(config['source_stage_steps'],1):
+            if time.time()>=config['original_deadline']:raise TimeoutError('Campaign deadline')
+            state=torch.load(Path(config['checkpoint_root'])/f'stage_{task}.pt',map_location='cpu',weights_only=False)
+            seen=config['order'][:sum(config['task_sizes'][:task])]
+            if state['module']!=config['module'] or state['seen']!=seen or state['steps']!=source_steps:
+                raise ValueError('Evaluation repair source/order/budget differs')
+            bank={k:v.cuda() if torch.is_tensor(v) else v for k,v in state['bank'].items()}
+            bank['components']=[{k:v.cuda() if torch.is_tensor(v) else v for k,v in c.items()} for c in bank['components']]
+            W=state['head'].cuda();centers=state['module_memory']
+            centers=None if centers is None else centers.cuda()
+            if (W.shape[1]!=len(seen) or bank['n']!=[config['source_class_counts'][str(c)] for c in seen] or
+                    bank['mu'].shape!=(len(seen),W.shape[0]) or bank['Q'].shape!=(len(seen),W.shape[0],W.shape[0]) or
+                    not all(torch.isfinite(x).all() for x in (W,bank['mu'],bank['Q']))):
+                raise ValueError('Evaluation repair global dimensions/values differ')
+            if config['module']=='local_transport' and (centers is None or centers.shape!=(len(seen),4,W.shape[0]) or not torch.isfinite(centers).all()):
+                raise ValueError('Evaluation repair local dimensions/values differ')
+            _,R,activation=modules.head(bank,config['module'],config['name'],seen,centers)
+            rebuilt,solve=competition.bank_head(bank,state['boundary_pair_weights'].cuda(),regularizer=R)
+            error=float((rebuilt.float()-W).double().norm()/W.double().norm().clamp_min(1e-12))
+            if not np.isfinite(error) or error>1e-8 or not np.isfinite(solve['relative_residual']) or solve['relative_residual']>1e-8:
+                raise ValueError('Evaluation repair global head reconstruction differs')
+            audits.append(dict(task=task,source_adapter_updates=source_steps,global_head_relative_error=error,
+                relative_residual=solve['relative_residual'],extra_fitted_samples=0,**activation))
+            save(output/'STATUS.json',dict(status='RUNNING',phase='SOURCE_CHECK',task=task,steps=0,policy_updates=0))
+        save(output/'diagnostics.json',audits)
+        save(output/'STATUS.json',dict(status='READY',steps=0,policy_updates=0,adapter_updates=0,
+            elapsed_seconds=time.monotonic()-started,max_solve_residual=max(a['relative_residual'] for a in audits),stages=len(audits)))
+    except BaseException as exc:
+        save(output/'STATUS.json',dict(status='INCOMPLETE',steps=0,policy_updates=0,error=str(exc)));raise
+
+
 def refit(config):
+    if config.get('frozen_evaluation_repair'):return check_frozen_evaluation_source(config)
     if config.get('trained_local_readout'):return check_trained_local_readout(config)
     output=Path(config['output'])
     if output.exists():raise ValueError('Fresh conditional output required')
@@ -480,11 +530,7 @@ def evaluate(config):
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
         test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation or organ_validation else 'development_validation'),independent_confirmation=False)
-    if config['module']=='base' and not cifar_test and not path_validation:
-        historical=json.loads(Path(config['historical_metrics']).read_text())
-        if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
-            raise ValueError('Matched static-PC historical baseline differs')
-        metrics['historical_baseline_recalls_equal']=True
+    verify_historical_baseline(config,reports,metrics)
     if config['module'] in modules.STAT_ARMS or config.get('trained_local_readout'):
         reference=json.loads(Path(config['historical_global_control']).read_text())
         if len(reports)!=len(reference['stages']) or any(a['global_per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,reference['stages'])):

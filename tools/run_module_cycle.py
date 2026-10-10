@@ -50,7 +50,12 @@ def run(config):
         for t in threads:t.join()
         return not state['failures']
     write()
-    if config.get('frozen_checkpoint_refit'):
+    if config.get('frozen_checkpoint_refit') or config.get('frozen_evaluation_repair'):
+        if config.get('frozen_evaluation_repair') and (len(config['jobs'])!=2 or
+                {j['module'] for j in config['jobs']}!={'base','local_transport'} or any(
+                j.get('frozen_evaluation_repair') is not True or j['name']!='OrganAMNISTLT' or
+                j['module'] not in ('base','local_transport') or j['expected_steps']!=0 for j in config['jobs'])):
+            raise ValueError('Frozen evaluation repair scope differs')
         state['phase']='REFIT';write()
         if phase(config['jobs'],'refit'):
             for job in config['jobs']:
@@ -62,9 +67,10 @@ def run(config):
                 for job in config['jobs']:
                     s=json.loads((Path(job['output'])/'STATUS.json').read_text())
                     m=json.loads((Path(job['output'])/'metrics.json').read_text())
-                    if s['status']!='COMPLETE' or s['steps']!=0 or not m['historical_global_control_equal']:
+                    if s['status']!='COMPLETE' or s['steps']!=0 or s['policy_updates']!=0 or (
+                            not config.get('frozen_evaluation_repair') and not m['historical_global_control_equal']):
                         raise ValueError('Incomplete frozen-checkpoint evaluation')
-                state['historical_global_controls_equal']=True
+                if not config.get('frozen_evaluation_repair'):state['historical_global_controls_equal']=True
                 state['status']='COMPLETE';state['phase']='AWAIT_PUBLIC_DELIVERY';state['ended']=time.time();write();return
         state['status']='INCOMPLETE';state['phase']='STOPPED_DEPENDENCIES';state['ended']=time.time();write();return
     if phase(config['preflights'],'train'):

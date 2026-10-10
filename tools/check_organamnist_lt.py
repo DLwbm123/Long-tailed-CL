@@ -11,7 +11,7 @@ from PIL import Image
 import torch
 
 from prepare_organamnist_lt import RANK,ORDER,SOURCE_TRAIN,counts,select
-from run_module_additions import synthetic_organ,synthetic_path,official_cifar
+from run_module_additions import synthetic_organ,synthetic_path,official_cifar,verify_historical_baseline
 from run_prototype_single import Images
 from run_prototype_coherent import fit_split
 from summarize_module_additions import summarize
@@ -53,7 +53,23 @@ def check():
     _,r,a=modules.head(bank,'local_transport','OrganAMNISTLT',list(range(11)),memory)
     assert a['extra_columns']==44 and a['prior_delta']>0 and torch.linalg.eigvalsh(r).min()>0
     with tempfile.TemporaryDirectory() as tmp:
-        p=Path(tmp);gray=np.arange(16,dtype=np.uint8).reshape(4,4);Image.fromarray(gray).save(p/'a.png')
+        p=Path(tmp)
+        reports=[dict(per_class_recall={'0':.5})]
+        for config in [dict(valid,module='base'),dict(name='PathMNISTLT',module='base',synthetic_path_authorized=True,
+                evaluation_split='official_validation',image_size=224,imbalance_factor=100),
+                dict(name='CIFAR100LT',module='base',auxiliary_cifar_authorized=True,evaluation_split='official_test',imbalance_factor=100)]:
+            m={};verify_historical_baseline(config,reports,m);assert m=={}
+        medical=dict(name='ISIC',module='base')
+        try:verify_historical_baseline(medical,reports,{})
+        except KeyError:pass
+        else:raise AssertionError('Medical history requirement bypassed')
+        history=p/'history.json';history.write_text(json.dumps(dict(stages=reports)))
+        medical['historical_metrics']=str(history);m={};verify_historical_baseline(medical,reports,m)
+        assert m['historical_baseline_recalls_equal']
+        try:verify_historical_baseline(medical,[dict(per_class_recall={'0':.6})],{})
+        except ValueError:pass
+        else:raise AssertionError('Medical historical mismatch accepted')
+        gray=np.arange(16,dtype=np.uint8).reshape(4,4);Image.fromarray(gray).save(p/'a.png')
         pixel,label=Images([dict(relative_path='a.png',label=3)],p,lambda image:np.asarray(image),74002)[0]
         assert pixel.shape==(4,4,3) and np.array_equal(pixel[:,:,0],gray) and np.array_equal(pixel[:,:,2],gray) and label==3
         fields=('final_balanced_accuracy','average_incremental_balanced_accuracy','final_tail_recall','forgetting','final_old_recall','final_new_recall')
@@ -64,7 +80,7 @@ def check():
         try:summarize(snapshot,p/'invalid')
         except ValueError:pass
         else:raise AssertionError('Organ test aggregate accepted')
-    return dict(status='PASS',deterministic_unique_sampling=True,source_supply_rule=True,stage_updates=steps,total_per_arm=212,original_base_head_exact=True,local_prior_44_columns_positive=True,grayscale_rgb_loader=True,test_and_cross_dataset_permissions_rejected=True,cpu_wall_seconds=time.monotonic()-start)
+    return dict(status='PASS',deterministic_unique_sampling=True,source_supply_rule=True,stage_updates=steps,total_per_arm=212,original_base_head_exact=True,local_prior_44_columns_positive=True,grayscale_rgb_loader=True,test_and_cross_dataset_permissions_rejected=True,new_dataset_baselines_need_no_medical_history=True,medical_history_required_matching_and_mismatch_rejected=True,cpu_wall_seconds=time.monotonic()-start)
 
 
 if __name__=='__main__':print(json.dumps(check()))

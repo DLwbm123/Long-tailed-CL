@@ -1,11 +1,13 @@
 """One frozen PathMNIST-224 sampling protocol; official test is never opened."""
 import csv
+from concurrent.futures import ThreadPoolExecutor
 import json
 import math
 import os
 from pathlib import Path
 import random
 import time
+import threading
 import urllib.request
 
 import numpy as np
@@ -35,8 +37,33 @@ def select(labels,rank):
     return sorted(result)
 
 
+def download(url,partial,length,budget,status):
+    """Eight exact HTTP ranges; reject an ignored range before writing its body."""
+    with partial.open('xb') as f:f.truncate(length)
+    done=0;last=0.;lock=threading.Lock()
+    def part(i):
+        nonlocal done,last
+        start=length*i//8;end=length*(i+1)//8-1
+        request=urllib.request.Request(url,headers={'Range':f'bytes={start}-{end}'})
+        with urllib.request.urlopen(request,timeout=90) as response,partial.open('r+b') as target:
+            if response.status!=206 or response.headers.get('Content-Range')!=f'bytes {start}-{end}/{length}':
+                raise ValueError('Server did not honor the exact byte range')
+            target.seek(start);remaining=end-start+1
+            while remaining:
+                budget();chunk=response.read(min(1024**2,remaining))
+                if not chunk:raise ValueError('Truncated byte range')
+                target.write(chunk);remaining-=len(chunk)
+                with lock:
+                    done+=len(chunk)
+                    if time.monotonic()-last>15:
+                        status(status='RUNNING',phase='DOWNLOAD',downloaded_bytes=done,expected_bytes=length,download_connections=8);last=time.monotonic()
+    with ThreadPoolExecutor(max_workers=8) as pool:list(pool.map(part,range(8)))
+    assert done==length
+    return done
+
+
 def prepare(config):
-    root=Path(config['root']);begun=time.monotonic();source=root/'data';source.mkdir()
+    root=Path(config['root']);begun=time.monotonic();source=root/'data';source.mkdir(exist_ok=True)
     def status(**values):
         save(root/'DATA_STATUS.private.json',dict(elapsed_seconds=time.monotonic()-begun,**values))
     def budget():
@@ -44,16 +71,7 @@ def prepare(config):
     try:
         archive=source/'pathmnist_224.npz';partial=archive.with_suffix('.part')
         status(status='RUNNING',phase='DOWNLOAD',downloaded_bytes=0,expected_bytes=12629854322)
-        with urllib.request.urlopen(config['data_url'],timeout=90) as response,partial.open('xb') as target:
-            length=int(response.headers['Content-Length']);assert length==12629854322
-            size=0;last=0.
-            while True:
-                budget();chunk=response.read(8*1024**2)
-                if not chunk:break
-                target.write(chunk);size+=len(chunk)
-                if time.monotonic()-last>15:
-                    status(status='RUNNING',phase='DOWNLOAD',downloaded_bytes=size,expected_bytes=length);last=time.monotonic()
-        if size!=length:raise ValueError('Download length mismatch')
+        size=download(config['data_url'],partial,12629854322,budget,status)
         partial.replace(archive)
         images=source/'images';manifest=source/'manifests';images.mkdir();manifest.mkdir()
         audit={'test_arrays_opened':False,'patient_identifiers_available':False,'image_size':224,'sampling_without_replacement':True,'source_counts':{},'selected_counts':{},'fit_counts':{},'meta_counts':{},'stage_updates':[]}

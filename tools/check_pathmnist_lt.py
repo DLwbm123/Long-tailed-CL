@@ -1,14 +1,16 @@
 """Small checks of sampling, evaluation permission, and unchanged base/local prior."""
 import json
+import io
 import random
 from pathlib import Path
 import tempfile
 import time
+from unittest.mock import patch
 
 import numpy as np
 import torch
 
-from prepare_pathmnist_lt import counts,select
+from prepare_pathmnist_lt import counts,select,download
 from run_module_additions import official_cifar,synthetic_path
 import module_additions as modules
 import prototype_coherent as native
@@ -17,6 +19,21 @@ from summarize_module_additions import summarize
 
 def check():
     begun=time.monotonic();rank=list(range(9));random.Random(74003).shuffle(rank)
+    payload=bytes(range(256))*40
+    def open_range(request,timeout):
+        start,end=map(int,request.headers['Range'].removeprefix('bytes=').split('-'))
+        response=io.BytesIO(payload[start:end+1]);response.status=206
+        response.headers={'Content-Range':f'bytes {start}-{end}/{len(payload)}'}
+        return response
+    with tempfile.TemporaryDirectory() as tmp,patch('urllib.request.urlopen',open_range):
+        target=Path(tmp)/'ranges';download('https://example.invalid',target,len(payload),lambda:None,lambda **kw:None)
+        assert target.read_bytes()==payload
+    with tempfile.TemporaryDirectory() as tmp:
+        response=io.BytesIO(payload);response.status=200;response.headers={}
+        with patch('urllib.request.urlopen',return_value=response):
+            try:download('https://example.invalid',Path(tmp)/'ignored',len(payload),lambda:None,lambda **kw:None)
+            except ValueError:pass
+            else:raise AssertionError('Ignored HTTP range accepted')
     y=np.repeat(np.arange(9),6000);a=select(y,rank);b=select(y,rank)
     assert a==b and len(a)==len(set(a))==11358
     assert {c:int((y[a]==c).sum()) for c in rank}==counts(rank)
@@ -46,7 +63,7 @@ def check():
         try:summarize(snapshot,Path(tmp)/'invalid')
         except ValueError:pass
         else:raise AssertionError('PathMNIST test aggregate accepted')
-    return dict(status='PASS',sampling_deterministic_without_replacement=True,insufficient_supply_rejected=True,official_test_rejected=True,dataset_permission_scoped=True,original_base_head_exact=True,local_prior_9_classes_positive_definite=True,aggregate_test_rejected=True,cpu_wall_seconds=time.monotonic()-begun)
+    return dict(status='PASS',http_ranges_reassembled=True,ignored_range_rejected=True,sampling_deterministic_without_replacement=True,insufficient_supply_rejected=True,official_test_rejected=True,dataset_permission_scoped=True,original_base_head_exact=True,local_prior_9_classes_positive_definite=True,aggregate_test_rejected=True,cpu_wall_seconds=time.monotonic()-begun)
 
 
 if __name__=='__main__':print(json.dumps(check()))

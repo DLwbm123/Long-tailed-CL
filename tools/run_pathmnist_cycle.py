@@ -15,7 +15,7 @@ def main(config):
     state=dict(status='RUNNING',phase='PREPARING_DATA',started=started,active={},costs=[],failures=[])
     save(root/'PROGRAM_STATE.json',state)
     begun=time.monotonic()
-    with (root/'data_prepare.private.log').open('x') as log:
+    with (root/config.get('prepare_log','data_prepare.private.log')).open('x') as log:
         p=subprocess.Popen([sys.executable,'-u',config['prepare_entry']],stdout=log,stderr=subprocess.STDOUT)
         state['data_prepare_pid']=p.pid;save(root/'PROGRAM_STATE.json',state);code=p.wait()
     save(root/'DATA_COST.json',dict(returncode=code,cpu_process_residence_seconds=time.monotonic()-begun))

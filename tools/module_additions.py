@@ -6,9 +6,9 @@ from torch.nn import functional as F
 
 import prototype_coherent as native
 
-ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary', 'local_detached', 'local_supervised')
-REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary','local_detached','local_supervised')
-SUPERVISED_ARMS = ('local_detached','local_supervised')
+ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary', 'local_detached', 'local_supervised','local_normalized')
+REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary','local_detached','local_supervised','local_normalized')
+SUPERVISED_ARMS = ('local_detached','local_supervised','local_normalized')
 STAT_ARMS = ('local_residual','local_auxiliary')
 # Research groupings from class names, not a validated clinical ontology.
 FAMILIES = {
@@ -131,6 +131,30 @@ def local_class_loss(parts, centers, labels, alpha, detached):
         raise ValueError('Invalid local classification weights')
     scores=local_scores(parts.detach() if detached else parts,centers.detach().to(parts))
     return (alpha*F.cross_entropy(scores,labels,reduction='none')).sum()
+
+
+def current_class_alpha(alpha, seen_count, current_count):
+    if not 0<current_count<=seen_count:
+        raise ValueError('Invalid current/seen class counts')
+    return alpha*(seen_count/current_count)
+
+
+def normalized_self_check():
+    weights=torch.tensor([.5,.5,.2,.2,.2,.2,.2],dtype=torch.float64)
+    alpha=weights/5
+    result=current_class_alpha(alpha,5,2)
+    assert torch.equal(current_class_alpha(alpha,5,5),alpha)
+    assert torch.allclose(result.sum(),torch.tensor(1.,dtype=result.dtype))
+    assert torch.allclose(result[:2].sum(),result[2:].sum())
+    logits=torch.tensor([[.1,.2]]*7,dtype=torch.float64,requires_grad=True)
+    losses=F.cross_entropy(logits,torch.tensor([0,0,1,1,1,1,1]),reduction='none')
+    a=torch.autograd.grad((alpha*losses).sum(),logits,retain_graph=True)[0]
+    b=torch.autograd.grad((result*losses).sum(),logits)[0]
+    assert torch.allclose(b,2.5*a)
+    try:current_class_alpha(alpha,2,3)
+    except ValueError:pass
+    else:raise AssertionError('Invalid class counts accepted')
+    return dict(status='PASS',initial_task_weights_equal=True,current_class_mass_equal=True,expected_auxiliary_mass_one=True,gradient_scale_matches_normalization=True)
 
 
 def supervised_self_check():

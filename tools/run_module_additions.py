@@ -32,6 +32,8 @@ def run(config):
     if arm not in modules.ARMS: raise ValueError('Unknown module')
     if arm in modules.SUPERVISED_ARMS and (config.get('local_class_weight')!=1. or config.get('local_class_temperature')!=1.):
         raise ValueError('Frozen local classification objective differs')
+    if arm=='local_normalized' and config.get('local_class_normalization')!='current':
+        raise ValueError('Frozen local normalization differs')
     if arm=='local_readout' and config.get('local_readout_weight')!=.25:
         raise ValueError('Frozen local readout amplitude differs')
     if arm in modules.STAT_ARMS and (config.get('local_projection_width')!=64 or config.get('local_projection_seed')!=130 or config.get('local_ridge')!=.001):
@@ -148,14 +150,15 @@ def run(config):
                     fd = (z-reference_z).square().sum(1).mean()
                     loss = fit+pair+old_loss+ridge+proximal+10.*fd
                     if arm in modules.SUPERVISED_ARMS:
-                        local_loss=modules.local_class_loss(train_parts,local_candidate,lookup[labels],alpha,arm=='local_detached')
+                        local_alpha=modules.current_class_alpha(alpha,len(seen),len(classes)) if arm=='local_normalized' else alpha
+                        local_loss=modules.local_class_loss(train_parts,local_candidate,lookup[labels],local_alpha,arm=='local_detached')
                         loss=loss+local_loss
                     if not torch.isfinite(loss):
                         raise ValueError('Nonfinite edge training objective')
                     loss.backward()
                     if arm in modules.SUPERVISED_ARMS:
                         local_grad=0. if train_parts.grad is None else float(train_parts.grad.norm())
-                        if not np.isfinite(local_grad) or (arm=='local_detached' and local_grad!=0.) or (arm=='local_supervised' and local_grad<=0.):
+                        if not np.isfinite(local_grad) or (arm=='local_detached' and local_grad!=0.) or (arm!='local_detached' and local_grad<=0.):
                             raise ValueError('Local supervision gradient path differs from frozen mechanism')
                         local_losses.append(float(local_loss.detach()));local_gradients.append(local_grad)
                     norm = torch.nn.utils.clip_grad_norm_([p for p in encoder.parameters() if p.requires_grad], 5., error_if_nonfinite=True)
@@ -165,7 +168,8 @@ def run(config):
                         readout_check={}
                         if arm in modules.SUPERVISED_ARMS:
                             readout_check=dict(local_class_loss=float(local_loss.detach()),local_feature_gradient_norm=local_grad,
-                                local_gradient_enabled=arm=='local_supervised',local_class_weight=1.,local_class_temperature=1.)
+                                local_gradient_enabled=arm!='local_detached',local_class_weight=1.,local_class_temperature=1.,
+                                local_normalization_factor=len(seen)/len(classes) if arm=='local_normalized' else 1.)
                         if arm=='local_readout':
                             score=modules.local_scores(current_local[fit_ids[:len(x)]],local_candidate)
                             readout_check=dict(local_readout_shape_valid=score.shape==(len(x),len(seen)),
@@ -199,9 +203,11 @@ def run(config):
                     mean_pair_loss=float(np.mean(losses, axis=0)[1]),
                     mean_feature_loss=float(np.mean(losses, axis=0)[2])))
                 if arm in modules.SUPERVISED_ARMS:
-                    diagnostics[-1]['local_supervision']=dict(local_gradient_enabled=arm=='local_supervised',
+                    diagnostics[-1]['local_supervision']=dict(local_gradient_enabled=arm!='local_detached',
                         mean_local_class_loss=float(np.mean(local_losses)),mean_local_feature_gradient_norm=float(np.mean(local_gradients)),
-                        local_class_weight=1.,local_class_temperature=1.,extra_trainable_head_parameters=0)
+                        local_class_weight=1.,local_class_temperature=1.,extra_trainable_head_parameters=0,
+                        local_normalization_factor=len(seen)/len(classes) if arm=='local_normalized' else 1.,
+                        local_current_classes=len(classes),local_seen_classes=len(seen))
                 save(output/'diagnostics.json', diagnostics)
             if arm == 'fusion' and task > 1:
                 status(status='RUNNING', phase='current_task_curvature', task=task)
@@ -378,6 +384,11 @@ def evaluate(config):
         if len(reports)!=len(reference['stages']) or any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,reference['stages'])):
             raise ValueError('Detached local supervision differs from historical transport control')
         metrics['historical_transport_control_equal']=True
+    if config['module']=='local_normalized':
+        reference=json.loads(Path(config['historical_global_control']).read_text())
+        if reports[0]['per_class_recall']!=reference['stages'][0]['per_class_recall']:
+            raise ValueError('Equal first-task local objectives differ from supervision control')
+        metrics['initial_task_control_equal']=True
     save(output/'metrics.json',metrics)
     status=json.loads((output/'STATUS.json').read_text());status.update(status='COMPLETE',evaluation_seconds=time.monotonic()-started)
     save(output/'STATUS.json',status)

@@ -12,13 +12,17 @@ def summarize(snapshot,destination):
     rows=[]
     datasets=snapshot.get('datasets',['ISIC','HK'])
     cifar_test=datasets==['CIFAR100LT'] and snapshot.get('auxiliary_cifar_authorized') is True
+    path_validation=datasets==['PathMNISTLT'] and snapshot.get('synthetic_path_authorized') is True
+    if 'PathMNISTLT' in datasets and not path_validation:
+        raise ValueError('Explicit PathMNIST aggregate authorization required')
     for dataset in datasets:
         base=snapshot['runs'][dataset+'_base']['metrics']
         for arm in snapshot.get('modules',('base','hierarchy','local','paced','fusion')):
             run=snapshot['runs'][dataset+'_'+arm];m=run['metrics']
             if (run['status']['status']!='COMPLETE' or
                     bool(m['test_accessed'])!=cifar_test or
-                    (cifar_test and m['evaluation_split']!='official_test')):
+                    (cifar_test and m['evaluation_split']!='official_test') or
+                    (path_validation and m['evaluation_split']!='official_validation')):
                 raise ValueError('Incomplete or invalid aggregate input')
             if [s['per_class_n'] for s in m['stages']] != [s['per_class_n'] for s in base['stages']]:
                 raise ValueError('Class denominator mismatch')

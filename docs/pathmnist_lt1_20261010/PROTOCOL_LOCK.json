@@ -1,0 +1,157 @@
+{
+  "campaign": "pathmnist_lt1_20261010",
+  "dataset": "PathMNISTLT",
+  "source": "Official MedMNIST+ PathMNIST224 / Zenodo record10519652",
+  "data_url": "https://zenodo.org/records/10519652/files/pathmnist_224.npz?download=1",
+  "image_size": 224,
+  "classes": 9,
+  "imbalance_factor": 100,
+  "n_max": 5000,
+  "train_n": 11358,
+  "validation_n": 10004,
+  "frequency_seed": 74003,
+  "order_seed": 74004,
+  "sampling_seed": 74002,
+  "seed": 74002,
+  "split_seed": 74002,
+  "frequency_rank": [
+    4,
+    2,
+    7,
+    6,
+    0,
+    5,
+    3,
+    8,
+    1
+  ],
+  "class_counts": {
+    "4": 5000,
+    "2": 2811,
+    "7": 1581,
+    "6": 889,
+    "0": 500,
+    "5": 281,
+    "3": 158,
+    "8": 88,
+    "1": 50
+  },
+  "fit_counts": {
+    "4": 4000,
+    "2": 2249,
+    "7": 1265,
+    "6": 711,
+    "0": 400,
+    "5": 225,
+    "3": 126,
+    "8": 70,
+    "1": 40
+  },
+  "order": [
+    8,
+    6,
+    4,
+    3,
+    0,
+    1,
+    7,
+    2,
+    5
+  ],
+  "task_sizes": [
+    3,
+    2,
+    2,
+    2
+  ],
+  "tail_classes": [
+    3,
+    8,
+    1
+  ],
+  "head_classes": [
+    4,
+    2,
+    7
+  ],
+  "middle_classes": [
+    6,
+    0,
+    5
+  ],
+  "stages": [
+    {
+      "classes": [
+        8,
+        6,
+        4
+      ],
+      "train_n": 5977,
+      "fit_n": 4781,
+      "updates": 150
+    },
+    {
+      "classes": [
+        3,
+        0
+      ],
+      "train_n": 658,
+      "fit_n": 526,
+      "updates": 18
+    },
+    {
+      "classes": [
+        1,
+        7
+      ],
+      "train_n": 1631,
+      "fit_n": 1305,
+      "updates": 42
+    },
+    {
+      "classes": [
+        2,
+        5
+      ],
+      "train_n": 3092,
+      "fit_n": 2474,
+      "updates": 78
+    }
+  ],
+  "expected_steps_per_arm": 288,
+  "formal_trajectories": 2,
+  "formal_adapter_updates": 576,
+  "modules": [
+    "base",
+    "local_transport"
+  ],
+  "preflight_checks": 2,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "gradient_clip": 5,
+  "local_prior_strength": 0.5,
+  "authorized_gpus": [
+    0,
+    1
+  ],
+  "gpu2_used": false,
+  "gpu3_used": false,
+  "evaluation_split": "official_validation",
+  "test_access": false,
+  "policy_updates": 0,
+  "wall_hours": 24,
+  "identity_level": "official split + source sample index; patient/slide IDs unavailable; no patient isolation claim",
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "old_pp_min": -1,
+    "new_pp_min": -1
+  },
+  "planned_extension": "After first frozen pair delivery, separately preregister IF10/50 and equal-total balanced control, then OrganAMNIST modality validation; do not select new method/amplitude from this round"
+}

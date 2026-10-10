@@ -34,8 +34,21 @@ def official_cifar(config):
     return False
 
 
+def synthetic_path(config):
+    if config['name']=='PathMNISTLT':
+        if (config.get('synthetic_path_authorized') is not True or
+                config.get('evaluation_split')!='official_validation' or
+                config.get('image_size')!=224 or config.get('imbalance_factor')!=100):
+            raise ValueError('Frozen PathMNIST training/validation protocol required')
+        return True
+    if config.get('synthetic_path_authorized'):
+        raise ValueError('PathMNIST permission escaped its dataset')
+    return False
+
+
 def run(config):
     official_cifar(config)
+    synthetic_path(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -91,7 +104,7 @@ def run(config):
 
         tasks = task_blocks(config['order'], config['task_sizes'])
         ranked = sorted(config['order'], key=lambda c: (-sum(r['label'] == c for r in train), c))
-        tail = set(ranked[len(ranked)//2:])
+        tail = set(config.get('tail_classes',ranked[len(ranked)//2:]))
         bank = method.empty(encoder.dim, 'cuda')
         seen, diagnostics = [], []
         local_bank = None
@@ -392,6 +405,7 @@ def refit(config):
 
 def evaluate(config):
     cifar_test=official_cifar(config)
+    path_validation=synthetic_path(config)
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
     started=time.monotonic()
@@ -401,7 +415,7 @@ def evaluate(config):
     encoder=ApartFeatures(config['legacy_repo'],config['weight'],len(config['order']),'cuda:0',seed)
     from run_medical_v2 import transform
     train,val=manifests(config);tasks=task_blocks(config['order'],config['task_sizes'])
-    ranked=sorted(config['order'],key=lambda c:(-sum(r['label']==c for r in train),c));tail=set(ranked[len(ranked)//2:])
+    ranked=sorted(config['order'],key=lambda c:(-sum(r['label']==c for r in train),c));tail=set(config.get('tail_classes',ranked[len(ranked)//2:]))
     reports=[]
     for task in range(1,len(tasks)+1):
         budget();state=torch.load(Path(config.get('checkpoint_root',output))/f'stage_{task}.pt',map_location='cpu',weights_only=False)
@@ -446,8 +460,8 @@ def evaluate(config):
         forgetting=float(np.mean(forgetting)),forgetting_classes=len(old),
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
-        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else 'development_validation',independent_confirmation=False)
-    if config['module']=='base' and not cifar_test:
+        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation else 'development_validation'),independent_confirmation=False)
+    if config['module']=='base' and not cifar_test and not path_validation:
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')

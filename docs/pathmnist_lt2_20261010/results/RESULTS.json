@@ -1,0 +1,46 @@
+{
+  "status": "INCOMPLETE",
+  "metrics": null,
+  "costs": [
+    {
+      "job": "PathMNISTLT_IF10_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 1,
+      "residence_seconds": 17.382635260932148
+    },
+    {
+      "job": "PathMNISTLT_IF10_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 1,
+      "residence_seconds": 17.454297573771328
+    }
+  ],
+  "failures": [
+    {
+      "job": "PathMNISTLT_IF10_base",
+      "phase": "zero_update_preflight",
+      "error_type": "ValueError",
+      "error": "Image escapes root",
+      "error_site": "run_prototype_single.Images.__getitem__",
+      "first_teacher_feature_extraction": true,
+      "adapter_updates": 0,
+      "gpu": 0,
+      "returncode": 1,
+      "residence_seconds": 17.382635260932148
+    },
+    {
+      "job": "PathMNISTLT_IF10_local_transport",
+      "phase": "zero_update_preflight",
+      "error_type": "ValueError",
+      "error": "Image escapes root",
+      "error_site": "run_prototype_single.Images.__getitem__",
+      "first_teacher_feature_extraction": true,
+      "adapter_updates": 0,
+      "gpu": 1,
+      "returncode": 1,
+      "residence_seconds": 17.454297573771328
+    }
+  ]
+}

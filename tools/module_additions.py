@@ -6,7 +6,9 @@ from torch.nn import functional as F
 
 import prototype_coherent as native
 
-ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout')
+ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary')
+REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary')
+STAT_ARMS = ('local_residual','local_auxiliary')
 # Research groupings from class names, not a validated clinical ontology.
 FAMILIES = {
     'ISIC': {0:'melanocytic', 1:'melanocytic', 2:'keratinocytic',
@@ -30,7 +32,7 @@ def metric(bank, arm, dataset, seen, local=None):
             ids = [i for i,c in enumerate(seen) if families[c] == family]
             if len(ids) > 1:
                 extra.append(F.normalize(bank['mu'][ids].mean(0), dim=0))
-    if arm in ('local', 'local_transport', 'local_readout'):
+    if arm=='local' or arm in REGIONAL_ARMS:
         if local is None or local.shape != (len(seen),4,bank['mu'].shape[1]):
             raise ValueError('Missing current/old local aggregate statistics')
         extra = [v/2 for v in F.normalize(local, dim=-1).reshape(-1,local.shape[-1])]

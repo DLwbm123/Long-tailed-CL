@@ -1,0 +1,139 @@
+{
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "expected_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "campaign": "module_residual3_20261010",
+  "authorization": "User authorized autonomous improvement after complete public delivery",
+  "evidence_commit": "4b6e0c87887b101ae2970738919760f00e19726e",
+  "baseline": "Original static_pc from first round; regional transport from second round is historical global-path control; both reused exactly",
+  "modules": [
+    "base_reused",
+    "transport_reused",
+    "local_auxiliary",
+    "local_residual"
+  ],
+  "formal_trajectories": 4,
+  "total_formal_updates": 1288,
+  "priority": [
+    "local_auxiliary",
+    "local_residual"
+  ],
+  "native_preflights": [
+    "ISIC_local_auxiliary",
+    "HK_local_auxiliary",
+    "ISIC_local_residual",
+    "HK_local_residual"
+  ],
+  "preflight_adapter_updates": 0,
+  "campaign_wall_hours": 24,
+  "prior_closed_gpu_residence_seconds": 110136.83341684146,
+  "local_projection_width_per_region": 64,
+  "local_projection_seed": 130,
+  "local_dim": 256,
+  "local_ridge": 0.001,
+  "local_readout_scale": 1,
+  "independent_confirmation": false,
+  "evaluation": "Four TRAINED with frozen counts before development evaluation; each new global per-class recall must match historical regional transport in all stages; residual/auxiliary global class recalls must also match each other",
+  "module_definitions": {
+    "local_auxiliary": "Mechanism control: same region transport/prior/global training, plus class-balanced projected local ridge head fitting labels; omit local-global cross prediction subtraction.",
+    "local_residual": "Candidate: same exact feature statistics and training, local ridge targets labels minus original global predictions using local-global cross moments. No validation amplitude selection."
+  },
+  "sufficient_statistics": [
+    "per-class weighted local/global means",
+    "per-class local second moments",
+    "per-class local-global cross moments"
+  ],
+  "joint_transport": "Exact affine moment formulas for stored statistics under existing global common shift and current class-balanced per-region shift; actual old-class drift remains approximate",
+  "finish": "Audit, full positive/negative comparisons, proxy push, anonymous HTTP access and NAS receipt before next scientific cycle; retain hourly monitor until frozen development goal and new-seed confirmation or explicit user stop"
+}

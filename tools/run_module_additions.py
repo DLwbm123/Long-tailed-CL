@@ -14,6 +14,7 @@ from torch.utils.data import DataLoader
 import core1_competition as competition
 import edge_competition as edge
 import module_additions as modules
+import local_residual
 import prototype_coherent as method
 from lt_benchmark import benchmark_metrics, task_blocks
 from run_multilabel import ApartFeatures
@@ -29,6 +30,8 @@ def run(config):
     if arm not in modules.ARMS: raise ValueError('Unknown module')
     if arm=='local_readout' and config.get('local_readout_weight')!=.25:
         raise ValueError('Frozen local readout amplitude differs')
+    if arm in modules.STAT_ARMS and (config.get('local_projection_width')!=64 or config.get('local_projection_seed')!=130 or config.get('local_ridge')!=.001):
+        raise ValueError('Frozen residual readout configuration differs')
     controller = edge.Controller('static_pc', config['seed'])
     train, val = manifests(config)
     output.mkdir(parents=True)
@@ -71,6 +74,8 @@ def run(config):
         bank = method.empty(encoder.dim, 'cuda')
         seen, diagnostics = [], []
         local_bank = None
+        local_statistics = None
+        projection = local_residual.projection(encoder.dim).to('cuda') if arm in modules.STAT_ARMS else None
         for task, classes in enumerate(tasks, 1):
             budget(); old_count = len(seen); seen += classes
             rows = [r for r in train if r['label'] in classes]
@@ -99,7 +104,7 @@ def run(config):
                 shift = common_shift(before[fit_ids], current[fit_ids], y[fit_ids])
                 old = method.translate(bank, shift)
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
-                local_shift = common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in ('local_transport','local_readout') else shift
+                local_shift = common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in modules.REGIONAL_ARMS else shift
                 local_candidate = modules.local_memory(local_bank, local_shift, current_local[fit_ids] if current_local is not None else None, y[fit_ids])
                 native_head, metric, activation = modules.head(candidate, arm, config['name'], seen, local_candidate)
                 base_pairs = competition.competition(candidate, native_head)
@@ -149,6 +154,11 @@ def run(config):
                                 local_readout_max_abs=float(score.abs().max()),local_readout_weight=config['local_readout_weight'])
                             if not readout_check['local_readout_shape_valid'] or readout_check['local_readout_max_abs']>1+1e-6:
                                 raise ValueError('Native local readout check failed')
+                        if arm in modules.STAT_ARMS:
+                            z_local=local_residual.project(current_local[fit_ids],projection)
+                            stats=local_residual.append(local_residual.empty(encoder.dim,z_local.shape[1],'cuda'),
+                                current[fit_ids],z_local,y[fit_ids],weights)
+                            _,readout_check=local_residual.head(stats,head.float().double(),arm=='local_residual')
                         save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim, **readout_check,
                             adapter_updates=0, policy_updates=controller.updates, task=task, epoch=epoch,
                             gradient_norm=float(norm), loss=float(loss.detach()), controller=audit, activation=activation,
@@ -165,7 +175,7 @@ def run(config):
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, arm=config['method'],
                     fit_n=len(fit_ids), meta_n=len(meta_ids), controller=audit, activation=activation,
                     history_rank=updates.rank, learning_rate_multiplier=updates.multiplier,
-                    local_transport_norm=float(local_shift.norm()) if arm in ('local_transport','local_readout') else 0.,
+                    local_transport_norm=float(local_shift.norm()) if arm in modules.REGIONAL_ARMS else 0.,
                     max_batch_solve_residual=max(solves), prototype_count=len(candidate['components']),
                     mean_fit_loss=float(np.mean(losses, axis=0)[0]),
                     mean_pair_loss=float(np.mean(losses, axis=0)[1]),
@@ -187,9 +197,9 @@ def run(config):
             # Match the existing protocol: meta joins the task-end refit, never independent validation.
             shift = common_shift(before, current, y)
             old = method.translate(bank, shift)
-            local_shift=common_shift(before_local,current_local,y) if arm in ('local_transport','local_readout') else shift
+            local_shift=common_shift(before_local,current_local,y) if arm in modules.REGIONAL_ARMS else shift
             local_bank = modules.local_memory(local_bank, local_shift, current_local, y)
-            if arm in ('local_transport','local_readout'):
+            if arm in modules.REGIONAL_ARMS:
                 diagnostics[-1]['boundary_local_transport_norm']=float(local_shift.norm())
             all_weights = method.sample_weights(y, group, difficulty, zeros)
             bank = method.append(old, current, y, group, all_weights)
@@ -201,6 +211,17 @@ def run(config):
             pairs = edge.allocation(base_pairs, state, selected.to(base_pairs))
             head, solve = competition.bank_head(bank, pairs, regularizer=metric)
             max_residual = max(max_residual, solve['relative_residual'])
+            extra_state={}
+            if arm in modules.STAT_ARMS:
+                z_local=local_residual.project(current_local,projection)
+                if local_statistics is None:
+                    local_statistics=local_residual.empty(encoder.dim,z_local.shape[1],'cuda')
+                moved=local_residual.translate(local_statistics,shift,local_residual.project(local_shift[None],projection)[0])
+                local_statistics=local_residual.append(moved,current,z_local,y,all_weights)
+                local_head,local_audit=local_residual.head(local_statistics,head.float().double(),arm=='local_residual')
+                diagnostics[-1]['readout_module']=local_audit
+                extra_state=dict(local_head=local_head.cpu(),local_projection=projection.cpu(),
+                    local_statistics={k:v.cpu() if torch.is_tensor(v) else v for k,v in local_statistics.items()})
             diagnostics[-1]['boundary_competition'] = dict(selected_coefficients=selected.tolist(),
                 base_pairs=base_pairs.tolist(), selected_pairs=pairs.tolist(), solve=solve,
                 refit_uses_all_current_training=True, new_policy_updates=0)
@@ -210,7 +231,7 @@ def run(config):
                 actor=controller.parameter.detach(), selected_coefficients=selected,
                 steps=steps, boundary_pair_weights=pairs.cpu(),
                 model={k:v.detach().cpu() for k,v in encoder.state_dict().items()},
-                module=arm, module_memory=None if local_bank is None else local_bank.cpu()), output/f'stage_{task}.pt')
+                module=arm, module_memory=None if local_bank is None else local_bank.cpu(),**extra_state), output/f'stage_{task}.pt')
             del teacher, inverse, cross, candidate, old
         if steps != config['expected_steps']:
             raise ValueError('Training updates differ from frozen matched baseline')
@@ -238,16 +259,19 @@ def evaluate(config):
         rows=[r for r in val if r['label'] in seen]
         loader=DataLoader(Images(rows,config['images'],transform(False),seed+task*100003),
             batch_size=config['batch_size'],num_workers=0,shuffle=False)
-        if config['module']=='local_readout':
+        if config['module']=='local_readout' or config['module'] in modules.STAT_ARMS:
             x,labels,parts=modules.extract(encoder,loader,budget,True)
             global_score=x @ state['head'].to(x)
-            local_score=modules.local_scores(parts,state['module_memory'].to(parts))
-            scores=global_score+config['local_readout_weight']*local_score
+            if config['module']=='local_readout':
+                local_score=modules.local_scores(parts,state['module_memory'].to(parts));weight=config['local_readout_weight']
+            else:
+                local_score=local_residual.project(parts,state['local_projection'].to(parts)) @ state['local_head'].to(parts);weight=1.
+            scores=global_score+weight*local_score
             global_pred=np.asarray(seen)[global_score.argmax(1).cpu().numpy()]
             global_labels=labels.cpu().numpy()
             local_audit=dict(global_per_class_recall={str(c):float((global_pred[global_labels==c]==c).mean()) for c in seen},
                 local_score_rms=float(local_score.square().mean().sqrt()),
-                readout_weight=config['local_readout_weight'],
+                readout_weight=weight,
                 readout_changed_predictions_n=int((scores.argmax(1)!=global_score.argmax(1)).sum()))
             pred=np.asarray(seen)[scores.argmax(1).cpu().numpy()];labels=labels.cpu().numpy()
         else:
@@ -272,6 +296,11 @@ def evaluate(config):
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')
         metrics['historical_baseline_recalls_equal']=True
+    if config['module'] in modules.STAT_ARMS:
+        reference=json.loads(Path(config['historical_global_control']).read_text())
+        if len(reports)!=len(reference['stages']) or any(a['global_per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,reference['stages'])):
+            raise ValueError('Global analytical path differs from historical regional transport control')
+        metrics['historical_global_control_equal']=True
     save(output/'metrics.json',metrics)
     status=json.loads((output/'STATUS.json').read_text());status.update(status='COMPLETE',evaluation_seconds=time.monotonic()-started)
     save(output/'STATUS.json',status)

@@ -23,6 +23,8 @@ from run_prototype_single import Images, extract, manifests, save
 
 
 def run(config):
+    if config.get('checkpoint_root'):
+        raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
     if output.exists():
         raise ValueError('Fresh output required; preserve all previous attempts')
@@ -241,6 +243,40 @@ def run(config):
         status(status='INCOMPLETE', error=str(exc)); raise
 
 
+def refit(config):
+    output=Path(config['output'])
+    if output.exists():raise ValueError('Fresh conditional output required')
+    if config.get('conditional_ridge')!=.001 or config['module']!='local_residual':
+        raise ValueError('Frozen conditional readout differs')
+    output.mkdir(parents=True);save(output/'INPUT.private.json',config)
+    torch.set_num_threads(4)
+    started=time.monotonic();audits=[]
+    try:
+        for task in range(1,len(config['task_sizes'])+1):
+            if time.time()>=config['original_deadline']:raise TimeoutError('Campaign deadline')
+            state=torch.load(Path(config['checkpoint_root'])/f'stage_{task}.pt',map_location='cpu',weights_only=False)
+            if state['module']!='local_residual' or state['seen']!=config['order'][:sum(config['task_sizes'][:task])]:
+                raise ValueError('Frozen checkpoint module/order mismatch')
+            if task==len(config['task_sizes']) and state['steps']!=config['expected_source_steps']:
+                raise ValueError('Frozen source adapter budget differs')
+            W=state['head'].double().cuda()
+            stats={k:v.cuda() if torch.is_tensor(v) else v for k,v in state['local_statistics'].items()}
+            global_bank={k:state['bank'][k].cuda() for k in ('mu','Q')};global_bank['n']=state['bank']['n']
+            raw,_=local_residual.head(stats,W,True)
+            raw_reference=state['local_head'].to(raw)
+            raw_error=float((raw-raw_reference).norm()/raw_reference.norm().clamp_min(1e-12))
+            if raw_error>1e-8:raise ValueError('Frozen raw residual head reconstruction differs')
+            A,B,audit=local_residual.conditioned_head(global_bank,stats,W)
+            save(output/'STATUS.json',dict(status='RUNNING',phase='REFIT',task=task,steps=0,policy_updates=0))
+            torch.save(dict(conditioning=A.cpu(),local_head=B.cpu()),output/f'conditional_{task}.pt')
+            audits.append(dict(task=task,source_adapter_updates=state['steps'],raw_head_relative_error=raw_error,**audit))
+        save(output/'diagnostics.json',audits)
+        save(output/'STATUS.json',dict(status='READY',steps=0,policy_updates=0,adapter_updates=0,
+            elapsed_seconds=time.monotonic()-started,max_solve_residual=max(a['relative_residual'] for a in audits),stages=len(audits)))
+    except BaseException as exc:
+        save(output/'STATUS.json',dict(status='INCOMPLETE',steps=0,policy_updates=0,error=str(exc)));raise
+
+
 def evaluate(config):
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
@@ -254,7 +290,7 @@ def evaluate(config):
     ranked=sorted(config['order'],key=lambda c:(-sum(r['label']==c for r in train),c));tail=set(ranked[len(ranked)//2:])
     reports=[]
     for task in range(1,len(tasks)+1):
-        budget();state=torch.load(output/f'stage_{task}.pt',map_location='cpu',weights_only=False)
+        budget();state=torch.load(Path(config.get('checkpoint_root',output))/f'stage_{task}.pt',map_location='cpu',weights_only=False)
         encoder.load_state_dict(state['model'],strict=True);seen=state['seen'];encoder.eval()
         rows=[r for r in val if r['label'] in seen]
         loader=DataLoader(Images(rows,config['images'],transform(False),seed+task*100003),
@@ -265,7 +301,12 @@ def evaluate(config):
             if config['module']=='local_readout':
                 local_score=modules.local_scores(parts,state['module_memory'].to(parts));weight=config['local_readout_weight']
             else:
-                local_score=local_residual.project(parts,state['local_projection'].to(parts)) @ state['local_head'].to(parts);weight=1.
+                projected=local_residual.project(parts,state['local_projection'].to(parts))
+                if config.get('checkpoint_root'):
+                    fitted=torch.load(output/f'conditional_{task}.pt',map_location='cpu',weights_only=False)
+                    local_score=(projected-global_score @ fitted['conditioning'].to(parts)) @ fitted['local_head'].to(parts)
+                else:local_score=projected @ state['local_head'].to(parts)
+                weight=1.
             scores=global_score+weight*local_score
             global_pred=np.asarray(seen)[global_score.argmax(1).cpu().numpy()]
             global_labels=labels.cpu().numpy()
@@ -309,4 +350,5 @@ def evaluate(config):
 if __name__ == '__main__':
     config=json.load(sys.stdin)
     if config.get('operation')=='evaluate':evaluate(config)
+    elif config.get('operation')=='refit':refit(config)
     else:run(config)

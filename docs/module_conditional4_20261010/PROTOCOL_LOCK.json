@@ -1,0 +1,126 @@
+{
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "campaign": "module_conditional4_20261010",
+  "hypothesis": "Target residualization alone leaves locally encoded global class-score signal; condition local features on frozen global scores before fitting the same target residual",
+  "evidence_commit": "2013dbdce47d87d4144f77ce697261c98bb0aef8",
+  "reused_training_source_commit": "b407d46d7a179c491f9d36b7fe89d203207dbf6a",
+  "baseline": "Original matched static_pc; raw residual mechanism control from round3; both reused",
+  "modules": [
+    "base_reused",
+    "local_residual_reused",
+    "local_conditional"
+  ],
+  "new_formal_trajectories": 2,
+  "total_formal_adapter_updates": 0,
+  "policy_updates": 0,
+  "checkpoint_refit_checks": 2,
+  "refit_evaluation_barrier": "Both datasets/all frozen stages reconstructed, finite conditional solves and READY with zero updates before any development evaluation",
+  "source_adapter_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "source_adapter_updates_reused_not_charged": true,
+  "local_dim": 256,
+  "projection_seed": 130,
+  "projection_width_per_region": 64,
+  "conditioning_ridge": 0.001,
+  "local_ridge": 0.001,
+  "readout_scale": 1,
+  "campaign_wall_hours": 24,
+  "prior_closed_gpu_residence_seconds": 117953.11094626039,
+  "expected_successful_subprocess_cost_records": 4,
+  "independent_confirmation": false,
+  "checkpoint_reuse": "Read-only round3 local_residual checkpoints and sufficient statistics on NAS; no old sample feature replay or new feature collection for fitting",
+  "fitting": "v=xW; A=(E[vv^T]+.001I)^-1 E[vz^T]; u=z-vA; B=(E[uu^T]+.001I)^-1 E[u(Y-v)^T]; prediction v+uB",
+  "evaluation": "Every new global per-class recall exactly equals historical transport all stages, source raw residual heads reconstructed with relative error <=1e-8; original test/reserved sealed",
+  "finish": "Full positive/negative six-metric comparisons, class n/recall, activation and costs, proxy public delivery before another scientific round"
+}

@@ -50,6 +50,23 @@ def run(config):
         for t in threads:t.join()
         return not state['failures']
     write()
+    if config.get('frozen_checkpoint_refit'):
+        state['phase']='REFIT';write()
+        if phase(config['jobs'],'refit'):
+            for job in config['jobs']:
+                s=json.loads((Path(job['output'])/'STATUS.json').read_text())
+                if s['status']!='READY' or s['steps']!=0 or s['policy_updates']!=0:
+                    raise ValueError('Incomplete zero-update refit barrier')
+            state['phase']='EVALUATE';state['training_sealed_at']=time.time();write()
+            if phase(config['jobs'],'evaluate'):
+                for job in config['jobs']:
+                    s=json.loads((Path(job['output'])/'STATUS.json').read_text())
+                    m=json.loads((Path(job['output'])/'metrics.json').read_text())
+                    if s['status']!='COMPLETE' or s['steps']!=0 or not m['historical_global_control_equal']:
+                        raise ValueError('Incomplete frozen-checkpoint evaluation')
+                state['historical_global_controls_equal']=True
+                state['status']='COMPLETE';state['phase']='AWAIT_PUBLIC_DELIVERY';state['ended']=time.time();write();return
+        state['status']='INCOMPLETE';state['phase']='STOPPED_DEPENDENCIES';state['ended']=time.time();write();return
     if phase(config['preflights'],'train'):
         state['phase']='TRAIN';write()
         if phase(config['jobs'],'train'):

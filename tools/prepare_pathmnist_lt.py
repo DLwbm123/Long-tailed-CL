@@ -16,24 +16,27 @@ from PIL import Image
 from run_module_cycle import save
 
 
-def counts(rank):
+def counts(rank,imbalance_factor=100,n_max=5000):
     if sorted(rank)!=list(range(9)):
         raise ValueError('Nine distinct classes required')
-    return {c:math.floor(5000*100**(-i/8)) for i,c in enumerate(rank)}
+    if imbalance_factor not in (1,10,50,100) or n_max<=0:
+        raise ValueError('Unsupported frozen sampling profile')
+    return {c:math.floor(n_max*imbalance_factor**(-i/8)) for i,c in enumerate(rank)}
 
 
-def select(labels,rank):
+def select(labels,rank,imbalance_factor=100,n_max=5000):
     labels=np.asarray(labels).reshape(-1)
     if set(labels.tolist())!=set(range(9)):
         raise ValueError('Source class coverage differs')
     result=[]
-    for c,n in counts(rank).items():
+    target=counts(rank,imbalance_factor,n_max)
+    for c,n in target.items():
         available=np.flatnonzero(labels==c).tolist()
         if len(available)<n:
             raise ValueError('Source cannot supply frozen count; no clipping or replacement')
         random.Random(74002+c*2003).shuffle(available)
         result.extend(available[:n])
-    assert len(result)==11358 and len(set(result))==len(result)
+    assert len(result)==sum(target.values()) and len(set(result))==len(result)
     return sorted(result)
 
 

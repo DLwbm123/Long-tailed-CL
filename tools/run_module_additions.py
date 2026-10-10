@@ -36,9 +36,13 @@ def official_cifar(config):
 
 def synthetic_path(config):
     if config['name']=='PathMNISTLT':
+        profile=config.get('path_profile')
+        valid_profile=(config.get('imbalance_factor')==100 if profile is None else
+            (config.get('imbalance_factor'),config.get('n_max'))==
+            {'IF10':(10,5000),'IF50':(50,5000),'BALANCED11358':(1,1262)}.get(profile))
         if (config.get('synthetic_path_authorized') is not True or
                 config.get('evaluation_split')!='official_validation' or
-                config.get('image_size')!=224 or config.get('imbalance_factor')!=100):
+                config.get('image_size')!=224 or not valid_profile):
             raise ValueError('Frozen PathMNIST training/validation protocol required')
         return True
     if config.get('synthetic_path_authorized'):

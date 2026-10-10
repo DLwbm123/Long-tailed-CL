@@ -32,8 +32,10 @@ def run(config):
     if arm not in modules.ARMS: raise ValueError('Unknown module')
     if arm in modules.SUPERVISED_ARMS and (config.get('local_class_weight')!=1. or config.get('local_class_temperature')!=1.):
         raise ValueError('Frozen local classification objective differs')
-    if arm=='local_normalized' and config.get('local_class_normalization')!='current':
+    if arm in ('local_normalized','local_projected') and config.get('local_class_normalization')!='current':
         raise ValueError('Frozen local normalization differs')
+    if arm=='local_projected' and config.get('local_gradient_projection')!='one_sided_original':
+        raise ValueError('Frozen gradient projection differs')
     if arm=='local_readout' and config.get('local_readout_weight')!=.25:
         raise ValueError('Frozen local readout amplitude differs')
     if arm in modules.STAT_ARMS and (config.get('local_projection_width')!=64 or config.get('local_projection_seed')!=130 or config.get('local_ridge')!=.001):
@@ -120,6 +122,7 @@ def run(config):
                 max_residual = max(max_residual, audit['max_solve_residual'])
                 inverse, cross = method.proximal_base(old, metric, len(seen))
                 losses, solves, local_losses, local_gradients = [], [], [], []
+                projection_audits=[]
                 status(status='RUNNING', phase='train', task=task, epoch=epoch)
                 for x, labels, indices in training:
                     budget()
@@ -150,12 +153,22 @@ def run(config):
                     fd = (z-reference_z).square().sum(1).mean()
                     loss = fit+pair+old_loss+ridge+proximal+10.*fd
                     if arm in modules.SUPERVISED_ARMS:
-                        local_alpha=modules.current_class_alpha(alpha,len(seen),len(classes)) if arm=='local_normalized' else alpha
+                        local_alpha=modules.current_class_alpha(alpha,len(seen),len(classes)) if arm in ('local_normalized','local_projected') else alpha
                         local_loss=modules.local_class_loss(train_parts,local_candidate,lookup[labels],local_alpha,arm=='local_detached')
+                        original_loss=loss
                         loss=loss+local_loss
                     if not torch.isfinite(loss):
                         raise ValueError('Nonfinite edge training objective')
-                    loss.backward()
+                    projection_audit={}
+                    if arm=='local_projected':
+                        parameters=[p for p in encoder.parameters() if p.requires_grad]
+                        original_gradients=list(torch.autograd.grad(original_loss,parameters,retain_graph=True,allow_unused=True))
+                        values=torch.autograd.grad(local_loss,parameters+[train_parts],allow_unused=True)
+                        combined,projection_audit=modules.project_local_gradients(original_gradients,list(values[:-1]))
+                        for parameter,gradient in zip(parameters,combined):parameter.grad=gradient
+                        train_parts.grad=values[-1]
+                        projection_audits.append(projection_audit)
+                    else:loss.backward()
                     if arm in modules.SUPERVISED_ARMS:
                         local_grad=0. if train_parts.grad is None else float(train_parts.grad.norm())
                         if not np.isfinite(local_grad) or (arm=='local_detached' and local_grad!=0.) or (arm!='local_detached' and local_grad<=0.):
@@ -169,7 +182,7 @@ def run(config):
                         if arm in modules.SUPERVISED_ARMS:
                             readout_check=dict(local_class_loss=float(local_loss.detach()),local_feature_gradient_norm=local_grad,
                                 local_gradient_enabled=arm!='local_detached',local_class_weight=1.,local_class_temperature=1.,
-                                local_normalization_factor=len(seen)/len(classes) if arm=='local_normalized' else 1.)
+                                local_normalization_factor=len(seen)/len(classes) if arm in ('local_normalized','local_projected') else 1.)
                         if arm=='local_readout':
                             score=modules.local_scores(current_local[fit_ids[:len(x)]],local_candidate)
                             readout_check=dict(local_readout_shape_valid=score.shape==(len(x),len(seen)),
@@ -181,7 +194,7 @@ def run(config):
                             stats=local_residual.append(local_residual.empty(encoder.dim,z_local.shape[1],'cuda'),
                                 current[fit_ids],z_local,y[fit_ids],weights)
                             _,readout_check=local_residual.head(stats,head.float().double(),arm=='local_residual')
-                        save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim, **readout_check,
+                        save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim, gradient_projection=projection_audit, **readout_check,
                             adapter_updates=0, policy_updates=controller.updates, task=task, epoch=epoch,
                             gradient_norm=float(norm), loss=float(loss.detach()), controller=audit, activation=activation,
                             batch_solve=solve, batch_n=len(x), peak_gpu_bytes=torch.cuda.max_memory_allocated()))
@@ -206,8 +219,18 @@ def run(config):
                     diagnostics[-1]['local_supervision']=dict(local_gradient_enabled=arm!='local_detached',
                         mean_local_class_loss=float(np.mean(local_losses)),mean_local_feature_gradient_norm=float(np.mean(local_gradients)),
                         local_class_weight=1.,local_class_temperature=1.,extra_trainable_head_parameters=0,
-                        local_normalization_factor=len(seen)/len(classes) if arm=='local_normalized' else 1.,
+                        local_normalization_factor=len(seen)/len(classes) if arm in ('local_normalized','local_projected') else 1.,
                         local_current_classes=len(classes),local_seen_classes=len(seen))
+                if arm=='local_projected':
+                    diagnostics[-1]['gradient_projection']=dict(
+                        batches=len(projection_audits),conflict_batches=sum(a['conflict'] for a in projection_audits),
+                        conflict_fraction=float(np.mean([a['conflict'] for a in projection_audits])),
+                        mean_original_gradient_norm=float(np.mean([a['original_gradient_norm'] for a in projection_audits])),
+                        mean_auxiliary_gradient_norm=float(np.mean([a['auxiliary_gradient_norm'] for a in projection_audits])),
+                        mean_original_local_dot_before=float(np.mean([a['original_local_dot_before'] for a in projection_audits])),
+                        min_original_local_dot_after=min(a['original_local_dot_after'] for a in projection_audits),
+                        mean_projection_removed_norm=float(np.mean([a['projection_removed_norm'] for a in projection_audits])),
+                        max_direction_tolerance=max(a['direction_tolerance'] for a in projection_audits))
                 save(output/'diagnostics.json', diagnostics)
             if arm == 'fusion' and task > 1:
                 status(status='RUNNING', phase='current_task_curvature', task=task)

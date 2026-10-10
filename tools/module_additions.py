@@ -6,9 +6,9 @@ from torch.nn import functional as F
 
 import prototype_coherent as native
 
-ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary', 'local_detached', 'local_supervised','local_normalized')
-REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary','local_detached','local_supervised','local_normalized')
-SUPERVISED_ARMS = ('local_detached','local_supervised','local_normalized')
+ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary', 'local_detached', 'local_supervised','local_normalized','local_projected')
+REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary','local_detached','local_supervised','local_normalized','local_projected')
+SUPERVISED_ARMS = ('local_detached','local_supervised','local_normalized','local_projected')
 STAT_ARMS = ('local_residual','local_auxiliary')
 # Research groupings from class names, not a validated clinical ontology.
 FAMILIES = {
@@ -137,6 +137,66 @@ def current_class_alpha(alpha, seen_count, current_count):
     if not 0<current_count<=seen_count:
         raise ValueError('Invalid current/seen class counts')
     return alpha*(seen_count/current_count)
+
+
+
+def project_local_gradients(original, auxiliary):
+    """One-sided projection of auxiliary gradients; AdamW steps have no descent guarantee."""
+    if len(original)!=len(auxiliary):raise ValueError('Gradient lists differ')
+    exemplar=next((g for g in original+auxiliary if g is not None),None)
+    if exemplar is None:raise ValueError('No gradients')
+    zero=torch.zeros((),dtype=torch.float64,device=exemplar.device)
+    dot=zero.clone();original_sq=zero.clone();local_sq=zero.clone()
+    for g,h in zip(original,auxiliary):
+        if g is not None:
+            if not torch.isfinite(g).all():raise ValueError('Nonfinite original gradient')
+            original_sq+=g.double().square().sum()
+        if h is not None:
+            if not torch.isfinite(h).all():raise ValueError('Nonfinite auxiliary gradient')
+            local_sq+=h.double().square().sum()
+        if g is not None and h is not None:
+            if g.shape!=h.shape:raise ValueError('Gradient shapes differ')
+            dot+=(g.double()*h.double()).sum()
+    coefficient=dot/original_sq if dot<0 and original_sq>0 else zero
+    combined=[];after=zero.clone();removed_sq=zero.clone()
+    for g,h in zip(original,auxiliary):
+        if g is None and h is None:combined.append(None);continue
+        a=torch.zeros_like(h) if g is None else g
+        b=torch.zeros_like(g) if h is None else h
+        projected=b-coefficient.to(a)*a
+        combined.append(a+projected)
+        after+=(a.double()*projected.double()).sum()
+        removed_sq+=(projected.double()-b.double()).square().sum()
+    tolerance=1e-6*max(float((original_sq*local_sq).sqrt()),1e-12)
+    if not torch.isfinite(after) or float(after)<-tolerance:raise ValueError('Projection direction check failed')
+    return combined,dict(conflict=bool(dot<0),original_gradient_norm=float(original_sq.sqrt()),
+        auxiliary_gradient_norm=float(local_sq.sqrt()),original_local_dot_before=float(dot),
+        original_local_dot_after=float(after),projection_removed_norm=float(removed_sq.sqrt()),
+        projection_coefficient=float(coefficient),direction_tolerance=tolerance)
+
+
+def projected_self_check():
+    for dtype in (torch.float32,torch.float64):
+        g=[torch.tensor([1.,0.],dtype=dtype),None]
+        h=[torch.tensor([-2.,3.],dtype=dtype),torch.tensor([4.],dtype=dtype)]
+        combined,audit=project_local_gradients(g,h)
+        assert torch.equal(combined[0],torch.tensor([1.,3.],dtype=dtype)) and audit['conflict'] and audit['original_local_dot_after']==0
+        assert torch.equal(combined[1],h[1])
+        h[0]=torch.tensor([2.,3.],dtype=dtype)
+        combined,audit=project_local_gradients(g,h)
+        assert torch.equal(combined[0],g[0]+h[0]) and not audit['conflict'] and audit['projection_removed_norm']==0
+        combined,audit=project_local_gradients([torch.zeros(2,dtype=dtype)],[h[0]])
+        assert torch.equal(combined[0],h[0]) and audit['projection_coefficient']==0
+    p=torch.tensor([1.,2.],dtype=torch.float64,requires_grad=True)
+    expected=torch.autograd.grad(p.square().sum()+3*p.sum(),p,retain_graph=True)[0]
+    original=torch.autograd.grad(p.square().sum(),[p],retain_graph=True)
+    auxiliary=torch.autograd.grad(3*p.sum(),[p])
+    actual,_=project_local_gradients(list(original),list(auxiliary))
+    assert torch.equal(actual[0],expected)
+    try:project_local_gradients([torch.tensor([float('nan')])],[torch.ones(1)])
+    except ValueError:pass
+    else:raise AssertionError('Nonfinite gradient accepted')
+    return dict(status='PASS',conflict_component_removed=True,nonconflict_sum_equal=True,zero_original_supported=True,unused_parameters_supported=True,separate_autograd_matches_total=True,float32_float64_direction_checked=True)
 
 
 def normalized_self_check():

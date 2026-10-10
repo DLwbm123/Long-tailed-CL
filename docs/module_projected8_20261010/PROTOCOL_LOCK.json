@@ -1,0 +1,140 @@
+{
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "campaign": "module_projected8_20261010",
+  "evidence_commit": "df3868fceeaa1932e825d4217a58856f7a452ead",
+  "hypothesis": "Larger current-normalized local gradient harms both datasets; test whether removing only its negative inner-product component against the original objective gradient improves classification, without sweeping loss strength",
+  "modules": [
+    "base_reused",
+    "local_normalized_reused",
+    "local_projected"
+  ],
+  "new_formal_trajectories": 2,
+  "total_formal_adapter_updates": 644,
+  "policy_updates": 0,
+  "preflight_checks": 2,
+  "expected_steps": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "local_class_weight": 1.0,
+  "local_class_temperature": 1.0,
+  "local_class_normalization": "current",
+  "local_normalization_factors": {
+    "ISIC": [
+      1,
+      3,
+      4
+    ],
+    "HK": [
+      1,
+      7.5,
+      8.5,
+      9.5,
+      10.5,
+      11.5
+    ]
+  },
+  "extra_trainable_head_parameters": 0,
+  "extra_inference_score_terms": 0,
+  "training_loss": "Same L_original and current-normalized local CE as round7; g=g0+gl if dot>=0, otherwise g=g0+gl-(dot/||g0||\u00b2)g0; one original optimizer step per batch",
+  "comparison": "Reuse original static_pc and round7 normalized control. First task may change because projection can trigger immediately; no historical global/initial-task equality check for this candidate",
+  "evaluation_barrier": "Two true zero-update backward preflights PASS, then both TRAINED with steps468/176 and policy0 before EVALUATE",
+  "prior_closed_gpu_residence_seconds": 130144.70913926978,
+  "campaign_wall_hours": 24,
+  "expected_successful_subprocess_cost_records": 6,
+  "independent_confirmation": false,
+  "finish": "Publish all positive/negative and failed results, audits and cumulative cost via proxy GitHub and NAS before another round",
+  "local_gradient_projection": "one_sided_original",
+  "projection_dot_accumulation": "float64; project and add in parameter gradient dtype",
+  "direction_check": "dot(g0,projected_gl) >= -1e-6*max(||g0||*||gl||,1e-12); fail closed",
+  "optimizer": "Original AdamW and gradient clip=5 unchanged; raw-gradient direction algebra is not an AdamW descent or recall guarantee"
+}

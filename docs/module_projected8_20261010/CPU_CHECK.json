@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "checks": {
+    "supervised_self_check": {
+      "status": "PASS",
+      "detached_global_gradients_equal": true,
+      "supervised_token_gradients_finite_nonzero": true,
+      "extra_trainable_head_parameters": 0
+    },
+    "normalized_self_check": {
+      "status": "PASS",
+      "initial_task_weights_equal": true,
+      "current_class_mass_equal": true,
+      "expected_auxiliary_mass_one": true,
+      "gradient_scale_matches_normalization": true
+    },
+    "projected_self_check": {
+      "status": "PASS",
+      "conflict_component_removed": true,
+      "nonconflict_sum_equal": true,
+      "zero_original_supported": true,
+      "unused_parameters_supported": true,
+      "separate_autograd_matches_total": true,
+      "float32_float64_direction_checked": true
+    }
+  },
+  "cpu_wall_seconds": 1.1027322853915393
+}

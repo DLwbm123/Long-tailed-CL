@@ -1,0 +1,124 @@
+{
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "campaign": "module_supervised6_20261010",
+  "evidence_commit": "0849058e0939af6b640dab048ef35ba8dbdce3c4",
+  "hypothesis": "Local class association is lost by the shared quadratic prior, while post-hoc square-risk score fitting mismatches classification; train adapter local discrimination by current-label cross entropy, contrast identical stop-gradient local objective, retain existing inference",
+  "modules": [
+    "base_reused",
+    "local_detached",
+    "local_supervised"
+  ],
+  "new_formal_trajectories": 4,
+  "total_formal_adapter_updates": 1288,
+  "policy_updates": 0,
+  "preflight_checks": 4,
+  "expected_steps": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "local_class_weight": 1.0,
+  "local_class_temperature": 1.0,
+  "local_gradient_candidate": true,
+  "local_gradient_control": false,
+  "extra_trainable_head_parameters": 0,
+  "extra_inference_score_terms": 0,
+  "local_prototype_update": "Same class-region transport and 4 local centers as round2 local_transport; loss centers frozen for each epoch and detached",
+  "training_loss": "L_original + sum_i alpha_i CE(mean_4 cosine(region_i,seen_class_centers), current_label_i), alpha_i=N_fit*w_i/(K_seen*batch_n); weight=1 and temperature=1, same as frozen config; global loss and FD10 preserved",
+  "local_auxiliary_support": "Only current fit labels and stored class-level old local centers; meta remains epoch controller source and joins boundary fitting, no auxiliary fit on meta",
+  "comparison": "Candidate vs detached contribution control and original static_pc; detached stage class recall must exactly equal round2 local_transport, fail closed; candidate global equality is not expected because adapter gradient deliberately changes",
+  "evaluation_barrier": "Four genuine zero-update preflights PASS; then all four TRAINED with matched counts before EVALUATE",
+  "prior_closed_gpu_residence_seconds": 118555.99406945473,
+  "campaign_wall_hours": 24,
+  "expected_successful_subprocess_cost_records": 12,
+  "independent_confirmation": false,
+  "finish": "Publish all positives/negatives, failures, audit/cost, GitHub/NAS receipts before subsequent research"
+}

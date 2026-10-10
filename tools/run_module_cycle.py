@@ -68,6 +68,10 @@ def run(config):
                 state['status']='COMPLETE';state['phase']='AWAIT_PUBLIC_DELIVERY';state['ended']=time.time();write();return
         state['status']='INCOMPLETE';state['phase']='STOPPED_DEPENDENCIES';state['ended']=time.time();write();return
     if phase(config['preflights'],'train'):
+        for job in config['preflights']:
+            s=json.loads((Path(job['output'])/'STATUS.json').read_text())
+            if s['status']!='COMPLETE' or s['steps']!=0 or s['policy_updates']!=0:
+                raise ValueError('Incomplete zero-update preflight barrier')
         state['phase']='TRAIN';write()
         if phase(config['jobs'],'train'):
             for job in config['jobs']:
@@ -76,6 +80,10 @@ def run(config):
                     raise ValueError('Incomplete training barrier')
             state['phase']='EVALUATE';state['training_sealed_at']=time.time();write()
             if phase(config['jobs'],'evaluate'):
+                for job in config['jobs']:
+                    s=json.loads((Path(job['output'])/'STATUS.json').read_text())
+                    if s['status']!='COMPLETE' or s['steps']!=job['expected_steps'] or s['policy_updates']!=0:
+                        raise ValueError('Incomplete trained-checkpoint evaluation')
                 for candidate,control in config.get('paired_global_controls',[]):
                     a=json.loads((root/'runs'/candidate/'metrics.json').read_text())
                     b=json.loads((root/'runs'/control/'metrics.json').read_text())

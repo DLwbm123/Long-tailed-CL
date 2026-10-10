@@ -6,8 +6,9 @@ from torch.nn import functional as F
 
 import prototype_coherent as native
 
-ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary')
-REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary')
+ARMS = ('base', 'hierarchy', 'local', 'paced', 'fusion', 'local_transport', 'local_readout', 'local_residual', 'local_auxiliary', 'local_detached', 'local_supervised')
+REGIONAL_ARMS = ('local_transport','local_readout','local_residual','local_auxiliary','local_detached','local_supervised')
+SUPERVISED_ARMS = ('local_detached','local_supervised')
 STAT_ARMS = ('local_residual','local_auxiliary')
 # Research groupings from class names, not a validated clinical ontology.
 FAMILIES = {
@@ -113,6 +114,43 @@ def local_scores(parts, centers):
     scores=torch.einsum('nrd,krd->nk',F.normalize(parts,dim=-1),F.normalize(centers,dim=-1))/parts.shape[1]
     if not torch.isfinite(scores).all():raise ValueError('Nonfinite local readout')
     return scores
+
+
+def forward_local(model, images):
+    capture=[]
+    hook=model.net.backbone.norm.register_forward_hook(lambda m,a,out:capture.append(out))
+    try:
+        global_features=model(images)
+        return global_features,local_parts(capture)
+    finally:
+        hook.remove()
+
+
+def local_class_loss(parts, centers, labels, alpha, detached):
+    if labels.shape!=alpha.shape or labels.shape!=(len(parts),) or not torch.isfinite(alpha).all() or (alpha<0).any():
+        raise ValueError('Invalid local classification weights')
+    scores=local_scores(parts.detach() if detached else parts,centers.detach().to(parts))
+    return (alpha*F.cross_entropy(scores,labels,reduction='none')).sum()
+
+
+def supervised_self_check():
+    generator=torch.Generator().manual_seed(133)
+    tokens=[torch.randn(6,5,4,generator=generator,dtype=torch.float64,requires_grad=True) for _ in range(2)]
+    parts=local_parts(tokens);centers=parts.detach().reshape(3,2,4,8).mean(1)
+    labels=torch.arange(3).repeat_interleave(2);alpha=torch.full((6,),1/6,dtype=torch.float64)
+    active=local_class_loss(parts,centers,labels,alpha,False)
+    inactive=local_class_loss(parts,centers,labels,alpha,True)
+    assert active.item()==inactive.item() and not inactive.requires_grad
+    grads=torch.autograd.grad(active,tokens)
+    assert all(torch.isfinite(g).all() and g.norm()>0 for g in grads)
+    global_loss=sum(t.square().mean() for t in tokens)
+    expected=torch.autograd.grad(global_loss,tokens,retain_graph=True)
+    actual=torch.autograd.grad(global_loss+inactive,tokens)
+    assert all(torch.equal(a,b) for a,b in zip(expected,actual))
+    try:local_class_loss(parts,centers,labels,-alpha,False)
+    except ValueError:pass
+    else:raise AssertionError('Invalid weights accepted')
+    return dict(status='PASS',detached_global_gradients_equal=True,supervised_token_gradients_finite_nonzero=True,extra_trainable_head_parameters=0)
 
 
 class Updates:

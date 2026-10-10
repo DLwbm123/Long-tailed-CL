@@ -1,0 +1,20 @@
+{
+  "authorization": "User noted GPU0/1 are idle; prior direct authorization allows GPU0/1/2 and forbidsGPU3. Use idleGPU0 for the already frozen unstarted candidate, preserve existing GPU2 baseline and medical experiments.",
+  "scientific_source_commit": "b68fdc3d18d4c1cd0de8c893486698d1f3dbbf96",
+  "original_protocol_preserved": true,
+  "change": "Resource-only handoff: original baseline continues on GPU2, existing local_transport candidate starts on GPU0; GPU1 remains available, neverGPU3",
+  "formal_trajectories": 2,
+  "formal_adapter_updates": 552,
+  "seed": 74002,
+  "split_seed": 74002,
+  "expected_steps_per_arm": 276,
+  "original_deadline_preserved": true,
+  "original_training_and_evaluation_barrier_preserved": true,
+  "extra_scientific_trajectories": 0,
+  "baseline_restarts": 0,
+  "candidate_retries": 0,
+  "duplicate_prevention": "Original coordinator future candidate train worker adopts external completion with full queued-config equality, exact276/policy0 barrier, external failure returncode propagation; it never executes candidate training twice",
+  "cost_rule": "Replace only original candidate formal dispatch-wait record with actual externalGPU0 worker cost. Retain delegate waiting as CPU/control wall separately, preserve raw PROGRAM costs privately, no double charging; preflights/base/evaluations remain original records",
+  "monitor": "Same hourly nb-rl-a1 observes PROGRAM and external receipt together",
+  "cpu_dispatch_check": "PASS: config equality, exact training barrier, failure propagation; no GPU or model involved"
+}

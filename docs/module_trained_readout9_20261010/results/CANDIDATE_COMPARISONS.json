@@ -1,0 +1,80 @@
+{
+  "comparisons": [
+    {
+      "dataset": "ISIC",
+      "candidate": "local_trained_readout",
+      "reference": "base",
+      "delta_pp": {
+        "final_balanced_accuracy": -0.06136887996644447,
+        "average_incremental_balanced_accuracy": 0.6957031118616612,
+        "final_tail_recall": 1.2854317732366596,
+        "forgetting": 0.6849720264354424,
+        "final_old_recall": -0.04394638540979656,
+        "final_new_recall": -0.11363636363635976
+      }
+    },
+    {
+      "dataset": "ISIC",
+      "candidate": "local_trained_readout",
+      "reference": "local_supervised",
+      "delta_pp": {
+        "final_balanced_accuracy": -1.2521137256026051,
+        "average_incremental_balanced_accuracy": -0.41737124186752794,
+        "final_tail_recall": -0.7415952537903792,
+        "forgetting": 1.6694849674701224,
+        "final_old_recall": -1.669484967470126,
+        "final_new_recall": 0.0
+      }
+    },
+    {
+      "dataset": "HK",
+      "candidate": "local_trained_readout",
+      "reference": "base",
+      "delta_pp": {
+        "final_balanced_accuracy": 0.2651510983868448,
+        "average_incremental_balanced_accuracy": 0.3843133113159638,
+        "final_tail_recall": 0.39682539682539897,
+        "forgetting": 0.2300750576511703,
+        "final_old_recall": 0.29119654090380465,
+        "final_new_recall": -0.00832604804129744
+      }
+    },
+    {
+      "dataset": "HK",
+      "candidate": "local_trained_readout",
+      "reference": "local_supervised",
+      "delta_pp": {
+        "final_balanced_accuracy": 0.1351811350920329,
+        "average_incremental_balanced_accuracy": 0.44678834510711596,
+        "final_tail_recall": 0.2831890331890392,
+        "forgetting": 0.3745171365194775,
+        "final_old_recall": 0.14805552891032647,
+        "final_new_recall": 0.0
+      }
+    }
+  ],
+  "historical_interaction": [
+    {
+      "dataset": "ISIC",
+      "delta_pp": {
+        "final_balanced_accuracy": -0.6349148061104728,
+        "average_incremental_balanced_accuracy": -0.06148811855332781,
+        "final_tail_recall": -0.6756756756756914,
+        "forgetting": 1.71367019193106,
+        "final_old_recall": -1.2632197414806114,
+        "final_new_recall": 1.25
+      }
+    },
+    {
+      "dataset": "HK",
+      "delta_pp": {
+        "final_balanced_accuracy": -0.3112855206414409,
+        "average_incremental_balanced_accuracy": 0.3930700296270615,
+        "final_tail_recall": 0.030663780663779505,
+        "forgetting": 1.135675052244137,
+        "final_old_recall": -0.3401388037462212,
+        "final_new_recall": -0.00832604804129744
+      }
+    }
+  ]
+}

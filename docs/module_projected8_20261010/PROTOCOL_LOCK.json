@@ -136,5 +136,10 @@
   "local_gradient_projection": "one_sided_original",
   "projection_dot_accumulation": "float64; project and add in parameter gradient dtype",
   "direction_check": "dot(g0,projected_gl) >= -1e-6*max(||g0||*||gl||,1e-12); fail closed",
-  "optimizer": "Original AdamW and gradient clip=5 unchanged; raw-gradient direction algebra is not an AdamW descent or recall guarantee"
+  "optimizer": "Original AdamW and gradient clip=5 unchanged; raw-gradient direction algebra is not an AdamW descent or recall guarantee",
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "resource_note": "GPU2 pre-launch check had only5884MiB free; no process launched. Use available authorized GPU0/1, unchanged scientific order/updates; preserve zero-GPU deployment attempt."
 }

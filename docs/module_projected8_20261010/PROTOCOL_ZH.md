@@ -12,7 +12,7 @@
 
 ## 比较、预算及检查
 
-严格复用首轮static_pc两条和第七轮local_normalized两条，原static_pc仍是效果基线。两条新候选ISIC/HK local_projected，按ISIC→HK派发到GPU0/1/2；先两真实0更新预检，全部PASS才正式训练。ISIC468/HK176，总644新增adapter更新、0策略、0新头参数，2epoch/batch64/workers4/lr.0003/seed74002/split74002/原shuffled任务顺序、FD10不变，24小时截止。fit/meta沿旧定义，局部CE仅当前fit，meta任务末加入原拟合；无新数据或旧影像/旧逐样本特征回放，医学test/reserved封存。
+严格复用首轮static_pc两条和第七轮local_normalized两条，原static_pc仍是效果基线。两条新候选ISIC/HK local_projected，按ISIC→HK派发，允许GPU0/1/2；启动探针发现GPU2余量5884MiB不足，本轮实际只用GPU0/1；先两真实0更新预检，全部PASS才正式训练。ISIC468/HK176，总644新增adapter更新、0策略、0新头参数，2epoch/batch64/workers4/lr.0003/seed74002/split74002/原shuffled任务顺序、FD10不变，24小时截止。fit/meta沿旧定义，局部CE仅当前fit，meta任务末加入原拟合；无新数据或旧影像/旧逐样本特征回放，医学test/reserved封存。
 
 本轮第一任务投影可能触发，因此不要求复现第六/七轮首任务或历史全局召回。复用控制自己的既有首任务审计不改变。全阶段分母/有限损失/原解析残差≤1e−8、每batch局部特征梯度有限>0、投影方向容差与计数严格检查。CPU检查覆盖冲突/不冲突/零原梯度/unused参数/非有限输入及独立autograd相加，并保留原监督与单位质量检查。所有训练成功且计数一致后才打开开发评价，不看中间评价调方案。
 

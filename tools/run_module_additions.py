@@ -248,6 +248,8 @@ def refit(config):
     if output.exists():raise ValueError('Fresh conditional output required')
     if config.get('conditional_ridge')!=.001 or config['module']!='local_residual':
         raise ValueError('Frozen conditional readout differs')
+    if config.get('risk_guard') not in (None,'per_class_square'):
+        raise ValueError('Unknown frozen risk guard')
     output.mkdir(parents=True);save(output/'INPUT.private.json',config)
     torch.set_num_threads(4)
     started=time.monotonic();audits=[]
@@ -267,8 +269,16 @@ def refit(config):
             raw_error=float((raw-raw_reference).norm()/raw_reference.norm().clamp_min(1e-12))
             if raw_error>1e-8:raise ValueError('Frozen raw residual head reconstruction differs')
             A,B,audit=local_residual.conditioned_head(global_bank,stats,W)
+            extra={}
+            if config.get('risk_guard'):
+                control=torch.load(Path(config['conditional_checkpoint_root'])/f'conditional_{task}.pt',map_location='cpu',weights_only=False)
+                error=max(float((value-control[key].to(value)).norm()/control[key].to(value).norm().clamp_min(1e-12))
+                    for key,value in (('conditioning',A),('local_head',B)))
+                if error>1e-8:raise ValueError('Frozen conditional control reconstruction differs')
+                scale,guard_audit=local_residual.risk_guard(global_bank,stats,W,A,B)
+                audit.update(control_head_relative_error=error,**guard_audit);extra=dict(guard_scale=scale.cpu())
             save(output/'STATUS.json',dict(status='RUNNING',phase='REFIT',task=task,steps=0,policy_updates=0))
-            torch.save(dict(conditioning=A.cpu(),local_head=B.cpu()),output/f'conditional_{task}.pt')
+            torch.save(dict(conditioning=A.cpu(),local_head=B.cpu(),**extra),output/f'conditional_{task}.pt')
             audits.append(dict(task=task,source_adapter_updates=state['steps'],raw_head_relative_error=raw_error,**audit))
         save(output/'diagnostics.json',audits)
         save(output/'STATUS.json',dict(status='READY',steps=0,policy_updates=0,adapter_updates=0,
@@ -305,6 +315,7 @@ def evaluate(config):
                 if config.get('checkpoint_root'):
                     fitted=torch.load(output/f'conditional_{task}.pt',map_location='cpu',weights_only=False)
                     local_score=(projected-global_score @ fitted['conditioning'].to(parts)) @ fitted['local_head'].to(parts)
+                    if config.get('risk_guard'):local_score=local_score*fitted['guard_scale'].to(parts)
                 else:local_score=projected @ state['local_head'].to(parts)
                 weight=1.
             scores=global_score+weight*local_score

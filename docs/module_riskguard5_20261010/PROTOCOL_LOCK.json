@@ -1,0 +1,140 @@
+{
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": false,
+    "extra_seeds": false,
+    "automatic_formal_retry": false
+  },
+  "local_dim": 256,
+  "projection_seed": 130,
+  "projection_width_per_region": 64,
+  "conditioning_ridge": 0.001,
+  "local_ridge": 0.001,
+  "campaign": "module_riskguard5_20261010",
+  "evidence_commit": "11d28a74b0069e38aeb4c1c2b8fb15f7b20cc9a4",
+  "hypothesis": "Average residual square-loss fit allows class-specific harm; add all-seen-class stored square-risk constraints to output column shrinkage, compared with the same unguarded conditional head",
+  "source_training_commit": "b407d46d7a179c491f9d36b7fe89d203207dbf6a",
+  "source_conditional_commit": "9b93f5eda1484ab31268081fe5d6c7e47484c146",
+  "modules": [
+    "base_reused",
+    "local_conditional_reused",
+    "local_riskguard"
+  ],
+  "new_formal_trajectories": 2,
+  "total_formal_adapter_updates": 0,
+  "policy_updates": 0,
+  "checkpoint_refit_checks": 2,
+  "source_adapter_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "source_updates_reused_not_charged": true,
+  "prior_closed_gpu_residence_seconds": 118271.00051035685,
+  "campaign_wall_hours": 24,
+  "expected_successful_subprocess_cost_records": 4,
+  "guard_bounds": [
+    0,
+    1
+  ],
+  "risk_reference": "Unmodified global score v=xW on the same frozen regional-transport checkpoint; effect gates still against original static_pc",
+  "guard_objective": "min mean_c sum_j (a_cj alpha_j^2 + 2 b_cj alpha_j), subject to every seen-class delta <=0 and 0<=alpha_j<=1",
+  "risk_coefficients": "a_cj=E_c[h_j^2]; b_cj=E_c[(v_j-Y_j)h_j], h=(z-vA)B; all from original training sufficient statistics",
+  "solver": {
+    "implementation": "SciPy 1.15.3 SLSQP",
+    "initial": "zero feasible vector",
+    "maxiter": 1000,
+    "ftol": 1e-12,
+    "class_risk_numerical_tolerance": 1e-08,
+    "bound_numerical_tolerance": 1e-10,
+    "automatic_solver_retry": false
+  },
+  "control_check": "Raw residual and conditional A/B reconstructed <=1e-8; unconstrained shrink optimum must match reused alpha=1 <=1e-8, else fail closed",
+  "evaluation_barrier": "Both full-stage refit checks READY with zero updates before any dev evaluation; zero solution still evaluated and reported honestly",
+  "evaluation": "Global class recall matches historical transport all stages; report base/unguarded conditional/guard candidate full six metrics and every class n/recall; zero correction is not HK success",
+  "independent_confirmation": false,
+  "finish": "Deliver all positives/negatives, failures, audit and cumulative costs via proxy public GitHub plus NAS receipt before another cycle"
+}

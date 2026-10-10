@@ -108,6 +108,74 @@ def conditioned_self_check():
     print('PASS: score-conditioned weighted ridge matches samples; perfect global correction zero')
 
 
+def risk_coefficients(global_bank,local_bank,W,A,B):
+    V=W.T @ global_bank['Q'] @ W
+    D=local_bank['lg'] @ W
+    U=local_bank['ll']-D @ A-A.T @ D.transpose(1,2)+A.T @ V @ A
+    a=torch.einsum('lj,clm,mj->cj',B,U,B)
+    b=(D.transpose(1,2) @ B-V @ A @ B).diagonal(dim1=1,dim2=2).clone()
+    mean_h=(local_bank['mu_l']-local_bank['mu_g'] @ W @ A) @ B
+    ids=torch.arange(len(b),device=b.device);b[ids,ids]-=mean_h[ids,ids]
+    if not torch.isfinite(a).all() or not torch.isfinite(b).all() or a.min() < -1e-10:
+        raise ValueError('Invalid per-class square-risk coefficients')
+    return a.clamp_min(0),b
+
+
+def guarded_scale(a,b):
+    """Convex column shrinkage with every seen class no worse in stored square risk."""
+    import numpy as np
+    from scipy.optimize import minimize
+    aa,bb=a.cpu().numpy(),b.cpu().numpy();ma,mb=aa.mean(0),bb.mean(0)
+    def delta(x):return aa @ (x*x)+2*bb @ x
+    result=minimize(lambda x:float(ma @ (x*x)+2*mb @ x),np.zeros(len(ma)),
+        jac=lambda x:2*ma*x+2*mb,bounds=[(0.,1.)]*len(ma),
+        constraints=[dict(type='ineq',fun=lambda x:-delta(x),jac=lambda x:-2*(aa*x+bb))],
+        method='SLSQP',options=dict(maxiter=1000,ftol=1e-12))
+    if (not result.success or not np.isfinite(result.x).all() or result.x.min() < -1e-10
+            or result.x.max()>1+1e-10 or delta(result.x).max()>1e-8 or result.fun>1e-8):
+        raise ValueError('Risk guard solve failed: '+str(result.message))
+    x=result.x
+    return torch.as_tensor(x,device=a.device,dtype=a.dtype),dict(slsqp_success=True,slsqp_iterations=int(result.nit),
+        guard_scale_min=float(x.min()),guard_scale_max=float(x.max()),guard_scale_mean=float(x.mean()),
+        guard_active_columns_n=int((x<1-1e-8).sum()),guard_zero_columns_n=int((x<=1e-8).sum()),
+        max_class_square_delta_before=float(delta(np.ones(len(x))).max()),
+        max_class_square_delta_after=float(delta(x).max()),
+        average_square_delta_before=float(delta(np.ones(len(x))).mean()),average_square_delta_after=float(delta(x).mean()))
+
+
+def risk_guard(global_bank,local_bank,W,A,B):
+    a,b=risk_coefficients(global_bank,local_bank,W,A,B)
+    mean_a,mean_b=a.mean(0),b.mean(0)
+    control=torch.where(mean_a>1e-20,(-mean_b/mean_a.clamp_min(1e-20)).clamp(0,1),torch.ones_like(mean_a))
+    deviation=float((control-1).abs().max())
+    if deviation>1e-8:raise ValueError('Reused unguarded control is not the same unconstrained fit')
+    scale,audit=guarded_scale(a,b);audit['unconstrained_scale_max_deviation']=deviation
+    return scale,audit
+
+
+def guard_self_check():
+    torch.manual_seed(132);torch.set_num_threads(2)
+    g=torch.randn(17,6,dtype=torch.float64);z=torch.randn(17,4,dtype=g.dtype)
+    y=torch.cat([torch.zeros(4),torch.ones(6),torch.full((7,),2)]).long()
+    w=torch.cat([torch.full((n,),1/n,dtype=g.dtype) for n in (4,6,7)])
+    local=append(empty(6,4,'cpu'),g,z,y,w)
+    global_bank=dict(mu=local['mu_g'],Q=torch.stack([g[y==c].T @ (w[y==c,None]*g[y==c]) for c in range(3)]),n=local['n'])
+    W=torch.randn(6,3,dtype=g.dtype);A,B,_=conditioned_head(global_bank,local,W)
+    a,b=risk_coefficients(global_bank,local,W,A,B);v=g @ W;h=(z-v @ A) @ B
+    target=torch.nn.functional.one_hot(y,3).double()
+    direct_a=torch.stack([(w[y==c,None]*h[y==c].square()).sum(0) for c in range(3)])
+    direct_b=torch.stack([(w[y==c,None]*(v[y==c]-target[y==c])*h[y==c]).sum(0) for c in range(3)])
+    assert torch.allclose(a,direct_a,atol=1e-11,rtol=1e-11) and torch.allclose(b,direct_b,atol=1e-11,rtol=1e-11)
+    scale,audit=risk_guard(global_bank,local,W,A,B)
+    assert (a @ scale.square()+2*b @ scale).max()<=1e-8
+    aa=torch.ones(2,2,dtype=g.dtype);bb=torch.tensor([[-1.,1.],[.1,-.2]],dtype=g.dtype)
+    unsafe=(-bb.mean(0)/aa.mean(0)).clamp(0,1)
+    assert (aa @ unsafe.square()+2*bb @ unsafe).max()>0
+    safe,_=guarded_scale(aa,bb);assert safe.sum()>1e-6 and (aa @ safe.square()+2*bb @ safe).max()<=1e-8
+    zero,_=guarded_scale(aa,torch.ones_like(bb));assert zero.abs().max()<1e-8
+    print('PASS: class-risk polynomial equals samples, harm constrained, zero-only case retained')
+
+
 def self_check():
     torch.manual_seed(130);torch.set_num_threads(2)
     g=torch.randn(15,6,dtype=torch.float64);l=torch.randn(15,4,dtype=g.dtype)
@@ -135,4 +203,7 @@ def self_check():
     print('PASS: weighted residual/direct ridge, joint affine transport, zero redundant correction, isolated projection RNG')
 
 
-if __name__=='__main__':self_check()
+if __name__=='__main__':
+    self_check()
+    conditioned_self_check()
+    guard_self_check()

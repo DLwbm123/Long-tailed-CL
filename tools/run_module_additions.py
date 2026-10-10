@@ -292,7 +292,48 @@ def run(config):
         status(status='INCOMPLETE', error=str(exc)); raise
 
 
+
+def check_trained_local_readout(config):
+    output=Path(config['output'])
+    if output.exists():raise ValueError('Fresh reused-readout output required')
+    if config['module']!='local_readout' or config.get('local_readout_weight')!=.25 or config.get('expected_source_module')!='local_supervised':
+        raise ValueError('Frozen supervised readout source/amplitude differs')
+    output.mkdir(parents=True);save(output/'INPUT.private.json',config)
+    torch.set_num_threads(4);started=time.monotonic();audits=[]
+    try:
+        for task,source_steps in enumerate(config['source_stage_steps'],1):
+            if time.time()>=config['original_deadline']:raise TimeoutError('Campaign deadline')
+            state=torch.load(Path(config['checkpoint_root'])/f'stage_{task}.pt',map_location='cpu',weights_only=False)
+            seen=config['order'][:sum(config['task_sizes'][:task])]
+            if state['module']!=config['expected_source_module'] or state['seen']!=seen or state['steps']!=source_steps:
+                raise ValueError('Supervised checkpoint source/order/budget differs')
+            if task==len(config['task_sizes']) and state['steps']!=config['expected_source_steps']:
+                raise ValueError('Supervised final source budget differs')
+            bank=state['bank'];bank={k:v.cuda() if torch.is_tensor(v) else v for k,v in bank.items()}
+            bank['components']=[{k:v.cuda() if torch.is_tensor(v) else v for k,v in c.items()} for c in bank['components']]
+            centers=state['module_memory'].cuda();W=state['head'].cuda()
+            if centers.shape!=(len(seen),4,W.shape[0]) or W.shape[1]!=len(seen) or len(bank['n'])!=len(seen) or not torch.isfinite(centers).all():
+                raise ValueError('Supervised local statistics dimensions/values differ')
+            _,R,activation=modules.head(bank,'local_supervised',config['name'],seen,centers)
+            rebuilt,solve=competition.bank_head(bank,state['boundary_pair_weights'].cuda(),regularizer=R)
+            error=float((rebuilt.float()-W).double().norm()/W.double().norm().clamp_min(1e-12))
+            if error>1e-8 or solve['relative_residual']>1e-8 or not torch.isfinite(W).all():raise ValueError('Supervised global head reconstruction differs')
+            scores=modules.local_scores(centers,centers)
+            if scores.shape!=(len(seen),len(seen)) or scores.abs().max()>1+1e-6:raise ValueError('Supervised readout shape/range differs')
+            audits.append(dict(task=task,source_adapter_updates=state['steps'],global_head_relative_error=error,
+                relative_residual=solve['relative_residual'],local_regions=4,local_readout_weight=.25,
+                local_readout_max_abs=float(scores.abs().max()),extra_trainable_head_parameters=0,
+                extra_fitted_samples=0,**activation))
+            save(output/'STATUS.json',dict(status='RUNNING',phase='REUSE_CHECK',task=task,steps=0,policy_updates=0))
+        save(output/'diagnostics.json',audits)
+        save(output/'STATUS.json',dict(status='READY',steps=0,policy_updates=0,adapter_updates=0,
+            elapsed_seconds=time.monotonic()-started,max_solve_residual=max(a['relative_residual'] for a in audits),stages=len(audits)))
+    except BaseException as exc:
+        save(output/'STATUS.json',dict(status='INCOMPLETE',steps=0,policy_updates=0,error=str(exc)));raise
+
+
 def refit(config):
+    if config.get('trained_local_readout'):return check_trained_local_readout(config)
     output=Path(config['output'])
     if output.exists():raise ValueError('Fresh conditional output required')
     if config.get('conditional_ridge')!=.001 or config['module']!='local_residual':
@@ -397,7 +438,7 @@ def evaluate(config):
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')
         metrics['historical_baseline_recalls_equal']=True
-    if config['module'] in modules.STAT_ARMS:
+    if config['module'] in modules.STAT_ARMS or config.get('trained_local_readout'):
         reference=json.loads(Path(config['historical_global_control']).read_text())
         if len(reports)!=len(reference['stages']) or any(a['global_per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,reference['stages'])):
             raise ValueError('Global analytical path differs from historical regional transport control')

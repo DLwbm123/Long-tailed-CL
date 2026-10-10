@@ -140,6 +140,21 @@ def current_class_alpha(alpha, seen_count, current_count):
 
 
 
+
+def readout_self_check():
+    parts=torch.tensor([[[1.,0.]]*4,[[0.,1.]]*4],dtype=torch.float64)
+    centers=parts.clone();local=local_scores(parts,centers)
+    assert torch.equal(local,torch.eye(2,dtype=parts.dtype))
+    global_score=torch.tensor([[0.,.1],[.1,0.]],dtype=parts.dtype)
+    scores=global_score+.25*local
+    assert torch.equal(scores.argmax(1),torch.arange(2)) and torch.equal(global_score.argmax(1),torch.tensor([1,0]))
+    assert torch.equal(local[:,[1,0]],local_scores(parts,centers[[1,0]]))
+    try:local_scores(parts,torch.full_like(centers,float('nan')))
+    except ValueError:pass
+    else:raise AssertionError('Nonfinite readout accepted')
+    return dict(status='PASS',fixed_weight_score_algebra=True,class_association_preserved=True,shape_and_finite_checks=True,extra_trainable_head_parameters=0)
+
+
 def project_local_gradients(original, auxiliary):
     """One-sided projection of auxiliary gradients; AdamW steps have no descent guarantee."""
     if len(original)!=len(auxiliary):raise ValueError('Gradient lists differ')

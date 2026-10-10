@@ -1,0 +1,132 @@
+{
+  "datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "gpus": [
+    0,
+    1,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "feature_distillation": 10.0,
+  "prototype_strength": 1.0,
+  "competition_beta": 0.5,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "new_pp_min": -1,
+    "old_pp_min": -1
+  },
+  "constraints": {
+    "old_image_replay": false,
+    "old_individual_training_features": false,
+    "test_access": false,
+    "cifar_access": false,
+    "rl": false,
+    "search": false,
+    "module_combinations": true,
+    "extra_seeds": false,
+    "automatic_formal_retry": false,
+    "combination_contribution_control": "round6 same supervised checkpoint without added readout, plus round2 untrained readout interaction reference"
+  },
+  "campaign": "module_trained_readout9_20261010",
+  "evidence_commit": "44c2a32a2430255de7218b4f502e80a3a93a6966",
+  "hypothesis": "Class-supervised local relations only enter a shared PP^T prior; test same frozen0.25 class-specific cosine readout on round6 supervised representation, with exact round6 no-readout contribution control and round2 historical interaction reference",
+  "modules": [
+    "base_reused",
+    "local_supervised_reused",
+    "local_trained_readout"
+  ],
+  "new_formal_trajectories": 2,
+  "total_formal_adapter_updates": 0,
+  "policy_updates": 0,
+  "preflight_checks": 2,
+  "expected_steps": {
+    "ISIC": 0,
+    "HK": 0
+  },
+  "local_class_weight": 1.0,
+  "local_class_temperature": 1.0,
+  "extra_trainable_head_parameters": 0,
+  "extra_inference_score_terms": 1,
+  "training_loss": "No new training or fitted head; source round6 original supervised model reused verbatim",
+  "comparison": "Matched source6 global path exact per-stage class-recall check, not per-example equivalence; original static_pc effect baseline unchanged",
+  "evaluation_barrier": "Both full-stage source checks READY with updates0 before EVALUATE",
+  "prior_closed_gpu_residence_seconds": 134837.49139174307,
+  "campaign_wall_hours": 24,
+  "expected_successful_subprocess_cost_records": 4,
+  "independent_confirmation": false,
+  "finish": "Publish all positive/negative and failed results, audits and cumulative cost via proxy GitHub and NAS before another round",
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "expected_source_steps": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "local_readout_weight": 0.25,
+  "reuse_check": "Source local_supervised/order/stage budgets/finite local centers, reconstruct source global competition head after casting to storedfloat32 relativeerror<=1e-8, solve residual<=1e-8",
+  "historical_interaction_reference": "(current candidate - round6 supervised) - (round2 cosine - round2 transport), all six metrics, not independent confirmation"
+}

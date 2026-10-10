@@ -15,6 +15,11 @@ from run_module_cycle import save
 PROFILES={'IF10':(10,5000),'IF50':(50,5000),'BALANCED11358':(1,1262)}
 
 
+def materialize(source,target):
+    # Image loading intentionally rejects symlinks whose targets leave its root.
+    target.write_bytes(source.read_bytes())
+
+
 def prepare(config):
     root=Path(config['root']);begun=time.monotonic()
     def budget():
@@ -22,10 +27,29 @@ def prepare(config):
     def status(**values):
         save(root/'DATA_STATUS.private.json',dict(elapsed_seconds=time.monotonic()-begun,**values))
     try:
+        if config.get('reuse_prepared_data'):
+            source=Path(config['reuse_prepared_data']);audit=json.loads((source.parent/'DATA_AUDIT.json').read_text())
+            assert audit['test_arrays_opened'] is False
+            for key,args in PROFILES.items():
+                assert audit['profiles'][key]['class_counts']=={str(c):n for c,n in counts(config['frequency_rank'],*args).items()}
+                folder=root/'data'/key;folder.mkdir(parents=True)
+                for split in ['train','val']:materialize(source/key/(split+'.csv'),folder/(split+'.csv'))
+            for split in ['train','val']:
+                folder=root/'data'/'images'/split;folder.mkdir(parents=True)
+                entries=list((source/'images'/split).iterdir())
+                for done,q in enumerate(entries,1):
+                    budget();target=folder/q.name;materialize(q,target)
+                    assert not target.is_symlink() and target.resolve().is_relative_to((root/'data'/'images').resolve())
+                    if done%1000==0:status(status='RUNNING',phase='MATERIALIZE_'+split.upper(),images_completed=done,images_total=len(entries))
+            # Metadata remains frozen; this attempt changes file placement only.
+            save(root/'DATA_AUDIT.json',dict(audit,images_materialized=True,placement_only=True))
+            status(status='READY',phase='DATA_PREPARED',profiles_n=3,test_accessed=False)
+            return
         source=Path(config['reuse_data']);audit=json.loads((source.parent/'DATA_AUDIT.json').read_text())
         assert audit['test_arrays_opened'] is False
         images=root/'data'/'images';images.mkdir(parents=True)
-        (images/'val').symlink_to(source/'images'/'val',target_is_directory=True)
+        val_images=images/'val';val_images.mkdir()
+        for q in (source/'images'/'val').iterdir():budget();materialize(q,val_images/q.name)
         train_images=images/'train';train_images.mkdir()
         status(status='RUNNING',phase='EXTRACT_TRAIN_FROM_CACHED_ARCHIVE')
         with np.load(source/'pathmnist_224.npz',allow_pickle=False) as arrays:
@@ -40,7 +64,7 @@ def prepare(config):
             for done,i in enumerate(union,1):
                 budget();name=f'{i:06d}.png';old=source/'images'/'train'/name
                 if old.exists():
-                    (train_images/name).symlink_to(old);reused+=1
+                    materialize(old,train_images/name);reused+=1
                 else:Image.fromarray(data[i]).save(train_images/name)
                 if done%1000==0:status(status='RUNNING',phase='PREPARE_SELECTED_TRAIN',images_completed=done,images_total=len(union))
             del data
@@ -74,6 +98,17 @@ def prepare(config):
 
 def check():
     from run_module_additions import synthetic_path
+    from run_prototype_single import Images
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        root=Path(tmp);outside=root/'external.png';Image.new('RGB',(8,8),(4,5,6)).save(outside)
+        inside=root/'images';inside.mkdir();target=inside/'sample.png';target.symlink_to(outside)
+        dataset=Images([dict(relative_path='sample.png',label=0)],inside,lambda x:x,74002)
+        try:dataset[0]
+        except ValueError as exc:assert str(exc)=='Image escapes root'
+        else:raise AssertionError('Unsafe external symlink accepted')
+        target.unlink();materialize(outside,target);image,label=dataset[0]
+        assert image.getpixel((0,0))==(4,5,6) and label==0 and not target.is_symlink()
     rank=[4,2,7,6,0,5,3,8,1];y=np.repeat(np.arange(9),6000)
     old=select(y,rank);assert len(old)==11358
     chosen={k:select(y,rank,*args) for k,args in PROFILES.items()}
@@ -88,7 +123,7 @@ def check():
             try:synthetic_path(bad)
             except ValueError:pass
             else:raise AssertionError('Unfrozen profile accepted')
-    return dict(status='PASS',nested_samples=True,balanced_total_matches_if100=True,deterministic_unique=True,test_and_unfrozen_profiles_rejected=True,profile_counts={k:counts(rank,*args) for k,args in PROFILES.items()})
+    return dict(status='PASS',external_symlink_rejected=True,materialized_image_loader_pass=True,nested_samples=True,balanced_total_matches_if100=True,deterministic_unique=True,test_and_unfrozen_profiles_rejected=True,profile_counts={k:counts(rank,*args) for k,args in PROFILES.items()})
 
 
 if __name__=='__main__':prepare(json.loads(Path(os.environ['Q128_CONFIG']).read_text()))

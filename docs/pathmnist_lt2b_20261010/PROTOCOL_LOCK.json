@@ -1,0 +1,190 @@
+{
+  "campaign": "pathmnist_lt2b_20261010",
+  "dataset": "PathMNISTLT",
+  "profiles": {
+    "IF10": {
+      "imbalance_factor": 10,
+      "n_max": 5000,
+      "class_counts": {
+        "4": 5000,
+        "2": 3749,
+        "7": 2811,
+        "6": 2108,
+        "0": 1581,
+        "5": 1185,
+        "3": 889,
+        "8": 666,
+        "1": 500
+      },
+      "fit_counts": {
+        "4": 4000,
+        "2": 2999,
+        "7": 2249,
+        "6": 1686,
+        "0": 1265,
+        "5": 948,
+        "3": 711,
+        "8": 533,
+        "1": 400
+      },
+      "stage_updates": [
+        196,
+        62,
+        84,
+        124
+      ],
+      "updates_per_arm": 466,
+      "train_n": 18489
+    },
+    "IF50": {
+      "imbalance_factor": 50,
+      "n_max": 5000,
+      "class_counts": {
+        "4": 5000,
+        "2": 3066,
+        "7": 1880,
+        "6": 1153,
+        "0": 707,
+        "5": 433,
+        "3": 265,
+        "8": 163,
+        "1": 100
+      },
+      "fit_counts": {
+        "4": 4000,
+        "2": 2453,
+        "7": 1504,
+        "6": 922,
+        "0": 566,
+        "5": 346,
+        "3": 212,
+        "8": 130,
+        "1": 80
+      },
+      "stage_updates": [
+        158,
+        26,
+        50,
+        88
+      ],
+      "updates_per_arm": 322,
+      "train_n": 12767
+    },
+    "BALANCED11358": {
+      "imbalance_factor": 1,
+      "n_max": 1262,
+      "class_counts": {
+        "4": 1262,
+        "2": 1262,
+        "7": 1262,
+        "6": 1262,
+        "0": 1262,
+        "5": 1262,
+        "3": 1262,
+        "8": 1262,
+        "1": 1262
+      },
+      "fit_counts": {
+        "4": 1010,
+        "2": 1010,
+        "7": 1010,
+        "6": 1010,
+        "0": 1010,
+        "5": 1010,
+        "3": 1010,
+        "8": 1010,
+        "1": 1010
+      },
+      "stage_updates": [
+        96,
+        64,
+        64,
+        64
+      ],
+      "updates_per_arm": 288,
+      "train_n": 11358
+    }
+  },
+  "frequency_rank": [
+    4,
+    2,
+    7,
+    6,
+    0,
+    5,
+    3,
+    8,
+    1
+  ],
+  "order": [
+    8,
+    6,
+    4,
+    3,
+    0,
+    1,
+    7,
+    2,
+    5
+  ],
+  "task_sizes": [
+    3,
+    2,
+    2,
+    2
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "frequency_seed": 74003,
+  "order_seed": 74004,
+  "modules": [
+    "base",
+    "local_transport"
+  ],
+  "formal_trajectories": 6,
+  "formal_adapter_updates": 2152,
+  "preflight_checks": 6,
+  "policy_updates": 0,
+  "image_size": 224,
+  "evaluation_split": "official_validation",
+  "test_access": false,
+  "authorized_gpus": [
+    0,
+    1
+  ],
+  "wall_hours": 24,
+  "head_classes": [
+    4,
+    2,
+    7
+  ],
+  "middle_classes": [
+    6,
+    0,
+    5
+  ],
+  "tail_classes": [
+    3,
+    8,
+    1
+  ],
+  "balanced_reference_groups_only": true,
+  "equal_total_control_reference": "Delivered IF100 train_n11358, not equal-total to IF10 or IF50",
+  "sampling": "Identical per-class permutation prefixes, no replacement; unchanged official train/val, no test arrays",
+  "training": "Original ViT/adapter/global stats/analytic competition/FD10 unchanged; epochs2 batch64 workers4 lr.0003 WD.01 clip5 ridge.001 proximal.01",
+  "selection": "Same local_transport candidate, no value-based amplitude/module/seed changes",
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "old_pp_min": -1,
+    "new_pp_min": -1
+  },
+  "prior_closed_gpu_residence_seconds": 144030.30806926358,
+  "identity": "official source sample index; no patient/slide IDs or patient isolation proof",
+  "attempt": "Explicit engineering attempt2 after zero-update image-root preflight failure",
+  "scientific_source_commit": "bc3afb1846c7afcf52032d6c1f69a9e8d04047ff",
+  "original_deadline": 1791728907.9881878,
+  "source_failure_delivery_commit": "cbf2be8bb4992347e775a6dc072ab8ed959d1b8d",
+  "sampling_and_training_unchanged": true
+}

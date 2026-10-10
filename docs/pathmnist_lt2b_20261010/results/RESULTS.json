@@ -1,0 +1,3196 @@
+{
+  "rows": [
+    {
+      "profile": "IF10",
+      "module": "base",
+      "final_balanced_accuracy": 96.24507148994907,
+      "average_incremental_balanced_accuracy": 97.64890869530512,
+      "final_tail_recall": 96.53209787591915,
+      "forgetting": 2.8773668529702516,
+      "final_old_recall": 96.14990088847478,
+      "final_new_recall": 96.57816859510913,
+      "delta_pp": {
+        "final_balanced_accuracy": 0.0,
+        "average_incremental_balanced_accuracy": 0.0,
+        "final_tail_recall": 0.0,
+        "forgetting": 0.0,
+        "final_old_recall": 0.0,
+        "final_new_recall": 0.0
+      },
+      "development_screen_passed": false
+    },
+    {
+      "profile": "IF10",
+      "module": "local_transport",
+      "final_balanced_accuracy": 96.25707289405386,
+      "average_incremental_balanced_accuracy": 97.62841563955358,
+      "final_tail_recall": 96.57865281074224,
+      "forgetting": 2.808256382195224,
+      "final_old_recall": 96.18643276338729,
+      "final_new_recall": 96.50431335138683,
+      "delta_pp": {
+        "final_balanced_accuracy": 0.012001404104799995,
+        "average_incremental_balanced_accuracy": -0.02049305575154703,
+        "final_tail_recall": 0.04655493482308426,
+        "forgetting": -0.06911047077502765,
+        "final_old_recall": 0.036531874912515416,
+        "final_new_recall": -0.07385524372230945
+      },
+      "development_screen_passed": false
+    },
+    {
+      "profile": "IF50",
+      "module": "base",
+      "final_balanced_accuracy": 96.14858701608043,
+      "average_incremental_balanced_accuracy": 97.49085763420294,
+      "final_tail_recall": 96.53479860560722,
+      "forgetting": 2.5339069267487098,
+      "final_old_recall": 96.31071964785826,
+      "final_new_recall": 95.58112280485803,
+      "delta_pp": {
+        "final_balanced_accuracy": 0.0,
+        "average_incremental_balanced_accuracy": 0.0,
+        "final_tail_recall": 0.0,
+        "forgetting": 0.0,
+        "final_old_recall": 0.0,
+        "final_new_recall": 0.0
+      },
+      "development_screen_passed": false
+    },
+    {
+      "profile": "IF50",
+      "module": "local_transport",
+      "final_balanced_accuracy": 96.10449124663324,
+      "average_incremental_balanced_accuracy": 97.48354072882147,
+      "final_tail_recall": 96.44168873596102,
+      "forgetting": 2.5612163411900517,
+      "final_old_recall": 96.24347433803725,
+      "final_new_recall": 95.61805042671918,
+      "delta_pp": {
+        "final_balanced_accuracy": -0.0440957694471944,
+        "average_incremental_balanced_accuracy": -0.007316905381460348,
+        "final_tail_recall": -0.09310986964619072,
+        "forgetting": 0.027309414441342023,
+        "final_old_recall": -0.06724530982101795,
+        "final_new_recall": 0.036927621861149174
+      },
+      "development_screen_passed": false
+    },
+    {
+      "profile": "BALANCED11358",
+      "module": "base",
+      "final_balanced_accuracy": 96.07740824395941,
+      "average_incremental_balanced_accuracy": 97.45014346474905,
+      "final_tail_recall": 96.61139182382608,
+      "forgetting": 2.702766779446353,
+      "final_old_recall": 96.20180267459152,
+      "final_new_recall": 95.64202773674708,
+      "delta_pp": {
+        "final_balanced_accuracy": 0.0,
+        "average_incremental_balanced_accuracy": 0.0,
+        "final_tail_recall": 0.0,
+        "forgetting": 0.0,
+        "final_old_recall": 0.0,
+        "final_new_recall": 0.0
+      },
+      "development_screen_passed": false
+    },
+    {
+      "profile": "BALANCED11358",
+      "module": "local_transport",
+      "final_balanced_accuracy": 96.06521899696251,
+      "average_incremental_balanced_accuracy": 97.45219888234675,
+      "final_tail_recall": 96.57309521471666,
+      "forgetting": 2.6904809036570554,
+      "final_old_recall": 96.21778303290505,
+      "final_new_recall": 95.53124487116362,
+      "delta_pp": {
+        "final_balanced_accuracy": -0.012189246996896497,
+        "average_incremental_balanced_accuracy": 0.0020554175977016698,
+        "final_tail_recall": -0.03829660910943389,
+        "forgetting": -0.012285875789297407,
+        "final_old_recall": 0.01598035831352762,
+        "final_new_recall": -0.11078286558345862
+      },
+      "development_screen_passed": false
+    }
+  ],
+  "profiles": {
+    "IF10": {
+      "runs": {
+        "PathMNISTLT_base": {
+          "metrics": {
+            "stages": [
+              {
+                "task": 1,
+                "seen": [
+                  8,
+                  6,
+                  4
+                ],
+                "validation_n": 3199,
+                "accuracy": 0.9815567364801501,
+                "balanced_accuracy": 0.982928154557445,
+                "per_class_recall": {
+                  "8": 0.9748603351955307,
+                  "6": 0.984036488027366,
+                  "4": 0.9898876404494382
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890
+                },
+                "tail_recall": 0.9748603351955307
+              },
+              {
+                "task": 2,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0
+                ],
+                "validation_n": 5396,
+                "accuracy": 0.9820237212750186,
+                "balanced_accuracy": 0.9830033258998208,
+                "per_class_recall": {
+                  "8": 0.9629888268156425,
+                  "6": 0.9737742303306728,
+                  "4": 0.9865168539325843,
+                  "3": 0.9965397923875432,
+                  "0": 0.9951969260326609
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041
+                },
+                "tail_recall": 0.9797643096015929
+              },
+              {
+                "task": 3,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7
+                ],
+                "validation_n": 7498,
+                "accuracy": 0.9762603360896239,
+                "balanced_accuracy": 0.9775741524554483,
+                "per_class_recall": {
+                  "8": 0.9378491620111732,
+                  "6": 0.9692132269099202,
+                  "4": 0.9629213483146067,
+                  "3": 0.9922145328719724,
+                  "0": 0.989433237271854,
+                  "1": 1.0,
+                  "7": 0.9913875598086125
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045
+                },
+                "tail_recall": 0.9766878982943817
+              },
+              {
+                "task": 4,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "validation_n": 10004,
+                "accuracy": 0.9608156737305078,
+                "balanced_accuracy": 0.9624507148994906,
+                "per_class_recall": {
+                  "8": 0.9064245810055865,
+                  "6": 0.9669327251995439,
+                  "4": 0.952808988764045,
+                  "3": 0.990484429065744,
+                  "0": 0.9884726224783862,
+                  "1": 0.9990539262062441,
+                  "7": 0.9263157894736842,
+                  "2": 0.9670138888888888,
+                  "5": 0.9645494830132939
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045,
+                  "2": 1152,
+                  "5": 1354
+                },
+                "tail_recall": 0.9653209787591915
+              }
+            ],
+            "average_incremental_accuracy": 0.9751641168938252,
+            "final_accuracy": 0.9608156737305078,
+            "task_accuracy_matrix": [
+              [
+                0.9815567364801501,
+                null,
+                null,
+                null
+              ],
+              [
+                0.9724914035636136,
+                0.9959035047792444,
+                null,
+                null
+              ],
+              [
+                0.9534229446702095,
+                0.9908966772872099,
+                0.9957183634633682,
+                null
+              ],
+              [
+                0.9359174742106908,
+                0.9895311788802913,
+                0.9628924833491912,
+                0.965682362330407
+              ]
+            ],
+            "task_forgetting": 0.02827915609419644,
+            "class_frequency": {
+              "many": {
+                "classes": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "n": 10004,
+                "accuracy": 0.9608156737305078,
+                "macro_recall": 0.9624507148994906
+              },
+              "medium": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              },
+              "few": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              }
+            },
+            "average_incremental_balanced_accuracy": 0.9764890869530513,
+            "final_balanced_accuracy": 0.9624507148994906,
+            "final_tail_recall": 0.9653209787591915,
+            "forgetting": 0.028773668529702517,
+            "forgetting_classes": 7,
+            "final_old_recall": 0.9614990088847477,
+            "final_new_recall": 0.9657816859510914,
+            "test_accessed": false,
+            "evaluation_split": "official_validation",
+            "independent_confirmation": false
+          },
+          "status": {
+            "steps": 466,
+            "policy_updates": 0,
+            "elapsed_seconds": 1665.4225453329273,
+            "max_solve_residual": 9.94377692011926e-10,
+            "status": "COMPLETE",
+            "stages": 4,
+            "peak_gpu_bytes": 13429517824,
+            "evaluation_seconds": 534.7930386583321
+          },
+          "scalar_diagnostics": [
+            {
+              "task": 1,
+              "epoch": 1,
+              "steps": 98,
+              "fit_n": 6219,
+              "meta_n": 1555,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.650398229394105e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.020656630754744356,
+              "mean_pair_loss": 0.012262525284403665,
+              "mean_feature_loss": 0.00014013231056920556,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 3.8693259665066916e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 1,
+              "epoch": 2,
+              "steps": 196,
+              "fit_n": 6219,
+              "meta_n": 1555,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.486914612151402e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.018402588972575615,
+              "mean_pair_loss": 0.010865633940596685,
+              "mean_feature_loss": 0.0003407631870965017,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 4.0998059881553315e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 3.9782968326207617e-10
+              }
+            },
+            {
+              "task": 2,
+              "epoch": 1,
+              "steps": 227,
+              "fit_n": 1976,
+              "meta_n": 494,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.94377692011926e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.006281704039553727,
+              "mean_pair_loss": 0.015122836704154607,
+              "mean_feature_loss": 6.510839774554986e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6891756802044042e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 2,
+              "epoch": 2,
+              "steps": 258,
+              "fit_n": 1976,
+              "meta_n": 494,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 4.76358254943711e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.005996742892441212,
+              "mean_pair_loss": 0.014956138307162033,
+              "mean_feature_loss": 8.745578194183537e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6702936083544232e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 1.6375217441160174e-10
+              }
+            },
+            {
+              "task": 3,
+              "epoch": 1,
+              "steps": 300,
+              "fit_n": 2649,
+              "meta_n": 662,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.4099082452632876e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007859674533392392,
+              "mean_pair_loss": 0.015551089274850282,
+              "mean_feature_loss": 0.00010089733318420171,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.093794530667749e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 3,
+              "epoch": 2,
+              "steps": 342,
+              "fit_n": 2649,
+              "meta_n": 662,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.3348851616236087e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007657365618372621,
+              "mean_pair_loss": 0.015493335085877722,
+              "mean_feature_loss": 0.00012401872438550483,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.937122964198009e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 7.825077894057621e-10
+              }
+            },
+            {
+              "task": 4,
+              "epoch": 1,
+              "steps": 404,
+              "fit_n": 3947,
+              "meta_n": 987,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 1.8370577392620676e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.016496083808658687,
+              "mean_pair_loss": 0.021685639930874447,
+              "mean_feature_loss": 0.000282448227212186,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 9.578054140552884e-11
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 4,
+              "epoch": 2,
+              "steps": 466,
+              "fit_n": 3947,
+              "meta_n": 987,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 1.7800062205297713e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.01608330327333864,
+              "mean_pair_loss": 0.021757968930006283,
+              "mean_feature_loss": 0.0004145525064462075,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.490187766805401e-11
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 8.517552162431041e-11
+              }
+            }
+          ]
+        },
+        "PathMNISTLT_local_transport": {
+          "metrics": {
+            "stages": [
+              {
+                "task": 1,
+                "seen": [
+                  8,
+                  6,
+                  4
+                ],
+                "validation_n": 3199,
+                "accuracy": 0.9809315411065959,
+                "balanced_accuracy": 0.9821679873206529,
+                "per_class_recall": {
+                  "8": 0.9748603351955307,
+                  "6": 0.9817559863169898,
+                  "4": 0.9898876404494382
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890
+                },
+                "tail_recall": 0.9748603351955307
+              },
+              {
+                "task": 2,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0
+                ],
+                "validation_n": 5396,
+                "accuracy": 0.9816530763528539,
+                "balanced_accuracy": 0.9827239962908821,
+                "per_class_recall": {
+                  "8": 0.9615921787709497,
+                  "6": 0.9737742303306728,
+                  "4": 0.9865168539325843,
+                  "3": 0.9965397923875432,
+                  "0": 0.9951969260326609
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041
+                },
+                "tail_recall": 0.9790659855792465
+              },
+              {
+                "task": 3,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7
+                ],
+                "validation_n": 7498,
+                "accuracy": 0.9763937049879968,
+                "balanced_accuracy": 0.9776739130300693,
+                "per_class_recall": {
+                  "8": 0.9385474860335196,
+                  "6": 0.9692132269099202,
+                  "4": 0.9629213483146067,
+                  "3": 0.9922145328719724,
+                  "0": 0.989433237271854,
+                  "1": 1.0,
+                  "7": 0.9913875598086125
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045
+                },
+                "tail_recall": 0.9769206729684973
+              },
+              {
+                "task": 4,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "validation_n": 10004,
+                "accuracy": 0.9609156337465014,
+                "balanced_accuracy": 0.9625707289405386,
+                "per_class_recall": {
+                  "8": 0.9078212290502793,
+                  "6": 0.9692132269099202,
+                  "4": 0.9516853932584269,
+                  "3": 0.990484429065744,
+                  "0": 0.989433237271854,
+                  "1": 0.9990539262062441,
+                  "7": 0.9253588516746412,
+                  "2": 0.9670138888888888,
+                  "5": 0.9630723781388478
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045,
+                  "2": 1152,
+                  "5": 1354
+                },
+                "tail_recall": 0.9657865281074224
+              }
+            ],
+            "average_incremental_accuracy": 0.974973489048487,
+            "final_accuracy": 0.9609156337465014,
+            "task_accuracy_matrix": [
+              [
+                0.9809315411065959,
+                null,
+                null,
+                null
+              ],
+              [
+                0.9718662081900594,
+                0.9959035047792444,
+                null,
+                null
+              ],
+              [
+                0.9537355423569865,
+                0.9908966772872099,
+                0.9957183634633682,
+                null
+              ],
+              [
+                0.9368552672710222,
+                0.9899863450159309,
+                0.9624167459562322,
+                0.9648842777334398
+              ]
+            ],
+            "task_forgetting": 0.027765017035341066,
+            "class_frequency": {
+              "many": {
+                "classes": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "n": 10004,
+                "accuracy": 0.9609156337465014,
+                "macro_recall": 0.9625707289405386
+              },
+              "medium": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              },
+              "few": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              }
+            },
+            "average_incremental_balanced_accuracy": 0.9762841563955358,
+            "final_balanced_accuracy": 0.9625707289405386,
+            "final_tail_recall": 0.9657865281074224,
+            "forgetting": 0.02808256382195224,
+            "forgetting_classes": 7,
+            "final_old_recall": 0.9618643276338729,
+            "final_new_recall": 0.9650431335138683,
+            "test_accessed": false,
+            "evaluation_split": "official_validation",
+            "independent_confirmation": false
+          },
+          "status": {
+            "steps": 466,
+            "policy_updates": 0,
+            "elapsed_seconds": 1660.9390181382187,
+            "max_solve_residual": 9.971263997067909e-10,
+            "status": "COMPLETE",
+            "stages": 4,
+            "peak_gpu_bytes": 13914601984,
+            "evaluation_seconds": 534.786987200845
+          },
+          "scalar_diagnostics": [
+            {
+              "task": 1,
+              "epoch": 1,
+              "steps": 98,
+              "fit_n": 6219,
+              "meta_n": 1555,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.673968309310333e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.020649483887983093,
+              "mean_pair_loss": 0.012255246901808915,
+              "mean_feature_loss": 0.00013943843423104988,
+              "activation": {
+                "extra_columns": 12,
+                "prior_delta": 0.8349592027166945
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 3.932122744538073e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 1,
+              "epoch": 2,
+              "steps": 196,
+              "fit_n": 6219,
+              "meta_n": 1555,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0047423240378828046,
+              "max_batch_solve_residual": 9.961645352810874e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.018389499150453067,
+              "mean_pair_loss": 0.010856689853094686,
+              "mean_feature_loss": 0.00033996009377154467,
+              "boundary_local_transport_norm": 0.005514626312279066,
+              "activation": {
+                "extra_columns": 12,
+                "prior_delta": 0.834750177124014
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 4.1531176612625587e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 4.022911941666009e-10
+              }
+            },
+            {
+              "task": 2,
+              "epoch": 1,
+              "steps": 227,
+              "fit_n": 1976,
+              "meta_n": 494,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.971263997067909e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.006286901294090663,
+              "mean_pair_loss": 0.015099323575000923,
+              "mean_feature_loss": 6.586830943800328e-05,
+              "activation": {
+                "extra_columns": 20,
+                "prior_delta": 1.0008732632544795
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6977140468193362e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 2,
+              "epoch": 2,
+              "steps": 258,
+              "fit_n": 1976,
+              "meta_n": 494,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.002143277480794477,
+              "max_batch_solve_residual": 4.754921266235343e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.00600811276341666,
+              "mean_pair_loss": 0.014936134710191484,
+              "mean_feature_loss": 8.796052216278059e-05,
+              "boundary_local_transport_norm": 0.0022366354906718645,
+              "activation": {
+                "extra_columns": 20,
+                "prior_delta": 1.0009052617413503
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6789762226816492e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 1.6477291753066238e-10
+              }
+            },
+            {
+              "task": 3,
+              "epoch": 1,
+              "steps": 300,
+              "fit_n": 2649,
+              "meta_n": 662,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.4418517592377545e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007867510847089563,
+              "mean_pair_loss": 0.01550884868271783,
+              "mean_feature_loss": 0.00010128501595491322,
+              "activation": {
+                "extra_columns": 28,
+                "prior_delta": 1.128449201104304
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.925703338752394e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 3,
+              "epoch": 2,
+              "steps": 342,
+              "fit_n": 2649,
+              "meta_n": 662,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.002168988047482959,
+              "max_batch_solve_residual": 3.3456982664317905e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007669029366097634,
+              "mean_pair_loss": 0.015456423763786996,
+              "mean_feature_loss": 0.00012487367313865217,
+              "boundary_local_transport_norm": 0.002395379534801196,
+              "activation": {
+                "extra_columns": 28,
+                "prior_delta": 1.1285083899894934
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.755294342322661e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 7.663353257534326e-10
+              }
+            },
+            {
+              "task": 4,
+              "epoch": 1,
+              "steps": 404,
+              "fit_n": 3947,
+              "meta_n": 987,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 1.838680861087022e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.016504450009306594,
+              "mean_pair_loss": 0.021638670305628854,
+              "mean_feature_loss": 0.0002824163537063155,
+              "activation": {
+                "extra_columns": 36,
+                "prior_delta": 1.1990835479180133
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 9.459274050660733e-11
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 4,
+              "epoch": 2,
+              "steps": 466,
+              "fit_n": 3947,
+              "meta_n": 987,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0033139939711956043,
+              "max_batch_solve_residual": 1.7804031501387308e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.01608188711253463,
+              "mean_pair_loss": 0.021703110057542004,
+              "mean_feature_loss": 0.00041696785962314255,
+              "boundary_local_transport_norm": 0.0034364629420218337,
+              "activation": {
+                "extra_columns": 36,
+                "prior_delta": 1.1991773427876926
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.349172871062662e-11
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 8.381657926422709e-11
+              }
+            }
+          ]
+        }
+      }
+    },
+    "IF50": {
+      "runs": {
+        "PathMNISTLT_base": {
+          "metrics": {
+            "stages": [
+              {
+                "task": 1,
+                "seen": [
+                  8,
+                  6,
+                  4
+                ],
+                "validation_n": 3199,
+                "accuracy": 0.9796811503594873,
+                "balanced_accuracy": 0.9813841975684716,
+                "per_class_recall": {
+                  "8": 0.9713687150837989,
+                  "6": 0.9828962371721779,
+                  "4": 0.9898876404494382
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890
+                },
+                "tail_recall": 0.9713687150837989
+              },
+              {
+                "task": 2,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0
+                ],
+                "validation_n": 5396,
+                "accuracy": 0.9796145292809488,
+                "balanced_accuracy": 0.9805790287281105,
+                "per_class_recall": {
+                  "8": 0.9608938547486033,
+                  "6": 0.9680729760547321,
+                  "4": 0.9865168539325843,
+                  "3": 0.9922145328719724,
+                  "0": 0.9951969260326609
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041
+                },
+                "tail_recall": 0.9765541938102879
+              },
+              {
+                "task": 3,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7
+                ],
+                "validation_n": 7498,
+                "accuracy": 0.9746599093091491,
+                "balanced_accuracy": 0.9761852089107307,
+                "per_class_recall": {
+                  "8": 0.9343575418994413,
+                  "6": 0.9646522234891676,
+                  "4": 0.9685393258426966,
+                  "3": 0.9887543252595156,
+                  "0": 0.989433237271854,
+                  "1": 1.0,
+                  "7": 0.9875598086124402
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045
+                },
+                "tail_recall": 0.9743706223863189
+              },
+              {
+                "task": 4,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "validation_n": 10004,
+                "accuracy": 0.9592163134746101,
+                "balanced_accuracy": 0.9614858701608043,
+                "per_class_recall": {
+                  "8": 0.9064245810055865,
+                  "6": 0.9657924743443558,
+                  "4": 0.9584269662921349,
+                  "3": 0.9896193771626297,
+                  "0": 0.9884726224783862,
+                  "1": 1.0,
+                  "7": 0.9330143540669856,
+                  "2": 0.9670138888888888,
+                  "5": 0.9446085672082718
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045,
+                  "2": 1152,
+                  "5": 1354
+                },
+                "tail_recall": 0.9653479860560722
+              }
+            ],
+            "average_incremental_accuracy": 0.9732929756060489,
+            "final_accuracy": 0.9592163134746101,
+            "task_accuracy_matrix": [
+              [
+                0.9796811503594873,
+                null,
+                null,
+                null
+              ],
+              [
+                0.9699906220693967,
+                0.9936276741010469,
+                null,
+                null
+              ],
+              [
+                0.952172553923101,
+                0.9890760127446518,
+                0.9938154138915318,
+                null
+              ],
+              [
+                0.9371678649577994,
+                0.9890760127446518,
+                0.966698382492864,
+                0.9549082202713488
+              ]
+            ],
+            "task_forgetting": 0.024727326052250292,
+            "class_frequency": {
+              "many": {
+                "classes": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  7,
+                  2,
+                  5
+                ],
+                "n": 8947,
+                "accuracy": 0.9543981222756232,
+                "macro_recall": 0.956671603930905
+              },
+              "medium": {
+                "classes": [
+                  1
+                ],
+                "n": 1057,
+                "accuracy": 1.0,
+                "macro_recall": 1.0
+              },
+              "few": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              }
+            },
+            "average_incremental_balanced_accuracy": 0.9749085763420293,
+            "final_balanced_accuracy": 0.9614858701608043,
+            "final_tail_recall": 0.9653479860560722,
+            "forgetting": 0.025339069267487097,
+            "forgetting_classes": 7,
+            "final_old_recall": 0.9631071964785827,
+            "final_new_recall": 0.9558112280485803,
+            "test_accessed": false,
+            "evaluation_split": "official_validation",
+            "independent_confirmation": false
+          },
+          "status": {
+            "steps": 322,
+            "policy_updates": 0,
+            "elapsed_seconds": 1419.3978756088763,
+            "max_solve_residual": 9.852954775643773e-10,
+            "status": "COMPLETE",
+            "stages": 4,
+            "peak_gpu_bytes": 13403639808,
+            "evaluation_seconds": 543.6212663301267
+          },
+          "scalar_diagnostics": [
+            {
+              "task": 1,
+              "epoch": 1,
+              "steps": 79,
+              "fit_n": 5052,
+              "meta_n": 1264,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.852954775643773e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.013529246626350909,
+              "mean_pair_loss": 0.007868633387297118,
+              "mean_feature_loss": 8.936275667168312e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 4.676594148894255e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 1,
+              "epoch": 2,
+              "steps": 158,
+              "fit_n": 5052,
+              "meta_n": 1264,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.795218945630369e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.012120720217565509,
+              "mean_pair_loss": 0.007019340157301707,
+              "mean_feature_loss": 0.00022805762337962802,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 5.734622128278411e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 5.633825544037861e-10
+              }
+            },
+            {
+              "task": 2,
+              "epoch": 1,
+              "steps": 171,
+              "fit_n": 778,
+              "meta_n": 194,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 5.727255956883563e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.005767492913704452,
+              "mean_pair_loss": 0.014359775313945555,
+              "mean_feature_loss": 5.876332775537426e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.812428191808429e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 2,
+              "epoch": 2,
+              "steps": 184,
+              "fit_n": 778,
+              "meta_n": 194,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 8.291731472400547e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.005635043546990516,
+              "mean_pair_loss": 0.014384381427287613,
+              "mean_feature_loss": 6.111226209143821e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.7829097385303567e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 1.8017324927216534e-10
+              }
+            },
+            {
+              "task": 3,
+              "epoch": 1,
+              "steps": 209,
+              "fit_n": 1584,
+              "meta_n": 396,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.4151451700249683e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007645025976171921,
+              "mean_pair_loss": 0.015385618812534266,
+              "mean_feature_loss": 9.141463786363602e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.165848839501845e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 3,
+              "epoch": 2,
+              "steps": 234,
+              "fit_n": 1584,
+              "meta_n": 396,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.6917874666126757e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007693818288503511,
+              "mean_pair_loss": 0.015432412916262914,
+              "mean_feature_loss": 0.00010022480564657599,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.023414457474715e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 7.774809200299101e-10
+              }
+            },
+            {
+              "task": 4,
+              "epoch": 1,
+              "steps": 278,
+              "fit_n": 2799,
+              "meta_n": 700,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 2.2603549186157563e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.015044963600635581,
+              "mean_pair_loss": 0.02095287602851438,
+              "mean_feature_loss": 0.0002481069715775613,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 9.154616607301197e-11
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 4,
+              "epoch": 2,
+              "steps": 322,
+              "fit_n": 2799,
+              "meta_n": 700,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 2.1348152014850314e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.014719645793068125,
+              "mean_pair_loss": 0.02090595518772792,
+              "mean_feature_loss": 0.00040539535918717525,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.631272142079758e-11
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 8.532264234804332e-11
+              }
+            }
+          ]
+        },
+        "PathMNISTLT_local_transport": {
+          "metrics": {
+            "stages": [
+              {
+                "task": 1,
+                "seen": [
+                  8,
+                  6,
+                  4
+                ],
+                "validation_n": 3199,
+                "accuracy": 0.9790559549859331,
+                "balanced_accuracy": 0.9807713392759602,
+                "per_class_recall": {
+                  "8": 0.9706703910614525,
+                  "6": 0.9817559863169898,
+                  "4": 0.9898876404494382
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890
+                },
+                "tail_recall": 0.9706703910614525
+              },
+              {
+                "task": 2,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0
+                ],
+                "validation_n": 5396,
+                "accuracy": 0.9796145292809488,
+                "balanced_accuracy": 0.9805790287281105,
+                "per_class_recall": {
+                  "8": 0.9608938547486033,
+                  "6": 0.9680729760547321,
+                  "4": 0.9865168539325843,
+                  "3": 0.9922145328719724,
+                  "0": 0.9951969260326609
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041
+                },
+                "tail_recall": 0.9765541938102879
+              },
+              {
+                "task": 3,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7
+                ],
+                "validation_n": 7498,
+                "accuracy": 0.9757268604961323,
+                "balanced_accuracy": 0.9769463486824556,
+                "per_class_recall": {
+                  "8": 0.9406424581005587,
+                  "6": 0.9646522234891676,
+                  "4": 0.9685393258426966,
+                  "3": 0.9887543252595156,
+                  "0": 0.989433237271854,
+                  "1": 1.0,
+                  "7": 0.9866028708133971
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045
+                },
+                "tail_recall": 0.9764655944533581
+              },
+              {
+                "task": 4,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "validation_n": 10004,
+                "accuracy": 0.9587165133946421,
+                "balanced_accuracy": 0.9610449124663324,
+                "per_class_recall": {
+                  "8": 0.9036312849162011,
+                  "6": 0.9657924743443558,
+                  "4": 0.9584269662921349,
+                  "3": 0.9896193771626297,
+                  "0": 0.9884726224783862,
+                  "1": 1.0,
+                  "7": 0.9311004784688995,
+                  "2": 0.9670138888888888,
+                  "5": 0.9453471196454948
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045,
+                  "2": 1152,
+                  "5": 1354
+                },
+                "tail_recall": 0.9644168873596103
+              }
+            ],
+            "average_incremental_accuracy": 0.9732784645394141,
+            "final_accuracy": 0.9587165133946421,
+            "task_accuracy_matrix": [
+              [
+                0.9790559549859331,
+                null,
+                null,
+                null
+              ],
+              [
+                0.9699906220693967,
+                0.9936276741010469,
+                null,
+                null
+              ],
+              [
+                0.9549859331040951,
+                0.9890760127446518,
+                0.9933396764985728,
+                null
+              ],
+              [
+                0.9359174742106908,
+                0.9890760127446518,
+                0.9657469077069457,
+                0.9553072625698324
+              ]
+            ],
+            "task_forgetting": 0.02509430364108815,
+            "class_frequency": {
+              "many": {
+                "classes": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  7,
+                  2,
+                  5
+                ],
+                "n": 8947,
+                "accuracy": 0.9538392757348833,
+                "macro_recall": 0.9561755265246239
+              },
+              "medium": {
+                "classes": [
+                  1
+                ],
+                "n": 1057,
+                "accuracy": 1.0,
+                "macro_recall": 1.0
+              },
+              "few": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              }
+            },
+            "average_incremental_balanced_accuracy": 0.9748354072882147,
+            "final_balanced_accuracy": 0.9610449124663324,
+            "final_tail_recall": 0.9644168873596103,
+            "forgetting": 0.025612163411900517,
+            "forgetting_classes": 7,
+            "final_old_recall": 0.9624347433803725,
+            "final_new_recall": 0.9561805042671918,
+            "test_accessed": false,
+            "evaluation_split": "official_validation",
+            "independent_confirmation": false
+          },
+          "status": {
+            "steps": 322,
+            "policy_updates": 0,
+            "elapsed_seconds": 1416.7591913249344,
+            "max_solve_residual": 9.989040072800533e-10,
+            "status": "COMPLETE",
+            "stages": 4,
+            "peak_gpu_bytes": 13747529728,
+            "evaluation_seconds": 543.507345884107
+          },
+          "scalar_diagnostics": [
+            {
+              "task": 1,
+              "epoch": 1,
+              "steps": 79,
+              "fit_n": 5052,
+              "meta_n": 1264,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.815024297062552e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.013525833357575234,
+              "mean_pair_loss": 0.007865130621587444,
+              "mean_feature_loss": 8.964284898877539e-05,
+              "activation": {
+                "extra_columns": 12,
+                "prior_delta": 0.8320684064496983
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 4.75384488118864e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 1,
+              "epoch": 2,
+              "steps": 158,
+              "fit_n": 5052,
+              "meta_n": 1264,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.005791033639594754,
+              "max_batch_solve_residual": 9.989040072800533e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.012117354065506014,
+              "mean_pair_loss": 0.0070153531975721784,
+              "mean_feature_loss": 0.00022814037266137268,
+              "boundary_local_transport_norm": 0.006401344780221363,
+              "activation": {
+                "extra_columns": 12,
+                "prior_delta": 0.8318892558686976
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 5.758670335723812e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 5.66162393771853e-10
+              }
+            },
+            {
+              "task": 2,
+              "epoch": 1,
+              "steps": 171,
+              "fit_n": 778,
+              "meta_n": 194,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 5.726870674233043e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.005778021535899033,
+              "mean_pair_loss": 0.014359453299437802,
+              "mean_feature_loss": 5.932842731663886e-05,
+              "activation": {
+                "extra_columns": 20,
+                "prior_delta": 0.9991373253599581
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.8295115408575276e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 2,
+              "epoch": 2,
+              "steps": 184,
+              "fit_n": 778,
+              "meta_n": 194,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.002063275324932525,
+              "max_batch_solve_residual": 8.291233447016533e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.005651909403512357,
+              "mean_pair_loss": 0.014387225828170981,
+              "mean_feature_loss": 6.00514266317567e-05,
+              "boundary_local_transport_norm": 0.0021595334140440212,
+              "activation": {
+                "extra_columns": 20,
+                "prior_delta": 0.9991804764117106
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.800484931351084e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 1.8210843779589041e-10
+              }
+            },
+            {
+              "task": 3,
+              "epoch": 1,
+              "steps": 209,
+              "fit_n": 1584,
+              "meta_n": 396,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.418249231372809e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007668701645191352,
+              "mean_pair_loss": 0.015377241589470911,
+              "mean_feature_loss": 9.19959123712033e-05,
+              "activation": {
+                "extra_columns": 28,
+                "prior_delta": 1.1291273018341224
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.062456450676397e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 3,
+              "epoch": 2,
+              "steps": 234,
+              "fit_n": 1584,
+              "meta_n": 396,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0021444599129107835,
+              "max_batch_solve_residual": 3.7034327206868196e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.007722082025525425,
+              "mean_pair_loss": 0.015431240355304028,
+              "mean_feature_loss": 0.00010142514132894575,
+              "boundary_local_transport_norm": 0.002335118285907888,
+              "activation": {
+                "extra_columns": 28,
+                "prior_delta": 1.1291511684032625
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.905373731128794e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 7.67615828531385e-10
+              }
+            },
+            {
+              "task": 4,
+              "epoch": 1,
+              "steps": 278,
+              "fit_n": 2799,
+              "meta_n": 700,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 2.2563254517138315e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.01505410611560644,
+              "mean_pair_loss": 0.020931558619810234,
+              "mean_feature_loss": 0.00024789020624831954,
+              "activation": {
+                "extra_columns": 36,
+                "prior_delta": 1.2005017319606224
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 9.130384819971426e-11
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 4,
+              "epoch": 2,
+              "steps": 322,
+              "fit_n": 2799,
+              "meta_n": 700,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.004134659305429475,
+              "max_batch_solve_residual": 2.135399692952191e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.01471285248287164,
+              "mean_pair_loss": 0.020873672948388503,
+              "mean_feature_loss": 0.0004103183547902683,
+              "boundary_local_transport_norm": 0.004175954702581669,
+              "activation": {
+                "extra_columns": 36,
+                "prior_delta": 1.2006148070999743
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 8.6186633513501e-11
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 8.522802229388529e-11
+              }
+            }
+          ]
+        }
+      }
+    },
+    "BALANCED11358": {
+      "runs": {
+        "PathMNISTLT_base": {
+          "metrics": {
+            "stages": [
+              {
+                "task": 1,
+                "seen": [
+                  8,
+                  6,
+                  4
+                ],
+                "validation_n": 3199,
+                "accuracy": 0.9796811503594873,
+                "balanced_accuracy": 0.9800639688531364,
+                "per_class_recall": {
+                  "8": 0.9776536312849162,
+                  "6": 0.9737742303306728,
+                  "4": 0.9887640449438202
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890
+                },
+                "tail_recall": 0.9776536312849162
+              },
+              {
+                "task": 2,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0
+                ],
+                "validation_n": 5396,
+                "accuracy": 0.9809117865085248,
+                "balanced_accuracy": 0.9810721165317549,
+                "per_class_recall": {
+                  "8": 0.9671787709497207,
+                  "6": 0.9600912200684151,
+                  "4": 0.9853932584269663,
+                  "3": 0.9965397923875432,
+                  "0": 0.9961575408261287
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041
+                },
+                "tail_recall": 0.981859281668632
+              },
+              {
+                "task": 3,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7
+                ],
+                "validation_n": 7498,
+                "accuracy": 0.9753267538010136,
+                "balanced_accuracy": 0.9760955707654767,
+                "per_class_recall": {
+                  "8": 0.9420391061452514,
+                  "6": 0.9623717217787914,
+                  "4": 0.9561797752808989,
+                  "3": 0.9922145328719724,
+                  "0": 0.989433237271854,
+                  "1": 1.0,
+                  "7": 0.9904306220095693
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045
+                },
+                "tail_recall": 0.9780845463390747
+              },
+              {
+                "task": 4,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "validation_n": 10004,
+                "accuracy": 0.9590163934426229,
+                "balanced_accuracy": 0.9607740824395942,
+                "per_class_recall": {
+                  "8": 0.9106145251396648,
+                  "6": 0.9589509692132269,
+                  "4": 0.950561797752809,
+                  "3": 0.9896193771626297,
+                  "0": 0.9884726224783862,
+                  "1": 0.9981078524124882,
+                  "7": 0.937799043062201,
+                  "2": 0.9652777777777778,
+                  "5": 0.947562776957164
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045,
+                  "2": 1152,
+                  "5": 1354
+                },
+                "tail_recall": 0.9661139182382609
+              }
+            ],
+            "average_incremental_accuracy": 0.9737340210279122,
+            "final_accuracy": 0.9590163934426229,
+            "task_accuracy_matrix": [
+              [
+                0.9796811503594873,
+                null,
+                null,
+                null
+              ],
+              [
+                0.9703032197561738,
+                0.996358670914884,
+                null,
+                null
+              ],
+              [
+                0.9515473585495468,
+                0.9908966772872099,
+                0.9952426260704091,
+                null
+              ],
+              [
+                0.9349796811503595,
+                0.9890760127446518,
+                0.9681255946717412,
+                0.9557063048683161
+              ]
+            ],
+            "task_forgetting": 0.02636705292600931,
+            "class_frequency": {
+              "many": {
+                "classes": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "n": 10004,
+                "accuracy": 0.9590163934426229,
+                "macro_recall": 0.9607740824395942
+              },
+              "medium": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              },
+              "few": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              }
+            },
+            "average_incremental_balanced_accuracy": 0.9745014346474905,
+            "final_balanced_accuracy": 0.9607740824395942,
+            "final_tail_recall": 0.9661139182382609,
+            "forgetting": 0.027027667794463528,
+            "forgetting_classes": 7,
+            "final_old_recall": 0.9620180267459152,
+            "final_new_recall": 0.9564202773674708,
+            "test_accessed": false,
+            "evaluation_split": "official_validation",
+            "independent_confirmation": false
+          },
+          "status": {
+            "steps": 288,
+            "policy_updates": 0,
+            "elapsed_seconds": 1493.8051342661493,
+            "max_solve_residual": 9.925726033942753e-10,
+            "status": "COMPLETE",
+            "stages": 4,
+            "peak_gpu_bytes": 13369807360,
+            "evaluation_seconds": 538.6367616909556
+          },
+          "scalar_diagnostics": [
+            {
+              "task": 1,
+              "epoch": 1,
+              "steps": 48,
+              "fit_n": 3030,
+              "meta_n": 756,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.921744048780787e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.027844092870219387,
+              "mean_pair_loss": 0.01702175165183333,
+              "mean_feature_loss": 9.012449891088181e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 3.663080702706947e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 1,
+              "epoch": 2,
+              "steps": 96,
+              "fit_n": 3030,
+              "meta_n": 756,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.90165577910375e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.025604247086393476,
+              "mean_pair_loss": 0.01560860417398628,
+              "mean_feature_loss": 0.0002096362636621052,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 3.6868975843512417e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 3.4327414516969037e-10
+              }
+            },
+            {
+              "task": 2,
+              "epoch": 1,
+              "steps": 128,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 4.5016550604329296e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.006490612456801775,
+              "mean_pair_loss": 0.01600837317569348,
+              "mean_feature_loss": 6.042385621185531e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6023146043121364e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 2,
+              "epoch": 2,
+              "steps": 160,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 5.460715343995738e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.006266543999201893,
+              "mean_pair_loss": 0.0158512504943343,
+              "mean_feature_loss": 7.809989165252773e-05,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.604870926427587e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 1.5929840722370464e-10
+              }
+            },
+            {
+              "task": 3,
+              "epoch": 1,
+              "steps": 192,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.3346998004399743e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.008288976011810233,
+              "mean_pair_loss": 0.01618816358117431,
+              "mean_feature_loss": 0.00013256036390885129,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.540937063061365e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 3,
+              "epoch": 2,
+              "steps": 224,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.252557347620119e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.008266146311657846,
+              "mean_pair_loss": 0.016249172822935917,
+              "mean_feature_loss": 0.0001700668703961128,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.465274934917108e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 7.489826980105691e-10
+              }
+            },
+            {
+              "task": 4,
+              "epoch": 1,
+              "steps": 256,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 1.6630118423806358e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.017969507549374677,
+              "mean_pair_loss": 0.022955479014137786,
+              "mean_feature_loss": 0.00022365210884345288,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.0603001094133924e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 4,
+              "epoch": 2,
+              "steps": 288,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 1.6611720000850208e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.017877492236176424,
+              "mean_pair_loss": 0.02312128669102651,
+              "mean_feature_loss": 0.0003167401282553328,
+              "activation": {
+                "extra_columns": 0,
+                "prior_delta": 0.0
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.0050155713481412e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 9.925726033942753e-10
+              }
+            }
+          ]
+        },
+        "PathMNISTLT_local_transport": {
+          "metrics": {
+            "stages": [
+              {
+                "task": 1,
+                "seen": [
+                  8,
+                  6,
+                  4
+                ],
+                "validation_n": 3199,
+                "accuracy": 0.9793685526727102,
+                "balanced_accuracy": 0.9798311941790209,
+                "per_class_recall": {
+                  "8": 0.9769553072625698,
+                  "6": 0.9737742303306728,
+                  "4": 0.9887640449438202
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890
+                },
+                "tail_recall": 0.9769553072625698
+              },
+              {
+                "task": 2,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0
+                ],
+                "validation_n": 5396,
+                "accuracy": 0.9810971089696071,
+                "balanced_accuracy": 0.981211781336224,
+                "per_class_recall": {
+                  "8": 0.9678770949720671,
+                  "6": 0.9600912200684151,
+                  "4": 0.9853932584269663,
+                  "3": 0.9965397923875432,
+                  "0": 0.9961575408261287
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041
+                },
+                "tail_recall": 0.9822084436798051
+              },
+              {
+                "task": 3,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7
+                ],
+                "validation_n": 7498,
+                "accuracy": 0.9755934915977594,
+                "balanced_accuracy": 0.9763927898089998,
+                "per_class_recall": {
+                  "8": 0.9420391061452514,
+                  "6": 0.9623717217787914,
+                  "4": 0.9573033707865168,
+                  "3": 0.9922145328719724,
+                  "0": 0.989433237271854,
+                  "1": 1.0,
+                  "7": 0.9913875598086125
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045
+                },
+                "tail_recall": 0.9780845463390747
+              },
+              {
+                "task": 4,
+                "seen": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "validation_n": 10004,
+                "accuracy": 0.9587165133946421,
+                "balanced_accuracy": 0.9606521899696252,
+                "per_class_recall": {
+                  "8": 0.9085195530726257,
+                  "6": 0.9600912200684151,
+                  "4": 0.9516853932584269,
+                  "3": 0.9896193771626297,
+                  "0": 0.989433237271854,
+                  "1": 0.9990539262062441,
+                  "7": 0.9368421052631579,
+                  "2": 0.9652777777777778,
+                  "5": 0.9453471196454948
+                },
+                "per_class_n": {
+                  "8": 1432,
+                  "6": 877,
+                  "4": 890,
+                  "3": 1156,
+                  "0": 1041,
+                  "1": 1057,
+                  "7": 1045,
+                  "2": 1152,
+                  "5": 1354
+                },
+                "tail_recall": 0.9657309521471665
+              }
+            ],
+            "average_incremental_accuracy": 0.9736939166586798,
+            "final_accuracy": 0.9587165133946421,
+            "task_accuracy_matrix": [
+              [
+                0.9793685526727102,
+                null,
+                null,
+                null
+              ],
+              [
+                0.9706158174429509,
+                0.996358670914884,
+                null,
+                null
+              ],
+              [
+                0.9518599562363238,
+                0.9908966772872099,
+                0.9957183634633682,
+                null
+              ],
+              [
+                0.9346670834635824,
+                0.9895311788802913,
+                0.9681255946717412,
+                0.9545091779728652
+              ]
+            ],
+            "task_forgetting": 0.026373910011782464,
+            "class_frequency": {
+              "many": {
+                "classes": [
+                  8,
+                  6,
+                  4,
+                  3,
+                  0,
+                  1,
+                  7,
+                  2,
+                  5
+                ],
+                "n": 10004,
+                "accuracy": 0.9587165133946421,
+                "macro_recall": 0.9606521899696252
+              },
+              "medium": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              },
+              "few": {
+                "classes": [],
+                "n": 0,
+                "accuracy": null,
+                "macro_recall": null
+              }
+            },
+            "average_incremental_balanced_accuracy": 0.9745219888234675,
+            "final_balanced_accuracy": 0.9606521899696252,
+            "final_tail_recall": 0.9657309521471665,
+            "forgetting": 0.026904809036570554,
+            "forgetting_classes": 7,
+            "final_old_recall": 0.9621778303290505,
+            "final_new_recall": 0.9553124487116362,
+            "test_accessed": false,
+            "evaluation_split": "official_validation",
+            "independent_confirmation": false
+          },
+          "status": {
+            "steps": 288,
+            "policy_updates": 0,
+            "elapsed_seconds": 1497.9851260250434,
+            "max_solve_residual": 9.9728584740119e-10,
+            "status": "COMPLETE",
+            "stages": 4,
+            "peak_gpu_bytes": 13618598400,
+            "evaluation_seconds": 538.852859030012
+          },
+          "scalar_diagnostics": [
+            {
+              "task": 1,
+              "epoch": 1,
+              "steps": 48,
+              "fit_n": 3030,
+              "meta_n": 756,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 9.9728584740119e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.027819588340215706,
+              "mean_pair_loss": 0.017006159188816754,
+              "mean_feature_loss": 8.979041293362873e-05,
+              "activation": {
+                "extra_columns": 12,
+                "prior_delta": 0.8351803462855616
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 3.739954043768287e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 1,
+              "epoch": 2,
+              "steps": 96,
+              "fit_n": 3030,
+              "meta_n": 756,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0034331650409405337,
+              "max_batch_solve_residual": 9.867326219522358e-10,
+              "prototype_count": 12,
+              "mean_fit_loss": 0.02557834897626661,
+              "mean_pair_loss": 0.015590155777160242,
+              "mean_feature_loss": 0.0002093327566399239,
+              "boundary_local_transport_norm": 0.00418973642333888,
+              "activation": {
+                "extra_columns": 12,
+                "prior_delta": 0.8351013441976918
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 3.758334296128511e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 3.5025586033666127e-10
+              }
+            },
+            {
+              "task": 2,
+              "epoch": 1,
+              "steps": 128,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 4.4963991229045714e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.006501624146288074,
+              "mean_pair_loss": 0.015991199979529667,
+              "mean_feature_loss": 6.040456207756506e-05,
+              "activation": {
+                "extra_columns": 20,
+                "prior_delta": 1.0017996760937242
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6095563257454034e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 2,
+              "epoch": 2,
+              "steps": 160,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.00186155803750468,
+              "max_batch_solve_residual": 5.444663519416336e-10,
+              "prototype_count": 20,
+              "mean_fit_loss": 0.00626537927758528,
+              "mean_pair_loss": 0.015829128331142573,
+              "mean_feature_loss": 7.822343138741417e-05,
+              "boundary_local_transport_norm": 0.0019524186937963962,
+              "activation": {
+                "extra_columns": 20,
+                "prior_delta": 1.001836612128204
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.6128926789984007e-10
+              },
+              "boundary_solve": {
+                "iterations": 9,
+                "relative_residual": 1.603271793783328e-10
+              }
+            },
+            {
+              "task": 3,
+              "epoch": 1,
+              "steps": 192,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 3.333738950476564e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.008301760115512412,
+              "mean_pair_loss": 0.016135404063141238,
+              "mean_feature_loss": 0.0001335051276782906,
+              "activation": {
+                "extra_columns": 28,
+                "prior_delta": 1.1271012117090182
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.544574087431204e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 3,
+              "epoch": 2,
+              "steps": 224,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.002025818190177645,
+              "max_batch_solve_residual": 3.253144838969208e-10,
+              "prototype_count": 28,
+              "mean_fit_loss": 0.00826890197387398,
+              "mean_pair_loss": 0.01619296131840658,
+              "mean_feature_loss": 0.00017194556812683004,
+              "boundary_local_transport_norm": 0.002248030480117589,
+              "activation": {
+                "extra_columns": 28,
+                "prior_delta": 1.1271477726568573
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 7.474703113520332e-10
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 7.506720391672618e-10
+              }
+            },
+            {
+              "task": 4,
+              "epoch": 1,
+              "steps": 256,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0,
+              "max_batch_solve_residual": 1.660952568925707e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.01794701268191783,
+              "mean_pair_loss": 0.022875464701459097,
+              "mean_feature_loss": 0.00022548681124590075,
+              "activation": {
+                "extra_columns": 36,
+                "prior_delta": 1.198610782740899
+              },
+              "update_module": {},
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 1.0369294522607179e-10
+              },
+              "boundary_solve": {}
+            },
+            {
+              "task": 4,
+              "epoch": 2,
+              "steps": 288,
+              "fit_n": 2020,
+              "meta_n": 504,
+              "history_rank": 0,
+              "learning_rate_multiplier": 1.0,
+              "local_transport_norm": 0.0022787805603164714,
+              "max_batch_solve_residual": 1.6542992784196712e-10,
+              "prototype_count": 36,
+              "mean_fit_loss": 0.01784812345863773,
+              "mean_pair_loss": 0.02304165748663565,
+              "mean_feature_loss": 0.00031818872048461344,
+              "boundary_local_transport_norm": 0.002413224867607559,
+              "activation": {
+                "extra_columns": 36,
+                "prior_delta": 1.1986136734731296
+              },
+              "update_module": {
+                "history_rank": 0,
+                "learning_rate_multiplier": 1.0,
+                "fused": false
+              },
+              "controller": {
+                "policy_updates": 0,
+                "head_evaluations": 1,
+                "proposed_reward": 0.0,
+                "executed": false,
+                "original_current_guard": true,
+                "original_old_guard": true,
+                "relative_pair_l1": 0.0,
+                "max_solve_residual": 9.800391991990024e-11
+              },
+              "boundary_solve": {
+                "iterations": 8,
+                "relative_residual": 9.942402158588756e-10
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "costs": [
+    {
+      "job": "PathMNISTLT_IF10_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 149.66675969725475
+    },
+    {
+      "job": "PathMNISTLT_IF10_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 149.81488682283089
+    },
+    {
+      "job": "PathMNISTLT_IF50_local_transport",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 122.12846137909219
+    },
+    {
+      "job": "PathMNISTLT_IF50_base",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 122.37575928494334
+    },
+    {
+      "job": "PathMNISTLT_BALANCED11358_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 81.61322895996273
+    },
+    {
+      "job": "PathMNISTLT_BALANCED11358_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 81.82911797892302
+    },
+    {
+      "job": "PathMNISTLT_IF10_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 1671.2867644377984
+    },
+    {
+      "job": "PathMNISTLT_IF10_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 1673.8796683391556
+    },
+    {
+      "job": "PathMNISTLT_IF50_local_transport",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 1426.7794647468254
+    },
+    {
+      "job": "PathMNISTLT_IF50_base",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 1429.8764546420425
+    },
+    {
+      "job": "PathMNISTLT_BALANCED11358_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 1505.3843010468408
+    },
+    {
+      "job": "PathMNISTLT_BALANCED11358_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 1509.131357818842
+    },
+    {
+      "job": "PathMNISTLT_IF10_local_transport",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 541.4685162571259
+    },
+    {
+      "job": "PathMNISTLT_IF10_base",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 541.569778305944
+    },
+    {
+      "job": "PathMNISTLT_IF50_base",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 551.2661971119232
+    },
+    {
+      "job": "PathMNISTLT_IF50_local_transport",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 551.3092690738849
+    },
+    {
+      "job": "PathMNISTLT_BALANCED11358_base",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 546.2785636191256
+    },
+    {
+      "job": "PathMNISTLT_BALANCED11358_local_transport",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 546.2598252091557
+    }
+  ]
+}

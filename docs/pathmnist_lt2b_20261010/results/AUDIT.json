@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "source_commit": "a1ab6bbef911f98b0f706c881f926375abc87cd0",
+  "scientific_source_commit": "bc3afb1846c7afcf52032d6c1f69a9e8d04047ff",
+  "previous_failed_round": "pathmnist_lt2_20261010",
+  "original_deadline": 1791728907.9881878,
+  "formal_complete": 6,
+  "formal_adapter_updates": 2152,
+  "zero_update_preflight_checks": 6,
+  "successful_subprocess_cost_records": 18,
+  "formal_failures": [],
+  "policy_updates": 0,
+  "test_accessed": false,
+  "evaluation_split": "official_validation",
+  "denominators_equal_all_stages": true,
+  "max_solve_residual": 9.989040072800533e-10,
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "round_gpu_process_residence_seconds": 13201.918374731671,
+  "cumulative_gpu_process_residence_seconds": 157232.22644399526,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "module_local2_20261010": 7624.042213955894,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "pathmnist_lt2b_20261010": 13201.918374731671
+  },
+  "parallel_wall_seconds": 6603.515978892334,
+  "whole_campaign_wall_seconds": 6743.156702280045,
+  "data_preparation_cpu_seconds": 138.99580390704796,
+  "cpu_check_seconds": 6.331786436960101,
+  "auxiliary_screen_passed": false,
+  "medical_development_goal_met": false,
+  "independent_confirmation": false,
+  "startup_engineering_incidents": [
+    "Previous explicitly delivered attempt failed on external image symlink root check before any optimizer step; this attempt materializes images inside independent root",
+    "Previous failed attempt startup: local default Python lacked numpy; CPU check used established remote interpreter",
+    "Previous failed attempt startup: NFS metadata-copy EIO; ordinary content-copy probe passed; zero GPU updates"
+  ],
+  "per_profile_screen": {
+    "IF10": {
+      "ba_gain": false,
+      "tail_protection": true,
+      "forgetting_protection": true,
+      "old_protection": true,
+      "new_protection": true
+    },
+    "IF50": {
+      "ba_gain": false,
+      "tail_protection": true,
+      "forgetting_protection": true,
+      "old_protection": true,
+      "new_protection": true
+    },
+    "BALANCED11358": {
+      "ba_gain": false,
+      "tail_protection": true,
+      "forgetting_protection": true,
+      "old_protection": true,
+      "new_protection": true
+    }
+  },
+  "local_prior_activated_all_epochs": true,
+  "finite_scalar_diagnostics_checked": true
+}

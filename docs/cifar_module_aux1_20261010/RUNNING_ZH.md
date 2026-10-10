@@ -1,3 +1,7 @@
-# CIFAR 辅助验证待启动
+# CIFAR辅助验证已后台启动
 
-已冻结原static_pc与local_transport两条配对轨迹，IF100、固定shuffled顺序、50＋5×10、seed74002、每臂276更新。GPU2顺序执行，GPU3禁用，GPU0/1保留医学研究。CPU检查PASS；真实GPU预检和训练尚未启动，未产生结果。
+原static_pc与local_transport两条新配对轨迹，IF100、固定shuffled顺序、50＋5×10、seed74002、每臂276更新，总552。仅GPU2顺序执行，GPU3禁用，GPU0/1保留医学研究。
+
+启动时间2026-10-10 19:23:34（北京时间），最晚截止10-11 19:23:34。CPU检查PASS；一次真实启动快照确认PREFLIGHT原base第一任务特征提取初始化、0optimizer更新、进程树/NVML入口中性、无立即失败。未宣称两个预检已PASS、正式训练开始或科学结果成立。估计2–4小时，实际进度以PROGRAM_STATE为准。
+
+现有每小时监测跟踪该独立队列，两臂TRAINED后统一官方test评价；完成后公开全部正负、六指标及增量、每阶段/100类召回与分母、审计及成本。当前无CIFAR结果。源码与协议已冻结于 b68fdc3d18d4c1cd0de8c893486698d1f3dbbf96。

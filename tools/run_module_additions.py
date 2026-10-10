@@ -22,7 +22,20 @@ from run_prototype_coherent import IndexedImages, common_shift, cpu_bank, fit_sp
 from run_prototype_single import Images, extract, manifests, save
 
 
+def official_cifar(config):
+    """The separately authorized auxiliary benchmark cannot unlock medical test data."""
+    if config['name']=='CIFAR100LT':
+        if (config.get('auxiliary_cifar_authorized') is not True or
+                config.get('evaluation_split')!='official_test' or config.get('imbalance_factor')!=100):
+            raise ValueError('Explicit frozen CIFAR auxiliary protocol required')
+        return True
+    if config.get('auxiliary_cifar_authorized') or config.get('evaluation_split')=='official_test':
+        raise ValueError('CIFAR permission does not authorize medical test evaluation')
+    return False
+
+
 def run(config):
+    official_cifar(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -378,6 +391,7 @@ def refit(config):
 
 
 def evaluate(config):
+    cifar_test=official_cifar(config)
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
     started=time.monotonic()
@@ -432,8 +446,8 @@ def evaluate(config):
         forgetting=float(np.mean(forgetting)),forgetting_classes=len(old),
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
-        test_accessed=False,evaluation_split='development_validation',independent_confirmation=False)
-    if config['module']=='base':
+        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else 'development_validation',independent_confirmation=False)
+    if config['module']=='base' and not cifar_test:
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')

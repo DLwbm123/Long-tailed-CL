@@ -10,11 +10,15 @@ def summarize(snapshot,destination):
     fields=('final_balanced_accuracy','average_incremental_balanced_accuracy','final_tail_recall',
             'forgetting','final_old_recall','final_new_recall')
     rows=[]
-    for dataset in ('ISIC','HK'):
+    datasets=snapshot.get('datasets',['ISIC','HK'])
+    cifar_test=datasets==['CIFAR100LT'] and snapshot.get('auxiliary_cifar_authorized') is True
+    for dataset in datasets:
         base=snapshot['runs'][dataset+'_base']['metrics']
         for arm in snapshot.get('modules',('base','hierarchy','local','paced','fusion')):
             run=snapshot['runs'][dataset+'_'+arm];m=run['metrics']
-            if run['status']['status']!='COMPLETE' or m['test_accessed']:
+            if (run['status']['status']!='COMPLETE' or
+                    bool(m['test_accessed'])!=cifar_test or
+                    (cifar_test and m['evaluation_split']!='official_test')):
                 raise ValueError('Incomplete or invalid aggregate input')
             if [s['per_class_n'] for s in m['stages']] != [s['per_class_n'] for s in base['stages']]:
                 raise ValueError('Class denominator mismatch')
@@ -25,7 +29,7 @@ def summarize(snapshot,destination):
             rows.append(dict(dataset=dataset,module=arm,**{f:100*m[f] for f in fields},
                              delta_pp=delta,development_screen_passed=passed))
     (destination/'RESULTS.json').write_text(json.dumps(dict(rows=rows,runs=snapshot['runs'],
-        costs=snapshot['program']['costs'],independent_confirmation=False,test_accessed=False),indent=2,allow_nan=False))
+        costs=snapshot['program']['costs'],independent_confirmation=False,test_accessed=cifar_test),indent=2,allow_nan=False))
     with (destination/'COMPARISONS.csv').open('w') as stream:
         writer=csv.writer(stream);writer.writerow(['dataset','module',*fields,'screen_passed'])
         for row in rows:writer.writerow([row['dataset'],row['module'],*[row[f] for f in fields],row['development_screen_passed']])

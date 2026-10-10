@@ -50,9 +50,23 @@ def synthetic_path(config):
     return False
 
 
+def synthetic_organ(config):
+    if config['name']=='OrganAMNISTLT':
+        if (config.get('synthetic_organ_authorized') is not True or
+                config.get('evaluation_split')!='official_validation' or
+                config.get('image_size')!=224 or config.get('imbalance_factor')!=100 or
+                config.get('n_max')!=3100 or config.get('classes')!=11):
+            raise ValueError('Frozen OrganAMNIST training/validation protocol required')
+        return True
+    if config.get('synthetic_organ_authorized'):
+        raise ValueError('OrganAMNIST permission escaped its dataset')
+    return False
+
+
 def run(config):
     official_cifar(config)
     synthetic_path(config)
+    synthetic_organ(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -410,6 +424,7 @@ def refit(config):
 def evaluate(config):
     cifar_test=official_cifar(config)
     path_validation=synthetic_path(config)
+    organ_validation=synthetic_organ(config)
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
     started=time.monotonic()
@@ -464,7 +479,7 @@ def evaluate(config):
         forgetting=float(np.mean(forgetting)),forgetting_classes=len(old),
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
-        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation else 'development_validation'),independent_confirmation=False)
+        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation or organ_validation else 'development_validation'),independent_confirmation=False)
     if config['module']=='base' and not cifar_test and not path_validation:
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):

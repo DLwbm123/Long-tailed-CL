@@ -1,0 +1,156 @@
+{
+  "campaign": "organamnist_lt1_20261011",
+  "dataset": "OrganAMNISTLT",
+  "modality": "CT axial grayscale, existing RGB loader repeats channel",
+  "classes": 11,
+  "imbalance_factor": 100,
+  "n_max": 3100,
+  "n_max_rule": "100*floor(min(5000,min_c(source_train_n[c]*100**(rank[c]/10)))/100); train supply only before evaluation",
+  "frequency_rank": [
+    4,
+    0,
+    7,
+    8,
+    5,
+    2,
+    3,
+    9,
+    6,
+    10,
+    1
+  ],
+  "order": [
+    7,
+    8,
+    4,
+    3,
+    0,
+    1,
+    6,
+    9,
+    2,
+    5,
+    10
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "frequency_seed": 74003,
+  "order_seed": 74004,
+  "task_sizes": [
+    3,
+    2,
+    2,
+    2,
+    2
+  ],
+  "class_counts": {
+    "4": 3100,
+    "0": 1955,
+    "7": 1234,
+    "8": 778,
+    "5": 491,
+    "2": 310,
+    "3": 195,
+    "9": 123,
+    "6": 77,
+    "10": 49,
+    "1": 31
+  },
+  "fit_counts": {
+    "4": 2480,
+    "0": 1564,
+    "7": 987,
+    "8": 622,
+    "5": 393,
+    "2": 248,
+    "3": 156,
+    "9": 98,
+    "6": 62,
+    "10": 39,
+    "1": 25
+  },
+  "train_n": 8343,
+  "official_train_n": 34561,
+  "official_validation_n": 6491,
+  "source_train_counts": [
+    1956,
+    1390,
+    1357,
+    1474,
+    3963,
+    3817,
+    6164,
+    3919,
+    3929,
+    3031,
+    3561
+  ],
+  "source_val_counts": [
+    321,
+    233,
+    225,
+    392,
+    568,
+    637,
+    1033,
+    1033,
+    1009,
+    529,
+    511
+  ],
+  "stage_updates": [
+    128,
+    54,
+    4,
+    12,
+    14
+  ],
+  "updates_per_arm": 212,
+  "formal_adapter_updates": 424,
+  "formal_trajectories": 2,
+  "preflight_checks": 2,
+  "policy_updates": 0,
+  "modules": [
+    "base",
+    "local_transport"
+  ],
+  "image_size": 224,
+  "evaluation_split": "official_validation",
+  "test_access": false,
+  "authorized_gpus": [
+    0,
+    1
+  ],
+  "head_classes": [
+    4,
+    0,
+    7,
+    8
+  ],
+  "middle_classes": [
+    5,
+    2,
+    3
+  ],
+  "tail_classes": [
+    9,
+    6,
+    10,
+    1
+  ],
+  "wall_hours": 24,
+  "training": "Original ViT/adapter/global statistics/competition/FD10 AdamW; epochs2 batch64 workers4 lr.0003 WD.01 clip5 ridge.001 proximal.01; no new head or readout",
+  "selection": "Same frozen local_transport; no val amplitude, seed or module selection",
+  "archive_bytes": 1803859544,
+  "data_url": "https://zenodo.org/records/10519652/files/organamnist_224.npz?download=1",
+  "source_info": "https://github.com/MedMNIST/MedMNIST/blob/main/medmnist/info.py",
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "old_pp_min": -1,
+    "new_pp_min": -1
+  },
+  "identity": "Official sample index only; source authors describe scan-separated splits but patient/scan grouping not independently reconstructed",
+  "prior_closed_gpu_residence_seconds": 157232.22644399526
+}

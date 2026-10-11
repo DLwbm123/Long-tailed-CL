@@ -13,6 +13,17 @@ DISEASES=('DR','ARMD','MH','DN','MYA','BRVO','TSLN','ERM','LS','MS','CSR','ODC',
           'TV','AH','ODP','ODE','ST','AION','PT','RT','RS','CRS','EDN','RPEC','MHL','RP',
           'CWS','CB','ODPM','PRH','MNF','HR','CRAO','TD','CME','PTCR','CF','VH','MCA',
           'VS','BRAO','PLQ','HPED','CL')
+# Fixed RIADD participant output list; do not select columns by validation frequency.
+BENCHMARK_DISEASES=DISEASES[:27]
+BENCHMARK_LABELS=('Normal',*BENCHMARK_DISEASES,'OTHER')
+
+
+def benchmark_labels(row):
+    values=[1-int(row['Disease_Risk']),*(int(row[k]) for k in BENCHMARK_DISEASES),
+            int(any(row[k]=='1' for k in DISEASES[27:]))]
+    assert len(values)==29 and all(x in (0,1) for x in values)
+    assert values[0]==int(not any(values[1:]))
+    return values
 
 
 def read_labels(text,expected):

@@ -3,7 +3,7 @@ import csv
 import io
 import json
 import time
-from prepare_rfmid_ml import DISEASES, read_labels
+from prepare_rfmid_ml import DISEASES, read_labels, benchmark_labels
 
 
 def check():
@@ -22,7 +22,15 @@ def check():
         try:read_labels(text,expected)
         except (AssertionError,KeyError,TypeError,ValueError):pass
         else:raise AssertionError('Invalid labels accepted')
+    row=read_labels(table([good]),1)[0]
+    assert benchmark_labels(row)==[1,*([0]*28)]
+    row.update(Disease_Risk='1',DR='1',MCA='1',CL='1')
+    mapped=benchmark_labels(row)
+    assert mapped[0]==0 and mapped[1]==1 and mapped[-1]==1 and sum(mapped)==2
+    row['DR']='0'
+    assert sum(benchmark_labels(row))==1 and benchmark_labels(row)[-1]==1
     return dict(status='PASS',valid_binary_csv=True,rejected_cases_n=len(bad_cases),
+                normal_and_other_or_correct=True,multi_hot_preserved=True,
                 test_accessed=False,gpu_work=False,cpu_seconds=time.monotonic()-begun)
 
 

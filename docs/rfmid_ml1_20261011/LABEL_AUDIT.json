@@ -1,5 +1,5 @@
 {
-  "status": "CSV_AUDITED_NAS_PREPARING",
+  "status": "CSV_AUDITED_NAS_READY_MAPPING_FROZEN_METHOD_PENDING",
   "test_accessed": false,
   "training_started": false,
   "raw_disease_labels": [
@@ -280,7 +280,7 @@
     }
   },
   "benchmark_mapping": {
-    "status": "PROPOSED_CHALLENGE_VIEW_NOT_FROZEN",
+    "status": "FROZEN_CHALLENGE_VIEW",
     "monica_exact_mapping_verified": false,
     "fixed_diseases": [
       "DR",
@@ -335,6 +335,7 @@
     "normal_rule": "1-Disease_Risk",
     "other_rule": "OR of the remaining 18 raw disease flags",
     "source": "https://github.com/frankkramer-lab/riadd.aucmedi/blob/main/scripts/inference.py",
-    "mapping_determined_by_train_or_val_threshold": false
+    "mapping_determined_by_train_or_val_threshold": false,
+    "label_count": 29
   }
 }

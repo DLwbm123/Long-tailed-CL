@@ -24,22 +24,26 @@ def run(config):
     root = Path(config['root'])
     rows = read_mapped(Path(config['data_root']) / 'labels29/train.csv', 1920)
     proposal = json.loads(Path(config['proposal']).read_text())
-    plan, support = recurrent_plan(rows, proposal)
+    variant = config['worker_config']['partition_variant']
+    plan, support = recurrent_plan(rows, proposal, variant)
     design = config['design']['scheme']
     for task, stage in zip(support['tasks'], design['stages']):
         for label in task['visible_labels']:
             assert task['current_positive'][label] == stage['positive'][label]
             assert task['current_negative'][label] == stage['negative'][label]
-    assert support['old_positive_occurrences'] == 676 and support['observed_negative_occurrences'] == 34010
-    assert sum(t['images_with_old_positive'] for t in support['tasks']) == 560
+    assert support['old_positive_occurrences'] == sum(t['old_positive_occurrences'] for t in design['stages'])
+    assert support['observed_negative_occurrences'] == 34010
+    assert sum(t['images_with_old_positive'] for t in support['tasks']) == sum(t['images_with_old_positive'] for t in design['stages'])
     for mutate in ('duplicate', 'group', 'budget', 'future_positive'):
         bad = copy.deepcopy(plan)
         if mutate == 'duplicate': bad['tasks'][0]['train_ids'][0] = bad['tasks'][0]['train_ids'][1]
         elif mutate == 'group': bad['tasks'][0]['introduced_labels'].reverse()
         elif mutate == 'budget': bad['tasks'][0]['expected_steps'] = 13
         else:
-            bad['tasks'][0]['train_ids'][0], bad['tasks'][4]['train_ids'][0] = bad['tasks'][4]['train_ids'][0], bad['tasks'][0]['train_ids'][0]
-        try: recurrent_plan(rows, bad)
+            by_id = {r['ID']: r for r in rows}
+            j = next(j for j,i in enumerate(bad['tasks'][4]['train_ids']) if any(int(by_id[i][k]) for k in bad['tasks'][4]['introduced_labels']))
+            bad['tasks'][0]['train_ids'][0], bad['tasks'][4]['train_ids'][j] = bad['tasks'][4]['train_ids'][j], bad['tasks'][0]['train_ids'][0]
+        try: recurrent_plan(rows, bad, variant)
         except ValueError: pass
         else: raise AssertionError('Changed frozen plan was accepted: ' + mutate)
     spec = importlib.util.spec_from_file_location('original_native_rfmid', config['native_trainer'])
@@ -93,7 +97,18 @@ def run(config):
     assert image.shape == (4, 3) and torch.equal(target[~observed], torch.zeros_like(target[~observed]))
     c = dict(config['worker_config'], operation='train')
     validate_config(c)
-    for key, value in (('expected_steps', 66), ('rfmid_recurrent_authorized', False), ('evaluation_split', 'official_test')):
+    mutations = [('expected_steps', 66), ('rfmid_recurrent_authorized', False), ('evaluation_split', 'official_test')]
+    if variant == 'negative_coverage_v3':
+        mutations += [('rfmid_negative_coverage_authorized', False)]
+        # Earlier science sources remain valid and cannot silently adopt v3.
+        old_proposal = json.loads(Path(config['previous_plan']).read_text())
+        _, old_support = recurrent_plan(rows, old_proposal)
+        assert old_support == json.loads(Path(config['previous_support']).read_text())
+        assert support['normal_per_task'] == [81, 80, 80, 80, 80]
+        try: recurrent_plan(rows, proposal)
+        except ValueError: pass
+        else: raise AssertionError('Coverage plan accepted as v2')
+    for key, value in mutations:
         bad = dict(c, **{key: value})
         try: validate_config(bad)
         except ValueError: pass

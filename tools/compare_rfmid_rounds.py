@@ -9,7 +9,7 @@ from summarize_rfmid import FIELDS
 
 def compare(old, new, old_lock, new_lock):
     labels = list(BENCHMARK_LABELS)
-    assert old_lock['steps_per_arm'] == 66 and new_lock['steps_per_arm'] == 60
+    assert old_lock['steps_per_arm'] in (60, 66) and new_lock['steps_per_arm'] == 60
     tables, final, rows = {}, {}, {}
     for name, result, lock in (('previous', old, old_lock), ('recurrent', new, new_lock)):
         assert lock['labels'] == labels and lock['frequency_groups'] == old_lock['frequency_groups']
@@ -37,7 +37,7 @@ def compare(old, new, old_lock, new_lock):
               for name in ('previous', 'recurrent')}
     interaction = {k: within['recurrent'][k] - within['previous'][k] for k in fields}
     lines = ['# RFMiD 新旧划分完整对比', '',
-             '两轮同一官方validation640图、固定29标签和train频数组；test封存。旧轮每臂66步，新轮60步。标签引入组、样本分配、known mask与更新量均变化，以下为描述性比较，不能将差异单独归因于共病监督或旧阳性。', '',
+             f'两轮同一官方validation640图、固定29标签和train频数组；test封存。旧轮每臂{old_lock["steps_per_arm"]}步，新轮60步。标签引入组、样本分配和known mask不同；更新量是否相同见预算。以下为描述性比较，不能将差异单独归因于某一监督因素。', '',
              '|划分/方法|最终mAP %|平均增量mAP %|tail AP %|AP遗忘 pp|旧label AP %|新label AP %|',
              '|---|---:|---:|---:|---:|---:|---:|']
     for name, values in rows.items():
@@ -94,13 +94,13 @@ def compare(old, new, old_lock, new_lock):
     lines += ['', '共集stage仅补充同标签集合的描述，不代表相同训练课程。新轮完整五stage/29label AP、AUROC、F1及支持度保留于RESULTS，旧轮原结果不重写。',
               f'跨轮最终AP：base {signs["base"]}，candidate {signs["local_transport"]}，全部正负均报告。',
               f'最终mAP新−旧：base {cross["base"]["final_mAP"]:+.4f}pp，candidate {cross["local_transport"]["final_mAP"]:+.4f}pp。新轮候选−base {within["recurrent"]["final_mAP"]:+.4f}pp，候选收益变化 {interaction["final_mAP"]:+.4f}pp。',
-              '旧分配未来阳性监督损失324次、后续旧标签阳性0；新分配损失0、后续旧阳性676次/560图、共病650对均保留。支持修复本身不能预测或证明AP改善；不把单标签BA门套入多标签，不夸大极少val TV/PT/RP各2阳性。',
+              f'旧轮未来阳性监督损失{sum(old_lock["hidden_future_positive_occurrences"].values())}次、后续旧阳性{old_lock.get("old_positive_occurrences", 0)}次；新轮损失0、后续旧阳性{new_lock["old_positive_occurrences"]}次、共病650对均保留。支持修复本身不能证明AP改善；不套单标签BA门，不夸大极少阳性AP。',
               '单seed/order、重复official val、缺patient/eye ID与内容重复核对，仅开发证据，不是临床泛化、test benchmark或APPLE/MONICA精确复现。新旧成本分别列于各轮AUDIT，旧轨迹不重跑也不重新收费。']
     result = dict(status='DESCRIPTIVE_CROSS_ROUND_COMPARISON', rows=rows, cross_delta_pp=cross,
                   within_delta_pp=within, module_gain_change_pp=interaction, fixed_group_AP=group_rows,
                   per_label=label_rows, common_label_stage_AP=common_stages, label_change_counts=signs,
                   paired_validation_denominators_equal=True, individual_predictions_compared=False,
-                  causal_single_factor_attribution=False, previous_steps_per_arm=66, recurrent_steps_per_arm=60)
+                  causal_single_factor_attribution=False, previous_steps_per_arm=old_lock['steps_per_arm'], recurrent_steps_per_arm=60)
     return result, '\n'.join(lines) + '\n'
 
 

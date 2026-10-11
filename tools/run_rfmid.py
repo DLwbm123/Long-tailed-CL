@@ -21,15 +21,17 @@ def validate_config(config):
     if config.get('rfmid_multilabel_authorized') is not True or config.get('name') != 'RFMiD':
         raise ValueError('Explicit RFMiD multi-label authorization required')
     variant = config.get('partition_variant', 'earliest')
-    if variant not in ('earliest', 'balanced_recurrent_v2'):
+    if variant not in ('earliest', 'balanced_recurrent_v2', 'negative_coverage_v3'):
         raise ValueError('Unapproved RFMiD partition variant')
-    if variant == 'balanced_recurrent_v2' and (config.get('rfmid_recurrent_authorized') is not True or
+    if variant != 'earliest' and (config.get('rfmid_recurrent_authorized') is not True or
             not config.get('task_plan_path') or not config.get('support_audit_path')):
         raise ValueError('Recurrent RFMiD authorization and frozen plan required')
+    if (variant == 'negative_coverage_v3') != (config.get('rfmid_negative_coverage_authorized') is True):
+        raise ValueError('Negative-coverage partition requires its own authorization')
     if variant == 'earliest' and any(k in config for k in ('rfmid_recurrent_authorized', 'task_plan_path', 'support_audit_path')):
         raise ValueError('Recurrent plan cannot replace the original RFMiD protocol')
     fixed = dict(evaluation_split='official_validation', seed=74002, epochs=2, batch_size=64,
-                 workers=4, lr=.0003, expected_steps=60 if variant == 'balanced_recurrent_v2' else 66,
+                 workers=4, lr=.0003, expected_steps=66 if variant == 'earliest' else 60,
                  policy_updates=0, threshold=.5)
     if any(config.get(k) != v for k, v in fixed.items()) or config.get('test_accessed') is not False:
         raise ValueError('RFMiD frozen settings or test permission differ')
@@ -62,8 +64,8 @@ def run(config):
         raise ValueError('RFMiD data receipt reports test access')
     rows = read_mapped(root / 'labels29/train.csv', 1920)
     budget = config['expected_steps']
-    if config.get('partition_variant') == 'balanced_recurrent_v2':
-        plan, support = recurrent_plan(rows, json.loads(Path(config['task_plan_path']).read_text()))
+    if config.get('partition_variant', 'earliest') != 'earliest':
+        plan, support = recurrent_plan(rows, json.loads(Path(config['task_plan_path']).read_text()), config['partition_variant'])
         if support != json.loads(Path(config['support_audit_path']).read_text()):
             raise ValueError('Recurrent RFMiD frozen support differs')
     else:

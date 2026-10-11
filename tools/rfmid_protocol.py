@@ -14,6 +14,16 @@ RECURRENT_INTRODUCED = [
     ['TSLN', 'ODE', 'RS', 'CRS', 'RPEC'],
 ]
 
+COVERAGE_INTRODUCED = [
+    ['Normal', 'DR', 'MH', 'TSLN', 'LS', 'CSR', 'ODC', 'ODP', 'AION'],
+    ['ARMD', 'TV', 'PT', 'MHL', 'RP'],
+    ['DN', 'ERM', 'ST', 'RT', 'EDN'],
+    ['MYA', 'MS', 'AH', 'ODE', 'OTHER'],
+    ['BRVO', 'CRVO', 'RS', 'CRS', 'RPEC'],
+]
+COVERAGE_FOCUS = ('AION', 'ODP', 'LS', 'CSR')
+COVERAGE_ANCHORS = ('Normal', 'DR', 'MH', 'ODC', 'TSLN')
+
 
 def read_mapped(path, expected):
     with open(path, newline='') as stream:
@@ -90,12 +100,15 @@ def build_plan(rows):
                  expected_steps_per_arm=sum(t['expected_steps'] for t in tasks)))
 
 
-def recurrent_plan(rows, proposal):
+def recurrent_plan(rows, proposal, variant='balanced_recurrent_v2'):
     """Validate the approved private assignment without solving or changing it."""
     labels = list(BENCHMARK_LABELS)
     if len(rows) != 1920 or proposal.get('labels') != labels:
         raise ValueError('Recurrent RFMiD row count or label view differs')
-    if [t['introduced_labels'] for t in proposal['tasks']] != RECURRENT_INTRODUCED:
+    if variant not in ('balanced_recurrent_v2', 'negative_coverage_v3'):
+        raise ValueError('Unapproved recurrent variant')
+    introduced = COVERAGE_INTRODUCED if variant == 'negative_coverage_v3' else RECURRENT_INTRODUCED
+    if [t['introduced_labels'] for t in proposal['tasks']] != introduced:
         raise ValueError('Recurrent RFMiD introduction order differs')
     by_id = {r['ID']: r for r in rows}
     identities = [i for t in proposal['tasks'] for i in t['train_ids']]
@@ -119,8 +132,15 @@ def recurrent_plan(rows, proposal):
             raise ValueError('Recurrent new label lacks its frozen sign support')
         if any(pos[k] < 1 or neg[k] < 1 for k in old):
             raise ValueError('Recurrent old label lacks a sign')
+        if variant == 'negative_coverage_v3':
+            if pos['Normal'] != (81 if index == 1 else 80):
+                raise ValueError('Normal coverage differs')
+            for k in COVERAGE_ANCHORS + COVERAGE_FOCUS:
+                minimum = counts[k] // 5 if k in COVERAGE_FOCUS else math.floor(counts[k] / 5 * .8)
+                if pos[k] < minimum:
+                    raise ValueError('Focus/anchor recurrence differs')
         for k in old:
-            intro = next(i for i, group in enumerate(RECURRENT_INTRODUCED, 1) if k in group)
+            intro = next(i for i, group in enumerate(introduced, 1) if k in group)
             minimum = 20 if k in ('Normal', 'DR', 'MH', 'ODC', 'TSLN') else max(
                 1, min(5, (counts[k] - min(5, math.ceil(counts[k] / 2))) // (5 - intro)))
             if pos[k] < minimum:
@@ -145,9 +165,20 @@ def recurrent_plan(rows, proposal):
         hidden_future_positive_occurrences={k: 0 for k in labels},
         observed_positive_counts={k: cumulative[k][1] for k in labels},
         image_replay=False, samples_assigned_once=True, test_accessed=False,
-        validation_used_for_plan=False, allocation='frozen balanced recurrent assignment; cumulative known mask',
+        validation_used_for_plan=False, allocation='frozen ' + variant + ' assignment; cumulative known mask',
         fit_meta='native A, all current images, no internal meta', expected_steps_per_arm=60,
         observed_positive_occurrences=2470, jointly_supervised_positive_pairs=650,
         old_positive_occurrences=sum(t['old_positive_occurrences'] for t in audits),
         observed_negative_occurrences=sum(v[0] for v in cumulative.values()))
+    # Preserve the already frozen v2 aggregate schema for historical callers.
+    if variant == 'balanced_recurrent_v2':
+        support['allocation'] = 'frozen balanced recurrent assignment; cumulative known mask'
+    else:
+        if support['old_positive_occurrences'] != 1478 or support['observed_negative_occurrences'] != 34010:
+            raise ValueError('Coverage frozen totals differ')
+        for k in COVERAGE_FOCUS + COVERAGE_ANCHORS:
+            if cumulative[k] != [1920 - counts[k], counts[k]]:
+                raise ValueError('First-task labels lack full train sign coverage')
+        support['normal_per_task'] = [t['current_positive']['Normal'] for t in audits]
+        support['focus_full_train_negative_coverage'] = True
     return plan, support

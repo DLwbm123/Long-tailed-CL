@@ -1,0 +1,68 @@
+{
+  "status": "DESIGN_AND_CPU_CHECKS_COMPLETE_NO_SCIENTIFIC_RUN",
+  "implementation": "tools/rfmid_contrast.py",
+  "check": "tools/check_rfmid_contrast.py",
+  "formula_choices_frozen_for_proposal": true,
+  "formal_gpu_launch_authorized": false,
+  "production_worker_wiring_changed": false,
+  "cpu_engine_reference_source": "8dec5e8dfd4795759403720a20ae4cd309f2a59c",
+  "control_result_commit": "17c7e1880a69d8abce5d9a953e9805c56d5a93ab",
+  "formal_adapter_updates": 0,
+  "policy_updates": 0,
+  "gpu_processes": 0,
+  "real_gpu_preflights": 0,
+  "test_accessed": false,
+  "scientific_classification_results_added": false,
+  "images_or_individual_features_read": false,
+  "checkpoints_modified": false,
+  "protected_residual_drift_source_config_data_budget_processes_changed": false,
+  "cpu_attempts": [
+    {
+      "attempt": 1,
+      "status": "IMPORT_FAILED_BEFORE_CHECKS",
+      "reason": "bundled local interpreter lacks torch",
+      "cpu_process_seconds": null,
+      "gpu_processes": 0,
+      "formal_updates": 0
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "scope": "initial synthetic CPU algebra and adapter check",
+      "cpu_process_seconds": 1.725378766,
+      "wall_seconds": 2.6751909283921123,
+      "synthetic_optimizer_updates": 16
+    },
+    {
+      "attempt": 3,
+      "status": "PASS",
+      "scope": "final check after adding original transport invariant and boolean argument validation",
+      "cpu_process_seconds": 2.381071773,
+      "wall_seconds": 3.2885464690625668,
+      "synthetic_optimizer_updates": 16
+    },
+    {
+      "attempt": "aggregate_geometry",
+      "status": "PASS",
+      "scope": "one completed checkpoint aggregate read and CSR same-statistics head reconstruction",
+      "cpu_process_seconds": 16.213300545,
+      "wall_seconds": 16.541202179156244,
+      "synthetic_optimizer_updates": 0
+    }
+  ],
+  "measured_cpu_process_seconds_total": 20.319751084,
+  "unmeasured_initial_import_failure_not_in_total": true,
+  "synthetic_optimizer_updates_total": 32,
+  "gpu_ledger_addition_seconds": 0,
+  "new_data_preparation_seconds": 0,
+  "limits": [
+    "CPU checks do not replace real GPU zero-update preflights",
+    "CSR AP gain not evaluated or guaranteed",
+    "New weaker prior may approach identity rather than improve native A",
+    "Projected contrast can remove clinically useful shared components",
+    "Tiny positive support can make contrasts noisy; magnitude attenuation is not a statistical confidence bound",
+    "Quadratic prior remains sign-swap invariant",
+    "No production worker, config or checkpoint version for this prior yet",
+    "Single-label competition head has no binary negative-center interface; no single-label integration claimed"
+  ]
+}

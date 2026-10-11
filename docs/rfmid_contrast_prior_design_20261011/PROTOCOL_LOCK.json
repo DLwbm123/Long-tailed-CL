@@ -1,0 +1,312 @@
+{
+  "status": "CPU_CHECKED_DESIGN_ONLY_NOT_AUTHORIZED_TO_LAUNCH",
+  "dataset": "RFMiD",
+  "design": "binary_contrast_shared_projection_v1",
+  "formal_training_started": false,
+  "gpu_launch_authorized": false,
+  "production_worker_enabled": false,
+  "scope": "CPU helper, aggregate geometry audit and prospective contribution protocol only",
+  "formula": {
+    "delta": "positive_mean - negative_mean, before any center normalization",
+    "shared": "columns of (positive_mean + negative_mean)/2 for the four regions",
+    "projection": "orthogonal projector onto the entire numerical column span of shared",
+    "numerical_rank_tolerance": "float64 epsilon * max(shared.shape) * largest singular value; no scientific rank cutoff",
+    "raw_columns": "delta_r / max(norm(positive_mean_r)+norm(negative_mean_r),1e-12) / 2",
+    "projected_columns": "(I-projection) raw_columns; two numerical projection passes",
+    "metric": "R=(I+P P^T)^(-1), feature penalty; augmented bias penalty 1",
+    "missing_sign_rule": "P=0 and R=I when either cumulative binary sign is absent",
+    "zero_contrast_rule": "P=0; no unit normalization of a tiny or projected-away contrast",
+    "coefficient": 0.5,
+    "ridge": 0.001,
+    "adaptive_strength_or_validation_threshold": false,
+    "energy_bound": "sum(P**2)<=1; .5 I <= R <= I; shared span unchanged for projected variant",
+    "quadratic_orientation": "Both variants remain sign-swap invariant; native signed RHS sets positive/negative orientation",
+    "transport": "Original observed-pair global common shift and per-region common shift; no separate positive/negative transport",
+    "translation_caveat": "Common shift cancels from raw difference, but denominator and midpoint span can change; entire metric is not translation invariant"
+  },
+  "controls": [
+    {
+      "arm": "A0",
+      "module": "native_A",
+      "execution": "reuse strict-matched coverage-v3 base",
+      "source_commit": "8dec5e8dfd4795759403720a20ae4cd309f2a59c",
+      "result_commit": "17c7e1880a69d8abce5d9a953e9805c56d5a93ab",
+      "new_updates": 0
+    },
+    {
+      "arm": "AL",
+      "module": "original_local_transport",
+      "execution": "reuse strict-matched coverage-v3 candidate",
+      "source_commit": "8dec5e8dfd4795759403720a20ae4cd309f2a59c",
+      "result_commit": "17c7e1880a69d8abce5d9a953e9805c56d5a93ab",
+      "new_updates": 0
+    },
+    {
+      "arm": "AC",
+      "module": "difference_transport",
+      "execution": "prospective real training; NOT authorized",
+      "remove_shared": false,
+      "updates_if_authorized": 60
+    },
+    {
+      "arm": "ACS",
+      "module": "difference_shared_removed_transport",
+      "execution": "prospective real training; NOT authorized",
+      "remove_shared": true,
+      "updates_if_authorized": 60
+    }
+  ],
+  "contributions": [
+    "AC-A0",
+    "ACS-A0",
+    "AC-AL",
+    "ACS-AL",
+    "ACS-AC"
+  ],
+  "attribution_limits": [
+    "AC vs AL changes geometry, number of prior columns and total energy; not a pure orientation comparison",
+    "ACS vs AC removes shared components and reduces energy; not an equal-strength comparison",
+    "Same-statistics CPU head changes do not establish validation AP effects or independent confirmation"
+  ],
+  "inherit_data_protocol_from": "rfmid_coverage3_20261011/PROTOCOL_LOCK.json",
+  "reuse_concrete_plan_without_resolving": true,
+  "reuse_data_read_only": true,
+  "labels": [
+    "Normal",
+    "DR",
+    "ARMD",
+    "MH",
+    "DN",
+    "MYA",
+    "BRVO",
+    "TSLN",
+    "ERM",
+    "LS",
+    "MS",
+    "CSR",
+    "ODC",
+    "CRVO",
+    "TV",
+    "AH",
+    "ODP",
+    "ODE",
+    "ST",
+    "AION",
+    "PT",
+    "RT",
+    "RS",
+    "CRS",
+    "EDN",
+    "RPEC",
+    "MHL",
+    "RP",
+    "OTHER"
+  ],
+  "introduced_groups": [
+    [
+      "Normal",
+      "DR",
+      "MH",
+      "TSLN",
+      "LS",
+      "CSR",
+      "ODC",
+      "ODP",
+      "AION"
+    ],
+    [
+      "ARMD",
+      "TV",
+      "PT",
+      "MHL",
+      "RP"
+    ],
+    [
+      "DN",
+      "ERM",
+      "ST",
+      "RT",
+      "EDN"
+    ],
+    [
+      "MYA",
+      "MS",
+      "AH",
+      "ODE",
+      "OTHER"
+    ],
+    [
+      "BRVO",
+      "CRVO",
+      "RS",
+      "CRS",
+      "RPEC"
+    ]
+  ],
+  "task_sizes": [
+    9,
+    5,
+    5,
+    5,
+    5
+  ],
+  "seed": 74002,
+  "order_tie_seed": 74004,
+  "partition_variant": "negative_coverage_v3",
+  "train_images": 1920,
+  "validation_images": 640,
+  "train_images_per_task": [
+    384,
+    384,
+    384,
+    384,
+    384
+  ],
+  "task_steps": [
+    12,
+    12,
+    12,
+    12,
+    12
+  ],
+  "steps_per_prospective_arm": 60,
+  "prospective_new_adapter_updates": 120,
+  "formal_adapter_updates_this_task": 0,
+  "policy_updates": 0,
+  "new_data_preparation_seconds": 0,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "preflight_workers": 0,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "clip_norm": 1.0,
+  "feature_distillation": 10.0,
+  "ridge": 0.001,
+  "scheduler": "native per-task cosine, T_max=2, eta_min=1e-5",
+  "fit_meta": "all current task images enter native A optimizer and boundary statistics; no internal meta/controller",
+  "frequency_groups": {
+    "head": [
+      "Normal",
+      "DR",
+      "MH",
+      "ODC",
+      "TSLN",
+      "DN",
+      "MYA",
+      "ARMD",
+      "BRVO",
+      "ODP"
+    ],
+    "middle": [
+      "ODE",
+      "LS",
+      "RS",
+      "CSR",
+      "OTHER",
+      "CRS",
+      "CRVO",
+      "RPEC",
+      "AION",
+      "AH"
+    ],
+    "tail": [
+      "MS",
+      "EDN",
+      "ERM",
+      "RT",
+      "PT",
+      "MHL",
+      "RP",
+      "TV",
+      "ST"
+    ]
+  },
+  "mask": "all introduced labels known; future labels masked unknown and zeroed before callers",
+  "observed_positive_occurrences": 2470,
+  "jointly_supervised_positive_pairs": 650,
+  "observed_negative_occurrences": 34010,
+  "future_negative_unknown_occurrences": 19200,
+  "Normal_per_task": [
+    81,
+    80,
+    80,
+    80,
+    80
+  ],
+  "CSR_train_P_N": [
+    37,
+    1883
+  ],
+  "CSR_validation_P_N": [
+    11,
+    629
+  ],
+  "focus_labels": [
+    "CSR",
+    "AION",
+    "ODP",
+    "LS"
+  ],
+  "all_labels_use_same_formula": true,
+  "evaluation_split": "official_validation",
+  "test_accessed": false,
+  "test_download_authorized": false,
+  "sample_replay": false,
+  "old_individual_features_persisted": false,
+  "local_ce": false,
+  "local_readout": false,
+  "learned_head_parameters": 0,
+  "auxiliary_rl": false,
+  "residual_drift_combination": false,
+  "single_label_competition_head_enabled": false,
+  "future_admission": {
+    "explicit_user_launch_authorization_required": true,
+    "protected_drift_round_finished_and_no_active_children_required": true,
+    "versioned_worker_and_checkpoint_prior_metadata_required": true,
+    "strict_control_match_rechecked_before_launch": true,
+    "frozen_source_proxy_publication_required": true,
+    "authorized_gpus": [
+      0,
+      1
+    ],
+    "minimum_free_memory_MiB_per_gpu": 32768,
+    "nas_mount_free_space_probe_required": true,
+    "real_zero_update_preflights": 2,
+    "all_real_preflights_PASS_before_TRAIN": true,
+    "both_60_steps_TRAINED_before_EVALUATE": true,
+    "max_wall_seconds": 86400,
+    "automatic_failure_retry": false,
+    "normal_gpu_cost_occurrences": 6
+  },
+  "report": {
+    "primary": "final mAP over all 29 labels",
+    "secondary": [
+      "mean_incremental_mAP",
+      "tail_AP",
+      "AP_forgetting",
+      "old_AP",
+      "new_AP",
+      "macro_AUROC",
+      "macro_F1_at_fixed_0.5",
+      "micro_F1_at_fixed_0.5"
+    ],
+    "complete_29_label_AP_AUROC_and_P_N_at_all_5_stages": true,
+    "all_positive_and_negative_deltas": true,
+    "reuse_prior_published_results_only": true,
+    "single_label_BA_gate_applied": false,
+    "mechanism_scalars": [
+      "raw_energy",
+      "retained_energy",
+      "retained_fraction",
+      "shared_rank",
+      "shared_leakage",
+      "prior_delta_norm",
+      "solve_residual"
+    ],
+    "max_solve_residual": 1e-08,
+    "patient_or_clinical_generalization_claim": false
+  },
+  "protected_active_round": "module_drift10_20261011",
+  "active_source_config_data_budget_processes_changed": false
+}

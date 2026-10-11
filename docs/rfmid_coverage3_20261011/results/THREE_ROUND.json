@@ -1,0 +1,2263 @@
+{
+  "status": "DESCRIPTIVE_THREE_ROUND_COMPARISON",
+  "rows": {
+    "round1_base": {
+      "final_mAP": 0.3864972536656065,
+      "average_incremental_mAP": 0.26118267625954933,
+      "final_tail_AP": 0.20461855150748356,
+      "forgetting_AP": -0.029515171296291078,
+      "final_old_AP": 0.3391909230529344,
+      "final_new_AP": 0.6135676406064328,
+      "final_macro_AUROC": 0.8770282344180579,
+      "final_macro_F1": 0.2811041116996249,
+      "final_micro_F1": 0.3997528575841829
+    },
+    "round1_local_transport": {
+      "final_mAP": 0.383713703148476,
+      "average_incremental_mAP": 0.26099675895814406,
+      "final_tail_AP": 0.20148508072717858,
+      "forgetting_AP": -0.02794143394952257,
+      "final_old_AP": 0.3356857454847915,
+      "final_new_AP": 0.6142478999341611,
+      "final_macro_AUROC": 0.8766635200340794,
+      "final_macro_F1": 0.28126340538159883,
+      "final_micro_F1": 0.4
+    },
+    "round2_base": {
+      "final_mAP": 0.36673231924368205,
+      "average_incremental_mAP": 0.31731046769737664,
+      "final_tail_AP": 0.18651306547309157,
+      "forgetting_AP": -0.005542910099530565,
+      "final_old_AP": 0.36286998973912454,
+      "final_new_AP": 0.38527150086555795,
+      "final_macro_AUROC": 0.8675188718662351,
+      "final_macro_F1": 0.26665877056106885,
+      "final_micro_F1": 0.3611650485436893
+    },
+    "round2_local_transport": {
+      "final_mAP": 0.36469146689865256,
+      "average_incremental_mAP": 0.31680297697059145,
+      "final_tail_AP": 0.18518735308902784,
+      "forgetting_AP": -0.0032350389888927875,
+      "final_old_AP": 0.36055631155299084,
+      "final_new_AP": 0.3845402125578289,
+      "final_macro_AUROC": 0.8672837031120956,
+      "final_macro_F1": 0.2641133710447796,
+      "final_micro_F1": 0.3605555555555556
+    },
+    "round3_base": {
+      "final_mAP": 0.38951002473723645,
+      "average_incremental_mAP": 0.3966566769177383,
+      "final_tail_AP": 0.19418441194356972,
+      "forgetting_AP": 0.020082927528035727,
+      "final_old_AP": 0.37895193977899266,
+      "final_new_AP": 0.4401888325368065,
+      "final_macro_AUROC": 0.8736728362881304,
+      "final_macro_F1": 0.28115577650684775,
+      "final_micro_F1": 0.3894993894993895
+    },
+    "round3_local_transport": {
+      "final_mAP": 0.3890639269741267,
+      "average_incremental_mAP": 0.39669311511269323,
+      "final_tail_AP": 0.19414679154548173,
+      "forgetting_AP": 0.021107525955002458,
+      "final_old_AP": 0.37834305802825713,
+      "final_new_AP": 0.44052409791430014,
+      "final_macro_AUROC": 0.8736305058432486,
+      "final_macro_F1": 0.2823467295891994,
+      "final_micro_F1": 0.389618320610687
+    }
+  },
+  "per_label": [
+    {
+      "label": "Normal",
+      "positive": 134,
+      "negative": 506,
+      "AP": {
+        "round1_base": 0.7688881132897875,
+        "round1_local_transport": 0.7711675047571769,
+        "round2_base": 0.7696859786199216,
+        "round2_local_transport": 0.7694468122198581,
+        "round3_base": 0.77656438455642,
+        "round3_local_transport": 0.7767579396706211
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "DR",
+      "positive": 132,
+      "negative": 508,
+      "AP": {
+        "round1_base": 0.7651981837063376,
+        "round1_local_transport": 0.764894078065071,
+        "round2_base": 0.8566613636253866,
+        "round2_local_transport": 0.856865774725399,
+        "round3_base": 0.85267830281557,
+        "round3_local_transport": 0.8529901953220876
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "ARMD",
+      "positive": 38,
+      "negative": 602,
+      "AP": {
+        "round1_base": 0.6113214241644629,
+        "round1_local_transport": 0.6094691472156196,
+        "round2_base": 0.6027795730351313,
+        "round2_local_transport": 0.5994062714749935,
+        "round3_base": 0.6105516232278999,
+        "round3_local_transport": 0.6098085270643826
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "MH",
+      "positive": 102,
+      "negative": 538,
+      "AP": {
+        "round1_base": 0.7915937830713576,
+        "round1_local_transport": 0.7917741086782972,
+        "round2_base": 0.8497163088714924,
+        "round2_local_transport": 0.8496122918710228,
+        "round3_base": 0.8450919531590648,
+        "round3_local_transport": 0.8444317777807928
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "DN",
+      "positive": 46,
+      "negative": 594,
+      "AP": {
+        "round1_base": 0.17471156189856826,
+        "round1_local_transport": 0.17485325818353756,
+        "round2_base": 0.14698524618963327,
+        "round2_local_transport": 0.1466242958717207,
+        "round3_base": 0.15530289827708602,
+        "round3_local_transport": 0.15474710364005642
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "MYA",
+      "positive": 34,
+      "negative": 606,
+      "AP": {
+        "round1_base": 0.8371375443167878,
+        "round1_local_transport": 0.8390767815501426,
+        "round2_base": 0.8507916956226517,
+        "round2_local_transport": 0.8531981127349513,
+        "round3_base": 0.8227666866961696,
+        "round3_local_transport": 0.8227666866961696
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "BRVO",
+      "positive": 23,
+      "negative": 617,
+      "AP": {
+        "round1_base": 0.2932880124964194,
+        "round1_local_transport": 0.2927710451284096,
+        "round2_base": 0.2403402046805415,
+        "round2_local_transport": 0.2406330388789028,
+        "round3_base": 0.3855324362375567,
+        "round3_local_transport": 0.38896948689411065
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "TSLN",
+      "positive": 65,
+      "negative": 575,
+      "AP": {
+        "round1_base": 0.44460651772980975,
+        "round1_local_transport": 0.44496918915223443,
+        "round2_base": 0.46812427353210717,
+        "round2_local_transport": 0.46818030806246647,
+        "round3_base": 0.4995119045267041,
+        "round3_local_transport": 0.4992325976898174
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "ERM",
+      "positive": 7,
+      "negative": 633,
+      "AP": {
+        "round1_base": 0.06518053802333634,
+        "round1_local_transport": 0.06539734787773317,
+        "round2_base": 0.0695241104103682,
+        "round2_local_transport": 0.06771208879131489,
+        "round3_base": 0.07000318488358068,
+        "round3_local_transport": 0.07183769557316069
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "LS",
+      "positive": 17,
+      "negative": 623,
+      "AP": {
+        "round1_base": 0.3058379568684497,
+        "round1_local_transport": 0.3057231474309,
+        "round2_base": 0.2038249017405421,
+        "round2_local_transport": 0.2071234217079097,
+        "round3_base": 0.364480625656152,
+        "round3_local_transport": 0.3636872065363084
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "MS",
+      "positive": 5,
+      "negative": 635,
+      "AP": {
+        "round1_base": 0.01777333842530044,
+        "round1_local_transport": 0.017904790440967218,
+        "round2_base": 0.018469428280422497,
+        "round2_local_transport": 0.01838377967927205,
+        "round3_base": 0.02060360151601015,
+        "round3_local_transport": 0.020649798158751224
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "CSR",
+      "positive": 11,
+      "negative": 629,
+      "AP": {
+        "round1_base": 0.1879239087561337,
+        "round1_local_transport": 0.18731436385473305,
+        "round2_base": 0.09644951893019728,
+        "round2_local_transport": 0.0964710430176026,
+        "round3_base": 0.1473425332499696,
+        "round3_local_transport": 0.13312594402701072
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "ODC",
+      "positive": 72,
+      "negative": 568,
+      "AP": {
+        "round1_base": 0.29755160523487156,
+        "round1_local_transport": 0.29843461901802637,
+        "round2_base": 0.3021770595375481,
+        "round2_local_transport": 0.3036574919607352,
+        "round3_base": 0.32640536633751466,
+        "round3_local_transport": 0.32650274610075053
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "CRVO",
+      "positive": 8,
+      "negative": 632,
+      "AP": {
+        "round1_base": 0.760195707070707,
+        "round1_local_transport": 0.7572717304625199,
+        "round2_base": 0.7801776960784315,
+        "round2_local_transport": 0.7858595142602496,
+        "round3_base": 0.9129464285714286,
+        "round3_local_transport": 0.9129464285714286
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "TV",
+      "positive": 2,
+      "negative": 638,
+      "AP": {
+        "round1_base": 0.01001602564102564,
+        "round1_local_transport": 0.009700093720712278,
+        "round2_base": 0.01023873224943404,
+        "round2_local_transport": 0.01013309134906231,
+        "round3_base": 0.010869565217391304,
+        "round3_local_transport": 0.010840188014101058
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "AH",
+      "positive": 4,
+      "negative": 636,
+      "AP": {
+        "round1_base": 0.4971428571428571,
+        "round1_local_transport": 0.4988095238095238,
+        "round2_base": 0.4733333333333333,
+        "round2_local_transport": 0.4733333333333333,
+        "round3_base": 0.47971491228070173,
+        "round3_local_transport": 0.47971491228070173
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "ODP",
+      "positive": 26,
+      "negative": 614,
+      "AP": {
+        "round1_base": 0.26298873191427496,
+        "round1_local_transport": 0.26139009030130445,
+        "round2_base": 0.08603339414552476,
+        "round2_local_transport": 0.08655720940390182,
+        "round3_base": 0.14403485090535023,
+        "round3_local_transport": 0.14504656511505393
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "ODE",
+      "positive": 21,
+      "negative": 619,
+      "AP": {
+        "round1_base": 0.5613362054388756,
+        "round1_local_transport": 0.5618503112161393,
+        "round2_base": 0.6073434933672748,
+        "round2_local_transport": 0.6057796202076533,
+        "round3_base": 0.6397267013010833,
+        "round3_local_transport": 0.6410539474151223
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "ST",
+      "positive": 4,
+      "negative": 636,
+      "AP": {
+        "round1_base": 0.010116325551240982,
+        "round1_local_transport": 0.010026411734340726,
+        "round2_base": 0.013289063426426061,
+        "round2_local_transport": 0.012922458047687043,
+        "round3_base": 0.00851904278834821,
+        "round3_local_transport": 0.008459455948739477
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "AION",
+      "positive": 5,
+      "negative": 635,
+      "AP": {
+        "round1_base": 0.8242424242424242,
+        "round1_local_transport": 0.7742424242424242,
+        "round2_base": 0.6385281385281385,
+        "round2_local_transport": 0.5851948051948053,
+        "round3_base": 0.5634920634920635,
+        "round3_local_transport": 0.5634920634920635
+      },
+      "timing_vs_v2": "\u63d0\u524d"
+    },
+    {
+      "label": "PT",
+      "positive": 2,
+      "negative": 638,
+      "AP": {
+        "round1_base": 0.22619047619047616,
+        "round1_local_transport": 0.22619047619047616,
+        "round2_base": 0.19642857142857142,
+        "round2_local_transport": 0.19642857142857142,
+        "round3_base": 0.2159090909090909,
+        "round3_local_transport": 0.2159090909090909
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "RT",
+      "positive": 6,
+      "negative": 634,
+      "AP": {
+        "round1_base": 0.8529411764705882,
+        "round1_local_transport": 0.8251633986928103,
+        "round2_base": 0.7699248120300751,
+        "round2_local_transport": 0.7696223316912972,
+        "round3_base": 0.8240740740740741,
+        "round3_local_transport": 0.8237373737373738
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "RS",
+      "positive": 14,
+      "negative": 626,
+      "AP": {
+        "round1_base": 0.7793252907223495,
+        "round1_local_transport": 0.7765241702741702,
+        "round2_base": 0.7838974280804102,
+        "round2_local_transport": 0.7838974280804102,
+        "round3_base": 0.7993086127311778,
+        "round3_local_transport": 0.8004521736038027
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "CRS",
+      "positive": 11,
+      "negative": 629,
+      "AP": {
+        "round1_base": 0.08042761709457845,
+        "round1_local_transport": 0.08076461136740783,
+        "round2_base": 0.05016346027522081,
+        "round2_local_transport": 0.04803505375653369,
+        "round3_base": 0.07907573536081716,
+        "round3_local_transport": 0.07612964057365684
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "EDN",
+      "positive": 5,
+      "negative": 635,
+      "AP": {
+        "round1_base": 0.17448524795982423,
+        "round1_local_transport": 0.17271087375760272,
+        "round2_base": 0.14247049247049245,
+        "round2_local_transport": 0.1412132940434827,
+        "round3_base": 0.17671872431366104,
+        "round3_local_transport": 0.1750628995640583
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "RPEC",
+      "positive": 6,
+      "negative": 634,
+      "AP": {
+        "round1_base": 0.03435214026938076,
+        "round1_local_transport": 0.03425535358722822,
+        "round2_base": 0.016828849072776587,
+        "round2_local_transport": 0.016808652682080778,
+        "round3_base": 0.024080949783052166,
+        "round3_local_transport": 0.024122759928501946
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "MHL",
+      "positive": 3,
+      "negative": 637,
+      "AP": {
+        "round1_base": 0.0681971686388934,
+        "round1_local_transport": 0.06960566746329805,
+        "round2_base": 0.09160571229536746,
+        "round2_local_transport": 0.08360389610389611,
+        "round3_base": 0.09596242378997137,
+        "round3_local_transport": 0.09582462200406022
+      },
+      "timing_vs_v2": "\u63a8\u8fdf"
+    },
+    {
+      "label": "RP",
+      "positive": 2,
+      "negative": 638,
+      "AP": {
+        "round1_base": 0.41666666666666663,
+        "round1_local_transport": 0.41666666666666663,
+        "round2_base": 0.3666666666666667,
+        "round2_local_transport": 0.3666666666666667,
+        "round3_base": 0.325,
+        "round3_local_transport": 0.325
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    },
+    {
+      "label": "OTHER",
+      "positive": 21,
+      "negative": 619,
+      "AP": {
+        "round1_base": 0.08878380730680553,
+        "round1_local_transport": 0.0887762064663295,
+        "round2_base": 0.13277775154269203,
+        "round2_local_transport": 0.1326818828151433,
+        "round3_base": 0.11952204072194794,
+        "round3_local_transport": 0.11955405593789692
+      },
+      "timing_vs_v2": "\u76f8\u540c"
+    }
+  ],
+  "fixed_focus_and_timing_sets": {
+    "focus": {
+      "labels": [
+        "AION",
+        "ODP",
+        "LS",
+        "CSR"
+      ],
+      "AP": {
+        "round1_base": 0.39524825544532066,
+        "round1_local_transport": 0.38216750645734043,
+        "round2_base": 0.2562089883361007,
+        "round2_local_transport": 0.24383661983105484,
+        "round3_base": 0.30483751832588385,
+        "round3_local_transport": 0.3013379447926091
+      }
+    },
+    "delayed_vs_v2": {
+      "labels": [
+        "ARMD",
+        "DN",
+        "MYA",
+        "BRVO",
+        "ERM",
+        "MS",
+        "CRVO",
+        "AH",
+        "PT",
+        "RT",
+        "EDN",
+        "MHL"
+      ],
+      "AP": {
+        "round1_base": 0.3815470877331851,
+        "round1_local_transport": 0.3791020033977201,
+        "round2_base": 0.36523590632125164,
+        "round2_local_transport": 0.3646682106909988,
+        "round3_base": 0.3975071737314359,
+        "round3_local_transport": 0.397664552091112
+      }
+    },
+    "earlier_vs_v2": {
+      "labels": [
+        "DR",
+        "MH",
+        "TSLN",
+        "LS",
+        "CSR",
+        "ODC",
+        "ODP",
+        "ODE",
+        "AION"
+      ],
+      "AP": {
+        "round1_base": 0.4934754796625039,
+        "round1_local_transport": 0.4878435924399034,
+        "round2_base": 0.4565398280309124,
+        "round2_local_transport": 0.45104910735016623,
+        "round3_base": 0.48697381127149686,
+        "round3_local_transport": 0.48550700483100084
+      }
+    },
+    "unchanged_vs_v2": {
+      "labels": [
+        "Normal",
+        "TV",
+        "ST",
+        "RS",
+        "CRS",
+        "RPEC",
+        "RP",
+        "OTHER"
+      ],
+      "AP": {
+        "round1_base": 0.2735719983177294,
+        "round1_local_transport": 0.273485127321754,
+        "round2_base": 0.2679434912416935,
+        "round2_local_transport": 0.26757400570218026,
+        "round3_base": 0.2678675413948943,
+        "round3_local_transport": 0.267664526709665
+      }
+    }
+  },
+  "comparisons_to_round1_and_round2": [
+    {
+      "status": "DESCRIPTIVE_CROSS_ROUND_COMPARISON",
+      "rows": {
+        "previous_base": {
+          "final_mAP": 0.3864972536656065,
+          "average_incremental_mAP": 0.26118267625954933,
+          "final_tail_AP": 0.20461855150748356,
+          "forgetting_AP": -0.029515171296291078,
+          "final_old_AP": 0.3391909230529344,
+          "final_new_AP": 0.6135676406064328,
+          "final_macro_AUROC": 0.8770282344180579,
+          "final_macro_F1": 0.2811041116996249,
+          "final_micro_F1": 0.3997528575841829
+        },
+        "previous_local_transport": {
+          "final_mAP": 0.383713703148476,
+          "average_incremental_mAP": 0.26099675895814406,
+          "final_tail_AP": 0.20148508072717858,
+          "forgetting_AP": -0.02794143394952257,
+          "final_old_AP": 0.3356857454847915,
+          "final_new_AP": 0.6142478999341611,
+          "final_macro_AUROC": 0.8766635200340794,
+          "final_macro_F1": 0.28126340538159883,
+          "final_micro_F1": 0.4
+        },
+        "recurrent_base": {
+          "final_mAP": 0.38951002473723645,
+          "average_incremental_mAP": 0.3966566769177383,
+          "final_tail_AP": 0.19418441194356972,
+          "forgetting_AP": 0.020082927528035727,
+          "final_old_AP": 0.37895193977899266,
+          "final_new_AP": 0.4401888325368065,
+          "final_macro_AUROC": 0.8736728362881304,
+          "final_macro_F1": 0.28115577650684775,
+          "final_micro_F1": 0.3894993894993895
+        },
+        "recurrent_local_transport": {
+          "final_mAP": 0.3890639269741267,
+          "average_incremental_mAP": 0.39669311511269323,
+          "final_tail_AP": 0.19414679154548173,
+          "forgetting_AP": 0.021107525955002458,
+          "final_old_AP": 0.37834305802825713,
+          "final_new_AP": 0.44052409791430014,
+          "final_macro_AUROC": 0.8736305058432486,
+          "final_macro_F1": 0.2823467295891994,
+          "final_micro_F1": 0.389618320610687
+        }
+      },
+      "cross_delta_pp": {
+        "base": {
+          "final_mAP": 0.30127710716299494,
+          "average_incremental_mAP": 13.547400065818898,
+          "final_tail_AP": -1.043413956391384,
+          "forgetting_AP": 4.959809882432681,
+          "final_old_AP": 3.976101672605825,
+          "final_new_AP": -17.337880806962623,
+          "final_macro_AUROC": -0.3355398129927467,
+          "final_macro_F1": 0.005166480722285094,
+          "final_micro_F1": -1.0253468084793382
+        },
+        "local_transport": {
+          "final_mAP": 0.5350223825650646,
+          "average_incremental_mAP": 13.569635615454917,
+          "final_tail_AP": -0.733828918169685,
+          "forgetting_AP": 4.904895990452503,
+          "final_old_AP": 4.26573125434656,
+          "final_new_AP": -17.372380201986093,
+          "final_macro_AUROC": -0.3033014190830796,
+          "final_macro_F1": 0.10833242076005445,
+          "final_micro_F1": -1.0381679389313003
+        }
+      },
+      "within_delta_pp": {
+        "previous": {
+          "final_mAP": -0.2783550517130473,
+          "average_incremental_mAP": -0.018591730140526952,
+          "final_tail_AP": -0.31334707803049866,
+          "forgetting_AP": 0.15737373467685084,
+          "final_old_AP": -0.3505177568142892,
+          "final_new_AP": 0.06802593277283053,
+          "final_macro_AUROC": -0.036471438397844835,
+          "final_macro_F1": 0.015929368197392657,
+          "final_micro_F1": 0.024714241581713647
+        },
+        "recurrent": {
+          "final_mAP": -0.04460977631097762,
+          "average_incremental_mAP": 0.0036438194954913072,
+          "final_tail_AP": -0.003762039808799522,
+          "forgetting_AP": 0.10245984269667309,
+          "final_old_AP": -0.060888175073553485,
+          "final_new_AP": 0.033526537749362095,
+          "final_macro_AUROC": -0.00423304448817774,
+          "final_macro_F1": 0.11909530823516201,
+          "final_micro_F1": 0.011893111129751555
+        }
+      },
+      "module_gain_change_pp": {
+        "final_mAP": 0.23374527540206969,
+        "average_incremental_mAP": 0.02223554963601826,
+        "final_tail_AP": 0.30958503822169914,
+        "forgetting_AP": -0.05491389198017775,
+        "final_old_AP": 0.2896295817407357,
+        "final_new_AP": -0.03449939502346844,
+        "final_macro_AUROC": 0.032238393909667096,
+        "final_macro_F1": 0.10316594003776935,
+        "final_micro_F1": -0.012821130451962093
+      },
+      "fixed_group_AP": {
+        "head": {
+          "labels": [
+            "Normal",
+            "DR",
+            "MH",
+            "ODC",
+            "TSLN",
+            "DN",
+            "MYA",
+            "ARMD",
+            "BRVO",
+            "ODP"
+          ],
+          "values": {
+            "previous_base": 0.5247285477822677,
+            "previous_local_transport": 0.524879982204982,
+            "recurrent_base": 0.5418440406739335,
+            "recurrent_local_transport": 0.5421253625973843
+          }
+        },
+        "middle": {
+          "labels": [
+            "ODE",
+            "LS",
+            "RS",
+            "CSR",
+            "OTHER",
+            "CRS",
+            "CRVO",
+            "RPEC",
+            "AION",
+            "AH"
+          ],
+          "values": {
+            "previous_base": 0.4119567914912562,
+            "previous_local_transport": 0.4065531842711376,
+            "recurrent_base": 0.4129690603148394,
+            "recurrent_local_transport": 0.41142791323664935
+          }
+        },
+        "tail": {
+          "labels": [
+            "MS",
+            "EDN",
+            "ERM",
+            "RT",
+            "PT",
+            "MHL",
+            "RP",
+            "TV",
+            "ST"
+          ],
+          "values": {
+            "previous_base": 0.20461855150748354,
+            "previous_local_transport": 0.20148508072717858,
+            "recurrent_base": 0.19418441194356975,
+            "recurrent_local_transport": 0.19414679154548173
+          }
+        },
+        "previous_old": {
+          "labels": [
+            "ST",
+            "TV",
+            "RP",
+            "MHL",
+            "PT",
+            "RT",
+            "ERM",
+            "EDN",
+            "MS",
+            "AH",
+            "AION",
+            "RPEC",
+            "CRVO",
+            "CRS",
+            "OTHER",
+            "CSR",
+            "RS",
+            "LS",
+            "ODE",
+            "ODP",
+            "BRVO",
+            "ARMD",
+            "MYA",
+            "DN"
+          ],
+          "values": {
+            "previous_base": 0.33919092305293447,
+            "previous_local_transport": 0.3356857454847915,
+            "recurrent_base": 0.33314745024935766,
+            "recurrent_local_transport": 0.3326224427369001
+          }
+        },
+        "previous_new": {
+          "labels": [
+            "TSLN",
+            "ODC",
+            "MH",
+            "DR",
+            "Normal"
+          ],
+          "values": {
+            "previous_base": 0.6135676406064328,
+            "previous_local_transport": 0.6142478999341612,
+            "recurrent_base": 0.6600503822790547,
+            "recurrent_local_transport": 0.6599830513128139
+          }
+        },
+        "recurrent_old": {
+          "labels": [
+            "Normal",
+            "DR",
+            "MH",
+            "TSLN",
+            "LS",
+            "CSR",
+            "ODC",
+            "ODP",
+            "AION",
+            "ARMD",
+            "TV",
+            "PT",
+            "MHL",
+            "RP",
+            "DN",
+            "ERM",
+            "ST",
+            "RT",
+            "EDN",
+            "MYA",
+            "MS",
+            "AH",
+            "ODE",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.3858679828603815,
+            "previous_local_transport": 0.3827546033535862,
+            "recurrent_base": 0.3789519397789927,
+            "recurrent_local_transport": 0.37834305802825713
+          }
+        },
+        "recurrent_new": {
+          "labels": [
+            "BRVO",
+            "CRVO",
+            "RS",
+            "CRS",
+            "RPEC"
+          ],
+          "values": {
+            "previous_base": 0.389517753530687,
+            "previous_local_transport": 0.3883173821639472,
+            "recurrent_base": 0.44018883253680646,
+            "recurrent_local_transport": 0.44052409791430014
+          }
+        }
+      },
+      "per_label": [
+        {
+          "label": "Normal",
+          "positive": 134,
+          "negative": 506,
+          "AP": {
+            "previous_base": 0.7688881132897875,
+            "previous_local_transport": 0.7711675047571769,
+            "recurrent_base": 0.77656438455642,
+            "recurrent_local_transport": 0.7767579396706211
+          },
+          "cross_delta_pp": {
+            "base": 0.7676271266632506,
+            "local_transport": 0.5590434913444242
+          }
+        },
+        {
+          "label": "DR",
+          "positive": 132,
+          "negative": 508,
+          "AP": {
+            "previous_base": 0.7651981837063376,
+            "previous_local_transport": 0.764894078065071,
+            "recurrent_base": 0.85267830281557,
+            "recurrent_local_transport": 0.8529901953220876
+          },
+          "cross_delta_pp": {
+            "base": 8.748011910923237,
+            "local_transport": 8.80961172570166
+          }
+        },
+        {
+          "label": "ARMD",
+          "positive": 38,
+          "negative": 602,
+          "AP": {
+            "previous_base": 0.6113214241644629,
+            "previous_local_transport": 0.6094691472156196,
+            "recurrent_base": 0.6105516232278999,
+            "recurrent_local_transport": 0.6098085270643826
+          },
+          "cross_delta_pp": {
+            "base": -0.0769800936562981,
+            "local_transport": 0.03393798487629773
+          }
+        },
+        {
+          "label": "MH",
+          "positive": 102,
+          "negative": 538,
+          "AP": {
+            "previous_base": 0.7915937830713576,
+            "previous_local_transport": 0.7917741086782972,
+            "recurrent_base": 0.8450919531590648,
+            "recurrent_local_transport": 0.8444317777807928
+          },
+          "cross_delta_pp": {
+            "base": 5.349817008770719,
+            "local_transport": 5.265766910249559
+          }
+        },
+        {
+          "label": "DN",
+          "positive": 46,
+          "negative": 594,
+          "AP": {
+            "previous_base": 0.17471156189856826,
+            "previous_local_transport": 0.17485325818353756,
+            "recurrent_base": 0.15530289827708602,
+            "recurrent_local_transport": 0.15474710364005642
+          },
+          "cross_delta_pp": {
+            "base": -1.9408663621482247,
+            "local_transport": -2.0106154543481134
+          }
+        },
+        {
+          "label": "MYA",
+          "positive": 34,
+          "negative": 606,
+          "AP": {
+            "previous_base": 0.8371375443167878,
+            "previous_local_transport": 0.8390767815501426,
+            "recurrent_base": 0.8227666866961696,
+            "recurrent_local_transport": 0.8227666866961696
+          },
+          "cross_delta_pp": {
+            "base": -1.4370857620618183,
+            "local_transport": -1.6310094853973056
+          }
+        },
+        {
+          "label": "BRVO",
+          "positive": 23,
+          "negative": 617,
+          "AP": {
+            "previous_base": 0.2932880124964194,
+            "previous_local_transport": 0.2927710451284096,
+            "recurrent_base": 0.3855324362375567,
+            "recurrent_local_transport": 0.38896948689411065
+          },
+          "cross_delta_pp": {
+            "base": 9.224442374113728,
+            "local_transport": 9.619844176570103
+          }
+        },
+        {
+          "label": "TSLN",
+          "positive": 65,
+          "negative": 575,
+          "AP": {
+            "previous_base": 0.44460651772980975,
+            "previous_local_transport": 0.44496918915223443,
+            "recurrent_base": 0.4995119045267041,
+            "recurrent_local_transport": 0.4992325976898174
+          },
+          "cross_delta_pp": {
+            "base": 5.490538679689433,
+            "local_transport": 5.426340853758299
+          }
+        },
+        {
+          "label": "ERM",
+          "positive": 7,
+          "negative": 633,
+          "AP": {
+            "previous_base": 0.06518053802333634,
+            "previous_local_transport": 0.06539734787773317,
+            "recurrent_base": 0.07000318488358068,
+            "recurrent_local_transport": 0.07183769557316069
+          },
+          "cross_delta_pp": {
+            "base": 0.4822646860244334,
+            "local_transport": 0.644034769542752
+          }
+        },
+        {
+          "label": "LS",
+          "positive": 17,
+          "negative": 623,
+          "AP": {
+            "previous_base": 0.3058379568684497,
+            "previous_local_transport": 0.3057231474309,
+            "recurrent_base": 0.364480625656152,
+            "recurrent_local_transport": 0.3636872065363084
+          },
+          "cross_delta_pp": {
+            "base": 5.864266878770231,
+            "local_transport": 5.796405910540842
+          }
+        },
+        {
+          "label": "MS",
+          "positive": 5,
+          "negative": 635,
+          "AP": {
+            "previous_base": 0.01777333842530044,
+            "previous_local_transport": 0.017904790440967218,
+            "recurrent_base": 0.02060360151601015,
+            "recurrent_local_transport": 0.020649798158751224
+          },
+          "cross_delta_pp": {
+            "base": 0.28302630907097104,
+            "local_transport": 0.27450077177840065
+          }
+        },
+        {
+          "label": "CSR",
+          "positive": 11,
+          "negative": 629,
+          "AP": {
+            "previous_base": 0.1879239087561337,
+            "previous_local_transport": 0.18731436385473305,
+            "recurrent_base": 0.1473425332499696,
+            "recurrent_local_transport": 0.13312594402701072
+          },
+          "cross_delta_pp": {
+            "base": -4.0581375506164115,
+            "local_transport": -5.418841982772232
+          }
+        },
+        {
+          "label": "ODC",
+          "positive": 72,
+          "negative": 568,
+          "AP": {
+            "previous_base": 0.29755160523487156,
+            "previous_local_transport": 0.29843461901802637,
+            "recurrent_base": 0.32640536633751466,
+            "recurrent_local_transport": 0.32650274610075053
+          },
+          "cross_delta_pp": {
+            "base": 2.8853761102643096,
+            "local_transport": 2.8068127082724157
+          }
+        },
+        {
+          "label": "CRVO",
+          "positive": 8,
+          "negative": 632,
+          "AP": {
+            "previous_base": 0.760195707070707,
+            "previous_local_transport": 0.7572717304625199,
+            "recurrent_base": 0.9129464285714286,
+            "recurrent_local_transport": 0.9129464285714286
+          },
+          "cross_delta_pp": {
+            "base": 15.275072150072155,
+            "local_transport": 15.567469810890866
+          }
+        },
+        {
+          "label": "TV",
+          "positive": 2,
+          "negative": 638,
+          "AP": {
+            "previous_base": 0.01001602564102564,
+            "previous_local_transport": 0.009700093720712278,
+            "recurrent_base": 0.010869565217391304,
+            "recurrent_local_transport": 0.010840188014101058
+          },
+          "cross_delta_pp": {
+            "base": 0.08535395763656639,
+            "local_transport": 0.11400942933887798
+          }
+        },
+        {
+          "label": "AH",
+          "positive": 4,
+          "negative": 636,
+          "AP": {
+            "previous_base": 0.4971428571428571,
+            "previous_local_transport": 0.4988095238095238,
+            "recurrent_base": 0.47971491228070173,
+            "recurrent_local_transport": 0.47971491228070173
+          },
+          "cross_delta_pp": {
+            "base": -1.7427944862155376,
+            "local_transport": -1.909461152882208
+          }
+        },
+        {
+          "label": "ODP",
+          "positive": 26,
+          "negative": 614,
+          "AP": {
+            "previous_base": 0.26298873191427496,
+            "previous_local_transport": 0.26139009030130445,
+            "recurrent_base": 0.14403485090535023,
+            "recurrent_local_transport": 0.14504656511505393
+          },
+          "cross_delta_pp": {
+            "base": -11.895388100892474,
+            "local_transport": -11.634352518625052
+          }
+        },
+        {
+          "label": "ODE",
+          "positive": 21,
+          "negative": 619,
+          "AP": {
+            "previous_base": 0.5613362054388756,
+            "previous_local_transport": 0.5618503112161393,
+            "recurrent_base": 0.6397267013010833,
+            "recurrent_local_transport": 0.6410539474151223
+          },
+          "cross_delta_pp": {
+            "base": 7.83904958622077,
+            "local_transport": 7.920363619898307
+          }
+        },
+        {
+          "label": "ST",
+          "positive": 4,
+          "negative": 636,
+          "AP": {
+            "previous_base": 0.010116325551240982,
+            "previous_local_transport": 0.010026411734340726,
+            "recurrent_base": 0.00851904278834821,
+            "recurrent_local_transport": 0.008459455948739477
+          },
+          "cross_delta_pp": {
+            "base": -0.15972827628927716,
+            "local_transport": -0.1566955785601249
+          }
+        },
+        {
+          "label": "AION",
+          "positive": 5,
+          "negative": 635,
+          "AP": {
+            "previous_base": 0.8242424242424242,
+            "previous_local_transport": 0.7742424242424242,
+            "recurrent_base": 0.5634920634920635,
+            "recurrent_local_transport": 0.5634920634920635
+          },
+          "cross_delta_pp": {
+            "base": -26.075036075036074,
+            "local_transport": -21.075036075036067
+          }
+        },
+        {
+          "label": "PT",
+          "positive": 2,
+          "negative": 638,
+          "AP": {
+            "previous_base": 0.22619047619047616,
+            "previous_local_transport": 0.22619047619047616,
+            "recurrent_base": 0.2159090909090909,
+            "recurrent_local_transport": 0.2159090909090909
+          },
+          "cross_delta_pp": {
+            "base": -1.0281385281385251,
+            "local_transport": -1.0281385281385251
+          }
+        },
+        {
+          "label": "RT",
+          "positive": 6,
+          "negative": 634,
+          "AP": {
+            "previous_base": 0.8529411764705882,
+            "previous_local_transport": 0.8251633986928103,
+            "recurrent_base": 0.8240740740740741,
+            "recurrent_local_transport": 0.8237373737373738
+          },
+          "cross_delta_pp": {
+            "base": -2.8867102396514133,
+            "local_transport": -0.14260249554365334
+          }
+        },
+        {
+          "label": "RS",
+          "positive": 14,
+          "negative": 626,
+          "AP": {
+            "previous_base": 0.7793252907223495,
+            "previous_local_transport": 0.7765241702741702,
+            "recurrent_base": 0.7993086127311778,
+            "recurrent_local_transport": 0.8004521736038027
+          },
+          "cross_delta_pp": {
+            "base": 1.9983322008828353,
+            "local_transport": 2.392800332963252
+          }
+        },
+        {
+          "label": "CRS",
+          "positive": 11,
+          "negative": 629,
+          "AP": {
+            "previous_base": 0.08042761709457845,
+            "previous_local_transport": 0.08076461136740783,
+            "recurrent_base": 0.07907573536081716,
+            "recurrent_local_transport": 0.07612964057365684
+          },
+          "cross_delta_pp": {
+            "base": -0.1351881733761287,
+            "local_transport": -0.4634970793750984
+          }
+        },
+        {
+          "label": "EDN",
+          "positive": 5,
+          "negative": 635,
+          "AP": {
+            "previous_base": 0.17448524795982423,
+            "previous_local_transport": 0.17271087375760272,
+            "recurrent_base": 0.17671872431366104,
+            "recurrent_local_transport": 0.1750628995640583
+          },
+          "cross_delta_pp": {
+            "base": 0.22334763538368052,
+            "local_transport": 0.23520258064555766
+          }
+        },
+        {
+          "label": "RPEC",
+          "positive": 6,
+          "negative": 634,
+          "AP": {
+            "previous_base": 0.03435214026938076,
+            "previous_local_transport": 0.03425535358722822,
+            "recurrent_base": 0.024080949783052166,
+            "recurrent_local_transport": 0.024122759928501946
+          },
+          "cross_delta_pp": {
+            "base": -1.0271190486328592,
+            "local_transport": -1.0132593658726274
+          }
+        },
+        {
+          "label": "MHL",
+          "positive": 3,
+          "negative": 637,
+          "AP": {
+            "previous_base": 0.0681971686388934,
+            "previous_local_transport": 0.06960566746329805,
+            "recurrent_base": 0.09596242378997137,
+            "recurrent_local_transport": 0.09582462200406022
+          },
+          "cross_delta_pp": {
+            "base": 2.776525515107797,
+            "local_transport": 2.6218954540762174
+          }
+        },
+        {
+          "label": "RP",
+          "positive": 2,
+          "negative": 638,
+          "AP": {
+            "previous_base": 0.41666666666666663,
+            "previous_local_transport": 0.41666666666666663,
+            "recurrent_base": 0.325,
+            "recurrent_local_transport": 0.325
+          },
+          "cross_delta_pp": {
+            "base": -9.166666666666663,
+            "local_transport": -9.166666666666663
+          }
+        },
+        {
+          "label": "OTHER",
+          "positive": 21,
+          "negative": 619,
+          "AP": {
+            "previous_base": 0.08878380730680553,
+            "previous_local_transport": 0.0887762064663295,
+            "recurrent_base": 0.11952204072194794,
+            "recurrent_local_transport": 0.11955405593789692
+          },
+          "cross_delta_pp": {
+            "base": 3.073823341514241,
+            "local_transport": 3.077784947156742
+          }
+        }
+      ],
+      "common_label_stage_AP": [
+        {
+          "task": 1,
+          "labels": [],
+          "values": {
+            "previous_base": null,
+            "previous_local_transport": null,
+            "recurrent_base": null,
+            "recurrent_local_transport": null
+          }
+        },
+        {
+          "task": 2,
+          "labels": [
+            "TV",
+            "AION",
+            "PT",
+            "MHL",
+            "RP"
+          ],
+          "values": {
+            "previous_base": 0.21363979172839986,
+            "previous_local_transport": 0.22110771027442094,
+            "recurrent_base": 0.3414776658526658,
+            "recurrent_local_transport": 0.3414739525270183
+          }
+        },
+        {
+          "task": 3,
+          "labels": [
+            "ERM",
+            "LS",
+            "CSR",
+            "TV",
+            "ST",
+            "AION",
+            "PT",
+            "RT",
+            "EDN",
+            "MHL",
+            "RP"
+          ],
+          "values": {
+            "previous_base": 0.2046770332460544,
+            "previous_local_transport": 0.20826536415418237,
+            "recurrent_base": 0.26479066602037266,
+            "recurrent_local_transport": 0.26500694716777723
+          }
+        },
+        {
+          "task": 4,
+          "labels": [
+            "ARMD",
+            "DN",
+            "MYA",
+            "ERM",
+            "LS",
+            "MS",
+            "CSR",
+            "TV",
+            "AH",
+            "ODP",
+            "ODE",
+            "ST",
+            "AION",
+            "PT",
+            "RT",
+            "EDN",
+            "MHL",
+            "RP",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.29798743272990375,
+            "previous_local_transport": 0.2960829102617472,
+            "recurrent_base": 0.2788186099038387,
+            "recurrent_local_transport": 0.2789461332982432
+          }
+        },
+        {
+          "task": 5,
+          "labels": [
+            "Normal",
+            "DR",
+            "ARMD",
+            "MH",
+            "DN",
+            "MYA",
+            "BRVO",
+            "TSLN",
+            "ERM",
+            "LS",
+            "MS",
+            "CSR",
+            "ODC",
+            "CRVO",
+            "TV",
+            "AH",
+            "ODP",
+            "ODE",
+            "ST",
+            "AION",
+            "PT",
+            "RT",
+            "RS",
+            "CRS",
+            "EDN",
+            "RPEC",
+            "MHL",
+            "RP",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.3864972536656066,
+            "previous_local_transport": 0.38371370314847597,
+            "recurrent_base": 0.38951002473723645,
+            "recurrent_local_transport": 0.3890639269741266
+          }
+        }
+      ],
+      "label_change_counts": {
+        "base": {
+          "positive": 16,
+          "negative": 13,
+          "same": 0
+        },
+        "local_transport": {
+          "positive": 17,
+          "negative": 12,
+          "same": 0
+        }
+      },
+      "paired_validation_denominators_equal": true,
+      "individual_predictions_compared": false,
+      "causal_single_factor_attribution": false,
+      "previous_steps_per_arm": 66,
+      "recurrent_steps_per_arm": 60
+    },
+    {
+      "status": "DESCRIPTIVE_CROSS_ROUND_COMPARISON",
+      "rows": {
+        "previous_base": {
+          "final_mAP": 0.36673231924368205,
+          "average_incremental_mAP": 0.31731046769737664,
+          "final_tail_AP": 0.18651306547309157,
+          "forgetting_AP": -0.005542910099530565,
+          "final_old_AP": 0.36286998973912454,
+          "final_new_AP": 0.38527150086555795,
+          "final_macro_AUROC": 0.8675188718662351,
+          "final_macro_F1": 0.26665877056106885,
+          "final_micro_F1": 0.3611650485436893
+        },
+        "previous_local_transport": {
+          "final_mAP": 0.36469146689865256,
+          "average_incremental_mAP": 0.31680297697059145,
+          "final_tail_AP": 0.18518735308902784,
+          "forgetting_AP": -0.0032350389888927875,
+          "final_old_AP": 0.36055631155299084,
+          "final_new_AP": 0.3845402125578289,
+          "final_macro_AUROC": 0.8672837031120956,
+          "final_macro_F1": 0.2641133710447796,
+          "final_micro_F1": 0.3605555555555556
+        },
+        "recurrent_base": {
+          "final_mAP": 0.38951002473723645,
+          "average_incremental_mAP": 0.3966566769177383,
+          "final_tail_AP": 0.19418441194356972,
+          "forgetting_AP": 0.020082927528035727,
+          "final_old_AP": 0.37895193977899266,
+          "final_new_AP": 0.4401888325368065,
+          "final_macro_AUROC": 0.8736728362881304,
+          "final_macro_F1": 0.28115577650684775,
+          "final_micro_F1": 0.3894993894993895
+        },
+        "recurrent_local_transport": {
+          "final_mAP": 0.3890639269741267,
+          "average_incremental_mAP": 0.39669311511269323,
+          "final_tail_AP": 0.19414679154548173,
+          "forgetting_AP": 0.021107525955002458,
+          "final_old_AP": 0.37834305802825713,
+          "final_new_AP": 0.44052409791430014,
+          "final_macro_AUROC": 0.8736305058432486,
+          "final_macro_F1": 0.2823467295891994,
+          "final_micro_F1": 0.389618320610687
+        }
+      },
+      "cross_delta_pp": {
+        "base": {
+          "final_mAP": 2.27777054935544,
+          "average_incremental_mAP": 7.934620922036167,
+          "final_tail_AP": 0.7671346470478152,
+          "forgetting_AP": 2.5625837627566295,
+          "final_old_AP": 1.608195003986812,
+          "final_new_AP": 5.491733167124857,
+          "final_macro_AUROC": 0.6153964421895308,
+          "final_macro_F1": 1.4497005945778907,
+          "final_micro_F1": 2.83343409557002
+        },
+        "local_transport": {
+          "final_mAP": 2.437246007547411,
+          "average_incremental_mAP": 7.989013814210177,
+          "final_tail_AP": 0.8959438456453889,
+          "forgetting_AP": 2.4342564943895244,
+          "final_old_AP": 1.778674647526629,
+          "final_new_AP": 5.598388535647125,
+          "final_macro_AUROC": 0.6346802731153067,
+          "final_macro_F1": 1.8233358544419764,
+          "final_micro_F1": 2.9062765055131443
+        }
+      },
+      "within_delta_pp": {
+        "previous": {
+          "final_mAP": -0.2040852345029487,
+          "average_incremental_mAP": -0.05074907267851869,
+          "final_tail_AP": -0.1325712384063732,
+          "forgetting_AP": 0.23078711106377775,
+          "final_old_AP": -0.23136781861337052,
+          "final_new_AP": -0.0731288307729061,
+          "final_macro_AUROC": -0.023516875413953642,
+          "final_macro_F1": -0.25453995162892373,
+          "final_micro_F1": -0.060949298813373076
+        },
+        "recurrent": {
+          "final_mAP": -0.04460977631097762,
+          "average_incremental_mAP": 0.0036438194954913072,
+          "final_tail_AP": -0.003762039808799522,
+          "forgetting_AP": 0.10245984269667309,
+          "final_old_AP": -0.060888175073553485,
+          "final_new_AP": 0.033526537749362095,
+          "final_macro_AUROC": -0.00423304448817774,
+          "final_macro_F1": 0.11909530823516201,
+          "final_micro_F1": 0.011893111129751555
+        }
+      },
+      "module_gain_change_pp": {
+        "final_mAP": 0.15947545819197106,
+        "average_incremental_mAP": 0.05439289217401,
+        "final_tail_AP": 0.12880919859757367,
+        "forgetting_AP": -0.12832726836710467,
+        "final_old_AP": 0.17047964353981704,
+        "final_new_AP": 0.1066553685222682,
+        "final_macro_AUROC": 0.019283830925775902,
+        "final_macro_F1": 0.37363525986408574,
+        "final_micro_F1": 0.07284240994312463
+      },
+      "fixed_group_AP": {
+        "head": {
+          "labels": [
+            "Normal",
+            "DR",
+            "MH",
+            "ODC",
+            "TSLN",
+            "DN",
+            "MYA",
+            "ARMD",
+            "BRVO",
+            "ODP"
+          ],
+          "values": {
+            "previous_base": 0.5173295097859938,
+            "previous_local_transport": 0.5174181607203951,
+            "recurrent_base": 0.5418440406739335,
+            "recurrent_local_transport": 0.5421253625973843
+          }
+        },
+        "middle": {
+          "labels": [
+            "ODE",
+            "LS",
+            "RS",
+            "CSR",
+            "OTHER",
+            "CRS",
+            "CRVO",
+            "RPEC",
+            "AION",
+            "AH"
+          ],
+          "values": {
+            "previous_base": 0.3783324570949017,
+            "previous_local_transport": 0.37351847550557216,
+            "recurrent_base": 0.4129690603148394,
+            "recurrent_local_transport": 0.41142791323664935
+          }
+        },
+        "tail": {
+          "labels": [
+            "MS",
+            "EDN",
+            "ERM",
+            "RT",
+            "PT",
+            "MHL",
+            "RP",
+            "TV",
+            "ST"
+          ],
+          "values": {
+            "previous_base": 0.18651306547309154,
+            "previous_local_transport": 0.18518735308902784,
+            "recurrent_base": 0.19418441194356975,
+            "recurrent_local_transport": 0.19414679154548173
+          }
+        },
+        "previous_old": {
+          "labels": [
+            "Normal",
+            "ARMD",
+            "ERM",
+            "MS",
+            "AH",
+            "PT",
+            "RT",
+            "EDN",
+            "MHL",
+            "DR",
+            "DN",
+            "CSR",
+            "TV",
+            "RP",
+            "MH",
+            "MYA",
+            "LS",
+            "CRVO",
+            "ST",
+            "BRVO",
+            "ODC",
+            "ODP",
+            "AION",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.36286998973912454,
+            "previous_local_transport": 0.36055631155299084,
+            "recurrent_base": 0.38558695056987596,
+            "recurrent_local_transport": 0.3850776151266155
+          }
+        },
+        "previous_new": {
+          "labels": [
+            "TSLN",
+            "ODE",
+            "RS",
+            "CRS",
+            "RPEC"
+          ],
+          "values": {
+            "previous_base": 0.38527150086555795,
+            "previous_local_transport": 0.3845402125578289,
+            "recurrent_base": 0.4083407807405669,
+            "recurrent_local_transport": 0.40819822384218024
+          }
+        },
+        "recurrent_old": {
+          "labels": [
+            "Normal",
+            "DR",
+            "MH",
+            "TSLN",
+            "LS",
+            "CSR",
+            "ODC",
+            "ODP",
+            "AION",
+            "ARMD",
+            "TV",
+            "PT",
+            "MHL",
+            "RP",
+            "DN",
+            "ERM",
+            "ST",
+            "RT",
+            "EDN",
+            "MYA",
+            "MS",
+            "AH",
+            "ODE",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.36515956749497497,
+            "previous_local_transport": 0.3625341188501145,
+            "recurrent_base": 0.3789519397789927,
+            "recurrent_local_transport": 0.37834305802825713
+          }
+        },
+        "recurrent_new": {
+          "labels": [
+            "BRVO",
+            "CRVO",
+            "RS",
+            "CRS",
+            "RPEC"
+          ],
+          "values": {
+            "previous_base": 0.37428152763747613,
+            "previous_local_transport": 0.3750467375316354,
+            "recurrent_base": 0.44018883253680646,
+            "recurrent_local_transport": 0.44052409791430014
+          }
+        }
+      },
+      "per_label": [
+        {
+          "label": "Normal",
+          "positive": 134,
+          "negative": 506,
+          "AP": {
+            "previous_base": 0.7696859786199216,
+            "previous_local_transport": 0.7694468122198581,
+            "recurrent_base": 0.77656438455642,
+            "recurrent_local_transport": 0.7767579396706211
+          },
+          "cross_delta_pp": {
+            "base": 0.6878405936498355,
+            "local_transport": 0.7311127450763011
+          }
+        },
+        {
+          "label": "DR",
+          "positive": 132,
+          "negative": 508,
+          "AP": {
+            "previous_base": 0.8566613636253866,
+            "previous_local_transport": 0.856865774725399,
+            "recurrent_base": 0.85267830281557,
+            "recurrent_local_transport": 0.8529901953220876
+          },
+          "cross_delta_pp": {
+            "base": -0.39830608098165854,
+            "local_transport": -0.3875579403311402
+          }
+        },
+        {
+          "label": "ARMD",
+          "positive": 38,
+          "negative": 602,
+          "AP": {
+            "previous_base": 0.6027795730351313,
+            "previous_local_transport": 0.5994062714749935,
+            "recurrent_base": 0.6105516232278999,
+            "recurrent_local_transport": 0.6098085270643826
+          },
+          "cross_delta_pp": {
+            "base": 0.7772050192768609,
+            "local_transport": 1.040225558938912
+          }
+        },
+        {
+          "label": "MH",
+          "positive": 102,
+          "negative": 538,
+          "AP": {
+            "previous_base": 0.8497163088714924,
+            "previous_local_transport": 0.8496122918710228,
+            "recurrent_base": 0.8450919531590648,
+            "recurrent_local_transport": 0.8444317777807928
+          },
+          "cross_delta_pp": {
+            "base": -0.4624355712427586,
+            "local_transport": -0.5180514090230015
+          }
+        },
+        {
+          "label": "DN",
+          "positive": 46,
+          "negative": 594,
+          "AP": {
+            "previous_base": 0.14698524618963327,
+            "previous_local_transport": 0.1466242958717207,
+            "recurrent_base": 0.15530289827708602,
+            "recurrent_local_transport": 0.15474710364005642
+          },
+          "cross_delta_pp": {
+            "base": 0.8317652087452748,
+            "local_transport": 0.812280776833571
+          }
+        },
+        {
+          "label": "MYA",
+          "positive": 34,
+          "negative": 606,
+          "AP": {
+            "previous_base": 0.8507916956226517,
+            "previous_local_transport": 0.8531981127349513,
+            "recurrent_base": 0.8227666866961696,
+            "recurrent_local_transport": 0.8227666866961696
+          },
+          "cross_delta_pp": {
+            "base": -2.8025008926482076,
+            "local_transport": -3.0431426038781684
+          }
+        },
+        {
+          "label": "BRVO",
+          "positive": 23,
+          "negative": 617,
+          "AP": {
+            "previous_base": 0.2403402046805415,
+            "previous_local_transport": 0.2406330388789028,
+            "recurrent_base": 0.3855324362375567,
+            "recurrent_local_transport": 0.38896948689411065
+          },
+          "cross_delta_pp": {
+            "base": 14.519223155701516,
+            "local_transport": 14.833644801520784
+          }
+        },
+        {
+          "label": "TSLN",
+          "positive": 65,
+          "negative": 575,
+          "AP": {
+            "previous_base": 0.46812427353210717,
+            "previous_local_transport": 0.46818030806246647,
+            "recurrent_base": 0.4995119045267041,
+            "recurrent_local_transport": 0.4992325976898174
+          },
+          "cross_delta_pp": {
+            "base": 3.1387630994596902,
+            "local_transport": 3.105228962735096
+          }
+        },
+        {
+          "label": "ERM",
+          "positive": 7,
+          "negative": 633,
+          "AP": {
+            "previous_base": 0.0695241104103682,
+            "previous_local_transport": 0.06771208879131489,
+            "recurrent_base": 0.07000318488358068,
+            "recurrent_local_transport": 0.07183769557316069
+          },
+          "cross_delta_pp": {
+            "base": 0.04790744732124791,
+            "local_transport": 0.41256067818458003
+          }
+        },
+        {
+          "label": "LS",
+          "positive": 17,
+          "negative": 623,
+          "AP": {
+            "previous_base": 0.2038249017405421,
+            "previous_local_transport": 0.2071234217079097,
+            "recurrent_base": 0.364480625656152,
+            "recurrent_local_transport": 0.3636872065363084
+          },
+          "cross_delta_pp": {
+            "base": 16.06557239156099,
+            "local_transport": 15.656378482839873
+          }
+        },
+        {
+          "label": "MS",
+          "positive": 5,
+          "negative": 635,
+          "AP": {
+            "previous_base": 0.018469428280422497,
+            "previous_local_transport": 0.01838377967927205,
+            "recurrent_base": 0.02060360151601015,
+            "recurrent_local_transport": 0.020649798158751224
+          },
+          "cross_delta_pp": {
+            "base": 0.2134173235587653,
+            "local_transport": 0.22660184794791732
+          }
+        },
+        {
+          "label": "CSR",
+          "positive": 11,
+          "negative": 629,
+          "AP": {
+            "previous_base": 0.09644951893019728,
+            "previous_local_transport": 0.0964710430176026,
+            "recurrent_base": 0.1473425332499696,
+            "recurrent_local_transport": 0.13312594402701072
+          },
+          "cross_delta_pp": {
+            "base": 5.089301431977232,
+            "local_transport": 3.665490100940812
+          }
+        },
+        {
+          "label": "ODC",
+          "positive": 72,
+          "negative": 568,
+          "AP": {
+            "previous_base": 0.3021770595375481,
+            "previous_local_transport": 0.3036574919607352,
+            "recurrent_base": 0.32640536633751466,
+            "recurrent_local_transport": 0.32650274610075053
+          },
+          "cross_delta_pp": {
+            "base": 2.422830679996657,
+            "local_transport": 2.284525414001531
+          }
+        },
+        {
+          "label": "CRVO",
+          "positive": 8,
+          "negative": 632,
+          "AP": {
+            "previous_base": 0.7801776960784315,
+            "previous_local_transport": 0.7858595142602496,
+            "recurrent_base": 0.9129464285714286,
+            "recurrent_local_transport": 0.9129464285714286
+          },
+          "cross_delta_pp": {
+            "base": 13.276873249299715,
+            "local_transport": 12.708691431117902
+          }
+        },
+        {
+          "label": "TV",
+          "positive": 2,
+          "negative": 638,
+          "AP": {
+            "previous_base": 0.01023873224943404,
+            "previous_local_transport": 0.01013309134906231,
+            "recurrent_base": 0.010869565217391304,
+            "recurrent_local_transport": 0.010840188014101058
+          },
+          "cross_delta_pp": {
+            "base": 0.06308329679572643,
+            "local_transport": 0.07070966650387471
+          }
+        },
+        {
+          "label": "AH",
+          "positive": 4,
+          "negative": 636,
+          "AP": {
+            "previous_base": 0.4733333333333333,
+            "previous_local_transport": 0.4733333333333333,
+            "recurrent_base": 0.47971491228070173,
+            "recurrent_local_transport": 0.47971491228070173
+          },
+          "cross_delta_pp": {
+            "base": 0.638157894736846,
+            "local_transport": 0.638157894736846
+          }
+        },
+        {
+          "label": "ODP",
+          "positive": 26,
+          "negative": 614,
+          "AP": {
+            "previous_base": 0.08603339414552476,
+            "previous_local_transport": 0.08655720940390182,
+            "recurrent_base": 0.14403485090535023,
+            "recurrent_local_transport": 0.14504656511505393
+          },
+          "cross_delta_pp": {
+            "base": 5.800145675982547,
+            "local_transport": 5.84893557111521
+          }
+        },
+        {
+          "label": "ODE",
+          "positive": 21,
+          "negative": 619,
+          "AP": {
+            "previous_base": 0.6073434933672748,
+            "previous_local_transport": 0.6057796202076533,
+            "recurrent_base": 0.6397267013010833,
+            "recurrent_local_transport": 0.6410539474151223
+          },
+          "cross_delta_pp": {
+            "base": 3.2383207933808555,
+            "local_transport": 3.5274327207469036
+          }
+        },
+        {
+          "label": "ST",
+          "positive": 4,
+          "negative": 636,
+          "AP": {
+            "previous_base": 0.013289063426426061,
+            "previous_local_transport": 0.012922458047687043,
+            "recurrent_base": 0.00851904278834821,
+            "recurrent_local_transport": 0.008459455948739477
+          },
+          "cross_delta_pp": {
+            "base": -0.4770020638077851,
+            "local_transport": -0.4463002098947566
+          }
+        },
+        {
+          "label": "AION",
+          "positive": 5,
+          "negative": 635,
+          "AP": {
+            "previous_base": 0.6385281385281385,
+            "previous_local_transport": 0.5851948051948053,
+            "recurrent_base": 0.5634920634920635,
+            "recurrent_local_transport": 0.5634920634920635
+          },
+          "cross_delta_pp": {
+            "base": -7.503607503607501,
+            "local_transport": -2.170274170274178
+          }
+        },
+        {
+          "label": "PT",
+          "positive": 2,
+          "negative": 638,
+          "AP": {
+            "previous_base": 0.19642857142857142,
+            "previous_local_transport": 0.19642857142857142,
+            "recurrent_base": 0.2159090909090909,
+            "recurrent_local_transport": 0.2159090909090909
+          },
+          "cross_delta_pp": {
+            "base": 1.9480519480519487,
+            "local_transport": 1.9480519480519487
+          }
+        },
+        {
+          "label": "RT",
+          "positive": 6,
+          "negative": 634,
+          "AP": {
+            "previous_base": 0.7699248120300751,
+            "previous_local_transport": 0.7696223316912972,
+            "recurrent_base": 0.8240740740740741,
+            "recurrent_local_transport": 0.8237373737373738
+          },
+          "cross_delta_pp": {
+            "base": 5.414926204399895,
+            "local_transport": 5.411504204607653
+          }
+        },
+        {
+          "label": "RS",
+          "positive": 14,
+          "negative": 626,
+          "AP": {
+            "previous_base": 0.7838974280804102,
+            "previous_local_transport": 0.7838974280804102,
+            "recurrent_base": 0.7993086127311778,
+            "recurrent_local_transport": 0.8004521736038027
+          },
+          "cross_delta_pp": {
+            "base": 1.5411184650767629,
+            "local_transport": 1.6554745523392533
+          }
+        },
+        {
+          "label": "CRS",
+          "positive": 11,
+          "negative": 629,
+          "AP": {
+            "previous_base": 0.05016346027522081,
+            "previous_local_transport": 0.04803505375653369,
+            "recurrent_base": 0.07907573536081716,
+            "recurrent_local_transport": 0.07612964057365684
+          },
+          "cross_delta_pp": {
+            "base": 2.891227508559635,
+            "local_transport": 2.8094586817123153
+          }
+        },
+        {
+          "label": "EDN",
+          "positive": 5,
+          "negative": 635,
+          "AP": {
+            "previous_base": 0.14247049247049245,
+            "previous_local_transport": 0.1412132940434827,
+            "recurrent_base": 0.17671872431366104,
+            "recurrent_local_transport": 0.1750628995640583
+          },
+          "cross_delta_pp": {
+            "base": 3.424823184316858,
+            "local_transport": 3.3849605520575587
+          }
+        },
+        {
+          "label": "RPEC",
+          "positive": 6,
+          "negative": 634,
+          "AP": {
+            "previous_base": 0.016828849072776587,
+            "previous_local_transport": 0.016808652682080778,
+            "recurrent_base": 0.024080949783052166,
+            "recurrent_local_transport": 0.024122759928501946
+          },
+          "cross_delta_pp": {
+            "base": 0.7252100710275579,
+            "local_transport": 0.7314107246421169
+          }
+        },
+        {
+          "label": "MHL",
+          "positive": 3,
+          "negative": 637,
+          "AP": {
+            "previous_base": 0.09160571229536746,
+            "previous_local_transport": 0.08360389610389611,
+            "recurrent_base": 0.09596242378997137,
+            "recurrent_local_transport": 0.09582462200406022
+          },
+          "cross_delta_pp": {
+            "base": 0.43567114946039126,
+            "local_transport": 1.222072590016411
+          }
+        },
+        {
+          "label": "RP",
+          "positive": 2,
+          "negative": 638,
+          "AP": {
+            "previous_base": 0.3666666666666667,
+            "previous_local_transport": 0.3666666666666667,
+            "recurrent_base": 0.325,
+            "recurrent_local_transport": 0.325
+          },
+          "cross_delta_pp": {
+            "base": -4.166666666666669,
+            "local_transport": -4.166666666666669
+          }
+        },
+        {
+          "label": "OTHER",
+          "positive": 21,
+          "negative": 619,
+          "AP": {
+            "previous_base": 0.13277775154269203,
+            "previous_local_transport": 0.1326818828151433,
+            "recurrent_base": 0.11952204072194794,
+            "recurrent_local_transport": 0.11955405593789692
+          },
+          "cross_delta_pp": {
+            "base": -1.3255710820744087,
+            "local_transport": -1.3127826877246367
+          }
+        }
+      ],
+      "common_label_stage_AP": [
+        {
+          "task": 1,
+          "labels": [
+            "Normal"
+          ],
+          "values": {
+            "previous_base": 0.6447633482535925,
+            "previous_local_transport": 0.6432251940335727,
+            "recurrent_base": 0.7338276431525237,
+            "recurrent_local_transport": 0.7345638599248296
+          }
+        },
+        {
+          "task": 2,
+          "labels": [
+            "Normal",
+            "DR",
+            "ARMD",
+            "CSR",
+            "TV",
+            "PT",
+            "MHL",
+            "RP"
+          ],
+          "values": {
+            "previous_base": 0.342220635748225,
+            "previous_local_transport": 0.3474086326638286,
+            "recurrent_base": 0.4082160747814626,
+            "recurrent_local_transport": 0.4080247560323989
+          }
+        },
+        {
+          "task": 3,
+          "labels": [
+            "Normal",
+            "DR",
+            "ARMD",
+            "MH",
+            "DN",
+            "ERM",
+            "LS",
+            "CSR",
+            "TV",
+            "ST",
+            "PT",
+            "RT",
+            "EDN",
+            "MHL",
+            "RP"
+          ],
+          "values": {
+            "previous_base": 0.33904434037355685,
+            "previous_local_transport": 0.3380032503280251,
+            "recurrent_base": 0.37459145366987795,
+            "recurrent_local_transport": 0.3748540622636231
+          }
+        },
+        {
+          "task": 4,
+          "labels": [
+            "Normal",
+            "DR",
+            "ARMD",
+            "MH",
+            "DN",
+            "MYA",
+            "ERM",
+            "LS",
+            "MS",
+            "CSR",
+            "ODC",
+            "TV",
+            "AH",
+            "ODP",
+            "ST",
+            "AION",
+            "PT",
+            "RT",
+            "EDN",
+            "MHL",
+            "RP",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.32240228968363005,
+            "previous_local_transport": 0.3223934056013417,
+            "recurrent_base": 0.33983837221978647,
+            "recurrent_local_transport": 0.3399554769398002
+          }
+        },
+        {
+          "task": 5,
+          "labels": [
+            "Normal",
+            "DR",
+            "ARMD",
+            "MH",
+            "DN",
+            "MYA",
+            "BRVO",
+            "TSLN",
+            "ERM",
+            "LS",
+            "MS",
+            "CSR",
+            "ODC",
+            "CRVO",
+            "TV",
+            "AH",
+            "ODP",
+            "ODE",
+            "ST",
+            "AION",
+            "PT",
+            "RT",
+            "RS",
+            "CRS",
+            "EDN",
+            "RPEC",
+            "MHL",
+            "RP",
+            "OTHER"
+          ],
+          "values": {
+            "previous_base": 0.36673231924368205,
+            "previous_local_transport": 0.36469146689865256,
+            "recurrent_base": 0.38951002473723645,
+            "recurrent_local_transport": 0.3890639269741266
+          }
+        }
+      ],
+      "label_change_counts": {
+        "base": {
+          "positive": 22,
+          "negative": 7,
+          "same": 0
+        },
+        "local_transport": {
+          "positive": 22,
+          "negative": 7,
+          "same": 0
+        }
+      },
+      "paired_validation_denominators_equal": true,
+      "individual_predictions_compared": false,
+      "causal_single_factor_attribution": false,
+      "previous_steps_per_arm": 60,
+      "recurrent_steps_per_arm": 60
+    }
+  ],
+  "all_29_labels_reported": true,
+  "denominators_equal": true,
+  "causal_single_factor_attribution": false,
+  "old_runs_reused_without_gpu": true,
+  "test_accessed": false
+}

@@ -47,8 +47,10 @@ def metric(bank, arm, dataset, seen, local=None):
     return result, dict(extra_columns=len(extra),prior_delta=float((result-native.metric(bank)).norm()))
 
 
-def head(bank, arm, dataset, seen, local=None):
+def head(bank, arm, dataset, seen, local=None, *, drift=None, drift_weight=0.):
     R, audit = metric(bank,arm,dataset,seen,local)
+    from residual_drift import add_to_prior
+    R = add_to_prior(R, drift, drift_weight)
     k = len(bank['n'])
     W = torch.linalg.solve(bank['Q'].sum(0)/k+.001*R,bank['mu'].T/k)
     if not torch.isfinite(W).all():

@@ -1,0 +1,51 @@
+{
+  "status": "CPU_COMPATIBILITY_PASS_NO_EXPERIMENT",
+  "native_reference_commit": "be2ba897288453ec982806998c1d22cabaa3b55d",
+  "new_formal_updates": 0,
+  "new_gpu_process_residence_seconds": 0,
+  "test_accessed": false,
+  "medical_data_read": false,
+  "active_rfmid_science_source": "8dec5e8dfd4795759403720a20ae4cd309f2a59c",
+  "active_rfmid_runtime_or_monitor_modified": false,
+  "new_data_preparation": false,
+  "cuda_visible_devices": "",
+  "cpu_threads": 1,
+  "cpu_process_residence_seconds": 37.06729181203991,
+  "cost_accounting": "CPU child residences only; no GPU history reset/change; pipeline durations included in residences, do not add again",
+  "attempts": [
+    {
+      "kind": "client_script_parse_failure",
+      "remote_mutation": false,
+      "gpu_work": false,
+      "duration_not_measured": true,
+      "error": "Generated launcher newline escaping caused SyntaxError before remote execution"
+    },
+    {
+      "kind": "cpu_fixture_failure",
+      "returncode": 1,
+      "process_residence_seconds": 10.984874814748764,
+      "error": "Test fixture attempted to deepcopy a PyTorch Generator; fixed by checkpoint restoration",
+      "formal_updates": 0
+    },
+    {
+      "kind": "cpu_compatibility_pass",
+      "returncode": 0,
+      "process_residence_seconds": 14.127716389950365,
+      "pipeline_wall_seconds": 6.931073303800076
+    },
+    {
+      "kind": "extended_checkpoint_checks_pass",
+      "returncode": 0,
+      "process_residence_seconds": 11.954700607340783,
+      "pipeline_wall_seconds": 4.84213809017092
+    }
+  ],
+  "processor_user_system_cpu_seconds_not_measured": true,
+  "subchecks_not_charged_twice": true,
+  "limitations": [
+    "Synthetic 5/6-dimensional CPU fixtures only; no real ViT/GPU preflight or performance evidence",
+    "Current-task residual covariance is a shared proxy, not measured old-class drift",
+    "No Normal/disease-negative subgroup model added",
+    "Future contribution-aware worker barrier and collector still require separate protocol integration"
+  ]
+}

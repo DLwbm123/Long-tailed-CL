@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "cpu_seconds": 4.84213809017092,
+  "gpu_work": false,
+  "medical_images_or_labels_read": false,
+  "test_accessed": false,
+  "formal_adapter_updates": 0,
+  "synthetic_cpu_optimizer_updates_per_arm": 20,
+  "lambda_zero_native_trajectory_exact": true,
+  "pure_translation_zero": true,
+  "weighted_residual_identity": true,
+  "invalid_inputs_rejected": true,
+  "competition_hessian_oracle": true,
+  "proximal_woodbury_consistent": true,
+  "frozen_U_envelope_gradient": true,
+  "binary_hessian_oracle": true,
+  "bias_penalty_unchanged": true,
+  "unknown_mask_unchanged": true,
+  "shared_observed_pair_weights": true,
+  "multilabel_checkpoint_roundtrip": true,
+  "competition_checkpoint_refit_exact": true,
+  "legacy_checkpoint_load_exact": true,
+  "checkpoint_weight_mismatch_rejected": true,
+  "cpu_zero_optimizer_fixtures_pass": true,
+  "max_solve_residual": 4.158406724494453e-11,
+  "regressions": {
+    "multilabel": {
+      "status": "PASS",
+      "samples_assigned_once": true,
+      "hidden_future_masks_preserved": true,
+      "multihot_hidden_positive_loss_disclosed": true,
+      "native_statistics": {
+        "masked_binary_ridge_matches_direct": true,
+        "translation_exact": true,
+        "split_accumulation_exact": true,
+        "unobserved_label_inactive": true
+      },
+      "native_identity_head_exact": true,
+      "regional_binary_counts_match_global": true,
+      "hidden_targets_not_counted_negative": true,
+      "absent_sign_and_inactive_label_checked": true,
+      "regional_transport_matches_direct_fixture": true,
+      "inverse_prior_matches_direct": true,
+      "bias_regularization_unchanged": true,
+      "candidate_head_finite": true,
+      "max_fixture_solve_residual": 1.3585903901337317e-16,
+      "malformed_prior_rejected": true,
+      "gpu_work": false,
+      "test_accessed": false,
+      "cpu_seconds": 0.21439550444483757
+    },
+    "permission": {
+      "test_and_cross_dataset_access_rejected": true,
+      "method_and_budget_fixed": true,
+      "premature_validation_evaluation_rejected": true
+    },
+    "report": {
+      "full_29_label_report_and_five_stage_denominators_checked": true,
+      "all_six_mAP_contrasts_present": true,
+      "report_test_permission_enforced": true,
+      "synthetic_fixture_only": true
+    }
+  }
+}

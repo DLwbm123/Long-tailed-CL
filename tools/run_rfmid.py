@@ -15,9 +15,11 @@ from module_additions import local_parts  # Pin frozen pooling before ApartFeatu
 from prepare_rfmid_ml import BENCHMARK_LABELS
 from rfmid_protocol import build_plan, read_mapped, recurrent_plan
 from run_multilabel import ApartFeatures, Trainer, extract
+from residual_drift import config_weight
 
 
 def validate_config(config):
+    config_weight(config)
     if config.get('rfmid_multilabel_authorized') is not True or config.get('name') != 'RFMiD':
         raise ValueError('Explicit RFMiD multi-label authorization required')
     variant = config.get('partition_variant', 'earliest')
@@ -89,7 +91,8 @@ def run(config):
     torch.set_num_threads(4)
     device = 'cuda:0'
     encoder = ApartFeatures(config['legacy_repo'], config['weight'], 29, device, seed)
-    trainer = Trainer(encoder, 29, 'A', seed, device, local_transport=config['module'] == 'local_transport')
+    trainer = Trainer(encoder, 29, 'A', seed, device, local_transport=config['module'] == 'local_transport',
+                      drift_weight=config_weight(config))
     status = dict(status='RUNNING', phase='PREFLIGHT' if config.get('preflight') else 'TRAIN',
                   steps=0, policy_updates=0, trained_stages=0, test_accessed=False)
     if config['operation'] == 'evaluate':
@@ -145,6 +148,8 @@ def run(config):
                 diagnostics.append(dict(task=task['task'], boundary=True, **result['local_activation'],
                     **result['local_transport'], global_shift_norm=result['translation']['shift_norm'],
                     max_solve_residual=max(v for head in ('start_head', 'final_head') for v in result[head]['residuals'] if v is not None)))
+                if 'residual_drift' in result:
+                    diagnostics[-1]['residual_drift'] = result['residual_drift']
                 torch.save(trainer.state_dict(), output / ('stage_' + str(task['task']) + '.pt'))
                 status.update(steps=trainer.steps, trained_stages=task['task']); save('STATUS.json', status)
             if trainer.steps != budget:
@@ -173,9 +178,13 @@ def run(config):
             group_labels.update(old=[c for c in task['visible_labels'] if c not in task['introduced_labels']], new=task['introduced_labels'])
             report.update(task=task['task'], visible_labels=task['visible_labels'], groups=groups(report, group_labels))
             reports.append(report)
-        save('metrics.json', dict(dataset='RFMiD', module=config['module'], stages=reports,
+        metrics = dict(dataset='RFMiD', module=config['module'], stages=reports,
                                  evaluation_split='official_validation', test_accessed=False, threshold=.5,
-                                 partition_variant=config.get('partition_variant', 'earliest')))
+                                 partition_variant=config.get('partition_variant', 'earliest'))
+        if config_weight(config):
+            metrics.update(residual_drift_weight=config_weight(config),residual_drift_version='residual_drift_v1',
+                           is_unmodified_baseline=False)
+        save('metrics.json',metrics)
         status.update(status='COMPLETE', phase='AWAIT_PUBLIC_DELIVERY', steps=budget, trained_stages=5)
         save('STATUS.json', status)
     except BaseException as exc:

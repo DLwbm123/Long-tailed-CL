@@ -16,6 +16,7 @@ import edge_competition as edge
 import module_additions as modules
 import local_residual
 import prototype_coherent as method
+import residual_drift
 from lt_benchmark import benchmark_metrics, task_blocks
 from run_multilabel import ApartFeatures
 from run_prototype_coherent import IndexedImages, common_shift, cpu_bank, fit_split
@@ -91,7 +92,7 @@ def author_nih(config):
 
 
 def verify_historical_baseline(config,reports,metrics):
-    if config['module']=='base' and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config) or author_nih(config)):
+    if config['module']=='base' and not residual_drift.config_weight(config) and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config) or author_nih(config)):
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')
@@ -104,6 +105,7 @@ def run(config):
     synthetic_organ(config)
     synthetic_tissue(config)
     author_nih(config)
+    drift_weight = residual_drift.config_weight(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -195,7 +197,11 @@ def run(config):
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
                 local_shift = common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in modules.REGIONAL_ARMS else shift
                 local_candidate = modules.local_memory(local_bank, local_shift, current_local[fit_ids] if current_local is not None else None, y[fit_ids])
-                native_head, metric, activation = modules.head(candidate, arm, config['name'], seen, local_candidate)
+                drift = None
+                if drift_weight:
+                    drift, drift_audit = residual_drift.estimate(before[fit_ids], current[fit_ids], weights, shift)
+                native_head, metric, activation = modules.head(candidate, arm, config['name'], seen, local_candidate,
+                    drift=drift, drift_weight=drift_weight)
                 base_pairs = competition.competition(candidate, native_head)
                 status(status='RUNNING', phase='controller', task=task, epoch=epoch)
                 pairs, head, selected, audit = controller.choose(candidate, old, base_pairs, metric,
@@ -279,6 +285,11 @@ def run(config):
                             adapter_updates=0, policy_updates=controller.updates, task=task, epoch=epoch,
                             gradient_norm=float(norm), loss=float(loss.detach()), controller=audit, activation=activation,
                             batch_solve=solve, batch_n=len(x), peak_gpu_bytes=torch.cuda.max_memory_allocated()))
+                        if drift_weight:
+                            check=json.loads((output/'PREFLIGHT.json').read_text())
+                            check['residual_drift']=dict(weight=drift_weight, **drift_audit,
+                                first_task_zero_residual=True, nonzero_activation_not_proven=True)
+                            save(output/'PREFLIGHT.json',check)
                         status(status='COMPLETE', preflight=True, adapter_updates=0)
                         return
                     optimizer.step(); steps += 1
@@ -296,6 +307,9 @@ def run(config):
                     mean_fit_loss=float(np.mean(losses, axis=0)[0]),
                     mean_pair_loss=float(np.mean(losses, axis=0)[1]),
                     mean_feature_loss=float(np.mean(losses, axis=0)[2])))
+                if drift_weight:
+                    diagnostics[-1]['residual_drift'] = dict(weight=drift_weight, **drift_audit,
+                        estimate_before_epoch=True, detached=True, fit_only=True)
                 if arm in modules.SUPERVISED_ARMS:
                     diagnostics[-1]['local_supervision']=dict(local_gradient_enabled=arm!='local_detached',
                         mean_local_class_loss=float(np.mean(local_losses)),mean_local_feature_gradient_norm=float(np.mean(local_gradients)),
@@ -335,7 +349,13 @@ def run(config):
                 diagnostics[-1]['boundary_local_transport_norm']=float(local_shift.norm())
             all_weights = method.sample_weights(y, group, difficulty, zeros)
             bank = method.append(old, current, y, group, all_weights)
-            native_head, metric, activation = modules.head(bank, arm, config['name'], seen, local_bank)
+            drift = None
+            if drift_weight:
+                drift, drift_audit = residual_drift.estimate(before, current, all_weights, shift)
+                diagnostics[-1]['boundary_residual_drift'] = dict(weight=drift_weight, **drift_audit,
+                    current_train_including_meta=True, detached=True)
+            native_head, metric, activation = modules.head(bank, arm, config['name'], seen, local_bank,
+                drift=drift, drift_weight=drift_weight)
             base_pairs = competition.competition(bank, native_head)
             fixed_head, _ = competition.bank_head(bank, base_pairs, regularizer=metric)
             state = edge.descriptors(bank, fixed_head, old_count)
@@ -344,6 +364,9 @@ def run(config):
             head, solve = competition.bank_head(bank, pairs, regularizer=metric)
             max_residual = max(max_residual, solve['relative_residual'])
             extra_state={}
+            if drift_weight:
+                extra_state.update(residual_drift_matrix=drift.cpu(), residual_drift_weight=drift_weight,
+                    residual_drift_version='residual_drift_v1')
             if arm in modules.STAT_ARMS:
                 z_local=local_residual.project(current_local,projection)
                 if local_statistics is None:
@@ -455,6 +478,8 @@ def check_frozen_evaluation_source(config):
 
 
 def refit(config):
+    if residual_drift.config_weight(config):
+        raise ValueError('Residual drift cannot be retrofitted to historical checkpoints')
     if config.get('frozen_evaluation_repair'):return check_frozen_evaluation_source(config)
     if config.get('trained_local_readout'):return check_trained_local_readout(config)
     output=Path(config['output'])
@@ -519,6 +544,13 @@ def evaluate(config):
     reports=[]
     for task in range(1,len(tasks)+1):
         budget();state=torch.load(Path(config.get('checkpoint_root',output))/f'stage_{task}.pt',map_location='cpu',weights_only=False)
+        drift_weight = residual_drift.config_weight(config)
+        if state.get('residual_drift_weight', 0.) != drift_weight:
+            raise ValueError('Checkpoint residual drift weight differs')
+        if drift_weight:
+            if state.get('residual_drift_version') != 'residual_drift_v1':
+                raise ValueError('Checkpoint residual drift version differs')
+            residual_drift.validate(state['residual_drift_matrix'], state['head'].shape[0])
         encoder.load_state_dict(state['model'],strict=True);seen=state['seen'];encoder.eval()
         rows=[r for r in val if r['label'] in seen]
         loader=DataLoader(Images(rows,config['images'],transform(False),seed+task*100003),
@@ -561,6 +593,9 @@ def evaluate(config):
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
         test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('author_balanced_validation' if nih_validation else ('official_validation' if path_validation or organ_validation or tissue_validation else 'development_validation')),independent_confirmation=False)
+    if drift_weight:
+        metrics.update(residual_drift_weight=drift_weight,residual_drift_version='residual_drift_v1',
+            is_unmodified_baseline=False)
     verify_historical_baseline(config,reports,metrics)
     if config['module'] in modules.STAT_ARMS or config.get('trained_local_readout'):
         reference=json.loads(Path(config['historical_global_control']).read_text())

@@ -18,7 +18,8 @@ from torch.utils.data import DataLoader
 from ml_core import METHODS, binary_weights, scores, update
 from ml_data import NIH_LABELS, MultiLabelImages, read_manifest, validate_plan
 from ml_metrics import evaluate, groups
-from ml_statistics import empty, add, translated, translation, ridge
+from ml_statistics import empty, add, translated, translation, ridge, observation_weights
+import residual_drift
 
 
 class ApartFeatures(nn.Module):
@@ -79,7 +80,8 @@ def extract(encoder, loader, device, *, with_local=False, before_batch=lambda: N
 
 
 class Trainer:
-    def __init__(self, encoder, classes, method='A', seed=74002, device='cpu', *, local_transport=False):
+    def __init__(self, encoder, classes, method='A', seed=74002, device='cpu', *, local_transport=False,
+                 drift_weight=0.):
         if method not in (*METHODS, 'F_S'):
             raise ValueError('Unknown condition')
         self.encoder, self.device, self.method = encoder.to(device), torch.device(device), method
@@ -87,6 +89,10 @@ class Trainer:
         self.policy = torch.Generator(device=self.device).manual_seed(seed + 71000003)
         self.sigma, self.steps, self.task = .5, 0, 0
         self.head = None
+        self.drift_weight = residual_drift.strength(drift_weight)
+        if self.drift_weight and method != 'A':
+            raise ValueError('Residual drift is supported only for non-RL A')
+        self.drift = None
         if local_transport and method != 'A':
             raise ValueError('Local binary prior is authorized only for non-RL A')
         self.local = None
@@ -108,15 +114,24 @@ class Trainer:
         bootstrap = add(copy.deepcopy(prior), before, y, mask)
         activation = dict(extra_columns=0, prior_delta_norm=0.)
         def fit_head(bank, local):
-            if local is None:
+            drift_prior = None
+            if self.drift_weight and self.drift is not None:
+                drift_prior = residual_drift.add_to_prior(torch.zeros(self.encoder.dim + 1,
+                    self.encoder.dim + 1, dtype=torch.float64), torch.from_numpy(self.drift),
+                    self.drift_weight, bias=True).numpy()
+            if local is None and drift_prior is None:
                 return ridge(bank)
             from rfmid_local import penalty
-            if not np.array_equal(bank['n'], local['n']):
+            if local is not None and not np.array_equal(bank['n'], local['n']):
                 raise ValueError('Local and global observed binary counts differ')
-            activation.update(extra_columns=4 * int((local['n'] > 0).sum()), prior_delta_norm=0.)
+            if local is not None:
+                activation.update(extra_columns=4 * int((local['n'] > 0).sum()), prior_delta_norm=0.)
             def prior(label):
-                R = penalty(local, label)
-                activation['prior_delta_norm'] += float(np.linalg.norm(R - np.eye(len(R))))
+                R = np.eye(self.encoder.dim + 1) if local is None else penalty(local, label)
+                if local is not None:
+                    activation['prior_delta_norm'] += float(np.linalg.norm(R - np.eye(len(R))))
+                if drift_prior is not None:
+                    R = R + drift_prior
                 return R
             return ridge(bank, penalty=prior)
         start_local = None
@@ -154,10 +169,15 @@ class Trainer:
                         grad = torch.nn.utils.clip_grad_norm_(params, 1., error_if_nonfinite=True)
                         if not float(grad) > 0:
                             raise ArithmeticError('Zero preflight adapter gradient')
-                        return dict(preflight=True, loss=float(loss.detach()), bce=float(terms[0].detach()),
+                        result = dict(preflight=True, loss=float(loss.detach()), bce=float(terms[0].detach()),
                                     fd=float(terms[1].detach()), gradient_norm=float(grad),
                                     optimizer_updates=0, policy_updates=0, activation=activation,
                                     max_solve_residual=max(v for v in start_audit['residuals'] if v is not None))
+                        if self.drift_weight:
+                            result['residual_drift'] = dict(weight=self.drift_weight,
+                                residual_trace=0. if self.drift is None else float(np.trace(self.drift)),
+                                first_task_zero_residual=self.task == 1, nonzero_activation_not_proven=self.task == 1)
+                        return result
                     self.sigma, diagnostics, _ = update(
                         self.encoder, teacher, optimizer, x.to(self.device), by.to(self.device),
                         bm.to(self.device), head, weights, 'A' if self.method == 'F_S' else self.method,
@@ -171,6 +191,12 @@ class Trainer:
         if not np.array_equal(y, after_y) or not np.array_equal(mask, after_mask):
             raise ValueError('Canonical extraction order changed')
         shift, transport_audit = translation(before, after, y, mask, weights_cpu.numpy())
+        drift_audit = None
+        if self.drift_weight:
+            row_w = observation_weights(y, mask, weights_cpu.numpy())
+            U, drift_audit = residual_drift.estimate(torch.as_tensor(before, dtype=torch.float64),
+                torch.as_tensor(after, dtype=torch.float64), torch.from_numpy(row_w), torch.from_numpy(shift))
+            self.drift = U.numpy()
         self.bank = add(translated(prior, shift), after, y, mask)
         local_audit = dict(regional_shift_norm=0.)
         if self.local is not None:
@@ -178,24 +204,41 @@ class Trainer:
             self.local = add_local(moved, after_extract[3], y, mask)
         W_final, final_audit = fit_head(self.bank, self.local)
         self.head = torch.as_tensor(W_final, device=self.device, dtype=torch.float32)
-        return dict(W_start=W_start, W_final=W_final, start_head=start_audit,
+        result = dict(W_start=W_start, W_final=W_final, start_head=start_audit,
                     final_head=final_audit, translation=transport_audit, updates=records,
                     local_activation=activation, local_transport=local_audit)
+        if drift_audit is not None:
+            result['residual_drift'] = dict(weight=self.drift_weight, **drift_audit,
+                shared_observed_pair_matrix=True, start_uses_previous_boundary=True,
+                boundary_replaces_previous_matrix=True, detached=True)
+        return result
 
     def state_dict(self):
-        return dict(encoder={k: v.detach().cpu().clone() for k, v in self.encoder.state_dict().items()},
+        result = dict(encoder={k: v.detach().cpu().clone() for k, v in self.encoder.state_dict().items()},
                     bank=self.bank, head=self.head.detach().cpu(), sigma=self.sigma, steps=self.steps,
                     task=self.task, method=self.method, policy_rng=self.policy.get_state(),
                     torch_rng=torch.get_rng_state(), numpy_rng=np.random.get_state(),
                     python_rng=random.getstate(),
                     cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_initialized() else None,
                     local=self.local)
+        if self.drift_weight:
+            result.update(residual_drift_matrix=self.drift, residual_drift_weight=self.drift_weight,
+                          residual_drift_version='residual_drift_v1')
+        return result
 
     def load_state_dict(self, state):
         if state['method'] != self.method:
             raise ValueError('Checkpoint condition mismatch')
         if (self.local is None) != (state.get('local') is None):
             raise ValueError('Checkpoint local binary prior differs')
+        if state.get('residual_drift_weight', 0.) != self.drift_weight:
+            raise ValueError('Checkpoint residual drift weight differs')
+        if self.drift_weight:
+            if state.get('residual_drift_version') != 'residual_drift_v1':
+                raise ValueError('Checkpoint residual drift version differs')
+            U = np.asarray(state['residual_drift_matrix'], dtype=np.float64)
+            residual_drift.validate(torch.from_numpy(U), self.encoder.dim)
+            self.drift = U.copy()
         self.encoder.load_state_dict(state['encoder'], strict=True)
         self.bank, self.head = copy.deepcopy(state['bank']), state['head'].to(self.device)
         self.sigma, self.steps, self.task = state['sigma'], state['steps'], state['task']

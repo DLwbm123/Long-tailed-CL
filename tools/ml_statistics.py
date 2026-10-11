@@ -42,18 +42,28 @@ def translated(state, shift):
                 + n[..., None, None] * np.outer(b, b))
 
 
-def translation(before, after, y, mask, weights):
-    """Current observed-pair weights; no history or future label frequencies."""
-    before, after = np.asarray(before), np.asarray(after)
+def observation_weights(y, mask, weights):
+    """Native row masses, using only currently observed binary pairs."""
     y, mask, weights = np.asarray(y), np.asarray(mask), np.asarray(weights)
-    if before.shape != after.shape or len(before) != len(y):
-        raise ValueError('Before/after current-feature alignment mismatch')
+    if (y.ndim != 2 or mask.shape != y.shape or mask.dtype != np.bool_ or
+            weights.shape != (y.shape[1], 2) or not np.isfinite(weights).all() or
+            (weights < 0).any() or not np.isin(y[mask], (0, 1)).all()):
+        raise ValueError('Invalid observed binary pair weights')
     safe = np.where(mask, y, 0).astype(np.int64)
     w = weights[np.arange(y.shape[1])[None, :], safe] * mask
     row_w = w.sum(1) / np.maximum(mask.sum(1), 1)
-    if not np.isfinite(after).all() or not row_w.sum() > 0:
-        raise ValueError('No finite observed data for translation')
+    if not row_w.sum() > 0:
+        raise ValueError('No positive observed mass for translation')
     row_w /= row_w.sum()
+    return row_w
+
+
+def translation(before, after, y, mask, weights):
+    """Current observed-pair weights; no history or future label frequencies."""
+    before, after = np.asarray(before), np.asarray(after)
+    if before.shape != after.shape or len(before) != len(y) or not np.isfinite(after).all():
+        raise ValueError('Before/after current-feature alignment mismatch')
+    row_w = observation_weights(y, mask, weights)
     delta = after - before
     shift = row_w @ delta
     return shift, dict(shift_norm=float(np.linalg.norm(shift)),

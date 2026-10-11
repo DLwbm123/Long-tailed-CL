@@ -1,0 +1,441 @@
+{
+  "status": "FROZEN_PREPARATION_REAL_GPU_PREFLIGHT_PENDING",
+  "authorization": "Prepare AIR and complete APART on ISIC/HK; only schedule GPU experiments after both current rounds are fully delivered; tests sealed.",
+  "new_methods": [
+    "AIR",
+    "APART_full"
+  ],
+  "new_scientific_trajectories": 4,
+  "seed": 74002,
+  "data": {
+    "ISIC": {
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      },
+      "train_n": 18718,
+      "val_n": 295,
+      "tasks": [
+        {
+          "classes": [
+            4,
+            7,
+            5,
+            1
+          ],
+          "train_n": 4004,
+          "AIR_batches32": 126,
+          "APART_batches48": 84,
+          "APART_updates_10epoch": 840
+        },
+        {
+          "classes": [
+            2,
+            6
+          ],
+          "train_n": 2879,
+          "AIR_batches32": 90,
+          "APART_batches48": 60,
+          "APART_updates_10epoch": 600
+        },
+        {
+          "classes": [
+            0,
+            3
+          ],
+          "train_n": 11835,
+          "AIR_batches32": 370,
+          "APART_batches48": 247,
+          "APART_updates_10epoch": 2470
+        }
+      ],
+      "APART_total_updates": 3910,
+      "AIR_total_analytic_batches": 586,
+      "train_val_identity_overlap": 0,
+      "train_val_image_overlap": 0,
+      "test_accessed": false
+    },
+    "HK": {
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      },
+      "train_n": 6821,
+      "val_n": 1698,
+      "tasks": [
+        {
+          "classes": [
+            4,
+            5,
+            6,
+            22,
+            20,
+            1,
+            2,
+            15,
+            14,
+            12,
+            10,
+            11,
+            19
+          ],
+          "train_n": 3916,
+          "AIR_batches32": 123,
+          "APART_batches48": 82,
+          "APART_updates_10epoch": 820
+        },
+        {
+          "classes": [
+            16,
+            7
+          ],
+          "train_n": 117,
+          "AIR_batches32": 4,
+          "APART_batches48": 3,
+          "APART_updates_10epoch": 30
+        },
+        {
+          "classes": [
+            0,
+            17
+          ],
+          "train_n": 48,
+          "AIR_batches32": 2,
+          "APART_batches48": 1,
+          "APART_updates_10epoch": 10
+        },
+        {
+          "classes": [
+            9,
+            18
+          ],
+          "train_n": 762,
+          "AIR_batches32": 24,
+          "APART_batches48": 16,
+          "APART_updates_10epoch": 160
+        },
+        {
+          "classes": [
+            13,
+            21
+          ],
+          "train_n": 680,
+          "AIR_batches32": 22,
+          "APART_batches48": 15,
+          "APART_updates_10epoch": 150
+        },
+        {
+          "classes": [
+            8,
+            3
+          ],
+          "train_n": 1298,
+          "AIR_batches32": 41,
+          "APART_batches48": 28,
+          "APART_updates_10epoch": 280
+        }
+      ],
+      "APART_total_updates": 1450,
+      "AIR_total_analytic_batches": 216,
+      "train_val_identity_overlap": 0,
+      "train_val_image_overlap": 0,
+      "test_accessed": false
+    }
+  },
+  "authors": {
+    "AIR": {
+      "repository": "ZHUANGHP/Analytic-Continual-Learning",
+      "commit": "0afd6bf87622e808ce7f730f8556e78229b9e758",
+      "date": "2024-12-09T13:20:38Z"
+    },
+    "APART": {
+      "repository": "vita-qzh/APART",
+      "commit": "f3c5b8da5908b2f78266744a737f7f6bff45a43d",
+      "date": "2024-11-27T08:57:18Z"
+    }
+  },
+  "protected_rounds": [
+    "module_drift10_20261011",
+    "rfmid_contrast4_20261011"
+  ],
+  "gpu_policy": {
+    "allowed": [
+      0,
+      1
+    ],
+    "forbidden": [
+      2,
+      3
+    ],
+    "minimum_free_MiB": 32768,
+    "max_wall_seconds_per_round": 86400,
+    "launch_before_both_local_and_NAS_DELIVERED": false,
+    "required_public_http": 200
+  },
+  "pretraining": {
+    "family": "ViT-B/16",
+    "input": 224,
+    "identifier": "timm/vit_base_patch16_224.augreg_in21k_ft_in1k",
+    "source": "same existing cached tensor file as current ISIC/HK baseline",
+    "download_at_runtime": false,
+    "pretrained_core_requires_exact_tensor_mapping": true,
+    "author_AIR_default_torchvision_SWAG_384_used": false
+  },
+  "AIR": {
+    "backbone_output": 768,
+    "backbone_frozen": true,
+    "base_training_epochs": 0,
+    "random_projection": {
+      "dim": 8192,
+      "activation": "ReLU",
+      "bias": false,
+      "initializer": "author RandomBuffer Linear.reset_parameters",
+      "frozen": true,
+      "dtype": "float64",
+      "seed": 74002
+    },
+    "gamma": 2000.0,
+    "gamma_source": "AIR arXiv2408.10349v2 LT-CIL ImageNet-R; fixed prospective transfer, not a medical validated setting",
+    "gamma_search": false,
+    "weighting": "native GeneralizedARM alpha_c=(1/n_c)*K/sum_j(1/n_j)",
+    "batch_size": 32,
+    "passes_per_task": 1,
+    "deterministic_eval_transform_for_fit": true,
+    "adapter_optimizer_updates": 0,
+    "boundary_analytic_solves_per_dataset": {
+      "ISIC": 3,
+      "HK": 6
+    },
+    "persist": "author per-class A, C, explicit cnt, fixed projection, head, visibility",
+    "cache_old_individual_features": false,
+    "dense_class_A_bytes_final": {
+      "ISIC": 4294967296,
+      "HK": 12348030976
+    }
+  },
+  "APART_full": {
+    "epochs_each_task": 10,
+    "batch_size": 48,
+    "workers": 4,
+    "adapter_pools": 2,
+    "pool_size_each": 5,
+    "adapter_bottleneck": 64,
+    "theta": 100,
+    "optimizer": "native AdamW",
+    "lr_pool": 0.0003,
+    "lr_other_trainable": 0.003,
+    "effective_weight_decay": 0.01,
+    "author_config_weight_decay": 0,
+    "author_misspelled_group_key": "weight decay",
+    "preserve_effective_optimizer": true,
+    "scheduler": "author get_scheduler cosine every task for init_cls != increment",
+    "eta_min": 1e-05,
+    "scheduler_T_max": 10,
+    "clip": null,
+    "task_optimizer_reinitialization": true,
+    "routing_regularization_transition_epoch_zero_based": 5,
+    "pull_constraint_coeff": 0.1,
+    "inference": "native logits+logits_few over seen columns",
+    "classifier": "author learned linear heads, no replacement analytic head",
+    "old_samples_replay": false,
+    "no_global_stats_transport": true,
+    "frequency_embedding_capacity": {
+      "ISIC": 10530,
+      "HK": 737
+    },
+    "embedding_existing_rows_preserved": 501,
+    "embedding_tail_seed": 1074005,
+    "remove_only_author_epoch_validation_branch": true,
+    "medical_task_driver_replaces_incremental_train_test_dataset_access": true,
+    "no_ConCM_headnorm_or_other_project_patches": true
+  },
+  "data_usage": {
+    "train": "all original training rows of current classes, no resampling",
+    "val": "same development validation, never optimizer/meta or hyperparameter choice",
+    "test_accessed": false,
+    "fit_meta_difference": "AIR/APART native use all train; project baseline optimizer uses fixed 80/20 fit/meta and boundary includes all train; disclose different optimizer exposure",
+    "label_mapping": "original_label to exact existing order index, all scores masked to seen",
+    "train_augmentation": "existing medical 224 RandomResizedCrop/HorizontalFlip/ImageNet normalization for APART; AIR fixed resize-center-crop normalization",
+    "same_image_identity_and_class_order": true
+  },
+  "barriers": {
+    "GPU_start": "both protected rounds local/NAS delivery receipts verified, terminal PROGRAM and active/actual workers empty; NAS/free/probe and GPU01 admission",
+    "preflight": "all four true zero optimizer checks before any formal train; AIR shadow fixed projection/statistics solve with no permanent updates, APART first batch forward/backward no optimizer; do not require AIR adapter gradient",
+    "evaluation": "all four exact budgets TRAINED before any development classification metrics; save all stage checkpoints",
+    "failure": "retain all errors/costs, stop dependents; no automatic retry or source/parameter relaxation"
+  },
+  "budgets": {
+    "APART_updates_total": 5360,
+    "AIR_analytic_batches_total": 802,
+    "normal_GPU_processes": 12,
+    "cost_record_types": [
+      "4zero_preflights",
+      "4formal_training_or_analytic_fitting",
+      "4sealed_evaluations"
+    ],
+    "cost_accounting": "every occurrence, no job-operation deduplication; no control recharge; CPU separate"
+  },
+  "report": {
+    "metrics": [
+      "final_BA",
+      "average_incremental_BA",
+      "tail",
+      "forget",
+      "old",
+      "new",
+      "final_Acc",
+      "average_Acc",
+      "macro_F1"
+    ],
+    "complete_per_stage_per_class_recalls_and_n": true,
+    "source_of_controls": "published existing original base and local_transport strictly reuse, no rerun or recharging",
+    "method_specific_training_budget_not_equal_steps": true,
+    "paper_claim": "medical transfer comparison at native schedules, not exact original benchmark reproduction or proof under equal update budget",
+    "heldout_test_benchmark": false,
+    "new_seed_or_extra_budget_arm": false,
+    "project_rows": "original static_pc/local_transport and already-authorized drift-only/combination rows once delivered; report all, no best-val cherry-picking"
+  },
+  "not_yet_checked": [
+    "true GPU preflights",
+    "actual dense 8192 ARM allocation/solve runtime",
+    "full medical train/eval worker end-to-end integration",
+    "new performance"
+  ],
+  "CPU_check": {
+    "status": "PASS",
+    "cpu_pipeline_seconds": 13.429077248089015,
+    "formal_adapter_updates": 0,
+    "gpu_processes": 0,
+    "test_accessed": false,
+    "medical_images_opened": 0,
+    "synthetic_optimizer_steps": 130,
+    "AIR_author_weighted_joint_equivalence": true,
+    "AIR_count_checkpoint_roundtrip": true,
+    "AIR_fixed_random_projection": true,
+    "AIR_fixture_projection_dim": 12,
+    "AIR_formal_projection_dim": 8192,
+    "AIR_max_relative_residual": 1.9497721042633093e-16,
+    "APART_exact_author_loss_optimizer_scheduler": true,
+    "APART_sealed_author_loop_parameter_equality": true,
+    "APART_author_full_ViT_CPU_forward_backward": true,
+    "APART_both_pools_assigner_heads_nonzero_finite_gradients": true,
+    "APART_pretrained_core_tensors": 198,
+    "APART_pretrained_core_exact": true,
+    "APART_frequency_capacity": 10530,
+    "APART_old_embedding_rows_exact": true,
+    "label_mapping_and_budgets": true,
+    "sealed_test_validation_and_protected_delivery_rejection": true,
+    "real_GPU_preflights_passed": 0,
+    "actual_8192_ARM_memory_and_GPU_solve_not_checked": true
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "status": "READ_ONLY_DIAGNOSIS",
+  "scientific_source_commit": "41e6545c514b90b2b771d3eb7661cc9042a7977d",
+  "original_result_commit": "f871dba41122df54f55ad9509827c2024c82eedd",
+  "gpu_used": false,
+  "optimizer_updates": 0,
+  "test_accessed": false,
+  "rfmid_source_config_process_unchanged": true,
+  "statistics": {
+    "gpu_used": false,
+    "optimizer_updates": 0,
+    "test_accessed": false,
+    "mapping": {
+      "train": {
+        "n": 68058,
+        "label_or_filename_mismatches": 0,
+        "one_hot_valid": true
+      },
+      "val": {
+        "n": 300,
+        "label_or_filename_mismatches": 0,
+        "one_hot_valid": true
+      }
+    },
+    "checkpoints": [
+      {
+        "stage": 1,
+        "seen_equal_protocol": true,
+        "bank_n_equal_author_counts": true,
+        "steps": 1504,
+        "head_shape_valid": true,
+        "head_finite": true,
+        "rebuilt_stored_float32_head_relative_error": 0.0,
+        "solve_residual": 1.0253399768616972e-10,
+        "no_finding_head_norm": 1.4465625836730525,
+        "no_finding_components": 4,
+        "no_finding_component_count_sum": 45439,
+        "no_finding_component_mass_sum": 1.0,
+        "no_finding_mean_true_score": 0.15269695627561283,
+        "no_finding_mean_winning_label": 19,
+        "no_finding_mean_winning_score": 0.15269695627561283,
+        "no_finding_mean_margin": 0.019688894159766157,
+        "no_finding_mean_squared_fit_loss": 0.8773724151419522,
+        "no_finding_centered_feature_trace": 0.12217247918393681,
+        "class_mean_top1": {
+          "correct_class_means": 10,
+          "classes": 10
+        }
+      },
+      {
+        "stage": 6,
+        "seen_equal_protocol": true,
+        "bank_n_equal_author_counts": true,
+        "steps": 1706,
+        "head_shape_valid": true,
+        "head_finite": true,
+        "rebuilt_stored_float32_head_relative_error": 6.25989972024287e-17,
+        "solve_residual": 1.2637196903626537e-10,
+        "no_finding_head_norm": 0.7704911504918786,
+        "no_finding_components": 4,
+        "no_finding_component_count_sum": 45439,
+        "no_finding_component_mass_sum": 1.0,
+        "no_finding_mean_true_score": 0.07671916753174568,
+        "no_finding_mean_winning_label": 19,
+        "no_finding_mean_winning_score": 0.07671916753174568,
+        "no_finding_mean_margin": 0.009623637176435662,
+        "no_finding_mean_squared_fit_loss": 0.9492119994769906,
+        "no_finding_centered_feature_trace": 0.12217247918393426,
+        "class_mean_top1": {
+          "correct_class_means": 19,
+          "classes": 20
+        }
+      }
+    ],
+    "actual_task_steps": [
+      1504,
+      26,
+      84,
+      12,
+      22,
+      58
+    ],
+    "no_finding_train_n": 45439,
+    "no_finding_fit_n": 36351,
+    "no_finding_onehot_column": 19,
+    "no_finding_head_column_zero_based": 1,
+    "cpu_wall_seconds": 115.24506544694304,
+    "excluded_diagnostic_field_note": "Zero self-direction variance was not a margin-to-other-class variance; this field is excluded and no inference uses it."
+  },
+  "cpu_inference": {
+    "gpu_used": false,
+    "optimizer_updates": 0,
+    "test_accessed": false,
+    "stages": [
+      {
+        "stage": 1,
+        "validation_n": 15,
+        "strict_checkpoint_restore": true,
+        "adapter_parameter_tensor_count": 480,
+        "adapter_delta_from_initial_norm": 17.667890815699923,
+        "feature_norm_max_error": 1.1920928955078125e-07,
+        "numpy_torch_prediction_disagreements": 0,
+        "recalled_correct_counts": {
+          "19": 1
+        },
+        "cpu_vs_original_recall_count_mismatches": {},
+        "no_finding_correct": 1,
+        "no_finding_n": 15,
+        "no_finding_prediction_counts": {
+          "13": 0,
+          "19": 1,
+          "6": 1,
+          "14": 1,
+          "17": 7,
+          "1": 0,
+          "9": 1,
+          "4": 0,
+          "15": 4,
+          "8": 0
+        },
+        "no_finding_true_rank_histogram": {
+          "2": 6,
+          "3": 3,
+          "1": 1,
+          "4": 1,
+          "5": 2,
+          "6": 1,
+          "8": 1
+        },
+        "no_finding_true_score_mean": 0.1433144509792328,
+        "no_finding_margin_mean": -0.0917779877781868,
+        "no_finding_margin_min": -0.34565532207489014,
+        "no_finding_margin_max": 0.012951195240020752,
+        "min_top2_score_gap": 0.0012059509754180908,
+        "total_predicted_no_finding": 1
+      },
+      {
+        "stage": 6,
+        "validation_n": 300,
+        "strict_checkpoint_restore": true,
+        "adapter_parameter_tensor_count": 480,
+        "adapter_delta_from_initial_norm": 18.627116682921493,
+        "feature_norm_max_error": 2.384185791015625e-07,
+        "numpy_torch_prediction_disagreements": 0,
+        "recalled_correct_counts": {
+          "13": 3,
+          "19": 0,
+          "6": 3,
+          "14": 2,
+          "17": 10,
+          "1": 4,
+          "9": 3,
+          "4": 4,
+          "15": 2,
+          "8": 0,
+          "18": 3,
+          "2": 7,
+          "0": 0,
+          "12": 1,
+          "16": 3,
+          "3": 14,
+          "7": 8,
+          "11": 0,
+          "5": 6,
+          "10": 2
+        },
+        "cpu_vs_original_recall_count_mismatches": {
+          "12": [
+            0,
+            1
+          ]
+        },
+        "no_finding_correct": 0,
+        "no_finding_n": 15,
+        "no_finding_prediction_counts": {
+          "13": 0,
+          "19": 0,
+          "6": 0,
+          "14": 1,
+          "17": 0,
+          "1": 0,
+          "9": 0,
+          "4": 0,
+          "15": 2,
+          "8": 0,
+          "18": 0,
+          "2": 0,
+          "0": 0,
+          "12": 0,
+          "16": 0,
+          "3": 0,
+          "7": 4,
+          "11": 0,
+          "5": 7,
+          "10": 1
+        },
+        "no_finding_true_rank_histogram": {
+          "4": 3,
+          "2": 2,
+          "7": 4,
+          "5": 1,
+          "8": 1,
+          "11": 1,
+          "10": 2,
+          "14": 1
+        },
+        "no_finding_true_score_mean": 0.06914723664522171,
+        "no_finding_margin_mean": -0.0923723354935646,
+        "no_finding_margin_min": -0.24565193057060242,
+        "no_finding_margin_max": -0.020391106605529785,
+        "min_top2_score_gap": 7.562339305877686e-05,
+        "total_predicted_no_finding": 4
+      }
+    ],
+    "no_finding_image_decode": {
+      "n": 15,
+      "sizes": {
+        "(1024, 1024)": 15
+      },
+      "modes": {
+        "L": 14,
+        "RGBA": 1
+      },
+      "min_pixel_std": 35.98776335622828,
+      "grayscale_replicated_rgb_n": 15
+    },
+    "cpu_wall_seconds": 850.7971388273872
+  },
+  "original_gpu_validation_correct": 74,
+  "cpu_validation_correct": 75,
+  "cpu_original_disagreements_are_class_count_disagreements_not_sample_prediction_counts": true,
+  "focused_pneumonia_boundary_check": {
+    "gpu_used": false,
+    "optimizer_updates": 0,
+    "test_accessed": false,
+    "pneumonia_n": 15,
+    "cpu_correct_batch4": 1,
+    "cpu_correct_sample_true_vs_best_other_margin": 7.562339305877686e-05,
+    "cpu_correct_sample_top2_gap": 7.562339305877686e-05,
+    "original_eval_batch_size": 64,
+    "matched_original_batch_n": 64,
+    "matched_original_batch_predicted_label": 12,
+    "matched_original_batch_true_vs_best_other_margin": 7.560104131698608e-05,
+    "feature_max_absolute_difference_batch4_vs_original_batch": 0.0,
+    "score_max_absolute_difference_batch4_vs_original_batch": 4.284083843231201e-08,
+    "matched_original_batch_float64_score_predicted_label": 12,
+    "cpu_wall_seconds": 75.74433190980926
+  },
+  "diagnostic_engineering_history": [
+    {
+      "attempt": 1,
+      "status": "CLIENT_TIMEOUT",
+      "result_obtained": false,
+      "gpu_used": false,
+      "optimizer_updates": 0,
+      "note": "Low priority CPU/NAS diagnostic timeout; process absence checked."
+    },
+    {
+      "attempt": 2,
+      "status": "FAILED",
+      "gpu_used": false,
+      "note": "Private diagnostic mmap path must be a string; corrected without science source changes."
+    },
+    {
+      "attempt": 3,
+      "status": "STATISTICS_COMPLETE_INFERENCE_IMPORT_FAILED",
+      "gpu_used": false,
+      "note": "Statistics completed; private diagnostic needed explicit legacy import search path."
+    },
+    {
+      "attempt": 4,
+      "status": "CPU_INFERENCE_COMPLETE_WITH_ONE_CLASS_COUNT_DIFFERENCE",
+      "gpu_used": false
+    },
+    {
+      "attempt": 5,
+      "status": "FOCUSED_CPU_BOUNDARY_COMPLETE",
+      "gpu_used": false
+    }
+  ],
+  "diagnostic_residence_not_added_to_formal_gpu_ledger": true,
+  "cpu_wall_seconds_successful_checks": {
+    "statistics": 115.24506544694304,
+    "inference": 850.7971388273872,
+    "focused_boundary": 75.74433190980926
+  },
+  "cpu_wall_seconds_not_cpu_core_seconds": true
+}

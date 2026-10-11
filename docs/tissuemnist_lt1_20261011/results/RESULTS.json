@@ -1,0 +1,948 @@
+{
+  "rows": [
+    {
+      "dataset": "TissueMNISTLT",
+      "module": "base",
+      "final_balanced_accuracy": 47.34044437289444,
+      "average_incremental_balanced_accuracy": 65.50790883193913,
+      "final_tail_recall": 45.53045223163264,
+      "forgetting": 33.07290151371938,
+      "final_old_recall": 46.789233170290025,
+      "final_new_recall": 48.994077980707694,
+      "delta_pp": {
+        "final_balanced_accuracy": 0.0,
+        "average_incremental_balanced_accuracy": 0.0,
+        "final_tail_recall": 0.0,
+        "forgetting": 0.0,
+        "final_old_recall": 0.0,
+        "final_new_recall": 0.0
+      },
+      "development_screen_passed": false
+    },
+    {
+      "dataset": "TissueMNISTLT",
+      "module": "local_transport",
+      "final_balanced_accuracy": 47.12625365395821,
+      "average_incremental_balanced_accuracy": 65.47143388212135,
+      "final_tail_recall": 45.518875048666544,
+      "forgetting": 33.419837129349375,
+      "final_old_recall": 46.56484706255746,
+      "final_new_recall": 48.81047342816045,
+      "delta_pp": {
+        "final_balanced_accuracy": -0.2141907189362302,
+        "average_incremental_balanced_accuracy": -0.03647494981778854,
+        "final_tail_recall": -0.01157718296609378,
+        "forgetting": 0.34693561563000075,
+        "final_old_recall": -0.2243861077325604,
+        "final_new_recall": -0.18360455254724517
+      },
+      "development_screen_passed": false
+    }
+  ],
+  "runs": {
+    "TissueMNISTLT_base": {
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              7,
+              3
+            ],
+            "validation_n": 5717,
+            "accuracy": 0.9078187860766136,
+            "balanced_accuracy": 0.9076395877559016,
+            "per_class_recall": {
+              "7": 0.9084186575654153,
+              "3": 0.906860517946388
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201
+            },
+            "tail_recall": 0.906860517946388
+          },
+          {
+            "task": 2,
+            "seen": [
+              7,
+              3,
+              4,
+              0
+            ],
+            "validation_n": 14983,
+            "accuracy": 0.6602816525395448,
+            "balanced_accuracy": 0.6584198522536484,
+            "per_class_recall": {
+              "7": 0.7067690557451649,
+              "3": 0.5397546569741026,
+              "4": 0.7286223277909739,
+              "0": 0.6585333685043524
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201,
+              "4": 1684,
+              "0": 7582
+            },
+            "tail_recall": 0.5991440127392276
+          },
+          {
+            "task": 3,
+            "seen": [
+              7,
+              3,
+              4,
+              0,
+              6,
+              2
+            ],
+            "validation_n": 21422,
+            "accuracy": 0.5870600317430679,
+            "balanced_accuracy": 0.5808524695390711,
+            "per_class_recall": {
+              "7": 0.3597838452787258,
+              "3": 0.4175374829622899,
+              "4": 0.49228028503562943,
+              "0": 0.6262199947243471,
+              "6": 0.7312979825031244,
+              "2": 0.8579952267303103
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201,
+              "4": 1684,
+              "0": 7582,
+              "6": 5601,
+              "2": 838
+            },
+            "tail_recall": 0.5218787388433185
+          },
+          {
+            "task": 4,
+            "seen": [
+              7,
+              3,
+              4,
+              0,
+              6,
+              2,
+              1,
+              5
+            ],
+            "validation_n": 23640,
+            "accuracy": 0.46785109983079526,
+            "balanced_accuracy": 0.4734044437289444,
+            "per_class_recall": {
+              "7": 0.2710466439135381,
+              "3": 0.39436619718309857,
+              "4": 0.4477434679334917,
+              "0": 0.46214719071485094,
+              "6": 0.600785574004642,
+              "2": 0.6312649164677804,
+              "1": 0.5094001790510295,
+              "5": 0.47048138056312444
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201,
+              "4": 1684,
+              "0": 7582,
+              "6": 5601,
+              "2": 838,
+              "1": 1117,
+              "5": 1101
+            },
+            "tail_recall": 0.45530452231632634
+          }
+        ],
+        "average_incremental_accuracy": 0.6557528925475054,
+        "final_accuracy": 0.46785109983079526,
+        "task_accuracy_matrix": [
+          [
+            0.9078187860766136,
+            null,
+            null,
+            null
+          ],
+          [
+            0.6424698268322547,
+            0.6712713144830563,
+            null,
+            null
+          ],
+          [
+            0.3820185411929334,
+            0.6018778329376214,
+            0.747786923435316,
+            null
+          ],
+          [
+            0.3185237012419101,
+            0.4595294625512627,
+            0.604752290728374,
+            0.49008115419296666
+          ]
+        ],
+        "task_forgetting": 0.31469052315781304,
+        "class_frequency": {
+          "many": {
+            "classes": [
+              7,
+              3,
+              4,
+              6,
+              2,
+              5
+            ],
+            "n": 14941,
+            "accuracy": 0.46763938156749885,
+            "macro_recall": 0.46928136334427917
+          },
+          "medium": {
+            "classes": [
+              0,
+              1
+            ],
+            "n": 8699,
+            "accuracy": 0.46821473732612945,
+            "macro_recall": 0.48577368488294026
+          },
+          "few": {
+            "classes": [],
+            "n": 0,
+            "accuracy": null,
+            "macro_recall": null
+          }
+        },
+        "average_incremental_balanced_accuracy": 0.6550790883193913,
+        "final_balanced_accuracy": 0.4734044437289444,
+        "final_tail_recall": 0.45530452231632634,
+        "forgetting": 0.33072901513719377,
+        "forgetting_classes": 6,
+        "final_old_recall": 0.46789233170290023,
+        "final_new_recall": 0.48994077980707695,
+        "test_accessed": false,
+        "evaluation_split": "official_validation",
+        "independent_confirmation": false
+      },
+      "status": {
+        "steps": 262,
+        "policy_updates": 0,
+        "elapsed_seconds": 1006.908663651906,
+        "max_solve_residual": 9.79565375036324e-10,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 13222381568,
+        "evaluation_seconds": 985.4016010970809
+      },
+      "scalar_diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 20,
+          "mean_fit_loss": 0.030515895638857322,
+          "mean_pair_loss": 0.030433477502404625,
+          "mean_feature_loss": 0.00013506823543139035,
+          "max_batch_solve_residual": 9.750677200467442e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.2972275147008207e-10
+          }
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 40,
+          "mean_fit_loss": 0.029880227076876875,
+          "mean_pair_loss": 0.029800789138603873,
+          "mean_feature_loss": 6.405894837371306e-05,
+          "max_batch_solve_residual": 5.586641234399591e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.328634168375532e-10
+          },
+          "boundary_solve": {
+            "iterations": 10,
+            "relative_residual": 3.7373463714036373e-10
+          }
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 104,
+          "mean_fit_loss": 0.030480619780855134,
+          "mean_pair_loss": 0.04475386456804202,
+          "mean_feature_loss": 0.001402947122301157,
+          "max_batch_solve_residual": 9.758576273858617e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 7.19370793107735e-10
+          }
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 168,
+          "mean_fit_loss": 0.03417620291196786,
+          "mean_pair_loss": 0.050532417461578875,
+          "mean_feature_loss": 0.0026311295696359593,
+          "max_batch_solve_residual": 9.381405107006847e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 8.819564740207919e-10
+          },
+          "boundary_solve": {
+            "iterations": 9,
+            "relative_residual": 1.4343398232360624e-10
+          }
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 205,
+          "mean_fit_loss": 0.03413261783002462,
+          "mean_pair_loss": 0.09125558578341039,
+          "mean_feature_loss": 0.0010374865203236884,
+          "max_batch_solve_residual": 9.79565375036324e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 3.9883982761670443e-10
+          }
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 242,
+          "mean_fit_loss": 0.03623369510181048,
+          "mean_pair_loss": 0.09487940360148432,
+          "mean_feature_loss": 0.0016635813753472994,
+          "max_batch_solve_residual": 9.587218536930479e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.436051114794605e-10
+          },
+          "boundary_solve": {
+            "iterations": 8,
+            "relative_residual": 4.56267572345596e-10
+          }
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 252,
+          "mean_fit_loss": 0.042183664479280694,
+          "mean_pair_loss": 0.11344615271075302,
+          "mean_feature_loss": 0.0006868318974738941,
+          "max_batch_solve_residual": 4.818827436406636e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 1.8597724726267827e-10
+          }
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 262,
+          "mean_fit_loss": 0.04589780535274315,
+          "mean_pair_loss": 0.1173097838465014,
+          "mean_feature_loss": 0.0010417794983368367,
+          "max_batch_solve_residual": 4.042542734604983e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 0,
+            "prior_delta": 0.0
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 2.3345776953865364e-10
+          },
+          "boundary_solve": {
+            "iterations": 8,
+            "relative_residual": 2.1735495148638264e-10
+          }
+        }
+      ]
+    },
+    "TissueMNISTLT_local_transport": {
+      "metrics": {
+        "stages": [
+          {
+            "task": 1,
+            "seen": [
+              7,
+              3
+            ],
+            "validation_n": 5717,
+            "accuracy": 0.9078187860766136,
+            "balanced_accuracy": 0.9075546253409481,
+            "per_class_recall": {
+              "7": 0.908703071672355,
+              "3": 0.9064061790095411
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201
+            },
+            "tail_recall": 0.9064061790095411
+          },
+          {
+            "task": 2,
+            "seen": [
+              7,
+              3,
+              4,
+              0
+            ],
+            "validation_n": 14983,
+            "accuracy": 0.6608155910031369,
+            "balanced_accuracy": 0.6585191517155509,
+            "per_class_recall": {
+              "7": 0.7064846416382252,
+              "3": 0.538391640163562,
+              "4": 0.7292161520190024,
+              "0": 0.6599841730414139
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201,
+              "4": 1684,
+              "0": 7582
+            },
+            "tail_recall": 0.5991879066024879
+          },
+          {
+            "task": 3,
+            "seen": [
+              7,
+              3,
+              4,
+              0,
+              6,
+              2
+            ],
+            "validation_n": 21422,
+            "accuracy": 0.5872467556717393,
+            "balanced_accuracy": 0.5815210416887727,
+            "per_class_recall": {
+              "7": 0.3572241183162685,
+              "3": 0.41935483870967744,
+              "4": 0.49406175771971494,
+              "0": 0.6237140596148774,
+              "6": 0.7355829316193537,
+              "2": 0.8591885441527446
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201,
+              "4": 1684,
+              "0": 7582,
+              "6": 5601,
+              "2": 838
+            },
+            "tail_recall": 0.5215344491622774
+          },
+          {
+            "task": 4,
+            "seen": [
+              7,
+              3,
+              4,
+              0,
+              6,
+              2,
+              1,
+              5
+            ],
+            "validation_n": 23640,
+            "accuracy": 0.4647631133671743,
+            "balanced_accuracy": 0.4712625365395821,
+            "per_class_recall": {
+              "7": 0.26507394766780434,
+              "3": 0.39845524761472056,
+              "4": 0.44358669833729214,
+              "0": 0.4550250593510947,
+              "6": 0.6016782717371898,
+              "2": 0.630071599045346,
+              "1": 0.5120859444941809,
+              "5": 0.4641235240690282
+            },
+            "per_class_n": {
+              "7": 3516,
+              "3": 2201,
+              "4": 1684,
+              "0": 7582,
+              "6": 5601,
+              "2": 838,
+              "1": 1117,
+              "5": 1101
+            },
+            "tail_recall": 0.4551887504866654
+          }
+        ],
+        "average_incremental_accuracy": 0.655161061529666,
+        "final_accuracy": 0.4647631133671743,
+        "task_accuracy_matrix": [
+          [
+            0.9078187860766136,
+            null,
+            null,
+            null
+          ],
+          [
+            0.6417701591743922,
+            0.672566371681416,
+            null,
+            null
+          ],
+          [
+            0.38114395662060524,
+            0.6001510900064753,
+            0.7516695138996738,
+            null
+          ],
+          [
+            0.31642469826832254,
+            0.45294625512626807,
+            0.6053735052026712,
+            0.4882777276825969
+          ]
+        ],
+        "task_forgetting": 0.31910340435348056,
+        "class_frequency": {
+          "many": {
+            "classes": [
+              7,
+              3,
+              4,
+              6,
+              2,
+              5
+            ],
+            "n": 14941,
+            "accuracy": 0.46616692323137676,
+            "macro_recall": 0.4671648814118969
+          },
+          "medium": {
+            "classes": [
+              0,
+              1
+            ],
+            "n": 8699,
+            "accuracy": 0.4623519944821244,
+            "macro_recall": 0.4835555019226378
+          },
+          "few": {
+            "classes": [],
+            "n": 0,
+            "accuracy": null,
+            "macro_recall": null
+          }
+        },
+        "average_incremental_balanced_accuracy": 0.6547143388212134,
+        "final_balanced_accuracy": 0.4712625365395821,
+        "final_tail_recall": 0.4551887504866654,
+        "forgetting": 0.3341983712934938,
+        "forgetting_classes": 6,
+        "final_old_recall": 0.46564847062557463,
+        "final_new_recall": 0.4881047342816045,
+        "test_accessed": false,
+        "evaluation_split": "official_validation",
+        "independent_confirmation": false
+      },
+      "status": {
+        "steps": 262,
+        "policy_updates": 0,
+        "elapsed_seconds": 1006.8958503738977,
+        "max_solve_residual": 9.839840529785405e-10,
+        "status": "COMPLETE",
+        "stages": 4,
+        "peak_gpu_bytes": 13556193792,
+        "evaluation_seconds": 985.3860959829763
+      },
+      "scalar_diagnostics": [
+        {
+          "task": 1,
+          "epoch": 1,
+          "steps": 20,
+          "mean_fit_loss": 0.030480500906371423,
+          "mean_pair_loss": 0.03039824051491804,
+          "mean_feature_loss": 0.00013461091402859892,
+          "max_batch_solve_residual": 9.73109125373419e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 8,
+            "prior_delta": 0.6662901045065779
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.2836842325183505e-10
+          }
+        },
+        {
+          "task": 1,
+          "epoch": 2,
+          "steps": 40,
+          "mean_fit_loss": 0.02985286553907806,
+          "mean_pair_loss": 0.029773544609379587,
+          "mean_feature_loss": 6.438755062845302e-05,
+          "max_batch_solve_residual": 5.507783548646115e-10,
+          "local_transport_norm": 0.003546954225061572,
+          "boundary_local_transport_norm": 0.004734944483910488,
+          "activation": {
+            "extra_columns": 8,
+            "prior_delta": 0.6662232922621367
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.2986150838749376e-10
+          },
+          "boundary_solve": {
+            "iterations": 10,
+            "relative_residual": 3.7350612309479226e-10
+          }
+        },
+        {
+          "task": 2,
+          "epoch": 1,
+          "steps": 104,
+          "mean_fit_loss": 0.030448791449748762,
+          "mean_pair_loss": 0.04470106511361299,
+          "mean_feature_loss": 0.001403270821242586,
+          "max_batch_solve_residual": 9.798687781542023e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 16,
+            "prior_delta": 0.8851015061905168
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 7.210283642907317e-10
+          }
+        },
+        {
+          "task": 2,
+          "epoch": 2,
+          "steps": 168,
+          "mean_fit_loss": 0.034074234167670144,
+          "mean_pair_loss": 0.05036156271841578,
+          "mean_feature_loss": 0.0026245891422149725,
+          "max_batch_solve_residual": 9.40130851685721e-10,
+          "local_transport_norm": 0.004961217728585516,
+          "boundary_local_transport_norm": 0.006802375278536563,
+          "activation": {
+            "extra_columns": 16,
+            "prior_delta": 0.8854002732172738
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 8.851019111605273e-10
+          },
+          "boundary_solve": {
+            "iterations": 9,
+            "relative_residual": 1.4673186112725856e-10
+          }
+        },
+        {
+          "task": 3,
+          "epoch": 1,
+          "steps": 205,
+          "mean_fit_loss": 0.03405587813777325,
+          "mean_pair_loss": 0.0910738051522333,
+          "mean_feature_loss": 0.0010540740193981627,
+          "max_batch_solve_residual": 9.766643932802562e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 24,
+            "prior_delta": 1.0078308248055732
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.0629319841635283e-10
+          }
+        },
+        {
+          "task": 3,
+          "epoch": 2,
+          "steps": 242,
+          "mean_fit_loss": 0.03599094213330182,
+          "mean_pair_loss": 0.09454957614895176,
+          "mean_feature_loss": 0.0016762934801344935,
+          "max_batch_solve_residual": 9.839840529785405e-10,
+          "local_transport_norm": 0.00731943679671913,
+          "boundary_local_transport_norm": 0.007826639752176795,
+          "activation": {
+            "extra_columns": 24,
+            "prior_delta": 1.00693479684083
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 4.5488356841065327e-10
+          },
+          "boundary_solve": {
+            "iterations": 8,
+            "relative_residual": 4.659157179740952e-10
+          }
+        },
+        {
+          "task": 4,
+          "epoch": 1,
+          "steps": 252,
+          "mean_fit_loss": 0.04228537918244206,
+          "mean_pair_loss": 0.1132163400157424,
+          "mean_feature_loss": 0.0006919985025888309,
+          "max_batch_solve_residual": 4.832793951607978e-10,
+          "local_transport_norm": 0.0,
+          "activation": {
+            "extra_columns": 32,
+            "prior_delta": 1.0916254825581313
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 1.8791135286593773e-10
+          }
+        },
+        {
+          "task": 4,
+          "epoch": 2,
+          "steps": 262,
+          "mean_fit_loss": 0.04583072464968629,
+          "mean_pair_loss": 0.11697666556321022,
+          "mean_feature_loss": 0.0010522124881390481,
+          "max_batch_solve_residual": 4.033979106461896e-10,
+          "local_transport_norm": 0.008944035826073988,
+          "boundary_local_transport_norm": 0.009583811483501058,
+          "activation": {
+            "extra_columns": 32,
+            "prior_delta": 1.091686893682591
+          },
+          "update_module": {
+            "history_rank": 0,
+            "learning_rate_multiplier": 1.0,
+            "fused": false
+          },
+          "controller": {
+            "policy_updates": 0,
+            "head_evaluations": 1,
+            "proposed_reward": 0.0,
+            "executed": false,
+            "original_current_guard": true,
+            "original_old_guard": true,
+            "relative_pair_l1": 0.0,
+            "max_solve_residual": 2.371536292242429e-10
+          },
+          "boundary_solve": {
+            "iterations": 8,
+            "relative_residual": 2.2484330444836598e-10
+          }
+        }
+      ]
+    }
+  },
+  "costs": [
+    {
+      "job": "TissueMNISTLT_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 42.53742317436263
+    },
+    {
+      "job": "TissueMNISTLT_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 42.65691608330235
+    },
+    {
+      "job": "TissueMNISTLT_local_transport",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 1013.1982625862584
+    },
+    {
+      "job": "TissueMNISTLT_base",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 1013.2941060876474
+    },
+    {
+      "job": "TissueMNISTLT_local_transport",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 991.122783832252
+    },
+    {
+      "job": "TissueMNISTLT_base",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 991.2731200009584
+    }
+  ],
+  "independent_confirmation": false,
+  "test_accessed": false
+}

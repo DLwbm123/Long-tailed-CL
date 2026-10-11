@@ -76,8 +76,22 @@ def synthetic_tissue(config):
     return False
 
 
+def author_nih(config):
+    if config['name']=='NIHCXRLT':
+        if (config.get('author_nih_authorized') is not True or
+                config.get('evaluation_split')!='author_balanced_validation' or
+                config.get('classes')!=20 or config.get('image_size')!=224 or
+                config.get('seed')!=74002 or config.get('task_sizes')!=[10,2,2,2,2,2] or
+                config.get('module') not in ('base','local_transport')):
+            raise ValueError('Frozen NIH-CXR-LT author train/val pair required')
+        return True
+    if config.get('author_nih_authorized'):
+        raise ValueError('NIH author permission escaped its dataset')
+    return False
+
+
 def verify_historical_baseline(config,reports,metrics):
-    if config['module']=='base' and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config)):
+    if config['module']=='base' and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config) or author_nih(config)):
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')
@@ -89,6 +103,7 @@ def run(config):
     synthetic_path(config)
     synthetic_organ(config)
     synthetic_tissue(config)
+    author_nih(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -490,6 +505,7 @@ def evaluate(config):
     path_validation=synthetic_path(config)
     organ_validation=synthetic_organ(config)
     tissue_validation=synthetic_tissue(config)
+    nih_validation=author_nih(config)
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
     started=time.monotonic()
@@ -544,7 +560,7 @@ def evaluate(config):
         forgetting=float(np.mean(forgetting)),forgetting_classes=len(old),
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
-        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation or organ_validation or tissue_validation else 'development_validation'),independent_confirmation=False)
+        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('author_balanced_validation' if nih_validation else ('official_validation' if path_validation or organ_validation or tissue_validation else 'development_validation')),independent_confirmation=False)
     verify_historical_baseline(config,reports,metrics)
     if config['module'] in modules.STAT_ARMS or config.get('trained_local_readout'):
         reference=json.loads(Path(config['historical_global_control']).read_text())

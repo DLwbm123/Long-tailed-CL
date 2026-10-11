@@ -15,6 +15,9 @@ def summarize(snapshot,destination):
     path_validation=datasets==['PathMNISTLT'] and snapshot.get('synthetic_path_authorized') is True
     organ_validation=datasets==['OrganAMNISTLT'] and snapshot.get('synthetic_organ_authorized') is True
     tissue_validation=datasets==['TissueMNISTLT'] and snapshot.get('synthetic_tissue_authorized') is True
+    nih_validation=datasets==['NIHCXRLT'] and snapshot.get('author_nih_authorized') is True
+    if 'NIHCXRLT' in datasets and not nih_validation:
+        raise ValueError('Explicit NIH-CXR-LT author aggregate authorization required')
     if 'PathMNISTLT' in datasets and not path_validation:
         raise ValueError('Explicit PathMNIST aggregate authorization required')
     if 'OrganAMNISTLT' in datasets and not organ_validation:
@@ -28,6 +31,7 @@ def summarize(snapshot,destination):
             if (run['status']['status']!='COMPLETE' or
                     bool(m['test_accessed'])!=cifar_test or
                     (cifar_test and m['evaluation_split']!='official_test') or
+                    (nih_validation and m['evaluation_split']!='author_balanced_validation') or
                     ((path_validation or organ_validation or tissue_validation) and m['evaluation_split']!='official_validation')):
                 raise ValueError('Incomplete or invalid aggregate input')
             if [s['per_class_n'] for s in m['stages']] != [s['per_class_n'] for s in base['stages']]:

@@ -4,4 +4,4 @@ Tissue完整结束并GitHub/NAS交付 → NIH-CXR-LT单标签配对 → RFMiD多
 
 NIH作者20列单标签与train/val已核对，所有影像现有缓存齐全；协议见[NIH](../nih_cxr_lt1_20261011/PROTOCOL_ZH.md)。排队状态不等于已启动，真实GPU预检尚待Tissue交付及资源准入。
 
-RFMiD官方训练、验证下载链接已交给用户，等待用户提供保存目录；不能把数据或29类映射核对称已完成。其设计与待冻结项见[RFMiD](../rfmid_ml1_20261011/PROTOCOL_SPEC_ZH.md)。保持multi-hot共病标签，不能套用单标签argmax/六BA门来伪造多标签结果。实际CSV映射、支持度、阶段与预算核对后才能发布最终LOCK并启动。
+RFMiD用户下载的官方train1920/validation640两个包已定位并核对CSV，正在NAS传输和实体化准备。真实标签45病种+Disease_Risk；有来源的29标签视图尚待最终冻结，不能声称精确MONICA复现或RF训练已启动。其设计与待冻结项见[RFMiD](../rfmid_ml1_20261011/PROTOCOL_SPEC_ZH.md)。保持multi-hot共病标签，不能套用单标签argmax/六BA门来伪造多标签结果。实际CSV映射、支持度、阶段与预算核对后才能发布最终LOCK并启动。

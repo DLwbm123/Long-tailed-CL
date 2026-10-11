@@ -78,6 +78,12 @@ def run(config):
             s=json.loads((Path(job['output'])/'STATUS.json').read_text())
             if s['status']!='COMPLETE' or s['steps']!=0 or s['policy_updates']!=0:
                 raise ValueError('Incomplete zero-update preflight barrier')
+            if config.get('strict_preflight_receipts'):
+                receipt=json.loads((Path(job['output'])/'PREFLIGHT.json').read_text())
+                if (receipt['status']!='PASS' or receipt['optimizer_updates']!=0 or
+                        receipt['policy_updates']!=0 or not receipt['gradient_norm']>0 or
+                        receipt['max_solve_residual']>1e-8):
+                    raise ValueError('Real backward zero-update receipt failed')
         state['phase']='TRAIN';write()
         if phase(config['jobs'],'train'):
             for job in config['jobs']:

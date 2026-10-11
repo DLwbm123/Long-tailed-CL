@@ -17,6 +17,9 @@ from rfmid_protocol import build_plan, read_mapped, recurrent_plan
 from run_multilabel import ApartFeatures, Trainer, extract
 from residual_drift import config_weight
 
+CONTRAST_MODULES = {'difference_transport': 'difference',
+                    'difference_shared_removed_transport': 'difference_shared_removed'}
+
 
 def validate_config(config):
     config_weight(config)
@@ -37,8 +40,17 @@ def validate_config(config):
                  policy_updates=0, threshold=.5)
     if any(config.get(k) != v for k, v in fixed.items()) or config.get('test_accessed') is not False:
         raise ValueError('RFMiD frozen settings or test permission differ')
-    if config.get('module') not in ('base', 'local_transport') or config.get('operation') not in ('train', 'evaluate'):
+    if config.get('module') not in ('base', 'local_transport', *CONTRAST_MODULES) or config.get('operation') not in ('train', 'evaluate'):
         raise ValueError('Unapproved RFMiD module or operation')
+    contrast = config.get('module') in CONTRAST_MODULES
+    if contrast:
+        if (config.get('rfmid_contrast_authorized') is not True or
+                config.get('contrast_prior_version') != 'binary_contrast_shared_projection_v1' or
+                config.get('contrast_prior') != CONTRAST_MODULES[config['module']] or
+                variant != 'negative_coverage_v3' or config_weight(config)):
+            raise ValueError('Contrast RFMiD requires its frozen version, v3 plan and explicit authorization')
+    elif any(k in config for k in ('rfmid_contrast_authorized', 'contrast_prior', 'contrast_prior_version')):
+        raise ValueError('Contrast settings cannot alter old RFMiD controls')
     if config.get('labels') != list(BENCHMARK_LABELS) or 'checkpoint_root' in config:
         raise ValueError('RFMiD label view differs or external checkpoint requested')
     if config.get('preflight') and config['operation'] != 'train':
@@ -50,7 +62,8 @@ def evaluation_barrier(config, plan):
     if gate.get('phase') != 'EVALUATE' or gate.get('failures') or not gate.get('training_sealed_at'):
         raise ValueError('RFMiD paired training barrier is not sealed')
     root = Path(config['evaluation_gate']).parent
-    for arm in ('base', 'local_transport'):
+    arms = tuple(CONTRAST_MODULES) if config['module'] in CONTRAST_MODULES else ('base', 'local_transport')
+    for arm in arms:
         status = json.loads((root / 'runs' / ('RFMiD_' + arm) / 'STATUS.json').read_text())
         if status.get('status') not in ('TRAINED', 'RUNNING', 'COMPLETE') or status.get('steps') != config.get('expected_steps', 66) or status.get('policy_updates') != 0:
             raise ValueError('Both RFMiD arms must have the exact completed training budget')
@@ -91,10 +104,13 @@ def run(config):
     torch.set_num_threads(4)
     device = 'cuda:0'
     encoder = ApartFeatures(config['legacy_repo'], config['weight'], 29, device, seed)
-    trainer = Trainer(encoder, 29, 'A', seed, device, local_transport=config['module'] == 'local_transport',
-                      drift_weight=config_weight(config))
+    trainer = Trainer(encoder, 29, 'A', seed, device,
+                      local_transport=config['module'] == 'local_transport' or config['module'] in CONTRAST_MODULES,
+                      drift_weight=config_weight(config), contrast_prior=config.get('contrast_prior'))
     status = dict(status='RUNNING', phase='PREFLIGHT' if config.get('preflight') else 'TRAIN',
                   steps=0, policy_updates=0, trained_stages=0, test_accessed=False)
+    if config['module'] in CONTRAST_MODULES:
+        status.update(contrast_prior=config['contrast_prior'], contrast_prior_version=config['contrast_prior_version'])
     if config['operation'] == 'evaluate':
         status = json.loads((output / 'STATUS.json').read_text())
     def wall():
@@ -181,6 +197,8 @@ def run(config):
         metrics = dict(dataset='RFMiD', module=config['module'], stages=reports,
                                  evaluation_split='official_validation', test_accessed=False, threshold=.5,
                                  partition_variant=config.get('partition_variant', 'earliest'))
+        if config['module'] in CONTRAST_MODULES:
+            metrics.update(contrast_prior=config['contrast_prior'], contrast_prior_version=config['contrast_prior_version'])
         if config_weight(config):
             metrics.update(residual_drift_weight=config_weight(config),residual_drift_version='residual_drift_v1',
                            is_unmodified_baseline=False)

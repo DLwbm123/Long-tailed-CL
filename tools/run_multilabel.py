@@ -81,7 +81,7 @@ def extract(encoder, loader, device, *, with_local=False, before_batch=lambda: N
 
 class Trainer:
     def __init__(self, encoder, classes, method='A', seed=74002, device='cpu', *, local_transport=False,
-                 drift_weight=0.):
+                 drift_weight=0., contrast_prior=None):
         if method not in (*METHODS, 'F_S'):
             raise ValueError('Unknown condition')
         self.encoder, self.device, self.method = encoder.to(device), torch.device(device), method
@@ -90,6 +90,10 @@ class Trainer:
         self.sigma, self.steps, self.task = .5, 0, 0
         self.head = None
         self.drift_weight = residual_drift.strength(drift_weight)
+        if contrast_prior is not None and (contrast_prior not in ('difference', 'difference_shared_removed') or
+                not local_transport or method != 'A' or self.drift_weight):
+            raise ValueError('Contrast prior requires local non-RL A without residual drift')
+        self.contrast_prior = contrast_prior
         if self.drift_weight and method != 'A':
             raise ValueError('Residual drift is supported only for non-RL A')
         self.drift = None
@@ -126,8 +130,22 @@ class Trainer:
                 raise ValueError('Local and global observed binary counts differ')
             if local is not None:
                 activation.update(extra_columns=4 * int((local['n'] > 0).sum()), prior_delta_norm=0.)
+                if self.contrast_prior is not None:
+                    activation.update(extra_columns=4 * int((local['n'] > 0).all(1).sum()),
+                        contrast_raw_energy=0., contrast_retained_energy=0.,
+                        contrast_shared_rank_max=0, contrast_shared_leakage_max=0.)
             def prior(label):
-                R = np.eye(self.encoder.dim + 1) if local is None else penalty(local, label)
+                R = np.eye(self.encoder.dim + 1) if local is None else (
+                    penalty(local, label) if self.contrast_prior is None else None)
+                if self.contrast_prior is not None:
+                    from rfmid_contrast import columns, penalty as contrast_penalty
+                    projected = self.contrast_prior == 'difference_shared_removed'
+                    _, diag = columns(local, label, remove_shared=projected)
+                    R = contrast_penalty(local, label, remove_shared=projected)
+                    activation['contrast_raw_energy'] += diag['raw_energy']
+                    activation['contrast_retained_energy'] += diag['retained_energy']
+                    activation['contrast_shared_rank_max'] = max(activation['contrast_shared_rank_max'], diag['shared_rank'])
+                    activation['contrast_shared_leakage_max'] = max(activation['contrast_shared_leakage_max'], diag['shared_leakage'])
                 if local is not None:
                     activation['prior_delta_norm'] += float(np.linalg.norm(R - np.eye(len(R))))
                 if drift_prior is not None:
@@ -224,6 +242,8 @@ class Trainer:
         if self.drift_weight:
             result.update(residual_drift_matrix=self.drift, residual_drift_weight=self.drift_weight,
                           residual_drift_version='residual_drift_v1')
+        if self.contrast_prior is not None:
+            result.update(contrast_prior=self.contrast_prior, contrast_prior_version='binary_contrast_shared_projection_v1')
         return result
 
     def load_state_dict(self, state):
@@ -233,6 +253,9 @@ class Trainer:
             raise ValueError('Checkpoint local binary prior differs')
         if state.get('residual_drift_weight', 0.) != self.drift_weight:
             raise ValueError('Checkpoint residual drift weight differs')
+        if state.get('contrast_prior') != self.contrast_prior or (self.contrast_prior is not None and
+                state.get('contrast_prior_version') != 'binary_contrast_shared_projection_v1'):
+            raise ValueError('Checkpoint contrast prior version/mode differs')
         if self.drift_weight:
             if state.get('residual_drift_version') != 'residual_drift_v1':
                 raise ValueError('Checkpoint residual drift version differs')

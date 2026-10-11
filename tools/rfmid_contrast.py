@@ -1,4 +1,4 @@
-"""CPU design helper; no production worker or launch configuration enables it."""
+"""Four-column binary contrasts; production use requires a versioned RFMiD protocol."""
 import numpy as np
 
 

@@ -60,7 +60,7 @@ def translation(before, after, y, mask, weights):
                        residual_mean=float(row_w @ ((delta - shift) ** 2).mean(1)))
 
 
-def ridge(state, regularization=.001):
+def ridge(state, regularization=.001, penalty=None):
     """Equal mass for available positive/negative groups within each label."""
     if regularization <= 0:
         raise ValueError('Positive ridge regularization required')
@@ -78,7 +78,10 @@ def ridge(state, regularization=.001):
             gram = np.block([[moment, s[:, None]], [s[None, :], np.array([[n]])]])
             G += gram / (len(groups) * n)
             rhs += np.r_[s, n] * (2 * value - 1) / (len(groups) * n)
-        system = G + regularization * np.eye(d + 1)
+        prior = np.eye(d + 1) if penalty is None else np.asarray(penalty(label), dtype=np.float64)
+        if penalty is not None and (prior.shape != G.shape or not np.isfinite(prior).all() or not np.allclose(prior, prior.T, atol=1e-12, rtol=0)):
+            raise ValueError('Binary ridge prior must be a finite symmetric augmented matrix')
+        system = G + regularization * prior
         head[:, label] = np.linalg.solve(system, rhs)
         residual = float(np.linalg.norm(system @ head[:, label] - rhs) / max(np.linalg.norm(rhs), 1e-30))
         if not np.isfinite(head[:, label]).all() or residual > 1e-8:

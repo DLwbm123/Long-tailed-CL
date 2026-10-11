@@ -1,6 +1,8 @@
 # RFMiD 多标签首轮准备规格
 
-状态：CSV_AUDITED / NAS_DATA_READY / LABEL_MAPPING_FROZEN_METHOD_PENDING。已授权在Tissue、NIH先后完整交付后启动；已定位用户下载的官方train/validation两个包，CPU传输和实体化准备已完成；目前没有RFMiD GPU进程、没有正式训练。只GPU0/1。本文是准备规格，不能当作已冻结增量任务和训练预算的科学运行协议。
+状态：准备历史规格；已由[最终冻结协议](PROTOCOL_ZH.md)和[PROTOCOL_LOCK](PROTOCOL_LOCK.json)替代。本文保留映射核对历史，不代表最新训练设置。
+
+原状态：CSV_AUDITED / NAS_DATA_READY / LABEL_MAPPING_FROZEN_METHOD_PENDING。已授权在Tissue、NIH先后完整交付后启动；已定位用户下载的官方train/validation两个包，CPU传输和实体化准备已完成；目前没有RFMiD GPU进程、没有正式训练。只GPU0/1。本文是准备规格，不能当作已冻结增量任务和训练预算的科学运行协议。
 
 ## 官方数据与权限
 

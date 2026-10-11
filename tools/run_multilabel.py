@@ -52,21 +52,34 @@ class ApartFeatures(nn.Module):
         return features(self.net, x, self.learner)
 
 
-def extract(encoder, loader, device):
+def extract(encoder, loader, device, *, with_local=False, before_batch=lambda: None):
     features, targets, masks = [], [], []
+    regions = []
     encoder.eval()
     with torch.no_grad():
         for x, y, mask in loader:
-            features.append(encoder(x.to(device)).cpu().numpy())
+            before_batch()
+            captured = []
+            hook = encoder.net.backbone.norm.register_forward_hook(
+                lambda m, a, out: captured.append(out.detach())) if with_local else None
+            try:
+                features.append(encoder(x.to(device)).cpu().numpy())
+                if with_local:
+                    from module_additions import local_parts
+                    regions.append(local_parts(captured).cpu().numpy())
+            finally:
+                if hook is not None:
+                    hook.remove()
             targets.append(y.numpy())
             masks.append(mask.numpy())
     if not features:
         raise ValueError('Empty extraction loader')
-    return np.concatenate(features), np.concatenate(targets), np.concatenate(masks)
+    result = (np.concatenate(features), np.concatenate(targets), np.concatenate(masks))
+    return (*result, np.concatenate(regions)) if with_local else result
 
 
 class Trainer:
-    def __init__(self, encoder, classes, method='A', seed=74002, device='cpu'):
+    def __init__(self, encoder, classes, method='A', seed=74002, device='cpu', *, local_transport=False):
         if method not in (*METHODS, 'F_S'):
             raise ValueError('Unknown condition')
         self.encoder, self.device, self.method = encoder.to(device), torch.device(device), method
@@ -74,17 +87,43 @@ class Trainer:
         self.policy = torch.Generator(device=self.device).manual_seed(seed + 71000003)
         self.sigma, self.steps, self.task = .5, 0, 0
         self.head = None
+        if local_transport and method != 'A':
+            raise ValueError('Local binary prior is authorized only for non-RL A')
+        self.local = None
+        if local_transport:
+            from rfmid_local import empty_local
+            self.local = empty_local(classes, encoder.dim)
 
-    def fit_task(self, canonical_loader, train_loader, epochs, lr=.0003, before_step=lambda: None):
+    def fit_task(self, canonical_loader, train_loader, epochs, lr=.0003, before_step=lambda: None,
+                 *, preflight=False, before_extract=lambda: None):
         if epochs < 1:
             raise ValueError('Positive epoch count required')
         self.task += 1
         teacher = copy.deepcopy(self.encoder).requires_grad_(False).eval()
-        before, y, mask = extract(teacher, canonical_loader, self.device)
+        extracted = extract(teacher, canonical_loader, self.device, with_local=self.local is not None,
+                            before_batch=before_extract)
+        before, y, mask = extracted[:3]
         weights_cpu = binary_weights(torch.from_numpy(y), torch.from_numpy(mask))
         prior = self.bank
         bootstrap = add(copy.deepcopy(prior), before, y, mask)
-        W_start, start_audit = ridge(bootstrap)
+        activation = dict(extra_columns=0, prior_delta_norm=0.)
+        def fit_head(bank, local):
+            if local is None:
+                return ridge(bank)
+            from rfmid_local import penalty
+            if not np.array_equal(bank['n'], local['n']):
+                raise ValueError('Local and global observed binary counts differ')
+            activation.update(extra_columns=4 * int((local['n'] > 0).sum()), prior_delta_norm=0.)
+            def prior(label):
+                R = penalty(local, label)
+                activation['prior_delta_norm'] += float(np.linalg.norm(R - np.eye(len(R))))
+                return R
+            return ridge(bank, penalty=prior)
+        start_local = None
+        if self.local is not None:
+            from rfmid_local import add_local, transport_local
+            start_local = add_local(self.local, extracted[3], y, mask)
+        W_start, start_audit = fit_head(bootstrap, start_local)
         del bootstrap
         weights = weights_cpu.to(self.device)
         head = torch.as_tensor(W_start, device=self.device, dtype=torch.float32)
@@ -100,6 +139,25 @@ class Trainer:
                     train_loader.dataset.epoch = epoch + 1
                 for batch, (x, by, bm) in enumerate(train_loader):
                     before_step()
+                    if preflight:
+                        from ml_core import objective
+                        optimizer.zero_grad(set_to_none=True)
+                        x, by, bm = x.to(self.device), by.to(self.device), bm.to(self.device)
+                        with torch.no_grad():
+                            target = teacher(x)
+                        loss, terms, coefficient, _, _diag, actions = objective(
+                            self.encoder(x), target, head, by, bm, weights, 'A', self.task,
+                            self.sigma, self.policy, old_labels)
+                        if not torch.isfinite(loss) or coefficient != 0 or actions is not None:
+                            raise ArithmeticError('Invalid non-RL zero-update preflight loss')
+                        loss.backward()
+                        grad = torch.nn.utils.clip_grad_norm_(params, 1., error_if_nonfinite=True)
+                        if not float(grad) > 0:
+                            raise ArithmeticError('Zero preflight adapter gradient')
+                        return dict(preflight=True, loss=float(loss.detach()), bce=float(terms[0].detach()),
+                                    fd=float(terms[1].detach()), gradient_norm=float(grad),
+                                    optimizer_updates=0, policy_updates=0, activation=activation,
+                                    max_solve_residual=max(v for v in start_audit['residuals'] if v is not None))
                     self.sigma, diagnostics, _ = update(
                         self.encoder, teacher, optimizer, x.to(self.device), by.to(self.device),
                         bm.to(self.device), head, weights, 'A' if self.method == 'F_S' else self.method,
@@ -107,15 +165,22 @@ class Trainer:
                     self.steps += not diagnostics['skipped']
                     records.append(dict(task=self.task, epoch=epoch + 1, batch=batch, **diagnostics))
                 scheduler.step()
-        after, after_y, after_mask = extract(self.encoder, canonical_loader, self.device)
+        after_extract = extract(self.encoder, canonical_loader, self.device, with_local=self.local is not None,
+                                before_batch=before_extract)
+        after, after_y, after_mask = after_extract[:3]
         if not np.array_equal(y, after_y) or not np.array_equal(mask, after_mask):
             raise ValueError('Canonical extraction order changed')
         shift, transport_audit = translation(before, after, y, mask, weights_cpu.numpy())
         self.bank = add(translated(prior, shift), after, y, mask)
-        W_final, final_audit = ridge(self.bank)
+        local_audit = dict(regional_shift_norm=0.)
+        if self.local is not None:
+            moved, local_audit = transport_local(self.local, extracted[3], after_extract[3], y, mask, weights_cpu.numpy())
+            self.local = add_local(moved, after_extract[3], y, mask)
+        W_final, final_audit = fit_head(self.bank, self.local)
         self.head = torch.as_tensor(W_final, device=self.device, dtype=torch.float32)
         return dict(W_start=W_start, W_final=W_final, start_head=start_audit,
-                    final_head=final_audit, translation=transport_audit, updates=records)
+                    final_head=final_audit, translation=transport_audit, updates=records,
+                    local_activation=activation, local_transport=local_audit)
 
     def state_dict(self):
         return dict(encoder={k: v.detach().cpu().clone() for k, v in self.encoder.state_dict().items()},
@@ -123,14 +188,18 @@ class Trainer:
                     task=self.task, method=self.method, policy_rng=self.policy.get_state(),
                     torch_rng=torch.get_rng_state(), numpy_rng=np.random.get_state(),
                     python_rng=random.getstate(),
-                    cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_initialized() else None)
+                    cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_initialized() else None,
+                    local=self.local)
 
     def load_state_dict(self, state):
         if state['method'] != self.method:
             raise ValueError('Checkpoint condition mismatch')
+        if (self.local is None) != (state.get('local') is None):
+            raise ValueError('Checkpoint local binary prior differs')
         self.encoder.load_state_dict(state['encoder'], strict=True)
         self.bank, self.head = copy.deepcopy(state['bank']), state['head'].to(self.device)
         self.sigma, self.steps, self.task = state['sigma'], state['steps'], state['task']
+        self.local = copy.deepcopy(state.get('local'))
         self.policy.set_state(state['policy_rng'])
         torch.set_rng_state(state['torch_rng'])
         np.random.set_state(state['numpy_rng'])

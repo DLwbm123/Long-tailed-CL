@@ -1,6 +1,9 @@
-# 残余漂移贡献验证：协议已冻结，待后台启动
+# 残余漂移贡献验证：已后台启动，等待受保护RFMiD退出
 
-4条新正式轨迹，ISIC/HK×漂移单独/局部组合，共1288更新。base与local_transport各两条严格复用。
-4个真实零更新预检尚未执行；CPU协议/匹配/报告检查PASS。仅GPU0/1，先等待RFMiD原队列退出及资源准入，test/reserved封存。
+科学冻结源c20187d0846bf256d45a38f0c20c6b6ed8083524。启动2026-10-11T22:17:43.858900+08:00，原截止2026-10-12T22:17:43.858900+08:00，24小时含等待/预检/训练/评价，不重置。
 
-[协议](PROTOCOL_ZH.md) · [匹配审计](CONTROL_MATCH.json) · [CPU检查](CPU_PROTOCOL_CHECK.json)
+启动一次核对：协调器中性完整命令正常、WAITING_PROTECTED_RFMID、GPU active空、0/4真实预检通过、0正式更新、failures空。RFMiD仍在EVALUATE，本轮不dispatch GPU、不改其进程或冻结源。数据/权重只读复用，无新增下载，test/reserved封存。
+
+RFMiD终态且active空、GPU0/1每卡≥32768MiB及NAS挂载/容量/探针通过后自动4零预检→全部PASS→4新TRAINED→统一开发val。新增1288步，复用4控制不再训练或收费；12成功GPU进程，失败另全计。
+
+[协议](PROTOCOL_ZH.md) · [匹配审计](CONTROL_MATCH.json) · [CPU检查](CPU_PROTOCOL_CHECK.json)。这只是后台等待/启动证据，不是预检通过、正式训练或科学结果。

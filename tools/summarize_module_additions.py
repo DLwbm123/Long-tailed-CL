@@ -14,10 +14,13 @@ def summarize(snapshot,destination):
     cifar_test=datasets==['CIFAR100LT'] and snapshot.get('auxiliary_cifar_authorized') is True
     path_validation=datasets==['PathMNISTLT'] and snapshot.get('synthetic_path_authorized') is True
     organ_validation=datasets==['OrganAMNISTLT'] and snapshot.get('synthetic_organ_authorized') is True
+    tissue_validation=datasets==['TissueMNISTLT'] and snapshot.get('synthetic_tissue_authorized') is True
     if 'PathMNISTLT' in datasets and not path_validation:
         raise ValueError('Explicit PathMNIST aggregate authorization required')
     if 'OrganAMNISTLT' in datasets and not organ_validation:
         raise ValueError('Explicit OrganAMNIST aggregate authorization required')
+    if 'TissueMNISTLT' in datasets and not tissue_validation:
+        raise ValueError('Explicit TissueMNIST aggregate authorization required')
     for dataset in datasets:
         base=snapshot['runs'][dataset+'_base']['metrics']
         for arm in snapshot.get('modules',('base','hierarchy','local','paced','fusion')):
@@ -25,7 +28,7 @@ def summarize(snapshot,destination):
             if (run['status']['status']!='COMPLETE' or
                     bool(m['test_accessed'])!=cifar_test or
                     (cifar_test and m['evaluation_split']!='official_test') or
-                    ((path_validation or organ_validation) and m['evaluation_split']!='official_validation')):
+                    ((path_validation or organ_validation or tissue_validation) and m['evaluation_split']!='official_validation')):
                 raise ValueError('Incomplete or invalid aggregate input')
             if [s['per_class_n'] for s in m['stages']] != [s['per_class_n'] for s in base['stages']]:
                 raise ValueError('Class denominator mismatch')

@@ -1,0 +1,135 @@
+{
+  "campaign": "tissuemnist_lt1_20261011",
+  "dataset": "TissueMNISTLT",
+  "modality": "kidney cortex cell microscopy grayscale maximum projection",
+  "classes": 8,
+  "imbalance_factor": 100,
+  "n_max": 5000,
+  "n_max_rule": "min(5000,train supply cap); all source classes can supply 5000 so fixed 5000 without clipping",
+  "frequency_rank": [
+    4,
+    2,
+    7,
+    5,
+    6,
+    3,
+    0,
+    1
+  ],
+  "order": [
+    7,
+    3,
+    4,
+    0,
+    6,
+    2,
+    1,
+    5
+  ],
+  "seed": 74002,
+  "split_seed": 74002,
+  "frequency_seed": 74003,
+  "order_seed": 74004,
+  "task_sizes": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "class_counts": {
+    "4": 5000,
+    "2": 2589,
+    "7": 1341,
+    "5": 694,
+    "6": 359,
+    "3": 186,
+    "0": 96,
+    "1": 50
+  },
+  "fit_counts": {
+    "4": 4000,
+    "2": 2071,
+    "7": 1073,
+    "5": 555,
+    "6": 287,
+    "3": 149,
+    "0": 77,
+    "1": 40
+  },
+  "train_n": 10315,
+  "official_train_n": 165466,
+  "official_validation_n": 23640,
+  "source_train_counts": [
+    53075,
+    7814,
+    5866,
+    15406,
+    11789,
+    7705,
+    39203,
+    24608
+  ],
+  "source_val_counts": [
+    7582,
+    1117,
+    838,
+    2201,
+    1684,
+    1101,
+    5601,
+    3516
+  ],
+  "stage_updates": [
+    40,
+    128,
+    74,
+    20
+  ],
+  "updates_per_arm": 262,
+  "formal_adapter_updates": 524,
+  "formal_trajectories": 2,
+  "preflight_checks": 2,
+  "policy_updates": 0,
+  "modules": [
+    "base",
+    "local_transport"
+  ],
+  "image_size": 224,
+  "evaluation_split": "official_validation",
+  "test_access": false,
+  "authorized_gpus": [
+    0,
+    1
+  ],
+  "head_classes": [
+    4,
+    2,
+    7
+  ],
+  "middle_classes": [
+    5,
+    6
+  ],
+  "tail_classes": [
+    3,
+    0,
+    1
+  ],
+  "wall_hours": 24,
+  "training": "Original ViT/adapter/global statistics/competition/FD10 AdamW; epochs2 batch64 workers4 lr.0003 WD.01 clip5 ridge.001 proximal.01; no new head or readout",
+  "selection": "User selected TissueMNIST; unchanged local_transport; no val amplitude, seed or module selection",
+  "archive_bytes": 3433703243,
+  "data_url": "https://zenodo.org/records/10519652/files/tissuemnist_224.npz?download=1",
+  "source_info": "https://github.com/MedMNIST/MedMNIST/blob/main/medmnist/info.py",
+  "screen": {
+    "ba_pp_min": 1,
+    "tail_pp_min": -0.5,
+    "forgetting_pp_max": 1,
+    "old_pp_min": -1,
+    "new_pp_min": -1
+  },
+  "identity": "Official sample index only; 3 reference tissue specimens in source, patient/specimen grouping not reconstructed",
+  "native_information": "Source 32x32 maximum projection resized to 224; no extra native spatial detail",
+  "prior_closed_gpu_residence_seconds": 161646.8880625614,
+  "expected_successful_cost_records": 6
+}

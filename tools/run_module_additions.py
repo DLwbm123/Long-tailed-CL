@@ -63,8 +63,21 @@ def synthetic_organ(config):
     return False
 
 
+def synthetic_tissue(config):
+    if config['name']=='TissueMNISTLT':
+        if (config.get('synthetic_tissue_authorized') is not True or
+                config.get('evaluation_split')!='official_validation' or
+                config.get('image_size')!=224 or config.get('imbalance_factor')!=100 or
+                config.get('n_max')!=5000 or config.get('classes')!=8):
+            raise ValueError('Frozen TissueMNIST training/validation protocol required')
+        return True
+    if config.get('synthetic_tissue_authorized'):
+        raise ValueError('TissueMNIST permission escaped its dataset')
+    return False
+
+
 def verify_historical_baseline(config,reports,metrics):
-    if config['module']=='base' and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config)):
+    if config['module']=='base' and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config)):
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')
@@ -75,6 +88,7 @@ def run(config):
     official_cifar(config)
     synthetic_path(config)
     synthetic_organ(config)
+    synthetic_tissue(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -475,6 +489,7 @@ def evaluate(config):
     cifar_test=official_cifar(config)
     path_validation=synthetic_path(config)
     organ_validation=synthetic_organ(config)
+    tissue_validation=synthetic_tissue(config)
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
     started=time.monotonic()
@@ -529,7 +544,7 @@ def evaluate(config):
         forgetting=float(np.mean(forgetting)),forgetting_classes=len(old),
         final_old_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in old])),
         final_new_recall=float(np.mean([reports[-1]['per_class_recall'][str(c)] for c in new])),
-        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation or organ_validation else 'development_validation'),independent_confirmation=False)
+        test_accessed=cifar_test,evaluation_split='official_test' if cifar_test else ('official_validation' if path_validation or organ_validation or tissue_validation else 'development_validation'),independent_confirmation=False)
     verify_historical_baseline(config,reports,metrics)
     if config['module'] in modules.STAT_ARMS or config.get('trained_local_readout'):
         reference=json.loads(Path(config['historical_global_control']).read_text())

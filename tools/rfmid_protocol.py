@@ -6,6 +6,15 @@ import random
 from prepare_rfmid_ml import BENCHMARK_LABELS
 
 
+RECURRENT_INTRODUCED = [
+    ['Normal', 'ARMD', 'ERM', 'MS', 'AH', 'PT', 'RT', 'EDN', 'MHL'],
+    ['DR', 'DN', 'CSR', 'TV', 'RP'],
+    ['MH', 'MYA', 'LS', 'CRVO', 'ST'],
+    ['BRVO', 'ODC', 'ODP', 'AION', 'OTHER'],
+    ['TSLN', 'ODE', 'RS', 'CRS', 'RPEC'],
+]
+
+
 def read_mapped(path, expected):
     with open(path, newline='') as stream:
         reader = csv.DictReader(stream)
@@ -79,3 +88,66 @@ def build_plan(rows):
                  allocation='earliest task containing any positive label; cumulative known-label mask',
                  fit_meta='native non-RL multi-label A uses all current images; no internal meta',
                  expected_steps_per_arm=sum(t['expected_steps'] for t in tasks)))
+
+
+def recurrent_plan(rows, proposal):
+    """Validate the approved private assignment without solving or changing it."""
+    labels = list(BENCHMARK_LABELS)
+    if len(rows) != 1920 or proposal.get('labels') != labels:
+        raise ValueError('Recurrent RFMiD row count or label view differs')
+    if [t['introduced_labels'] for t in proposal['tasks']] != RECURRENT_INTRODUCED:
+        raise ValueError('Recurrent RFMiD introduction order differs')
+    by_id = {r['ID']: r for r in rows}
+    identities = [i for t in proposal['tasks'] for i in t['train_ids']]
+    if len(by_id) != 1920 or len(identities) != 1920 or len(set(identities)) != 1920 or set(identities) != set(by_id):
+        raise ValueError('Recurrent RFMiD images lost, repeated or unknown')
+    counts = {k: sum(int(r[k]) for r in rows) for k in labels}
+    metric_groups = build_plan(rows)[0]['metric_groups']
+    cumulative = {k: [0, 0] for k in labels}
+    tasks, audits, seen = [], [], []
+    pairs = 0
+    for index, t in enumerate(proposal['tasks'], 1):
+        if t['task'] != index or len(t['train_ids']) != 384 or t['expected_steps'] != 12:
+            raise ValueError('Recurrent task identity, size or budget differs')
+        new = t['introduced_labels']; old = seen.copy(); seen += new
+        current = [by_id[i] for i in t['train_ids']]
+        if any(int(r[k]) for r in current for k in labels if k not in seen):
+            raise ValueError('Future positive supervision would be lost')
+        pos = {k: sum(int(r[k]) for r in current) for k in seen}
+        neg = {k: 384 - pos[k] for k in seen}
+        if any(pos[k] < min(5, math.ceil(counts[k] / 2)) or neg[k] < 5 for k in new):
+            raise ValueError('Recurrent new label lacks its frozen sign support')
+        if any(pos[k] < 1 or neg[k] < 1 for k in old):
+            raise ValueError('Recurrent old label lacks a sign')
+        for k in old:
+            intro = next(i for i, group in enumerate(RECURRENT_INTRODUCED, 1) if k in group)
+            minimum = 20 if k in ('Normal', 'DR', 'MH', 'ODC', 'TSLN') else max(
+                1, min(5, (counts[k] - min(5, math.ceil(counts[k] / 2))) // (5 - intro)))
+            if pos[k] < minimum:
+                raise ValueError('Recurrent old positive quota differs')
+        for k in seen:
+            cumulative[k][0] += neg[k]; cumulative[k][1] += pos[k]
+        pairs += sum(sum(int(r[k]) for k in seen) * (sum(int(r[k]) for k in seen) - 1) // 2 for r in current)
+        tasks.append(dict(task=index, introduced_labels=new, visible_labels=seen.copy(),
+                          train_ids=t['train_ids'], expected_steps=12))
+        audits.append(dict(task=index, introduced_labels=new, visible_labels=seen.copy(),
+            train_images=384, fit_images=384, meta_images=0, expected_steps=12,
+            current_positive=pos, current_negative=neg,
+            cumulative_observed_counts={k: cumulative[k].copy() for k in seen},
+            old_positive_occurrences=sum(pos[k] for k in old),
+            images_with_old_positive=sum(any(int(r[k]) for k in old) for r in current)))
+    if sum(counts.values()) != 2470 or pairs != 650 or any(cumulative[k][1] != counts[k] for k in labels):
+        raise ValueError('Recurrent positive or comorbidity conservation differs')
+    plan = dict(labels=labels, tasks=tasks, metric_groups=metric_groups,
+                train_seed=74002, order_tie_seed=74004, internal_meta=False)
+    support = dict(status='PASS_TRAIN_ONLY_RECURRENT_PLAN', train_images=1920, tasks=audits,
+        label_order=seen, metric_groups=metric_groups, train_positive_counts=counts,
+        hidden_future_positive_occurrences={k: 0 for k in labels},
+        observed_positive_counts={k: cumulative[k][1] for k in labels},
+        image_replay=False, samples_assigned_once=True, test_accessed=False,
+        validation_used_for_plan=False, allocation='frozen balanced recurrent assignment; cumulative known mask',
+        fit_meta='native A, all current images, no internal meta', expected_steps_per_arm=60,
+        observed_positive_occurrences=2470, jointly_supervised_positive_pairs=650,
+        old_positive_occurrences=sum(t['old_positive_occurrences'] for t in audits),
+        observed_negative_occurrences=sum(v[0] for v in cumulative.values()))
+    return plan, support

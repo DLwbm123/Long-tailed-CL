@@ -13,15 +13,24 @@ from ml_data import MultiLabelImages
 from ml_metrics import evaluate, groups
 from module_additions import local_parts  # Pin frozen pooling before ApartFeatures adds its legacy import path.
 from prepare_rfmid_ml import BENCHMARK_LABELS
-from rfmid_protocol import build_plan, read_mapped
+from rfmid_protocol import build_plan, read_mapped, recurrent_plan
 from run_multilabel import ApartFeatures, Trainer, extract
 
 
 def validate_config(config):
     if config.get('rfmid_multilabel_authorized') is not True or config.get('name') != 'RFMiD':
         raise ValueError('Explicit RFMiD multi-label authorization required')
+    variant = config.get('partition_variant', 'earliest')
+    if variant not in ('earliest', 'balanced_recurrent_v2'):
+        raise ValueError('Unapproved RFMiD partition variant')
+    if variant == 'balanced_recurrent_v2' and (config.get('rfmid_recurrent_authorized') is not True or
+            not config.get('task_plan_path') or not config.get('support_audit_path')):
+        raise ValueError('Recurrent RFMiD authorization and frozen plan required')
+    if variant == 'earliest' and any(k in config for k in ('rfmid_recurrent_authorized', 'task_plan_path', 'support_audit_path')):
+        raise ValueError('Recurrent plan cannot replace the original RFMiD protocol')
     fixed = dict(evaluation_split='official_validation', seed=74002, epochs=2, batch_size=64,
-                 workers=4, lr=.0003, expected_steps=66, policy_updates=0, threshold=.5)
+                 workers=4, lr=.0003, expected_steps=60 if variant == 'balanced_recurrent_v2' else 66,
+                 policy_updates=0, threshold=.5)
     if any(config.get(k) != v for k, v in fixed.items()) or config.get('test_accessed') is not False:
         raise ValueError('RFMiD frozen settings or test permission differ')
     if config.get('module') not in ('base', 'local_transport') or config.get('operation') not in ('train', 'evaluate'):
@@ -39,7 +48,7 @@ def evaluation_barrier(config, plan):
     root = Path(config['evaluation_gate']).parent
     for arm in ('base', 'local_transport'):
         status = json.loads((root / 'runs' / ('RFMiD_' + arm) / 'STATUS.json').read_text())
-        if status.get('status') not in ('TRAINED', 'RUNNING', 'COMPLETE') or status.get('steps') != 66 or status.get('policy_updates') != 0:
+        if status.get('status') not in ('TRAINED', 'RUNNING', 'COMPLETE') or status.get('steps') != config.get('expected_steps', 66) or status.get('policy_updates') != 0:
             raise ValueError('Both RFMiD arms must have the exact completed training budget')
         if status.get('trained_stages') != len(plan['tasks']):
             raise ValueError('Incomplete RFMiD trained checkpoints')
@@ -52,8 +61,15 @@ def run(config):
     if data_receipt.get('test_accessed') is not False or data_receipt.get('label_mapping_frozen') is not True:
         raise ValueError('RFMiD data receipt reports test access')
     rows = read_mapped(root / 'labels29/train.csv', 1920)
-    plan, support = build_plan(rows)
-    if plan != json.loads((root / 'TASK_PLAN.private.json').read_text()) or support['expected_steps_per_arm'] != 66:
+    budget = config['expected_steps']
+    if config.get('partition_variant') == 'balanced_recurrent_v2':
+        plan, support = recurrent_plan(rows, json.loads(Path(config['task_plan_path']).read_text()))
+        if support != json.loads(Path(config['support_audit_path']).read_text()):
+            raise ValueError('Recurrent RFMiD frozen support differs')
+    else:
+        plan, support = build_plan(rows)
+    frozen_plan = Path(config.get('task_plan_path', root / 'TASK_PLAN.private.json'))
+    if plan != json.loads(frozen_plan.read_text()) or support['expected_steps_per_arm'] != budget:
         raise ValueError('RFMiD train-only plan differs from frozen preparation')
     if config['operation'] == 'train':
         if output.exists():
@@ -81,7 +97,7 @@ def run(config):
             raise RuntimeError('RFMiD CAMPAIGN_DEADLINE')
     def step():
         wall()
-        if trainer.steps >= 66:
+        if trainer.steps >= budget:
             raise RuntimeError('RFMiD adapter step budget exceeded')
         status.update(steps=trainer.steps, phase='PREFLIGHT_BACKWARD' if config.get('preflight') else 'TRAIN')
         save('STATUS.json', status)
@@ -129,7 +145,7 @@ def run(config):
                     max_solve_residual=max(v for head in ('start_head', 'final_head') for v in result[head]['residuals'] if v is not None)))
                 torch.save(trainer.state_dict(), output / ('stage_' + str(task['task']) + '.pt'))
                 status.update(steps=trainer.steps, trained_stages=task['task']); save('STATUS.json', status)
-            if trainer.steps != 66:
+            if trainer.steps != budget:
                 raise ArithmeticError('RFMiD final adapter budget differs')
             save('diagnostics.json', diagnostics)
             status.update(status='TRAINED', phase='WAIT_PAIRED_TRAINING_BARRIER'); save('STATUS.json', status); return
@@ -156,8 +172,9 @@ def run(config):
             report.update(task=task['task'], visible_labels=task['visible_labels'], groups=groups(report, group_labels))
             reports.append(report)
         save('metrics.json', dict(dataset='RFMiD', module=config['module'], stages=reports,
-                                 evaluation_split='official_validation', test_accessed=False, threshold=.5))
-        status.update(status='COMPLETE', phase='AWAIT_PUBLIC_DELIVERY', steps=66, trained_stages=5)
+                                 evaluation_split='official_validation', test_accessed=False, threshold=.5,
+                                 partition_variant=config.get('partition_variant', 'earliest')))
+        status.update(status='COMPLETE', phase='AWAIT_PUBLIC_DELIVERY', steps=budget, trained_stages=5)
         save('STATUS.json', status)
     except BaseException as exc:
         status.update(status='INCOMPLETE', error=str(exc), steps=trainer.steps)

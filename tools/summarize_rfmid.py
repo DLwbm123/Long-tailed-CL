@@ -76,7 +76,7 @@ def report(snapshot, output, audit):
         lines.append(f'|{b["label"]}|{b["positive"]}|{b["negative"]}|{100*b["AP"]:.4f}|{100*c["AP"]:.4f}|{100*d:+.4f}|{100*b["AUROC"]:.4f}|{100*c["AUROC"]:.4f}|')
     lines += ['', f'最终AP正向{positive}、负向{negative}、相同{same}标签，全部报告，不只展示改善标签。',
               'CPU/真实预检/解析残差和预算审计见AUDIT；数学/模块激活不等于分类收益。固定threshold.5的F1、全部五stage/29label AP与支持度及无定义项在RESULTS中完整保留。',
-              '任务按train少数阳性优先、图像只使用一次，早期共病图上的未来阳性被unknown mask屏蔽；完整监督损失见TASK_SUPPORT_AUDIT，不能称全部阳性监督均保留。',
+              ('新划分每task384图、每图仅一次，累计known监督；2470次阳性及650对共病监督保留，后续每个旧label都有正负支持。未来负例仍unknown，未声称全部负例监督保留。' if data['base'].get('partition_variant') == 'balanced_recurrent_v2' else '任务按train少数阳性优先、图像只使用一次，早期共病图上的未来阳性被unknown mask屏蔽；完整监督损失见TASK_SUPPORT_AUDIT，不能称全部阳性监督均保留。'),
               '原代码没有内部meta，本轮当前task图全部训练及边界聚合，val不作meta。clip1保持原多标签A；没有强套单标签softmax/竞争损失。',
               '单seed/order、重复official val仅开发证据；极少val阳性TV/PT/RP各2，不夸大AP变化。无patient/eye ID，未做内容重复检测，非患者泛化/临床验证或精确MONICA复现。',
               f'本轮GPU驻留{audit["round_gpu_process_residence_seconds"]:.6f}秒；墙钟{audit["parallel_wall_seconds"]:.6f}秒单列，既有CPU数据准备与各次CPU检查不重复算GPU。全部闭合GPU累计{audit["cumulative_gpu_process_residence_seconds"]:.6f}秒，独立round各计一次。']

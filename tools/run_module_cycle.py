@@ -82,7 +82,7 @@ def run(config):
         if phase(config['jobs'],'train'):
             for job in config['jobs']:
                 s=json.loads((Path(job['output'])/'STATUS.json').read_text())
-                if s['status']!='TRAINED' or s['steps']!=job['expected_steps']:
+                if s['status']!='TRAINED' or s['steps']!=job['expected_steps'] or s['policy_updates']!=0:
                     raise ValueError('Incomplete training barrier')
             state['phase']='EVALUATE';state['training_sealed_at']=time.time();write()
             if phase(config['jobs'],'evaluate'):

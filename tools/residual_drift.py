@@ -34,7 +34,7 @@ def estimate(before, after, weights, shift):
     matrix = (matrix + matrix.T) / 2
     if not torch.isfinite(matrix).all():
         raise ValueError('Nonfinite residual drift moment')
-    return matrix, dict(residual_trace=float(matrix.trace()),
+    return matrix, dict(residual_trace=float(matrix.trace()), residual_frobenius_norm=float(matrix.norm()),
                         residual_mean_norm=float((weights @ residual).norm()),
                         current_samples=len(before), historical_samples=0)
 

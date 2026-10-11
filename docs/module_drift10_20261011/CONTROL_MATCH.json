@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "config_same_on_all_scientific_fields": true,
+  "assets_same_existing_read_only_paths": true,
+  "content_byte_identity_not_claimed": true,
+  "core_source_matching": {
+    "base": {
+      "prototype_coherent.py": "AST_EXACT",
+      "core1_competition.py": "AST_EXACT",
+      "edge_competition.py": "AST_EXACT",
+      "run_prototype_coherent.py": "AST_EXACT",
+      "run_prototype_single.py": "AST_EXACT",
+      "run_medical_v2.py": "AST_EXACT",
+      "ApartFeatures": "AST_EXACT"
+    },
+    "local_transport": {
+      "prototype_coherent.py": "AST_EXACT",
+      "core1_competition.py": "AST_EXACT",
+      "edge_competition.py": "AST_EXACT",
+      "run_prototype_coherent.py": "AST_EXACT",
+      "run_prototype_single.py": "AST_EXACT",
+      "run_medical_v2.py": "AST_EXACT",
+      "ApartFeatures": "AST_EXACT"
+    }
+  },
+  "lambda_zero_original_heads_exact": [
+    "base",
+    "local_transport"
+  ],
+  "local_pool_and_transport_exact": true,
+  "denominators_match_all_historical_stages": true,
+  "stage_updates": {
+    "ISIC": [
+      100,
+      72,
+      296
+    ],
+    "HK": [
+      98,
+      4,
+      2,
+      20,
+      18,
+      34
+    ]
+  },
+  "full_ViT_history_rerun_performed": false,
+  "default_path_review": "Added residual branch default zero; other modules/permissions do not alter base/local_transport native path; no full new baseline training"
+}

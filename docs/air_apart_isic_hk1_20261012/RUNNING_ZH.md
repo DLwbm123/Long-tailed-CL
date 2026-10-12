@@ -1,0 +1,7 @@
+# AIR与完整APART实际启动
+
+冻结科学源1080e4a099d684237f466d57615bd5fdca9d2a1e；4/4真实GPU零更新预检PASS，AIR真实8192维最终类银行shadow求解及内存峰值、APART实际第一batch反传/参数精确未变/双pool与router/head有限非零梯度均核实。
+
+已进入正式TRAIN，当前固定队列先AIR ISIC/HK，再完整APART ISIC/HK；不是声称APART正式训练已开始或效果完成。所有四条精确TRAINED之后才统一development val评价，test/reserved封存，仅GPU0/1。24h从实际协调器launch计，不重置。
+
+当前closed preflight费用只是部分账本，costs_final=false，不作为最终历史成本。两方法使用作者实际日程与全部train，原四格控制只复用公开结果；训练预算不同。CPU及源码/协议已公开，结果收集和GitHub/NAS完整交付入口已准备，尚无新分类结果。

@@ -1,0 +1,41 @@
+{
+  "status": "AUTHOR_SOURCE_VERIFIED",
+  "sources": {
+    "AIR": {
+      "repository": "ZHUANGHP/Analytic-Continual-Learning",
+      "commit": "0afd6bf87622e808ce7f730f8556e78229b9e758",
+      "date": "2024-12-09T13:20:38Z"
+    },
+    "APART": {
+      "repository": "vita-qzh/APART",
+      "commit": "f3c5b8da5908b2f78266744a737f7f6bff45a43d",
+      "date": "2024-11-27T08:57:18Z"
+    }
+  },
+  "AIR_paper": "https://arxiv.org/html/2408.10349v2",
+  "APART_paper": "https://arxiv.org/html/2409.07446v1",
+  "AIR_code_entry": [
+    "analytic/AIR.py",
+    "analytic/AnalyticLinear.py:GeneralizedARM",
+    "analytic/Buffer.py:RandomBuffer",
+    "analytic/ACIL.py:ACILLearner.learn"
+  ],
+  "APART_code_entry": [
+    "models/apart.py:Learner",
+    "backbone/vision_transformer_adapter_pool_a.py",
+    "utils/inc_net.py:AdapterVitNet",
+    "exps/apart_cifar_shuffle.json"
+  ],
+  "discrepancies": [
+    "AIR repository default backbone/regularization differs from latest paper, freeze transfer explicitly",
+    "APART author frequency embedding501 cannot index medical counts10529/736",
+    "APART authors periodic test evaluation conflicts with sealed data; remove logging/evaluation only",
+    "APART group weight decay key uses a space, AdamW effective .01 despite config0; preserve and report",
+    "AIR cnt not in state_dict; explicitly persist and restore",
+    "project third_party/APART contains ConCM and other patches; use pristine pinned author source",
+    "Native _train reinit_optimizer=true replaces active optimizer after constructing cosine scheduler for later tasks; effective first-task cosine and later-task constant initial rates; preserve and disclose rather than silently repair"
+  ],
+  "acquisition_engineering": [
+    "APART first proxied codeload TLS35 before source extraction; same proxy second fetch succeeded; 0GPU, no scientific attempt"
+  ]
+}

@@ -105,6 +105,8 @@ def check(config):
     import tempfile
     fixture=dict(program=dict(status='COMPLETE',active={},failures=[],costs=[dict(gpu=i%2,returncode=0,residence_seconds=1.) for i in range(12)],elapsed_seconds=1.),
         lock=lock,runs=copy.deepcopy(config['published_controls']),preflights={},closed_round_cost_ledger={},round_name='synthetic_fixture',source_commit='synthetic_fixture',cpu_checks={})
+    fixture['resource_comparison']=json.loads((Path(__file__).resolve().parents[1]/'docs/dat_hao_isic_hk2_20261012/REPORT_COMPARISON_SPEC.json').read_text())
+    fixture['cost_sources']={m:[] for m in fixture['resource_comparison']['project_methods']+fixture['resource_comparison']['external_methods']}
     for ds,d in lock['data'].items():
         for method in NEW:
             v=copy.deepcopy(fixture['runs'][ds+'_base']);v['status'].update(status='COMPLETE',steps=d[method]['total_updates'],stages=len(d['task_sizes']),policy_updates=0)
@@ -114,7 +116,7 @@ def check(config):
             fixture['preflights'][ds+'_'+method]=dict(status='PASS',optimizer_updates=0,test_accessed=False,parameters_unchanged=True,gradient_norm=1.)
     with tempfile.TemporaryDirectory() as tmp:
         audit=report(fixture,Path(tmp)/'complete')
-        assert audit['formal_complete']==4 and len(json.loads((Path(tmp)/'complete/CONTRIBUTIONS.json').read_text()))==24
+        assert audit['formal_complete']==4 and len(json.loads((Path(tmp)/'complete/CONTRIBUTIONS.json').read_text()))==40
         fixture['runs']['ISIC_DAT_paper']['metrics']['stages'][-1]['per_class_n']['0']+=1
         try:report(fixture,Path(tmp)/'bad')
         except ValueError:pass

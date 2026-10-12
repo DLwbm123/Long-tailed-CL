@@ -33,6 +33,12 @@ print(json.dumps(dict(program=program,runs=runs,preflights=preflights),allow_nan
         closed_round_cost_ledger={p.parent.parent.name:json.loads(p.read_text())['round_gpu_process_residence_seconds'] for p in Path('docs').glob('*/results/AUDIT.json') if 'round_gpu_process_residence_seconds' in json.loads(p.read_text())})
     previous=json.loads(Path('docs/air_apart_isic_hk1_20261012/results/RESULTS.json').read_text())
     for name,v in previous['runs'].items():s['runs'][name]=v
+    s['resource_comparison']=json.loads((r/'REPORT_COMPARISON_SPEC.json').read_text())
+    s['reporting_cpu_checks']=json.loads((r/'CPU_REPORT_CHECK.json').read_text())
+    s['reporting_source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    sources={'base':'module_additions1_20261009','local_transport':'module_local2_20261010','residual_drift':'module_drift10_20261011','local_transport_drift':'module_drift10_20261011','AIR':'air_apart_isic_hk1_20261012','APART_full':'air_apart_isic_hk1_20261012'}
+    s['cost_sources']={m:json.loads(Path('docs',name,'results/RESULTS.json').read_text())['costs'] for m,name in sources.items()}
+    for m in ('DAT_paper','Hao_paper'):s['cost_sources'][m]=s['program']['costs']
     (runtime/'SNAPSHOT_ANONYMOUS.json').write_text(json.dumps(s,indent=2,allow_nan=False)+'\n')
     if s['program']['status']=='COMPLETE':return report(s,r/'results')
     out=r/'results';out.mkdir();cost=sum(c['residence_seconds'] for c in s['program']['costs']);ledger=s['closed_round_cost_ledger'];ledger[r.name]=cost

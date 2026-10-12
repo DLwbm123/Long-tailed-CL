@@ -1,0 +1,241 @@
+{
+  "version": "supported_old_margin_v1",
+  "status": "DESIGN_ONLY_NOT_GPU_AUTHORIZED",
+  "production_worker_integrated": false,
+  "GPU_launch_authorized": false,
+  "formal_updates": 0,
+  "test_accessed": false,
+  "test_evaluation_authorized": false,
+  "protected_round": "dat_hao_isic_hk2_20261012",
+  "protected_science_source": "6dabf8fc4c618ac004dc46a73b8e50a8a535119d",
+  "protected_source_config_budget_processes_modified": false,
+  "seed": 74002,
+  "split_seed": 74002,
+  "future_datasets": [
+    "ISIC",
+    "HK"
+  ],
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "expected_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "stage_updates": {
+    "ISIC": [
+      100,
+      72,
+      296
+    ],
+    "HK": [
+      98,
+      4,
+      2,
+      20,
+      18,
+      34
+    ]
+  },
+  "old_control_sources": {
+    "A0": {
+      "round": "module_additions1_20261009",
+      "source": "0cfe6b648f5de1b8e8783265e7a0b97b64939952",
+      "delivery": "ecd783ffd7b32eea4e2e2a1311b9f033231f1677"
+    },
+    "AL": {
+      "round": "module_local2_20261010",
+      "source": "0f0d8a0717c6da09109cc9205cccf44c490d3e84",
+      "delivery": "4b6e0c87887b101ae2970738919760f00e19726e"
+    }
+  },
+  "future_gpus": [
+    0,
+    1
+  ],
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "clip": 5,
+  "FD": 10,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "competition_beta": 0.5,
+  "cosine_eta_min": 1e-05,
+  "fit_split": "original identity 80/20",
+  "epoch_prior": "current fit only",
+  "boundary_prior": "all current train including original meta",
+  "affine_map_ridge": 0.001,
+  "relative_curvature_cap": 0.1,
+  "current_support_rank": "float64 machine precision",
+  "old_estimate": "equal-old-class E[affine residual outer product] from task-start mu/Q; extrapolation proxy only",
+  "dedup": "subtract native common shift, then remove span(R_base-R_local); not a measured regional drift correction",
+  "no_retained_energy_renormalization": true,
+  "cap_denominator": "1+max(raw and retained whitened eigen radii)",
+  "protection": "M old-centered block, zeros on all new rows/columns; no recall guarantee",
+  "objective": "native + .5*trace(W.T @ S @ W @ M)",
+  "operator": "native_H(W)+S@W@M",
+  "RHS_unchanged": true,
+  "shared_ridge_fold_invalid": true,
+  "prior_detached_frozen": true,
+  "old_statistics_not_replaced": true,
+  "learned_head_parameters": 0,
+  "generated_old_features": 0,
+  "historical_examples_read": 0,
+  "cells": {
+    "A0": {
+      "native": "base",
+      "new": false
+    },
+    "AL": {
+      "native": "local_transport",
+      "new": false
+    },
+    "AC": {
+      "native": "local_transport",
+      "risk": "current_v1",
+      "dedup": false,
+      "M": "identity",
+      "new": true
+    },
+    "AO": {
+      "native": "local_transport",
+      "risk": "old_affine",
+      "dedup": false,
+      "M": "identity",
+      "new": true
+    },
+    "AD": {
+      "native": "local_transport",
+      "risk": "old_affine",
+      "dedup": true,
+      "M": "identity",
+      "new": true
+    },
+    "AP": {
+      "native": "local_transport",
+      "risk": "old_affine",
+      "dedup": true,
+      "M": "old_centered",
+      "new": true
+    },
+    "AB": {
+      "native": "base",
+      "risk": "old_affine",
+      "dedup": false,
+      "M": "old_centered",
+      "new": true
+    }
+  },
+  "core_four_grid": [
+    "A0",
+    "AL",
+    "AB",
+    "AP"
+  ],
+  "core_future_new_trajectories": 4,
+  "core_future_new_updates": 1288,
+  "mechanistic_cells": [
+    "AC",
+    "AO",
+    "AD"
+  ],
+  "mechanistic_future_new_trajectories": 6,
+  "mechanistic_future_new_updates": 1932,
+  "full_future_new_trajectories": 10,
+  "full_future_new_updates": 3220,
+  "full_normal_gpu_cost_records": 30,
+  "contrasts": [
+    "AO-AC",
+    "AD-AO",
+    "AP-AD",
+    "AB-A0",
+    "AP-AL",
+    "AP-AB",
+    "AP-A0",
+    "(AP-AL)-(AB-A0)",
+    "AC-AL",
+    "AO-AL",
+    "AD-AL"
+  ],
+  "all_signs_reported": true,
+  "screens": {
+    "base_relative": {
+      "BA_min_pp": 1,
+      "tail_min_pp": -0.5,
+      "forget_max_pp": 1,
+      "old_min_pp": -1,
+      "new_min_pp": -1
+    },
+    "module_increment_final_BA_min_pp": 1,
+    "module_increment_new_min_pp": -1
+  },
+  "future_all_preflights_required": 10,
+  "future_all_exact_trained_then_val": true,
+  "automatic_formal_retry": false,
+  "replay": false,
+  "RL": false,
+  "validation_retuning": false,
+  "extra_seeds": false,
+  "pending": [
+    "explicit future GPU and contribution-scope approval",
+    "DAT/Hao full delivery and actual exit",
+    "production trainer/controller/proximal/boundary/checkpoint/eval integration",
+    "matching CPU production regression",
+    "collector/report scalar allowlist and control match",
+    "independent public science freeze",
+    "NAS/GPU01 resource admission",
+    "real zero-update GPU preflights"
+  ]
+}

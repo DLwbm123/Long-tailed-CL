@@ -34,7 +34,9 @@ def check(round_dir):
         for row in resources:
             ds=row['dataset'];method=row['method'];d=lock['data'][ds]
             if method=='AIR':assert row['optimizer_steps']==0 and row['analytic_batches'] in [586,216] and row['old_image_bank_unique']==0
-            if method=='Hao_paper':assert row['old_image_bank_unique']==d[method]['final_unique_bank'] and row['pretraining'].startswith('ResNet18')
+            if method=='Hao_paper':
+                assert row['old_image_bank_unique']==d[method]['final_unique_bank'] and row['pretraining'].startswith('ResNet18')
+                assert row['old_replay_optimizer_image_exposures']=={'ISIC':20000,'HK':147300}[ds]
             if method in PROJECT:assert row['exact_optimizer_image_exposures'] is None and row['checkpoint_bytes'] is None
         comparison=json.loads((out/'COMPETITIVENESS.json').read_text());assert len(comparison['primary_contrasts'])==8
         assert comparison['primary_method']=='local_transport'
@@ -52,6 +54,7 @@ def check(round_dir):
         try:report(bad,Path(tmp)/'best_row')
         except ValueError:pass
         else:raise AssertionError('Posthoc primary switch accepted')
+        assert '### HK各阶段' in (out/'REPORT_ZH.md').read_text()
     for name in ['summarize_paper_medical.py','collect_paper_medical.py','check_paper_medical.py']:ast.parse(Path('tools',name).read_text())
     return dict(status='PASS',cpu_pipeline_seconds=time.monotonic()-started,report_only=True,
         medical_images_opened=0,current_worker_or_validation_access=False,gpu_processes=0,formal_updates=0,test_accessed=False,

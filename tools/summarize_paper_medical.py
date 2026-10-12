@@ -26,6 +26,12 @@ def unified_comparison(snapshot, out, lines):
         row['matched_preflight_GPU_residence_seconds']=sum(c['residence_seconds'] for c in matched) if matched else None
         row['optimizer_trainable_parameters']=model.get('trainable_parameters',model.get('trainable_parameters_peak'))
         row['checkpoint_bytes']=model.get('checkpoint_bytes');row['peak_GPU_bytes']=model.get('peak_gpu_bytes')
+        exposures=row['exact_optimizer_image_exposures']
+        row['old_replay_optimizer_image_exposures']=(None if exposures is None else
+            exposures-row['epochs_per_task']*sum(lock['data'][row['dataset']]['train_counts'].values())
+            if row['old_image_replay'] else 0)
+        if row['old_replay_optimizer_image_exposures'] is not None and row['old_replay_optimizer_image_exposures']<0:
+            raise ValueError('Replay exposure is inconsistent with current training support')
         resource_rows.append(row)
     (out/'RESOURCE_COMPARISON.json').write_text(json.dumps(dict(rows=resource_rows,notes=spec['notes'],reused_costs_charged_now=0),indent=2,ensure_ascii=False)+'\n')
     with (out/'RESOURCE_COMPARISON.csv').open('w') as f:
@@ -122,8 +128,9 @@ def report(s,out):
                 b=s['runs'][ds+'_'+control]['metrics'];delta={k:100*(m[k]-b[k]) for k in FIELDS}
                 contributions.append(dict(dataset=ds,method=method,control=control,delta_pp=delta))
                 lines.append('|'+ds+'|'+method+'−'+control+'|'+'|'.join(f'{delta[k]:+.6f}' for k in FIELDS)+'|')
-    lines+=['','## 所有阶段与每类支持','', '|数据集|方法|stage|n|Acc|BA|macro F1|','|---|---|---:|---:|---:|---:|---:|']
+    lines+=['','## 所有阶段与每类支持']
     for ds in ('ISIC','HK'):
+        lines+=['',f'### {ds}各阶段','', '|数据集|方法|stage|n|Acc|BA|macro F1|','|---|---|---:|---:|---:|---:|---:|']
         for method in METHODS:
             for t in s['runs'][ds+'_'+method]['metrics']['stages']:
                 f=t.get('macro_F1');lines.append(f'|{ds}|{method}|{t["task"]}|{t["validation_n"]}|{100*t["accuracy"]:.6f}|{100*t["balanced_accuracy"]:.6f}|'+('未提供' if f is None else f'{100*f:.6f}')+'|')

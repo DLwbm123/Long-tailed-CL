@@ -1,0 +1,175 @@
+{
+  "status": "PASS",
+  "source_commit": "c20187d0846bf256d45a38f0c20c6b6ed8083524",
+  "formal_complete": 4,
+  "formal_adapter_updates": 1288,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "zero_update_preflight_checks": 4,
+  "successful_subprocess_cost_records": 12,
+  "formal_failures": [],
+  "max_solve_residual": 9.96868656721785e-10,
+  "control_matching": {
+    "status": "PASS",
+    "config_same_on_all_scientific_fields": true,
+    "assets_same_existing_read_only_paths": true,
+    "content_byte_identity_not_claimed": true,
+    "core_source_matching": {
+      "base": {
+        "prototype_coherent.py": "AST_EXACT",
+        "core1_competition.py": "AST_EXACT",
+        "edge_competition.py": "AST_EXACT",
+        "run_prototype_coherent.py": "AST_EXACT",
+        "run_prototype_single.py": "AST_EXACT",
+        "run_medical_v2.py": "AST_EXACT",
+        "ApartFeatures": "AST_EXACT"
+      },
+      "local_transport": {
+        "prototype_coherent.py": "AST_EXACT",
+        "core1_competition.py": "AST_EXACT",
+        "edge_competition.py": "AST_EXACT",
+        "run_prototype_coherent.py": "AST_EXACT",
+        "run_prototype_single.py": "AST_EXACT",
+        "run_medical_v2.py": "AST_EXACT",
+        "ApartFeatures": "AST_EXACT"
+      }
+    },
+    "lambda_zero_original_heads_exact": [
+      "base",
+      "local_transport"
+    ],
+    "local_pool_and_transport_exact": true,
+    "denominators_match_all_historical_stages": true,
+    "stage_updates": {
+      "ISIC": [
+        100,
+        72,
+        296
+      ],
+      "HK": [
+        98,
+        4,
+        2,
+        20,
+        18,
+        34
+      ]
+    },
+    "full_ViT_history_rerun_performed": false,
+    "default_path_review": "Added residual branch default zero; other modules/permissions do not alter base/local_transport native path; no full new baseline training"
+  },
+  "denominators_equal_all_stages": true,
+  "drift_activation": {
+    "ISIC_residual_drift": {
+      "boundary_trace": [
+        0.00015416692567953125,
+        0.0003081936214886225,
+        0.0010516297597940043
+      ],
+      "system_delta_frobenius_norm": [
+        4.0227525813657316e-06,
+        1.640968477428563e-05,
+        8.126858939086615e-05
+      ]
+    },
+    "ISIC_local_transport_drift": {
+      "boundary_trace": [
+        0.0001540096910460397,
+        0.00031179508820933753,
+        0.0007846790347458949
+      ],
+      "system_delta_frobenius_norm": [
+        4.035815689475416e-06,
+        1.6608841677536902e-05,
+        5.307738002932333e-05
+      ]
+    },
+    "HK_residual_drift": {
+      "boundary_trace": [
+        0.0001658714150782649,
+        4.95165680729313e-05,
+        2.8149359849257838e-05,
+        0.00011691223635978943,
+        0.00012572270260290602,
+        2.3658133495544303e-05
+      ],
+      "system_delta_frobenius_norm": [
+        4.757740541355247e-06,
+        2.892445424145573e-06,
+        1.4734185793950512e-06,
+        8.146624505537654e-06,
+        7.51518295395271e-06,
+        1.630051671077325e-06
+      ]
+    },
+    "HK_local_transport_drift": {
+      "boundary_trace": [
+        0.00016433442042437953,
+        5.134860670956354e-05,
+        2.8079275719981955e-05,
+        0.00011933214793190941,
+        0.00012618397836359325,
+        2.4358427243049315e-05
+      ],
+      "system_delta_frobenius_norm": [
+        4.734016741668221e-06,
+        3.0159353596922667e-06,
+        1.4620968699836699e-06,
+        8.358304009575931e-06,
+        7.529752293186732e-06,
+        1.6994953673196078e-06
+      ]
+    }
+  },
+  "initial_zero_U_preflight_not_activation_proof": true,
+  "reused_trajectories": 4,
+  "reused_updates_and_costs_charged": 0,
+  "round_gpu_process_residence_seconds": 8874.840206375346,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "module_local2_20261010": 7624.042213955894,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "module_drift10_20261011": 8874.840206375346
+  },
+  "cumulative_gpu_process_residence_seconds": 222623.70946519123,
+  "parallel_gpu_phase_wall_seconds": 4437.838917580899,
+  "whole_round_wall_seconds": 4678.965960264206,
+  "resource_wait_seconds": 241.11907839775085,
+  "cpu_check_seconds": 1.9792274697683752,
+  "data_preparation_cpu_seconds": 0,
+  "independent_confirmation": false,
+  "extra_inference_scores": 0,
+  "development_goal_met": false,
+  "cpu_process_residence_seconds": 9.704202760010958,
+  "cpu_pipeline_included_in_process_residence": true,
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "gpus2_3_used": false,
+  "engineering_events": [
+    {
+      "stage": "startup_public_receipt_check",
+      "error": "Client mistyped publication commit; anonymous URL returned 404; corrected exact commit verified",
+      "additional_gpu_work": false,
+      "experiment_restarted": false
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "status": "PASS",
+  "source_commit": "529a19572cf4a3633268d74bf0c885a28ca17aa9",
+  "formal_complete": 2,
+  "reused_control_trajectories": 2,
+  "reused_control_updates_and_costs": 0,
+  "formal_adapter_updates": 120,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "zero_update_preflight_checks": 2,
+  "successful_subprocess_cost_records": 6,
+  "formal_failures": [],
+  "evaluation_split": "official_validation",
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "gpus2_3_used": false,
+  "denominators_equal_all_stages": true,
+  "max_solve_residual": 3.891579812502877e-14,
+  "round_gpu_process_residence_seconds": 11070.13684507506,
+  "cumulative_gpu_process_residence_seconds": 233693.8463102663,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "module_local2_20261010": 7624.042213955894,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "module_drift10_20261011": 8874.840206375346,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "rfmid_contrast4_20261011": 11070.13684507506
+  },
+  "parallel_wall_seconds": 5538.00690925587,
+  "resource_wait_seconds": 1142.3103077411652,
+  "whole_round_wall_seconds": 6680.332514047623,
+  "data_preparation_cpu_seconds": 0,
+  "prelaunch_cpu_check_seconds": 6.1523366023320705,
+  "cpu_checks": {
+    "compatibility": {
+      "status": "PASS",
+      "five_task_native_and_legacy_local_exact": true,
+      "all_task_positive_negative_counts_exact": true,
+      "contrast_columns_4K": true,
+      "shared_projection_leakage_below_1e_10": true,
+      "checkpoint_version_and_mode_rejection": true,
+      "new_worker_authorization_and_test_rejection": true,
+      "new_paired_training_barrier": true,
+      "synthetic_zero_update_preflights": 2,
+      "synthetic_optimizer_updates": 360,
+      "formal_adapter_updates": 0,
+      "gpu_processes": 0,
+      "test_accessed": false,
+      "max_solve_residual": 2.145354511435384e-15,
+      "cpu_pipeline_seconds": 6.139454018324614
+    },
+    "report": {
+      "status": "PASS",
+      "four_cells_and_five_contributions": true,
+      "all_5_stages_29_labels": true,
+      "uses_anonymous_published_metrics_fixture": true,
+      "new_classification_inference": false,
+      "gpu_processes": 0,
+      "cpu_report_seconds": 0.012882584007456899
+    }
+  },
+  "prior_design_checks_not_recounted": true,
+  "engineer_limitations": [
+    "Initial CPU reference-module assembly lacked observation_weights; import failed before fixture/GPU; corrected CPU module assembly passed.",
+    "Two new priors reduce energy as well as changing geometry; no equal-strength causal claim."
+  ],
+  "prior_columns_4K": true,
+  "checkpoint_prior_version_enforced": true,
+  "patient_isolation_verified": false,
+  "single_label_BA_gate_applied": false,
+  "original_task_plan_and_all_2470_positives_650_pairs_preserved": true,
+  "engineering_events": [
+    {
+      "stage": "CPU_reference_import",
+      "error": "Temporary reference assembly lacked observation_weights; failed before fixture; corrected assembly passed",
+      "gpu_work": false,
+      "formal_updates": 0
+    },
+    {
+      "stage": "prelaunch_protocol_http",
+      "error": "Proxied urllib TLS EOF before remote write or launch; exact commit curl HTTP200 via same proxy then launch",
+      "additional_gpu_work": false,
+      "experiment_restarted": false
+    }
+  ]
+}

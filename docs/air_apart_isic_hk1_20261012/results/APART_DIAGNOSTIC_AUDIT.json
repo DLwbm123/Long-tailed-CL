@@ -1,0 +1,476 @@
+{
+  "analysis_date": "2026-10-12",
+  "scope": "Read-only author/source/checkpoint/scalar/manifest-label audit; no retraining or medical model reevaluation",
+  "original_science_source": "1080e4a099d684237f466d57615bd5fdca9d2a1e",
+  "original_result_commit": "295a0f0ff4977e3ebe8174c94185386357c40e42",
+  "author_commit": "f3c5b8da5908b2f78266744a737f7f6bff45a43d",
+  "pinned_learner_and_vit_equal_to_cached_author": true,
+  "confirmed_port_discrepancy": {
+    "name": "evaluation_batch_composition",
+    "author": "DataManager.get_dataset concatenates examples by incremental class; test_loader shuffle=False",
+    "medical_port": "Keeps mixed-class validation manifest order, batch48 shuffle=False",
+    "mechanism": "Author batchwise_prompt=True chooses one majority-voted adapter for every query in a batch, in both train and eval",
+    "consequence": "Same query can route differently if batchmates change; author-style and medical manifest evaluation are not behaviorally equivalent",
+    "measured_performance_effect": null,
+    "classification_forward_not_run": true
+  },
+  "route_synthetic_logic": {
+    "check": "exact_author_AdapterPool_forward_synthetic_logic",
+    "same_query_alone_adapter": 0,
+    "same_query_mixed_batch_adapter": 1,
+    "images_opened": 0,
+    "medical_classification_forward_calls": 0,
+    "optimizer_updates": 0,
+    "gpu_work": false,
+    "cpu_wall_seconds": 0.07842792524024844
+  },
+  "checkpoint_aggregate_audit": {
+    "status": "READ_ONLY_CHECKPOINT_AUDIT",
+    "gpu_work": false,
+    "images_opened": 0,
+    "classification_forward_calls": 0,
+    "optimizer_steps": 0,
+    "test_accessed": false,
+    "output": {
+      "ISIC": {
+        "checkpoints": [
+          {
+            "task": 1,
+            "metadata_pass": true,
+            "head_shape": [
+              8,
+              768
+            ],
+            "head_few_shape": [
+              8,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 10530
+          },
+          {
+            "task": 2,
+            "metadata_pass": true,
+            "head_shape": [
+              8,
+              768
+            ],
+            "head_few_shape": [
+              8,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 10530
+          },
+          {
+            "task": 3,
+            "metadata_pass": true,
+            "head_shape": [
+              8,
+              768
+            ],
+            "head_few_shape": [
+              8,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 10530
+          }
+        ],
+        "first_stage_head_rows": {
+          "head.weight": {
+            "norm_ratio": 0.912065411669272,
+            "predicted_weight_decay_factor": 0.9120126836189888,
+            "relative_difference_from_decay_only": 5.2731616231444054e-05
+          },
+          "head.bias": {
+            "norm_ratio": 0.9120657096119511,
+            "predicted_weight_decay_factor": 0.9120126836189888,
+            "relative_difference_from_decay_only": 5.3026025275229965e-05
+          },
+          "head_few.weight": {
+            "norm_ratio": 0.9120654159805168,
+            "predicted_weight_decay_factor": 0.9120126836189888,
+            "relative_difference_from_decay_only": 5.2735855928254924e-05
+          },
+          "head_few.bias": {
+            "norm_ratio": 0.9120652280379103,
+            "predicted_weight_decay_factor": 0.9120126836189888,
+            "relative_difference_from_decay_only": 5.254569438765053e-05
+          }
+        },
+        "first_to_final_keys": {
+          "pool": {
+            "relative_key_change": 0.43353857144335284,
+            "per_key_cosine_min": 0.3765459174665974,
+            "per_key_cosine_mean": 0.8753091826107295
+          },
+          "pool_few": {
+            "relative_key_change": 0.42647569968515275,
+            "per_key_cosine_min": 0.3706142329455594,
+            "per_key_cosine_mean": 0.8741228457549838
+          }
+        },
+        "evaluation_batch_composition": [
+          {
+            "task": 1,
+            "val_n": 139,
+            "batches": 3,
+            "distinct_classes_per_batch_histogram": {
+              "4": 3
+            },
+            "adjacent_class_runs": 91
+          },
+          {
+            "task": 2,
+            "val_n": 211,
+            "batches": 5,
+            "distinct_classes_per_batch_histogram": {
+              "5": 2,
+              "6": 3
+            },
+            "adjacent_class_runs": 167
+          },
+          {
+            "task": 3,
+            "val_n": 295,
+            "batches": 7,
+            "distinct_classes_per_batch_histogram": {
+              "5": 1,
+              "7": 2,
+              "8": 4
+            },
+            "adjacent_class_runs": 257
+          }
+        ]
+      },
+      "HK": {
+        "checkpoints": [
+          {
+            "task": 1,
+            "metadata_pass": true,
+            "head_shape": [
+              23,
+              768
+            ],
+            "head_few_shape": [
+              23,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 737
+          },
+          {
+            "task": 2,
+            "metadata_pass": true,
+            "head_shape": [
+              23,
+              768
+            ],
+            "head_few_shape": [
+              23,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 737
+          },
+          {
+            "task": 3,
+            "metadata_pass": true,
+            "head_shape": [
+              23,
+              768
+            ],
+            "head_few_shape": [
+              23,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 737
+          },
+          {
+            "task": 4,
+            "metadata_pass": true,
+            "head_shape": [
+              23,
+              768
+            ],
+            "head_few_shape": [
+              23,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 737
+          },
+          {
+            "task": 5,
+            "metadata_pass": true,
+            "head_shape": [
+              23,
+              768
+            ],
+            "head_few_shape": [
+              23,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 737
+          },
+          {
+            "task": 6,
+            "metadata_pass": true,
+            "head_shape": [
+              23,
+              768
+            ],
+            "head_few_shape": [
+              23,
+              768
+            ],
+            "original_backbone_tensor_count": 150,
+            "both_pool_key_shapes": [
+              [
+                5,
+                768
+              ],
+              [
+                5,
+                768
+              ]
+            ],
+            "frequency_embedding_capacity": 737
+          }
+        ],
+        "first_stage_head_rows": {
+          "head.weight": {
+            "norm_ratio": 0.9812888538530351,
+            "predicted_weight_decay_factor": 0.9812772068874148,
+            "relative_difference_from_decay_only": 1.1657551287354832e-05
+          },
+          "head.bias": {
+            "norm_ratio": 0.9812888048898744,
+            "predicted_weight_decay_factor": 0.9812772068874148,
+            "relative_difference_from_decay_only": 1.1610183059786655e-05
+          },
+          "head_few.weight": {
+            "norm_ratio": 0.9812888588591041,
+            "predicted_weight_decay_factor": 0.9812772068874148,
+            "relative_difference_from_decay_only": 1.1662426688364997e-05
+          },
+          "head_few.bias": {
+            "norm_ratio": 0.9812888413279568,
+            "predicted_weight_decay_factor": 0.9812772068874148,
+            "relative_difference_from_decay_only": 1.163642633701145e-05
+          }
+        },
+        "first_to_final_keys": {
+          "pool": {
+            "relative_key_change": 0.11619674536163706,
+            "per_key_cosine_min": 0.9645076601071105,
+            "per_key_cosine_mean": 0.9929015319528318
+          },
+          "pool_few": {
+            "relative_key_change": 0.1144346066397561,
+            "per_key_cosine_min": 0.9670152586606355,
+            "per_key_cosine_mean": 0.9934030516656114
+          }
+        },
+        "evaluation_batch_composition": [
+          {
+            "task": 1,
+            "val_n": 986,
+            "batches": 21,
+            "distinct_classes_per_batch_histogram": {
+              "8": 4,
+              "9": 6,
+              "10": 10,
+              "12": 1
+            },
+            "adjacent_class_runs": 867
+          },
+          {
+            "task": 2,
+            "val_n": 1015,
+            "batches": 22,
+            "distinct_classes_per_batch_histogram": {
+              "5": 1,
+              "9": 2,
+              "10": 11,
+              "11": 4,
+              "12": 2,
+              "13": 2
+            },
+            "adjacent_class_runs": 899
+          },
+          {
+            "task": 3,
+            "val_n": 1027,
+            "batches": 22,
+            "distinct_classes_per_batch_histogram": {
+              "7": 1,
+              "10": 10,
+              "11": 4,
+              "12": 3,
+              "13": 4
+            },
+            "adjacent_class_runs": 913
+          },
+          {
+            "task": 4,
+            "val_n": 1224,
+            "batches": 26,
+            "distinct_classes_per_batch_histogram": {
+              "9": 1,
+              "11": 5,
+              "12": 10,
+              "13": 6,
+              "14": 3,
+              "15": 1
+            },
+            "adjacent_class_runs": 1090
+          },
+          {
+            "task": 5,
+            "val_n": 1388,
+            "batches": 29,
+            "distinct_classes_per_batch_histogram": {
+              "10": 1,
+              "11": 1,
+              "12": 7,
+              "13": 7,
+              "14": 9,
+              "15": 4
+            },
+            "adjacent_class_runs": 1248
+          },
+          {
+            "task": 6,
+            "val_n": 1698,
+            "batches": 36,
+            "distinct_classes_per_batch_histogram": {
+              "9": 1,
+              "10": 1,
+              "11": 1,
+              "12": 3,
+              "13": 3,
+              "14": 11,
+              "15": 11,
+              "16": 5
+            },
+            "adjacent_class_runs": 1570
+          }
+        ]
+      }
+    },
+    "cpu_wall_seconds": 0.8709264528006315
+  },
+  "training_findings": {
+    "classification_loss_scope": "Both native heads and ensemble CE are restricted to current task columns; no old-class distillation, replay, explicit prototype preservation or cross-task CE",
+    "pool_selection": "Both 5-expert pools retained; no task-specific locking; native pool/pool_few name crossing preserved",
+    "adaptive_assigner": "Class-frequency-conditioned scalar weights the training auxiliary loss; author inference simply adds both logits and does not use true-label frequency",
+    "old_head": "First-stage old rows are not reinitialized; their final norms are consistent with native decoupled weight decay while representation/keys change",
+    "optimizer_schedule": "Author creates scheduler then replaces optimizer on task>0; active rates later remain .0003/.003; observed epoch records match",
+    "weight_decay": "Native misspelled weight decay group key leaves AdamW effective .01; preserved, not a port-added change",
+    "cpu_compatibility_limit": "Exact training-loop parity used a Tiny model; full ViT synthetic and true preflight checks validated gradients/core loading, not author-versus-manifest batch-composition parity"
+  },
+  "interpretation": {
+    "engineering_validity": "Recorded budgets, checkpoint identity, finite outputs and aggregate metrics remain valid for the frozen mixed-batch medical transfer",
+    "author_protocol_equivalence": "Not established; newly confirmed evaluation batch-composition difference must be disclosed",
+    "cause": "Evidence suggests old/new competition, shared pool drift and native constant later-task rates can contribute; their numerical contributions and evaluation-batch contribution are unmeasured",
+    "not_supported": [
+      "APART intrinsically unsuitable for all medical data",
+      "The entire score gap is a label bug",
+      "CPU PASS excludes every implementation difference",
+      "Sorting validation classes is guaranteed to improve results"
+    ]
+  },
+  "no_changes": {
+    "frozen_training_source": true,
+    "protocol_and_budgets": true,
+    "checkpoint_files": true,
+    "reported_metrics": true,
+    "test_sealed": true,
+    "automation_stays_paused": true
+  },
+  "new_gpu_seconds": 0
+}

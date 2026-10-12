@@ -35,7 +35,7 @@ ISIC逐任务批数126/90/370，共586；HK123/4/2/24/22/41，共216。共802次
 
 保留两个adapter池、每池5个adapter、bottleneck64、instance/class-frequency router、两个可学习linear head和pull约束。训练使用作者loss1、双head ensemble CE、router加权few CE及两段match loss，epoch0..4使用频数theta100目标，epoch5..9使用作者第二段约束。推理用两池logits相加、仅seen列，不替换成解析头，不添加headnorm校准/ConCM/FD/回放。
 
-每任务10epoch、batch48、workers4、drop_last=false。作者AdamW原有效pool lr=.0003、其余trainable lr=.003、betas(.9,.999)、eps1e-8。作者配置weight_decay=0，但param group键写成`weight decay`，PyTorch实际weight_decay=.01；保留作者实际行为，不悄悄改为0。作者get_scheduler在init_cls!=increment时每任务cosine，Tmax10/eta_min1e-5；现有项目改编版的仅首任务cosine不能拿来替代。每任务重置optimizer，无梯度clip新增。
+每任务10epoch、batch48、workers4、drop_last=false。作者AdamW原有效pool lr=.0003、其余trainable lr=.003、betas(.9,.999)、eps1e-8。作者配置weight_decay=0，但param group键写成`weight decay`，PyTorch实际weight_decay=.01；保留作者实际行为，不悄悄改为0。作者get_scheduler在init_cls!=increment时每任务创建cosine对象，Tmax10/eta_min1e-5；但_train随后在task>0且reinit_optimizer=true时再次创建optimizer，scheduler仍绑定旧对象。因此完整作者调用链的有效日程是首task cosine、后续task active optimizer学习率保持初值；本比较保留该实际调用链，不静默重新绑定scheduler。每任务重置optimizer，无梯度clip新增。此前准备仅检查scheduler类型的描述不完整，CPU_AUTHOR_SCHEDULE_CHECK现已核实绑定关系和10epoch有效学习率轨迹。
 
 ISIC更新840/600/2470=3910；HK820/30/10/160/150/280=1450，两条共5360。所有train图每任务10次optimizer曝光；不是与原两epoch方法相同预算。当前只授权这4个外部轨迹，不偷偷追加2epoch APART或10epoch项目方法。报告为共同数据/预训练、方法原日程的迁移对比，不能声称等更新量条件下胜负。
 
@@ -53,7 +53,7 @@ CPU_COMPATIBILITY_CHECK PASS：AIR作者ARM逐批增量与直接联合加权ridg
 
 ## GPU顺序、屏障与交付
 
-本次不启动GPU进程或修改当前两轮。下一阶段先完成module_drift10和rfmid_contrast4的GitHub/NAS完整交付，核对各本机/NAS独立DELIVERY的commit一致、匿名报告HTTP200、NAS_saved，PROGRAM终态/active空且实际worker退出；不能只因GPU空闲或训练结束绕过交付。
+准备阶段不启动GPU进程或修改当前两轮。module_drift10和rfmid_contrast4已完整交付于d964e9f61692ccd4c878c392ee2899e3668e282f，远端SHA/两个匿名报告HTTP200/NAS独立回执核实。下一阶段仍需完成生产接线，不因交付完成而跳过实际预检。原准入要求为两轮GitHub/NAS完整交付，核对各本机/NAS独立DELIVERY的commit一致、匿名报告HTTP200、NAS_saved，PROGRAM终态/active空且实际worker退出；不能只因GPU空闲或训练结束绕过交付。
 
 届时完善并冻结生产worker/collector/launcher，真实NAS nfs/空间/小写读probe和GPU0/1每卡>=32768MiB准入；不借2/3、不杀其他进程，不回退根盘。中性入口，私有路径经环境传递，启动后完整ps/NVML核对。4项真实零更新预检全部PASS后，队列ISIC_AIR→HK_AIR→ISIC_APART_full→HK_APART_full；两卡只按既定队列并行slots，不承诺某方法独占某卡。AIR预检为冻结表征/投影及shadow ARM计数与solve，不要求不存在的adapter反传；APART预检为真实firstbatch backward、0optimizer，核心不变/双池router/head梯度有限。原生方法不混用预检规则。
 
@@ -62,3 +62,5 @@ CPU_COMPATIBILITY_CHECK PASS：AIR作者ARM逐批增量与直接联合加权ridg
 外部表完整列AIR/APART和原static_pc/local_transport，当前已授权漂移两臂交付后也完整列出，不按val择优隐藏。原结果只严格匹配复用、不重训/重新收费。报告final/average BA、Acc、tail、forget、old/new、macro F1，全部stage/31类n与recall、固定训练频数组正负、trainable参数/状态存储/真实训练与推理费用；外部方法完整超参和预算差异必须随表公开。单seed、重复开发val，仅开发证据，test继续封存，不称医学论文benchmark精确复现/临床泛化。
 
 真实结束匿名收集只聚合指标/状态/费用/标量诊断，禁止影像/模型/逐样本/身份/原始日志或私有路径外传。GitHub显式代理推送，核对账号/分支/范围/remoteSHA/匿名精确报告HTTP200，再NAS匿名public_delivery和独立DELIVERY/HANDOFF；交付不完整不得称结束，不另开实验。
+
+新增调用链CPU核对：实际作者_train首task scheduler绑定active optimizer，后续task绑定旧optimizer、active学习率不变。独立probe PASS，首次probe因浮点字面值精确相等断言失败，修正fixture容差后通过；未改作者逻辑，0GPU/0正式更新/0医学影像。首次CPU驻留未单独测量，成功pipeline及客户端墙钟见CPU_AUTHOR_SCHEDULE_CHECK，不把客户端墙钟当GPU费用。生产worker/collector/launcher仍待接线，当前没有新GPU。

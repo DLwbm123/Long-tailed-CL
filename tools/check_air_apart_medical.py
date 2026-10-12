@@ -66,7 +66,7 @@ def check(config):
     methods = {n.name:n for n in author_class.body if isinstance(n, ast.FunctionDef)}
     namespace = dict(torch=torch,np=np,nn=nn,optim=optim,F=F,tqdm=lambda x:tqdm(x,disable=True),
                      tensor2numpy=lambda t:t.detach().numpy(),logging=types.SimpleNamespace(info=lambda *a:None))
-    selected = [methods[k] for k in ('get_optimizer','get_scheduler','_init_prompt','_init_train')]
+    selected = [methods[k] for k in ('get_optimizer','get_scheduler','_init_prompt','_init_train','_train')]
     exec(compile(ast.fix_missing_locations(ast.Module(body=selected,type_ignores=[])), '<author_apart_methods>', 'exec'), namespace)
     author_train = namespace['_init_train']
     train = sealed_apart_train(methods['_init_train'], namespace)
@@ -89,6 +89,7 @@ def check(config):
                 reduce_sim=z.mean(),reduce_sim_few=zf.mean())
 
     synthetic_steps = 0
+    effective_lr = {}
     for name, audit in config['data_audit'].items():
         order=audit['order'];mapping=label_map(order)
         assert [mapping[c] for c in order] == list(range(len(order)))
@@ -122,6 +123,27 @@ def check(config):
             opt=namespace['get_optimizer'](learner);sched=namespace['get_scheduler'](learner,opt)
             loop(learner,data,None,opt,sched);synthetic_steps+=10
         assert all(torch.equal(a.state_dict()[k],b.state_dict()[k]) for k in a.state_dict())
+
+        # Author _train recreates optimizer after creating its scheduler on later tasks.
+        learner.args.update(imbalance=True,reinit_optimizer=True)
+        learner.get_optimizer=types.MethodType(namespace['get_optimizer'],learner)
+        learner.get_scheduler=types.MethodType(namespace['get_scheduler'],learner)
+        learner._init_prompt=types.MethodType(namespace['_init_prompt'],learner)
+        histories=[]
+        def capture(current, train_loader, test_loader, optimizer, scheduler):
+            rates=[]
+            for epoch in range(10):
+                rates.append([group['lr'] for group in optimizer.param_groups])
+                optimizer.step();scheduler.step()
+            histories.append(dict(same_optimizer=optimizer is scheduler.optimizer,rates=rates))
+        learner._init_train=types.MethodType(capture,learner)
+        for task in (0,1):
+            learner._cur_task=task
+            namespace['_train'](learner,[],None)
+        assert histories[0]['same_optimizer'] and histories[0]['rates'][-1][1]<.003
+        assert not histories[1]['same_optimizer']
+        assert all(r==histories[1]['rates'][0] for r in histories[1]['rates'])
+        effective_lr[name]=histories
 
     state=load_file(config['weight'],device='cpu')
     frozen=timm.create_model('vit_base_patch16_224',pretrained=False,num_classes=0)
@@ -177,6 +199,9 @@ def check(config):
         APART_both_pools_assigner_heads_nonzero_finite_gradients=True,APART_pretrained_core_tensors=core_tensors,
         APART_pretrained_core_exact=True,APART_frequency_capacity=10530,
         APART_old_embedding_rows_exact=True,label_mapping_and_budgets=True,
+        APART_native_train_call_chain_checked=True,
+        APART_effective_first_task_cosine_later_constant=True,
+        APART_native_optimizer_scheduler_trace=effective_lr,
         sealed_test_validation_and_protected_delivery_rejection=True,
         real_GPU_preflights_passed=0,actual_8192_ARM_memory_and_GPU_solve_not_checked=True)
 

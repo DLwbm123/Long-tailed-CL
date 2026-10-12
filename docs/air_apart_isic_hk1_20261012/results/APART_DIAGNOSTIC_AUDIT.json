@@ -472,5 +472,14 @@
     "test_sealed": true,
     "automation_stays_paused": true
   },
-  "new_gpu_seconds": 0
+  "new_gpu_seconds": 0,
+  "confirmed_author_paper_discrepancy": {
+    "paper_equation7": "(1-w)^2 when alpha=1",
+    "author_later_epochs_code": "10*w*(1-w)^2",
+    "author_auxiliary_classifier_term": "sum(w*nonnegative_aux_CE)/3",
+    "mathematical_consequence": "At w=0 both terms vanish; holding logits fixed, their combined infimum is zero there. This lacks the paper-described penalty against w approaching zero. Sigmoid attains a limit, not exact zero, at finite parameters.",
+    "observed_actual_w_collapse": null,
+    "reason_unmeasured": "Existing formal scalar records do not contain w histograms/means; no medical forward added",
+    "port_added": false
+  }
 }

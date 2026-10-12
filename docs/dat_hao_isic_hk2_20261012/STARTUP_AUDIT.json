@@ -1,0 +1,163 @@
+{
+  "status": "RUNNING_NOT_RESULTS",
+  "phase": "TRAIN",
+  "source_commit": "6dabf8fc4c618ac004dc46a73b8e50a8a535119d",
+  "launched_at": 1791791131.804986,
+  "deadline": 1791877531.804986,
+  "checked_at": 1791791249.177962,
+  "authorized_gpus": [
+    0,
+    1
+  ],
+  "real_zero_update_preflights_passed": 4,
+  "preflights": {
+    "ISIC_DAT_paper": {
+      "status": "PASS",
+      "method": "DAT_paper",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false,
+      "parameters_unchanged": true,
+      "pretrained_core_frozen": true,
+      "pretrained_core_unchanged": true,
+      "gradient_norm": 104.40138361802053,
+      "loss": 4.578279495239258,
+      "peak_gpu_bytes": 2672576512,
+      "required_gradient_groups_nonzero": true,
+      "gradient_groups": {
+        "hyper_up": true,
+        "key": true,
+        "balanced_head": true,
+        "imbalanced_head": true
+      },
+      "shadow_batch_only": true,
+      "bn_buffers_shadow_only": false
+    },
+    "ISIC_Hao_paper": {
+      "status": "PASS",
+      "method": "Hao_paper",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false,
+      "parameters_unchanged": true,
+      "pretrained_core_frozen": false,
+      "pretrained_core_unchanged": null,
+      "gradient_norm": 4.561974642003607,
+      "loss": 0.7117334008216858,
+      "peak_gpu_bytes": 858736640,
+      "required_gradient_groups_nonzero": true,
+      "gradient_groups": {
+        "backbone": true,
+        "cosine_head": true
+      },
+      "shadow_batch_only": true,
+      "bn_buffers_shadow_only": true
+    },
+    "HK_DAT_paper": {
+      "status": "PASS",
+      "method": "DAT_paper",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false,
+      "parameters_unchanged": true,
+      "pretrained_core_frozen": true,
+      "pretrained_core_unchanged": true,
+      "gradient_norm": 96.88169893100557,
+      "loss": 7.658877372741699,
+      "peak_gpu_bytes": 2672742400,
+      "required_gradient_groups_nonzero": true,
+      "gradient_groups": {
+        "hyper_up": true,
+        "key": true,
+        "balanced_head": true,
+        "imbalanced_head": true
+      },
+      "shadow_batch_only": true,
+      "bn_buffers_shadow_only": false
+    },
+    "HK_Hao_paper": {
+      "status": "PASS",
+      "method": "Hao_paper",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "test_accessed": false,
+      "parameters_unchanged": true,
+      "pretrained_core_frozen": false,
+      "pretrained_core_unchanged": null,
+      "gradient_norm": 6.030954915907611,
+      "loss": 2.2229807376861572,
+      "peak_gpu_bytes": 858791936,
+      "required_gradient_groups_nonzero": true,
+      "gradient_groups": {
+        "backbone": true,
+        "cosine_head": true
+      },
+      "shadow_batch_only": true,
+      "bn_buffers_shadow_only": true
+    }
+  },
+  "formal_runs": {
+    "ISIC_DAT_paper": {
+      "status": "RUNNING",
+      "phase": "TRAIN",
+      "steps": 140,
+      "stages": 0,
+      "policy_updates": 0,
+      "test_accessed": false,
+      "task": 1,
+      "epoch": 1
+    },
+    "HK_DAT_paper": {
+      "status": "RUNNING",
+      "phase": "TRAIN",
+      "steps": 160,
+      "stages": 0,
+      "policy_updates": 0,
+      "test_accessed": false,
+      "task": 1,
+      "epoch": 1
+    }
+  },
+  "queued_methods": [
+    "ISIC_Hao_paper",
+    "HK_Hao_paper"
+  ],
+  "failures": [],
+  "preflight_cost_records": [
+    {
+      "job": "ISIC_DAT_paper_preflight",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 12.435401882976294
+    },
+    {
+      "job": "HK_DAT_paper_preflight",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 12.52066939510405
+    },
+    {
+      "job": "HK_Hao_paper_preflight",
+      "operation": "train",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 15.1789705818519
+    },
+    {
+      "job": "ISIC_Hao_paper_preflight",
+      "operation": "train",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 15.325522334780544
+    }
+  ],
+  "partial_GPU_process_residence_seconds": 55.46056419471279,
+  "GPU_costs_closed": false,
+  "formal_classification_metrics_available": false,
+  "nonofficial_paper_reimplementation": true,
+  "neutral_parent_and_worker_commands_verified": true,
+  "NAS_nfs_free_probe_and_GPU01_memory_admission": true,
+  "public_source_protocol_anonymous_http_status": 200
+}

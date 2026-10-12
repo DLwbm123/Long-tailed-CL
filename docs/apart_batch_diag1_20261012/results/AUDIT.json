@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "complete_comparison": true,
+  "checkpoint_stages": 9,
+  "mode_stage_evaluations": 27,
+  "validation_image_exposures": 23949,
+  "optimizer_updates": 0,
+  "train_accessed": false,
+  "test_accessed": false,
+  "parameters_unchanged": true,
+  "checkpoint_source_commit": "1080e4a099d684237f466d57615bd5fdca9d2a1e",
+  "diagnostic_source_commit": "2382c10de7fdb1c9d46b338674d24a03a3b99790",
+  "successful_cost_records": 2,
+  "failures": [],
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "mixed_reproduction": {
+    "ISIC": {
+      "exact_per_class_recalls": true,
+      "max_six_metric_abs_difference": 0.0
+    },
+    "HK": {
+      "exact_per_class_recalls": true,
+      "max_six_metric_abs_difference": 0.0
+    }
+  },
+  "round_gpu_process_residence_seconds": 821.2661481616087,
+  "cumulative_gpu_process_residence_seconds": 245180.05070099328,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "module_local2_20261010": 7624.042213955894,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "air_apart_isic_hk1_20261012": 10664.938242565375,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "rfmid_contrast4_20261011": 11070.13684507506,
+    "module_drift10_20261011": 8874.840206375346,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "apart_batch_diag1_20261012": 821.2661481616087
+  },
+  "parallel_wall_seconds": 737.8470946312882,
+  "cpu_checks": {
+    "status": "PASS",
+    "cpu_pipeline_seconds": 0.38850204879418015,
+    "gpu_processes": 0,
+    "optimizer_updates": 0,
+    "medical_images_opened": 0,
+    "test_accessed": false,
+    "exact_author_batch_vote_counterexample": true,
+    "individual_route_batch_independence": true,
+    "stable_class_concatenation_and_canonical_pairing": true,
+    "rescue_harm_counts": true,
+    "fixed_w_screen_and_invalid_values": true,
+    "checkpoint_scope_and_sealed_permissions": true,
+    "complete_three_mode_report_and_bad_denominator_rejection": true,
+    "cpu_process_residence_seconds": 9.426304076332599,
+    "pipeline_included_in_process_residence": true
+  },
+  "engineering_events": [
+    {
+      "stage": "client_CPU_deployment_precheck",
+      "cause": "Newline quoting syntax rejected before SSH/NAS writes or process creation; deployment quoting corrected, CPU attempt1 passed",
+      "gpu_seconds": 0,
+      "formal_updates": 0,
+      "client_failure_wall_unmeasured": true
+    },
+    {
+      "stage": "client_collection_import",
+      "cause": "Collector imported GPU worker for mode names; local report interpreter lacked torch. Failed before SSH or anonymous collection; remove unnecessary worker dependency, no GPU reevaluation.",
+      "gpu_seconds": 0,
+      "formal_updates": 0
+    }
+  ],
+  "paired_counts_and_recall_reconstruction_pass": true
+}

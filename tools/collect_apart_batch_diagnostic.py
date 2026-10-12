@@ -5,8 +5,10 @@ from pathlib import Path
 import subprocess
 import sys
 
-from apart_batch_diagnostic import MODES
 from summarize_external_methods import FIELDS
+
+# Keep the CPU report independent of the GPU worker's torch/timm imports.
+MODES = ('mixed_batch', 'class_concat', 'individual_routing')
 
 
 def report(s, out):
@@ -84,12 +86,12 @@ def report(s, out):
         for st in r['w_stages']:
             for group,w in st['groups'].items():
                 if w is None:continue
-                lines.append(f'|{ds}|{st["task"]}|{group}|{w["n"]}|{w["mean"]:.8f}|{w["quantiles"]["0.5"]:.8f}|{w["n_le_001"]}|{w["n_le_005"]}|{w["n_ge_095"]}|{w["near_zero_screen"]}|')
+                lines.append(f'|{ds}|{st["task"]}|{group}|{w["n"]}|{w["mean"]:.8g}|{w["quantiles"]["0.5"]:.8g}|{w["n_le_001"]}|{w["n_le_005"]}|{w["n_ge_095"]}|{w["near_zero_screen"]}|')
     lines+=['','## 每类首次引入/最终w','','|数据集|类|n|首次mean|最终mean|最终≤.05比例|近零screen|','|---|---:|---:|---:|---:|---:|---|']
     for ds,r in runs.items():
         for c,n in sorted(lock['data'][ds]['val_counts'].items(),key=lambda x:int(x[0])):
             first=next(s['per_class'][c] for s in r['w_stages'] if c in s['per_class']);last=r['w_stages'][-1]['per_class'][c]
-            lines.append(f'|{ds}|{c}|{n}|{first["mean"]:.8f}|{last["mean"]:.8f}|{last["n_le_005"]/n:.6f}|{last["near_zero_screen"]}|')
+            lines.append(f'|{ds}|{c}|{n}|{first["mean"]:.8g}|{last["mean"]:.8g}|{last["n_le_005"]/n:.6f}|{last["near_zero_screen"]}|')
     lines+=['',f'审计{audit["status"]}；mixed复核{reproduction}。本轮GPU驻留{costs:.6f}秒，协调器墙钟{program["elapsed_seconds"]:.6f}秒，CPU另列；旧训练/评价不重复收费。','',
         '近零screen为冻结的≥90%样本w≤.05且mean≤.05，仅描述当前checkpoint在val上的条件权重，不证明历史训练何时坍缩；rare阈值train≤100。全部分位数/每stage每类分母/救回与损伤见RESULTS.json及STAGE_CLASS_RECALLS.csv。','',
         '不选择更高模式覆盖原结果，不把类分组的标签上下文当作部署性能。single seed/order、反复val、小n不是临床或封存test证据。批次诊断改善或未改善均完整报告；不自动修复、重训或扩展诊断。']

@@ -1,0 +1,69 @@
+{
+  "evaluation_batch_explanation_supported": false,
+  "all_three_modes_exact_same_predictions_all_stages": true,
+  "all_mode_metric_deltas_pp": 0,
+  "ISIC_stage1_individual_route_changes_without_prediction_change": 8,
+  "all_other_observed_between_mode_route_changes": 0,
+  "final_w_near_zero": {
+    "ISIC": {
+      "n": 295,
+      "mean": 1.2860181518647225e-10,
+      "std": 6.603162807356971e-10,
+      "minimum": 2.533299190331016e-17,
+      "maximum": 7.318555095281454e-09,
+      "quantiles": {
+        "0.05": 1.3159645111286765e-15,
+        "0.25": 3.5885626542271447e-14,
+        "0.5": 3.3234932817968743e-13,
+        "0.75": 5.128536701218267e-12,
+        "0.95": 3.2389705639790437e-10
+      },
+      "n_le_001": 295,
+      "n_le_005": 295,
+      "n_ge_095": 0,
+      "near_zero_screen": true
+    },
+    "HK": {
+      "n": 1698,
+      "mean": 5.793451851881146e-05,
+      "std": 0.002383628607620367,
+      "minimum": 5.952194826688124e-30,
+      "maximum": 0.09825066477060318,
+      "quantiles": {
+        "0.05": 6.292657066841867e-26,
+        "0.25": 5.423137573367835e-23,
+        "0.5": 1.6196665721850678e-20,
+        "0.75": 2.2864844601310148e-17,
+        "0.95": 3.5043130777820674e-13
+      },
+      "n_le_001": 1697,
+      "n_le_005": 1697,
+      "n_ge_095": 0,
+      "near_zero_screen": true
+    }
+  },
+  "exception_HK_stage5_native_rare": {
+    "n": 70,
+    "mean": 0.19414063420823907,
+    "std": 0.35985899530166315,
+    "minimum": 3.0200985145340496e-15,
+    "maximum": 0.9999998807907104,
+    "quantiles": {
+      "0.05": 2.0096420326465308e-10,
+      "0.25": 1.0403649639556534e-06,
+      "0.5": 0.00035262139863334596,
+      "0.75": 0.1821854803711176,
+      "0.95": 0.9974652230739594
+    },
+    "n_le_001": 48,
+    "n_le_005": 51,
+    "n_ge_095": 10,
+    "near_zero_screen": false
+  },
+  "diagnostic_interpretation": "Near-zero class-conditioned auxiliary weights at validation checkpoint boundaries are observed. This attenuates the extra w-weighted auxiliary CE, not all training of the second pool because ensemble CE/pull still act. Inference never uses w; no isolated causal proof of the score gap.",
+  "historical_training_collapse_timing_unmeasured": true,
+  "training_batch_routing_effect_not_tested": true,
+  "no_retraining_or_threshold_tuning": true,
+  "test_accessed": false,
+  "optimizer_updates": 0
+}

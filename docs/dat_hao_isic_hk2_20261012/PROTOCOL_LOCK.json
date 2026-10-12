@@ -1,0 +1,447 @@
+{
+  "status": "FROZEN_REAL_GPU_PREFLIGHT_PENDING",
+  "version": "dat_hao_paper_medical_v1",
+  "round_name": "dat_hao_isic_hk2_20261012",
+  "authorization": "User authorizes remaining DAT/Hao on ISIC/HK, Hao old-image replay as separate resource group, nonofficial paper reconstruction with prospective completion of missing settings.",
+  "seed": 74002,
+  "new_methods": [
+    "DAT_paper",
+    "Hao_paper"
+  ],
+  "new_scientific_trajectories": 4,
+  "replay_authorized": true,
+  "data": {
+    "ISIC": {
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      },
+      "train_n": 18718,
+      "val_n": 295,
+      "train_val_identity_overlap": 0,
+      "train_val_image_overlap": 0,
+      "test_accessed": false,
+      "tasks": [
+        {
+          "classes": [
+            4,
+            7,
+            5,
+            1
+          ],
+          "train_n": 4004,
+          "DAT_imbalanced_batches24": 167,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 0,
+          "Hao_train_plus_replay_n": 4004,
+          "Hao_batches32": 126
+        },
+        {
+          "classes": [
+            2,
+            6
+          ],
+          "train_n": 2879,
+          "DAT_imbalanced_batches24": 120,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 80,
+          "Hao_train_plus_replay_n": 2959,
+          "Hao_batches32": 93
+        },
+        {
+          "classes": [
+            0,
+            3
+          ],
+          "train_n": 11835,
+          "DAT_imbalanced_batches24": 494,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 120,
+          "Hao_train_plus_replay_n": 11955,
+          "Hao_batches32": 374
+        }
+      ],
+      "DAT_paper": {
+        "updates_per_task": [
+          6680,
+          4800,
+          19760
+        ],
+        "total_updates": 31240
+      },
+      "Hao_paper": {
+        "updates_per_task": [
+          12600,
+          9300,
+          37400
+        ],
+        "total_updates": 59300,
+        "final_unique_bank": 160
+      }
+    },
+    "HK": {
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      },
+      "train_n": 6821,
+      "val_n": 1698,
+      "train_val_identity_overlap": 0,
+      "train_val_image_overlap": 0,
+      "test_accessed": false,
+      "tasks": [
+        {
+          "classes": [
+            4,
+            5,
+            6,
+            22,
+            20,
+            1,
+            2,
+            15,
+            14,
+            12,
+            10,
+            11,
+            19
+          ],
+          "train_n": 3916,
+          "DAT_imbalanced_batches24": 164,
+          "DAT_balanced_batch_size": 13,
+          "Hao_old_replay_unique_n": 0,
+          "Hao_train_plus_replay_n": 3916,
+          "Hao_batches32": 123
+        },
+        {
+          "classes": [
+            16,
+            7
+          ],
+          "train_n": 117,
+          "DAT_imbalanced_batches24": 5,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 215,
+          "Hao_train_plus_replay_n": 332,
+          "Hao_batches32": 11
+        },
+        {
+          "classes": [
+            0,
+            17
+          ],
+          "train_n": 48,
+          "DAT_imbalanced_batches24": 2,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 255,
+          "Hao_train_plus_replay_n": 303,
+          "Hao_batches32": 10
+        },
+        {
+          "classes": [
+            9,
+            18
+          ],
+          "train_n": 762,
+          "DAT_imbalanced_batches24": 32,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 295,
+          "Hao_train_plus_replay_n": 1057,
+          "Hao_batches32": 34
+        },
+        {
+          "classes": [
+            13,
+            21
+          ],
+          "train_n": 680,
+          "DAT_imbalanced_batches24": 29,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 335,
+          "Hao_train_plus_replay_n": 1015,
+          "Hao_batches32": 32
+        },
+        {
+          "classes": [
+            8,
+            3
+          ],
+          "train_n": 1298,
+          "DAT_imbalanced_batches24": 55,
+          "DAT_balanced_batch_size": 24,
+          "Hao_old_replay_unique_n": 373,
+          "Hao_train_plus_replay_n": 1671,
+          "Hao_batches32": 53
+        }
+      ],
+      "DAT_paper": {
+        "updates_per_task": [
+          6560,
+          200,
+          80,
+          1280,
+          1160,
+          2200
+        ],
+        "total_updates": 11480
+      },
+      "Hao_paper": {
+        "updates_per_task": [
+          12300,
+          1100,
+          1000,
+          3400,
+          3200,
+          5300
+        ],
+        "total_updates": 26300,
+        "final_unique_bank": 413
+      }
+    }
+  },
+  "DAT_paper": {
+    "epochs": 40,
+    "batch_size": 24,
+    "lr": 0.03,
+    "optimizer": "Adam",
+    "weight_decay": 0.0,
+    "schedule": "constant, unspecified paper schedule completed prospectively",
+    "tau": 0.5,
+    "beta": 0.9999,
+    "temperature": 2.0,
+    "frozen_pretraining": "same cached timm augreg IN21k->IN1k ViT-B/16 as all prior ViT controls; differs from paper IN1k-only",
+    "bottleneck": 64,
+    "hyper_generator": "shared down/up matrices with trainable per-layer channel modulation from layer identity; supplement does not specify generator architecture",
+    "cache_selection": "current train features; torch Lloyd kmeans++ 10 restarts/100 iterations/movement squared tolerance1e-8, Hungarian matching, strict >tau reuse, old keys map to replaced entry",
+    "cache_heads": "each cache entry holds union of assigned classes, expanding copied head rows on reuse; balanced head follows same union; query routes per sample to nearest frozen-CLS task key then cache-local imbalanced head; unavailable global columns -1e9",
+    "balanced_path": "equal labels per balanced batch, size=floor(24/Knew)*Knew; HK initial13, other tasks24; one balanced and one imbalanced batch per optimizer step",
+    "weighted_KD": "detached balanced head probabilities on same imbalanced images; literal unnormalized (1-beta)/(1-beta^n) class weights; all loss coefficients1",
+    "cross_task_KD": "MSE current old-class logits to frozen selected-cache teacher on current-task images",
+    "old_image_or_feature_replay": false,
+    "clip": null,
+    "missing_parameter_completion": true,
+    "author_code_available": false
+  },
+  "Hao_paper": {
+    "epochs": 100,
+    "batch_size": 32,
+    "lr": 0.1,
+    "optimizer": "SGD",
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "scheduler": "reset each task; milestones60/80, gamma.1",
+    "pretraining": "torchvision ResNet18 IMAGENET1K_V1",
+    "cosine_scale_initial": 10.0,
+    "alpha": 0.5,
+    "lambda_d": 0.4,
+    "lambda_k": 0.75,
+    "margin": 0.4,
+    "replay": "herding min(20, original train n) distinct examples per class; reuse private paths, do not copy images; keep old banks and choose current new-class bank at boundary",
+    "class_prior": "actual current+replay counts in CBC; global original-train counts for Gaussian distribution range; all seen classes",
+    "distribution_margin": "literal batch sums over old exemplars and new classes plus old-example intra-class term; normalized classifier centres + independent Gaussian*inherent frequency, cosine after perturbation",
+    "KD": "Eq11 raw-logit L1 sum over old labels, mean over train+replay examples; old teacher eval frozen",
+    "first_task": "CBC without old-scale; no margin/KD until old classes exist",
+    "trainable_backbone": true,
+    "clip": null,
+    "missing_parameter_completion": true,
+    "author_code_available": false
+  },
+  "gpu_policy": {
+    "allowed": [
+      0,
+      1
+    ],
+    "forbidden": [
+      2,
+      3
+    ],
+    "minimum_free_MiB": 32768,
+    "max_wall_seconds": 86400
+  },
+  "data_usage": {
+    "test_accessed": false,
+    "reserved_accessed": false,
+    "train": "only current new-class images plus authorized Hao bank; DAT balanced current-task resampling only",
+    "validation": "existing development val only after all four exact TRAINED; never optimization, meta, tuning or checkpoint selection",
+    "transforms": "existing common medical train bicubic Resize256/RandomCrop224/HorizontalFlip.5/Normalize(.5); eval bicubic Resize224/Normalize(.5)",
+    "seed_search": false
+  },
+  "barriers": {
+    "preflight": "four actual first-batch backward, zero optimizer updates, unchanged parameters; DAT frozen core exact, Hao BN may change only in discarded shadow model",
+    "evaluation": "four exact trained budgets/stages then unified val",
+    "failure": "retain all costs and private errors, stop dependents, no automatic formal rerun"
+  },
+  "budgets": {
+    "total_optimizer_updates": 128320,
+    "normal_GPU_processes": 12,
+    "costs": "every 4preflight/4train/4eval residence occurrence once; historical controls reused zero cost"
+  },
+  "report": {
+    "method_label": "nonofficial paper reconstruction, not author implementation or exact benchmark reproduction",
+    "controls": [
+      "base",
+      "local_transport",
+      "residual_drift",
+      "local_transport_drift",
+      "AIR",
+      "APART_full"
+    ],
+    "metrics": [
+      "finalBA",
+      "avgBA",
+      "tail",
+      "forget",
+      "old",
+      "new",
+      "finalAcc",
+      "avgAcc",
+      "macroF1"
+    ],
+    "full_stage_and_31_class_n_recall": true,
+    "all_positive_negative_contributions": true,
+    "replay_and_native_budget_differences_disclosed": true
+  },
+  "CPU_check": {
+    "status": "PASS",
+    "cpu_pipeline_seconds": 7.466038946993649,
+    "gpu_processes": 0,
+    "formal_updates": 0,
+    "synthetic_optimizer_steps": 101,
+    "medical_images_opened": 0,
+    "test_accessed": false,
+    "CBC_literal_equation_equivalence": true,
+    "actual_unique_replay_cap_and_herding": true,
+    "balanced_batches_all_current_labels": true,
+    "DAT_identity_initial_adapter_matches_core": true,
+    "DAT_frozen_core_exact": true,
+    "DAT_real_12_layer_synthetic_backward": true,
+    "DAT_reuse_distillation_and_checkpoint": true,
+    "DAT_per_sample_route_batch_independent": true,
+    "Hao_pretrained_ResNet18_synthetic_backward_zero_update": true,
+    "old_teacher_frozen_and_no_old_anchor_margin_zero": true,
+    "Hao_checkpoint_roundtrip_and_100epoch_schedule": true,
+    "four_trained_gate_rejects_early_validation": true,
+    "labels_support_budgets_and_sealed_scope": true,
+    "complete_eight_method_report_and_bad_denominator_rejection": true,
+    "model_effectiveness_not_tested": true,
+    "real_GPU_preflights_passed": 0,
+    "cpu_process_residence_seconds": 15.61977718025446,
+    "pipeline_included_in_process_residence": true,
+    "cpu_all_attempts_process_residence_seconds": 56.09720512293279,
+    "previous_successful_CPU_process_residence_seconds": 34.28185230260715,
+    "failed_import_CPU_process_residence_seconds": 6.195575640071183,
+    "all_attempts_include_each_pipeline_no_addition": true,
+    "synthetic_optimizer_steps_all_executions": 203,
+    "real_backbone_head_and_DAT_hyper_key_head_gradients": true
+  }
+}

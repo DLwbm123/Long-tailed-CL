@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "source_commit": "1080e4a099d684237f466d57615bd5fdca9d2a1e",
+  "formal_complete": 4,
+  "APART_formal_updates": 5360,
+  "AIR_analytic_batches": 802,
+  "AIR_optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "real_zero_update_preflights": 4,
+  "successful_cost_records": 12,
+  "failures": [],
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "round_gpu_process_residence_seconds": 10664.938242565375,
+  "cumulative_gpu_process_residence_seconds": 244358.78455283167,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "module_local2_20261010": 7624.042213955894,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "rfmid_contrast4_20261011": 11070.13684507506,
+    "module_drift10_20261011": 8874.840206375346,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "air_apart_isic_hk1_20261012": 10664.938242565375
+  },
+  "parallel_wall_seconds": 6987.062000092119,
+  "whole_round_wall_seconds": 6995.826947927475,
+  "resource_wait_seconds": 0.11244678497314453,
+  "cpu_checks": {
+    "status": "PASS",
+    "cpu_pipeline_seconds": 3.167363695334643,
+    "gpu_processes": 0,
+    "formal_updates": 0,
+    "synthetic_optimizer_steps_per_arm": 90,
+    "medical_images_opened": 0,
+    "test_accessed": false,
+    "native_full_train_parameter_equality": true,
+    "first_task_cosine_later_constant_exact": true,
+    "instrumented_native_preflight_zero_update": true,
+    "AIR_checkpoint_counts_and_joint_ridge": true,
+    "APART_checkpoint_roundtrip": true,
+    "unknown_method_seed_budget_test_rejected": true,
+    "four_trained_validation_barrier_rejected_early_access": true,
+    "all_six_methods_complete_report_fixture": true,
+    "changed_class_denominator_rejected": true,
+    "medical_transform_exact": true,
+    "real_GPU_preflights_passed": 0,
+    "cpu_process_residence_seconds": 13.867713874205947,
+    "pipeline_included_in_process_residence": true
+  },
+  "method_specific_schedules_not_equal_budget": true,
+  "reused_control_updates_and_costs": 0,
+  "engineering_events": [
+    {
+      "stage": "historical_source_acquisition",
+      "cause": "First APART proxied source fetch failed TLS before extraction; subsequent same-proxy fetch succeeded",
+      "gpu_seconds": 0,
+      "formal_updates": 0
+    },
+    {
+      "stage": "historical_CPU_fixture",
+      "cause": "First progress wrapper lacked set_description; fixture corrected and CPU compatibility passed",
+      "gpu_seconds": 0,
+      "formal_updates": 0
+    },
+    {
+      "stage": "historical_schedule_fixture",
+      "cause": "First floating point literal equality assertion failed; tolerance-only fixture correction passed; first residence unmeasured",
+      "gpu_seconds": 0,
+      "formal_updates": 0
+    }
+  ],
+  "terminal_scalar_checks": {
+    "ISIC_AIR": {
+      "exact_cumulative_train_counts": true,
+      "all_boundary_solves_finite": true,
+      "max_solve_residual": 2.1537070739511019e-13
+    },
+    "ISIC_APART_full": {
+      "all_epochs_finite": true,
+      "exact_native_active_lr_schedule": true,
+      "exact_epoch_batches": true
+    },
+    "HK_AIR": {
+      "exact_cumulative_train_counts": true,
+      "all_boundary_solves_finite": true,
+      "max_solve_residual": 1.879215836174719e-13
+    },
+    "HK_APART_full": {
+      "all_epochs_finite": true,
+      "exact_native_active_lr_schedule": true,
+      "exact_epoch_batches": true
+    }
+  },
+  "historical_preparation_costs_not_recharged": {
+    "cpu_process_residence_seconds": 32.50794715853408,
+    "additional_schedule_pipeline_seconds": 1.8635361138731241,
+    "additional_schedule_client_wall_seconds": 4.828931832918897,
+    "additional_first_schedule_residence_unmeasured": true
+  },
+  "data_preparation_seconds": 0,
+  "current_cpu_process_residence_seconds": 13.867713874205947,
+  "historical_preparation_failures_are_not_formal_GPU_failures": true
+}

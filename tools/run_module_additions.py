@@ -17,6 +17,7 @@ import module_additions as modules
 import local_residual
 import prototype_coherent as method
 import residual_drift
+import lca_supported
 from lt_benchmark import benchmark_metrics, task_blocks
 from run_multilabel import ApartFeatures
 from run_prototype_coherent import IndexedImages, common_shift, cpu_bank, fit_split
@@ -92,7 +93,7 @@ def author_nih(config):
 
 
 def verify_historical_baseline(config,reports,metrics):
-    if config['module']=='base' and not residual_drift.config_weight(config) and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config) or author_nih(config)):
+    if config['module']=='base' and not residual_drift.config_weight(config) and not lca_supported.config_enabled(config) and not (official_cifar(config) or synthetic_path(config) or synthetic_organ(config) or synthetic_tissue(config) or author_nih(config)):
         historical=json.loads(Path(config['historical_metrics']).read_text())
         if any(a['per_class_recall']!=b['per_class_recall'] for a,b in zip(reports,historical['stages'])):
             raise ValueError('Matched static-PC historical baseline differs')
@@ -106,6 +107,7 @@ def run(config):
     synthetic_tissue(config)
     author_nih(config)
     drift_weight = residual_drift.config_weight(config)
+    lca_enabled = lca_supported.config_enabled(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -124,7 +126,12 @@ def run(config):
     if arm in modules.STAT_ARMS and (config.get('local_projection_width')!=64 or config.get('local_projection_seed')!=130 or config.get('local_ridge')!=.001):
         raise ValueError('Frozen residual readout configuration differs')
     controller = edge.Controller('static_pc', config['seed'])
-    train, val = manifests(config)
+    if lca_enabled:
+        from run_lca_supported_cycle import validate_job, read_training
+        validate_job(config)
+        train, val = read_training(config), []
+    else:
+        train, val = manifests(config)
     output.mkdir(parents=True)
     save(output/'INPUT.private.json', config)
     started, steps = time.monotonic(), 0
@@ -145,6 +152,7 @@ def run(config):
         torch.set_num_threads(4)
         status(status='RUNNING', phase='initialize')
         encoder = ApartFeatures(config['legacy_repo'], config['weight'], len(config['order']), 'cuda:0', seed)
+        preflight_state = {k:v.detach().cpu().clone() for k,v in encoder.state_dict().items()} if lca_enabled and config.get('preflight') else None
         updates = modules.Updates(encoder, arm)
         from run_medical_v2 import transform
 
@@ -169,6 +177,7 @@ def run(config):
         projection = local_residual.projection(encoder.dim).to('cuda') if arm in modules.STAT_ARMS else None
         for task, classes in enumerate(tasks, 1):
             budget(); old_count = len(seen); seen += classes
+            task_start_bank = bank
             rows = [r for r in train if r['label'] in classes]
             fit_ids, meta_ids = fit_split(rows, config['split_seed'])
             fit_ids = torch.as_tensor(fit_ids, device='cuda')
@@ -202,10 +211,14 @@ def run(config):
                     drift, drift_audit = residual_drift.estimate(before[fit_ids], current[fit_ids], weights, shift)
                 native_head, metric, activation = modules.head(candidate, arm, config['name'], seen, local_candidate,
                     drift=drift, drift_weight=drift_weight)
+                if lca_enabled:
+                    S,M,lca_audit = lca_supported.prepare(before[fit_ids],current[fit_ids],weights,shift,
+                        task_start_bank,candidate,arm,config['name'],seen,local_candidate,metric,.01)
+                solve_head = (lambda b,a,regularizer: lca_supported.bank_head(b,a,regularizer,S,M)) if lca_enabled else None
                 base_pairs = competition.competition(candidate, native_head)
                 status(status='RUNNING', phase='controller', task=task, epoch=epoch)
                 pairs, head, selected, audit = controller.choose(candidate, old, base_pairs, metric,
-                    current[meta_ids], y[meta_ids], tail_indices, budget)
+                    current[meta_ids], y[meta_ids], tail_indices, budget,head_solver=solve_head)
                 max_residual = max(max_residual, audit['max_solve_residual'])
                 inverse, cross = method.proximal_base(old, metric, len(seen))
                 losses, solves, local_losses, local_gradients = [], [], [], []
@@ -228,9 +241,13 @@ def run(config):
                         previous = head
                         native_head = method.proximal_head(z.detach().double(), target, alpha, inverse, cross, previous)
                         q, mu, mass = competition.moments(old, z.detach().double(), lookup[labels], alpha, len(seen))
-                        head, solve = competition.solve(q, mu, mass, pairs, previous=previous,
-                            proximal=.01, inverse=inverse, x=z.detach().double(), alpha=alpha,
-                            native=native_head, regularizer=metric)
+                        if lca_enabled:
+                            head,solve=lca_supported.solve(q,mu,mass,pairs,metric,S,M,previous=previous,
+                                proximal=.01,inverse=inverse,x=z.detach().double(),alpha=alpha,native=native_head)
+                        else:
+                            head, solve = competition.solve(q, mu, mass, pairs, previous=previous,
+                                proximal=.01, inverse=inverse, x=z.detach().double(), alpha=alpha,
+                                native=native_head, regularizer=metric)
                         max_residual = max(max_residual, solve['relative_residual'])
                     fit = .5*(alpha*(z.double() @ head-target).square().sum(1)).sum()
                     pair = .5*competition.pair_loss(old, z.double(), lookup[labels], alpha, head, pairs)
@@ -239,6 +256,8 @@ def run(config):
                     proximal = .005*(head-previous).square().sum()
                     fd = (z-reference_z).square().sum(1).mean()
                     loss = fit+pair+old_loss+ridge+proximal+10.*fd
+                    if lca_enabled:
+                        loss = loss+lca_supported.loss(head,S,M)
                     if arm in modules.SUPERVISED_ARMS:
                         local_alpha=modules.current_class_alpha(alpha,len(seen),len(classes)) if arm in ('local_normalized','local_projected') else alpha
                         local_loss=modules.local_class_loss(train_parts,local_candidate,lookup[labels],local_alpha,arm=='local_detached')
@@ -290,6 +309,14 @@ def run(config):
                             check['residual_drift']=dict(weight=drift_weight, **drift_audit,
                                 first_task_zero_residual=True, nonzero_activation_not_proven=True)
                             save(output/'PREFLIGHT.json',check)
+                        if lca_enabled:
+                            unchanged=all(torch.equal(v,preflight_state[k]) for k,v in encoder.state_dict().items())
+                            if not unchanged:raise ValueError('Zero-update model parameters/buffers changed')
+                            check=json.loads((output/'PREFLIGHT.json').read_text())
+                            check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,
+                                max_solve_residual=max_residual,lca_supported=lca_audit,
+                                initial_zero_prior_expected=True,nonzero_activation_not_proven=True)
+                            save(output/'PREFLIGHT.json',check)
                         status(status='COMPLETE', preflight=True, adapter_updates=0)
                         return
                     optimizer.step(); steps += 1
@@ -310,6 +337,8 @@ def run(config):
                 if drift_weight:
                     diagnostics[-1]['residual_drift'] = dict(weight=drift_weight, **drift_audit,
                         estimate_before_epoch=True, detached=True, fit_only=True)
+                if lca_enabled:
+                    diagnostics[-1]['lca_supported']=dict(lca_audit,fit_only=True)
                 if arm in modules.SUPERVISED_ARMS:
                     diagnostics[-1]['local_supervision']=dict(local_gradient_enabled=arm!='local_detached',
                         mean_local_class_loss=float(np.mean(local_losses)),mean_local_feature_gradient_norm=float(np.mean(local_gradients)),
@@ -356,14 +385,25 @@ def run(config):
                     current_train_including_meta=True, detached=True)
             native_head, metric, activation = modules.head(bank, arm, config['name'], seen, local_bank,
                 drift=drift, drift_weight=drift_weight)
+            if lca_enabled:
+                S,M,lca_audit=lca_supported.prepare(before,current,all_weights,shift,
+                    task_start_bank,bank,arm,config['name'],seen,local_bank,metric)
+                diagnostics[-1]['boundary_lca_supported']=dict(lca_audit,current_train_including_meta=True)
             base_pairs = competition.competition(bank, native_head)
-            fixed_head, _ = competition.bank_head(bank, base_pairs, regularizer=metric)
+            fixed_head, _ = (lca_supported.bank_head(bank,base_pairs,metric,S,M) if lca_enabled else
+                competition.bank_head(bank, base_pairs, regularizer=metric))
             state = edge.descriptors(bank, fixed_head, old_count)
             
             pairs = edge.allocation(base_pairs, state, selected.to(base_pairs))
-            head, solve = competition.bank_head(bank, pairs, regularizer=metric)
+            head, solve = (lca_supported.bank_head(bank,pairs,metric,S,M) if lca_enabled else
+                competition.bank_head(bank, pairs, regularizer=metric))
             max_residual = max(max_residual, solve['relative_residual'])
             extra_state={}
+            if lca_enabled:
+                from run_lca_supported_cycle import checkpoint_metadata
+                extra_state.update(lca_state=lca_supported.checkpoint(S,M),
+                    lca_metadata=checkpoint_metadata(config,task,steps),lca_old_count=old_count,
+                    lca_head_double=head.detach().cpu())
             if drift_weight:
                 extra_state.update(residual_drift_matrix=drift.cpu(), residual_drift_weight=drift_weight,
                     residual_drift_version='residual_drift_v1')
@@ -531,6 +571,10 @@ def evaluate(config):
     organ_validation=synthetic_organ(config)
     tissue_validation=synthetic_tissue(config)
     nih_validation=author_nih(config)
+    lca_enabled=lca_supported.config_enabled(config)
+    if lca_enabled:
+        from run_lca_supported_cycle import validate_job,check_barrier,checkpoint_metadata,STEPS
+        validate_job(config);check_barrier(config)
     output=Path(config['output']);gate=json.loads(Path(config['evaluation_gate']).read_text())
     if gate['phase'] != 'EVALUATE':raise ValueError('Development evaluation sealed')
     started=time.monotonic()
@@ -544,6 +588,22 @@ def evaluate(config):
     reports=[]
     for task in range(1,len(tasks)+1):
         budget();state=torch.load(Path(config.get('checkpoint_root',output))/f'stage_{task}.pt',map_location='cpu',weights_only=False)
+        if lca_enabled:
+            expected=checkpoint_metadata(config,task,sum(STEPS[config['name']][:task]))
+            if state.get('lca_metadata')!=expected or state['seen']!=config['order'][:sum(config['task_sizes'][:task])]:
+                raise ValueError('Checkpoint LCA source/order/budget mismatch')
+            W=state['head'].double().cuda();S,M=lca_supported.restore(state['lca_state'],len(W),W.shape[1],W)
+            if not torch.allclose(M,lca_supported.old_margin_metric(W.shape[1],state['lca_old_count'],W),atol=1e-10,rtol=1e-10):
+                raise ValueError('Checkpoint old/new margin mask mismatch')
+            bank={k:v.cuda() if torch.is_tensor(v) else v for k,v in state['bank'].items()}
+            bank['components']=[{k:v.cuda() if torch.is_tensor(v) else v for k,v in c.items()} for c in bank['components']]
+            local=None if state['module_memory'] is None else state['module_memory'].double().cuda()
+            R,_=modules.metric(bank,config['module'],config['name'],state['seen'],local)
+            rebuilt,audit=lca_supported.bank_head(bank,state['boundary_pair_weights'].double().cuda(),R,S,M)
+            saved=state['lca_head_double'].cuda()
+            if float((rebuilt-saved).norm()/saved.norm().clamp_min(1e-30))>1e-8:
+                raise ValueError('Checkpoint analytic head rebuild differs')
+            if not torch.equal(saved.float().cpu(),state['head']):raise ValueError('Checkpoint float readout differs')
         drift_weight = residual_drift.config_weight(config)
         if state.get('residual_drift_weight', 0.) != drift_weight:
             raise ValueError('Checkpoint residual drift weight differs')
@@ -596,6 +656,10 @@ def evaluate(config):
     if drift_weight:
         metrics.update(residual_drift_weight=drift_weight,residual_drift_version='residual_drift_v1',
             is_unmodified_baseline=False)
+    if lca_enabled:
+        metrics.update(lca_version=config['lca_version'],lca_curvature_cap=.1,lca_map_ridge=.001,
+            module='lca_supported' if config['module']=='base' else 'local_transport_lca_supported',
+            is_unmodified_baseline=False,checkpoint_head_rebuild_verified=True,source_commit=config['source_commit'])
     verify_historical_baseline(config,reports,metrics)
     if config['module'] in modules.STAT_ARMS or config.get('trained_local_readout'):
         reference=json.loads(Path(config['historical_global_control']).read_text())

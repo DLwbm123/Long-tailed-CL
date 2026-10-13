@@ -108,11 +108,12 @@ class Controller:
         self.reference = self.mean().detach().clone()
         self.optimizer = torch.optim.Adam([self.parameter], lr=.05)
 
-    def choose(self, bank, old, base, metric, meta_x, meta_y, tail, budget):
+    def choose(self, bank, old, base, metric, meta_x, meta_y, tail, budget, head_solver=None):
         old_count = len(old['n'])
+        solve_head = competition.bank_head if head_solver is None else head_solver
         budget()
         with torch.no_grad():
-            baseline_head, solve = competition.bank_head(bank, base, regularizer=metric)
+            baseline_head, solve = solve_head(bank, base, regularizer=metric)
             baseline = risks(old, baseline_head, meta_x, meta_y)
             state = descriptors(bank, baseline_head, old_count)
             if self.arm == 'coarse_rl':
@@ -125,7 +126,7 @@ class Controller:
             nonlocal evaluations, max_residual
             budget()
             pairs = allocation(base, state, coefficients.to(base))
-            head, audit = competition.bank_head(bank, pairs, regularizer=metric)
+            head, audit = solve_head(bank, pairs, regularizer=metric)
             value = risks(old, head, meta_x, meta_y)
             score = reward(value, baseline, old_count, tail)-.01*action_kl(pairs, base)
             if not torch.isfinite(score):

@@ -7,6 +7,46 @@ import core1_competition as competition
 VERSION = 'supported_old_margin_v1'
 
 
+def config_enabled(config):
+    enabled = config.get('lca_supported', False)
+    if not isinstance(enabled, bool):
+        raise ValueError('LCA authorization must be boolean')
+    if enabled and (config.get('lca_version') != VERSION or
+        config.get('lca_authorized') is not True or config.get('module') not in ('base','local_transport')
+        or config.get('name') not in ('ISIC','HK') or config.get('method') != 'static_pc'
+        or config.get('evaluation_split') != 'development_validation'
+        or config.get('lca_map_ridge') != .001 or config.get('lca_curvature_cap') != .1
+        or config.get('residual_drift_weight',0) != 0 or config.get('checkpoint_root')):
+        raise ValueError('Independent frozen main-four-grid LCA protocol required')
+    return enabled
+
+
+@torch.no_grad()
+def prepare(before, after, weights, shift, task_start_bank, candidate, arm, dataset, seen, local, R, proximal=0.):
+    import module_additions as modules
+    U,a=estimate(before,after,weights,shift,task_start_bank['mu'],task_start_bank['Q'])
+    raw=U
+    if arm=='local_transport':
+        R0,_=modules.metric(candidate,'base',dataset,seen)
+        U,d=remove_local_prior_span(U,R0,R)
+    else:
+        d=dict(local_relaxation_rank=0,retained_risk_trace=float(U.trace()),raw_risk_trace=float(U.trace()),overlap_leakage=0.)
+    H=candidate['Q'].sum(0)/len(candidate['n'])+.001*R+proximal*torch.eye(len(R),dtype=R.dtype,device=R.device)
+    S,b=bounded_penalty(U,H,raw_risk=raw)
+    M=old_margin_metric(len(seen),len(task_start_bank['n']),before)
+    support=[v for v in a.pop('old_supported_energy_fractions') if v is not None]
+    a.update(old_support_min=min(support) if support else 0.,old_support_mean=sum(support)/len(support) if support else 0.,
+        old_support_max=max(support) if support else 0.,old_support_defined_classes=len(support),**d,**b,
+        output_margin_rank=max(0,len(task_start_bank['n'])-1),new_columns_direct_force_zero=True,
+        detached=True,version=VERSION,estimate_before_epoch=True)
+    return S,M,a
+
+
+def bank_head(bank,pairs,regularizer,S,M):
+    k=len(bank['n'])
+    return solve(bank['Q']/k,bank['mu']/k,bank['mu'].new_full((k,),1/k),pairs,regularizer,S,M)
+
+
 def psd(value):
     if (value.ndim != 2 or value.shape[0] != value.shape[1] or value.dtype != torch.float64
             or not torch.isfinite(value).all() or not torch.allclose(value, value.T, atol=1e-10, rtol=1e-10)):

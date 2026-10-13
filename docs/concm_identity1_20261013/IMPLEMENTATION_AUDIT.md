@@ -1,0 +1,9 @@
+# 生产接线与冻结数学一致性
+
+部署前纯CPU合成检查PASS；没有读取医学图像或医学checkpoint、没有GPU/optimizer。cached/uncached七头及REG最大差异0；独立dense oracle最大残差5.75772248762418e-10。生产pack复用原严格解析头pack，附加独立production_metadata验证version/variant/control_steps与原source/task/order/seed，不放宽原pack。
+
+每阶段原协方差/eigen PSD与供体几何、原尾部图只计算一次并临时缓存。缓存绑定同一bank/pairs/R/W0/old对象，不写回控制，不改变任何科学参数或求解容差。追加trace/rank为标量审计。源码继承设计commit2d188136，但生产source另行冻结，不覆盖设计NAS/source。
+
+CPU屏障fixture首次遗漏目录，驻留11.094727946911007s，修正测试fixture后成功21.003423932939768s（pipeline18.39743359806016包含其中）。两次client部署字符串语法失败均在执行前，0子进程/0GPU，未测驻留留null。总测得新CPU32.098151879850775s；历史设计CPU40.24965241225436s独立不重计。失败均保留NAS私有原错误和本地私有回执。
+
+CPU不能证明高维真实medical bank可求解或效果有效；4真实preflight将验证真实读出/守卫CPU-GPU一致和冻结state，之后统一val。没有训练、温度/预算臂/新seed或自动retry。

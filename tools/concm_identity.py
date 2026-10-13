@@ -27,13 +27,14 @@ def validate_design(p):
 def finite(*xs):
     if not xs or any(x.dtype!=torch.float64 or x.device!=xs[0].device or not torch.isfinite(x).all() for x in xs):raise ValueError('Finite same-device float64 inputs required')
 
-def psd(x):
+def psd(x,audit=None):
     x=(x+x.T)/2;e,u=torch.linalg.eigh(x)
     tol=1e-10*max(1.,float(x.abs().max()))
     if float(e.min()) < -tol:raise ValueError('Incoherent covariance')
+    if audit is not None:audit.append(dict(trace=float(e.clamp_min(0).sum()),rank=int((e>torch.finfo(x.dtype).eps*len(x)*e.abs().max()).sum()),minimum_eigenvalue=float(e.min())))
     return (u*e.clamp_min(0))@u.T
 
-def covariance_parts(bank):
+def covariance_parts(bank,audit=None):
     mu,Q=bank['mu'],bank['Q'];finite(mu,Q);k,d=mu.shape
     if Q.shape!=(k,d,d) or not torch.allclose(Q,Q.transpose(1,2),atol=1e-10,rtol=1e-10) or any(type(r['label'])!=int or not 0<=r['label']<k for r in bank['components']) or len(bank['n'])!=k or any(type(n)!=int or n<1 for n in bank['n']):raise ValueError('Invalid class bank')
     parts=[];within=[]
@@ -46,14 +47,14 @@ def covariance_parts(bank):
         mass=sum(float(r['mass']) for r in rows);center=sum(float(r['mass'])*r['center'] for r in rows)
         if abs(mass-1)>1e-8 or not torch.allclose(center,mu[c],rtol=1e-8,atol=1e-9):raise ValueError('Component mean differs')
         between=sum(float(r['mass'])*torch.outer(r['center']-mu[c],r['center']-mu[c]) for r in rows)
-        S=psd(Q[c]-torch.outer(mu[c],mu[c])-between)
+        S=psd(Q[c]-torch.outer(mu[c],mu[c])-between,audit)
         radius=sum(float(r['mass'])*float(r['radius']) for r in rows)
         if abs(float(S.trace())-radius)>1e-8*max(1.,radius):raise ValueError('Component radius differs from moments')
         parts.append(rows);within.append(S)
     return parts,torch.stack(within)
 
-def borrow(bank):
-    rows,S=covariance_parts(bank);mu=bank['mu'];tr=S.diagonal(dim1=1,dim2=2).sum(1)
+def borrow(bank,geometry=None,audit=None):
+    rows,S=covariance_parts(bank) if geometry is None else geometry;mu=bank['mu'];tr=S.diagonal(dim1=1,dim2=2).sum(1)
     shape=S/tr.clamp_min(1e-30)[:,None,None];n=mu.new_tensor(bank['n']);reliability=n/(n+16.)
     eta=.4*16/(n+16.);out=bank['Q'].clone();weights=mu.new_zeros((len(mu),len(mu)))
     for c in range(len(mu)):
@@ -64,16 +65,16 @@ def borrow(bank):
         mixed=(w[:,None,None]*shape[donors]).sum(0)*tr[c]
         out[c]+=eta[c]*(mixed-S[c])
     revised=dict(bank,Q=out)
-    _,updated=covariance_parts(revised)
+    _,updated=covariance_parts(revised,audit)
     return revised,dict(mean_and_component_centers_unchanged=True,counts_masses_radii_unchanged=True,
         max_within_trace_change=float((updated.diagonal(dim1=1,dim2=2).sum(1)-tr).abs().max()),
         covariance_change_norm=float((out-bank['Q']).norm()),eta=eta.tolist(),
         donor_effective_count=[None if not w.any() else float(1/w.square().sum()) for w in weights],
         measured_donor_reliability=False,measured_old_drift=False)
 
-def tail_geometry(bank,pairs,W,old):
+def tail_geometry(bank,pairs,W,old,geometry=None):
     """Moment-consistent shared-shape Gaussian mixture; never draw old features."""
-    parts,S=covariance_parts(bank);mu=bank['mu'];k=len(mu);edges=[]
+    parts,S=covariance_parts(bank) if geometry is None else geometry;mu=bank['mu'];k=len(mu);edges=[]
     for c in range(old):
         tr=float(S[c].trace());q=bank['n'][c]/(bank['n'][c]+16.)
         for r in parts[c]:
@@ -106,7 +107,14 @@ def tail_operator(S,edges,W):
         step=e['weight']*qv;out[:,c]+=step;out[:,j]-=step
     return out
 
-def systems(bank,pairs,R,W0,old,preset):
+def prepare_geometry(bank,pairs,R,W0,old):
+    """One ephemeral stage cache, shared by the seven frozen readouts."""
+    before=[];after=[];geometry=covariance_parts(bank,before)
+    revised,ma=borrow(bank,geometry,after)
+    tail=tail_geometry(bank,pairs,W0,old,geometry)
+    return dict(inputs=(bank,pairs,R,W0,old),revised=revised,MPC=ma,tail=tail,covariance_before=before,covariance_after=after)
+
+def systems(bank,pairs,R,W0,old,preset,cache=None):
     finite(bank['mu'],bank['Q'],pairs,R,W0);k,d=bank['mu'].shape
     if (preset not in PRESETS or type(old)!=int or not 0<=old<=k or W0.shape!=(d,k)
         or R.shape!=(d,d) or pairs.shape!=(k,k) or (pairs<0).any() or pairs.diag().any()
@@ -119,9 +127,10 @@ def systems(bank,pairs,R,W0,old,preset):
     if not math.isfinite(error) or error>1e-8:raise ValueError('Reference is not native double optimum')
     V=W0.new_zeros((k,max(0,old-1)));V[:old]=contrast_basis(old,W0)
     use_mpc,use_tail,reg,eta=PRESETS[preset]
-    revised,ma=borrow(bank) if use_mpc else (bank,dict(enabled=False))
+    if cache is not None and (any(a is not b for a,b in zip(cache['inputs'][:4],(bank,pairs,R,W0))) or cache['inputs'][4]!=old):raise ValueError('Stage cache differs')
+    revised,ma=(borrow(bank) if cache is None else (cache['revised'],cache['MPC'])) if use_mpc else (bank,dict(enabled=False))
     Hm=lambda W:native_operator(revised,pairs,R,W)
-    S,edges,bt=tail_geometry(bank,pairs,W0,old) if use_tail else (None,[],torch.zeros_like(W0))
+    S,edges,bt=(tail_geometry(bank,pairs,W0,old) if cache is None else cache['tail']) if use_tail else (None,[],torch.zeros_like(W0))
     Ht=lambda W:tail_operator(S,edges,W) if edges else torch.zeros_like(W)
     A0=lambda Z:H0(Z@V.T)@V
     etf=dict(enabled=bool(eta),skipped=False);E=torch.zeros_like(W0)
@@ -144,8 +153,8 @@ def systems(bank,pairs,R,W0,old,preset):
     return operator,rhs,pre,V,audit
 
 @torch.no_grad()
-def fit(bank,pairs,R,W0,old,preset):
-    operator,rhs,pre,V,a=systems(bank,pairs,R,W0,old,preset)
+def fit(bank,pairs,R,W0,old,preset,cache=None):
+    operator,rhs,pre,V,a=systems(bank,pairs,R,W0,old,preset,cache)
     inactive=(a['MPC'].get('covariance_change_norm',0.)==0. and not a['tail_component_edges'] and not a['ETF_direction_force_norm'])
     if not V.shape[1] or inactive or not rhs.any():return torch.zeros_like(W0),dict(a,exact_identity=True,relative_residual=0.,delta_norm=0.)
     Z,qa=competition.pcg(operator,rhs,pre,torch.zeros_like(rhs));delta=Z@V.T

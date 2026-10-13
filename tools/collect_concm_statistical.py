@@ -3,9 +3,12 @@ import csv
 import json
 from pathlib import Path
 import subprocess
-from concm_statistical import VARIANTS,VERSION
 from concm_statistical_metrics import FIELDS,aggregate
-from lca_pair_worker import JOBS
+
+# Reporting must work in the bundled NumPy runtime without importing models.
+VARIANTS=('MPC','DSM','MPC_DSM')
+VERSION='visual_support_completion_etf_head_v1'
+JOBS=[ds+'_'+a for ds in ('ISIC','HK') for a in ('base','local_transport')]
 
 
 def dump(path,value):path.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')

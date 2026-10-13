@@ -1,0 +1,89 @@
+{
+  "status": "FINAL_CPU_DESIGN_CHECKS_PASS",
+  "CPU_cost_records": [
+    {
+      "name": "initial_quadratic_oracle",
+      "design_revision": "historical_total_old_contrast_regularization",
+      "returncode": 0,
+      "residence_seconds": 9.644837730098516,
+      "pipeline_seconds": 4.301614073105156,
+      "CPU_command_neutral": true
+    },
+    {
+      "name": "initial_overlap_stress",
+      "design_revision": "historical_total_old_contrast_regularization",
+      "returncode": 0,
+      "residence_seconds": 7.254266788251698,
+      "pipeline_seconds": 0.8169272560626268,
+      "CPU_command_neutral": true
+    },
+    {
+      "name": "initial_admission_fixture",
+      "design_revision": "historical_total_old_contrast_regularization",
+      "returncode": 1,
+      "residence_seconds": 7.671081086155027,
+      "pipeline_seconds": null,
+      "CPU_command_neutral": true
+    },
+    {
+      "name": "check_concm_identity",
+      "design_revision": "final_reference_increment_regularization",
+      "returncode": 0,
+      "residence_seconds": 10.039193925913423,
+      "pipeline_seconds": 3.7415372710675,
+      "CPU_command_neutral": true
+    },
+    {
+      "name": "check_concm_identity_stress",
+      "design_revision": "final_reference_increment_regularization",
+      "returncode": 0,
+      "residence_seconds": 3.1769291036762297,
+      "pipeline_seconds": 0.6167505220510066,
+      "CPU_command_neutral": true
+    },
+    {
+      "name": "check_concm_identity_admission",
+      "design_revision": "final_reference_increment_regularization",
+      "returncode": 0,
+      "residence_seconds": 2.4633437781594694,
+      "pipeline_seconds": 0.1133147981017828,
+      "CPU_command_neutral": true
+    }
+  ],
+  "events": [
+    {
+      "stage": "CPU_design_revision",
+      "reason": "total_old_contrast_penalty_creates_global_score_compression_that_can_mask_tail_contribution",
+      "action": "center_regularization_on_reference_increment_and_verify_again",
+      "medical_images_read": 0,
+      "GPU_processes": 0,
+      "formal_optimizer_updates": 0
+    },
+    {
+      "stage": "initial_CPU_admission_fixture",
+      "outcome": "FAIL",
+      "reason": "synthetic_component_mass_was_float_but_original_native_evidence_requires_tensor",
+      "action": "correct_fixture_mass_type_only_keep_native_code_unchanged",
+      "residence_seconds": 7.671081086155027,
+      "pipeline_seconds": null,
+      "medical_images_read": 0,
+      "GPU_processes": 0,
+      "formal_optimizer_updates": 0
+    }
+  ],
+  "CPU_process_residence_seconds": 40.24965241225436,
+  "final_CPU_process_residence_seconds": 15.679466807749122,
+  "all_successful_pipeline_seconds": 9.590143920388073,
+  "final_successful_pipeline_seconds": 4.4716025912202895,
+  "failed_pipeline_seconds": null,
+  "pipeline_included_in_residence": true,
+  "failed_CPU_checks": 1,
+  "failed_scientific_experiments": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "GPU_processes": 0,
+  "formal_optimizer_updates": 0,
+  "production_integrated": false,
+  "all_CPU_commands_neutral": true,
+  "previous_experiment_GPU_costs_unchanged": true
+}

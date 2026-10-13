@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "formal_optimizer_updates": 0,
+  "production_integrated": false,
+  "synthetic_only": true,
+  "mean_component_identity": true,
+  "coherent_covariance_borrowing": true,
+  "translation_invariant_borrowing": true,
+  "exact_native_reduction": true,
+  "full_competition_dense_oracle": true,
+  "wrong_scope_and_checkpoint_refused": true,
+  "truncated_moment_quadrature_max_error": 1.3298076528833747e-09,
+  "tail_Q_PSD_and_complement_PSD": true,
+  "guard_checks": {
+    "torch.float32": {
+      "new_columns_exact": true,
+      "new_correctness_never_harmed": true,
+      "new_raw_margin_nondecreasing": true
+    },
+    "torch.float64": {
+      "new_columns_exact": true,
+      "new_correctness_never_harmed": true,
+      "new_raw_margin_nondecreasing": true
+    }
+  },
+  "guard_allows_new_rescue_and_old_internal_correction": true,
+  "old_truth_false_positive_risk_explicit": true,
+  "cases": [
+    {
+      "control": "base",
+      "all_eight_dense_oracles": true,
+      "tail_curvature_bounded_by_native": true,
+      "all_objective_minima": true,
+      "ETF_same_Hessian": true,
+      "ETF_forces": {
+        "MPC": 0.0,
+        "REG": 0.0,
+        "TAIL": 0.0,
+        "TAIL_REG": 0.0,
+        "DSM": 2.0479919705418832e-05,
+        "MPC_TAIL": 0.0,
+        "MPC_TAIL_REG": 0.0,
+        "MPC_DSM": 2.0479919705418832e-05
+      },
+      "head_delta_norms": {
+        "MPC": 0.013595761910407098,
+        "REG": 0.08940786920076177,
+        "TAIL": 2.8074660992955502e-05,
+        "TAIL_REG": 0.089411876544422,
+        "DSM": 0.0894122685999052,
+        "MPC_TAIL": 0.013587799795369102,
+        "MPC_TAIL_REG": 0.09484761462747496,
+        "MPC_DSM": 0.0948479120788095
+      },
+      "first_task_exact_identity": true
+    },
+    {
+      "control": "local_transport",
+      "all_eight_dense_oracles": true,
+      "tail_curvature_bounded_by_native": true,
+      "all_objective_minima": true,
+      "ETF_same_Hessian": true,
+      "ETF_forces": {
+        "MPC": 0.0,
+        "REG": 0.0,
+        "TAIL": 0.0,
+        "TAIL_REG": 0.0,
+        "DSM": 2.0560747131713545e-05,
+        "MPC_TAIL": 0.0,
+        "MPC_TAIL_REG": 0.0,
+        "MPC_DSM": 2.0560747131713545e-05
+      },
+      "head_delta_norms": {
+        "MPC": 0.013596438865146153,
+        "REG": 0.08944318340827151,
+        "TAIL": 2.8183938732271303e-05,
+        "TAIL_REG": 0.08944721198401386,
+        "DSM": 0.0894476066437419,
+        "MPC_TAIL": 0.013588411306165666,
+        "MPC_TAIL_REG": 0.09488313180913112,
+        "MPC_DSM": 0.09488343113958876
+      },
+      "first_task_exact_identity": true
+    }
+  ],
+  "max_solver_residual": 5.75772248762418e-10,
+  "pipeline_seconds": 4.301614073105156,
+  "process_residence_seconds": 9.644837730098516,
+  "neutral_CPU_command_verified": true,
+  "design_revision": "historical_total_old_contrast_regularization_not_final_method"
+}

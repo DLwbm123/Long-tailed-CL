@@ -300,23 +300,20 @@ def run(config):
                             stats=local_residual.append(local_residual.empty(encoder.dim,z_local.shape[1],'cuda'),
                                 current[fit_ids],z_local,y[fit_ids],weights)
                             _,readout_check=local_residual.head(stats,head.float().double(),arm=='local_residual')
-                        save(output/'PREFLIGHT.json', dict(status='PASS', encoder_dim=encoder.dim, gradient_projection=projection_audit, **readout_check,
+                        check=dict(status='PASS', encoder_dim=encoder.dim, gradient_projection=projection_audit, **readout_check,
                             adapter_updates=0, policy_updates=controller.updates, task=task, epoch=epoch,
                             gradient_norm=float(norm), loss=float(loss.detach()), controller=audit, activation=activation,
-                            batch_solve=solve, batch_n=len(x), peak_gpu_bytes=torch.cuda.max_memory_allocated()))
+                            batch_solve=solve, batch_n=len(x), peak_gpu_bytes=torch.cuda.max_memory_allocated())
                         if drift_weight:
-                            check=json.loads((output/'PREFLIGHT.json').read_text())
                             check['residual_drift']=dict(weight=drift_weight, **drift_audit,
                                 first_task_zero_residual=True, nonzero_activation_not_proven=True)
-                            save(output/'PREFLIGHT.json',check)
                         if lca_enabled:
-                            unchanged=all(torch.equal(v,preflight_state[k]) for k,v in encoder.state_dict().items())
+                            unchanged=all(torch.equal(v.detach().cpu(),preflight_state[k]) for k,v in encoder.state_dict().items())
                             if not unchanged:raise ValueError('Zero-update model parameters/buffers changed')
-                            check=json.loads((output/'PREFLIGHT.json').read_text())
                             check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,
                                 max_solve_residual=max_residual,lca_supported=lca_audit,
                                 initial_zero_prior_expected=True,nonzero_activation_not_proven=True)
-                            save(output/'PREFLIGHT.json',check)
+                        save(output/'PREFLIGHT.json',check)
                         status(status='COMPLETE', preflight=True, adapter_updates=0)
                         return
                     optimizer.step(); steps += 1

@@ -15,11 +15,30 @@
       "GPU_processes_started": 0,
       "formal_updates": 0,
       "residence_not_measured": true
+    },
+    {
+      "stage": "real_GPU_preflight",
+      "cause": "Zero-update state verification compared a CUDA tensor with its CPU snapshot. Both dispatched ISIC preflights failed after backward and before any optimizer step. A generic PASS receipt had been written prematurely; neither receipt is a complete PASS. HK was not dispatched. Dependencies stopped; no automatic retry.",
+      "formal_updates": 0,
+      "policy_updates": 0,
+      "validation_evaluation_started": false,
+      "test_accessed": false,
+      "failed_GPU_operations": 2,
+      "complete_preflights": 0,
+      "round_gpu_process_residence_seconds": 316.3400987358764
     }
   ],
   "cpu_all_attempts_process_residence_seconds": 70.0334244761616,
   "CPU_successful_synthetic_optimizer_updates_all_executions": 240,
   "data_preparation_CPU_seconds": 0,
   "earlier_design_CPU_seconds": 21.392109549604356,
-  "earlier_design_cost_not_charged_again": true
+  "earlier_design_cost_not_charged_again": true,
+  "CPU_preflight_fixture_limitation": "Earlier synthetic checks mapped cuda to CPU identity and did not exercise the device boundary.",
+  "repair": {
+    "device_comparison": "Materialize live state on CPU before exact equality",
+    "receipt": "Write PASS only after all checks",
+    "deployment_source_unchanged": true,
+    "not_relaunched": true,
+    "real_GPU_repair_validation": false
+  }
 }

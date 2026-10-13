@@ -118,7 +118,7 @@ def report(s,out):
     for filename,data in [('MAIN.csv',rows),('CLASS_CHANGES.csv',class_rows),('CONFUSION_FLOWS.csv',confusion)]:
         if data:
             with (out/filename).open('w') as f:
-                w=csv.DictWriter(f,fieldnames=list(data[0]));w.writeheader();w.writerows(data)
+                w=csv.DictWriter(f,fieldnames=list(data[0]),lineterminator='\n');w.writeheader();w.writerows(data)
     return audit
 
 

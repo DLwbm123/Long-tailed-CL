@@ -1,0 +1,94 @@
+{
+  "source_commit": "7c6b53d4b1ae74d1dc2aa1040942d17aff8b5415",
+  "snapshot_at": 1791885547.9075038,
+  "status": "RUNNING",
+  "phase": "PREPARE",
+  "active": [
+    {
+      "job": "HK_base",
+      "operation": "prepare",
+      "variant": ""
+    },
+    {
+      "job": "HK_local_transport",
+      "operation": "prepare",
+      "variant": ""
+    }
+  ],
+  "statuses": {
+    "prepared/ISIC_base": {
+      "status": "PREPARED",
+      "operation": "prepare",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "train_accessed": false,
+      "test_accessed": false,
+      "stages": 3
+    },
+    "prepared/ISIC_local_transport": {
+      "status": "PREPARED",
+      "operation": "prepare",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "train_accessed": false,
+      "test_accessed": false,
+      "stages": 3
+    },
+    "prepared/HK_base": {
+      "status": "RUNNING",
+      "operation": "prepare",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "train_accessed": false,
+      "test_accessed": false,
+      "task": 1,
+      "phase": "COVARIANCE_GEOMETRY"
+    },
+    "prepared/HK_local_transport": {
+      "status": "RUNNING",
+      "operation": "prepare",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "train_accessed": false,
+      "test_accessed": false,
+      "task": 1,
+      "phase": "COVARIANCE_GEOMETRY"
+    }
+  },
+  "real_preflight_PASS": 0,
+  "preflights": {},
+  "CPU_PRODUCTION_PASS": true,
+  "neutral_parent_worker_commands": true,
+  "failures": [],
+  "completed_GPU_cost_records": [],
+  "completed_CPU_cost_records": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 59.887565563898534,
+      "process_started": true,
+      "dispatch_wall_seconds": 59.90540841082111
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 67.5456832521595,
+      "process_started": true,
+      "dispatch_wall_seconds": 67.55581553094089
+    }
+  ],
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "source_stage_checkpoints": 18,
+  "planned_sidecars": 126,
+  "expected_GPU_processes": 8,
+  "classification_results_not_collected": true,
+  "monitor_created": false
+}

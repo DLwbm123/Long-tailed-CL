@@ -1,0 +1,102 @@
+{
+  "status": "PRELAUNCH_CPU_PASS",
+  "events": [
+    {
+      "event": "initial_highdim_PASS_with_negligible_direction",
+      "final_nonzero_direction_admission": false,
+      "scope": "synthetic_CPU_only"
+    },
+    {
+      "event": "stress_CPU_failure_float32_old_sum_absolute_tolerance",
+      "error_type": "ValueError",
+      "cause": "Quantized old-contrast rounding residue exceeded fixed 1e-8 absolute validation",
+      "medical_images_read": 0,
+      "GPU_processes": 0,
+      "formal_optimizer_updates": 0,
+      "repair": "IEEE float32 roundoff-bound validation; candidate bits and all scientific parameters unchanged"
+    },
+    {
+      "event": "final_highdim_nonzero_proposal_and_five_PCG_iterations_PASS",
+      "scope": "synthetic_CPU_only"
+    },
+    {
+      "event": "production_barrier_roundtrip_report_checks_PASS",
+      "rows": 22,
+      "contrasts": 40,
+      "real_GPU_preflights_completed": false
+    },
+    {
+      "event": "prelaunch_gh_auth_status_failed",
+      "stage": "before_science_push_and_launch",
+      "cause": "gh reported stored account token invalid; git credential route will be checked",
+      "GPU_processes": 0,
+      "formal_optimizer_updates": 0
+    }
+  ],
+  "CPU_attempts": [
+    {
+      "check": "highdim",
+      "attempt": 1,
+      "status": "PASS",
+      "process_residence_seconds": 149.82605971489102,
+      "pipeline_seconds_included": 143.0068781110458,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "formal_optimizer_updates": 0
+    },
+    {
+      "check": "highdim",
+      "attempt": 2,
+      "status": "FAIL",
+      "process_residence_seconds": 56.58974790433422,
+      "pipeline_seconds_included": null,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "formal_optimizer_updates": 0
+    },
+    {
+      "check": "highdim",
+      "attempt": 3,
+      "status": "PASS",
+      "process_residence_seconds": 182.18828070396557,
+      "pipeline_seconds_included": 175.5342484372668,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "formal_optimizer_updates": 0
+    },
+    {
+      "check": "production",
+      "attempt": 1,
+      "status": "PASS",
+      "process_residence_seconds": 14.849904186092317,
+      "pipeline_seconds_included": 8.816629506647587,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "formal_optimizer_updates": 0
+    },
+    {
+      "check": "production",
+      "attempt": 2,
+      "status": "PASS",
+      "process_residence_seconds": 14.152321312576532,
+      "pipeline_seconds_included": 8.322184379212558,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "formal_optimizer_updates": 0
+    }
+  ],
+  "all_CPU_attempt_residence_seconds": 417.60631382185966,
+  "pipeline_included_not_additive": true,
+  "failed_CPU_processes": 1,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "medical_val_reads": 0,
+  "formal_optimizer_updates": 0,
+  "unchanged_scientific_parameters": true
+}

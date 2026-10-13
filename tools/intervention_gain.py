@@ -111,7 +111,10 @@ def credibility(bank,W,borrow=True):
 
 def utility(models,W,delta,old,scale):
     finite(W,delta)
-    if type(old)!=int or not 0<=old<=W.shape[1] or not math.isfinite(scale) or scale<0 or delta.shape!=W.shape or delta[:,old:].any() or (delta[:,:old].sum(1)).abs().max()>1e-8:raise ValueError('Old contrast only')
+    if type(old)!=int or not 0<=old<=W.shape[1] or not math.isfinite(scale) or scale<0 or delta.shape!=W.shape or delta[:,old:].any():raise ValueError('Old contrast only')
+    # Quantized candidates retain their bits; admit only the IEEE float32 rounding envelope.
+    rounding=1e-8+torch.finfo(torch.float32).eps*delta[:,:old].abs().sum(1)
+    if (delta[:,:old].sum(1).abs()>rounding).any():raise ValueError('Old contrast only')
     k=W.shape[1]
     if len(models)!=k:raise ValueError('Incomplete class distributions')
     if not delta.any() or not scale:return dict(rescue_lower=0.,rescue_upper=0.,harm_lower=0.,harm_upper=0.,net_lower=0.,net_upper=0.,classes=[dict(label=c,rescue_lower=0.,rescue_upper=0.,harm_lower=0.,harm_upper=0.) for c in range(k)])

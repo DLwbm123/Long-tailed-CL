@@ -98,6 +98,7 @@ def run(protocol):
             assert (margin(go)>=margin(bb)).all()
     reject(lambda:method.utility(good,W,D,True,1.));invalid=D.clone();invalid[:,2]=1;reject(lambda:method.utility(good,W,invalid,2,1.))
     reject(lambda:method.utility(good[:2],W,D,2,1.))
+    illegal=D.clone();illegal[:,:2]+=1.;reject(lambda:method.utility(good,W,illegal,2,1.))
     reject(lambda:method.cone_bounds(W.new_zeros(2),-torch.eye(2,dtype=W.dtype),[W.new_tensor([1.,0.])],[False],torch.eye(2,dtype=W.dtype),50))
     # Independent dense objective for the full native-curvature direction equation.
     d,k,old=6,4,3;y=torch.arange(k).repeat_interleave(16);features=torch.randn(len(y),d,dtype=torch.float64)*.5+F.one_hot(y,d);groups=2*y+torch.arange(len(y))%2

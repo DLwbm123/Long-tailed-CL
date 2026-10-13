@@ -1,0 +1,236 @@
+{
+  "status": "PASS",
+  "source_commit": "2d245b1c55ebe22532f4190c1fd03c98fac3d46a",
+  "version": "old_pair_residual_guard_v1",
+  "completed_trajectories": 4,
+  "prepared_stage_checkpoints": 18,
+  "real_zero_update_preflights": 4,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "train_accessed": false,
+  "test_accessed": false,
+  "complete_comparison": true,
+  "cost_records": [
+    {
+      "job": "ISIC_base",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 24.526223401073366
+    },
+    {
+      "job": "ISIC_local_transport",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 24.61735092708841
+    },
+    {
+      "job": "HK_local_transport",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 16.731434929184616
+    },
+    {
+      "job": "HK_base",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 16.774002708960325
+    },
+    {
+      "job": "ISIC_base",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 49.04457455407828
+    },
+    {
+      "job": "ISIC_local_transport",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 49.14578300807625
+    },
+    {
+      "job": "HK_base",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 286.01220267405733
+    },
+    {
+      "job": "HK_local_transport",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 286.08345514303073
+    }
+  ],
+  "cpu_preparation_cost_records": [
+    {
+      "job": "ISIC_base",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 65.27408734010532
+    },
+    {
+      "job": "ISIC_local_transport",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 65.32909112423658
+    },
+    {
+      "job": "HK_base",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 153.04938977817073
+    },
+    {
+      "job": "HK_local_transport",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 153.49465489620343
+    }
+  ],
+  "failures": [],
+  "round_gpu_process_residence_seconds": 752.9350273455493,
+  "cpu_preparation_process_residence_seconds": 437.1472231387161,
+  "historical_closed_gpu_process_residence_seconds": 323024.15084123565,
+  "cumulative_gpu_process_residence_seconds": 323777.0858685812,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "apart_batch_diag1_20261012": 821.2661481616087,
+    "module_lca12_20261013": 6729.443703245837,
+    "dat_hao_isic_hk2_20261012": 70577.7878515902,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "module_local2_20261010": 7624.042213955894,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "lca_switch_diag1_20261013": 220.52848667046055,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "module_lca11_20261013": 316.3400987358764,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "air_apart_isic_hk1_20261012": 10664.938242565375,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "rfmid_contrast4_20261011": 11070.13684507506,
+    "module_drift10_20261011": 8874.840206375346,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "lca_pair_guard1_20261013": 752.9350273455493
+  },
+  "whole_round_wall_seconds": 595.647123336792,
+  "production_cpu_checks": {
+    "status": "PASS",
+    "controls": [
+      "base",
+      "local_transport"
+    ],
+    "early_val_and_scope_rejected": true,
+    "stage_one_identity_and_empty_old": true,
+    "sidecar_roundtrip_and_provenance": true,
+    "all_signed_pair_counts_and_small_n_privacy": true,
+    "exact_new_raw_margin_and_prediction_preservation": true,
+    "full_stage_aggregate": true,
+    "full_report_and_bad_denominator": true,
+    "max_solve_residual": 8.573942220029302e-11,
+    "GPU_processes": 0,
+    "medical_images_read": 0,
+    "original_checkpoints_read": 0,
+    "optimizer_updates": 0,
+    "pipeline_seconds": 1.4020487442612648,
+    "cpu_process_residence_seconds": 8.038776339963078,
+    "cpu_attempt": 2,
+    "client_wall_seconds": 9.734399583889171,
+    "all_attempt_cpu_process_residence_seconds": 14.29485591687262,
+    "attempt1_disposition": "synthetic assertion corrected; no scientific formula/parameter change"
+  },
+  "historical_design_cpu_recharged": 0,
+  "historical_control_training_or_AIR_cost_recharged": 0,
+  "engineering_events": [
+    {
+      "phase": "synthetic_CPU_production_attempt1",
+      "status": "FAIL",
+      "reason": "Assertion incorrectly required identical wrong old labels for every true-new example. Fixed to frozen per-new-class predicted-set/correctness/margin invariants; all wrong-to-wrong changes remain counted.",
+      "cpu_process_residence_seconds": 6.256079576909542,
+      "GPU_seconds": 0,
+      "medical_images_read": 0,
+      "original_checkpoints_read": 0,
+      "formula_or_hyperparameter_change": false
+    }
+  ],
+  "gates": [
+    {
+      "dataset": "ISIC",
+      "candidate": "B",
+      "own_control_gates": {
+        "BA_ge_1": false,
+        "old_ge_1": false,
+        "tail_ge_minus_05": false,
+        "forget_le_1": false
+      }
+    },
+    {
+      "dataset": "ISIC",
+      "candidate": "P",
+      "own_control_gates": {
+        "BA_ge_1": false,
+        "old_ge_1": false,
+        "tail_ge_minus_05": false,
+        "forget_le_1": true
+      }
+    },
+    {
+      "dataset": "HK",
+      "candidate": "B",
+      "own_control_gates": {
+        "BA_ge_1": false,
+        "old_ge_1": false,
+        "tail_ge_minus_05": true,
+        "forget_le_1": true
+      }
+    },
+    {
+      "dataset": "HK",
+      "candidate": "P",
+      "own_control_gates": {
+        "BA_ge_1": false,
+        "old_ge_1": false,
+        "tail_ge_minus_05": false,
+        "forget_le_1": true
+      }
+    }
+  ],
+  "primary_target_met": false,
+  "guard_preservation_passed": true,
+  "old_drift_truth_measured": false,
+  "independent_confirmation": false,
+  "verified_source_stage_checkpoints": 18,
+  "nontrivial_analytic_solves": 14,
+  "max_native_solve_residual": 8.634613245520951e-10,
+  "max_repair_KKT_residual": 2.724708459356751e-15,
+  "max_saved_head_reconstruction_relative_error": 2.5535536833477544e-08,
+  "nontrivial_trust_active_count": 14,
+  "validation_image_exposures": 15966,
+  "preflight_image_exposures": 256,
+  "stage_new_exposures_with_exact_margin_preservation": 3986,
+  "new_class_rescued": 0,
+  "new_class_harmed": 0,
+  "new_samples_wrong_old_identity_changes": 9,
+  "GPU_parent_worker_ps_and_NVML_neutral_verified": true
+}

@@ -1,4 +1,4 @@
-"""Design-only, boundary readout repair. No training worker imports this module."""
+"""Boundary-only readout repair; frozen evaluation uses no training feedback."""
 import math
 
 import torch

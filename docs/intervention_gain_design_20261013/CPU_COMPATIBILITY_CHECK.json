@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "medical_val_reads": 0,
+  "formal_optimizer_updates": 0,
+  "production_integrated": false,
+  "all_design_permissions_refused": true,
+  "joint_transition_scalar_Gaussian_oracle_cases": 15,
+  "ambiguity_set_scalar_oracle_cases": 90,
+  "weighted_support_and_negative_variance_refused": true,
+  "largest_model_utility_interval_width": 0.14030338846570553,
+  "positive_synthetic_ray": {
+    "chosen_scale": 1.0,
+    "net_lower": 0.3333333333333333,
+    "exact_rescue": 0.3333333333333333,
+    "exact_harm": 0.0,
+    "independent_of_native_solver_fixture": true
+  },
+  "rescue_only_negative_net_counterexample": {
+    "exact_rescue": 0.13333333333333333,
+    "exact_harm": 0.3333333333333333,
+    "exact_net": -0.19999999999999998,
+    "safe_returns_identity": true
+  },
+  "unidentified_support_abstains": true,
+  "guard_argmax_scope_exact": true,
+  "old_mean_floor_verified": true,
+  "float32_float64_new_margin_safe": true,
+  "full_native_dense_cases": [
+    {
+      "control": "base",
+      "native_dense_oracle": true,
+      "outcomes": {
+        "GAIN": {
+          "nonzero": false,
+          "chosen_scale": 0.0,
+          "reason": null
+        },
+        "GAIN_NO_BORROW": {
+          "nonzero": false,
+          "chosen_scale": 0.0,
+          "reason": null
+        },
+        "GAIN_RESCUE_ONLY": {
+          "nonzero": false,
+          "chosen_scale": 0.0,
+          "reason": null
+        },
+        "NEUTRAL_MATCHED": {
+          "nonzero": false,
+          "chosen_scale": null,
+          "reason": null
+        }
+      },
+      "support_not_augmented": true
+    },
+    {
+      "control": "local_transport",
+      "native_dense_oracle": true,
+      "outcomes": {
+        "GAIN": {
+          "nonzero": false,
+          "chosen_scale": 0.0,
+          "reason": null
+        },
+        "GAIN_NO_BORROW": {
+          "nonzero": false,
+          "chosen_scale": 0.0,
+          "reason": null
+        },
+        "GAIN_RESCUE_ONLY": {
+          "nonzero": false,
+          "chosen_scale": 0.0,
+          "reason": null
+        },
+        "NEUTRAL_MATCHED": {
+          "nonzero": false,
+          "chosen_scale": null,
+          "reason": null
+        }
+      },
+      "support_not_augmented": true
+    }
+  ],
+  "maximum_solver_residual": 7.124067321787803e-10,
+  "bank_R_pairs_unchanged": true,
+  "checkpoint_roundtrip_and_wrong_head_source_refused": true,
+  "neutral_nonzero_energy_matched": true,
+  "shape_1536_by_23_only_not_full_high_dimensional_solve": true,
+  "model_confidence_calibrated": false,
+  "pipeline_seconds": 2.3056604340672493,
+  "process_residence_seconds": 9.291289448738098
+}

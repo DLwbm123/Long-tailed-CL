@@ -3,6 +3,7 @@ import base64
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 
 
@@ -21,8 +22,12 @@ def launch(round_dir):
     x=subprocess.run(['curl','--proxy',env['HTTPS_PROXY'],'--fail','--silent','--show-error','--max-time','45','--output',str(rt/'PROTOCOL_HTTP.private.md'),'--write-out','%{http_code}',url],env=env,text=True,capture_output=True)
     if x.returncode or x.stdout!='200':raise RuntimeError('Exact anonymous protocol not available through proxy')
     archive=subprocess.check_output(['git','archive',sha,'tools','third_party/APART','docs/lca_supported_design_20261012',str(r)])
+    coordinator=c.get('coordinator_entry','/tmp/q162c.py');worker=c['worker_entry']
+    if not re.fullmatch(r'/tmp/q[0-9]+c\.py',coordinator) or not re.fullmatch(r'/tmp/q[0-9]+w\.py',worker):
+        raise ValueError('Neutral coordinator and worker entries required')
     wrappers={path:'import os,sys,runpy\np=os.environ["Q128_SOURCE"]+"/tools"\nsys.path.insert(0,p)\nrunpy.run_path(p+"/'+program+'",run_name="__main__")\n'
-        for path,program in [('/tmp/q162c.py','run_lca_supported_cycle.py'),('/tmp/q162w.py','run_module_additions.py')]}
+        for path,program in [(coordinator,'run_lca_supported_cycle.py'),(worker,'run_module_additions.py')]}
+    c['coordinator_entry']=coordinator
     payload=json.dumps(dict(config=c,archive=base64.b64encode(archive).decode(),wrappers=wrappers))
     code='import base64,io,json,os,shutil,subprocess,tarfile,time\nfrom pathlib import Path\np=json.loads('+repr(payload)+')\n'+'''
 c=p['config'];root=Path(c['root']);assert root.is_dir() and not (root/'CONFIG.private.json').exists() and not (root/'LAUNCH.private.json').exists()
@@ -32,6 +37,10 @@ free=shutil.disk_usage(root).free;assert free>30*1024**3
 probe=root/'.launch_probe';probe.write_text('probe');assert probe.read_text()=='probe';probe.unlink()
 delivery=json.loads((root.parent/'dat_hao_isic_hk2_20261012'/'DELIVERY.private.json').read_text());assert delivery['commit']=='211143f73f1e3962665a4c678538b7b47f157e8f' and delivery['status']=='DELIVERED'
 ps=subprocess.check_output(['ps','-eo','args'],text=True);assert not any('/tmp/q159w.py' in line or '/tmp/q159c.py' in line for line in ps.splitlines())
+if c.get('previous_failed_round'):
+ prior=root.parent/c['previous_failed_round'];old=json.loads((prior/'PROGRAM_STATE.json').read_text());assert old['status']=='INCOMPLETE' and not old['active']
+ receipt=json.loads((prior/'DELIVERY.private.json').read_text());assert receipt['commit']==c['previous_failure_delivery_commit'] and receipt['status']=='DELIVERED'
+ assert not any('/tmp/q162w.py' in line or '/tmp/q162c.py' in line for line in ps.splitlines())
 available={int(r.split(',')[0]):int(r.split(',')[1]) for r in subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.free','--format=csv,noheader,nounits'],text=True).splitlines()}
 source=root/'source';source.mkdir()
 with tarfile.open(fileobj=io.BytesIO(base64.b64decode(p['archive']))) as tf:
@@ -48,7 +57,7 @@ for j in c['jobs']+c['preflights']:j.update(source_commit=c['source_commit'],ori
 (root/'PROTOCOL_FREEZE.json').write_text(json.dumps(dict(source_commit=c['source_commit'],protocol_anonymous_HTTP=200,GPU_scope=[0,1],new_trajectories=4,new_updates=1288))+chr(10))
 env=os.environ.copy();env.update(Q128_SOURCE=str(source),Q128_CONFIG=str(root/'CONFIG.private.json'),CUDA_VISIBLE_DEVICES='',TMPDIR=str(root/'tmp'))
 with (root/'coordinator.private.log').open('x') as log:
- proc=subprocess.Popen(['/tmp/q107v/bin/python','-u','/tmp/q162c.py'],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+ proc=subprocess.Popen(['/tmp/q107v/bin/python','-u',c['coordinator_entry']],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
 receipt=dict(pid=proc.pid,source_commit=c['source_commit'],launched_at=launched,deadline=c['deadline'],mount=mount,nas_free_bytes=free,GPU_free_mib={g:available[g] for g in (0,1)},protocol_anonymous_HTTP=200,new_trajectories=4,new_updates=1288)
 (root/'LAUNCH.private.json').write_text(json.dumps(receipt,indent=2)+chr(10));print(json.dumps(receipt))
 '''

@@ -84,6 +84,10 @@ def run(config):
                         receipt['policy_updates']!=0 or not receipt['gradient_norm']>0 or
                         receipt['max_solve_residual']>1e-8):
                     raise ValueError('Real backward zero-update receipt failed')
+                if config.get('version')=='supported_old_margin_v1' and (
+                        receipt.get('parameters_unchanged') is not True or receipt.get('test_accessed') is not False
+                        or 'lca_supported' not in receipt):
+                    raise ValueError('Incomplete LCA state/sealing receipt')
         state['phase']='TRAIN';write()
         if phase(config['jobs'],'train'):
             for job in config['jobs']:

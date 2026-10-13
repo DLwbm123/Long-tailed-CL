@@ -47,9 +47,17 @@ def run():
         env=dict(f=f,st={'status':worker},scalar=lambda v:{k:x for k,x in v.items() if type(x) in (float,int,bool)},preflights={},name='fixture')
         exec(normalize,env);v=env['preflights']['fixture']
         assert v['receipt_complete']==expected and (v['status']=='PASS')==expected
+    cycle=ast.parse(Path(__file__).with_name('run_module_cycle.py').read_text())
+    gate=next(n for n in ast.walk(cycle) if isinstance(n,ast.If) and "config.get('version') == 'supported_old_margin_v1'" in ast.unparse(n.test))
+    guard=compile(ast.fix_missing_locations(ast.Module(body=[gate],type_ignores=[])),'coordinator_receipt','exec')
+    for receipt,accept in [(full,True),(dict(full,parameters_unchanged=False),False),(dict(full,test_accessed=True),False),({k:v for k,v in full.items() if k!='lca_supported'},False)]:
+        try:exec(guard,dict(config={'version':'supported_old_margin_v1'},receipt=receipt))
+        except ValueError:assert not accept
+        else:assert accept
     return dict(status='PASS',gpu_work=False,medical_images_read=False,formal_updates=0,
         device_conversion_required=True,changed_state_rejected_before_receipt=True,
         success_receipt_written_once=True,premature_PASS_rejected=True,
+        coordinator_state_and_test_sealing_guard=True,
         real_GPU_fix_validation=False)
 
 

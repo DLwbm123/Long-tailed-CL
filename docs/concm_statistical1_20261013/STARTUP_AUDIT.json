@@ -1,0 +1,102 @@
+{
+  "source_commit": "5d114e65c8b6cad8cc0d62e3a963bd6fa647bd7b",
+  "status": "RUNNING",
+  "phase": "EVALUATE",
+  "variant": "MPC",
+  "CPU_preparations": 4,
+  "original_stage_checkpoints": 18,
+  "prepared_sidecars": 54,
+  "MPC_real_zero_preflight_passes": 4,
+  "preflight": {
+    "ISIC_local_transport": {
+      "status": "PASS",
+      "job": "ISIC_local_transport",
+      "variant": "MPC",
+      "version": "visual_support_completion_etf_head_v1",
+      "source_commit": "5d114e65c8b6cad8cc0d62e3a963bd6fa647bd7b",
+      "real_validation_images": 64,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "train_accessed": false,
+      "test_accessed": false,
+      "peak_gpu_bytes": 1291517440,
+      "worker_wall_seconds": 16.823958646971732
+    },
+    "HK_local_transport": {
+      "status": "PASS",
+      "job": "HK_local_transport",
+      "variant": "MPC",
+      "version": "visual_support_completion_etf_head_v1",
+      "source_commit": "5d114e65c8b6cad8cc0d62e3a963bd6fa647bd7b",
+      "real_validation_images": 64,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "train_accessed": false,
+      "test_accessed": false,
+      "peak_gpu_bytes": 1291609600,
+      "worker_wall_seconds": 14.57399785099551
+    },
+    "ISIC_base": {
+      "status": "PASS",
+      "job": "ISIC_base",
+      "variant": "MPC",
+      "version": "visual_support_completion_etf_head_v1",
+      "source_commit": "5d114e65c8b6cad8cc0d62e3a963bd6fa647bd7b",
+      "real_validation_images": 64,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "train_accessed": false,
+      "test_accessed": false,
+      "peak_gpu_bytes": 1291517440,
+      "worker_wall_seconds": 16.822745365090668
+    },
+    "HK_base": {
+      "status": "PASS",
+      "job": "HK_base",
+      "variant": "MPC",
+      "version": "visual_support_completion_etf_head_v1",
+      "source_commit": "5d114e65c8b6cad8cc0d62e3a963bd6fa647bd7b",
+      "real_validation_images": 64,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "train_accessed": false,
+      "test_accessed": false,
+      "peak_gpu_bytes": 1291609600,
+      "worker_wall_seconds": 14.671493670903146
+    }
+  },
+  "closed_preflight_GPU_residence_seconds": 80.11302102264017,
+  "CPU_checkpoint_preparation_process_residence_seconds": 145.4491453897208,
+  "CPU_preparation_pipeline_included": true,
+  "active_jobs": [
+    {
+      "job": "HK_local_transport",
+      "operation": "evaluate",
+      "variant": "MPC"
+    },
+    {
+      "job": "HK_base",
+      "operation": "evaluate",
+      "variant": "MPC"
+    }
+  ],
+  "failures": [],
+  "optimizer_updates": 0,
+  "test_accessed": false,
+  "neutral_full_commands": true,
+  "remote_SHA_and_exact_protocol_HTTP200": true,
+  "checked_at": 1791873246.4833548,
+  "classification_results_collected": false
+}

@@ -1,0 +1,396 @@
+{
+  "status": "PASS",
+  "source_commit": "2fdfaa546309b7590a17d039a137c34a7047e807",
+  "formal_complete": 4,
+  "formal_adapter_updates": 1288,
+  "real_zero_update_preflights": 4,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "successful_cost_records": 12,
+  "failures": [],
+  "dispatch_gpus": [
+    0,
+    1
+  ],
+  "max_solve_residual": 9.998343054649757e-10,
+  "reused_updates_and_costs_charged": 0,
+  "round_gpu_process_residence_seconds": 6729.443703245837,
+  "cumulative_gpu_process_residence_seconds": 322803.6223545652,
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "apart_batch_diag1_20261012": 821.2661481616087,
+    "dat_hao_isic_hk2_20261012": 70577.7878515902,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "module_local2_20261010": 7624.042213955894,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "module_lca11_20261013": 316.3400987358764,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "air_apart_isic_hk1_20261012": 10664.938242565375,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "rfmid_contrast4_20261011": 11070.13684507506,
+    "module_drift10_20261011": 8874.840206375346,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "module_lca12_20261013": 6729.443703245837
+  },
+  "parallel_wall_seconds": 3366.2457222240046,
+  "whole_round_wall_seconds": 3372.7119920253754,
+  "cpu_checks": {
+    "status": "PASS",
+    "cpu_pipeline_seconds": 22.42304039094597,
+    "gpu_work": false,
+    "medical_images_or_raw_labels_read": false,
+    "test_accessed": false,
+    "formal_updates": 0,
+    "synthetic_optimizer_updates": 120,
+    "real_GPU_preflights": 0,
+    "disabled_production_parameters_heads_global_stats_exact": true,
+    "both_datasets_all_tasks_call_chain": true,
+    "controller_batch_loss_boundary_share_prior": true,
+    "active_synthetic_prior_nonzero": true,
+    "new_column_direct_force_zero": true,
+    "checkpoint_rebuilds": 18,
+    "real_production_preflight_entry_CPU_fixtures_pass": true,
+    "wrong_GPU_budget_version_test_rejected": true,
+    "training_validation_manifest_guard": true,
+    "exact_four_training_barrier_rejects_missing": true,
+    "max_solve_residual": 9.102932837023965e-10,
+    "math_checks": {
+      "status": "PASS",
+      "cpu_pipeline_seconds": 1.9673450430855155,
+      "gpu_work": false,
+      "medical_images_or_labels_read": false,
+      "test_accessed": false,
+      "formal_optimizer_updates": 0,
+      "synthetic_optimizer_updates": 0,
+      "old_drift_proxy_moment_oracle": true,
+      "unsupported_old_energy_reported": true,
+      "pure_translation_zero": true,
+      "no_old_task_zero": true,
+      "local_relaxation_overlap_removed": true,
+      "no_energy_renormalization": true,
+      "curvature_relative_bounds": [
+        0.0018040977227551597,
+        0.001804622179681969
+      ],
+      "native_zero_reduction_exact": true,
+      "competition_hessian_oracle": true,
+      "proximal_Woodbury_operator_consistent": true,
+      "frozen_prior_envelope_gradient": true,
+      "new_column_direct_force_zero": true,
+      "new_column_solution_unchanged_only_when_competition_zero": true,
+      "new_recall_guarantee": false,
+      "checkpoint_roundtrip": true,
+      "wrong_version_rejected": true,
+      "binary_signed_rhs_sign_counts_unknown_and_bias_preserved": true,
+      "existing_statistics_unchanged": true,
+      "max_solve_residual": 6.652513115292147e-10,
+      "global_dimension_1536_synthetic_solve": true,
+      "HK_23_output_old_new_partition": true,
+      "design_budget_and_no_launch_scope_checked": true,
+      "production_worker_integration": false,
+      "real_GPU_preflights": 0
+    },
+    "cpu_all_attempts_process_residence_seconds": 29.039872147142887,
+    "final_process_residence_seconds": 29.039872147142887,
+    "pipeline_included_in_residence": true,
+    "CPU_attempts": 1,
+    "synthetic_optimizer_updates_all_executions": 120,
+    "previous_checks_not_charged_again": true
+  },
+  "control_matching": {
+    "status": "PASS",
+    "data": {
+      "ISIC": {
+        "train_n": 18718,
+        "val_n": 295,
+        "train_counts": {
+          "4": 458,
+          "7": 27,
+          "5": 256,
+          "1": 3263,
+          "2": 2835,
+          "6": 44,
+          "0": 10529,
+          "3": 1306
+        },
+        "val_counts": {
+          "4": 41,
+          "7": 24,
+          "5": 37,
+          "1": 37,
+          "2": 46,
+          "6": 26,
+          "0": 44,
+          "3": 40
+        },
+        "tasks": [
+          {
+            "train_n": 4004,
+            "fit_n": 3177,
+            "meta_n": 827,
+            "updates": 100
+          },
+          {
+            "train_n": 2879,
+            "fit_n": 2292,
+            "meta_n": 587,
+            "updates": 72
+          },
+          {
+            "train_n": 11835,
+            "fit_n": 9434,
+            "meta_n": 2401,
+            "updates": 296
+          }
+        ]
+      },
+      "HK": {
+        "train_n": 6821,
+        "val_n": 1698,
+        "train_counts": {
+          "4": 626,
+          "5": 3,
+          "6": 6,
+          "22": 85,
+          "20": 288,
+          "1": 403,
+          "2": 736,
+          "15": 488,
+          "14": 252,
+          "12": 167,
+          "10": 595,
+          "11": 261,
+          "19": 6,
+          "16": 34,
+          "7": 83,
+          "0": 25,
+          "17": 23,
+          "9": 635,
+          "18": 127,
+          "13": 662,
+          "21": 18,
+          "8": 654,
+          "3": 644
+        },
+        "val_counts": {
+          "4": 165,
+          "5": 1,
+          "6": 1,
+          "22": 21,
+          "20": 66,
+          "1": 113,
+          "2": 182,
+          "15": 123,
+          "14": 60,
+          "12": 41,
+          "10": 150,
+          "11": 61,
+          "19": 2,
+          "16": 8,
+          "7": 21,
+          "0": 7,
+          "17": 5,
+          "9": 164,
+          "18": 33,
+          "13": 160,
+          "21": 4,
+          "8": 153,
+          "3": 157
+        },
+        "tasks": [
+          {
+            "train_n": 3916,
+            "fit_n": 3133,
+            "meta_n": 783,
+            "updates": 98
+          },
+          {
+            "train_n": 117,
+            "fit_n": 93,
+            "meta_n": 24,
+            "updates": 4
+          },
+          {
+            "train_n": 48,
+            "fit_n": 38,
+            "meta_n": 10,
+            "updates": 2
+          },
+          {
+            "train_n": 762,
+            "fit_n": 610,
+            "meta_n": 152,
+            "updates": 20
+          },
+          {
+            "train_n": 680,
+            "fit_n": 544,
+            "meta_n": 136,
+            "updates": 18
+          },
+          {
+            "train_n": 1298,
+            "fit_n": 1038,
+            "meta_n": 260,
+            "updates": 34
+          }
+        ]
+      }
+    },
+    "controls": {
+      "ISIC_base": {
+        "status": "PASS",
+        "fields_matched": [
+          "manifest",
+          "images",
+          "weight",
+          "legacy_repo",
+          "seed",
+          "split_seed",
+          "epochs",
+          "batch_size",
+          "lr",
+          "method",
+          "order",
+          "task_sizes",
+          "expected_steps"
+        ],
+        "delivery_commit": "ecd783ffd7b32eea4e2e2a1311b9f033231f1677"
+      },
+      "ISIC_local_transport": {
+        "status": "PASS",
+        "fields_matched": [
+          "manifest",
+          "images",
+          "weight",
+          "legacy_repo",
+          "seed",
+          "split_seed",
+          "epochs",
+          "batch_size",
+          "lr",
+          "method",
+          "order",
+          "task_sizes",
+          "expected_steps"
+        ],
+        "delivery_commit": "4b6e0c87887b101ae2970738919760f00e19726e"
+      },
+      "HK_base": {
+        "status": "PASS",
+        "fields_matched": [
+          "manifest",
+          "images",
+          "weight",
+          "legacy_repo",
+          "seed",
+          "split_seed",
+          "epochs",
+          "batch_size",
+          "lr",
+          "method",
+          "order",
+          "task_sizes",
+          "expected_steps"
+        ],
+        "delivery_commit": "ecd783ffd7b32eea4e2e2a1311b9f033231f1677"
+      },
+      "HK_local_transport": {
+        "status": "PASS",
+        "fields_matched": [
+          "manifest",
+          "images",
+          "weight",
+          "legacy_repo",
+          "seed",
+          "split_seed",
+          "epochs",
+          "batch_size",
+          "lr",
+          "method",
+          "order",
+          "task_sizes",
+          "expected_steps"
+        ],
+        "delivery_commit": "4b6e0c87887b101ae2970738919760f00e19726e"
+      }
+    },
+    "prior_round_delivery_verified": true,
+    "medical_images_read": false,
+    "test_accessed": false,
+    "historical_model_or_features_read": false,
+    "reused_check_from": "module_lca11_20261013",
+    "reused_CPU_work_not_charged_again": true
+  },
+  "engineering_events": [],
+  "screens": [
+    {
+      "dataset": "ISIC",
+      "candidate": "lca_supported",
+      "base_relative": {
+        "BA": false,
+        "tail": true,
+        "forgetting": true,
+        "old": true,
+        "new": true
+      },
+      "own_control_BA_ge_1": false,
+      "new_mean_protection_ge_minus1": true
+    },
+    {
+      "dataset": "ISIC",
+      "candidate": "local_transport_lca_supported",
+      "base_relative": {
+        "BA": true,
+        "tail": true,
+        "forgetting": true,
+        "old": true,
+        "new": true
+      },
+      "own_control_BA_ge_1": false,
+      "new_mean_protection_ge_minus1": true
+    },
+    {
+      "dataset": "HK",
+      "candidate": "lca_supported",
+      "base_relative": {
+        "BA": false,
+        "tail": true,
+        "forgetting": true,
+        "old": true,
+        "new": true
+      },
+      "own_control_BA_ge_1": false,
+      "new_mean_protection_ge_minus1": true
+    },
+    {
+      "dataset": "HK",
+      "candidate": "local_transport_lca_supported",
+      "base_relative": {
+        "BA": false,
+        "tail": true,
+        "forgetting": true,
+        "old": true,
+        "new": true
+      },
+      "own_control_BA_ge_1": false,
+      "new_mean_protection_ge_minus1": true
+    }
+  ],
+  "module_target_met": false,
+  "nonzero_prior_is_not_utility": true,
+  "new_recall_guarantee": false
+}

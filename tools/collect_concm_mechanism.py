@@ -84,7 +84,7 @@ def collect(round_dir):
 p=json.loads((root/'PROGRAM_STATE.json').read_text());assert p['status'] in ('COMPLETE','INCOMPLETE') and not p['active']
 for proc in Path('/proc').iterdir():
  if proc.name.isdigit():
-  try:args=(proc/'cmdline').read_bytes().split(b'\\0')
+  try:args=(proc/'cmdline').read_bytes().split(bytes([0]))
   except (FileNotFoundError,PermissionError):continue
   assert b'/tmp/q171w.py' not in args and b'/tmp/q171c.py' not in args
 s=dict(program=p,prepared={},runs={},preflights={})

@@ -1,11 +1,25 @@
 """Collect only anonymous fixed-state aggregate diagnostics and complete cost records."""
 import csv
+import copy
 import json
 from pathlib import Path
 import subprocess
 
 JOBS=[ds+'_'+arm for ds in ('ISIC','HK') for arm in ('lca_supported','local_transport_lca_supported')]
 METRICS=('balanced_accuracy','accuracy','tail_recall','old_recall','new_recall','macro_f1')
+
+
+def public_snapshot(s):
+    """Small-class continuous summaries can otherwise disclose an individual margin."""
+    s=copy.deepcopy(s)
+    for run in s['runs'].values():
+        for group,values in run.get('margin_changes',{}).items():
+            if group in ('all','old','new'):continue
+            for stats in values.values():
+                if stats['n']<5:
+                    for key in ('mean','std','minimum','maximum','p05','median','p95'):stats[key]=None
+                    stats['continuous_values_suppressed_small_group']=True
+    return s
 
 
 def report(s,out):
@@ -48,7 +62,7 @@ def report(s,out):
         historical_costs_recharged=0)
     out.mkdir(exist_ok=False)
     (out/'AUDIT.json').write_text(json.dumps(audit,indent=2,allow_nan=False)+'\n')
-    (out/('RESULTS.json' if complete else 'PARTIAL_RESULTS.json')).write_text(json.dumps(s,indent=2,allow_nan=False)+'\n')
+    (out/('RESULTS.json' if complete else 'PARTIAL_RESULTS.json')).write_text(json.dumps(public_snapshot(s),indent=2,allow_nan=False)+'\n')
     lines=['# 最终 checkpoint 同状态模块开关诊断','',
         'OFF：保持 checkpoint 的 encoder、统计量、局部先验、竞争权重/RHS不变，仅令新增S为0后重解；ON：原保存float32解析头，double重建验收。差异统一为ON−OFF。OFF不是历史base/local_transport。',
         '仅最终stage，因此不制造平均增量或遗忘指标。单seed反复development val；没有重训、调参、train/test/reserved读取。',

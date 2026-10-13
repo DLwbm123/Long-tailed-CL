@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "version": "old_pair_residual_guard_v1",
+  "cpu_pipeline_seconds": 5.617083211895078,
+  "medical_images_opened": 0,
+  "medical_checkpoints_opened": 0,
+  "GPU_processes": 0,
+  "optimizer_updates": 0,
+  "test_accessed": false,
+  "expanded_sample_native_hessian_oracle": true,
+  "dense_quadratic_oracle": true,
+  "trust_KKT_and_radius": true,
+  "exact_zero_and_first_task_identity": true,
+  "old_class_permutation_equivariance": true,
+  "base_and_local_transport_compatible": true,
+  "bank_unchanged": true,
+  "exact_new_margin_and_group_guards": {
+    "torch.float32": {
+      "new_margin_changed": 0,
+      "new_correctness_changed": 0,
+      "old_new_group_changed": 0
+    },
+    "torch.float64": {
+      "new_margin_changed": 0,
+      "new_correctness_changed": 0,
+      "old_new_group_changed": 0
+    }
+  },
+  "synthetic_old_correction_and_raw_new_harm_example": true,
+  "old_class_harm_not_guaranteed_absent": true,
+  "sidecar_roundtrip_and_wrong_scope_rejected": true,
+  "new_softmax_probabilities_not_guaranteed": true,
+  "actual_width_1536_HK23": true,
+  "reduced_coefficients": 400,
+  "maximum_relative_solve_residual": 1.1280050089542524e-10,
+  "small_fixture_controls": [
+    {
+      "control": "base",
+      "head_delta": 0.052932099478813346,
+      "pair_deficit_before": 0.36615536827288037,
+      "pair_deficit_after": 0.3227035391942719,
+      "trust_active": true,
+      "native_energy_step": 0.1,
+      "plain_scale_head_delta": 0.052932099478813346,
+      "curvature_normalized": 1.0,
+      "normalized_plain_relative_difference": 9.242299544658616e-17,
+      "free_normalization_changes_solution": true,
+      "binding_trust_can_remove_normalization_difference": true
+    },
+    {
+      "control": "local_transport",
+      "head_delta": 0.05293820323646419,
+      "pair_deficit_before": 0.3661136730751554,
+      "pair_deficit_after": 0.3226604667515512,
+      "trust_active": true,
+      "native_energy_step": 0.1,
+      "plain_scale_head_delta": 0.05293820323646419,
+      "curvature_normalized": 1.0,
+      "normalized_plain_relative_difference": 2.4702603206490526e-16,
+      "free_normalization_changes_solution": true,
+      "binding_trust_can_remove_normalization_difference": true
+    }
+  ],
+  "large_fixture": {
+    "head_delta": 0.001171434681592623,
+    "trust_active": true,
+    "pair_deficit_before": 0.9521969025667816,
+    "pair_deficit_after": 0.9521774054493879
+  },
+  "scope_rejection": true,
+  "cpu_process_residence_seconds": 11.194916886743158,
+  "cpu_attempt": 2,
+  "visible_command_neutral": true,
+  "client_wall_seconds": 11.511252459138632,
+  "all_measured_cpu_checks": [
+    {
+      "attempt": 1,
+      "status": "PASS",
+      "cpu_process_residence_seconds": 12.438812679145485,
+      "cpu_pipeline_seconds": 6.087779636029154,
+      "client_wall_seconds": 12.742489000083879,
+      "reason": "Initial synthetic math and compatibility checks"
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "cpu_process_residence_seconds": 11.194916886743158,
+      "cpu_pipeline_seconds": 5.617083211895078,
+      "client_wall_seconds": 11.511252459138632,
+      "reason": "Added checks for normalization degeneracy at active trust bound, exact identity and probability non-guarantee"
+    }
+  ],
+  "cpu_process_residence_seconds_all_attempts": 23.633729565888643,
+  "cpu_pipeline_seconds_all_attempts": 11.704862847924232,
+  "pipeline_included_in_residence": true,
+  "failed_cpu_attempts": 0
+}

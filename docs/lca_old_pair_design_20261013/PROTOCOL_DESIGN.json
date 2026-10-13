@@ -1,0 +1,160 @@
+{
+  "version": "old_pair_residual_guard_v1",
+  "status": "CPU_DESIGN_ONLY",
+  "GPU_launch_authorized": false,
+  "production_integrated": false,
+  "optimizer_updates": 0,
+  "test_accessed": false,
+  "medical_data_access_authorized": false,
+  "checkpoint_access_authorized": false,
+  "future_gpus": [
+    0,
+    1
+  ],
+  "seed": 74002,
+  "relative_pair_curvature": 1.0,
+  "native_energy_radius": 0.1,
+  "pair_target": 1.0,
+  "pair_reliability": "n/(n+1), divided by old_count*(old_count-1)",
+  "training_feedback": false,
+  "primary_control": "local_transport",
+  "old_drift_estimated": false,
+  "module_scope": "boundary-only old-class mean-margin residual correction with an old-maximum-preserving readout",
+  "feature_space": "orthonormal centered old means, machine precision rank; no local-prior span deletion",
+  "output_space": "centered old columns; zero new columns",
+  "optimizer_trained_parameters": 0,
+  "maximum_HK_analytic_coefficients": 400,
+  "readout": "all new logits identical; old logits shifted to preserve baseline old maximum; no labels or true task ID",
+  "linear_head_only": false,
+  "new_raw_margin_guarantee": "exact for identical input features and baseline scores at each stage",
+  "probability_calibration_guarantee": false,
+  "old_class_improvement_guarantee": false,
+  "earlier_stage_new_classes_can_change_when_old": true,
+  "controls": {
+    "A0": {
+      "round": "module_additions1_20261009",
+      "source": "0cfe6b648f5de1b8e8783265e7a0b97b64939952",
+      "delivery": "ecd783ffd7b32eea4e2e2a1311b9f033231f1677"
+    },
+    "AL": {
+      "round": "module_local2_20261010",
+      "source": "0f0d8a0717c6da09109cc9205cccf44c490d3e84",
+      "delivery": "4b6e0c87887b101ae2970738919760f00e19726e"
+    }
+  },
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "original_training_updates": {
+    "ISIC": 468,
+    "HK": 176
+  },
+  "prior_diagnostic_commit": "3649e06640121cc99bb517fc478ef06ba9f391b1",
+  "core_cells": [
+    "A0",
+    "AL",
+    "B",
+    "P"
+  ],
+  "cells": {
+    "A0": "original base checkpoint readout",
+    "AL": "original local_transport checkpoint readout",
+    "B": "A0 + normalized old-pair repair + guard",
+    "P": "AL + normalized old-pair repair + guard",
+    "P_raw": "AL + identical normalized correction without guard",
+    "P_plain": "AL + lambda=1 correction with same native trust radius and guard"
+  },
+  "mechanism_cells": [
+    "P_raw",
+    "P_plain"
+  ],
+  "future_experiment_authorized": false,
+  "future_evaluation": "reuse 18 source stage checkpoints; all analytic sidecars sealed before any new val inference; 4 shared-encoder evaluation trajectories",
+  "future_main_nontrivial_analytic_solves": 14,
+  "future_full_nontrivial_analytic_solves": 21,
+  "future_new_training_updates": 0,
+  "future_new_seeds": 0,
+  "future_training_image_reads": 0,
+  "future_validation_retuning": false,
+  "future_normal_gpu_cost_records": 8,
+  "future_gpu_cost_basis": "4 real zero-update inference preflights plus 4 evaluation workers; every failure additionally charged",
+  "future_automatic_retry": false,
+  "allow_new_runs": false,
+  "contrasts": [
+    "B-A0",
+    "P-AL",
+    "P-B",
+    "P-A0",
+    "(P-AL)-(B-A0)",
+    "P-P_raw",
+    "P-P_plain"
+  ],
+  "future_report": "all six stage metrics/Acc/F1 available, 31-class n/recall, old-old and old-new paired corrections/harms, raw and guarded margins, AIR gaps, all signed contrasts and residence",
+  "acceptance": {
+    "primary_final_BA_gain_pp": 1.0,
+    "primary_old_recall_gain_pp": 1.0,
+    "tail_min_pp": -0.5,
+    "forget_max_pp": 1.0,
+    "new_prediction_changes": 0,
+    "new_raw_margin_max_abs_change": 0.0,
+    "old_new_group_changes": 0,
+    "both_datasets_required": true,
+    "no_claim_if_missing_or_zero_action": true
+  },
+  "production_pending": [
+    "immutable control/source/checkpoint metadata admission and saved-head reconstruction",
+    "isolated sidecar preparation and source freeze before val",
+    "exact CPU/GPU readout parity and raw-vs-guard aggregate reporting",
+    "paired collector/report and permission barriers",
+    "explicit future evaluation authorization and GPU01 admission"
+  ]
+}

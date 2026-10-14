@@ -1,0 +1,189 @@
+{
+  "status": "RUNNING",
+  "phase": "STATISTICS",
+  "source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+  "snapshot_at": 1791971269.26497,
+  "launched_at": 1791971139.3484418,
+  "deadline": 1792057539.3484418,
+  "prepared_stages": 18,
+  "fixed_sidecars": 72,
+  "real_zero_update_preflights_passed": 4,
+  "preflights": {
+    "ISIC_base": {
+      "status": "PASS",
+      "version": "crisk_training_evidence_evaluation_v4",
+      "source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+      "job": "ISIC_base",
+      "real_training_images": 64,
+      "image_exposures": 128,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "independent_calibration": false,
+      "peak_gpu_bytes": 1291517440
+    },
+    "ISIC_local_transport": {
+      "status": "PASS",
+      "version": "crisk_training_evidence_evaluation_v4",
+      "source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+      "job": "ISIC_local_transport",
+      "real_training_images": 64,
+      "image_exposures": 128,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "independent_calibration": false,
+      "peak_gpu_bytes": 1291517440
+    },
+    "HK_base": {
+      "status": "PASS",
+      "version": "crisk_training_evidence_evaluation_v4",
+      "source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+      "job": "HK_base",
+      "real_training_images": 64,
+      "image_exposures": 128,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "independent_calibration": false,
+      "peak_gpu_bytes": 1291609600
+    },
+    "HK_local_transport": {
+      "status": "PASS",
+      "version": "crisk_training_evidence_evaluation_v4",
+      "source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+      "job": "HK_local_transport",
+      "real_training_images": 64,
+      "image_exposures": 128,
+      "parameters_unchanged": true,
+      "CPU_GPU_scores_close": true,
+      "classification_metrics_read": false,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "independent_calibration": false,
+      "peak_gpu_bytes": 1291609600
+    }
+  },
+  "neutral_parent_child_commands_checked": true,
+  "neutral_NVML_checked": true,
+  "active": [
+    {
+      "job": "ISIC_base",
+      "operation": "statistics"
+    },
+    {
+      "job": "ISIC_local_transport",
+      "operation": "statistics"
+    }
+  ],
+  "formal_failures": [],
+  "closed_preflight_GPU_residence_seconds": 80.73465728526935,
+  "CPU_metadata_residence_seconds": 28.28520038444549,
+  "GPU_cost_records_closed_subset": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 20.61851624492556,
+      "process_started": true,
+      "dispatch_wall_seconds": 20.696123057976365
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 20.76678322860971,
+      "process_started": true,
+      "dispatch_wall_seconds": 20.878039376810193
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 19.62849002983421,
+      "process_started": true,
+      "dispatch_wall_seconds": 19.713088885881007
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 19.72086778189987,
+      "process_started": true,
+      "dispatch_wall_seconds": 19.822043656837195
+    }
+  ],
+  "CPU_cost_records_closed_subset": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 6.727190108038485,
+      "process_started": true,
+      "dispatch_wall_seconds": 6.745602790266275
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 6.83083728607744,
+      "process_started": true,
+      "dispatch_wall_seconds": 6.8425419689156115
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 6.937052170280367,
+      "process_started": true,
+      "dispatch_wall_seconds": 6.953662732616067
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 7.7901208200491965,
+      "process_started": true,
+      "dispatch_wall_seconds": 7.799470545724034
+    }
+  ],
+  "final_costs_closed": false,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "val_accessed": false,
+  "test_accessed": false,
+  "current_classification_results_available": false,
+  "source_public_anonymous_HTTP": 200,
+  "NAS_mount": "nfs4",
+  "launch_probe_pass": true
+}

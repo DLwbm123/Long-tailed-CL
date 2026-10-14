@@ -1,18 +1,18 @@
-"""CPU design only: temporal prototype rotations and a consistent quadratic head anchor."""
+"""Frozen temporal rotations and a consistent analytic-head anchor; no val selection."""
 import math
 
 import torch
 
 import core1_competition as native
 
-VERSION = 'temporal_native_geometry_anchor_v1_CPU_DESIGN'
+VERSION = 'temporal_native_geometry_anchor_v1'
 SUPPORT_SMOOTHING = 16.
 RELATIVE_CURVATURE = .1
 
 
 def validate(*tensors):
-    if any(t.device.type != 'cpu' or t.dtype != torch.float64 or not torch.isfinite(t).all() for t in tensors):
-        raise ValueError('Finite CPU float64 inputs required')
+    if any(t.dtype != torch.float64 or t.device != tensors[0].device or not torch.isfinite(t).all() for t in tensors):
+        raise ValueError('Finite same-device float64 inputs required')
 
 
 def temporal_target(reference, before, current, start_curvature, counts, ages):
@@ -70,7 +70,7 @@ def anchor_matrix(weights):
     k = len(weights)
     if k < 2:
         raise ValueError('At least two seen classes required')
-    P = torch.eye(k, dtype=weights.dtype)-torch.ones((k,k), dtype=weights.dtype)/k
+    P = torch.eye(k, dtype=weights.dtype, device=weights.device)-torch.ones((k,k), dtype=weights.dtype, device=weights.device)/k
     return P@torch.diag(weights)@P
 
 
@@ -82,7 +82,7 @@ def anchor_loss(head, target, weights, strength):
     return .5*strength*(error*(error@H)).sum()
 
 
-def solve(q, mu, mass, pairs, R, target, weights, strength, previous=None, proximal=0.):
+def solve(q, mu, mass, pairs, R, target, weights, strength, previous=None, proximal=0., inverse=None, x=None, alpha=None, native_head=None):
     """Same native objective plus a PSD class-contrast term; no inference entry point."""
     validate(q, mu, mass, pairs, R, target, weights)
     k, d = mu.shape
@@ -101,10 +101,9 @@ def solve(q, mu, mass, pairs, R, target, weights, strength, previous=None, proxi
         if previous.shape != target.shape:
             raise ValueError('Proximal reference shape mismatch')
     if strength == 0 or not weights.any():
-        return native.solve(q, mu, mass, pairs, regularizer=R, previous=previous, proximal=proximal)
+        return native.solve(q, mu, mass, pairs, regularizer=R, previous=previous, proximal=proximal, inverse=inverse, x=x, alpha=alpha, native=native_head)
     H = anchor_matrix(weights)
-    G = q.sum(0)+.001*R+proximal*torch.eye(d, dtype=q.dtype)
-    factor = torch.linalg.cholesky(G)
+    G = q.sum(0)+.001*R+proximal*torch.eye(d, dtype=q.dtype, device=q.device)
     lap, targets = native.laplacians(pairs)
     rhs = mu.T+.5*(mu.T@targets)+strength*(target@H)
     if proximal:
@@ -113,8 +112,56 @@ def solve(q, mu, mass, pairs, R, target, weights, strength, previous=None, proxi
     def operator(w):
         return G@w+.5*torch.einsum('cdk,ckl->dl', q@w, lap)+strength*(w@H)
 
-    def precondition(w):
-        return torch.cholesky_solve(w, factor)
+    if inverse is None:
+        factor = torch.linalg.cholesky(G)
+        def precondition(w):return torch.cholesky_solve(w, factor)
+    else:
+        validate(inverse, x, alpha)
+        u=x.T*alpha.sqrt()[None,:];v=inverse@u
+        factor=torch.linalg.cholesky(torch.eye(len(x),dtype=x.dtype,device=x.device)+u.T@v)
+        def precondition(w):
+            value=inverse@w
+            return value-v@torch.cholesky_solve(u.T@value,factor)
+    initial = precondition(rhs) if native_head is None else native_head
+    head,audit=native.pcg(operator, rhs, precondition, initial)
+    force=strength*((head-target)@H)
+    return head,dict(audit,anchor_force_norm=float(force.norm()))
 
-    initial = precondition(rhs)
-    return native.pcg(operator, rhs, precondition, initial)
+
+@torch.no_grad()
+def prepare(reference_state, candidate, pairs, R, mode, ages):
+    k=len(candidate['n'])
+    if reference_state is None:
+        W0,_=native.bank_head(candidate,pairs,regularizer=R)
+        G0=candidate['Q'].sum(0)/k+.001*R
+        reference_state=dict(W0=W0.detach().clone(),mu0=candidate['mu'].detach().clone(),G0=G0.detach().clone(),
+                             counts=list(candidate['n']),ages=list(ages),strength=RELATIVE_CURVATURE*float(G0.diagonal().mean()))
+    A,rho,angles=temporal_target(reference_state['W0'],reference_state['mu0'],candidate['mu'],reference_state['G0'],reference_state['counts'],reference_state['ages'])
+    if mode not in ('dynamic','static'):raise ValueError('Frozen dynamic/static target required')
+    dynamic_difference=float((A-reference_state['W0']).norm()/reference_state['W0'].norm().clamp_min(1e-30))
+    if mode=='static':A=reference_state['W0'].clone()
+    state=dict(version=VERSION,target=A.detach(),weights=rho.detach(),strength=reference_state['strength'])
+    return reference_state,state,dict(strength=state['strength'],support_min=float(rho.min()),support_mean=float(rho.mean()),
+        support_max=float(rho.max()),prototype_rotation_mean=sum(a['prototype_rotation_radians'] for a in angles)/k,
+        applied_rotation_mean=sum(a['applied_rotation_radians'] for a in angles)/k,
+        dynamic_target_relative_difference=dynamic_difference,target_relative_difference=float((A-reference_state['W0']).norm()/reference_state['W0'].norm().clamp_min(1e-30)),
+        raw_rotation_norm_error=max(a['raw_rotation_norm_error'] for a in angles),detached=True,fit_only=True,
+        zero_or_unidentified_columns=sum(a['reliability_score']==0 for a in angles))
+
+
+def bank_head(bank,pairs,regularizer,state):
+    k=len(bank['n'])
+    return solve(bank['Q']/k,bank['mu']/k,bank['mu'].new_full((k,),1/k),pairs,regularizer,
+                 state['target'],state['weights'],state['strength'])
+
+
+def checkpoint(state):
+    return dict(version=VERSION,target=state['target'].detach().cpu(),weights=state['weights'].detach().cpu(),strength=state['strength'])
+
+
+def restore(state,dim,classes,like):
+    if state.get('version')!=VERSION or state['target'].shape!=(dim,classes) or state['weights'].shape!=(classes,):
+        raise ValueError('Anchor checkpoint version/dimension mismatch')
+    target,weights=state['target'].to(like),state['weights'].to(like);validate(target,weights);anchor_matrix(weights)
+    if not math.isfinite(state['strength']) or state['strength']<0:raise ValueError('Invalid saved curvature')
+    return dict(version=VERSION,target=target,weights=weights,strength=state['strength'])

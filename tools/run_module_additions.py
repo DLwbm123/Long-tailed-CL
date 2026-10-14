@@ -18,6 +18,7 @@ import local_residual
 import prototype_coherent as method
 import residual_drift
 import lca_supported
+import dynamic_geometry_anchor as anchor
 from lt_benchmark import benchmark_metrics, task_blocks
 from run_multilabel import ApartFeatures
 from run_prototype_coherent import IndexedImages, common_shift, cpu_bank, fit_split
@@ -108,6 +109,10 @@ def run(config):
     author_nih(config)
     drift_weight = residual_drift.config_weight(config)
     lca_enabled = lca_supported.config_enabled(config)
+    anchor_enabled = config.get("dynamic_anchor", False)
+    if anchor_enabled:
+        from run_dynamic_anchor_cycle import validate_job,read_training
+        validate_job(config)
     if config.get('checkpoint_root'):
         raise ValueError('Reused training checkpoints must not trigger adapter training')
     output = Path(config['output'])
@@ -126,7 +131,9 @@ def run(config):
     if arm in modules.STAT_ARMS and (config.get('local_projection_width')!=64 or config.get('local_projection_seed')!=130 or config.get('local_ridge')!=.001):
         raise ValueError('Frozen residual readout configuration differs')
     controller = edge.Controller('static_pc', config['seed'])
-    if lca_enabled:
+    if anchor_enabled:
+        train, val = read_training(config), []
+    elif lca_enabled:
         from run_lca_supported_cycle import validate_job, read_training
         validate_job(config)
         train, val = read_training(config), []
@@ -152,7 +159,7 @@ def run(config):
         torch.set_num_threads(4)
         status(status='RUNNING', phase='initialize')
         encoder = ApartFeatures(config['legacy_repo'], config['weight'], len(config['order']), 'cuda:0', seed)
-        preflight_state = {k:v.detach().cpu().clone() for k,v in encoder.state_dict().items()} if lca_enabled and config.get('preflight') else None
+        preflight_state = {k:v.detach().cpu().clone() for k,v in encoder.state_dict().items()} if (lca_enabled or anchor_enabled) and config.get('preflight') else None
         updates = modules.Updates(encoder, arm)
         from run_medical_v2 import transform
 
@@ -178,6 +185,8 @@ def run(config):
         for task, classes in enumerate(tasks, 1):
             budget(); old_count = len(seen); seen += classes
             task_start_bank = bank
+            anchor_reference = None
+            anchor_ages = [task-next(i for i,b in enumerate(tasks,1) if c in b) for c in seen]
             rows = [r for r in train if r['label'] in classes]
             fit_ids, meta_ids = fit_split(rows, config['split_seed'])
             fit_ids = torch.as_tensor(fit_ids, device='cuda')
@@ -216,6 +225,9 @@ def run(config):
                         task_start_bank,candidate,arm,config['name'],seen,local_candidate,metric,.01)
                 solve_head = (lambda b,a,regularizer: lca_supported.bank_head(b,a,regularizer,S,M)) if lca_enabled else None
                 base_pairs = competition.competition(candidate, native_head)
+                if anchor_enabled:
+                    anchor_reference,anchor_state,anchor_audit=anchor.prepare(anchor_reference,candidate,base_pairs,metric,config['anchor_mode'],anchor_ages)
+                    solve_head=lambda b,a,regularizer:anchor.bank_head(b,a,regularizer,anchor_state)
                 status(status='RUNNING', phase='controller', task=task, epoch=epoch)
                 pairs, head, selected, audit = controller.choose(candidate, old, base_pairs, metric,
                     current[meta_ids], y[meta_ids], tail_indices, budget,head_solver=solve_head)
@@ -223,6 +235,7 @@ def run(config):
                 inverse, cross = method.proximal_base(old, metric, len(seen))
                 losses, solves, local_losses, local_gradients = [], [], [], []
                 projection_audits=[]
+                anchor_batch_audits=[]
                 status(status='RUNNING', phase='train', task=task, epoch=epoch)
                 for x, labels, indices in training:
                     budget()
@@ -241,7 +254,12 @@ def run(config):
                         previous = head
                         native_head = method.proximal_head(z.detach().double(), target, alpha, inverse, cross, previous)
                         q, mu, mass = competition.moments(old, z.detach().double(), lookup[labels], alpha, len(seen))
-                        if lca_enabled:
+                        if anchor_enabled:
+                            head,solve=anchor.solve(q,mu,mass,pairs,metric,anchor_state['target'],anchor_state['weights'],anchor_state['strength'],
+                                previous=previous,proximal=.01,inverse=inverse,x=z.detach().double(),alpha=alpha,native_head=native_head)
+                            anchor_force=anchor_state['strength']*((head-anchor_state['target'])@anchor.anchor_matrix(anchor_state['weights']))
+                            solve.update(anchor_new_column_force_norm=float(anchor_force[:,old_count:].norm()),anchor_old_column_force_norm=float(anchor_force[:,:old_count].norm()))
+                        elif lca_enabled:
                             head,solve=lca_supported.solve(q,mu,mass,pairs,metric,S,M,previous=previous,
                                 proximal=.01,inverse=inverse,x=z.detach().double(),alpha=alpha,native=native_head)
                         else:
@@ -258,11 +276,25 @@ def run(config):
                     loss = fit+pair+old_loss+ridge+proximal+10.*fd
                     if lca_enabled:
                         loss = loss+lca_supported.loss(head,S,M)
+                    if anchor_enabled:
+                        loss=loss+anchor.anchor_loss(head,anchor_state['target'],anchor_state['weights'],anchor_state['strength'])
                     if arm in modules.SUPERVISED_ARMS:
                         local_alpha=modules.current_class_alpha(alpha,len(seen),len(classes)) if arm in ('local_normalized','local_projected') else alpha
                         local_loss=modules.local_class_loss(train_parts,local_candidate,lookup[labels],local_alpha,arm=='local_detached')
                         original_loss=loss
                         loss=loss+local_loss
+                    if anchor_enabled and not anchor_batch_audits:
+                        with torch.no_grad():
+                            off_head,off_solve=competition.solve(q,mu,mass,pairs,previous=previous,proximal=.01,inverse=inverse,
+                                x=z.detach().double(),alpha=alpha,native=native_head,regularizer=metric)
+                        off_fit=.5*(alpha*(z.double()@off_head-target).square().sum(1)).sum()
+                        off_pair=.5*competition.pair_loss(old,z.double(),lookup[labels],alpha,off_head,pairs)
+                        off_loss=off_fit+off_pair+10.*fd
+                        off_gradient=torch.autograd.grad(off_loss,z,retain_graph=True)[0]
+                        on_gradient=torch.autograd.grad(loss,z,retain_graph=True)[0]
+                        anchor_audit.update(same_batch_head_relative_change=float((head-off_head).norm()/off_head.norm().clamp_min(1e-30)),
+                            feature_gradient_relative_change=float((on_gradient-off_gradient).norm()/off_gradient.norm().clamp_min(1e-30)),
+                            native_proximal_curvature_ratio=anchor_state['strength']/.01,shadow_optimizer_updates=0)
                     if not torch.isfinite(loss):
                         raise ValueError('Nonfinite edge training objective')
                     projection_audit={}
@@ -313,12 +345,19 @@ def run(config):
                             check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,
                                 max_solve_residual=max_residual,lca_supported=lca_audit,
                                 initial_zero_prior_expected=True,nonzero_activation_not_proven=True)
+                        if anchor_enabled:
+                            unchanged=all(torch.equal(v.detach().cpu(),preflight_state[k]) for k,v in encoder.state_dict().items())
+                            if not unchanged:raise ValueError('Zero-update anchor model state changed')
+                            check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,max_solve_residual=max_residual,
+                                dynamic_anchor=anchor_audit,anchor_mode=config['anchor_mode'])
                         save(output/'PREFLIGHT.json',check)
                         status(status='COMPLETE', preflight=True, adapter_updates=0)
                         return
                     optimizer.step(); steps += 1
+                    if anchor_enabled and steps % 20 == 0:status(status='RUNNING',phase='train',task=task,epoch=epoch)
                     losses.append([float(fit.detach()), float(pair.detach()), float(fd.detach())])
                     solves.append(solve['relative_residual'])
+                    if anchor_enabled:anchor_batch_audits.append(solve)
                 scheduler.step()
                 current, after_y, current_local = features(encoder, canonical)
                 if not torch.equal(raw_y, after_y):
@@ -331,6 +370,8 @@ def run(config):
                     mean_fit_loss=float(np.mean(losses, axis=0)[0]),
                     mean_pair_loss=float(np.mean(losses, axis=0)[1]),
                     mean_feature_loss=float(np.mean(losses, axis=0)[2])))
+                if anchor_enabled:
+                    diagnostics[-1]['dynamic_anchor']=dict(anchor_audit,mean_batch_anchor_force=sum(a.get('anchor_force_norm',0.) for a in anchor_batch_audits)/len(anchor_batch_audits),mean_batch_new_column_force=sum(a['anchor_new_column_force_norm'] for a in anchor_batch_audits)/len(anchor_batch_audits),mean_batch_old_column_force=sum(a['anchor_old_column_force_norm'] for a in anchor_batch_audits)/len(anchor_batch_audits))
                 if drift_weight:
                     diagnostics[-1]['residual_drift'] = dict(weight=drift_weight, **drift_audit,
                         estimate_before_epoch=True, detached=True, fit_only=True)
@@ -366,6 +407,14 @@ def run(config):
                 current,after_y,current_local=features(encoder,canonical)
                 if not torch.equal(raw_y,after_y):raise ValueError('Post-fusion canonical order changed')
             diagnostics[-1]['update_module']=module_audit
+            if anchor_enabled:
+                fit_old=method.translate(task_start_bank,common_shift(before[fit_ids],current[fit_ids],y[fit_ids]))
+                fit_candidate=method.append(fit_old,current[fit_ids],y[fit_ids],group[fit_ids],weights)
+                fit_local_shift=common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in modules.REGIONAL_ARMS else before.new_zeros(encoder.dim)
+                fit_local=modules.local_memory(local_bank,fit_local_shift,current_local[fit_ids] if current_local is not None else None,y[fit_ids])
+                _,fit_metric,_=modules.head(fit_candidate,arm,config['name'],seen,fit_local)
+                anchor_reference,anchor_state,anchor_audit=anchor.prepare(anchor_reference,fit_candidate,base_pairs,fit_metric,config['anchor_mode'],anchor_ages)
+                diagnostics[-1]['boundary_dynamic_anchor']=dict(anchor_audit,meta_excluded_from_target=True)
             # Match the existing protocol: meta joins the task-end refit, never independent validation.
             shift = common_shift(before, current, y)
             old = method.translate(bank, shift)
@@ -387,15 +436,18 @@ def run(config):
                     task_start_bank,bank,arm,config['name'],seen,local_bank,metric)
                 diagnostics[-1]['boundary_lca_supported']=dict(lca_audit,current_train_including_meta=True)
             base_pairs = competition.competition(bank, native_head)
-            fixed_head, _ = (lca_supported.bank_head(bank,base_pairs,metric,S,M) if lca_enabled else
+            fixed_head, _ = (anchor.bank_head(bank,base_pairs,metric,anchor_state) if anchor_enabled else lca_supported.bank_head(bank,base_pairs,metric,S,M) if lca_enabled else
                 competition.bank_head(bank, base_pairs, regularizer=metric))
             state = edge.descriptors(bank, fixed_head, old_count)
             
             pairs = edge.allocation(base_pairs, state, selected.to(base_pairs))
-            head, solve = (lca_supported.bank_head(bank,pairs,metric,S,M) if lca_enabled else
+            head, solve = (anchor.bank_head(bank,pairs,metric,anchor_state) if anchor_enabled else lca_supported.bank_head(bank,pairs,metric,S,M) if lca_enabled else
                 competition.bank_head(bank, pairs, regularizer=metric))
             max_residual = max(max_residual, solve['relative_residual'])
             extra_state={}
+            if anchor_enabled:
+                from run_dynamic_anchor_cycle import checkpoint_metadata
+                extra_state.update(anchor_state=anchor.checkpoint(anchor_state),anchor_metadata=checkpoint_metadata(config,task,steps),anchor_head_double=head.detach().cpu())
             if lca_enabled:
                 from run_lca_supported_cycle import checkpoint_metadata
                 extra_state.update(lca_state=lca_supported.checkpoint(S,M),

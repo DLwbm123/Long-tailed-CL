@@ -1,0 +1,62 @@
+{
+  "status": "AGGREGATE_ANALYSIS_COMPLETE",
+  "scientific_source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+  "source_report_commit": "e52c57a424774d034ccf11a4f2c12f30fd26bef6",
+  "GPU_processes": 0,
+  "new_medical_image_reads": 0,
+  "new_checkpoint_reads": 0,
+  "optimizer_updates": 0,
+  "parameters_or_selections_changed": false,
+  "test_accessed": false,
+  "validation_retuning": false,
+  "retrospective_val_description_not_selection": true,
+  "nonfirst_candidate_states": 56,
+  "first_stage_identity_states_excluded": 16,
+  "missed_positive_BA_states": 15,
+  "avoided_negative_BA_states": 41,
+  "positive_BA_with_negative_tail": 13,
+  "utility_and_edge": 50,
+  "utility_only": 6,
+  "jobs": [
+    {
+      "job": "ISIC_base",
+      "negative_BA": 5,
+      "positive_BA": 3,
+      "utility_only": 2,
+      "utility_and_edge": 6
+    },
+    {
+      "job": "ISIC_local_transport",
+      "negative_BA": 7,
+      "positive_BA": 1,
+      "utility_only": 2,
+      "utility_and_edge": 6
+    },
+    {
+      "job": "HK_base",
+      "positive_BA": 6,
+      "negative_BA": 14,
+      "utility_only": 1,
+      "utility_and_edge": 19
+    },
+    {
+      "job": "HK_local_transport",
+      "positive_BA": 5,
+      "negative_BA": 15,
+      "utility_only": 1,
+      "utility_and_edge": 19
+    }
+  ],
+  "class_rows": 872,
+  "guard_rows": 56,
+  "rare_HK_labels_descriptive_only": [
+    5,
+    6,
+    19,
+    21
+  ],
+  "repeated_stage_candidate_events_not_unique_images": true,
+  "pipeline_seconds": 0.2090206251014024,
+  "process_residence_seconds": null,
+  "analysis_CPU_not_added_to_prior_experiment_ledger": true
+}

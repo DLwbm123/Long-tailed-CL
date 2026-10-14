@@ -69,7 +69,7 @@ def report(s,out):
     a=dict(status='PASS',source_commit=s['source_commit'],formal_complete=8,formal_adapter_updates=2576,real_zero_update_preflights=8,successful_cost_records=24,
         policy_updates=0,test_accessed=False,dispatch_gpus=[0,1],max_solve_residual=max(residual),failures=[],cost_records=p['costs'],
         round_gpu_process_residence_seconds=cost,closed_round_cost_ledger=ledger,cumulative_gpu_process_residence_seconds=83019.61353103025+sum(ledger.values()),
-        reused_control_training_updates_and_costs=0,new_paired_control_inference_included_in_eval=True,parallel_wall_seconds=p['elapsed_seconds'],whole_round_wall_seconds=p.get('whole_round_wall_seconds'),
+        reused_control_training_updates_and_costs=0,new_paired_control_inference_included_in_eval=True,parallel_wall_seconds=p['elapsed_seconds'],whole_round_wall_seconds=p.get('whole_round_wall_seconds'),preflight_gate_wait_wall_seconds=p.get('preflight_gate_wait_wall_seconds'),resource_admission_revised_before_GPU=p.get('resource_admission_revised_before_GPU',False),
         cpu_checks=s['cpu_checks'],engineering_events=s['engineering_events'],new_recall_guarantee=False,nonzero_activation_is_not_utility=True)
     for name,val in [('AUDIT.json',a),('CONTRIBUTIONS.json',contrasts),('AIR_GAPS.json',gaps),('PREFLIGHT_CHECKS.json',s['preflights'])]:
         (out/name).write_text(json.dumps(val,indent=2,allow_nan=False)+'\n')

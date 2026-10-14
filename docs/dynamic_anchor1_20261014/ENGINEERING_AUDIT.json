@@ -43,6 +43,26 @@
       "formal_updates": 0,
       "client_wall_seconds": null,
       "CPU_process_residence_seconds": null
+    },
+    {
+      "phase": "RESOURCE_REVISION_CLIENT",
+      "attempt": 1,
+      "status": "FAILED_BEFORE_REMOTE_EXECUTION",
+      "reason": "Temporary neutral-wrapper quoting error; remote Python parsing rejected before any action",
+      "GPU_processes": 0,
+      "formal_updates": 0,
+      "client_wall_seconds": null,
+      "CPU_process_residence_seconds": null
+    },
+    {
+      "phase": "RESOURCE_ADMISSION",
+      "status": "CORRECTED_BEFORE_GPU_DISPATCH",
+      "previous_min_free_MiB": 32768,
+      "min_free_MiB": 24576,
+      "reason": "Historical allocated Core/LT peaks 12.6-13.9 GiB; legacy gate overly conservative",
+      "old_waiting_coordinator_replaced_only_after_empty_state_and_children_check": true,
+      "original_deadline_preserved": true,
+      "training_files_and_parameters_unchanged": true
     }
   ],
   "overlap_rule": "pipeline included in operation wall; client wall separate; no overlapping sum and no historical re-charge"

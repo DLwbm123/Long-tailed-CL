@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "version": "gain_conditional_reservoir_boundary_v4",
+  "synthetic_only": true,
+  "production_integrated": false,
+  "independent_calibration_ready": false,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "medical_val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "highdimensional_checks": [
+    {
+      "control": "base",
+      "dimensions": [
+        1536,
+        23
+      ],
+      "native_residual": 3.4157669824760074e-16,
+      "ray_residual": 1.5485212127949229e-15,
+      "candidate_bits_exact": true,
+      "checkpoint_roundtrip": true,
+      "new_guard_preserved": true,
+      "statistics_unchanged": true
+    },
+    {
+      "control": "local_transport",
+      "dimensions": [
+        1536,
+        23
+      ],
+      "native_residual": 7.19077751310921e-11,
+      "ray_residual": 5.4283254920595e-11,
+      "candidate_bits_exact": true,
+      "checkpoint_roundtrip": true,
+      "new_guard_preserved": true,
+      "statistics_unchanged": true
+    }
+  ],
+  "conditional_reservoir_oracles": true,
+  "zero_observed_harm_not_certified_safe": true,
+  "rare_edge_positive_macro_rejected": true,
+  "missing_evidence_NOT_READY": true,
+  "all_five_modes_checked": true,
+  "donor_support_not_target_support": true,
+  "drift_monotone_adverse": true,
+  "scale_and_tie_checks": true,
+  "positive_and_negative_admission_checked": true,
+  "pipeline_seconds": 69.07634208723903,
+  "process_residence_seconds": 73.32861466286704,
+  "CPU_attempts": [
+    {
+      "attempt": 1,
+      "status": "FAIL",
+      "process_residence_seconds": 8.393184198997915,
+      "GPU_processes": 0
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "process_residence_seconds": 73.32861466286704,
+      "GPU_processes": 0
+    }
+  ],
+  "total_CPU_process_residence_seconds": 81.72179886186495,
+  "pipeline_included_not_added": true
+}

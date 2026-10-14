@@ -1,0 +1,68 @@
+{
+  "main_four_cells": [
+    "base",
+    "local_transport",
+    "base+CRISK",
+    "local_transport+CRISK"
+  ],
+  "primary": "local_transport+CRISK",
+  "contributions": [
+    [
+      "CRISK",
+      "NO_RESERVOIR"
+    ],
+    [
+      "CRISK",
+      "NO_DRIFT"
+    ],
+    [
+      "CRISK",
+      "NO_DONOR_TRUST"
+    ],
+    [
+      "CRISK",
+      "NO_EDGE_GUARD"
+    ]
+  ],
+  "single_change": {
+    "NO_RESERVOIR": "only OFF q becomes original model q; conditional counts, drift, donors and edge guard unchanged",
+    "NO_DRIFT": "only supplied drift q/r/h sensitivity removed; donor credibility including drift_z unchanged",
+    "NO_DONOR_TRUST": "only donor credibility rho=1; donor identities/proposal weights and target support unchanged",
+    "NO_EDGE_GUARD": "only relative slack admission predicate bypassed; scores and new guard unchanged"
+  },
+  "all_four_candidate_signed_report": true,
+  "identity_and_NOT_READY_separate": true,
+  "future_checkpoint_states": 18,
+  "future_fixed_candidate_states": 72,
+  "future_selector_modes": 5,
+  "future_candidate_selector_audits": 360,
+  "shared_features_and_candidate_scores": true,
+  "reused_control_training_updates": 0,
+  "AIR_public_results_only": true,
+  "old_JOINT_PRED_public_results_only": true,
+  "no_posthoc_method_or_parameter_switch": true,
+  "missing_is_null": true,
+  "proposed_evaluation_not_authorized": true,
+  "fields": [
+    "OFF_error_n",
+    "OFF_correct_n",
+    "OFF_error_model_and_empirical",
+    "conditional_rescue_n_and_rate",
+    "conditional_harm_n_and_rate",
+    "R_H_net_predictive_mean",
+    "conditional_utility",
+    "numeric_error",
+    "drift_sensitivity_q_r_h",
+    "drift_source_and_age",
+    "donor_support_and_credibility",
+    "prior_pseudocount_not_independent_support",
+    "relative_boundary_erosion",
+    "old_edge_failed_classes",
+    "all_candidate_rank_errors",
+    "train_val_signed_rescue_harm",
+    "guarded_raw_new_class_counts",
+    "AIR_gap",
+    "all_stage_class_denominators",
+    "CPU_GPU_cost_each_process_once"
+  ]
+}

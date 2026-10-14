@@ -1,0 +1,33 @@
+{
+  "status": "CPU_DESIGN_PREPARATION",
+  "experiment_launched": false,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "val_accessed": false,
+  "test_accessed": false,
+  "events": [
+    {
+      "event": "CPU_attempt1_fixture_assertion_failed",
+      "scope": "synthetic",
+      "reason": "literal floating equality for fixed .9 mean",
+      "process_residence_seconds": 8.393184198997915,
+      "fix": "assertion tolerance only"
+    },
+    {
+      "event": "CPU_attempt2_PASS",
+      "process_residence_seconds": 73.32861466286704,
+      "pipeline_seconds": 69.07634208723903
+    },
+    {
+      "event": "receipt_parser_failed_after_success",
+      "reason": "Torch deprecation warning before JSON",
+      "fix": "recovered existing successful JSON and process receipt without rerun",
+      "repeated_CPU_execution": false,
+      "residence_separately_measured": false
+    }
+  ],
+  "total_CPU_process_residence_seconds": 81.72179886186495,
+  "pipeline_included_not_added": true,
+  "old_experiment_costs_recharged": false
+}

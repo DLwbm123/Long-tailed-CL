@@ -1,0 +1,196 @@
+{
+  "version": "gain_conditional_reservoir_boundary_v4",
+  "status": "CPU_DESIGN_ONLY",
+  "direction_changed": false,
+  "steps": [
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "heads": [
+    "CRISK",
+    "NO_RESERVOIR",
+    "NO_DRIFT",
+    "NO_DONOR_TRUST",
+    "NO_EDGE_GUARD"
+  ],
+  "production_integrated": false,
+  "GPU_launch_authorized": false,
+  "medical_data_access_authorized": false,
+  "checkpoint_access_authorized": false,
+  "validation_retuning": false,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "primary_control": "local_transport",
+  "posterior_draws": 4096,
+  "seed": 1074005,
+  "jeffreys_count": 0.5,
+  "model_prior_cap": 2.0,
+  "support_pseudocount": 16.0,
+  "utility_quantile": 0.1,
+  "relative_edge_budget": 0.25,
+  "independent_calibration_ready": false,
+  "risk_interpretation": "conditional_predictive_not_certificate",
+  "future_gpus": [
+    0,
+    1
+  ],
+  "future_evaluation_authorized": false,
+  "automatic_retry": false,
+  "medical_evidence_NOT_READY": true,
+  "controls": {
+    "base": {
+      "round": "module_additions1_20261009",
+      "source": "0cfe6b648f5de1b8e8783265e7a0b97b64939952",
+      "delivery": "ecd783ffd7b32eea4e2e2a1311b9f033231f1677"
+    },
+    "local_transport": {
+      "round": "module_local2_20261010",
+      "source": "0f0d8a0717c6da09109cc9205cccf44c490d3e84",
+      "delivery": "4b6e0c87887b101ae2970738919760f00e19726e"
+    }
+  },
+  "data": {
+    "ISIC": {
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "val_counts": {
+        "4": 41,
+        "7": 24,
+        "5": 37,
+        "1": 37,
+        "2": 46,
+        "6": 26,
+        "0": 44,
+        "3": 40
+      },
+      "train_counts": {
+        "4": 458,
+        "7": 27,
+        "5": 256,
+        "1": 3263,
+        "2": 2835,
+        "6": 44,
+        "0": 10529,
+        "3": 1306
+      },
+      "cumulative_steps": [
+        100,
+        172,
+        468
+      ]
+    },
+    "HK": {
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "val_counts": {
+        "4": 165,
+        "5": 1,
+        "6": 1,
+        "22": 21,
+        "20": 66,
+        "1": 113,
+        "2": 182,
+        "15": 123,
+        "14": 60,
+        "12": 41,
+        "10": 150,
+        "11": 61,
+        "19": 2,
+        "16": 8,
+        "7": 21,
+        "0": 7,
+        "17": 5,
+        "9": 164,
+        "18": 33,
+        "13": 160,
+        "21": 4,
+        "8": 153,
+        "3": 157
+      },
+      "train_counts": {
+        "4": 626,
+        "5": 3,
+        "6": 6,
+        "22": 85,
+        "20": 288,
+        "1": 403,
+        "2": 736,
+        "15": 488,
+        "14": 252,
+        "12": 167,
+        "10": 595,
+        "11": 261,
+        "19": 6,
+        "16": 34,
+        "7": 83,
+        "0": 25,
+        "17": 23,
+        "9": 635,
+        "18": 127,
+        "13": 662,
+        "21": 18,
+        "8": 654,
+        "3": 644
+      },
+      "cumulative_steps": [
+        98,
+        102,
+        104,
+        124,
+        142,
+        176
+      ]
+    }
+  },
+  "fixed_sidecar_source": "533562177c4fa39f18dcbe981e2c0d0f596a09ac",
+  "training_diagnostic_source": "d89b1b58a0c62a0ed8d825e4e0000e5d3f73896f",
+  "training_diagnostic_delivery": "ca344009a8a9842320934033b62f53701f2e47d0",
+  "old_strict_certificate_unchanged": true
+}

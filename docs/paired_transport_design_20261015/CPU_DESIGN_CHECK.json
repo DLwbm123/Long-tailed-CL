@@ -1,0 +1,66 @@
+{
+  "status": "CPU_DESIGN_PASS_NOT_PRODUCTION_READY",
+  "version": "paired_affine_moment_CPU_design_v1",
+  "synthetic_only": true,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "production_integrated": false,
+  "GPU_ready": false,
+  "zero_drift_exact": true,
+  "translation_reduces_to_native": true,
+  "virtual_sample_moment_error": 5.551115123125783e-16,
+  "known_observed_rotation_relative_error": 0.0015910374710959318,
+  "relative_ridge": 0.001,
+  "numerical_rank_only": true,
+  "weak_direction_regularization_checked": true,
+  "unobserved_true_rotation_error": 1.4142135623730951,
+  "unobserved_drift_not_identified": true,
+  "renormalized_moments_nonidentifiability": 0.019030175886334245,
+  "unchanged_CLS_changed_region_error": 0.4346999116276225,
+  "separate_regional_maps_required": true,
+  "component_radius_only_bounded": true,
+  "composition_once_checked": true,
+  "invalid_inputs_refused": [
+    "double_transport",
+    "wrong_region_space",
+    "pair_order",
+    "current_frame"
+  ],
+  "highdimensional_checks": [
+    {
+      "control": "base",
+      "dimension": [
+        1536,
+        23
+      ],
+      "moment_max_error": 1.3877787807814457e-17,
+      "head_relative_error": 4.7859930177426244e-14,
+      "solve_residual": 4.709698698239066e-11,
+      "legacy_component_radius_not_consumed": true,
+      "current_new_statistics_not_transported": true
+    },
+    {
+      "control": "local_transport",
+      "dimension": [
+        1536,
+        23
+      ],
+      "moment_max_error": 1.3877787807814457e-17,
+      "head_relative_error": 4.8578610010033065e-14,
+      "solve_residual": 4.7098660439116266e-11,
+      "legacy_component_radius_not_consumed": true,
+      "current_new_statistics_not_transported": true
+    }
+  ],
+  "checkpoint_roundtrip_exact": true,
+  "independent_calibration": false,
+  "new_class_accuracy_guarantee": false,
+  "pipeline_seconds": 23.575315190013498,
+  "CPU_operation_wall_including_import_seconds": 29.313762234989554,
+  "CPU_process_residence_seconds": 30.735366408713162,
+  "design_source_commit": "1041e7a8d72491304eeb706c7c7cdd9dc8d52f0e"
+}

@@ -1,0 +1,328 @@
+{
+  "status": "PASS",
+  "source_commit": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+  "reporting_source_commit": "c16f0ce0c3ae610b44519e11a61725685eb63fc8",
+  "design_source_commit": "845a665f7ec13fb325dbb46cee89be9f0d9cf5ee",
+  "fixed_sidecar_source": "533562177c4fa39f18dcbe981e2c0d0f596a09ac",
+  "round_gpu_process_residence_seconds": 9234.002560738474,
+  "round_CPU_process_residence_seconds": 3241.433527975343,
+  "CPU_production_check": {
+    "status": "PASS",
+    "full_high_dimensional_cpu_PASS": true,
+    "synthetic_only": true,
+    "GPU_processes": 0,
+    "medical_images_read": 0,
+    "medical_checkpoint_reads": 0,
+    "medical_val_reads": 0,
+    "test_accessed": false,
+    "optimizer_updates": 0,
+    "policy_updates": 0,
+    "native_compatibility": {
+      "status": "PASS",
+      "version": "gain_conditional_reservoir_boundary_v4",
+      "synthetic_only": true,
+      "production_integrated": false,
+      "independent_calibration_ready": false,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "medical_val_reads": 0,
+      "test_accessed": false,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "highdimensional_checks": [
+        {
+          "control": "base",
+          "dimensions": [
+            1536,
+            23
+          ],
+          "native_residual": 3.4157669824760074e-16,
+          "ray_residual": 1.5485212127949229e-15,
+          "candidate_bits_exact": true,
+          "checkpoint_roundtrip": true,
+          "new_guard_preserved": true,
+          "statistics_unchanged": true
+        },
+        {
+          "control": "local_transport",
+          "dimensions": [
+            1536,
+            23
+          ],
+          "native_residual": 7.19077751310921e-11,
+          "ray_residual": 5.4283254920595e-11,
+          "candidate_bits_exact": true,
+          "checkpoint_roundtrip": true,
+          "new_guard_preserved": true,
+          "statistics_unchanged": true
+        }
+      ],
+      "conditional_reservoir_oracles": true,
+      "zero_observed_harm_not_certified_safe": true,
+      "rare_edge_positive_macro_rejected": true,
+      "missing_evidence_NOT_READY": true,
+      "all_five_modes_checked": true,
+      "donor_support_not_target_support": true,
+      "drift_monotone_adverse": true,
+      "scale_and_tie_checks": true,
+      "positive_and_negative_admission_checked": true,
+      "pipeline_seconds": 62.82698734663427
+    },
+    "native_compatibility_reused_not_recharged": true,
+    "production_checks": {
+      "all_18_synthetic_stage_reports": true,
+      "all_five_selectors_and_four_candidates": true,
+      "bad_denominator_refused": true,
+      "val_before_every_seal_refused": true,
+      "selection_parity_checked": true
+    },
+    "real_model_nodes_checked": 65536,
+    "conditional_zero_denominator_prior_disabled": true,
+    "all_source_counts_not_independent": true,
+    "private_projection_dimension_max": 46,
+    "pipeline_seconds": 14.620051060803235,
+    "process_residence_seconds": 18.899194673169404,
+    "CPU_attempts": [
+      {
+        "attempt": 1,
+        "status": "PASS",
+        "process_residence_seconds": 85.70271433796734,
+        "pipeline_seconds": 75.71636593993753,
+        "native_compatibility_reused_not_recharged": false
+      },
+      {
+        "attempt": 2,
+        "status": "PASS",
+        "process_residence_seconds": 18.59965303214267,
+        "pipeline_seconds": 13.1277966350317,
+        "native_compatibility_reused_not_recharged": true
+      },
+      {
+        "attempt": 3,
+        "status": "PASS",
+        "process_residence_seconds": 18.899194673169404,
+        "pipeline_seconds": 14.620051060803235,
+        "native_compatibility_reused_not_recharged": true
+      }
+    ],
+    "all_CPU_attempt_residence_seconds": 123.20156204327941,
+    "pipeline_included_not_added": true
+  },
+  "program_cost_records": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 20.61851624492556,
+      "process_started": true,
+      "dispatch_wall_seconds": 20.696123057976365
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 20.76678322860971,
+      "process_started": true,
+      "dispatch_wall_seconds": 20.878039376810193
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 19.62849002983421,
+      "process_started": true,
+      "dispatch_wall_seconds": 19.713088885881007
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 19.72086778189987,
+      "process_started": true,
+      "dispatch_wall_seconds": 19.822043656837195
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "statistics",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 1949.3227851549163,
+      "process_started": true,
+      "dispatch_wall_seconds": 1949.4054647847079
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "statistics",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 1949.4067308073863,
+      "process_started": true,
+      "dispatch_wall_seconds": 1949.5055391499773
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "statistics",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 1980.2610427541658,
+      "process_started": true,
+      "dispatch_wall_seconds": 1980.3613141682
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "statistics",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 1982.3592429212295,
+      "process_started": true,
+      "dispatch_wall_seconds": 1982.4676580289379
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 110.88869994087145,
+      "process_started": true,
+      "dispatch_wall_seconds": 111.01113107195124
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 110.93673340277746,
+      "process_started": true,
+      "dispatch_wall_seconds": 111.0607708110474
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 534.2621567538008,
+      "process_started": true,
+      "dispatch_wall_seconds": 534.3548911139369
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 535.8305117180571,
+      "process_started": true,
+      "dispatch_wall_seconds": 535.921595747117
+    }
+  ],
+  "CPU_cost_records": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 6.727190108038485,
+      "process_started": true,
+      "dispatch_wall_seconds": 6.745602790266275
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 6.83083728607744,
+      "process_started": true,
+      "dispatch_wall_seconds": 6.8425419689156115
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 6.937052170280367,
+      "process_started": true,
+      "dispatch_wall_seconds": 6.953662732616067
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 7.7901208200491965,
+      "process_started": true,
+      "dispatch_wall_seconds": 7.799470545724034
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "CRISK",
+      "operation": "risk_prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 37.504914617631584,
+      "process_started": true,
+      "dispatch_wall_seconds": 37.52810470201075
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "CRISK",
+      "operation": "risk_prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 44.27630970440805,
+      "process_started": true,
+      "dispatch_wall_seconds": 44.30015899287537
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "CRISK",
+      "operation": "risk_prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 1560.8411700697616,
+      "process_started": true,
+      "dispatch_wall_seconds": 1560.8595853820443
+    },
+    {
+      "job": "HK_base",
+      "variant": "CRISK",
+      "operation": "risk_prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 1570.5259331990965,
+      "process_started": true,
+      "dispatch_wall_seconds": 1570.5380018600263
+    }
+  ],
+  "failures": [],
+  "wall_seconds": 6249.40608215332,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "train_inference_only": true,
+  "independent_calibration": false,
+  "validation_retuning": false,
+  "planned_train_image_exposures": 219448,
+  "planned_preflight_image_exposures": 512,
+  "planned_val_image_exposures": 15966,
+  "prior_results_recharged": false
+}

@@ -1,0 +1,45 @@
+{
+  "status": "PRELAUNCH_CPU_PASS",
+  "events": [
+    {
+      "event": "initial_full_CPU_PASS",
+      "all_synthetic": true
+    },
+    {
+      "event": "prelaunch_scope_and_degenerate_case_review",
+      "fix": "do not reset metadata seal; disable prior for constant scatter; separately report numerical q error"
+    },
+    {
+      "event": "prelaunch_JSON_serialization_review",
+      "fix": "convert edge score and boolean to native JSON scalar; added actual evidence roundtrip check"
+    }
+  ],
+  "CPU_attempts": [
+    {
+      "attempt": 1,
+      "status": "PASS",
+      "process_residence_seconds": 85.70271433796734,
+      "pipeline_seconds": 75.71636593993753,
+      "native_compatibility_reused_not_recharged": false
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "process_residence_seconds": 18.59965303214267,
+      "pipeline_seconds": 13.1277966350317,
+      "native_compatibility_reused_not_recharged": true
+    },
+    {
+      "attempt": 3,
+      "status": "PASS",
+      "process_residence_seconds": 18.899194673169404,
+      "pipeline_seconds": 14.620051060803235,
+      "native_compatibility_reused_not_recharged": true
+    }
+  ],
+  "all_CPU_attempt_residence_seconds": 123.20156204327941,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "formal_updates": 0,
+  "existing_runs_modified": false
+}

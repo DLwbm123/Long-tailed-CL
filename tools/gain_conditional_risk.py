@@ -100,9 +100,11 @@ def donor_model(target, donors, mode):
                (1+donor['boundary_mismatch_z']**2+donor['drift_z']**2)) if donor['evidence_available'] else 0.
         if mode == 'NO_DONOR_TRUST':rho = 1.
         weight = .4*donor['weight']/total*rho
-        r += weight*(dm[1]-base[1]); h += weight*(dm[2]-base[2])
+        if donor.get('rescue_prior_available', True):r += weight*(dm[1]-base[1])
+        if donor.get('harm_prior_available', True):h += weight*(dm[2]-base[2])
         used.append(dict(weight=weight, credibility_score=rho, actual_support=donor['support']))
-    return dict(off_error=base[0], rescue_given_wrong=r, harm_given_correct=h), used
+    return dict(off_error=base[0], rescue_given_wrong=r, harm_given_correct=h,
+                **{k:target[k] for k in ('rescue_prior_available','harm_prior_available') if k in target}), used
 
 
 def estimate_class(evidence, model, donors, drift, edge, expected, old_class, mode='CRISK'):
@@ -133,14 +135,16 @@ def estimate_class(evidence, model, donors, drift, edge, expected, old_class, mo
             raise ValueError('Invalid bounded relative erosion moments')
         if correct:
             mean = es/correct; variance = max(0., es2/correct-mean*mean)
-            edge_score = min(1., mean+np.sqrt(variance/correct))
+            edge_score = float(min(1., mean+np.sqrt(variance/correct)))
     strength = PRIOR_CAP*n/(n+PSEUDOCOUNT)
+    rescue_strength = strength if model.get('rescue_prior_available', True) else 0.
+    harm_strength = strength if model.get('harm_prior_available', True) else 0.
     # Reservoir and conditional likelihoods are separate; model nodes are not n.
     stream = [SEED, expected['task'], expected['label']]
     q = np.random.default_rng(np.random.SeedSequence(stream+[0])).beta(wrong+.5, correct+.5, DRAWS)
     if mode == 'NO_RESERVOIR':q[:] = model['off_error']
-    r = np.random.default_rng(np.random.SeedSequence(stream+[1])).beta(rescued+.5+strength*model['rescue_given_wrong'], wrong-rescued+.5+strength*(1-model['rescue_given_wrong']), DRAWS)
-    h = np.random.default_rng(np.random.SeedSequence(stream+[2])).beta(harmed+.5+strength*model['harm_given_correct'], correct-harmed+.5+strength*(1-model['harm_given_correct']), DRAWS)
+    r = np.random.default_rng(np.random.SeedSequence(stream+[1])).beta(rescued+.5+rescue_strength*model['rescue_given_wrong'], wrong-rescued+.5+rescue_strength*(1-model['rescue_given_wrong']), DRAWS)
+    h = np.random.default_rng(np.random.SeedSequence(stream+[2])).beta(harmed+.5+harm_strength*model['harm_given_correct'], correct-harmed+.5+harm_strength*(1-model['harm_given_correct']), DRAWS)
     if not old_class:h[:] = 0.
     rescue, harm = q*r, (1-q)*h
     adverse_q = np.maximum(0., q-sq)
@@ -152,9 +156,10 @@ def estimate_class(evidence, model, donors, drift, edge, expected, old_class, mo
                 rescue_conditional_n=wrong, harm_conditional_n=correct,
                 rescue_data_identified=wrong > 0, harm_data_identified=correct > 0,
                 model_prior_pseudocount=strength, target_actual_n=n, donor_audit=donor_audit,
+                rescue_prior_pseudocount=rescue_strength, harm_prior_pseudocount=harm_strength,
                 drift_off_error_sensitivity=sq, drift_rescue_sensitivity=sr, drift_harm_sensitivity=sh,
                 relative_edge_score=edge_score, edge_budget=EDGE_BUDGET*n/(n+PSEUDOCOUNT),
-                edge_failed=old_class and mode != 'NO_EDGE_GUARD' and edge_score > EDGE_BUDGET*n/(n+PSEUDOCOUNT),
+                edge_failed=bool(old_class and mode != 'NO_EDGE_GUARD' and edge_score > EDGE_BUDGET*n/(n+PSEUDOCOUNT)),
                 net_samples=conservative_rescue-conservative_harm,
                 classifier_independent=evidence['classifier_independent'],
                 conditional_predictive_not_certificate=True)

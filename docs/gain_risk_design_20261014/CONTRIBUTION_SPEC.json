@@ -1,0 +1,70 @@
+{
+  "main_four_cells": [
+    "base",
+    "local_transport",
+    "base+RISK",
+    "local_transport+RISK"
+  ],
+  "primary": "local_transport+RISK",
+  "contributions": [
+    [
+      "RISK",
+      "RISK_NO_DRIFT"
+    ],
+    [
+      "RISK",
+      "RISK_NO_BOUNDARY"
+    ],
+    [
+      "RISK",
+      "RISK_NO_DAMAGE"
+    ]
+  ],
+  "frozen_candidate_scales": [
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "all_candidate_signed_report": true,
+  "reference": "JOINT_PRED_SELECTED_public_reuse",
+  "AIR_public_reuse": true,
+  "metrics": [
+    "finalBA",
+    "avgBA",
+    "tail",
+    "forget",
+    "old",
+    "new",
+    "finalAcc",
+    "avgAcc",
+    "provided_macroF1"
+  ],
+  "stage_classes": true,
+  "all_31_final_classes": true,
+  "fields": [
+    "rescue_lower",
+    "harm_upper",
+    "actual_rescued",
+    "actual_harmed",
+    "actual_macro_net",
+    "prediction_error",
+    "sign_error",
+    "ranking_error",
+    "identity_reason",
+    "calibration_support",
+    "calibration_origin",
+    "transport_age",
+    "transport_uncovered_upper",
+    "boundary_donor_weights",
+    "borrow_error",
+    "old_class_harm_cap",
+    "damage_failed_classes",
+    "new_class_margin_change"
+  ],
+  "no_posthoc_method_or_threshold_switch": true,
+  "missing_is_null": true,
+  "counts_only_aggregate_public": true,
+  "cost_each_residence_once": true,
+  "proposed_evaluation_not_authorized": true
+}

@@ -1,0 +1,54 @@
+{
+  "version": "paired_affine_moment_CPU_design_v1",
+  "status": "PROSPECTIVE_DESIGN_ONLY_NOT_PRODUCTION_FROZEN",
+  "GPU_ready": false,
+  "GPU_launch_authorized_by_this_document": false,
+  "relative_map_ridge": 0.001,
+  "rank_rule": "machine epsilon * max(N,d) * largest singular value",
+  "parameter_selection": "prospective; no val rank, strength or threshold selection",
+  "per_epoch_map_input": "current fit canonical paired rows",
+  "boundary_map_input": "all current train, matching native boundary common_shift timing",
+  "old_images_or_features_replayed": false,
+  "old_training_image_calibration": false,
+  "test_accessed": false,
+  "main_grid": [
+    "Core",
+    "local_transport",
+    "Core+PMT",
+    "local_transport+PMT_global_and_regional"
+  ],
+  "minimal_mechanism_control": "local_transport+PMT_global_only, native region translation retained",
+  "prospective_new_trajectories": 6,
+  "prospective_formal_updates": 1932,
+  "prospective_real_zero_preflights": 6,
+  "prospective_GPU_operations": 18,
+  "updates_per_new_arm": {
+    "ISIC": [
+      100,
+      72,
+      296
+    ],
+    "HK": [
+      98,
+      4,
+      2,
+      20,
+      18,
+      34
+    ]
+  },
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "seed": 74002,
+  "gpus": [
+    0,
+    1
+  ],
+  "old_control_training_reused": true,
+  "production_integration_complete": false,
+  "real_preflights_completed": 0,
+  "scientific_claim": "identified current-domain affine component; old-domain transfer is a hypothesis",
+  "old_class_risk_probability_claimed": false,
+  "new_class_accuracy_guaranteed": false
+}

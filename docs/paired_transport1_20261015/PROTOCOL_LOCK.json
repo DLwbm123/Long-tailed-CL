@@ -1,0 +1,283 @@
+{
+  "campaign": "paired_transport1_20261015",
+  "status": "FROZEN_PRELAUNCH",
+  "version": "paired_moment_transport_v1",
+  "authorization": "User autonomous prospective improvement authority; PMT design fixed before new results",
+  "new_trajectories": 6,
+  "reused_control_trajectories": 4,
+  "formal_updates": 1932,
+  "required_real_preflights": 6,
+  "successful_GPU_operations_expected": 18,
+  "gpus": [
+    0,
+    1
+  ],
+  "GPU01_min_free_MiB": 24576,
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "clip": 5,
+  "FD": 10,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "competition_beta": 0.5,
+  "cosine_eta_min": 1e-05,
+  "order": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6,
+      0,
+      3
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7,
+      0,
+      17,
+      9,
+      18,
+      13,
+      21,
+      8,
+      3
+    ]
+  },
+  "task_sizes": {
+    "ISIC": [
+      4,
+      2,
+      2
+    ],
+    "HK": [
+      13,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "data": {
+    "ISIC": {
+      "train_n": 18718,
+      "val_n": 295,
+      "train_counts": {
+        "4": 458,
+        "7": 27,
+        "5": 256,
+        "1": 3263,
+        "2": 2835,
+        "6": 44,
+        "0": 10529,
+        "3": 1306
+      },
+      "val_counts": {
+        "4": 41,
+        "7": 24,
+        "5": 37,
+        "1": 37,
+        "2": 46,
+        "6": 26,
+        "0": 44,
+        "3": 40
+      },
+      "tasks": [
+        {
+          "train_n": 4004,
+          "fit_n": 3177,
+          "meta_n": 827,
+          "updates": 100
+        },
+        {
+          "train_n": 2879,
+          "fit_n": 2292,
+          "meta_n": 587,
+          "updates": 72
+        },
+        {
+          "train_n": 11835,
+          "fit_n": 9434,
+          "meta_n": 2401,
+          "updates": 296
+        }
+      ]
+    },
+    "HK": {
+      "train_n": 6821,
+      "val_n": 1698,
+      "train_counts": {
+        "4": 626,
+        "5": 3,
+        "6": 6,
+        "22": 85,
+        "20": 288,
+        "1": 403,
+        "2": 736,
+        "15": 488,
+        "14": 252,
+        "12": 167,
+        "10": 595,
+        "11": 261,
+        "19": 6,
+        "16": 34,
+        "7": 83,
+        "0": 25,
+        "17": 23,
+        "9": 635,
+        "18": 127,
+        "13": 662,
+        "21": 18,
+        "8": 654,
+        "3": 644
+      },
+      "val_counts": {
+        "4": 165,
+        "5": 1,
+        "6": 1,
+        "22": 21,
+        "20": 66,
+        "1": 113,
+        "2": 182,
+        "15": 123,
+        "14": 60,
+        "12": 41,
+        "10": 150,
+        "11": 61,
+        "19": 2,
+        "16": 8,
+        "7": 21,
+        "0": 7,
+        "17": 5,
+        "9": 164,
+        "18": 33,
+        "13": 160,
+        "21": 4,
+        "8": 153,
+        "3": 157
+      },
+      "tasks": [
+        {
+          "train_n": 3916,
+          "fit_n": 3133,
+          "meta_n": 783,
+          "updates": 98
+        },
+        {
+          "train_n": 117,
+          "fit_n": 93,
+          "meta_n": 24,
+          "updates": 4
+        },
+        {
+          "train_n": 48,
+          "fit_n": 38,
+          "meta_n": 10,
+          "updates": 2
+        },
+        {
+          "train_n": 762,
+          "fit_n": 610,
+          "meta_n": 152,
+          "updates": 20
+        },
+        {
+          "train_n": 680,
+          "fit_n": 544,
+          "meta_n": 136,
+          "updates": 18
+        },
+        {
+          "train_n": 1298,
+          "fit_n": 1038,
+          "meta_n": 260,
+          "updates": 34
+        }
+      ]
+    }
+  },
+  "stage_updates": {
+    "ISIC": [
+      100,
+      72,
+      296
+    ],
+    "HK": [
+      98,
+      4,
+      2,
+      20,
+      18,
+      34
+    ]
+  },
+  "queue": [
+    "ISIC_pmt",
+    "ISIC_local_transport_pmt",
+    "ISIC_local_transport_pmt_global_only",
+    "HK_pmt",
+    "HK_local_transport_pmt",
+    "HK_local_transport_pmt_global_only"
+  ],
+  "old_images_or_features_replayed": false,
+  "val_training_reads": 0,
+  "test_accessed": false,
+  "parameter_selection": "prospective locked design; no val tuning",
+  "barrier": "6 genuine real backward zero-update receipts plus explicit synthetic highest-bank shadow before TRAIN; 6 exact TRAINED and all stage metadata seals before val",
+  "paired_control_reuse": "historical metrics reused; paired prediction counting requires new control inference, charged within eval operations",
+  "reporting": "main grid, own-control, full regional minus global_only, interactions, AIR gaps; all signs of six metrics/Acc/provided F1 and every class/stage/paired confusion/rescue/damage/margin; map rank/residual/norm/radius bounds; every process cost",
+  "monitor": {
+    "id": "lca",
+    "status": "ACTIVE",
+    "interval_minutes": 30,
+    "autonomous_problem_repair_and_post_delivery_improvement_authorized": true,
+    "current_science_must_stay_frozen": true
+  },
+  "relative_map_ridge": 0.001,
+  "new_configurations": [
+    "pmt",
+    "local_transport_pmt",
+    "local_transport_pmt_global_only"
+  ],
+  "map_rank_rule": "machine epsilon * max(N,d) * largest singular value",
+  "epoch_map": "current fit paired canonical indexed rows; start to current afresh",
+  "boundary_map": "all current train as native common_shift; seal one frame",
+  "current_statistics": "actual current features, never old-mapped",
+  "regional_maps": "four independent maps only full LT+PMT; mechanism control keeps native region translation",
+  "radius": "nonisotropic old components unknown with valid bounds; native consumers checked",
+  "old_domain_transfer": "hypothesis, no risk-probability or new-class-accuracy guarantee",
+  "launch": null,
+  "deadline": null,
+  "design_reference": "paired_transport_design_20261015; design source 1041e7a8d72491304eeb706c7c7cdd9dc8d52f0e",
+  "main_method": "local_transport, never choose best control on val",
+  "new_training_image_access": "current train only; no old images/replay/calibration",
+  "paired_row_order": "canonical indexed source rows exact across extraction; matching labels alone insufficient",
+  "old_moment_rule": "raw affine pushforward, no unobserved sample renormalization",
+  "admission": "24GiB free on each GPU01, actual synthetic highest-bank shadow peak recorded",
+  "static_or_dynamic_anchor": false,
+  "highest_bank_shadow": "Each real preflight adds explicitly synthetic-map shadow d1536, full input rank1536 and maximum old classes ISIC6/HK21, no optimizer/formal writes",
+  "production_integrated": true,
+  "CPU_production_check": "PASS",
+  "real_preflights_completed": 0,
+  "GPU_ready": false
+}

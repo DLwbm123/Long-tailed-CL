@@ -19,6 +19,7 @@ import prototype_coherent as method
 import residual_drift
 import lca_supported
 import dynamic_geometry_anchor as anchor
+import paired_moment_transport as pmt
 from lt_benchmark import benchmark_metrics, task_blocks
 from run_multilabel import ApartFeatures
 from run_prototype_coherent import IndexedImages, common_shift, cpu_bank, fit_split
@@ -110,6 +111,10 @@ def run(config):
     drift_weight = residual_drift.config_weight(config)
     lca_enabled = lca_supported.config_enabled(config)
     anchor_enabled = config.get("dynamic_anchor", False)
+    pmt_enabled = config.get("paired_moment_transport", False)
+    if pmt_enabled:
+        from run_paired_transport_cycle import validate_job,read_training
+        validate_job(config)
     if anchor_enabled:
         from run_dynamic_anchor_cycle import validate_job,read_training
         validate_job(config)
@@ -131,7 +136,7 @@ def run(config):
     if arm in modules.STAT_ARMS and (config.get('local_projection_width')!=64 or config.get('local_projection_seed')!=130 or config.get('local_ridge')!=.001):
         raise ValueError('Frozen residual readout configuration differs')
     controller = edge.Controller('static_pc', config['seed'])
-    if anchor_enabled:
+    if anchor_enabled or pmt_enabled:
         train, val = read_training(config), []
     elif lca_enabled:
         from run_lca_supported_cycle import validate_job, read_training
@@ -159,12 +164,12 @@ def run(config):
         torch.set_num_threads(4)
         status(status='RUNNING', phase='initialize')
         encoder = ApartFeatures(config['legacy_repo'], config['weight'], len(config['order']), 'cuda:0', seed)
-        preflight_state = {k:v.detach().cpu().clone() for k,v in encoder.state_dict().items()} if (lca_enabled or anchor_enabled) and config.get('preflight') else None
+        preflight_state = {k:v.detach().cpu().clone() for k,v in encoder.state_dict().items()} if (lca_enabled or anchor_enabled or pmt_enabled) and config.get('preflight') else None
         updates = modules.Updates(encoder, arm)
         from run_medical_v2 import transform
 
         def loader(rows, training, task):
-            dataset = (IndexedImages if training else Images)(rows, config['images'], transform(training), seed+task*100003)
+            dataset = (IndexedImages if training or pmt_enabled else Images)(rows, config['images'], transform(training), seed+task*100003)
             workers = config['workers']
             options = dict(multiprocessing_context='spawn', prefetch_factor=2,
                            persistent_workers=not training) if workers else {}
@@ -172,19 +177,22 @@ def run(config):
                 num_workers=workers, generator=torch.Generator().manual_seed(seed+task*2003), **options)
 
         def features(model, data):
-            return modules.extract(model, data, budget, arm.startswith('local'))
+            return (pmt.extract if pmt_enabled else modules.extract)(model, data, budget, arm.startswith('local'))
 
         tasks = task_blocks(config['order'], config['task_sizes'])
         ranked = sorted(config['order'], key=lambda c: (-sum(r['label'] == c for r in train), c))
         tail = set(config.get('tail_classes',ranked[len(ranked)//2:]))
         bank = method.empty(encoder.dim, 'cuda')
         seen, diagnostics = [], []
+        checkpoint_seals = []
         local_bank = None
         local_statistics = None
         projection = local_residual.projection(encoder.dim).to('cuda') if arm in modules.STAT_ARMS else None
         for task, classes in enumerate(tasks, 1):
             budget(); old_count = len(seen); seen += classes
             task_start_bank = bank
+            task_start_local_bank = local_bank
+            source_frame = f'task_{task-1}_sealed'
             anchor_reference = None
             anchor_ages = [task-next(i for i,b in enumerate(tasks,1) if c in b) for c in seen]
             rows = [r for r in train if r['label'] in classes]
@@ -195,7 +203,12 @@ def run(config):
             training = loader([rows[i] for i in fit_ids.tolist()], True, task)
             teacher = copy.deepcopy(encoder).requires_grad_(False).eval()
             status(status='RUNNING', phase='task_start_features', task=task)
-            before, raw_y, before_local = features(teacher, canonical)
+            captured = features(teacher, canonical)
+            before, raw_y, before_local = captured[:3]
+            if pmt_enabled:
+                before_ids = current_ids = captured[3]
+                if not torch.equal(before_ids,torch.arange(len(rows),device=before_ids.device)):
+                    raise ValueError('Canonical indexed row order differs')
             current_local = before_local
             updates.begin()
             lookup = torch.as_tensor([seen.index(c) if c in seen else -1 for c in range(len(config['order']))], device='cuda')
@@ -215,6 +228,11 @@ def run(config):
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
                 local_shift = common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in modules.REGIONAL_ARMS else shift
                 local_candidate = modules.local_memory(local_bank, local_shift, current_local[fit_ids] if current_local is not None else None, y[fit_ids])
+                if pmt_enabled:
+                    old,candidate,local_candidate,pmt_audit=pmt.prepare(task_start_bank,task_start_local_bank,
+                        before[fit_ids],current[fit_ids],None if before_local is None else before_local[fit_ids],
+                        None if current_local is None else current_local[fit_ids],y[fit_ids],before_ids[fit_ids],current_ids[fit_ids],
+                        group[fit_ids],weights,source_frame,f'task_{task}_epoch_{epoch}',config['pmt_mode'])
                 drift = None
                 if drift_weight:
                     drift, drift_audit = residual_drift.estimate(before[fit_ids], current[fit_ids], weights, shift)
@@ -350,16 +368,29 @@ def run(config):
                             if not unchanged:raise ValueError('Zero-update anchor model state changed')
                             check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,max_solve_residual=max_residual,
                                 dynamic_anchor=anchor_audit,anchor_mode=config['anchor_mode'])
+                        if pmt_enabled:
+                            unchanged=all(torch.equal(v.detach().cpu(),preflight_state[k]) for k,v in encoder.state_dict().items())
+                            if not unchanged:raise ValueError('Zero-update PMT parameters/buffers changed')
+                            groups={prefix:sum(float(p.grad.norm())**2 for name,p in encoder.named_parameters() if prefix in name and p.grad is not None)**.5 for prefix in ('.pool.pool.','.pool_few.pool.')}
+                            if encoder.dim==1536 and any(not np.isfinite(n) or n<=0 for n in groups.values()):raise ValueError('Both adapter pool gradients must be finite nonzero')
+                            shadow=pmt.shadow(before.device,config['name'],(arm,config['pmt_mode']),encoder.dim,full_rank=encoder.dim==1536)
+                            check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,
+                                max_solve_residual=max(max_residual,shadow['relative_residual']),pmt=pmt_audit,adapter_pool_gradients=groups,synthetic_highest_bank=shadow,
+                                peak_gpu_bytes=torch.cuda.max_memory_allocated())
                         save(output/'PREFLIGHT.json',check)
                         status(status='COMPLETE', preflight=True, adapter_updates=0)
                         return
                     optimizer.step(); steps += 1
-                    if anchor_enabled and steps % 20 == 0:status(status='RUNNING',phase='train',task=task,epoch=epoch)
+                    if (anchor_enabled or pmt_enabled) and steps % 20 == 0:status(status='RUNNING',phase='train',task=task,epoch=epoch)
                     losses.append([float(fit.detach()), float(pair.detach()), float(fd.detach())])
                     solves.append(solve['relative_residual'])
                     if anchor_enabled:anchor_batch_audits.append(solve)
                 scheduler.step()
-                current, after_y, current_local = features(encoder, canonical)
+                captured=features(encoder,canonical)
+                current,after_y,current_local=captured[:3]
+                if pmt_enabled:
+                    current_ids=captured[3]
+                    if not torch.equal(before_ids,current_ids):raise ValueError('Canonical row IDs changed')
                 if not torch.equal(raw_y, after_y):
                     raise ValueError('Canonical order changed')
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, arm=config['method'],
@@ -372,6 +403,7 @@ def run(config):
                     mean_feature_loss=float(np.mean(losses, axis=0)[2])))
                 if anchor_enabled:
                     diagnostics[-1]['dynamic_anchor']=dict(anchor_audit,mean_batch_anchor_force=sum(a.get('anchor_force_norm',0.) for a in anchor_batch_audits)/len(anchor_batch_audits),mean_batch_new_column_force=sum(a['anchor_new_column_force_norm'] for a in anchor_batch_audits)/len(anchor_batch_audits),mean_batch_old_column_force=sum(a['anchor_old_column_force_norm'] for a in anchor_batch_audits)/len(anchor_batch_audits))
+                if pmt_enabled:diagnostics[-1]['paired_transport']=dict(pmt_audit,fit_only=True)
                 if drift_weight:
                     diagnostics[-1]['residual_drift'] = dict(weight=drift_weight, **drift_audit,
                         estimate_before_epoch=True, detached=True, fit_only=True)
@@ -424,6 +456,10 @@ def run(config):
                 diagnostics[-1]['boundary_local_transport_norm']=float(local_shift.norm())
             all_weights = method.sample_weights(y, group, difficulty, zeros)
             bank = method.append(old, current, y, group, all_weights)
+            if pmt_enabled:
+                old,bank,local_bank,pmt_audit=pmt.prepare(task_start_bank,task_start_local_bank,before,current,before_local,current_local,
+                    y,before_ids,current_ids,group,all_weights,source_frame,f'task_{task}_sealed',config['pmt_mode'])
+                diagnostics[-1]['boundary_paired_transport']=dict(pmt_audit,current_train_including_meta=True)
             drift = None
             if drift_weight:
                 drift, drift_audit = residual_drift.estimate(before, current, all_weights, shift)
@@ -445,6 +481,11 @@ def run(config):
                 competition.bank_head(bank, pairs, regularizer=metric))
             max_residual = max(max_residual, solve['relative_residual'])
             extra_state={}
+            if pmt_enabled:
+                from run_paired_transport_cycle import checkpoint_metadata
+                checkpoint_seals.append(checkpoint_metadata(config,task,steps))
+                extra_state.update(pmt_metadata=checkpoint_seals[-1],pmt_head_double=head.detach().cpu(),
+                    pmt_frame=bank['_frame'])
             if anchor_enabled:
                 from run_dynamic_anchor_cycle import checkpoint_metadata
                 extra_state.update(anchor_state=anchor.checkpoint(anchor_state),anchor_metadata=checkpoint_metadata(config,task,steps),anchor_head_double=head.detach().cpu())
@@ -471,7 +512,7 @@ def run(config):
                 refit_uses_all_current_training=True, new_policy_updates=0)
             save(output/'diagnostics.json', diagnostics)
             adapter = {k: p.detach().cpu() for k, p in encoder.named_parameters() if p.requires_grad}
-            torch.save(dict(adapter=adapter, head=head.float().cpu(), bank=cpu_bank(bank), seen=seen.copy(),
+            torch.save(dict(adapter=adapter, head=head.float().cpu(), bank=pmt.checkpoint_bank(bank) if pmt_enabled else cpu_bank(bank), seen=seen.copy(),
                 actor=controller.parameter.detach(), selected_coefficients=selected,
                 steps=steps, boundary_pair_weights=pairs.cpu(),
                 model={k:v.detach().cpu() for k,v in encoder.state_dict().items()},
@@ -479,6 +520,8 @@ def run(config):
             del teacher, inverse, cross, candidate, old
         if steps != config['expected_steps']:
             raise ValueError('Training updates differ from frozen matched baseline')
+        if pmt_enabled:
+            save(output/'TRAINING_SEAL.json',checkpoint_seals)
         status(status='TRAINED', stages=len(tasks), peak_gpu_bytes=torch.cuda.max_memory_allocated())
         return
     except BaseException as exc:

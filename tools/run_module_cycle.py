@@ -88,6 +88,15 @@ def run(config):
                         receipt.get('parameters_unchanged') is not True or receipt.get('test_accessed') is not False
                         or 'dynamic_anchor' not in receipt):
                     raise ValueError('Incomplete anchor state/sealing receipt')
+                if config.get('version')=='paired_moment_transport_v1':
+                    shadow=receipt.get('synthetic_highest_bank',{})
+                    if (receipt.get('parameters_unchanged') is not True or receipt.get('test_accessed') is not False
+                            or 'pmt' not in receipt or shadow.get('synthetic_only') is not True
+                            or shadow.get('dimension')!=1536 or shadow.get('full_rank_memory_probe') is not True or shadow.get('rank')!=1536 or shadow.get('old_classes')!={'ISIC':6,'HK':21}[job['name']]
+                            or shadow.get('optimizer_updates')!=0 or shadow.get('formal_statistics_written') is not False
+                            or shadow.get('relative_residual',1)>1e-8
+                            or len(receipt.get('adapter_pool_gradients',{}))!=2
+                            or any(not __import__('math').isfinite(v) or v<=0 for v in receipt.get('adapter_pool_gradients',{}).values())):raise ValueError('Incomplete PMT highest-bank shadow receipt')
                 if config.get('version')=='supported_old_margin_v1' and (
                         receipt.get('parameters_unchanged') is not True or receipt.get('test_accessed') is not False
                         or 'lca_supported' not in receipt):

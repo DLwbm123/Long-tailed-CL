@@ -1,0 +1,57 @@
+{
+  "status": "CPU_DESIGN_ONLY",
+  "version": "gain_training_calibration_plan_v1",
+  "previous_risk_design_commit": "7552e56e70c2b7d25186381a5e550599cd5e0e72",
+  "primary_control": "local_transport",
+  "direction_changed": false,
+  "steps": [
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "production_integrated": false,
+  "GPU_launch_authorized": false,
+  "medical_data_access_authorized": false,
+  "checkpoint_access_authorized": false,
+  "test_accessed": false,
+  "validation_retuning": false,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "automatic_retry": false,
+  "existing_risk_gate_unmodified": true,
+  "risk_parameters": {
+    "statistical_alpha": 0.01,
+    "statistical_family_events": 3656448,
+    "harm_cap": 0.01,
+    "support_pseudocount": 16.0
+  },
+  "seed": 74002,
+  "prospective_group_fraction": 0.2,
+  "prospective_split_changes_existing_numeric_ray": true,
+  "reuse_existing_fitmeta_as_independent": false,
+  "allow_val_calibration": false,
+  "allow_augmentation_as_independent_sample": false,
+  "head_only_crossfit_independent": false,
+  "full_training_side_inference_authorized": false,
+  "old_image_audit_authorized": false,
+  "old_image_training_replay_authorized": false,
+  "external_calibration_cohort_available": false,
+  "source_stage_checkpoints": 18,
+  "calibration_heads_frozen_before_labels": true,
+  "identity_run_prevented_by_feasibility_screen": true,
+  "main_admission_medically_ready": false,
+  "options": [
+    "EXISTING_TRAIN_DIAGNOSTIC_ONLY",
+    "EXTERNAL_TRAIN_ONLY_COHORT_KEEP_NUMERIC_RAYS",
+    "PROSPECTIVE_GROUP_HOLDOUT_REQUIRES_NEW_CONTROL_STATES"
+  ],
+  "required_before_future_gpu": [
+    "complete_exposure_lineage",
+    "calibration_unit_independence",
+    "same_domain_or_declared_transfer",
+    "paired_old_class_drift_or_unknown",
+    "sample_size_feasibility",
+    "explicit_medical_authorization"
+  ]
+}

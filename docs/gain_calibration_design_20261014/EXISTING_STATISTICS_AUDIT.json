@@ -1,0 +1,252 @@
+{
+  "status": "EXISTING_EVIDENCE_INSUFFICIENT",
+  "checked": "frozen_source_save_schema_and_local_public_training_aggregates",
+  "original_checkpoints_opened": false,
+  "medical_images_read": 0,
+  "val_classification_metrics_read": false,
+  "test_accessed": false,
+  "original_controls": [
+    {
+      "control": "base",
+      "source_commit": "0cfe6b648f5de1b8e8783265e7a0b97b64939952",
+      "saved_fields": [
+        {
+          "line": 195,
+          "fields": [
+            "adapter",
+            "head",
+            "bank",
+            "seen",
+            "actor",
+            "selected_coefficients",
+            "steps",
+            "boundary_pair_weights",
+            "model",
+            "module",
+            "module_memory"
+          ]
+        }
+      ],
+      "evidence_lines": {
+        "common_shift(before, current, y)": [
+          177
+        ],
+        "method.append(old, current, y": [
+          181
+        ],
+        "refit_uses_all_current_training=True": [
+          192
+        ],
+        "before, raw_y": [
+          82
+        ],
+        "current, after_y": [
+          152
+        ]
+      },
+      "independent_meta_at_final_boundary": false,
+      "paired_before_after_saved": false,
+      "old_class_direct_drift_observation": false,
+      "patient_independence_verified": false
+    },
+    {
+      "control": "local_transport",
+      "source_commit": "0f0d8a0717c6da09109cc9205cccf44c490d3e84",
+      "saved_fields": [
+        {
+          "line": 209,
+          "fields": [
+            "adapter",
+            "head",
+            "bank",
+            "seen",
+            "actor",
+            "selected_coefficients",
+            "steps",
+            "boundary_pair_weights",
+            "model",
+            "module",
+            "module_memory"
+          ]
+        }
+      ],
+      "evidence_lines": {
+        "common_shift(before, current, y)": [
+          188
+        ],
+        "method.append(old, current, y": [
+          195
+        ],
+        "refit_uses_all_current_training=True": [
+          206
+        ],
+        "before, raw_y": [
+          84
+        ],
+        "current, after_y": [
+          162
+        ]
+      },
+      "independent_meta_at_final_boundary": false,
+      "paired_before_after_saved": false,
+      "old_class_direct_drift_observation": false,
+      "patient_independence_verified": false
+    }
+  ],
+  "residual_drift_reference": [
+    {
+      "job": "ISIC_residual_drift",
+      "records": 6,
+      "diagnostic_keys": [
+        "activation",
+        "boundary_residual_drift",
+        "boundary_solve",
+        "controller",
+        "epoch",
+        "fit_n",
+        "local_transport_norm",
+        "max_batch_solve_residual",
+        "mean_feature_loss",
+        "mean_fit_loss",
+        "mean_pair_loss",
+        "meta_n",
+        "residual_drift",
+        "steps",
+        "task",
+        "update_module"
+      ],
+      "boundary_drift_keys": [
+        "current_samples",
+        "current_train_including_meta",
+        "detached",
+        "historical_samples",
+        "residual_frobenius_norm",
+        "residual_mean_norm",
+        "residual_trace",
+        "weight"
+      ],
+      "original_control_same_trajectory": false,
+      "can_supply_independent_old_class_calibration": false
+    },
+    {
+      "job": "ISIC_local_transport_drift",
+      "records": 6,
+      "diagnostic_keys": [
+        "activation",
+        "boundary_local_transport_norm",
+        "boundary_residual_drift",
+        "boundary_solve",
+        "controller",
+        "epoch",
+        "fit_n",
+        "local_transport_norm",
+        "max_batch_solve_residual",
+        "mean_feature_loss",
+        "mean_fit_loss",
+        "mean_pair_loss",
+        "meta_n",
+        "residual_drift",
+        "steps",
+        "task",
+        "update_module"
+      ],
+      "boundary_drift_keys": [
+        "current_samples",
+        "current_train_including_meta",
+        "detached",
+        "historical_samples",
+        "residual_frobenius_norm",
+        "residual_mean_norm",
+        "residual_trace",
+        "weight"
+      ],
+      "original_control_same_trajectory": false,
+      "can_supply_independent_old_class_calibration": false
+    },
+    {
+      "job": "HK_residual_drift",
+      "records": 12,
+      "diagnostic_keys": [
+        "activation",
+        "boundary_residual_drift",
+        "boundary_solve",
+        "controller",
+        "epoch",
+        "fit_n",
+        "local_transport_norm",
+        "max_batch_solve_residual",
+        "mean_feature_loss",
+        "mean_fit_loss",
+        "mean_pair_loss",
+        "meta_n",
+        "residual_drift",
+        "steps",
+        "task",
+        "update_module"
+      ],
+      "boundary_drift_keys": [
+        "current_samples",
+        "current_train_including_meta",
+        "detached",
+        "historical_samples",
+        "residual_frobenius_norm",
+        "residual_mean_norm",
+        "residual_trace",
+        "weight"
+      ],
+      "original_control_same_trajectory": false,
+      "can_supply_independent_old_class_calibration": false
+    },
+    {
+      "job": "HK_local_transport_drift",
+      "records": 12,
+      "diagnostic_keys": [
+        "activation",
+        "boundary_local_transport_norm",
+        "boundary_residual_drift",
+        "boundary_solve",
+        "controller",
+        "epoch",
+        "fit_n",
+        "local_transport_norm",
+        "max_batch_solve_residual",
+        "mean_feature_loss",
+        "mean_fit_loss",
+        "mean_pair_loss",
+        "meta_n",
+        "residual_drift",
+        "steps",
+        "task",
+        "update_module"
+      ],
+      "boundary_drift_keys": [
+        "current_samples",
+        "current_train_including_meta",
+        "detached",
+        "historical_samples",
+        "residual_frobenius_norm",
+        "residual_mean_norm",
+        "residual_trace",
+        "weight"
+      ],
+      "original_control_same_trajectory": false,
+      "can_supply_independent_old_class_calibration": false
+    }
+  ],
+  "existing_fitmeta_independent_at_final_head": false,
+  "paired_cross_moments_available_for_original_controls": false,
+  "independent_target_rescue_harm_counts_available": false,
+  "donor_transfer_bounds_available": false,
+  "documented_unused_train_only_cohort": false,
+  "new_identity_run_authorized": false,
+  "engineering_events": [
+    {
+      "scope": "local_anonymous_audit_generation",
+      "reason": "first_schema_read_assumed_diagnostics_for_reused_controls",
+      "fixed_by": "only_audit_runs_with_recorded_training_diagnostics",
+      "residence_not_measured": true,
+      "GPU_processes": 0,
+      "medical_images_read": 0
+    }
+  ]
+}

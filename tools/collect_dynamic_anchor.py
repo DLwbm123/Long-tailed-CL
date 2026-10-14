@@ -12,7 +12,7 @@ def collect(round_dir):
 p=json.loads((root/'PROGRAM_STATE.json').read_text());assert p['status'] in ('COMPLETE','INCOMPLETE') and not p['active']
 program={k:p[k] for k in ('status','phase','started','ended','elapsed_seconds','costs','active','whole_round_wall_seconds','resource_wait_seconds') if k in p}
 launch=json.loads((root/'LAUNCH.private.json').read_text())
-program['preflight_gate_wait_wall_seconds']=p.get('started',launch['launched_at'])-launch['launched_at']
+program['preflight_gate_wait_wall_seconds']=p['started']-launch['launched_at'] if 'started' in p else None
 program['resource_admission_revised_before_GPU']=launch.get('resource_only',False)
 program['failures']=[{k:v for k,v in a.items() if k in ('job','operation','gpu','returncode','residence_seconds')} for a in p['failures']]
 def scalar(v):return {k:x for k,x in v.items() if type(x) in (float,int,bool)}

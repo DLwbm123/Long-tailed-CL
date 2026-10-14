@@ -1,7 +1,8 @@
 """Anonymous fixed-candidate diagnosis; no model, images or sample scores leave NAS."""
 import copy,json,subprocess
 from pathlib import Path
-from gain_joint_production import CANDIDATES,HEADS
+CANDIDATES=('C0125','C025','C05','C1')
+HEADS=CANDIDATES+('LEGACY_SELECTED','JOINT_POINT_SELECTED','JOINT_PRED_SELECTED')
 from concm_statistical_metrics import FIELDS
 from collect_intervention_gain import dump,finite,delta,csvwrite,table,EXTRA,JOBS
 VERSION='gain_joint_predictive_v2'

@@ -14,6 +14,17 @@
       "medical_images": 0,
       "GPU_processes": 0,
       "reason": "final worker includes aggregate-only partial-stage persistence; numerical and scientific helpers unchanged"
+    },
+    {
+      "event": "collector_client_import_failure_before_remote_collection",
+      "cause": "report-only constants imported Torch through production helper; local bundled reporting Python has no Torch",
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "model_accessed": false,
+      "source_runtime_changed": false,
+      "classification_metrics_read": false,
+      "process_residence_seconds": null,
+      "resolution": "report collector constants isolated; import and frozen head-order check PASS without Torch"
     }
   ],
   "production_only_integration": true,

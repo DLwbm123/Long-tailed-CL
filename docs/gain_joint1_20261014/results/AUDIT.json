@@ -1,0 +1,392 @@
+{
+  "status": "PASS",
+  "source_commit": "533562177c4fa39f18dcbe981e2c0d0f596a09ac",
+  "reporting_source_commit": "235dcd2953539d980da69380c97f2f7352dac0a7",
+  "design_source_commit": "2d7a90a59032d30078e5902f070d8d97f4b74a23",
+  "direction_source_commit": "d258fff32b804717ee17b81d4985f0920fbf843b",
+  "round_gpu_process_residence_seconds": 692.971862659324,
+  "cpu_preparation_process_residence_seconds": 2393.9831481594592,
+  "cpu_production_all_attempt_process_residence_seconds": 403.3621914424002,
+  "CPU_PRODUCTION_CHECK": {
+    "status": "PASS",
+    "production_integrated": true,
+    "synthetic_only": true,
+    "full_high_dimensional_cpu_PASS": true,
+    "full_native_solve": true,
+    "dimensions": [
+      1536,
+      23
+    ],
+    "cases": [
+      {
+        "control": "base",
+        "dimension": 1536,
+        "classes": 23,
+        "old_classes": 21,
+        "native_residual": 3.6283617243731065e-11,
+        "direction_residual": 7.25368804174211e-11,
+        "proposal_norm": 0.12156969757820663,
+        "ray_norm": 1.0837237125551191,
+        "nonzero_full_highdimensional_direction": true,
+        "four_candidate_bits_exact": true,
+        "all_probabilities_finite": true,
+        "checkpoint_roundtrip": true,
+        "bank_unchanged": true,
+        "selections": {
+          "LEGACY_SELECTED": {
+            "chosen_scale": 0.0,
+            "public_reuse": true
+          },
+          "JOINT_POINT_SELECTED": {
+            "chosen_scale": 0.0,
+            "selection": "JOINT_POINT_SELECTED"
+          },
+          "JOINT_PRED_SELECTED": {
+            "chosen_scale": 0.0,
+            "selection": "JOINT_PRED_SELECTED"
+          }
+        }
+      },
+      {
+        "control": "local_transport",
+        "dimension": 1536,
+        "classes": 23,
+        "old_classes": 21,
+        "native_residual": 4.471952858610459e-11,
+        "direction_residual": 7.250299490984332e-11,
+        "proposal_norm": 0.12152051084820402,
+        "ray_norm": 1.08394498165828,
+        "nonzero_full_highdimensional_direction": true,
+        "four_candidate_bits_exact": true,
+        "all_probabilities_finite": true,
+        "checkpoint_roundtrip": true,
+        "bank_unchanged": true,
+        "selections": {
+          "LEGACY_SELECTED": {
+            "chosen_scale": 0.0,
+            "public_reuse": true
+          },
+          "JOINT_POINT_SELECTED": {
+            "chosen_scale": 0.0,
+            "selection": "JOINT_POINT_SELECTED"
+          },
+          "JOINT_PRED_SELECTED": {
+            "chosen_scale": 0.0,
+            "selection": "JOINT_PRED_SELECTED"
+          }
+        }
+      }
+    ],
+    "production_checks": {
+      "report_rows": 34,
+      "contrasts": 88,
+      "model_candidate_scenario_rows": 432,
+      "illegal_scope_early_val_metadata_denominator_refused": true,
+      "checkpoint_roundtrip": true,
+      "selections_fixed_before_val": true,
+      "raw_and_guard_signed_counts": true
+    },
+    "mathematical_check": {
+      "status": "PASS",
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "medical_val_reads": 0,
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "production_integrated": false,
+      "scope_rejected": true,
+      "native_compatibility": [
+        {
+          "control": "base",
+          "original_ray_bit_exact": true,
+          "four_candidate_bits_exact": true,
+          "solver_residual": 4.70863503034931e-11
+        },
+        {
+          "control": "local_transport",
+          "original_ray_bit_exact": true,
+          "four_candidate_bits_exact": true,
+          "solver_residual": 4.755055513706055e-11
+        }
+      ],
+      "bank_unchanged": true,
+      "positive_model": {
+        "exact_net": 0.18109924002364386,
+        "lower": 0.1682477856875832,
+        "upper": 0.1897539232967918,
+        "predictive_chosen_scale": 1.0
+      },
+      "negative_model": {
+        "exact_net": -0.18110979644653,
+        "lower": -0.1921953295467918,
+        "upper": -0.1706891919375832,
+        "predictive_identity": true
+      },
+      "correlated_23_class_model": {
+        "exact_net": 0.00832445483800057,
+        "joint_lower": 0.007524175943315931,
+        "joint_upper": 0.009143729117825372,
+        "legacy_rescue_lower": 0.0
+      },
+      "positive_score_rescaling_invariant": true,
+      "exact_covariance_duplicate_ties_preserved": true,
+      "singleton_always_unidentified": true,
+      "unknown_old_mass_retained": true,
+      "df_1_2_finite_categorical_probabilities": true,
+      "new_guard_preserved": true,
+      "interface_1536_by_23_and_score_46": true,
+      "full_high_dimensional_native_solve": false,
+      "clinical_confidence_calibrated": false,
+      "pipeline_seconds": 3.4884938010945916
+    },
+    "GPU_processes": 0,
+    "medical_images_read": 0,
+    "medical_checkpoint_reads": 0,
+    "medical_val_reads": 0,
+    "formal_optimizer_updates": 0,
+    "policy_updates": 0,
+    "test_accessed": false,
+    "pipeline_seconds": 382.433414532803,
+    "process_residence_seconds": 388.51252329628915,
+    "all_CPU_attempt_residence_seconds": 403.3621914424002,
+    "report_fixture_check": {
+      "status": "PASS",
+      "production_checks": {
+        "report_rows": 34,
+        "contrasts": 88,
+        "model_candidate_scenario_rows": 432,
+        "illegal_scope_early_val_metadata_denominator_refused": true,
+        "checkpoint_roundtrip": true,
+        "selections_fixed_before_val": true,
+        "raw_and_guard_signed_counts": true
+      },
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "medical_checkpoint_reads": 0,
+      "medical_val_reads": 0,
+      "optimizer_updates": 0,
+      "model_estimation_nodes": 0,
+      "pipeline_seconds": 9.549320331774652,
+      "process_residence_seconds": 14.849668146111071
+    },
+    "pipeline_included_not_added": true,
+    "current_CPU_failures": 0
+  },
+  "cost_records": [
+    {
+      "job": "ISIC_base",
+      "variant": "JOINT",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 20.156499464064837,
+      "process_started": true,
+      "dispatch_wall_seconds": 21.4149200883694
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "JOINT",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 20.260947585105896,
+      "process_started": true,
+      "dispatch_wall_seconds": 21.509090275038034
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "JOINT",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 14.760737027972937,
+      "process_started": true,
+      "dispatch_wall_seconds": 14.837941873818636
+    },
+    {
+      "job": "HK_base",
+      "variant": "JOINT",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 17.156008603051305,
+      "process_started": true,
+      "dispatch_wall_seconds": 17.250886177644134
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "JOINT",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 46.35823719995096,
+      "process_started": true,
+      "dispatch_wall_seconds": 46.42529445094988
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "JOINT",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 46.41185734793544,
+      "process_started": true,
+      "dispatch_wall_seconds": 46.520578536204994
+    },
+    {
+      "job": "HK_base",
+      "variant": "JOINT",
+      "operation": "evaluate",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 262.98309272900224,
+      "process_started": true,
+      "dispatch_wall_seconds": 263.05230066087097
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "JOINT",
+      "operation": "evaluate",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 264.88448270224035,
+      "process_started": true,
+      "dispatch_wall_seconds": 264.9478088710457
+    }
+  ],
+  "cpu_cost_records": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 124.8699707458727,
+      "process_started": true,
+      "dispatch_wall_seconds": 124.8913247701712
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 127.91576249198988,
+      "process_started": true,
+      "dispatch_wall_seconds": 127.92632525088266
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 1066.4974539699033,
+      "process_started": true,
+      "dispatch_wall_seconds": 1066.523712249007
+    },
+    {
+      "job": "HK_base",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 1074.6999609516934,
+      "process_started": true,
+      "dispatch_wall_seconds": 1074.7153182327747
+    }
+  ],
+  "failures": [],
+  "closed_round_cost_ledger": {
+    "module_additions1_20261009": 19493.177671855316,
+    "module_conditional4_20261010": 317.889564096462,
+    "pathmnist_lt2b_20261010": 13201.918374731671,
+    "module_projected8_20261010": 4692.782252473291,
+    "module_residual3_20261010": 7816.277529418934,
+    "apart_batch_diag1_20261012": 821.2661481616087,
+    "module_lca12_20261013": 6729.443703245837,
+    "dat_hao_isic_hk2_20261012": 70577.7878515902,
+    "rfmid_recurrent2_20261011": 8532.573555985466,
+    "module_local2_20261010": 7624.042213955894,
+    "rfmid_ml1_20261011": 9389.643313958775,
+    "nih_cxr_lt1_20261011": 19312.37608384248,
+    "lca_switch_diag1_20261013": 220.52848667046055,
+    "pathmnist_lt2_20261010": 34.836932834703475,
+    "module_lca11_20261013": 316.3400987358764,
+    "module_supervised6_20261010": 7762.9326083441265,
+    "air_apart_isic_hk1_20261012": 10664.938242565375,
+    "module_normalized7_20261010": 3825.7824614709243,
+    "organamnist_lt1_20261011": 3616.210987377912,
+    "module_trained_readout9_20261010": 315.3058604276739,
+    "rfmid_coverage3_20261011": 10773.305630702991,
+    "rfmid_contrast4_20261011": 11070.13684507506,
+    "module_drift10_20261011": 8874.840206375346,
+    "module_riskguard5_20261010": 284.9935590978712,
+    "pathmnist_lt1_20261010": 4196.5994835817255,
+    "tissuemnist_lt1_20261011": 4094.082611764781,
+    "organamnist_lt1b_20261011": 798.4506311882287,
+    "cifar_module_aux1_20261010": 4646.074400676414,
+    "lca_pair_guard1_20261013": 752.9350273455493,
+    "concm_statistical1_20261013": 2268.399762300309,
+    "concm_mechanism1_20261013": 272.3105146540329,
+    "concm_identity1_20261013": 732.1449408545159,
+    "gain1_20261013": 922.5006284774281,
+    "gain_joint1_20261014": 692.971862659324
+  },
+  "historical_closed_gpu_process_residence_seconds": 327972.4417148675,
+  "cumulative_gpu_process_residence_seconds": 328665.4135775268,
+  "whole_round_wall_seconds": 1553.0904066562653,
+  "source_stage_checkpoints": 18,
+  "sidecars": 72,
+  "main_rows": 32,
+  "contrasts": 88,
+  "model_candidate_scenario_rows": 432,
+  "primary_control": "local_transport",
+  "main_head": "JOINT_PRED_SELECTED",
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "train_accessed": false,
+  "validation_retuning": false,
+  "automatic_retry": false,
+  "prior_results_reused_cost": 0,
+  "numerical_probability_interval_not_clinical_confidence": true,
+  "previous_design_CPU_residence_seconds": 29.468065921217203,
+  "previous_design_not_recharged": true,
+  "engineering_events": [
+    {
+      "event": "complete_high_dimensional_CPU_PASS",
+      "process_residence_seconds": 388.51252329628915,
+      "pipeline_seconds": 382.433414532803,
+      "medical_images": 0,
+      "GPU_processes": 0
+    },
+    {
+      "event": "final_report_fixture_PASS",
+      "process_residence_seconds": 14.849668146111071,
+      "pipeline_seconds": 9.549320331774652,
+      "medical_images": 0,
+      "GPU_processes": 0,
+      "reason": "final worker includes aggregate-only partial-stage persistence; numerical and scientific helpers unchanged"
+    },
+    {
+      "event": "collector_client_import_failure_before_remote_collection",
+      "cause": "report-only constants imported Torch through production helper; local bundled reporting Python has no Torch",
+      "GPU_processes": 0,
+      "medical_images_read": 0,
+      "model_accessed": false,
+      "source_runtime_changed": false,
+      "classification_metrics_read": false,
+      "process_residence_seconds": null,
+      "resolution": "report collector constants isolated; import and frozen head-order check PASS without Torch"
+    }
+  ],
+  "anonymous_collection_source_commit_before_reporting_fix": "77ccc98a5629249e3d9748723207a7beccac75b5",
+  "report_only_dependency_fix": true,
+  "report_CPU_process_residence_seconds": null,
+  "all_72_candidate_net_matches_BA_delta": true,
+  "diagnostic_summary_counts_verified": true
+}

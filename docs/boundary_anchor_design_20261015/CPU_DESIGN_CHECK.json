@@ -1,0 +1,80 @@
+{
+  "status": "CPU_ARITHMETIC_PASS_DESIGN_NOT_READY",
+  "version": "conditional_boundary_graph_CPU_design_v1",
+  "synthetic_only": true,
+  "production_integrated": false,
+  "GPU_ready": false,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "highdimensional_checks": [
+    {
+      "control": "base",
+      "dimension": [
+        1536,
+        23
+      ],
+      "native_residual": 3.3271472067602077e-10,
+      "graph_residual": 3.03371939808274e-10,
+      "stationarity": 6.723767994315671e-11,
+      "relative_head_change": 0.02059850067923514,
+      "zero_strength_exact": true,
+      "common_head_preserved": true,
+      "rare_support_fixture": true,
+      "old_old_edges_invented": false
+    },
+    {
+      "control": "local_transport",
+      "dimension": [
+        1536,
+        23
+      ],
+      "native_residual": 2.8752019722268874e-10,
+      "graph_residual": 2.8778364973999075e-10,
+      "stationarity": 6.35841279753567e-11,
+      "relative_head_change": 0.020694785140152872,
+      "zero_strength_exact": true,
+      "common_head_preserved": true,
+      "rare_support_fixture": true,
+      "old_old_edges_invented": false
+    }
+  ],
+  "PSD_and_stationarity": true,
+  "finite_difference_error": 5.923627473952697e-13,
+  "native_proximal_gradient": 1.1128869611932206e-09,
+  "common_logit_shift_invariant": true,
+  "class_permutation_equivariant": true,
+  "checkpoint_roundtrip_exact": true,
+  "invalid_inputs_refused": [
+    "old_labels",
+    "negative_strength",
+    "invalid_graph",
+    "version"
+  ],
+  "observed_error_target_margin": 1.0,
+  "old_old_error_identified": false,
+  "scientific_counterexamples": {
+    "same_old_n_mu_Q_different_damage": [
+      0,
+      3
+    ],
+    "same_old_n_mu_Q_different_rescue": [
+      0,
+      3
+    ],
+    "preserved_correct_mean_margin_individual_damage": 1
+  },
+  "rejected_claims": [
+    "old risk identified from first two moments",
+    "mean guard ensures no individual damage",
+    "current-label errors establish old-old correction"
+  ],
+  "next_GPU_experiment_admitted": false,
+  "pipeline_seconds": 41.64460958028212,
+  "CPU_operation_wall_including_import_seconds": 48.55657692020759,
+  "CPU_process_residence_seconds": 49.9782999320887,
+  "design_source_commit": "a8a54f774e2102a28444d07f4337e2d9dc7c09f8"
+}

@@ -63,6 +63,27 @@
       "old_waiting_coordinator_replaced_only_after_empty_state_and_children_check": true,
       "original_deadline_preserved": true,
       "training_files_and_parameters_unchanged": true
+    },
+    {
+      "phase": "REPORT_COLLECTION_IMPORT",
+      "attempt": 1,
+      "status": "FAILED_BEFORE_REMOTE_COLLECTION",
+      "reason": "Report imported training-only torch through coordinator; bundled report runtime has no torch",
+      "GPU_processes": 0,
+      "formal_updates": 0,
+      "medical_images_read": 0,
+      "CPU_process_residence_seconds": null
+    },
+    {
+      "phase": "REPORT_COLLECTION_IMPORT",
+      "attempt": 2,
+      "status": "CPU_IMPORT_PASS",
+      "reason": "Report uses existing protocol constants without loading training tensor implementation; frozen runtime source unchanged",
+      "GPU_processes": 0,
+      "formal_updates": 0,
+      "medical_images_read": 0,
+      "pipeline_seconds": 0.00877862493507564,
+      "CPU_process_residence_seconds": null
     }
   ],
   "overlap_rule": "pipeline included in operation wall; client wall separate; no overlapping sum and no historical re-charge"

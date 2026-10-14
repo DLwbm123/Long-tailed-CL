@@ -5,7 +5,7 @@ from pathlib import Path
 
 from summarize_module_additions import summarize
 from summarize_residual_drift import FIELDS,delta,gates
-from run_dynamic_anchor_cycle import ORDERS,SIZES,STEPS,label
+from run_lca_supported_cycle import ORDERS,SIZES,STEPS
 
 NEW=('dynamic_anchor','local_transport_dynamic_anchor','static_anchor','local_transport_static_anchor')
 MODULES=('base','local_transport',*NEW,'AIR')
@@ -48,7 +48,7 @@ def report(s,out):
         for a,b in [(NEW[0],'base'),(NEW[1],'local_transport'),(NEW[2],'base'),(NEW[3],'local_transport'),(NEW[0],NEW[2]),(NEW[1],NEW[3]),(NEW[1],NEW[0]),(NEW[3],NEW[2]),(NEW[1],'base'),*[ (a,'AIR') for a in NEW]]:
             contrasts.append(dict(dataset=ds,contrast=a+'−'+b,delta_pp=delta(m[a],m[b])))
         for mode in ('dynamic','static'):
-            a=label('local_transport',mode);b=label('base',mode);x=delta(m[a],m['local_transport']);y=delta(m[b],m['base'])
+            a='local_transport_'+mode+'_anchor';b=mode+'_anchor';x=delta(m[a],m['local_transport']);y=delta(m[b],m['base'])
             contrasts.append(dict(dataset=ds,contrast=mode+'_interaction',delta_pp={k:x[k]-y[k] for k in FIELDS}))
         for arm in NEW:
             control='local_transport' if arm.startswith('local_transport') else 'base'

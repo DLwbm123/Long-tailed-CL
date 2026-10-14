@@ -1,0 +1,69 @@
+{
+  "status": "CPU_DESIGN_PREPARATION",
+  "version": "gain_joint_predictive_v2",
+  "direction_source_commit": "d258fff32b804717ee17b81d4985f0920fbf843b",
+  "previous_delivery_commit": "d7687016d5b5b51ce947027de0733c71008224fa",
+  "CPU_attempts": [
+    {
+      "attempt": 1,
+      "status": "FAIL",
+      "process_residence_seconds": 11.042072726879269,
+      "pipeline_seconds": null,
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "reason": "joint_score_duplicate_tie_numerical_failure"
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "process_residence_seconds": 10.039169033057988,
+      "pipeline_seconds": 4.826256781350821,
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "reason": "PASS_before_relative_rank_threshold_and_component_audit"
+    },
+    {
+      "attempt": 3,
+      "status": "PASS",
+      "process_residence_seconds": 8.386824161279947,
+      "pipeline_seconds": 5.133128331974149,
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "reason": "PASS_final_frozen_helper"
+    }
+  ],
+  "CPU_process_residence_total_seconds": 29.468065921217203,
+  "pipeline_included_not_added": true,
+  "formal_GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "medical_val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "production_integrated": false,
+  "experiment_launched": false,
+  "monitor_created": false,
+  "old_round_cost_recharged": false,
+  "statistical_calibration_verified": false,
+  "full_high_dimensional_native_solve": false,
+  "native_direction_and_candidate_bits_preserved": true,
+  "engineering_failure_disclosed": true,
+  "numerical_scale_review_fix": "Covariance rank cutoff made relative to covariance magnitude; duplicate stochastic coordinates retain exact score ties",
+  "public_contents": [
+    "source",
+    "protocol",
+    "synthetic CPU checks",
+    "design report",
+    "cost audit"
+  ],
+  "forbidden_contents": [
+    "medical checkpoints",
+    "images",
+    "sample IDs",
+    "per-sample scores",
+    "statistic matrices",
+    "private runtime",
+    "raw logs"
+  ]
+}

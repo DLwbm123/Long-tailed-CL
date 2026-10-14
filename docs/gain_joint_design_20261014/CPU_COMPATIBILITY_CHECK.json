@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "medical_val_reads": 0,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "production_integrated": false,
+  "scope_rejected": true,
+  "native_compatibility": [
+    {
+      "control": "base",
+      "original_ray_bit_exact": true,
+      "four_candidate_bits_exact": true,
+      "solver_residual": 4.70863503034931e-11
+    },
+    {
+      "control": "local_transport",
+      "original_ray_bit_exact": true,
+      "four_candidate_bits_exact": true,
+      "solver_residual": 4.755055513706055e-11
+    }
+  ],
+  "bank_unchanged": true,
+  "positive_model": {
+    "exact_net": 0.18109924002364386,
+    "lower": 0.1682477856875832,
+    "upper": 0.1897539232967918,
+    "predictive_chosen_scale": 1.0
+  },
+  "negative_model": {
+    "exact_net": -0.18110979644653,
+    "lower": -0.1921953295467918,
+    "upper": -0.1706891919375832,
+    "predictive_identity": true
+  },
+  "correlated_23_class_model": {
+    "exact_net": 0.00832445483800057,
+    "joint_lower": 0.007524175943315931,
+    "joint_upper": 0.009143729117825372,
+    "legacy_rescue_lower": 0.0
+  },
+  "positive_score_rescaling_invariant": true,
+  "exact_covariance_duplicate_ties_preserved": true,
+  "singleton_always_unidentified": true,
+  "unknown_old_mass_retained": true,
+  "df_1_2_finite_categorical_probabilities": true,
+  "new_guard_preserved": true,
+  "interface_1536_by_23_and_score_46": true,
+  "full_high_dimensional_native_solve": false,
+  "clinical_confidence_calibrated": false,
+  "pipeline_seconds": 5.133128331974149,
+  "process_residence_seconds": 8.386824161279947,
+  "CPU_attempts": [
+    {
+      "attempt": 1,
+      "status": "FAIL",
+      "process_residence_seconds": 11.042072726879269,
+      "pipeline_seconds": null,
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "reason": "joint_score_duplicate_tie_numerical_failure"
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "process_residence_seconds": 10.039169033057988,
+      "pipeline_seconds": 4.826256781350821,
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "reason": "PASS_before_relative_rank_threshold_and_component_audit"
+    },
+    {
+      "attempt": 3,
+      "status": "PASS",
+      "process_residence_seconds": 8.386824161279947,
+      "pipeline_seconds": 5.133128331974149,
+      "synthetic_only": true,
+      "GPU_processes": 0,
+      "reason": "PASS_final_frozen_helper"
+    }
+  ],
+  "CPU_process_residence_total_seconds": 29.468065921217203,
+  "pipeline_included_not_added": true
+}

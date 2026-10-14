@@ -1,9 +1,9 @@
 """Collect only anonymous training diagnostic aggregates; never fetch tensors."""
 import csv,json,math,subprocess
 from pathlib import Path
-from gain_train_diagnostic import VERSION
-from gain_joint_production import CANDIDATES
-from lca_pair_worker import JOBS
+VERSION='gain_training_paired_diagnostic_v1'
+CANDIDATES=('C0125','C025','C05','C1')
+JOBS=[ds+'_'+arm for ds in ('ISIC','HK') for arm in ('base','local_transport')]
 
 
 def csvwrite(p,rows):
@@ -97,5 +97,5 @@ def collect(round_dir):
     code='import json,subprocess\nfrom pathlib import Path\nr=Path('+repr(root)+')\ns=json.loads((r/"PROGRAM_STATE.json").read_text());assert s["status"] in ("COMPLETE","INCOMPLETE") and not s["active"]\nps=subprocess.check_output(["ps","-eo","args="],text=True);assert not any("/tmp/q220w.py" in z or "/tmp/q220c.py" in z for z in ps.splitlines())\na=dict(program=s,runs={},preflights={})\nfor n in '+repr(JOBS)+':\n for key,folder in [("runs","runs"),("preflights","preflight")]:\n  p=r/folder/n/"RESULTS.json"\n  if not p.exists() and key=="runs":p=r/folder/n/"PARTIAL_RESULTS.json"\n  if p.exists():a[key][n]=json.loads(p.read_text())\nprint(json.dumps(a,allow_nan=False))\n'
     x=subprocess.run(['ssh','my-gpu','/tmp/q107v/bin/python -'],input=code,text=True,capture_output=True)
     if x.returncode:raise RuntimeError('Terminal collection failed; retain private receipts')
-    s=json.loads(x.stdout);s.update(lock=json.loads((r/'PROTOCOL_LOCK.json').read_text()),source_commit=h['source_commit'],CPU_check=json.loads((r/'CPU_PRODUCTION_CHECK.json').read_text()))
+    s=json.loads(x.stdout);s.update(lock=json.loads((r/'PROTOCOL_LOCK.json').read_text()),source_commit=h['source_commit'],CPU_check=json.loads((r/'CPU_PRODUCTION_CHECK.json').read_text()),reporting_source_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
     return report(s,r)

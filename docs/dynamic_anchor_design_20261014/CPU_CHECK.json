@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "version": "temporal_native_geometry_anchor_v1_CPU_DESIGN",
+  "synthetic_only": true,
+  "production_integrated": false,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "highdimensional_checks": [
+    {
+      "control": "base",
+      "dimension": [
+        1536,
+        23
+      ],
+      "native_residual": 3.9523268135612377e-10,
+      "anchored_residual": 2.6710762854008103e-10,
+      "relative_head_change": 0.007821269244904835,
+      "common_head_preserved": true,
+      "nonzero_anchor_effect": true,
+      "raw_rotations_preserve_norm": true,
+      "rare_support_pattern_checked": true
+    },
+    {
+      "control": "local_transport",
+      "dimension": [
+        1536,
+        23
+      ],
+      "native_residual": 3.559906241825682e-10,
+      "anchored_residual": 3.0173895475453036e-10,
+      "relative_head_change": 0.007988043841405048,
+      "common_head_preserved": true,
+      "nonzero_anchor_effect": true,
+      "raw_rotations_preserve_norm": true,
+      "rare_support_pattern_checked": true
+    }
+  ],
+  "zero_strength_exact_native": true,
+  "self_anchor_identity_detected": true,
+  "quadratic_stationarity_gradient": 8.026218444318017e-10,
+  "positive_definite_hessian_checked": true,
+  "envelope_gradient_error": 2.255958961305815e-11,
+  "anchor_target_and_reliability_frozen_within_block": true,
+  "global_translation_invariant": true,
+  "class_permutation_equivariant": true,
+  "no_prototype_motion_preserves_reference": true,
+  "unidentified_direction_not_fabricated": true,
+  "singleton_covariance_not_claimed_identified": true,
+  "invalid_inputs_refused": [
+    "negative_strength",
+    "bad_counts",
+    "bad_geometry"
+  ],
+  "native_proximal_zero_strength_exact": true,
+  "native_proximal_stationarity_gradient": 1.7669813763781488e-10,
+  "native_proximal_solve_residual": 1.3207267960067175e-10,
+  "new_class_accuracy_or_margin_guarantee": false,
+  "pipeline_seconds": 17.442406123969704,
+  "CPU_operation_wall_including_import_seconds": 24.442907758057117
+}

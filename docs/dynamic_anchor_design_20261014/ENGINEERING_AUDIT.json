@@ -1,0 +1,71 @@
+{
+  "attempts": [
+    {
+      "phase": "saved statistics",
+      "attempt": 1,
+      "status": "FAILED",
+      "sanitized_reason": "PyTorch mmap file-name type rejected before first checkpoint load",
+      "client_wall_seconds": 34.64844504208304,
+      "CPU_process_residence_seconds": null,
+      "CPU_operation_wall_including_import_seconds": null,
+      "pipeline_seconds": null,
+      "GPU_processes": 0,
+      "GPU_residence_seconds": 0,
+      "medical_images_read": 0
+    },
+    {
+      "phase": "saved statistics",
+      "attempt": 2,
+      "status": "PASS",
+      "sanitized_reason": "path type fixed; 18 checkpoints and 18 saved train-only statistical sidecars",
+      "client_wall_seconds": 285.7650201669894,
+      "CPU_process_residence_seconds": null,
+      "CPU_operation_wall_including_import_seconds": 284.1139924880117,
+      "pipeline_seconds": 278.6300823157653,
+      "GPU_processes": 0,
+      "GPU_residence_seconds": 0,
+      "medical_images_read": 0
+    },
+    {
+      "phase": "synthetic design",
+      "attempt": 1,
+      "status": "FAILED",
+      "sanitized_reason": "exact identity assertion exposed roundoff from subtract/add common component",
+      "client_wall_seconds": 36.70526120788418,
+      "CPU_process_residence_seconds": null,
+      "CPU_operation_wall_including_import_seconds": null,
+      "pipeline_seconds": null,
+      "GPU_processes": 0,
+      "GPU_residence_seconds": 0,
+      "medical_images_read": 0
+    },
+    {
+      "phase": "synthetic design",
+      "attempt": 2,
+      "status": "PASS",
+      "sanitized_reason": "exact copy for unchanged/unidentified columns; no medical inputs",
+      "client_wall_seconds": 24.752938417019323,
+      "CPU_process_residence_seconds": null,
+      "CPU_operation_wall_including_import_seconds": 23.547088988590986,
+      "pipeline_seconds": 17.734421101864427,
+      "GPU_processes": 0,
+      "GPU_residence_seconds": 0,
+      "medical_images_read": 0
+    },
+    {
+      "phase": "synthetic design with native proximal",
+      "attempt": 3,
+      "status": "PASS",
+      "sanitized_reason": "added native .01 proximal operator/RHS compatibility and stationarity checks",
+      "client_wall_seconds": 25.748614375013858,
+      "CPU_process_residence_seconds": null,
+      "CPU_operation_wall_including_import_seconds": 24.442907758057117,
+      "pipeline_seconds": 17.442406123969704,
+      "GPU_processes": 0,
+      "GPU_residence_seconds": 0,
+      "medical_images_read": 0
+    }
+  ],
+  "accounting": "pipeline is included in CPU operation wall; client wall includes SSH; process residence not independently measured. Do not add overlapping durations or charge historical reused evidence again.",
+  "raw_errors_private": true
+}

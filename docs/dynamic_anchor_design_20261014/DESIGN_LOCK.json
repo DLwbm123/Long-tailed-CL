@@ -1,0 +1,126 @@
+{
+  "version": "temporal_native_geometry_anchor_v1_CPU_DESIGN",
+  "status": "CPU_DESIGN_ONLY",
+  "production_integrated": false,
+  "new_experiments_authorized": false,
+  "principles": [
+    "temporal self-class rotation in frozen covariance-aware geometry",
+    "native class-balanced competition and local prior retained",
+    "class-common logit gauge excluded",
+    "no raw-mean unit target or ETF",
+    "support and age are heuristics, not calibrated confidence"
+  ],
+  "constants": {
+    "support_smoothing": 16,
+    "relative_curvature": 0.1,
+    "parameter_selection": "prospective mathematical CPU design; no val selection"
+  },
+  "target": {
+    "reference": "task-start full native head with current new classes bootstrapped from native fit statistics",
+    "curvature": "G0=sum(Q0)/K + .001 R0; frozen at task start",
+    "directions": "G0^{-1}(mu_c - mean_class_mu)",
+    "rotation": "minimum plane rotation between before/current directions, angle multiplied by rho_c",
+    "reliability": "rho_c=n_c/(n_c+16)/(1+transport_age_c)",
+    "age": "tasks since class introduction; old evidence remains transport estimate",
+    "degenerate": "zero or antipodal unidentified plane: rho=0 and exact reference column",
+    "refresh": "epoch boundary fit-only statistics; detached and fixed within each optimization block; all-current boundary statistics join only at native seal",
+    "old_mean_transport": "existing shared translation only; no new old-image estimator"
+  },
+  "objective": {
+    "H": "Pi diag(rho) Pi, Pi=I-11^T/K",
+    "anchor": "lambda/2 tr[(W-A) H (W-A)^T]",
+    "strength": "lambda=.1 trace(G0)/d",
+    "operator": "native_operator(W) + lambda W H",
+    "rhs": "native_rhs + lambda A H",
+    "native_proximal": ".01 during minibatch solve retained; boundary native proximal=0",
+    "gradients": "envelope derivative of fixed-target block; target refresh is not differentiated",
+    "zero": "lambda=0 or all rho=0 calls native solve exactly"
+  },
+  "new_class_protection": {
+    "self_identity": true,
+    "no_cross_class_donor": true,
+    "original_pair_objective_and_distillation_retained": true,
+    "common_logit_lift": false,
+    "preserves_before_projection_norms_only": true,
+    "guarantees_future_accuracy_or_margins": false
+  },
+  "complementary_to_local_transport": "local_transport maintains regional prior; anchor acts on temporal global classifier contrasts without adding region centers or transporting statistics again",
+  "planned_comparisons": {
+    "main_four": [
+      "Core",
+      "Core+local_transport",
+      "Core+dynamic_anchor",
+      "Core+local_transport+dynamic_anchor"
+    ],
+    "essential_contribution": "same lambda/rho, target A=W0 static task-start anchor versus rotated target",
+    "secondary_if_authorized": [
+      "support/age weighting contribution using same target and strength",
+      "covariance-aware direction versus raw Euclidean direction"
+    ],
+    "execution": "not authorized now; dynamic adapter-training effect cannot be represented by final-checkpoint inference-only evaluation",
+    "primary": "local_transport; never select a best control with val",
+    "metrics": [
+      "finalBA",
+      "avgBA",
+      "tail",
+      "forgetting",
+      "old",
+      "new",
+      "Acc",
+      "provided macroF1",
+      "per-class n/recall",
+      "old/new confusion",
+      "rescue/damage",
+      "AIR gap"
+    ],
+    "development_gates": "paired control: BA>=+1pp, tail>=-.5pp, forgetting<=+1pp, old/new>=-1pp on both datasets; per-class damage retained, no statistical-significance claim",
+    "no_new_science_or_budget": true,
+    "no_val_tuning": true,
+    "no_test": true,
+    "no_RL": true,
+    "future_budget_only": {
+      "control_reuse_optimizer_updates": 0,
+      "new_module_arms": 4,
+      "ISIC_updates_each": 468,
+      "HK_updates_each": 176,
+      "total_new_updates_if_separately_authorized": 1288,
+      "task_sizes_ISIC": [
+        4,
+        2,
+        2
+      ],
+      "task_sizes_HK": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "pretraining": "same frozen ViT IN21k-to-IN1k cache",
+      "train_replay": false,
+      "seed": 74002,
+      "epochs": 2,
+      "batch": 64,
+      "optimizer": "AdamW .0003 WD .01, per-task cosine; FD10 clip5",
+      "production_scope": "not implemented or launched"
+    }
+  },
+  "source_provenance": {
+    "base": {
+      "round": "module_additions1_20261009",
+      "source": "0cfe6b648f5de1b8e8783265e7a0b97b64939952",
+      "delivery": "ecd783ffd7b32eea4e2e2a1311b9f033231f1677"
+    },
+    "local_transport": {
+      "round": "module_local2_20261010",
+      "source": "0f0d8a0717c6da09109cc9205cccf44c490d3e84",
+      "delivery": "4b6e0c87887b101ae2970738919760f00e19726e"
+    },
+    "train_sidecar": {
+      "round": "crisk1_20261014",
+      "source": "295a059a3fca03ad7006c6125e4bb64264da18b5",
+      "sidecar": "533562177c4fa39f18dcbe981e2c0d0f596a09ac"
+    }
+  }
+}

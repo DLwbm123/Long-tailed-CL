@@ -1,0 +1,28 @@
+{
+  "epoch_rows": 36,
+  "boundary_rows": 18,
+  "stage_checkpoints": 18,
+  "retrospective_train_statistic_sidecars": 18,
+  "class_rows": 252,
+  "observed": [
+    "saved stage classifier and class mean/second moments",
+    "four saved class regional centers for local_transport",
+    "train-only score projection distributions and OFF counts",
+    "epoch loss, solver residual, prototype count and regional shift magnitude"
+  ],
+  "missing": [
+    "within-epoch per-class head/prototype geometry",
+    "actual old 1536D feature means under each current encoder",
+    "actual old regional means/covariances",
+    "independent calibration",
+    "per-epoch feature gradients and classifier-prototype gradient angles"
+  ],
+  "old_prototypes_are_transport_estimates": true,
+  "train_diagnostics_are_in_sample": true,
+  "new_boundary_score_agreement_is_by_construction": true,
+  "new_medical_image_reads": 0,
+  "encoder_forward_calls": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "scientific_new_experiment": false
+}

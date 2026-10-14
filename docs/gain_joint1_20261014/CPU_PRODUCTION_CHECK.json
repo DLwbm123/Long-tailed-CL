@@ -1,0 +1,168 @@
+{
+  "status": "PASS",
+  "production_integrated": true,
+  "synthetic_only": true,
+  "full_high_dimensional_cpu_PASS": true,
+  "full_native_solve": true,
+  "dimensions": [
+    1536,
+    23
+  ],
+  "cases": [
+    {
+      "control": "base",
+      "dimension": 1536,
+      "classes": 23,
+      "old_classes": 21,
+      "native_residual": 3.6283617243731065e-11,
+      "direction_residual": 7.25368804174211e-11,
+      "proposal_norm": 0.12156969757820663,
+      "ray_norm": 1.0837237125551191,
+      "nonzero_full_highdimensional_direction": true,
+      "four_candidate_bits_exact": true,
+      "all_probabilities_finite": true,
+      "checkpoint_roundtrip": true,
+      "bank_unchanged": true,
+      "selections": {
+        "LEGACY_SELECTED": {
+          "chosen_scale": 0.0,
+          "public_reuse": true
+        },
+        "JOINT_POINT_SELECTED": {
+          "chosen_scale": 0.0,
+          "selection": "JOINT_POINT_SELECTED"
+        },
+        "JOINT_PRED_SELECTED": {
+          "chosen_scale": 0.0,
+          "selection": "JOINT_PRED_SELECTED"
+        }
+      }
+    },
+    {
+      "control": "local_transport",
+      "dimension": 1536,
+      "classes": 23,
+      "old_classes": 21,
+      "native_residual": 4.471952858610459e-11,
+      "direction_residual": 7.250299490984332e-11,
+      "proposal_norm": 0.12152051084820402,
+      "ray_norm": 1.08394498165828,
+      "nonzero_full_highdimensional_direction": true,
+      "four_candidate_bits_exact": true,
+      "all_probabilities_finite": true,
+      "checkpoint_roundtrip": true,
+      "bank_unchanged": true,
+      "selections": {
+        "LEGACY_SELECTED": {
+          "chosen_scale": 0.0,
+          "public_reuse": true
+        },
+        "JOINT_POINT_SELECTED": {
+          "chosen_scale": 0.0,
+          "selection": "JOINT_POINT_SELECTED"
+        },
+        "JOINT_PRED_SELECTED": {
+          "chosen_scale": 0.0,
+          "selection": "JOINT_PRED_SELECTED"
+        }
+      }
+    }
+  ],
+  "production_checks": {
+    "report_rows": 34,
+    "contrasts": 88,
+    "model_candidate_scenario_rows": 432,
+    "illegal_scope_early_val_metadata_denominator_refused": true,
+    "checkpoint_roundtrip": true,
+    "selections_fixed_before_val": true,
+    "raw_and_guard_signed_counts": true
+  },
+  "mathematical_check": {
+    "status": "PASS",
+    "synthetic_only": true,
+    "GPU_processes": 0,
+    "medical_images_read": 0,
+    "medical_checkpoint_reads": 0,
+    "medical_val_reads": 0,
+    "optimizer_updates": 0,
+    "policy_updates": 0,
+    "production_integrated": false,
+    "scope_rejected": true,
+    "native_compatibility": [
+      {
+        "control": "base",
+        "original_ray_bit_exact": true,
+        "four_candidate_bits_exact": true,
+        "solver_residual": 4.70863503034931e-11
+      },
+      {
+        "control": "local_transport",
+        "original_ray_bit_exact": true,
+        "four_candidate_bits_exact": true,
+        "solver_residual": 4.755055513706055e-11
+      }
+    ],
+    "bank_unchanged": true,
+    "positive_model": {
+      "exact_net": 0.18109924002364386,
+      "lower": 0.1682477856875832,
+      "upper": 0.1897539232967918,
+      "predictive_chosen_scale": 1.0
+    },
+    "negative_model": {
+      "exact_net": -0.18110979644653,
+      "lower": -0.1921953295467918,
+      "upper": -0.1706891919375832,
+      "predictive_identity": true
+    },
+    "correlated_23_class_model": {
+      "exact_net": 0.00832445483800057,
+      "joint_lower": 0.007524175943315931,
+      "joint_upper": 0.009143729117825372,
+      "legacy_rescue_lower": 0.0
+    },
+    "positive_score_rescaling_invariant": true,
+    "exact_covariance_duplicate_ties_preserved": true,
+    "singleton_always_unidentified": true,
+    "unknown_old_mass_retained": true,
+    "df_1_2_finite_categorical_probabilities": true,
+    "new_guard_preserved": true,
+    "interface_1536_by_23_and_score_46": true,
+    "full_high_dimensional_native_solve": false,
+    "clinical_confidence_calibrated": false,
+    "pipeline_seconds": 3.4884938010945916
+  },
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoint_reads": 0,
+  "medical_val_reads": 0,
+  "formal_optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "pipeline_seconds": 382.433414532803,
+  "process_residence_seconds": 388.51252329628915,
+  "all_CPU_attempt_residence_seconds": 403.3621914424002,
+  "report_fixture_check": {
+    "status": "PASS",
+    "production_checks": {
+      "report_rows": 34,
+      "contrasts": 88,
+      "model_candidate_scenario_rows": 432,
+      "illegal_scope_early_val_metadata_denominator_refused": true,
+      "checkpoint_roundtrip": true,
+      "selections_fixed_before_val": true,
+      "raw_and_guard_signed_counts": true
+    },
+    "synthetic_only": true,
+    "GPU_processes": 0,
+    "medical_images_read": 0,
+    "medical_checkpoint_reads": 0,
+    "medical_val_reads": 0,
+    "optimizer_updates": 0,
+    "model_estimation_nodes": 0,
+    "pipeline_seconds": 9.549320331774652,
+    "process_residence_seconds": 14.849668146111071
+  },
+  "pipeline_included_not_added": true,
+  "current_CPU_failures": 0
+}

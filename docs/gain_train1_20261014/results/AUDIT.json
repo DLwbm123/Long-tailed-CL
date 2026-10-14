@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "source_commit": "d89b1b58a0c62a0ed8d825e4e0000e5d3f73896f",
+  "version": "gain_training_paired_diagnostic_v1",
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "val_accessed": false,
+  "test_accessed": false,
+  "independent_calibration": false,
+  "round_gpu_process_residence_seconds": 9481.488091873005,
+  "round_cpu_prepare_residence_seconds": 34.41529592778534,
+  "prelaunch_CPU_residence_seconds": 35.91573232738301,
+  "pipeline_included_not_added": true,
+  "program_cost_records": [
+    {
+      "job": "ISIC_local_transport",
+      "variant": "TRAIN",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 24.632846978027374,
+      "process_started": true,
+      "dispatch_wall_seconds": 25.19519675336778
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "TRAIN",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 25.831933507695794,
+      "process_started": true,
+      "dispatch_wall_seconds": 26.379508900921792
+    },
+    {
+      "job": "HK_base",
+      "variant": "TRAIN",
+      "operation": "preflight",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 21.75914958398789,
+      "process_started": true,
+      "dispatch_wall_seconds": 21.870785978157073
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "TRAIN",
+      "operation": "preflight",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 21.86247407598421,
+      "process_started": true,
+      "dispatch_wall_seconds": 21.956902065780014
+    },
+    {
+      "job": "ISIC_base",
+      "variant": "TRAIN",
+      "operation": "diagnose",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 2462.6501129320823,
+      "process_started": true,
+      "dispatch_wall_seconds": 2462.759941617027
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "TRAIN",
+      "operation": "diagnose",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 2462.718350450974,
+      "process_started": true,
+      "dispatch_wall_seconds": 2462.8128662193194
+    },
+    {
+      "job": "HK_base",
+      "variant": "TRAIN",
+      "operation": "diagnose",
+      "gpu": 0,
+      "returncode": 0,
+      "residence_seconds": 2230.7030926039442,
+      "process_started": true,
+      "dispatch_wall_seconds": 2230.7976219486445
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "TRAIN",
+      "operation": "diagnose",
+      "gpu": 1,
+      "returncode": 0,
+      "residence_seconds": 2231.3301317403093,
+      "process_started": true,
+      "dispatch_wall_seconds": 2231.4227449446917
+    }
+  ],
+  "CPU_cost_records": [
+    {
+      "job": "ISIC_base",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 8.042008616961539,
+      "process_started": true,
+      "dispatch_wall_seconds": 8.053217876702547
+    },
+    {
+      "job": "ISIC_local_transport",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 8.137614181265235,
+      "process_started": true,
+      "dispatch_wall_seconds": 8.157835477031767
+    },
+    {
+      "job": "HK_local_transport",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 9.040602762717754,
+      "process_started": true,
+      "dispatch_wall_seconds": 9.055686437059194
+    },
+    {
+      "job": "HK_base",
+      "variant": "",
+      "operation": "prepare",
+      "gpu": null,
+      "returncode": 0,
+      "residence_seconds": 9.19507036684081,
+      "process_started": true,
+      "dispatch_wall_seconds": 9.202669761143625
+    }
+  ],
+  "planned_diagnostic_image_exposures": 219448,
+  "preflight_image_exposures": 512,
+  "main_rows": 72,
+  "class_rows": 1008,
+  "estimator_rows": 6048,
+  "estimator_macro_rows": 432,
+  "ranking_rows": 648,
+  "failure_records": [],
+  "wall_seconds": 4760.160460472107,
+  "reporting_source_commit": "81669dca29b54e7b6bc9e9ac123ceead3444b2a5"
+}

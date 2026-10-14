@@ -1,0 +1,77 @@
+{
+  "status": "RUNNING_NOT_CLASSIFICATION_RESULTS",
+  "source_commit": "533562177c4fa39f18dcbe981e2c0d0f596a09ac",
+  "design_source_commit": "2d7a90a59032d30078e5902f070d8d97f4b74a23",
+  "direction_source_commit": "d258fff32b804717ee17b81d4985f0920fbf843b",
+  "source_protocol_anonymous_HTTP": 200,
+  "launched_at": 1791944735.065105,
+  "deadline": 1791959135.065105,
+  "launched_Beijing": "2026-10-14T10:25:35.065105+08:00",
+  "deadline_Beijing": "2026-10-14T14:25:35.065105+08:00",
+  "snapshot_at": 1791944850.7867224,
+  "snapshot_Beijing": "2026-10-14T10:27:30.786722+08:00",
+  "phase": "PREPARE",
+  "active": [
+    {
+      "job": "ISIC_base",
+      "operation": "prepare"
+    },
+    {
+      "job": "ISIC_local_transport",
+      "operation": "prepare"
+    }
+  ],
+  "active_statuses": {
+    "ISIC_base": {
+      "status": "RUNNING",
+      "operation": "prepare",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "train_accessed": false,
+      "test_accessed": false,
+      "task": 3,
+      "phase": "COVARIANCE_GEOMETRY"
+    },
+    "ISIC_local_transport": {
+      "status": "RUNNING",
+      "operation": "prepare",
+      "optimizer_updates": 0,
+      "policy_updates": 0,
+      "train_accessed": false,
+      "test_accessed": false,
+      "task": 3,
+      "phase": "COVARIANCE_GEOMETRY"
+    }
+  },
+  "failures": [],
+  "full_highdimensional_CPU_PASS": true,
+  "CPU_all_attempt_residence_seconds": 403.3621914424002,
+  "CPU_processes_synthetic": 2,
+  "preflights_PASS_at_snapshot": 0,
+  "GPU_processes_at_snapshot": 0,
+  "optimizer_updates": 0,
+  "policy_updates": 0,
+  "test_accessed": false,
+  "validation_classification_metrics_read": false,
+  "source_checkpoints": 18,
+  "sidecars": 72,
+  "readouts_per_control": 8,
+  "primary_control": "local_transport",
+  "main_head": "JOINT_PRED_SELECTED",
+  "source_freeze_and_NAS_probe_verified": true,
+  "own_parent_children_commands_neutral": true,
+  "authorized_gpus": [
+    0,
+    1
+  ],
+  "GPU_free_mib_at_launch": {
+    "0": 40445,
+    "1": 39786
+  },
+  "current_costs_unclosed": true,
+  "prior_results_reused_cost": 0,
+  "automatic_retry": false,
+  "monitor_created": false,
+  "collect_entry": "local_runtime/collect.py",
+  "deliver_entry": "local_runtime/deliver.py"
+}

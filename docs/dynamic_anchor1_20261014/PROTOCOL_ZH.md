@@ -45,3 +45,7 @@
 结束时先查results/DELIVERY防重复，local_runtime/collect.py仅匿名聚合与标量，INCOMPLETE保留部分、全部失败cost及去标识原因，missing不填0。源码/协议/结果/REPORT/CONTRIBUTIONS/AUDIT/cost经显式代理push同GitHub仓库branch，remoteSHA及精确报告匿名HTTP200后再NAS public_delivery/DELIVERY/HANDOFF。禁止发布影像、权重、矩阵、身份、逐样本结果、私有配置、rawlogs/tracebacks。聊天直接给完整主表、贡献、类别得失、AIR差距和费用。
 
 用户最新追加每半小时监测及自主诊断/改进授权：复用同一自动化lca，不建立重复。健康保持安静；问题保留证据后解决，当前冻结矩阵完整交付后再依据完整结果分析并前瞻冻结下一版，不能改正在运行的预算/源或进行val网格。方法贡献与竞争力以机制对照、正负结果和资源差异支持，不承诺顶会顶刊录用。
+
+## 启动前资源准入纠正
+
+32GiB是沿用旧模板的保守门，未按本轮Core实际峰值重算。确认协调器仍WAITING_GPU01、active/costs/failures全部空、0真实GPU预检/0正式更新后，仅将资源门改为24GiB。历史Core/LT及LCA同骨干最大PyTorch allocated峰值13.90GiB，新增锚定参考1536×1536 float64矩阵约18MiB一份，fit边界临时统计另有增量；这些不是本轮实测总reserved/NVML峰值。24GiB预留明显余量，真实预检负责确认实际峰值；失败保留，不自动压batch/改预算/借卡。旧等待协调器只在SIGSTOP后再次确认空状态才更换，保留原launch/deadline，旧日志与源不覆盖。训练worker及所有数学参数保持与5f8b90e完全相同，源码提交变化仅资源准入。

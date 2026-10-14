@@ -11,6 +11,10 @@ from run_lca_supported_cycle import ORDERS,SIZES,STEPS,read_training
 from dynamic_geometry_anchor import VERSION
 
 MODES=('dynamic','static')
+MIN_FREE_MIB=24576
+
+
+def admitted(available,gpus):return all(available.get(g,-1)>=MIN_FREE_MIB for g in gpus)
 
 
 def label(module,mode):return ('local_transport_' if module=='local_transport' else '')+mode+'_anchor'
@@ -67,7 +71,7 @@ def main(c):
     while True:
         if time.time()>=c['deadline']:raise TimeoutError('Original deadline; no automatic retry')
         available={int(r.split(',')[0]):int(r.split(',')[1]) for r in subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.free','--format=csv,noheader,nounits'],text=True).splitlines()}
-        if all(available[g]>=32768 for g in c['gpus']):break
+        if admitted(available,c['gpus']):break
         time.sleep(30)
     save(root/'GPU_LAUNCH_CHECK.json',dict(gpus=[0,1],free_mib={g:available[g] for g in (0,1)},checked_at=time.time()))
     run(c);p=json.loads((root/'PROGRAM_STATE.json').read_text());p.update(resource_wait_seconds=p['started']-begun,whole_round_wall_seconds=time.time()-c['launched_at']);save(root/'PROGRAM_STATE.json',p)

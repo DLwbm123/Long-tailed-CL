@@ -1,0 +1,43 @@
+{
+  "version": "atomic_memory_capacity_CPU_v1",
+  "status": "PROSPECTIVE_FALSIFICATION",
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "nodes_per_class": 16,
+  "beta": 8.0,
+  "query_norm": 2.0,
+  "dtype": "float64",
+  "optimizer_updates": 0,
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "cases": [
+    {
+      "id": "capacity_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "dimension32",
+      "kind": "scale",
+      "dimension": 32
+    },
+    {
+      "id": "dimension1536",
+      "kind": "scale",
+      "dimension": 1536
+    }
+  ],
+  "modes": [
+    "orthogonal",
+    "simplex",
+    "antipodal",
+    "zero_trace_control"
+  ],
+  "prior_CPU_residence_seconds": 2645.4988557985052,
+  "parent_result_commit": "f2ab201190660f9e17428249477b893f327d5d90",
+  "screen": "All arithmetic bounds must hold. Positive trace-only bound is reported, not a method performance gate. Dimension32 bound may be negative; preserve it. No claim that the prior anisotropic fixtures fail for this reason.",
+  "result_policy": "Retain all failures/costs and vacuous bounds; no retries; no deployment or medical data.",
+  "production_integrated": false
+}

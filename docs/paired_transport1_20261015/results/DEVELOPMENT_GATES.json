@@ -1,0 +1,122 @@
+[
+  {
+    "dataset": "ISIC",
+    "method": "pmt",
+    "control": "base",
+    "delta_pp": {
+      "final_balanced_accuracy": 1.3750455422645302,
+      "final_tail_recall": 9.429932981762256,
+      "forgetting": -6.286621987841502,
+      "final_old_recall": 5.924303147261789,
+      "final_new_recall": -12.272727272727268
+    },
+    "gates": {
+      "BA": true,
+      "tail": true,
+      "forget": true,
+      "old": true,
+      "new": false
+    },
+    "all_passed": false
+  },
+  {
+    "dataset": "ISIC",
+    "method": "local_transport_pmt",
+    "control": "local_transport",
+    "delta_pp": {
+      "final_balanced_accuracy": 0.7685398270631527,
+      "final_tail_recall": 7.402905954735228,
+      "forgetting": -5.1115338562316275,
+      "final_old_recall": 4.661083405781186,
+      "final_new_recall": -10.909090909090914
+    },
+    "gates": {
+      "BA": false,
+      "tail": true,
+      "forget": true,
+      "old": true,
+      "new": false
+    },
+    "all_passed": false
+  },
+  {
+    "dataset": "ISIC",
+    "method": "local_transport_pmt_global_only",
+    "control": "local_transport",
+    "delta_pp": {
+      "final_balanced_accuracy": 0.4307019892253239,
+      "final_tail_recall": 6.727230279059548,
+      "forgetting": -4.661083405781177,
+      "final_old_recall": 4.210632955330729,
+      "final_new_recall": -10.909090909090914
+    },
+    "gates": {
+      "BA": false,
+      "tail": true,
+      "forget": true,
+      "old": true,
+      "new": false
+    },
+    "all_passed": false
+  },
+  {
+    "dataset": "HK",
+    "method": "pmt",
+    "control": "base",
+    "delta_pp": {
+      "final_balanced_accuracy": -0.10003104905691451,
+      "final_tail_recall": -0.0438619645936722,
+      "forgetting": 0.019947525802326005,
+      "final_old_recall": -0.04810365151942664,
+      "final_new_recall": -0.6452687232005427
+    },
+    "gates": {
+      "BA": false,
+      "tail": true,
+      "forget": true,
+      "old": true,
+      "new": true
+    },
+    "all_passed": false
+  },
+  {
+    "dataset": "HK",
+    "method": "local_transport_pmt",
+    "control": "local_transport",
+    "delta_pp": {
+      "final_balanced_accuracy": 0.05492356988601177,
+      "final_tail_recall": 0.005411255411252869,
+      "forgetting": -0.41020883878026826,
+      "final_old_recall": 0.12160855017997463,
+      "final_new_recall": -0.6452687232005427
+    },
+    "gates": {
+      "BA": false,
+      "tail": true,
+      "forget": true,
+      "old": true,
+      "new": true
+    },
+    "all_passed": false
+  },
+  {
+    "dataset": "HK",
+    "method": "local_transport_pmt_global_only",
+    "control": "local_transport",
+    "delta_pp": {
+      "final_balanced_accuracy": 0.05492356988601177,
+      "final_tail_recall": 0.005411255411252869,
+      "forgetting": -0.41020883878026826,
+      "final_old_recall": 0.12160855017997463,
+      "final_new_recall": -0.6452687232005427
+    },
+    "gates": {
+      "BA": false,
+      "tail": true,
+      "forget": true,
+      "old": true,
+      "new": true
+    },
+    "all_passed": false
+  }
+]

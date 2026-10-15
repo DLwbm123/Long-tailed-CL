@@ -1,7 +1,59 @@
 {
-  "new_scientific_failures": [],
+  "new_scientific_failures": [
+    {
+      "job": "ISIC_guard",
+      "operation": "train",
+      "error_type": "ValueError",
+      "reason": "Full-fit guard unresolved; no identity fallback",
+      "task": 3,
+      "epoch": 2,
+      "event": "epoch_init",
+      "steps": 320,
+      "protected_fit_n": 9434,
+      "constraint_count": 66038,
+      "source_call_sites": [
+        "run_module_additions.py:265 run",
+        "snapshot_guard_production.py:78 project"
+      ],
+      "solver_termination": null,
+      "guard_timeout_confirmed": null,
+      "failed_KKT": null,
+      "failed_solver_seconds": null,
+      "failed_candidate_identity": null,
+      "diagnostic_gap": "UNRESOLVED audit discarded when production Session raises before appending event",
+      "no_same_round_retry": true
+    },
+    {
+      "job": "ISIC_LT_guard",
+      "operation": "train",
+      "error_type": "ValueError",
+      "reason": "Full-fit guard unresolved; no identity fallback",
+      "task": 3,
+      "epoch": 2,
+      "event": "epoch_init",
+      "steps": 320,
+      "protected_fit_n": 9434,
+      "constraint_count": 66038,
+      "source_call_sites": [
+        "run_module_additions.py:265 run",
+        "snapshot_guard_production.py:78 project"
+      ],
+      "solver_termination": null,
+      "guard_timeout_confirmed": null,
+      "failed_KKT": null,
+      "failed_solver_seconds": null,
+      "failed_candidate_identity": null,
+      "diagnostic_gap": "UNRESOLVED audit discarded when production Session raises before appending event",
+      "no_same_round_retry": true
+    }
+  ],
   "production_source_unchanged": true,
   "new_code_scope": "coordinator and CPU orchestration harness only",
   "prior_preflight_scope_incident_retained_in": "docs/snapshot_guard_preflight1_20261015/ENGINEERING_AUDIT.json",
-  "runtime_private_ignored_before_first_commit": true
+  "runtime_private_ignored_before_first_commit": true,
+  "failure_diagnostic_logging_gap": true,
+  "math_or_effect_failure_not_reclassified_as_pure_engineering": true,
+  "no_source_fix_or_retry_in_this_round": true,
+  "reporting_source_commit": "5034a3545f35c1da6bf9f27b8c183ccde16b4eed",
+  "reporter_deployed_to_scientific_source": false
 }

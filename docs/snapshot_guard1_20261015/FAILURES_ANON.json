@@ -1,0 +1,56 @@
+{
+  "status": "TWO_TRAIN_FAILURES_NO_EVALUATION",
+  "failure_log_privately_inspected": true,
+  "failures": [
+    {
+      "job": "ISIC_guard",
+      "operation": "train",
+      "error_type": "ValueError",
+      "reason": "Full-fit guard unresolved; no identity fallback",
+      "task": 3,
+      "epoch": 2,
+      "event": "epoch_init",
+      "steps": 320,
+      "protected_fit_n": 9434,
+      "constraint_count": 66038,
+      "source_call_sites": [
+        "run_module_additions.py:265 run",
+        "snapshot_guard_production.py:78 project"
+      ],
+      "solver_termination": null,
+      "guard_timeout_confirmed": null,
+      "failed_KKT": null,
+      "failed_solver_seconds": null,
+      "failed_candidate_identity": null,
+      "diagnostic_gap": "UNRESOLVED audit discarded when production Session raises before appending event",
+      "no_same_round_retry": true
+    },
+    {
+      "job": "ISIC_LT_guard",
+      "operation": "train",
+      "error_type": "ValueError",
+      "reason": "Full-fit guard unresolved; no identity fallback",
+      "task": 3,
+      "epoch": 2,
+      "event": "epoch_init",
+      "steps": 320,
+      "protected_fit_n": 9434,
+      "constraint_count": 66038,
+      "source_call_sites": [
+        "run_module_additions.py:265 run",
+        "snapshot_guard_production.py:78 project"
+      ],
+      "solver_termination": null,
+      "guard_timeout_confirmed": null,
+      "failed_KKT": null,
+      "failed_solver_seconds": null,
+      "failed_candidate_identity": null,
+      "diagnostic_gap": "UNRESOLVED audit discarded when production Session raises before appending event",
+      "no_same_round_retry": true
+    }
+  ],
+  "not_dispatched": [
+    "HK_guard",
+    "HK_LT_guard"
+  ]
+}

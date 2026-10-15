@@ -1,0 +1,109 @@
+{
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "cases": [
+    {
+      "id": "query_compatibility_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "task_sizes": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    }
+  ],
+  "version": "local_query_compatibility_CPU_v1",
+  "status": "PROSPECTIVE_PARAMETER_DOMAIN_AUDIT",
+  "parent_result_commit": "c6e24cfb76801485ed77093839e5381a846231bf",
+  "prior_CPU_residence_seconds": 4895.222701462917,
+  "local_radius": 0.125,
+  "anchor_norm": 2,
+  "memory_optimizer_updates": 0,
+  "query_optimizer_updates": 0,
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_ready": false,
+  "scope": "Necessary shared-query compatibility of fixed class-specific local balls; not classification performance or original full-query gate.",
+  "screen": "Unit checks pass; every stage reported with pairwise infeasibility certificate or common-center sufficient witness or unresolved. No forced PASS for candidate; no radius or storage changes."
+}

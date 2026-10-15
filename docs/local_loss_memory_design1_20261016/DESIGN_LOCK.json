@@ -1,0 +1,98 @@
+{
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "cases": [
+    {
+      "id": "local_loss_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ]
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ]
+    }
+  ],
+  "version": "local_loss_memory_CPU_v1",
+  "status": "PROSPECTIVE_RESTRICTED_QUERY_AUDIT",
+  "parent_result_commit": "5d32e997f9b3e1afd0237e997eac9ef8734f9c02",
+  "prior_CPU_residence_seconds": 4669.853692075238,
+  "beta": 8.0,
+  "query_radius": 0.125,
+  "query_norm": 2.0,
+  "queries_per_class": 48,
+  "retained_hessian_rank": 14,
+  "baseline_steps": 48,
+  "baseline_lr": 0.02,
+  "candidate_steps": 0,
+  "query_optimizer_steps": 0,
+  "memory_scalars_per_class": "16*d+16",
+  "scope": "Fixed features; identity adapter; class-specific current-mean anchor; local linear binary softplus head queries. Not the original full nonlinear adapter query gate.",
+  "screen": "Unit and all local loss/gradient bound checks; separately both high-dimensional cases max<=.9 each moment/random and mean<=each on this explicitly restricted 48-query family. Passing never repairs prior full-query failures or authorizes production.",
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_ready": false,
+  "production_integrated": false
+}

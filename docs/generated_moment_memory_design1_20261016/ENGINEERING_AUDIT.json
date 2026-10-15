@@ -1,7 +1,49 @@
 {
-  "status": "PROSPECTIVE",
+  "status": "COMPLETED_NO_ENGINEERING_FAILURE",
   "engineering_failures": [],
-  "scientific_gate_pass": null,
+  "scientific_gate_pass": false,
   "GPU_launched": false,
-  "new_checks": "analytic generated moments, joint center/logit FD, PSD trace, sampled query FD, domain and boundary rules"
+  "new_checks": "analytic generated moments, joint center/logit FD, PSD trace, sampled query FD, domain and boundary rules",
+  "costs": [
+    {
+      "id": "generated_moment_arithmetic",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 8.272671629674733,
+      "CPU_user_seconds": 5.303287,
+      "CPU_system_seconds": 1.1263969999999999,
+      "peak_RSS_MiB": 408.80859375,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    },
+    {
+      "id": "small",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 7.7685393169522285,
+      "CPU_user_seconds": 7.927352,
+      "CPU_system_seconds": 0.8202079999999999,
+      "peak_RSS_MiB": 435.20703125,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    },
+    {
+      "id": "ISIC_scale",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 159.9921401613392,
+      "CPU_user_seconds": 136.874131,
+      "CPU_system_seconds": 150.261166,
+      "peak_RSS_MiB": 1676.13671875,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    },
+    {
+      "id": "HK_scale",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 342.73016489110887,
+      "CPU_user_seconds": 283.5618,
+      "CPU_system_seconds": 328.573831,
+      "peak_RSS_MiB": 3290.6796875,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    }
+  ]
 }

@@ -1,0 +1,112 @@
+{
+  "version": "residual_distribution_memory_CPU_v1",
+  "status": "PROSPECTIVE_CPU_FALSIFICATION",
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "nodes_per_class": 16,
+  "adapter_rank": 8,
+  "queries": 8,
+  "outer_steps": 48,
+  "evaluation_adversary_steps": 12,
+  "memory_lr": 0.02,
+  "query_lr": 0.01,
+  "beta": 8.0,
+  "adapter_Frobenius_bound": 2.0,
+  "query_norm_bound": 2.0,
+  "synthetic_node_norm_bound": 1.0,
+  "dtype": "float64",
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_processes": 0,
+  "cases": [
+    {
+      "id": "distribution_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ]
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ]
+    }
+  ],
+  "modes": [
+    "random",
+    "moment",
+    "normalized_moment",
+    "residual_distribution"
+  ],
+  "screen": "For BOTH high-dimensional cases EVERY one of 8 fresh 16-node audit batches must have max <= .9 each moment/random max and mean <= each baseline. Same frozen 48 queries; no averaging batches for the primary gate. Arithmetic must pass.",
+  "result_policy": "All cases, failures, negative rows and costs retained; no retries or hyperparameter changes in this round.",
+  "formal_training_budget_frozen": false,
+  "production_integrated": false,
+  "next_stage": "Deliver all results first. Passing still requires sequence, complete classifier/production and true GPU preflight checks. Failure is not permission to increase node/step/query budgets or relax gates.",
+  "candidate": "residual_distribution",
+  "parent_result_commit": "05c845d807bf83858ca8ca9c03a460d34675ef3b",
+  "structural_change": "Reuse one original ball-moment48 fit, add one class scalar rho=max(0,traceQ-target minus memory trace). Fresh Rademacher isotropic residual then normalize each 16-node batch. No learned noise strength or extra optimizer steps.",
+  "memory_queries_for_construction": 0,
+  "memory_budget": "Same 16 stored centers/weights, plus one residual scalar per class. Each use generates exactly 16 nodes. Eight audit draws are variance diagnostics, not deployment averaging.",
+  "prior_CPU_residence_seconds": 2662.0613419376314,
+  "audit_batches": 8
+}

@@ -1,0 +1,1076 @@
+{
+  "program": {
+    "status": "COMPLETE_CPU_CHECKS",
+    "source_commit": "072c115f7a85234e6af5589f2477034edbfd48a9",
+    "started_at": 1792085353.9509432,
+    "deadline_at": 1792090853.9509435,
+    "active": null,
+    "cases": [
+      {
+        "id": "convex_weight_arithmetic",
+        "status": "COMPLETED",
+        "result_file": "convex_weight_arithmetic.json"
+      },
+      {
+        "id": "small",
+        "status": "COMPLETED",
+        "result_file": "small.json"
+      },
+      {
+        "id": "ISIC_scale",
+        "status": "COMPLETED",
+        "result_file": "ISIC_scale.json"
+      },
+      {
+        "id": "HK_scale",
+        "status": "COMPLETED",
+        "result_file": "HK_scale.json"
+      }
+    ],
+    "costs": [
+      {
+        "id": "convex_weight_arithmetic",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 6.521615010686219,
+        "CPU_user_seconds": 5.61346,
+        "CPU_system_seconds": 1.043892,
+        "peak_RSS_MiB": 403.31640625,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "small",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 8.806354195810854,
+        "CPU_user_seconds": 8.829265,
+        "CPU_system_seconds": 1.223501,
+        "peak_RSS_MiB": 435.37890625,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "ISIC_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 189.5348095651716,
+        "CPU_user_seconds": 162.036335,
+        "CPU_system_seconds": 183.600912,
+        "peak_RSS_MiB": 1556.8828125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "HK_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 124.97381836315617,
+        "CPU_user_seconds": 121.586468,
+        "CPU_system_seconds": 101.337391,
+        "peak_RSS_MiB": 3166.01171875,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      }
+    ],
+    "failures": [],
+    "finished_at": 1792085683.8420098,
+    "supervisor_wall_seconds": 329.89107640180737
+  },
+  "results": [
+    {
+      "status": "PASS",
+      "exact_line_solution_error": 0.0,
+      "weight_gradient_fd_error": 3.128751702163868e-10,
+      "infeasible_target_optimal_MSE": 1.0,
+      "infeasible_target_FW_gap": 0.0,
+      "permutation_error": 8.326672684688674e-17,
+      "fixed_nodes_verified": true,
+      "warning": "FW gap bounds fixed-node finite-query convex optimum only, not future query error.",
+      "id": "convex_weight_arithmetic",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 4.945796457584947
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "small",
+        "kind": "scale",
+        "dimension": 32,
+        "classes": 4,
+        "n": 512,
+        "seed": 263,
+        "count_weights": [
+          8,
+          4,
+          2,
+          1
+        ]
+      },
+      "synthetic_counts": [
+        272,
+        136,
+        69,
+        35
+      ],
+      "all_support_rows_used": 512,
+      "real_medical_fit_allocation": false,
+      "fit_diagnostics": {
+        "initial_class_MSE": [
+          8.9997645659609,
+          12.035188676747588,
+          3.3772407638410655,
+          14.6637116954164
+        ],
+        "final_class_MSE": [
+          6.578182567271199,
+          3.0152444432744465,
+          1.9307812661116148,
+          0.2076251126207299
+        ],
+        "FW_gap_per_class": [
+          0.41610778975844775,
+          0.0,
+          0.5223551209204356,
+          1.2053818184206504
+        ],
+        "mean_initial_MSE": 9.768976425491488,
+        "mean_final_MSE": 2.932958347319498,
+        "max_FW_gap": 1.2053818184206504,
+        "nodes_unchanged": true,
+        "queries_frozen": true,
+        "weight_steps": 24,
+        "node_steps": 24,
+        "interpretation": "Nonnegative FW gap is an upper bound on per-class suboptimality for this fixed-node squared finite-query loss; not a universal loss bound."
+      },
+      "rows": [
+        {
+          "mode": "mean",
+          "mean_abs_error": 0.702105933492116,
+          "max_abs_error": 5.958589112389348,
+          "random_query_max_error": 1.9830401312484862,
+          "stress_query_max_error": 5.958589112389348,
+          "per_class_max_errors": [
+            4.9533340900061775,
+            4.369311153252868,
+            3.7626778981300477,
+            5.958589112389348
+          ],
+          "moment_objective": 0.029523060908135182,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 0.48072541325073775,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "random",
+          "mean_abs_error": 0.22080086412853675,
+          "max_abs_error": 1.0180057059535916,
+          "random_query_max_error": 0.35336608129251235,
+          "stress_query_max_error": 1.0180057059535916,
+          "per_class_max_errors": [
+            0.8760195756923692,
+            0.9891401951552732,
+            0.6074528842779419,
+            1.0180057059535916
+          ],
+          "moment_objective": 0.09894662264400483,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "moment24",
+          "mean_abs_error": 0.1508668714249626,
+          "max_abs_error": 1.135611231286887,
+          "random_query_max_error": 0.26694218128658176,
+          "stress_query_max_error": 1.135611231286887,
+          "per_class_max_errors": [
+            1.0190622773406561,
+            1.135611231286887,
+            1.0205313380356733,
+            0.5697424471292143
+          ],
+          "moment_objective": 0.008903814871054627,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 0.9999999999999999,
+          "min_effective_nodes": 15.838221925844888
+        },
+        {
+          "mode": "moment",
+          "mean_abs_error": 0.126154315822651,
+          "max_abs_error": 1.0255694522729937,
+          "random_query_max_error": 0.16926896555210846,
+          "stress_query_max_error": 1.0255694522729937,
+          "per_class_max_errors": [
+            0.6606916140453576,
+            1.0255694522729937,
+            0.6611711681014811,
+            0.4827340843964629
+          ],
+          "moment_objective": 0.00521323778146218,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 15.840815969530933
+        },
+        {
+          "mode": "convex_weight",
+          "mean_abs_error": 0.7956921603155696,
+          "max_abs_error": 7.769001425334608,
+          "random_query_max_error": 2.6628139564650857,
+          "stress_query_max_error": 7.769001425334608,
+          "per_class_max_errors": [
+            4.196138076259622,
+            7.769001425334608,
+            1.9210045744335327,
+            4.471165937299265
+          ],
+          "moment_objective": 0.5245914188868206,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 0.9999999999999999,
+          "min_effective_nodes": 1.0
+        }
+      ],
+      "mode_costs": [
+        {
+          "mode": "shared_moment_construction",
+          "wall_seconds": 2.291735575068742,
+          "prefix24_seconds_included": 2.2045964570716023,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 0
+        },
+        {
+          "mode": "query_and_weight_calibration",
+          "wall_seconds": 0.6822517309337854,
+          "memory_optimizer_steps": 24,
+          "query_optimizer_steps": 96,
+          "shared_prefix24_not_charged_twice": true
+        }
+      ],
+      "trace": [
+        {
+          "mode": "moment",
+          "step": 1,
+          "objective": 0.09894662264400483
+        },
+        {
+          "mode": "moment",
+          "step": 9,
+          "objective": 0.018708744293111857
+        },
+        {
+          "mode": "moment",
+          "step": 17,
+          "objective": 0.011372269035287139
+        },
+        {
+          "mode": "moment",
+          "step": 25,
+          "objective": 0.008903814871054627
+        },
+        {
+          "mode": "moment",
+          "step": 33,
+          "objective": 0.006829486919084605
+        },
+        {
+          "mode": "moment",
+          "step": 41,
+          "objective": 0.005806037738077533
+        },
+        {
+          "mode": "moment",
+          "step": 48,
+          "objective": 0.005256726559656484
+        },
+        {
+          "mode": "convex_weight",
+          "step": 1,
+          "objective": 3.391599000033815,
+          "max_FW_gap": 3.4855000215539373
+        },
+        {
+          "mode": "convex_weight",
+          "step": 5,
+          "objective": 3.1297156757590976,
+          "max_FW_gap": 1.9190517508150933
+        },
+        {
+          "mode": "convex_weight",
+          "step": 9,
+          "objective": 3.0404885447963843,
+          "max_FW_gap": 1.2482984995874649
+        },
+        {
+          "mode": "convex_weight",
+          "step": 13,
+          "objective": 2.9943309145972363,
+          "max_FW_gap": 0.9282722362448919
+        },
+        {
+          "mode": "convex_weight",
+          "step": 17,
+          "objective": 2.9652152072821742,
+          "max_FW_gap": 0.7401116547268298
+        },
+        {
+          "mode": "convex_weight",
+          "step": 21,
+          "objective": 2.9447830663751122,
+          "max_FW_gap": 0.6159975444369952
+        },
+        {
+          "mode": "convex_weight",
+          "step": 24,
+          "objective": 2.932958347319498,
+          "max_FW_gap": 1.2053818184206504
+        }
+      ],
+      "heldout_query_count": 48,
+      "evaluation_wall_seconds": 0.2559231100603938,
+      "finite_query_screen_pass": false,
+      "uniform_error_bound": null,
+      "classification_improvement": null,
+      "classification_training_performed": false,
+      "CPU_pipeline_seconds": 3.2405687919817865,
+      "id": "small",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 7.197474373970181
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "ISIC_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ]
+      },
+      "synthetic_counts": [
+        232,
+        14,
+        130,
+        1644,
+        1429,
+        23,
+        5303,
+        659
+      ],
+      "all_support_rows_used": 9434,
+      "real_medical_fit_allocation": false,
+      "fit_diagnostics": {
+        "initial_class_MSE": [
+          89.11233557336797,
+          33.228974445371136,
+          87.93676776346302,
+          70.52972698233069,
+          86.60898138226355,
+          0.003570975252368926,
+          74.06576302406415,
+          2.3237896255905293
+        ],
+        "final_class_MSE": [
+          68.35520018478636,
+          2.582504289009857,
+          31.16483321575913,
+          55.87506212193772,
+          70.58414139093856,
+          3.514780844878609e-11,
+          53.48160938962339,
+          0.6936235578251243
+        ],
+        "FW_gap_per_class": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.730638060541064e-09,
+          0.0,
+          0.0
+        ],
+        "mean_initial_MSE": 55.47623872146293,
+        "mean_final_MSE": 35.34212176873941,
+        "max_FW_gap": 3.730638060541064e-09,
+        "nodes_unchanged": true,
+        "queries_frozen": true,
+        "weight_steps": 24,
+        "node_steps": 24,
+        "interpretation": "Nonnegative FW gap is an upper bound on per-class suboptimality for this fixed-node squared finite-query loss; not a universal loss bound."
+      },
+      "rows": [
+        {
+          "mode": "mean",
+          "mean_abs_error": 0.38285253804241615,
+          "max_abs_error": 4.368376629088616,
+          "random_query_max_error": 0.20231158716446607,
+          "stress_query_max_error": 4.368376629088616,
+          "per_class_max_errors": [
+            2.954574859229244,
+            4.368376629088616,
+            3.4940733445532834,
+            0.6589680903286657,
+            0.6290070587902961,
+            1.238015784505571,
+            1.659049685082647,
+            2.038000920695322
+          ],
+          "moment_objective": 0.012634003062458977,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 0.5176632095811972,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "random",
+          "mean_abs_error": 0.8753607957604984,
+          "max_abs_error": 8.964758694978057,
+          "random_query_max_error": 0.06920810147977063,
+          "stress_query_max_error": 8.964758694978057,
+          "per_class_max_errors": [
+            6.600105948734301,
+            3.54078234908867,
+            5.533597563585074,
+            7.5500095287340105,
+            8.964758694978057,
+            1.3123685343424634,
+            7.756704453379987,
+            7.241492873685869
+          ],
+          "moment_objective": 0.12201395970962173,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.000000000000001,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "moment24",
+          "mean_abs_error": 0.9505085243361732,
+          "max_abs_error": 9.12634933367352,
+          "random_query_max_error": 0.15792004064554832,
+          "stress_query_max_error": 9.12634933367352,
+          "per_class_max_errors": [
+            8.117614285123542,
+            1.5660791339204252,
+            6.06011407704055,
+            8.404987115621065,
+            9.12634933367352,
+            0.16305117261204116,
+            8.248362173897373,
+            7.706511796409852
+          ],
+          "moment_objective": 0.01909983767540976,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.0,
+          "min_effective_nodes": 15.944982650942357
+        },
+        {
+          "mode": "moment",
+          "mean_abs_error": 0.22392184829196773,
+          "max_abs_error": 2.975666942089751,
+          "random_query_max_error": 0.15267872704003116,
+          "stress_query_max_error": 2.975666942089751,
+          "per_class_max_errors": [
+            2.7574570733046393,
+            1.4264149921846379,
+            2.975666942089751,
+            0.24977764308879946,
+            0.5896720010096248,
+            0.40654176366097916,
+            0.30554107742728814,
+            1.1500751161833067
+          ],
+          "moment_objective": 0.005551465999925851,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.0,
+          "min_effective_nodes": 15.947912032053386
+        },
+        {
+          "mode": "convex_weight",
+          "mean_abs_error": 1.5563900046614378,
+          "max_abs_error": 13.150384227621295,
+          "random_query_max_error": 0.3095202737158649,
+          "stress_query_max_error": 13.150384227621295,
+          "per_class_max_errors": [
+            9.811589640575226,
+            13.150384227621295,
+            9.208711991546519,
+            10.869269157944943,
+            11.00797880706885,
+            0.08112564780281173,
+            10.122238729849636,
+            9.97233420972114
+          ],
+          "moment_objective": 0.5465331725413376,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.0,
+          "min_effective_nodes": 1.0
+        }
+      ],
+      "mode_costs": [
+        {
+          "mode": "shared_moment_construction",
+          "wall_seconds": 38.80380132002756,
+          "prefix24_seconds_included": 20.68036936223507,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 0
+        },
+        {
+          "mode": "query_and_weight_calibration",
+          "wall_seconds": 110.4837576430291,
+          "memory_optimizer_steps": 24,
+          "query_optimizer_steps": 96,
+          "shared_prefix24_not_charged_twice": true
+        }
+      ],
+      "trace": [
+        {
+          "mode": "moment",
+          "step": 1,
+          "objective": 0.12201395970962173
+        },
+        {
+          "mode": "moment",
+          "step": 9,
+          "objective": 0.0999528017519032
+        },
+        {
+          "mode": "moment",
+          "step": 17,
+          "objective": 0.02516566306219512
+        },
+        {
+          "mode": "moment",
+          "step": 25,
+          "objective": 0.01909983767540976
+        },
+        {
+          "mode": "moment",
+          "step": 33,
+          "objective": 0.01068623081763283
+        },
+        {
+          "mode": "moment",
+          "step": 41,
+          "objective": 0.007268849788908901
+        },
+        {
+          "mode": "moment",
+          "step": 48,
+          "objective": 0.005717581272174082
+        },
+        {
+          "mode": "convex_weight",
+          "step": 1,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 4.559746372314114e-09
+        },
+        {
+          "mode": "convex_weight",
+          "step": 5,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 1.1709728723524833e-07
+        },
+        {
+          "mode": "convex_weight",
+          "step": 9,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 1.1709609679766997e-07
+        },
+        {
+          "mode": "convex_weight",
+          "step": 13,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 1.1709490730047136e-07
+        },
+        {
+          "mode": "convex_weight",
+          "step": 17,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 1.170937179603127e-07
+        },
+        {
+          "mode": "convex_weight",
+          "step": 21,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 1.1709252705370062e-07
+        },
+        {
+          "mode": "convex_weight",
+          "step": 24,
+          "objective": 35.34212176873941,
+          "max_FW_gap": 3.730638060541064e-09
+        }
+      ],
+      "heldout_query_count": 48,
+      "evaluation_wall_seconds": 31.682309383060783,
+      "finite_query_screen_pass": false,
+      "uniform_error_bound": null,
+      "classification_improvement": null,
+      "classification_training_performed": false,
+      "CPU_pipeline_seconds": 184.36096589500085,
+      "id": "ISIC_scale",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 188.16559407114983
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "HK_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ]
+      },
+      "synthetic_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "all_support_rows_used": 1038,
+      "real_medical_fit_allocation": false,
+      "fit_diagnostics": {
+        "initial_class_MSE": [
+          0.9480332557545856,
+          0.2213779536155631,
+          0.3161850780395137,
+          6.38828926750735,
+          35.162837736849895,
+          4.21827775904023,
+          54.01976475192559,
+          38.9620648197654,
+          56.62394201730913,
+          7.543880919630637,
+          0.8187059841482864,
+          23.172389266310173,
+          0.0009182039233485372,
+          9.475602707206132,
+          8.676199420911303,
+          0.18670910343274263,
+          1.48914582738225,
+          43.13992057715689,
+          0.0616626096404643,
+          50.47496442930699,
+          3.410502263872239,
+          57.569915086038094,
+          1.075806807783712
+        ],
+        "final_class_MSE": [
+          0.21884975944985952,
+          0.22137795361556314,
+          0.07732302492312687,
+          2.8825007200045634,
+          20.739433651002795,
+          2.165670747429634,
+          33.19802198598959,
+          19.765997435977958,
+          32.9730603351726,
+          0.09475631003646443,
+          0.2683651761835439,
+          5.840891750662094,
+          0.0005621314476980037,
+          5.67770881987934,
+          0.24493598076259218,
+          0.00022931825223318811,
+          0.2835452884932545,
+          22.400234143242095,
+          0.031004393468308543,
+          22.342339099996043,
+          3.183598951987097,
+          38.795592563624204,
+          0.2942828170451129
+        ],
+        "FW_gap_per_class": [
+          0.005215740848185657,
+          0.0,
+          1.1102230246251565e-16,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.059758104686602254,
+          0.0071559973807918675,
+          0.0,
+          0.0,
+          8.881784197001252e-16,
+          0.147315816149028,
+          0.0018045592850355202,
+          0.24649972995094815,
+          0.0,
+          0.025566421572731285,
+          0.0,
+          0.23686235404993483,
+          0.0,
+          0.0
+        ],
+        "mean_initial_MSE": 17.563351993328286,
+        "mean_final_MSE": 9.204360102549817,
+        "max_FW_gap": 0.24649972995094815,
+        "nodes_unchanged": true,
+        "queries_frozen": true,
+        "weight_steps": 24,
+        "node_steps": 24,
+        "interpretation": "Nonnegative FW gap is an upper bound on per-class suboptimality for this fixed-node squared finite-query loss; not a universal loss bound."
+      },
+      "rows": [
+        {
+          "mode": "mean",
+          "mean_abs_error": 0.5526078339555381,
+          "max_abs_error": 6.383907419444671,
+          "random_query_max_error": 0.17497879442971997,
+          "stress_query_max_error": 6.383907419444671,
+          "per_class_max_errors": [
+            1.4443496345659148,
+            4.440892098500626e-16,
+            3.0368500573640347,
+            2.6847792725587136,
+            3.5522091001092546,
+            0.7320098315686772,
+            3.2444130663990682,
+            1.8225479087683611,
+            1.8772819826415912,
+            1.3296077473313663,
+            2.1796582085421443,
+            4.276803319839297,
+            6.383907419444671,
+            3.602602825437769,
+            3.6719979959998605,
+            1.349555555717417,
+            3.3806805394813555,
+            3.062574896543254,
+            4.714870936906303,
+            3.464412047543314,
+            4.742370864584154,
+            3.188434631497315,
+            2.1166441139745773
+          ],
+          "moment_objective": 0.04830894140637199,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "random",
+          "mean_abs_error": 0.32786302684262725,
+          "max_abs_error": 5.520270993868549,
+          "random_query_max_error": 0.06883563460802922,
+          "stress_query_max_error": 5.520270993868549,
+          "per_class_max_errors": [
+            1.1203124617371691,
+            4.440892098500626e-16,
+            0.6976014995199415,
+            1.1043495652174729,
+            1.8580399268992447,
+            5.520270993868549,
+            2.0307717754963392,
+            1.498385077700614,
+            1.3831562361186371,
+            0.9651873950939787,
+            3.4945779918688062,
+            1.8892175368169415,
+            3.552713678800501e-15,
+            0.9061012709519058,
+            0.7372359528793184,
+            0.24053471598819742,
+            0.7318395958453134,
+            4.957569447555031,
+            1.659549515630788,
+            5.283956340128659,
+            0.7465224970701483,
+            2.5355396716485243,
+            2.3667540340012105
+          ],
+          "moment_objective": 0.0943744631777492,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000007,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "moment24",
+          "mean_abs_error": 0.37286189147865983,
+          "max_abs_error": 6.745516252087272,
+          "random_query_max_error": 0.12807072160048016,
+          "stress_query_max_error": 6.745516252087272,
+          "per_class_max_errors": [
+            2.800435294783868,
+            0.5474918808258882,
+            0.31931503045933507,
+            0.7395654060481598,
+            0.6804594798608026,
+            3.70651673922206,
+            3.9899143391965084,
+            1.4643522270981735,
+            1.3851262232705341,
+            1.2861792598269208,
+            4.805812795960509,
+            2.228777837136959,
+            0.05142058450303644,
+            0.6370163603526215,
+            1.5703535633196006,
+            0.27844575597415533,
+            0.3475359459315128,
+            5.896522397884443,
+            2.7740244667742804,
+            6.745516252087272,
+            0.3511765240437965,
+            4.728724960376726,
+            3.6240293222096716
+          ],
+          "moment_objective": 0.02140628642480414,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 15.796645086814795
+        },
+        {
+          "mode": "moment",
+          "mean_abs_error": 0.149227890858413,
+          "max_abs_error": 1.7822991872875384,
+          "random_query_max_error": 0.1013590936509351,
+          "stress_query_max_error": 1.7822991872875384,
+          "per_class_max_errors": [
+            0.6769929116040232,
+            0.07298370197739645,
+            0.22841770342912215,
+            0.8235735251223315,
+            1.400083453366256,
+            0.4184623885814893,
+            1.7096583423022644,
+            0.5318981590012468,
+            0.9752757137036316,
+            0.2709334628292406,
+            0.6722061174370051,
+            1.7822991872875384,
+            0.008465800745435459,
+            0.7253478123991357,
+            0.38271137168222946,
+            0.14364996142718867,
+            0.295821756398321,
+            1.0422195122782392,
+            0.9200173397086058,
+            1.564075388103888,
+            0.48603864079785275,
+            1.0075798621831407,
+            0.8103938696381618
+          ],
+          "moment_objective": 0.008210199315829555,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000004,
+          "min_effective_nodes": 15.711066835692034
+        },
+        {
+          "mode": "convex_weight",
+          "mean_abs_error": 1.4677498083720784,
+          "max_abs_error": 13.47645833648109,
+          "random_query_max_error": 0.3060953687986204,
+          "stress_query_max_error": 13.47645833648109,
+          "per_class_max_errors": [
+            5.830234522667569,
+            0.5474918808258882,
+            2.2195408573671855,
+            12.887419679681248,
+            12.76585092141712,
+            12.83835740219615,
+            8.656670131821611,
+            8.283027457808615,
+            11.595563527121998,
+            6.21512888578118,
+            9.883528144404398,
+            13.47645833648109,
+            6.6459150749252,
+            12.014898478438944,
+            3.2425655837278917,
+            0.15806218523506654,
+            3.431897927506702,
+            10.01956789694342,
+            5.294346512344626,
+            9.945251927791373,
+            4.238797065658725,
+            9.725863461511201,
+            9.340022473452994
+          ],
+          "moment_objective": 0.4464470117740152,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 1.0
+        }
+      ],
+      "mode_costs": [
+        {
+          "mode": "shared_moment_construction",
+          "wall_seconds": 97.98187064705417,
+          "prefix24_seconds_included": 50.27003523521125,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 0
+        },
+        {
+          "mode": "query_and_weight_calibration",
+          "wall_seconds": 10.062030497938395,
+          "memory_optimizer_steps": 24,
+          "query_optimizer_steps": 96,
+          "shared_prefix24_not_charged_twice": true
+        }
+      ],
+      "trace": [
+        {
+          "mode": "moment",
+          "step": 1,
+          "objective": 0.0943744631777492
+        },
+        {
+          "mode": "moment",
+          "step": 9,
+          "objective": 0.10151101964993085
+        },
+        {
+          "mode": "moment",
+          "step": 17,
+          "objective": 0.029083049148441016
+        },
+        {
+          "mode": "moment",
+          "step": 25,
+          "objective": 0.02140628642480414
+        },
+        {
+          "mode": "moment",
+          "step": 33,
+          "objective": 0.013590948993254484
+        },
+        {
+          "mode": "moment",
+          "step": 41,
+          "objective": 0.010051759097069854
+        },
+        {
+          "mode": "moment",
+          "step": 48,
+          "objective": 0.00845426444172264
+        },
+        {
+          "mode": "convex_weight",
+          "step": 1,
+          "objective": 9.239697174612514,
+          "max_FW_gap": 1.1530417637207546
+        },
+        {
+          "mode": "convex_weight",
+          "step": 5,
+          "objective": 9.21980377149568,
+          "max_FW_gap": 0.5192959776857942
+        },
+        {
+          "mode": "convex_weight",
+          "step": 9,
+          "objective": 9.213331215328598,
+          "max_FW_gap": 0.361347788016373
+        },
+        {
+          "mode": "convex_weight",
+          "step": 13,
+          "objective": 9.209641711131399,
+          "max_FW_gap": 0.30689824147806277
+        },
+        {
+          "mode": "convex_weight",
+          "step": 17,
+          "objective": 9.207187483852044,
+          "max_FW_gap": 0.2674674553647855
+        },
+        {
+          "mode": "convex_weight",
+          "step": 21,
+          "objective": 9.205409836472864,
+          "max_FW_gap": 0.23750055255461477
+        },
+        {
+          "mode": "convex_weight",
+          "step": 24,
+          "objective": 9.204360102549817,
+          "max_FW_gap": 0.24649972995094815
+        }
+      ],
+      "heldout_query_count": 48,
+      "evaluation_wall_seconds": 9.774146979674697,
+      "finite_query_screen_pass": false,
+      "uniform_error_bound": null,
+      "classification_improvement": null,
+      "classification_training_performed": false,
+      "CPU_pipeline_seconds": 118.97776162298396,
+      "id": "HK_scale",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 123.57475864095613
+    }
+  ]
+}

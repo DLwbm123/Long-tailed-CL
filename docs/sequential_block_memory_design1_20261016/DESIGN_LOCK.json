@@ -1,0 +1,135 @@
+{
+  "version": "sequential_block_memory_CPU_v1",
+  "status": "PROSPECTIVE_CPU_FALSIFICATION",
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "nodes_per_class": 16,
+  "adapter_rank": 8,
+  "queries": 8,
+  "outer_steps": 48,
+  "evaluation_adversary_steps": 12,
+  "memory_lr": 0.02,
+  "query_lr": 0.01,
+  "beta": 8.0,
+  "adapter_Frobenius_bound": 2.0,
+  "query_norm_bound": 2.0,
+  "synthetic_node_norm_bound": 1.0,
+  "dtype": "float64",
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_processes": 0,
+  "cases": [
+    {
+      "id": "sequence_block_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "task_sizes": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    }
+  ],
+  "modes": [
+    "random",
+    "moment",
+    "gaussian",
+    "block_spherical"
+  ],
+  "screen": "Arithmetic/interface PASS and BOTH high-dimensional sequences EVERY stage EVERY one of8 block_spherical draws max<=.9 each original moment/random and mean<=each. Small and Gaussian controls fully reported.",
+  "result_policy": "All cases, failures, negative rows and costs retained; no retries or hyperparameter changes in this round.",
+  "formal_training_budget_frozen": false,
+  "production_integrated": false,
+  "next_stage": "Deliver complete sequence positives and negatives first. Passing still needs complete classifier/same-architecture controls/production budget and formal source/protocol freeze and true zero-update preflight; no automatic medical GPU.",
+  "candidate": "block_spherical",
+  "parent_result_commit": "6f9292970a79501d7ce15e3291c1b1d63dd9ff60",
+  "structural_change": "Sequential current-task-only construction; immutable per-class append, class-keyed stateless sampling, source/frame/task checkpoint. No change to spectral fit or block-spherical law.",
+  "memory_queries_for_construction": 0,
+  "memory_budget": "Per class16d+16 floats, grows with seen classes; original baseline matched. No global fixed-memory claim. Append, no lossy recompression.",
+  "prior_CPU_residence_seconds": 4342.275483778678,
+  "audit_batches": 8,
+  "pairing": "Generated positions (0,1),(2,3),...,(14,15) use g/-g; no center pairing or stored pairing cache.",
+  "sampling": "Same law and16 samples/8 pairs; class-keyed seed=base_seed+100000*class. Four random query families fixed;2 common stress families each stage. Stage-specific stress is not old memory drift.",
+  "variance_diagnostic": "Eight-draw prediction variance and class errors plus normalized moments. Fixed block radius is not a guaranteed variance reduction or exact normalized moment law.",
+  "degeneracy": "Positive variance retained or tail block with norm<=1e-12 rejects without redraw; zero variance blocks skipped. Same spectral fit eigenvalue checks; raw norm<=1e-12 rejects.",
+  "objective": "Per current task original moment48 unchanged. Current-task mean/spectrum shared by Gaussian and block_spherical. Class initialization seed+1000+class. Temporal construction differs from static pooled fitting; no exact trajectory reproduction claim."
+}

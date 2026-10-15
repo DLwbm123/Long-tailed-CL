@@ -112,6 +112,13 @@ def run(config):
     lca_enabled = lca_supported.config_enabled(config)
     anchor_enabled = config.get("dynamic_anchor", False)
     pmt_enabled = config.get("paired_moment_transport", False)
+    if config.get('snapshot_guard_mode') not in (None,'off','on'):raise ValueError('Invalid guard switch')
+    guard_enabled = config.get('snapshot_guard_mode')=='on'
+    guard_session = None
+    if guard_enabled:
+        from run_snapshot_guard_scope import validate_job as guard_validate
+        from snapshot_guard_production import Session
+        guard_validate(config);guard_session=Session(config)
     if pmt_enabled:
         from run_paired_transport_cycle import validate_job,read_training
         validate_job(config)
@@ -185,6 +192,7 @@ def run(config):
         bank = method.empty(encoder.dim, 'cuda')
         seen, diagnostics = [], []
         checkpoint_seals = []
+        guard_seals = []
         local_bank = None
         local_statistics = None
         projection = local_residual.projection(encoder.dim).to('cuda') if arm in modules.STAT_ARMS else None
@@ -210,6 +218,8 @@ def run(config):
                 if not torch.equal(before_ids,torch.arange(len(rows),device=before_ids.device)):
                     raise ValueError('Canonical indexed row order differs')
             current_local = before_local
+            if guard_enabled:guard_session.register(task,before_ids[fit_ids],before_ids)
+            support_version = guard_session.capture(steps) if guard_enabled else None
             updates.begin()
             lookup = torch.as_tensor([seen.index(c) if c in seen else -1 for c in range(len(config['order']))], device='cuda')
             y, current = lookup[raw_y], before
@@ -228,6 +238,7 @@ def run(config):
                 candidate = method.append(old, current[fit_ids], y[fit_ids], group[fit_ids], weights)
                 local_shift = common_shift(before_local[fit_ids],current_local[fit_ids],y[fit_ids]) if arm in modules.REGIONAL_ARMS else shift
                 local_candidate = modules.local_memory(local_bank, local_shift, current_local[fit_ids] if current_local is not None else None, y[fit_ids])
+                if guard_enabled:guard_off_bank,guard_off_local=candidate,local_candidate
                 if pmt_enabled:
                     old,candidate,local_candidate,pmt_audit=pmt.prepare(task_start_bank,task_start_local_bank,
                         before[fit_ids],current[fit_ids],None if before_local is None else before_local[fit_ids],
@@ -250,6 +261,10 @@ def run(config):
                 pairs, head, selected, audit = controller.choose(candidate, old, base_pairs, metric,
                     current[meta_ids], y[meta_ids], tail_indices, budget,head_solver=solve_head)
                 max_residual = max(max_residual, audit['max_solve_residual'])
+                if guard_enabled:
+                    head,guard_certificate=guard_session.project(head,candidate,pairs,metric,guard_off_bank,guard_off_local,
+                        current[fit_ids],y[fit_ids],current_ids[fit_ids],current_ids,old_count,'epoch_init',task,epoch,steps,support_version)
+                    guard_session.require(guard_certificate,steps)
                 inverse, cross = method.proximal_base(old, metric, len(seen))
                 losses, solves, local_losses, local_gradients = [], [], [], []
                 projection_audits=[]
@@ -377,10 +392,15 @@ def run(config):
                             check.update(optimizer_updates=0,parameters_unchanged=True,test_accessed=False,
                                 max_solve_residual=max(max_residual,shadow['relative_residual']),pmt=pmt_audit,adapter_pool_gradients=groups,synthetic_highest_bank=shadow,
                                 peak_gpu_bytes=torch.cuda.max_memory_allocated())
+                        if guard_enabled:
+                            guard_session.require(guard_certificate,steps)
+                            check['snapshot_guard']=dict(version=config['snapshot_guard_version'],epoch_event=guard_session.events[-1],
+                                first_task_only=True,highest_old_bank_covered=False,optimizer_updates=0)
                         save(output/'PREFLIGHT.json',check)
                         status(status='COMPLETE', preflight=True, adapter_updates=0)
                         return
                     optimizer.step(); steps += 1
+                    if guard_enabled:guard_session.advance(steps)
                     if (anchor_enabled or pmt_enabled) and steps % 20 == 0:status(status='RUNNING',phase='train',task=task,epoch=epoch)
                     losses.append([float(fit.detach()), float(pair.detach()), float(fd.detach())])
                     solves.append(solve['relative_residual'])
@@ -391,6 +411,7 @@ def run(config):
                 if pmt_enabled:
                     current_ids=captured[3]
                     if not torch.equal(before_ids,current_ids):raise ValueError('Canonical row IDs changed')
+                if guard_enabled:support_version=guard_session.capture(steps)
                 if not torch.equal(raw_y, after_y):
                     raise ValueError('Canonical order changed')
                 diagnostics.append(dict(task=task, epoch=epoch, steps=steps, arm=config['method'],
@@ -456,6 +477,7 @@ def run(config):
                 diagnostics[-1]['boundary_local_transport_norm']=float(local_shift.norm())
             all_weights = method.sample_weights(y, group, difficulty, zeros)
             bank = method.append(old, current, y, group, all_weights)
+            if guard_enabled:guard_off_bank,guard_off_local=bank,local_bank
             if pmt_enabled:
                 old,bank,local_bank,pmt_audit=pmt.prepare(task_start_bank,task_start_local_bank,before,current,before_local,current_local,
                     y,before_ids,current_ids,group,all_weights,source_frame,f'task_{task}_sealed',config['pmt_mode'])
@@ -481,6 +503,16 @@ def run(config):
                 competition.bank_head(bank, pairs, regularizer=metric))
             max_residual = max(max_residual, solve['relative_residual'])
             extra_state={}
+            if guard_enabled:
+                from run_snapshot_guard_scope import metadata as guard_metadata
+                from snapshot_guard_production import cpu as guard_cpu
+                head,guard_certificate=guard_session.project(head,bank,pairs,metric,guard_off_bank,guard_off_local,
+                    current[fit_ids],y[fit_ids],current_ids[fit_ids],current_ids,old_count,'boundary_final',task,config['epochs'],steps,support_version)
+                guard_session.require(guard_certificate,steps)
+                guard_seals.append(guard_metadata(config,task,steps))
+                extra_state.update(snapshot_guard_state=guard_cpu(guard_certificate),guard_metadata=guard_seals[-1])
+                diagnostics[-1]['snapshot_guard']=dict(events=guard_session.events,invalidations=guard_session.invalidations,
+                    no_extra_image_extractions=True,continuous_training_protection=False)
             if pmt_enabled:
                 from run_paired_transport_cycle import checkpoint_metadata
                 checkpoint_seals.append(checkpoint_metadata(config,task,steps))
@@ -522,6 +554,12 @@ def run(config):
             raise ValueError('Training updates differ from frozen matched baseline')
         if pmt_enabled:
             save(output/'TRAINING_SEAL.json',checkpoint_seals)
+        if guard_enabled:
+            save(output/'GUARD_TRAINING_SEAL.json',guard_seals)
+            save(output/'GUARD_BUDGET.json',dict(events=guard_session.events,encoder_updates=steps,
+                invalidations=guard_session.invalidations,extra_image_extractions=0,optimizer_updates_added=0,
+                CPU_operations_nested_in_GPU_train_residence=True,guard_gradient_backpropagated=False,
+                saved_guard_payload_bytes=sum(a['boundary_force_payload_bytes'] for a in guard_session.events if a['event']=='boundary_final')))
         status(status='TRAINED', stages=len(tasks), peak_gpu_bytes=torch.cuda.max_memory_allocated())
         return
     except BaseException as exc:

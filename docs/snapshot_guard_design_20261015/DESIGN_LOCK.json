@@ -1,0 +1,286 @@
+{
+  "status": "PROSPECTIVE_CPU_ONLY",
+  "version": "snapshot_full_guard_CPU_v1",
+  "cases": [
+    {
+      "id": "small_oracle_schema",
+      "kind": "small"
+    },
+    {
+      "kind": "legacy",
+      "id": "legacy_ISIC_T3_Core",
+      "dataset": "ISIC",
+      "task": 3,
+      "dimension": 1536,
+      "classes": 8,
+      "old_classes": 6,
+      "fit_n": 9434,
+      "LT": false,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44
+      ],
+      "current_train_counts": [
+        10529,
+        1306
+      ],
+      "event": "epoch_init",
+      "expected_OFF_objective": -0.5442172750041703,
+      "expected_unconstrained_objective": -0.8487990647912753
+    },
+    {
+      "kind": "legacy",
+      "id": "legacy_ISIC_T3_LT",
+      "dataset": "ISIC",
+      "task": 3,
+      "dimension": 1536,
+      "classes": 8,
+      "old_classes": 6,
+      "fit_n": 9434,
+      "LT": true,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44
+      ],
+      "current_train_counts": [
+        10529,
+        1306
+      ],
+      "event": "epoch_init",
+      "expected_OFF_objective": -0.5442236771392008,
+      "expected_unconstrained_objective": -0.8488298167360081
+    },
+    {
+      "kind": "snapshot",
+      "id": "ISIC_T3_epoch_init_Core",
+      "dataset": "ISIC",
+      "task": 3,
+      "dimension": 1536,
+      "classes": 8,
+      "old_classes": 6,
+      "fit_n": 9434,
+      "LT": false,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44
+      ],
+      "current_train_counts": [
+        10529,
+        1306
+      ],
+      "event": "epoch_init"
+    },
+    {
+      "kind": "snapshot",
+      "id": "ISIC_T3_epoch_init_LT",
+      "dataset": "ISIC",
+      "task": 3,
+      "dimension": 1536,
+      "classes": 8,
+      "old_classes": 6,
+      "fit_n": 9434,
+      "LT": true,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44
+      ],
+      "current_train_counts": [
+        10529,
+        1306
+      ],
+      "event": "epoch_init"
+    },
+    {
+      "kind": "snapshot",
+      "id": "ISIC_T3_boundary_final_Core",
+      "dataset": "ISIC",
+      "task": 3,
+      "dimension": 1536,
+      "classes": 8,
+      "old_classes": 6,
+      "fit_n": 9434,
+      "LT": false,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44
+      ],
+      "current_train_counts": [
+        10529,
+        1306
+      ],
+      "event": "boundary_final"
+    },
+    {
+      "kind": "snapshot",
+      "id": "ISIC_T3_boundary_final_LT",
+      "dataset": "ISIC",
+      "task": 3,
+      "dimension": 1536,
+      "classes": 8,
+      "old_classes": 6,
+      "fit_n": 9434,
+      "LT": true,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44
+      ],
+      "current_train_counts": [
+        10529,
+        1306
+      ],
+      "event": "boundary_final"
+    },
+    {
+      "kind": "snapshot",
+      "id": "HK_T6_boundary_final_Core",
+      "dataset": "HK",
+      "task": 6,
+      "dimension": 1536,
+      "classes": 23,
+      "old_classes": 21,
+      "fit_n": 1038,
+      "LT": false,
+      "old_train_counts": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18
+      ],
+      "current_train_counts": [
+        654,
+        644
+      ],
+      "event": "boundary_final"
+    },
+    {
+      "kind": "snapshot",
+      "id": "HK_T6_boundary_final_LT",
+      "dataset": "HK",
+      "task": 6,
+      "dimension": 1536,
+      "classes": 23,
+      "old_classes": 21,
+      "fit_n": 1038,
+      "LT": true,
+      "old_train_counts": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18
+      ],
+      "current_train_counts": [
+        654,
+        644
+      ],
+      "event": "boundary_final"
+    }
+  ],
+  "threads": 2,
+  "case_hard_wall_seconds": 900,
+  "guard_soft_wall_seconds": 840,
+  "overall_wall_seconds": 8100,
+  "solver": "scipy installed L-BFGS-B full nonnegative dual; aggregate native inverse",
+  "maxiter": 2000,
+  "maxfun": 10000,
+  "maxcor": 10,
+  "ftol": 1e-20,
+  "gtol": 1e-12,
+  "maxls": 40,
+  "active_atom_cap": null,
+  "all_constraints_present_from_start": true,
+  "dimension": 1536,
+  "slack_tolerance": 2e-08,
+  "stationarity_tolerance": 1e-08,
+  "complementarity_tolerance": 1e-07,
+  "duality_gap_rule": "abs(gap)<=1e-7*(1+abs(primal))",
+  "native_ridge": 0.001,
+  "native_beta": 0.5,
+  "snapshot_proximal": 0.0,
+  "legacy_batch_proximal": 0.01,
+  "snapshot_seed_rule": "241+K",
+  "legacy_seed_rule": "227+100*K+task",
+  "synthetic_signal": 0.8,
+  "synthetic_noise": 0.6,
+  "old_affine": [
+    2.8,
+    0.65
+  ],
+  "fit_allocation": "largest remainder from public counts, NOT actual medical fit allocation",
+  "protection": "all current-fit true-versus-every-competitor margins relative same-state OFF at fixed event only",
+  "epoch_event": "after static_PC choose, before next minibatch; detached; invalid after encoder step",
+  "boundary_event": "after FINAL all-current bank/head rebuild, before checkpoint; fit protection only",
+  "reference": "own native OFF head/common-translation path; synthetic zero-common-translation special case",
+  "current_statistics_transport": false,
+  "extra_medical_extractions": 0,
+  "continuous_training_protection": false,
+  "val_guarantee": false,
+  "gradient_backprop_through_guard": false,
+  "production_integrated": false,
+  "GPU_ready": false,
+  "GPU_processes": 0,
+  "medical_images_read": 0,
+  "medical_checkpoints_read": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0,
+  "formal_budget_frozen": false,
+  "unresolved_is_identity": false
+}

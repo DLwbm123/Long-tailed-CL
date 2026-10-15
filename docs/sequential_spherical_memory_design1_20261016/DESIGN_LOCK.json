@@ -1,0 +1,128 @@
+{
+  "version": "sequential_spherical_memory_CPU_v1",
+  "status": "PROSPECTIVE_CPU_FALSIFICATION",
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "nodes_per_class": 16,
+  "adapter_rank": 8,
+  "queries": 8,
+  "outer_steps": 48,
+  "evaluation_adversary_steps": 12,
+  "memory_lr": 0.02,
+  "query_lr": 0.01,
+  "beta": 8.0,
+  "adapter_Frobenius_bound": 2.0,
+  "query_norm_bound": 2.0,
+  "synthetic_node_norm_bound": 1.0,
+  "dtype": "float64",
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_processes": 0,
+  "cases": [
+    {
+      "id": "sequence_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "task_sizes": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    }
+  ],
+  "modes": [
+    "random",
+    "moment",
+    "sphere"
+  ],
+  "screen": "At EVERY stage of BOTH high-dimensional sequences, sphere max <= .9 each moment/random max AND sphere mean <= each baseline. All interface checks must pass. Secondary results do not replace this rule.",
+  "result_policy": "All cases, failures, negative rows and costs retained; no retries or hyperparameter changes in this round.",
+  "formal_training_budget_frozen": false,
+  "production_integrated": false,
+  "next_stage": "Deliver all results before next mechanism decision. Passing is not full classifier integration or GPU readiness. No automatic medical GPU on this helper.",
+  "candidate": "sphere",
+  "parent_result_commit": "78223da92d689b63800048a86adb4fedf982ff66",
+  "structural_change": "Append current-class spherical moment memory at a stable synthetic input interface. No decision-query or weight fitting. Same 16 nodes and 48 moment Adam updates per new class batch as paired ball control.",
+  "memory_queries_for_construction": 0,
+  "memory_budget": "16 nodes per seen class; grows with class count equally for all controls, not fixed total memory",
+  "prior_CPU_residence_seconds": 2221.564408269711
+}

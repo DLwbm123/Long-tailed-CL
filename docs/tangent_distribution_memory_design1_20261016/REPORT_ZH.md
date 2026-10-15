@@ -1,11 +1,95 @@
-# 切向分布记忆CPU：启动报告
+# 切向分布记忆 CPU 结果
 
-已按前瞻协议启动4独立CPU case，尚无最终结果，不判PASS或GPU-ready。科学源：1c101fe8c115774fb57606d9f8ac6fe746d9a966
+NO_COMPLETE_FRESH_BATCH_SIGNAL
+冻结门：{'arithmetic': True, 'small': True, 'ISIC_scale': False, 'HK_scale': True}
 
-执行前remote SHA与精确DESIGN匿名HTTP200、NAS nfs/free/probe、目标Python compile及启动后父子中性完整命令已核实。CUDA不可见，2线程；医学images/features/checkpoints/val/test均不访问，启动截止见STARTUP_AUDIT不重置。
+|规模|方法|批次|平均误差|最大误差|
+|---|---|---:|---:|---:|
+|small|random|None|0.46066698589604743|4.154686850849044|
+|small|moment|None|0.1191168763442716|0.9959279067346261|
+|small|normalized_moment|None|0.11730496500828375|0.9264640588597217|
+|small|isotropic_paired|0|0.0816050626165711|0.5653433324093835|
+|small|tangent_paired|0|0.08043699709923302|0.7099275382151218|
+|small|isotropic_paired|1|0.06929211487659576|0.42723607425884347|
+|small|tangent_paired|1|0.07423960166359694|0.4933227953770434|
+|small|isotropic_paired|2|0.07236376605687611|0.40872639444579506|
+|small|tangent_paired|2|0.07295691836640496|0.5515499572797786|
+|small|isotropic_paired|3|0.06745048362032909|0.35930450259881574|
+|small|tangent_paired|3|0.06422172002746712|0.48803687655184635|
+|small|isotropic_paired|4|0.07861037273174885|0.6488908309653345|
+|small|tangent_paired|4|0.07707408174898915|0.6720941488814267|
+|small|isotropic_paired|5|0.07821224886801936|0.5617025951980867|
+|small|tangent_paired|5|0.07496878452112828|0.5365992323207962|
+|small|isotropic_paired|6|0.082394953725977|0.5805083989179223|
+|small|tangent_paired|6|0.07850941361242098|0.5465426441889232|
+|small|isotropic_paired|7|0.06459730426904227|0.5588270699726038|
+|small|tangent_paired|7|0.07270706881991167|0.5513075255712391|
+|ISIC_scale|random|None|0.7698786306909277|9.504597317491491|
+|ISIC_scale|moment|None|0.3879548201927479|6.277491151065934|
+|ISIC_scale|normalized_moment|None|0.3866463087338156|6.262868760921805|
+|ISIC_scale|isotropic_paired|0|0.1557960457892749|5.657183556690468|
+|ISIC_scale|tangent_paired|0|0.15553215925004968|5.896488194801137|
+|ISIC_scale|isotropic_paired|1|0.14915106359495664|5.670024349181707|
+|ISIC_scale|tangent_paired|1|0.14957901482040703|5.915047599832246|
+|ISIC_scale|isotropic_paired|2|0.15837715881371242|5.687058486591566|
+|ISIC_scale|tangent_paired|2|0.1580026766604776|5.9400769466442505|
+|ISIC_scale|isotropic_paired|3|0.1534570319819212|5.694365207002264|
+|ISIC_scale|tangent_paired|3|0.154030138789186|5.971411746832047|
+|ISIC_scale|isotropic_paired|4|0.15379741630367338|5.696914447689325|
+|ISIC_scale|tangent_paired|4|0.15648649505849008|5.974757153099073|
+|ISIC_scale|isotropic_paired|5|0.1512128939512015|5.665057821421179|
+|ISIC_scale|tangent_paired|5|0.15316931439875547|5.949283569805431|
+|ISIC_scale|isotropic_paired|6|0.16593526269280764|5.7160872126152|
+|ISIC_scale|tangent_paired|6|0.16658667825215964|5.9449977494881505|
+|ISIC_scale|isotropic_paired|7|0.15758304145804355|5.636026736704661|
+|ISIC_scale|tangent_paired|7|0.15743265592345454|5.882724910353874|
+|HK_scale|random|None|0.5817504336371703|9.142210700687802|
+|HK_scale|moment|None|0.28676655837021775|4.312473699133733|
+|HK_scale|normalized_moment|None|0.28598657719735276|4.295786946907127|
+|HK_scale|isotropic_paired|0|0.11540917059676697|2.497897561317451|
+|HK_scale|tangent_paired|0|0.11491181597397418|2.4837798735171885|
+|HK_scale|isotropic_paired|1|0.11933631044443438|3.1131500627806696|
+|HK_scale|tangent_paired|1|0.12026942903662859|3.1332309019512197|
+|HK_scale|isotropic_paired|2|0.12024730013070489|2.7590636967242057|
+|HK_scale|tangent_paired|2|0.12003294902850557|2.7810655440214025|
+|HK_scale|isotropic_paired|3|0.11969789652542083|2.723427488553117|
+|HK_scale|tangent_paired|3|0.11782524820646209|2.7195078246068847|
+|HK_scale|isotropic_paired|4|0.11694937511804031|2.5077857945624147|
+|HK_scale|tangent_paired|4|0.11558868181429648|2.46386846053331|
+|HK_scale|isotropic_paired|5|0.12167668582010266|2.931335288318189|
+|HK_scale|tangent_paired|5|0.11904433937026217|2.9397973796027945|
+|HK_scale|isotropic_paired|6|0.12333691318809605|2.8499962688763896|
+|HK_scale|tangent_paired|6|0.11905656116026132|2.8587926886023136|
+|HK_scale|isotropic_paired|7|0.12874992226175214|3.257500114080698|
+|HK_scale|tangent_paired|7|0.12464990444991172|3.269396387053423|
 
-保留16中心、原48次矩Adam、原配对和查询预算，仅改变生成分布为对称切向噪声：合法域内单位范数且期望为原中心；不等于真实类均值或方向矩精确。主候选与原配对各向同性、原moment/random及归一化对照，在共同48查询下逐一检验8批，不平均替代主门。
+CPU独立驻留222.394179193303秒，user211.235135，system171.536906，peak RSS3202.953125MiB；父wall222.4455331019126另列。内部构造/eval/operation包含于驻留，不相加。
 
-上一轮已完整交付[结果](https://github.com/DLwbm123/Long-tailed-CL/blob/ec547c5d330be2e0295e1d3d9fda8ff4c8df58f7/docs/antithetic_residual_memory_design1_20261016/REPORT_ZH.md)：small8/8、ISIC4/8、HK8/8，整体未过门；CPU224.36202564975247秒，九轮累计3101.0399774257094秒。此为旧独立结果，不冒充本轮成本或完成证据。
+先前九轮3101.0399774257094秒，累计3323.4341566190124秒。失败[]；缺失null不补0。
 
-本轮全部正负、失败、逐次实测资源终态统一交付。没有GPU启动。
+|case|退出码|驻留秒|user|system|RSS MiB|timeout|
+|---|---:|---:|---:|---:|---:|---|
+|tangent_arithmetic|0|7.273879479151219|5.558986|1.174096|406.41015625|False|
+|small|0|7.538110747933388|7.690913|1.102682|435.3984375|False|
+|ISIC_scale|0|77.12559908488765|68.222427|68.02242|1519.15234375|False|
+|HK_scale|0|130.45658988133073|129.762809|101.237708|3202.953125|False|
+
+0GPU/医学images/features/checkpoints/val/test/正式更新。每次只使用16点，8批仅审计，不平均替代主门。
+新查询先固定再独立采样；不能承诺观察当次样本后再自适应选择的所有查询。生成分布估计无偏不等真实旧分布无偏。
+归一化可改变均值，原二阶残差不保证各向同性或PSD。切向对称生成保中心期望均值，不保证真实类均值、协方差或高阶方向正确。尚无完整序列/分类训练/生产预算证据。
+
+# 切向分布：保均值仍不能保判别查询
+
+整体冻结门失败：small8/8、ISIC0/8、HK8/8；同查询原isotropic paired是small8/8、ISIC1/8（批7）、HK8/8。共同stress随方法集合改变，不与上轮通过批数直接配对。四CPU正常，0失败/超时。全部57方法批次/665类误差/96贡献/560geometry/35残差公开。
+
+算术保中心期望均值误差2.78e-17、unitnorm2.22e-16、梯度FD1.20e-10、边缘期望4.44e-16通过；这证明实现的局部性质，不是医学贡献。原中心类均值拟合仍非零：small逐类MSE约4.44e-5–2.14e-4，ISIC7.40e-4–9.02e-4，HK3.27e-4–2.42e-3。不能把保中心均值称真实统计精确。
+
+ISIC所有8批tangent最大误差5.882725–5.974757均比isotropic5.636027–5.716087更差，门限5.649742；tangent平均误差3批略好、5批更坏。HK平均误差7批好1批坏，但最大3批好5批坏。small平均5批好3批坏，最大3批好5批坏。都不能只选正组。八批平均仅诊断：ISIC .143441/5.934348 比isotropic .143160/5.677840差；HK .113463/2.776118平均较好但最大比2.766343略差；small .038943/.400800平均较好但最大比.299049差。
+
+切向法没有进一步减少采样波动，8批mean prediction variance在small/ISIC/HK全部略升，精确比例见FAILURES_ANON。消除这一个均值偏移来源不足以修复ISIC完整信号；不能由有限8批确认全部误差因果或任意未来头风险。
+
+下一步须检验训练目标与生成分布是否一致，不能继续仅改噪声采样。当前moments_objective拟合的是确定中心的二阶矩，生成时又加入满秩条件残差；即使均值和trace正确，方向矩仍可能不匹配。下一前瞻CPU拟用球面切向Gaussian方向，其解析条件矩为n nT+(1-||n||²)/(d-1)*(I-u uT)，u=n/||n||。直接在原48步拟合生成分布的均值和二阶矩，保留原48步中心目标baseline及相同Gaussian解码的posthoc控制，区分换噪声law与换拟合目标。仍16中心，不增步数/节点/查询，不调强度。先核对解析矩、梯度及零中心/单位中心的明确域规则，不能将原Rademacher法的协方差偷换为这个公式。新假说不是已证失败因果，也不保证高阶损失准确。
+
+资源：CPU驻留222.394179193303秒，父wall222.4455331019126另列，user211.235135/system171.536906，peak3202.953125MiB。10轮39次CPU累计3323.4341566190124秒。候选memory bytes16896/1573888/4524928，不需rho；配对cache512/1024/2944bytes另列，全部解码/构造/评价包含驻留，不重复计费。GPU新增0、历史400036.74851310626不变。client/collector未测null。
+
+未访问医学images/features/checkpoint/val/test，未验证完整序列/分类训练/生产预算。当前主门失败，不将此实现直接投入医学GPU。

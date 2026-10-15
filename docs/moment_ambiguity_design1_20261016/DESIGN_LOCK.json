@@ -1,0 +1,54 @@
+{
+  "version": "moment_ambiguity_CPU_v1",
+  "status": "PROSPECTIVE_REPRESENTATION_AUDIT",
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "parent_result_commit": "fff17f53fcb803361534a49e71ba9defe0f65f94",
+  "prior_CPU_residence_seconds": 4652.2778973747045,
+  "cases": [
+    {
+      "id": "ambiguity_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "d32",
+      "kind": "scale",
+      "dimension": 32
+    },
+    {
+      "id": "d1536",
+      "kind": "scale",
+      "dimension": 1536
+    }
+  ],
+  "optimizer_updates": 0,
+  "query_optimization_updates": 0,
+  "mean_lengths": [
+    0,
+    0.6
+  ],
+  "reference_support_count": 5,
+  "intrinsic_rank": 4,
+  "query_names": [
+    "vertex",
+    "bisector",
+    "orthogonal",
+    "mean_axis"
+  ],
+  "beta": 8,
+  "query_norm": 2,
+  "adapter_zero": true,
+  "points_per_use": 16,
+  "audit_batches": 8,
+  "seed": 319,
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "scope": "Deterministic equal-moment counterexample and common-prediction lower bound, not method effectiveness gate, not old fixture replay.",
+  "screen": "All same-mean/second-moment/unit-norm/formula checks and midpoint sharp triangle bound pass; every shared-draw prediction obeys max error>=half reference loss gap. No retuning or replacement of prior gates.",
+  "result_policy": "All zero/positive gaps, both references, all methods/batches/costs retained; no optimization or query search.",
+  "production_integrated": false,
+  "GPU_ready": false
+}

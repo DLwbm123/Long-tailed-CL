@@ -1,5 +1,6 @@
 """Frozen CPU production fixtures: real callers, synthetic inputs, no medical data."""
 import copy
+from contextlib import ExitStack
 import importlib.util
 import io
 import json
@@ -54,11 +55,12 @@ def chain(config):
         def forward(self,x):
             CountEncoder.calls+=1;CountEncoder.images+=len(x);return super().forward(x)
     steps=stage_checks=preflights=events=invalidations=evals=0;maximum=0.;training_effect=False;records=[]
-    with tempfile.TemporaryDirectory(dir=os.environ['TMPDIR']) as tmp,patch.object(torch.Tensor,'cuda',lambda self,*a,**k:self), \
-        patch.object(torch,'as_tensor',tensor),patch.object(torch.cuda,'manual_seed_all',lambda *a:None), \
-        patch.object(torch.cuda,'max_memory_allocated',lambda *a:0),patch.object(native,'empty',lambda dim,device='cpu':empty(dim,'cpu')), \
-        patch.object(torch,'set_num_threads',lambda n:set_threads(2)),patch.object(pcycle,'validate_job',lambda c:None), \
-        patch.object(scope,'validate_job',lambda c:None),patch.object(pmt,'extract',paired_features):
+    with tempfile.TemporaryDirectory(dir=os.environ['TMPDIR']) as tmp,ExitStack() as patches:
+        for context in (patch.object(torch.Tensor,'cuda',lambda self,*a,**k:self),patch.object(torch,'as_tensor',tensor),
+            patch.object(torch.cuda,'manual_seed_all',lambda *a:None),patch.object(torch.cuda,'max_memory_allocated',lambda *a:0),
+            patch.object(native,'empty',lambda dim,device='cpu':empty(dim,'cpu')),patch.object(torch,'set_num_threads',lambda n:set_threads(2)),
+            patch.object(pcycle,'validate_job',lambda c:None),patch.object(scope,'validate_job',lambda c:None),patch.object(pmt,'extract',paired_features)):
+            patches.enter_context(context)
         for ds in ('ISIC','HK'):
             rows=[dict(label=c,sample=i,relative_path=f'{c}_{i}',identity_component=f'{c}_{i}') for c in scope.ORDERS[ds] for i in range(8)]
             for module in (original,training):
@@ -123,7 +125,10 @@ def chain(config):
                     for number in (0,2):
                         path=Path(tmp)/f'history_{ds}_{arm}_{number}.json';path.write_text(json.dumps(history(outs[number])));paths.append(str(path))
                     eval_config.update(control_checkpoint_root=outs[0],pmt_control_checkpoint_root=outs[2],control_metrics=paths[0],pmt_control_metrics=paths[1],pmt_control_source_commit=c['source_commit'],operation='evaluate')
-                    with patch.object(worker,'check_barrier',lambda c:None),patch.object(worker,'validate_job',lambda c:None),patch.object(worker,'ApartFeatures',CountEncoder),patch.object(worker,'Images',SyntheticImages),patch.object(worker,'DataLoader',loader),patch.object(worker,'extract',numpy_extract),patch.object(worker,'manifests',lambda c:(rows,rows)):
+                    with ExitStack() as evaluator:
+                        for context in (patch.object(worker,'check_barrier',lambda c:None),patch.object(worker,'validate_job',lambda c:None),
+                            patch.object(worker,'ApartFeatures',CountEncoder),patch.object(worker,'Images',SyntheticImages),patch.object(worker,'DataLoader',loader),
+                            patch.object(worker,'extract',numpy_extract),patch.object(worker,'manifests',lambda c:(rows,rows))):evaluator.enter_context(context)
                         worker.evaluate(eval_config)
                     m=json.loads(Path(outs[-1],'metrics.json').read_text());assert m['test_accessed'] is False and len(m['stages'])==len(scope.SIZES[ds])
                     assert all('guard_vs_pmt' in v and 'same_state_OFF' in v and 'same_state_unconstrained' in v for v in m['stages']);evals+=1
@@ -199,6 +204,7 @@ def large(c,config):
 def vit(config):
     from run_multilabel import ApartFeatures
     c=config['jobs'][0];model=ApartFeatures(c['legacy_repo'],c['weight'],len(c['order']),'cpu',74002).eval()
+    assert len(model.net.backbone.blocks)==12
     before={k:v.detach().clone() for k,v in model.state_dict().items()}
     gen=torch.Generator().manual_seed(239);images=torch.randn(2,3,224,224,generator=gen);y=torch.tensor([0,1])
     with torch.no_grad():z=model(images).double()

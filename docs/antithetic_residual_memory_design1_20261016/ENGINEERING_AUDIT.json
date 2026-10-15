@@ -1,5 +1,5 @@
 {
-  "status": "PROSPECTIVE",
+  "status": "COMPLETED_NO_ENGINEERING_FAILURE",
   "scientific_failures": [],
   "engineering_failures": [],
   "GPU_launched": false,
@@ -7,5 +7,48 @@
     "check_progressive_decision_memory.py",
     "check_residual_distribution_memory.py"
   ],
-  "new_logic_checks": "enumerated equal marginal loss/gradient, finite difference, deterministic pairing coverage, rho0/reproducibility and variance benefit/counterexample"
+  "new_logic_checks": "enumerated equal marginal loss/gradient, finite difference, deterministic pairing coverage, rho0/reproducibility and variance benefit/counterexample",
+  "costs": [
+    {
+      "id": "antithetic_arithmetic",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 6.775995247066021,
+      "CPU_user_seconds": 5.663867,
+      "CPU_system_seconds": 1.075773,
+      "peak_RSS_MiB": 406.70703125,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    },
+    {
+      "id": "small",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 7.522858678828925,
+      "CPU_user_seconds": 7.155359,
+      "CPU_system_seconds": 0.936399,
+      "peak_RSS_MiB": 434.74609375,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    },
+    {
+      "id": "ISIC_scale",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 81.87118098465726,
+      "CPU_user_seconds": 70.381382,
+      "CPU_system_seconds": 72.78984,
+      "peak_RSS_MiB": 1430.59765625,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    },
+    {
+      "id": "HK_scale",
+      "returncode": 0,
+      "CPU_process_residence_seconds": 128.19199073920026,
+      "CPU_user_seconds": 127.90168,
+      "CPU_system_seconds": 100.577557,
+      "peak_RSS_MiB": 3192.5546875,
+      "timeout": false,
+      "GPU_seconds": 0.0
+    }
+  ],
+  "scientific_gate_pass": false
 }

@@ -1,10 +1,22 @@
 {
-  "status": "PRE_EXECUTION_PUBLIC_SCOPE_CORRECTION",
+  "status": "FINAL_PREFLIGHT_PASS_WITH_RETAINED_ENGINEERING_HISTORY",
   "first_freeze_commit": "27f3a59",
   "incident": "Missing round-local ignore rule caused two private metadata/config files containing server paths to be tracked and pushed. No credentials, medical samples, weights, features or statistics were included.",
   "correction": "Remove both files from latest branch tree; ignore local_runtime; validate tracked archive before deployment",
   "history_limit": "Prior commit retains path metadata; no force push or history rewriting performed",
-  "GPU_started": false,
-  "CPU_executed": false,
-  "scientific_cost": 0
+  "scientific_cost": 0,
+  "GPU_started_at_incident": false,
+  "CPU_executed_at_incident": false,
+  "successful_GPU_operations": 4,
+  "GPU_failures": 0,
+  "GPU_retries": 0,
+  "prelaunch_CPU_failures": 0,
+  "first_startup_report_push_proxy_TLS_failure": true,
+  "publisher_remote_HEAD_mismatch_refusal_before_NAS_write": true,
+  "second_publisher_proxy_TLS_failure_before_NAS_write": true,
+  "startup_same_proxy_HTTP1_1_recovery": true,
+  "scientific_process_restarted_for_delivery": false,
+  "private_runtime_files_excluded_from_latest_tree": true,
+  "prior_path_metadata_not_erased_from_history": true,
+  "final_delivery_transport_events": "See independent private delivery receipts; no direct fallback or scientific rerun"
 }

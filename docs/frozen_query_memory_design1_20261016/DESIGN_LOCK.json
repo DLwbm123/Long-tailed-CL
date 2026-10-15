@@ -1,0 +1,110 @@
+{
+  "version": "frozen_query_memory_CPU_v1",
+  "status": "PROSPECTIVE_CPU_FALSIFICATION",
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "nodes_per_class": 16,
+  "adapter_rank": 8,
+  "queries": 8,
+  "outer_steps": 48,
+  "adversary_steps": 2,
+  "evaluation_adversary_steps": 12,
+  "memory_lr": 0.02,
+  "query_lr": 0.01,
+  "beta": 8.0,
+  "adapter_Frobenius_bound": 2.0,
+  "query_norm_bound": 2.0,
+  "synthetic_node_norm_bound": 1.0,
+  "dtype": "float64",
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_processes": 0,
+  "cases": [
+    {
+      "id": "fixed_query_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ]
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ]
+    }
+  ],
+  "modes": [
+    "mean",
+    "random",
+    "moment",
+    "barycentric",
+    "frozen_query"
+  ],
+  "screen": "On each of both high-dimensional cases: frozen_query max error <= .9 * each of moment/random max error, AND frozen_query mean error <= each baseline. Finite query signal only, not a uniform guarantee.",
+  "result_policy": "All cases, failures, negative rows and costs retained; no retries or hyperparameter changes in this round.",
+  "formal_training_budget_frozen": false,
+  "production_integrated": false,
+  "next_stage": "Analyze/deliver first. If screen fails, no medical run on this implementation. New hypothesis/CPU protocol required. If passes, next stage is full sequential CPU integration and same-budget controlled protocol, not immediate GPU launch.",
+  "candidate": "frozen_query",
+  "parent_result_commit": "2a63e2466382cf38fd3aab543a96cc730df6248e",
+  "structural_change": "Queries first receive 96 optimizer updates against immutable initial memory, then freeze all query tensors and fit target. 48 subsequent barycentric memory updates. Online barycentric control retains interleaved 2 query updates per memory step. Same count/lr/initialization/constraints."
+}

@@ -1,0 +1,75 @@
+{
+  "guard_version": "snapshot_guard_v1",
+  "original_training_source": "21660bf6161c5941aadcb98d569fdaeb8a111333",
+  "main_grid": [
+    "Core",
+    "local_transport",
+    "Core+PMT+snapshot_guard",
+    "LT+PMT+snapshot_guard"
+  ],
+  "unconstrained_contribution_controls": [
+    "Core+PMT",
+    "LT+PMT_global_regional"
+  ],
+  "reused_control_training_trajectories": 8,
+  "reused_control_stage_checkpoints": 36,
+  "seed": 74002,
+  "split_seed": 74002,
+  "epochs": 2,
+  "batch_size": 64,
+  "workers": 4,
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "clip": 5,
+  "FD": 10,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "competition_beta": 0.5,
+  "cosine_eta_min": 1e-05,
+  "guard_equation": "native full-bank quadratic, true-minus-every-rival fit margins >= same-state OFF; complete full dual fixed_v1",
+  "scoring_policy": "guard authoritative float64; legacy head.float compatibility slot never used by guarded evaluator; old published controls unchanged; same-state OFF/proposal float64 and PMT precision diagnostic mandatory",
+  "checkpoint_contract": "force/reference/proposal/head doubles + strict source/stage/steps/seen/frame/version; stationarity reconstruct plus captured scalar full-fit certificate, not independent feasibility proof without supports",
+  "status": "FROZEN_FORMAL_GPU01",
+  "user_authorization": "请立即开始实验",
+  "formal_training_authorized": true,
+  "development_evaluation_authorized": true,
+  "gpus": [
+    0,
+    1
+  ],
+  "new_trajectories": 4,
+  "new_stage_checkpoints": 18,
+  "new_optimizer_updates": 1288,
+  "updates_by_dataset": {
+    "ISIC": [
+      100,
+      72,
+      296
+    ],
+    "HK": [
+      98,
+      4,
+      2,
+      20,
+      18,
+      34
+    ]
+  },
+  "preflights_reused": 4,
+  "new_preflight_operations": 0,
+  "normal_new_GPU_operations": 8,
+  "deadline_seconds": 86400,
+  "min_free_MiB": 24576,
+  "guard_soft_seconds": 840,
+  "active_constraint_cap": null,
+  "test_accessed": false,
+  "val_tuning": false,
+  "retry_same_round": false,
+  "queue": [
+    "ISIC_guard",
+    "ISIC_LT_guard",
+    "HK_guard",
+    "HK_LT_guard"
+  ],
+  "historical_GPU_seconds": 393758.130153168
+}

@@ -1,0 +1,9 @@
+{
+  "status": "FAILED_BEFORE_IMPORT_NUMERICS",
+  "reason": "Server Python compiler rejects too many statically nested with/context blocks in CPU fixture; local newer Python compile did not catch target-version limit.",
+  "failed_children": 8,
+  "model_images_or_data_loaded": false,
+  "optimizer_updates": 0,
+  "GPU_seconds": 0,
+  "repair": "Use contextlib.ExitStack; freeze new source and independent CPU round; do not modify retired source."
+}

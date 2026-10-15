@@ -1,0 +1,149 @@
+{
+  "status": "PROSPECTIVE_CPU_ONLY",
+  "version": "joint_full_fit_refresh_CPU_v1",
+  "previous_design_source": "e6cef1583bffc787aaed7dedd7c8b066181c06e1",
+  "cases": [
+    {
+      "kind": "joint_refresh",
+      "id": "ISIC_T2_Core",
+      "dataset": "ISIC",
+      "task": 2,
+      "dimension": 1536,
+      "classes": 6,
+      "old_classes": 4,
+      "fit_n": 2292,
+      "LT": false,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263
+      ],
+      "current_train_counts": [
+        2835,
+        44
+      ]
+    },
+    {
+      "kind": "joint_refresh",
+      "id": "ISIC_T2_LT",
+      "dataset": "ISIC",
+      "task": 2,
+      "dimension": 1536,
+      "classes": 6,
+      "old_classes": 4,
+      "fit_n": 2292,
+      "LT": true,
+      "old_train_counts": [
+        458,
+        27,
+        256,
+        3263
+      ],
+      "current_train_counts": [
+        2835,
+        44
+      ]
+    },
+    {
+      "kind": "joint_refresh",
+      "id": "HK_T6_Core",
+      "dataset": "HK",
+      "task": 6,
+      "dimension": 1536,
+      "classes": 23,
+      "old_classes": 21,
+      "fit_n": 1038,
+      "LT": false,
+      "old_train_counts": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18
+      ],
+      "current_train_counts": [
+        654,
+        644
+      ]
+    },
+    {
+      "kind": "joint_refresh",
+      "id": "HK_T6_LT",
+      "dataset": "HK",
+      "task": 6,
+      "dimension": 1536,
+      "classes": 23,
+      "old_classes": 21,
+      "fit_n": 1038,
+      "LT": true,
+      "old_train_counts": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18
+      ],
+      "current_train_counts": [
+        654,
+        644
+      ]
+    }
+  ],
+  "threads": 2,
+  "case_hard_wall_seconds": 360,
+  "overall_wall_seconds": 1800,
+  "guard_soft_wall_seconds": 240,
+  "active_atom_cap": 64,
+  "ridge": 0.001,
+  "proximal": 0.01,
+  "beta": 0.5,
+  "PCG_tolerance": 1e-11,
+  "PCG_iterations": 256,
+  "finite_difference_epsilon": 1e-05,
+  "gradient_absolute_tolerance": 2e-06,
+  "gradient_relative_tolerance": 2e-05,
+  "moving_support": "all fit points same unit-norm preserving rotation in coordinates0/1",
+  "reference_refresh": "same native batch x(theta) and OFF solve; a/R/old/previous block fixed",
+  "specimen_selection": "ISIC full-rank largest previously feasible stage and HK maximum-old-bank final stage, both Core/LT; independent CPU gradient coverage, no val selection",
+  "ISIC_T3_full_gradient_blocked_by_frozen_64_atom_cap": true,
+  "GPU_ready": false,
+  "production_integrated": false,
+  "medical_images_read": 0,
+  "medical_checkpoints_read": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "optimizer_updates": 0
+}

@@ -59,6 +59,10 @@ def systems(f,theta):
 def run(cfg):
     begun=time.monotonic();torch.set_num_threads(2);f=prepare(cfg);preparation=time.monotonic()-begun
     base=systems(f,0.);a=base['audit']
+    assert a['atoms']==cfg['expected_base_atoms']
+    assert abs(a['objective_reference']-cfg['expected_base_ref_objective'])<1e-8
+    assert abs(a['objective_relaxation']-cfg['expected_base_guard_objective'])<1e-8
+    assert abs(a['objective_unconstrained']-cfg['expected_base_unconstrained_objective'])<1e-8
     if a['status']!='FEASIBLE':
         return dict(status='BASE_FULL_FIT_UNRESOLVED',case=cfg,base=a,gradient_verified=False,
                     CPU_pipeline_seconds=time.monotonic()-begun,GPU_processes=0,val_reads=0,test_accessed=False)

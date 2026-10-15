@@ -11,3 +11,5 @@ E=.5<W,H(theta)W>−<B(theta),W>；g_ij=x_i(theta)^T((w_y−w_j)−(Wref_y(theta
 由当前batch矩显式求Hdot/Bdot。全包络导数为 .5<W,Hdot W>−<Bdot,W>−Σλ xdot_i^T(Δw−ΔWref)+<Z,Bdot0−Hdot0 Wref>，其中Z=H0^-1 A*λ。额外解reference切向量作adjoint互检。不构建dK平方H，不对PCG迭代图反传。只作theta=0,±1e-5三次完整全fit守卫重解；前瞻误差门2e-6+2e-5|FD|。任何base/扰动求解cap/超时则联合梯度missing，不能补0或归为identity。
 
 原64atom/精度不变，每case360秒硬CPU cap、每guard240秒软cap、整体1800秒停止派发。所有wall/user/system/峰值RSS逐进程保留；与上一轮707.928139761秒分别记录再按独立操作相加，pipeline/operation包含驻留不额外加。该补充不证明真实encoder或医学性能，也不覆盖a/R/previous/旧bank随theta刷新、FD等独立encoder损失；这些原有可微项不因解析头核对而改变。即使4例通过，T3未解、生产时序与真实零更新预检仍缺失，不启动GPU。
+
+新增base解还须与上一已公开匿名结果的相同fixture活跃数及三项目标标量一致（绝对1e-8），避免重建样本或RNG流偏移后误称同状态梯度。没有医学checkpoint或统计矩阵复制。

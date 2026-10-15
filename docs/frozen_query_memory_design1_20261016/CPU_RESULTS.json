@@ -1,0 +1,1077 @@
+{
+  "program": {
+    "status": "COMPLETE_CPU_CHECKS",
+    "source_commit": "6b5e87fad4831f4ff9ec7f5a798bb2c62e955f30",
+    "started_at": 1792083499.7188654,
+    "deadline_at": 1792088999.7188656,
+    "active": null,
+    "cases": [
+      {
+        "id": "fixed_query_arithmetic",
+        "status": "COMPLETED",
+        "result_file": "fixed_query_arithmetic.json"
+      },
+      {
+        "id": "small",
+        "status": "COMPLETED",
+        "result_file": "small.json"
+      },
+      {
+        "id": "ISIC_scale",
+        "status": "COMPLETED",
+        "result_file": "ISIC_scale.json"
+      },
+      {
+        "id": "HK_scale",
+        "status": "COMPLETED",
+        "result_file": "HK_scale.json"
+      }
+    ],
+    "costs": [
+      {
+        "id": "fixed_query_arithmetic",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 9.523943373933434,
+        "CPU_user_seconds": 7.584834,
+        "CPU_system_seconds": 1.226074,
+        "peak_RSS_MiB": 433.6953125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "small",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 9.278371361084282,
+        "CPU_user_seconds": 10.092177,
+        "CPU_system_seconds": 1.049266,
+        "peak_RSS_MiB": 436.28515625,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "ISIC_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 320.6894413959235,
+        "CPU_user_seconds": 288.563048,
+        "CPU_system_seconds": 304.328658,
+        "peak_RSS_MiB": 1581.23828125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "HK_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 149.46346082398668,
+        "CPU_user_seconds": 143.741158,
+        "CPU_system_seconds": 122.925154,
+        "peak_RSS_MiB": 2927.96484375,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      }
+    ],
+    "failures": [],
+    "finished_at": 1792083988.7066169,
+    "supervisor_wall_seconds": 488.9877613792196
+  },
+  "results": [
+    {
+      "status": "PASS",
+      "fixed_query_gradient_fd_error": 3.368301193518164e-10,
+      "query_and_target_immutable": true,
+      "synthetic_unit_optimizer_updates": 3,
+      "permutation_error": 4.440892098500626e-16,
+      "warning": "Immutability and gradient engineering evidence, not optimization convergence or unseen-query coverage.",
+      "id": "fixed_query_arithmetic",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 7.695851448923349
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "small",
+        "kind": "scale",
+        "dimension": 32,
+        "classes": 4,
+        "n": 512,
+        "seed": 263,
+        "count_weights": [
+          8,
+          4,
+          2,
+          1
+        ]
+      },
+      "synthetic_counts": [
+        272,
+        136,
+        69,
+        35
+      ],
+      "all_support_rows_used": 512,
+      "real_medical_fit_allocation": false,
+      "fit_diagnostics": [
+        {
+          "mode": "barycentric",
+          "initial_memory_MSE_on_terminal_queries": 0.9685376372740335,
+          "final_memory_MSE_on_terminal_queries": 0.6359704803443181,
+          "query_frozen_during_compression": false,
+          "training_query_count": 8
+        },
+        {
+          "mode": "frozen_query",
+          "initial_memory_MSE_on_terminal_queries": 29.019872878873798,
+          "final_memory_MSE_on_terminal_queries": 13.648080509937081,
+          "query_frozen_during_compression": true,
+          "training_query_count": 8
+        }
+      ],
+      "construction_coefficient_elements": 8192,
+      "construction_coefficient_bytes": 65536,
+      "construction_support_bytes": 131072,
+      "construction_note": "Coefficients/support temporary; deployment stores only synthetic nodes and weights. Adam state and workspaces reflected in process RSS.",
+      "rows": [
+        {
+          "mode": "mean",
+          "mean_abs_error": 0.7212855471982479,
+          "max_abs_error": 6.1543830566884585,
+          "random_query_max_error": 1.9830401312484862,
+          "stress_query_max_error": 6.1543830566884585,
+          "per_class_max_errors": [
+            4.301396207498433,
+            4.685972795187728,
+            4.2723158449632495,
+            6.1543830566884585
+          ],
+          "moment_objective": 0.029523060908135182,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 0.48072541325073775,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "random",
+          "mean_abs_error": 0.23441096355549265,
+          "max_abs_error": 2.995380110105512,
+          "random_query_max_error": 0.35336608129251235,
+          "stress_query_max_error": 2.995380110105512,
+          "per_class_max_errors": [
+            0.7176133871847574,
+            2.995380110105512,
+            1.05051801589961,
+            0.5933054043072619
+          ],
+          "moment_objective": 0.09894662264400483,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "moment",
+          "mean_abs_error": 0.1183739411114119,
+          "max_abs_error": 1.2269124767809299,
+          "random_query_max_error": 0.16926896555210846,
+          "stress_query_max_error": 1.2269124767809299,
+          "per_class_max_errors": [
+            0.7421361813745508,
+            1.2269124767809299,
+            0.6680650237431931,
+            0.4529168238513135
+          ],
+          "moment_objective": 0.00521323778146218,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 15.840815969530933
+        },
+        {
+          "mode": "barycentric",
+          "mean_abs_error": 0.3176211145168839,
+          "max_abs_error": 2.959244912810468,
+          "random_query_max_error": 0.8650387409000655,
+          "stress_query_max_error": 2.959244912810468,
+          "per_class_max_errors": [
+            0.570168042177515,
+            1.8931800255267355,
+            2.959244912810468,
+            2.21193701369661
+          ],
+          "moment_objective": 0.04362239270149225,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 0.9916320200808367,
+          "min_effective_nodes": 13.870203362230141
+        },
+        {
+          "mode": "frozen_query",
+          "mean_abs_error": 0.33086444063002407,
+          "max_abs_error": 2.6047834023957757,
+          "random_query_max_error": 0.6292912260460244,
+          "stress_query_max_error": 2.6047834023957757,
+          "per_class_max_errors": [
+            1.3826479819624393,
+            2.6047834023957757,
+            1.9067412070569314,
+            2.1688985778816336
+          ],
+          "moment_objective": 0.06920039456168726,
+          "logical_memory_bytes": 16896,
+          "max_node_norm": 1.0,
+          "min_effective_nodes": 9.203392109530672
+        }
+      ],
+      "mode_costs": [
+        {
+          "mode": "moment",
+          "wall_seconds": 2.1477970159612596,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 0
+        },
+        {
+          "mode": "barycentric",
+          "wall_seconds": 0.8817009814083576,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 96
+        },
+        {
+          "mode": "frozen_query",
+          "wall_seconds": 0.9201055597513914,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 96
+        }
+      ],
+      "trace": [
+        {
+          "mode": "moment",
+          "step": 1,
+          "objective": 0.09894662264400483
+        },
+        {
+          "mode": "moment",
+          "step": 9,
+          "objective": 0.018708744293111857
+        },
+        {
+          "mode": "moment",
+          "step": 17,
+          "objective": 0.011372269035287139
+        },
+        {
+          "mode": "moment",
+          "step": 25,
+          "objective": 0.008903814871054627
+        },
+        {
+          "mode": "moment",
+          "step": 33,
+          "objective": 0.006829486919084605
+        },
+        {
+          "mode": "moment",
+          "step": 41,
+          "objective": 0.005806037738077533
+        },
+        {
+          "mode": "moment",
+          "step": 48,
+          "objective": 0.005256726559656484
+        },
+        {
+          "mode": "barycentric",
+          "step": 1,
+          "objective": 0.08689392012470082
+        },
+        {
+          "mode": "barycentric",
+          "step": 9,
+          "objective": 6.231856880432955
+        },
+        {
+          "mode": "barycentric",
+          "step": 17,
+          "objective": 12.238547886045778
+        },
+        {
+          "mode": "barycentric",
+          "step": 25,
+          "objective": 1.5803046620950956
+        },
+        {
+          "mode": "barycentric",
+          "step": 33,
+          "objective": 0.8079293436855228
+        },
+        {
+          "mode": "barycentric",
+          "step": 41,
+          "objective": 0.2673102182902477
+        },
+        {
+          "mode": "barycentric",
+          "step": 48,
+          "objective": 0.805018571057452
+        },
+        {
+          "mode": "frozen_query",
+          "step": 1,
+          "objective": 29.019872878873798
+        },
+        {
+          "mode": "frozen_query",
+          "step": 9,
+          "objective": 24.09610983473508
+        },
+        {
+          "mode": "frozen_query",
+          "step": 17,
+          "objective": 19.067505875299013
+        },
+        {
+          "mode": "frozen_query",
+          "step": 25,
+          "objective": 16.771195639632126
+        },
+        {
+          "mode": "frozen_query",
+          "step": 33,
+          "objective": 15.203096488626663
+        },
+        {
+          "mode": "frozen_query",
+          "step": 41,
+          "objective": 14.243579854646955
+        },
+        {
+          "mode": "frozen_query",
+          "step": 48,
+          "objective": 13.727854529804562
+        }
+      ],
+      "heldout_query_count": 48,
+      "evaluation_wall_seconds": 0.2503090067766607,
+      "finite_query_screen_pass": false,
+      "uniform_error_bound": null,
+      "classification_improvement": null,
+      "classification_training_performed": false,
+      "CPU_pipeline_seconds": 4.219003929756582,
+      "id": "small",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 7.843480804003775
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "ISIC_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ]
+      },
+      "synthetic_counts": [
+        232,
+        14,
+        130,
+        1644,
+        1429,
+        23,
+        5303,
+        659
+      ],
+      "all_support_rows_used": 9434,
+      "real_medical_fit_allocation": false,
+      "fit_diagnostics": [
+        {
+          "mode": "barycentric",
+          "initial_memory_MSE_on_terminal_queries": 39.9638659977956,
+          "final_memory_MSE_on_terminal_queries": 27.775062937283977,
+          "query_frozen_during_compression": false,
+          "training_query_count": 8
+        },
+        {
+          "mode": "frozen_query",
+          "initial_memory_MSE_on_terminal_queries": 59.30158582101416,
+          "final_memory_MSE_on_terminal_queries": 46.90487876101722,
+          "query_frozen_during_compression": true,
+          "training_query_count": 8
+        }
+      ],
+      "construction_coefficient_elements": 150944,
+      "construction_coefficient_bytes": 1207552,
+      "construction_support_bytes": 115924992,
+      "construction_note": "Coefficients/support temporary; deployment stores only synthetic nodes and weights. Adam state and workspaces reflected in process RSS.",
+      "rows": [
+        {
+          "mode": "mean",
+          "mean_abs_error": 0.45450848121698534,
+          "max_abs_error": 6.067516849043721,
+          "random_query_max_error": 0.20231158716446607,
+          "stress_query_max_error": 6.067516849043721,
+          "per_class_max_errors": [
+            1.1482090108662373,
+            6.067516849043721,
+            2.41333993108313,
+            1.0303638315851822,
+            2.2641125614351605,
+            4.98396013676116,
+            1.755945786839952,
+            2.440844803537138
+          ],
+          "moment_objective": 0.012634003062458977,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 0.5176632095811972,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "random",
+          "mean_abs_error": 1.0346703435803688,
+          "max_abs_error": 10.10018927979671,
+          "random_query_max_error": 0.06920810147977063,
+          "stress_query_max_error": 10.10018927979671,
+          "per_class_max_errors": [
+            6.860718485857094,
+            5.266039128612076,
+            10.052836613511854,
+            6.5815783689883975,
+            10.10018927979671,
+            2.8784954268956664,
+            7.582865751552342,
+            5.759130055660984
+          ],
+          "moment_objective": 0.12201395970962173,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.000000000000001,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "moment",
+          "mean_abs_error": 0.24200652196465922,
+          "max_abs_error": 2.025094797490983,
+          "random_query_max_error": 0.15267872704003116,
+          "stress_query_max_error": 2.025094797490983,
+          "per_class_max_errors": [
+            0.9443424841592529,
+            1.2710304419697254,
+            1.993569695789839,
+            0.8796081999334273,
+            1.809695313060896,
+            1.20768503042241,
+            1.182225729476786,
+            2.025094797490983
+          ],
+          "moment_objective": 0.005551465999925851,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.0,
+          "min_effective_nodes": 15.947912032053386
+        },
+        {
+          "mode": "barycentric",
+          "mean_abs_error": 0.8028379402786774,
+          "max_abs_error": 9.019043771099291,
+          "random_query_max_error": 0.14351002508520794,
+          "stress_query_max_error": 9.019043771099291,
+          "per_class_max_errors": [
+            6.618353100115496,
+            4.784531670029755,
+            9.019043771099291,
+            2.778958753857588,
+            5.6826478020459215,
+            3.2432044823429518,
+            2.9613110605938378,
+            5.061414191025898
+          ],
+          "moment_objective": 0.03872801312959173,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 1.000000000000001,
+          "min_effective_nodes": 13.61429445550663
+        },
+        {
+          "mode": "frozen_query",
+          "mean_abs_error": 1.1408925685651305,
+          "max_abs_error": 10.69110630692259,
+          "random_query_max_error": 0.11635773825242846,
+          "stress_query_max_error": 10.69110630692259,
+          "per_class_max_errors": [
+            7.887018612146931,
+            5.540408106017264,
+            10.49476365274073,
+            8.182181137743342,
+            10.69110630692259,
+            4.15708690098702,
+            8.977460202358673,
+            5.233854382847106
+          ],
+          "moment_objective": 0.11663695991500742,
+          "logical_memory_bytes": 1573888,
+          "max_node_norm": 0.9999999999999998,
+          "min_effective_nodes": 7.881906138855501
+        }
+      ],
+      "mode_costs": [
+        {
+          "mode": "moment",
+          "wall_seconds": 37.393728863913566,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 0
+        },
+        {
+          "mode": "barycentric",
+          "wall_seconds": 129.3560784496367,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 96
+        },
+        {
+          "mode": "frozen_query",
+          "wall_seconds": 114.14392624422908,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 96
+        }
+      ],
+      "trace": [
+        {
+          "mode": "moment",
+          "step": 1,
+          "objective": 0.12201395970962173
+        },
+        {
+          "mode": "moment",
+          "step": 9,
+          "objective": 0.0999528017519032
+        },
+        {
+          "mode": "moment",
+          "step": 17,
+          "objective": 0.02516566306219512
+        },
+        {
+          "mode": "moment",
+          "step": 25,
+          "objective": 0.01909983767540976
+        },
+        {
+          "mode": "moment",
+          "step": 33,
+          "objective": 0.01068623081763283
+        },
+        {
+          "mode": "moment",
+          "step": 41,
+          "objective": 0.007268849788908901
+        },
+        {
+          "mode": "moment",
+          "step": 48,
+          "objective": 0.005717581272174082
+        },
+        {
+          "mode": "barycentric",
+          "step": 1,
+          "objective": 0.4197445661266981
+        },
+        {
+          "mode": "barycentric",
+          "step": 9,
+          "objective": 55.56233438112439
+        },
+        {
+          "mode": "barycentric",
+          "step": 17,
+          "objective": 56.370290450974665
+        },
+        {
+          "mode": "barycentric",
+          "step": 25,
+          "objective": 55.39407942884035
+        },
+        {
+          "mode": "barycentric",
+          "step": 33,
+          "objective": 55.167882521194805
+        },
+        {
+          "mode": "barycentric",
+          "step": 41,
+          "objective": 46.9873673561151
+        },
+        {
+          "mode": "barycentric",
+          "step": 48,
+          "objective": 30.84042686957754
+        },
+        {
+          "mode": "frozen_query",
+          "step": 1,
+          "objective": 59.30158582101416
+        },
+        {
+          "mode": "frozen_query",
+          "step": 9,
+          "objective": 54.72815298391562
+        },
+        {
+          "mode": "frozen_query",
+          "step": 17,
+          "objective": 51.81864800302797
+        },
+        {
+          "mode": "frozen_query",
+          "step": 25,
+          "objective": 50.4296482015219
+        },
+        {
+          "mode": "frozen_query",
+          "step": 33,
+          "objective": 49.23277493592988
+        },
+        {
+          "mode": "frozen_query",
+          "step": 41,
+          "objective": 48.0798900204811
+        },
+        {
+          "mode": "frozen_query",
+          "step": 48,
+          "objective": 47.05721126926389
+        }
+      ],
+      "heldout_query_count": 48,
+      "evaluation_wall_seconds": 31.74262095382437,
+      "finite_query_screen_pass": false,
+      "uniform_error_bound": null,
+      "classification_improvement": null,
+      "classification_training_performed": false,
+      "CPU_pipeline_seconds": 315.59645733516663,
+      "id": "ISIC_scale",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 319.2835209420882
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "HK_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ]
+      },
+      "synthetic_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "all_support_rows_used": 1038,
+      "real_medical_fit_allocation": false,
+      "fit_diagnostics": [
+        {
+          "mode": "barycentric",
+          "initial_memory_MSE_on_terminal_queries": 8.896770497177249,
+          "final_memory_MSE_on_terminal_queries": 9.728189664592888,
+          "query_frozen_during_compression": false,
+          "training_query_count": 8
+        },
+        {
+          "mode": "frozen_query",
+          "initial_memory_MSE_on_terminal_queries": 17.658478234072106,
+          "final_memory_MSE_on_terminal_queries": 9.550514954236641,
+          "query_frozen_during_compression": true,
+          "training_query_count": 8
+        }
+      ],
+      "construction_coefficient_elements": 16608,
+      "construction_coefficient_bytes": 132864,
+      "construction_support_bytes": 12754944,
+      "construction_note": "Coefficients/support temporary; deployment stores only synthetic nodes and weights. Adam state and workspaces reflected in process RSS.",
+      "rows": [
+        {
+          "mode": "mean",
+          "mean_abs_error": 0.6881165382306097,
+          "max_abs_error": 4.960859692171918,
+          "random_query_max_error": 0.17497879442971997,
+          "stress_query_max_error": 4.960859692171918,
+          "per_class_max_errors": [
+            4.155382062901694,
+            1.3322676295501878e-15,
+            2.960374137364816,
+            4.823359951888405,
+            4.746372348489723,
+            3.909713319893939,
+            4.4206466088703955,
+            4.228368357163894,
+            3.4702139383849833,
+            4.533083978033565,
+            2.385623896559045,
+            4.960859692171918,
+            0.6634568036462865,
+            4.356358156817602,
+            4.597786207854828,
+            3.08602503168669,
+            3.3953620082823583,
+            4.231778768816616,
+            4.2112123225242435,
+            3.126257805719832,
+            4.761788070279769,
+            3.6871339080395744,
+            1.642242319409554
+          ],
+          "moment_objective": 0.04830894140637199,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "random",
+          "mean_abs_error": 0.60318971679025,
+          "max_abs_error": 8.836981862311578,
+          "random_query_max_error": 0.06883563460802922,
+          "stress_query_max_error": 8.836981862311578,
+          "per_class_max_errors": [
+            5.5655883466477905,
+            1.3322676295501878e-15,
+            0.44911213996353405,
+            4.037680089267956,
+            6.670616707019687,
+            8.836981862311578,
+            5.183548508089924,
+            4.494177191467232,
+            4.094563513023751,
+            0.8794314489637953,
+            3.569103614641973,
+            6.995868711838789,
+            4.440892098500626e-16,
+            2.9381249094471835,
+            0.45494174871459325,
+            0.7553354925171876,
+            0.6435404316281277,
+            5.159485585352543,
+            3.2660845107038163,
+            6.22210382929006,
+            1.4778580853394883,
+            6.544545113890408,
+            1.7074671487759399
+          ],
+          "moment_objective": 0.0943744631777492,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000007,
+          "min_effective_nodes": 16.0
+        },
+        {
+          "mode": "moment",
+          "mean_abs_error": 0.25567558263425083,
+          "max_abs_error": 3.5202243364419212,
+          "random_query_max_error": 0.1013590936509351,
+          "stress_query_max_error": 3.5202243364419212,
+          "per_class_max_errors": [
+            2.0898178593855254,
+            0.02581267346890259,
+            0.1167952914426924,
+            1.8781035862530926,
+            2.4393550882028165,
+            2.936352877360167,
+            3.5202243364419212,
+            1.6715741554775905,
+            1.0784399597605336,
+            1.450497855306006,
+            1.2118123288712193,
+            3.377059860257705,
+            0.01876815913343055,
+            0.9679181653320184,
+            0.9022920008492497,
+            0.21671117735643097,
+            0.23167780464330345,
+            2.747822505500327,
+            0.8529643069350552,
+            2.010465908048296,
+            0.5238225312991442,
+            2.1346374113396758,
+            0.6949545469289553
+          ],
+          "moment_objective": 0.008210199315829555,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000004,
+          "min_effective_nodes": 15.711066835692034
+        },
+        {
+          "mode": "barycentric",
+          "mean_abs_error": 0.46115386187858187,
+          "max_abs_error": 7.603761095578322,
+          "random_query_max_error": 0.13049372993949382,
+          "stress_query_max_error": 7.603761095578322,
+          "per_class_max_errors": [
+            3.4094440933608485,
+            1.3322676295501878e-15,
+            0.07261678737468147,
+            4.110233147107681,
+            4.679975137393861,
+            7.603761095578322,
+            5.191054404990169,
+            1.3122266999832464,
+            3.711336711054863,
+            0.7620631666331317,
+            2.4422902495033,
+            6.603522101960737,
+            0.00057435383941562,
+            1.4449305716588068,
+            0.2765097912129777,
+            0.23663189350135916,
+            0.34825597186510304,
+            5.140579933319616,
+            3.090231417504718,
+            3.168743852357383,
+            0.7371991900254815,
+            6.7599233717154465,
+            0.9711974731775896
+          ],
+          "moment_objective": 0.038041839100850766,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 9.173515010504458
+        },
+        {
+          "mode": "frozen_query",
+          "mean_abs_error": 0.6082335102540948,
+          "max_abs_error": 9.041219952465461,
+          "random_query_max_error": 0.10014376471803221,
+          "stress_query_max_error": 9.041219952465461,
+          "per_class_max_errors": [
+            5.833795774788921,
+            1.3322676295501878e-15,
+            0.16225930057964977,
+            3.1392248928452116,
+            6.37769935977093,
+            9.041219952465461,
+            5.111196901902996,
+            4.702081861381252,
+            4.459177767227996,
+            1.9907445279985936,
+            4.115776976504458,
+            7.428027405328999,
+            0.00017567657977002327,
+            1.926293100956416,
+            3.241627146487046,
+            0.27134953142811646,
+            0.33115301586337687,
+            4.829459215650816,
+            3.455774469563739,
+            7.723558067731729,
+            0.28426069057729464,
+            6.802753607331873,
+            2.061533211757189
+          ],
+          "moment_objective": 0.06765002810815834,
+          "logical_memory_bytes": 4524928,
+          "max_node_norm": 1.0000000000000002,
+          "min_effective_nodes": 6.825250158734041
+        }
+      ],
+      "mode_costs": [
+        {
+          "mode": "moment",
+          "wall_seconds": 107.09297385299578,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 0
+        },
+        {
+          "mode": "barycentric",
+          "wall_seconds": 12.726030321791768,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 96
+        },
+        {
+          "mode": "frozen_query",
+          "wall_seconds": 11.851449951063842,
+          "memory_optimizer_steps": 48,
+          "query_optimizer_steps": 96
+        }
+      ],
+      "trace": [
+        {
+          "mode": "moment",
+          "step": 1,
+          "objective": 0.0943744631777492
+        },
+        {
+          "mode": "moment",
+          "step": 9,
+          "objective": 0.10151101964993085
+        },
+        {
+          "mode": "moment",
+          "step": 17,
+          "objective": 0.029083049148441016
+        },
+        {
+          "mode": "moment",
+          "step": 25,
+          "objective": 0.02140628642480414
+        },
+        {
+          "mode": "moment",
+          "step": 33,
+          "objective": 0.013590948993254484
+        },
+        {
+          "mode": "moment",
+          "step": 41,
+          "objective": 0.010051759097069854
+        },
+        {
+          "mode": "moment",
+          "step": 48,
+          "objective": 0.00845426444172264
+        },
+        {
+          "mode": "barycentric",
+          "step": 1,
+          "objective": 0.19255393156913542
+        },
+        {
+          "mode": "barycentric",
+          "step": 9,
+          "objective": 15.135927323382944
+        },
+        {
+          "mode": "barycentric",
+          "step": 17,
+          "objective": 13.66399696105934
+        },
+        {
+          "mode": "barycentric",
+          "step": 25,
+          "objective": 12.744689684750622
+        },
+        {
+          "mode": "barycentric",
+          "step": 33,
+          "objective": 12.118937333692694
+        },
+        {
+          "mode": "barycentric",
+          "step": 41,
+          "objective": 12.239003522944724
+        },
+        {
+          "mode": "barycentric",
+          "step": 48,
+          "objective": 10.804971518181347
+        },
+        {
+          "mode": "frozen_query",
+          "step": 1,
+          "objective": 17.658478234072106
+        },
+        {
+          "mode": "frozen_query",
+          "step": 9,
+          "objective": 15.897373597688512
+        },
+        {
+          "mode": "frozen_query",
+          "step": 17,
+          "objective": 14.110379275705819
+        },
+        {
+          "mode": "frozen_query",
+          "step": 25,
+          "objective": 12.877645748500212
+        },
+        {
+          "mode": "frozen_query",
+          "step": 33,
+          "objective": 11.720137210555453
+        },
+        {
+          "mode": "frozen_query",
+          "step": 41,
+          "objective": 10.670969964935733
+        },
+        {
+          "mode": "frozen_query",
+          "step": 48,
+          "objective": 9.700993692474045
+        }
+      ],
+      "heldout_query_count": 48,
+      "evaluation_wall_seconds": 10.525749681983143,
+      "finite_query_screen_pass": false,
+      "uniform_error_bound": null,
+      "classification_improvement": null,
+      "classification_training_performed": false,
+      "CPU_pipeline_seconds": 143.09393759537488,
+      "id": "HK_scale",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 148.03170343767852
+    }
+  ]
+}

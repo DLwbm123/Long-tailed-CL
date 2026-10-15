@@ -17,7 +17,7 @@ def write_json(path, data):
 def write_csv(path, rows):
     keys = list(dict.fromkeys(k for row in rows for k in row))
     with path.open('w', newline='') as f:
-        w = csv.DictWriter(f, fieldnames=keys); w.writeheader()
+        w = csv.DictWriter(f, fieldnames=keys, lineterminator='\n'); w.writeheader()
         w.writerows({k: 'null' if v is None else v for k, v in r.items()} for r in rows)
 
 

@@ -1,0 +1,5717 @@
+{
+  "program": {
+    "status": "COMPLETE_CPU_CHECKS",
+    "source_commit": "851359b5873f97082c000252a427172cc49c6f42",
+    "started_at": 1792114225.8290746,
+    "deadline_at": 1792119725.829075,
+    "active": null,
+    "cases": [
+      {
+        "id": "multiclass_zero_arithmetic",
+        "status": "COMPLETED",
+        "result_file": "multiclass_zero_arithmetic.json"
+      },
+      {
+        "id": "small",
+        "status": "COMPLETED",
+        "result_file": "small.json"
+      },
+      {
+        "id": "ISIC_scale",
+        "status": "COMPLETED",
+        "result_file": "ISIC_scale.json"
+      },
+      {
+        "id": "HK_scale",
+        "status": "COMPLETED",
+        "result_file": "HK_scale.json"
+      }
+    ],
+    "costs": [
+      {
+        "id": "multiclass_zero_arithmetic",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 8.039392036851496,
+        "CPU_user_seconds": 5.634877,
+        "CPU_system_seconds": 1.084875,
+        "peak_RSS_MiB": 408.2734375,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "small",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 9.274745367933065,
+        "CPU_user_seconds": 9.427086,
+        "CPU_system_seconds": 1.401915,
+        "peak_RSS_MiB": 435.70703125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "ISIC_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 137.98985015414655,
+        "CPU_user_seconds": 169.841345,
+        "CPU_system_seconds": 90.229339,
+        "peak_RSS_MiB": 1004.24609375,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "HK_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 160.49867231491953,
+        "CPU_user_seconds": 198.399113,
+        "CPU_system_seconds": 98.091606,
+        "peak_RSS_MiB": 2029.328125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      }
+    ],
+    "failures": [],
+    "finished_at": 1792114541.6909218,
+    "supervisor_wall_seconds": 315.86186000565067
+  },
+  "results": [
+    {
+      "status": "PASS",
+      "exact_gradient_error": 1.3877787807814457e-16,
+      "quadratic_gradient_fd_error": 9.536371692320245e-12,
+      "common_shift_error": 1.1102230246251565e-16,
+      "class_permutation_pass": true,
+      "zero_anchor_exact": true,
+      "positive_omitted_spectrum_bound_pass": true,
+      "domain_rejection": true,
+      "binding_restored": true,
+      "first_step_without_memory_exact": true,
+      "synthetic_head_updates": 2,
+      "id": "multiclass_zero_arithmetic",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 6.841898838058114
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "small",
+        "kind": "scale",
+        "dimension": 32,
+        "classes": 4,
+        "n": 512,
+        "seed": 263,
+        "count_weights": [
+          8,
+          4,
+          2,
+          1
+        ],
+        "task_sizes": [
+          2,
+          1,
+          1
+        ],
+        "active_dimension": 8
+      },
+      "synthetic_counts": [
+        272,
+        136,
+        69,
+        35
+      ],
+      "synthetic_evaluation_counts": [
+        272,
+        136,
+        69,
+        35
+      ],
+      "rows": [
+        {
+          "task": 1,
+          "seen_classes": 2,
+          "mode": "oracle_wide",
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8511029411764706,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8511029411764706
+        },
+        {
+          "task": 1,
+          "seen_classes": 2,
+          "mode": "oracle_local",
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8511029411764706,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8511029411764706
+        },
+        {
+          "task": 1,
+          "seen_classes": 2,
+          "mode": "moment_local",
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8511029411764706,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8511029411764706
+        },
+        {
+          "task": 1,
+          "seen_classes": 2,
+          "mode": "quadratic_local",
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8511029411764706,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8511029411764706
+        },
+        {
+          "task": 2,
+          "seen_classes": 3,
+          "mode": "oracle_wide",
+          "accuracy": 0.7211740041928721,
+          "balanced_accuracy": 0.7218670076726342,
+          "old_balanced_accuracy": 0.713235294117647,
+          "new_balanced_accuracy": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "seen_classes": 3,
+          "mode": "oracle_local",
+          "accuracy": 0.7253668763102725,
+          "balanced_accuracy": 0.7279944586530265,
+          "old_balanced_accuracy": 0.7224264705882353,
+          "new_balanced_accuracy": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "seen_classes": 3,
+          "mode": "moment_local",
+          "accuracy": 0.7253668763102725,
+          "balanced_accuracy": 0.7279944586530265,
+          "old_balanced_accuracy": 0.7224264705882353,
+          "new_balanced_accuracy": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "seen_classes": 3,
+          "mode": "quadratic_local",
+          "accuracy": 0.7274633123689728,
+          "balanced_accuracy": 0.7304454390451832,
+          "old_balanced_accuracy": 0.7261029411764706,
+          "new_balanced_accuracy": 0.7391304347826086
+        },
+        {
+          "task": 3,
+          "seen_classes": 4,
+          "mode": "oracle_wide",
+          "accuracy": 0.65234375,
+          "balanced_accuracy": 0.6608623340640604,
+          "old_balanced_accuracy": 0.6621021597044615,
+          "new_balanced_accuracy": 0.6571428571428571
+        },
+        {
+          "task": 3,
+          "seen_classes": 4,
+          "mode": "oracle_local",
+          "accuracy": 0.671875,
+          "balanced_accuracy": 0.6656147241505298,
+          "old_balanced_accuracy": 0.6779624893435635,
+          "new_balanced_accuracy": 0.6285714285714286
+        },
+        {
+          "task": 3,
+          "seen_classes": 4,
+          "mode": "moment_local",
+          "accuracy": 0.673828125,
+          "balanced_accuracy": 0.6701570302033857,
+          "old_balanced_accuracy": 0.6840188974140381,
+          "new_balanced_accuracy": 0.6285714285714286
+        },
+        {
+          "task": 3,
+          "seen_classes": 4,
+          "mode": "quadratic_local",
+          "accuracy": 0.671875,
+          "balanced_accuracy": 0.6673996772622093,
+          "old_balanced_accuracy": 0.6803424268258028,
+          "new_balanced_accuracy": 0.6285714285714286
+        }
+      ],
+      "class_rows": [
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.8566176470588235
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.8455882352941176
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.8566176470588235
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.8455882352941176
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.8566176470588235
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.8455882352941176
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.8566176470588235
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.8455882352941176
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.7279411764705882
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.6985294117647058
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.7242647058823529
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.7205882352941176
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.7242647058823529
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.7205882352941176
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.7242647058823529
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.7279411764705882
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.6360294117647058
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.6691176470588235
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.6811594202898551
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 35,
+          "recall": 0.6571428571428571
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.6764705882352942
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.6617647058823529
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.6956521739130435
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 35,
+          "recall": 0.6285714285714286
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.6727941176470589
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.6691176470588235
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.7101449275362319
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 35,
+          "recall": 0.6285714285714286
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 272,
+          "recall": 0.6764705882352942
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 136,
+          "recall": 0.6544117647058824
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 69,
+          "recall": 0.7101449275362319
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 35,
+          "recall": 0.6285714285714286
+        }
+      ],
+      "training": [
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "training_seconds": 0.05888764560222626,
+          "steps": 48,
+          "max_head_norm": 0.3683767352262884,
+          "boundary_heads": 0,
+          "head_change_norm": 0.5209633750197393,
+          "final_training_objective": 0.36780710003213807,
+          "projected_gradient_mapping_norm": 0.010203944352696495,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "training_seconds": 0.057324517983943224,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 2,
+          "head_change_norm": 0.1767766952966369,
+          "final_training_objective": 0.47616423109820843,
+          "projected_gradient_mapping_norm": 5.211358501420625e-11,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "training_seconds": 0.05830166582018137,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 2,
+          "head_change_norm": 0.1767766952966369,
+          "final_training_objective": 0.47616423109820843,
+          "projected_gradient_mapping_norm": 5.211358501420625e-11,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "training_seconds": 0.05814463784918189,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 2,
+          "head_change_norm": 0.1767766952966369,
+          "final_training_objective": 0.47616423109820843,
+          "projected_gradient_mapping_norm": 5.211358501420625e-11,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "training_seconds": 0.07453199103474617,
+          "steps": 48,
+          "max_head_norm": 0.46428933213582424,
+          "boundary_heads": 0,
+          "head_change_norm": 0.5705111249847196,
+          "final_training_objective": 0.6099455292561683,
+          "projected_gradient_mapping_norm": 0.027976967510777027,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "training_seconds": 0.07434319984167814,
+          "steps": 48,
+          "max_head_norm": 0.12499999999999999,
+          "boundary_heads": 3,
+          "head_change_norm": 0.15713693516328395,
+          "final_training_objective": 0.8217609410360245,
+          "projected_gradient_mapping_norm": 6.674674202004575e-08,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "training_seconds": 0.05900561111047864,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 3,
+          "head_change_norm": 0.1563557535590125,
+          "final_training_objective": 0.8208582261259894,
+          "projected_gradient_mapping_norm": 6.910997720234943e-08,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "training_seconds": 0.08264118293300271,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 3,
+          "head_change_norm": 0.15552518409323446,
+          "final_training_objective": 0.8229378995212695,
+          "projected_gradient_mapping_norm": 5.4495907850412967e-08,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "training_seconds": 0.09177016699686646,
+          "steps": 48,
+          "max_head_norm": 0.5320754996226214,
+          "boundary_heads": 0,
+          "head_change_norm": 0.6182392582287642,
+          "final_training_objective": 0.7892198687536653,
+          "projected_gradient_mapping_norm": 0.04344131271765445,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "training_seconds": 0.09146407898515463,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 4,
+          "head_change_norm": 0.146286038396968,
+          "final_training_objective": 1.0835759596320185,
+          "projected_gradient_mapping_norm": 1.3129779274560259e-06,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "training_seconds": 0.07032110495492816,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 4,
+          "head_change_norm": 0.14631916658513017,
+          "final_training_objective": 1.0786578891099174,
+          "projected_gradient_mapping_norm": 1.1630652597285421e-06,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "training_seconds": 0.10744094103574753,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 4,
+          "head_change_norm": 0.14547545556680702,
+          "final_training_objective": 1.083675031315906,
+          "projected_gradient_mapping_norm": 9.438989081745519e-07,
+          "diagnostic_risk_gradient_evaluations": 1
+        }
+      ],
+      "curvature": [
+        {
+          "class_index": 0,
+          "count": 272,
+          "omitted_second_eigenvalue": 0.0,
+          "retained_second_trace": 1.0,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 1,
+          "count": 136,
+          "omitted_second_eigenvalue": 0.0,
+          "retained_second_trace": 1.0000000000000002,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 2,
+          "count": 69,
+          "omitted_second_eigenvalue": 0.0,
+          "retained_second_trace": 1.0000000000000002,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 3,
+          "count": 35,
+          "omitted_second_eigenvalue": 0.0,
+          "retained_second_trace": 1.0,
+          "second_trace": 1.0
+        }
+      ],
+      "construction_costs": [
+        {
+          "task": 1,
+          "baseline_seconds": 0.18228101218119264,
+          "spectral_seconds": 0.0019290084019303322,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 2,
+          "baseline_seconds": 0.10479911137372255,
+          "spectral_seconds": 0.0006401771679520607,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 3,
+          "baseline_seconds": 0.10898650577291846,
+          "spectral_seconds": 0.0006240797229111195,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        }
+      ],
+      "bound_diagnostics": [
+        {
+          "task": 1,
+          "old_classes": 0,
+          "old_loss_absolute_error": 0.0,
+          "old_loss_bound": 0.0,
+          "max_old_gradient_error": 0.0,
+          "max_old_gradient_bound": 0.0,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 2,
+          "old_classes": 2,
+          "old_loss_absolute_error": 0.0011513723537353027,
+          "old_loss_bound": 0.9633804259308559,
+          "max_old_gradient_error": 0.02617094204268976,
+          "max_old_gradient_bound": 22.509142274690117,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 3,
+          "old_classes": 3,
+          "old_loss_absolute_error": 8.87296355812639e-05,
+          "old_loss_bound": 1.0219541323220365,
+          "max_old_gradient_error": 0.012731307946201217,
+          "max_old_gradient_bound": 24.34999320947201,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        }
+      ],
+      "stage_contributions": [
+        {
+          "task": 1,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": false,
+          "candidate_minus_moment_BA": 0.0,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": 0.0
+        },
+        {
+          "task": 2,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.002450980392156743,
+          "candidate_minus_local_oracle_BA": 0.002450980392156743,
+          "local_minus_wide_oracle_BA": 0.006127450980392246
+        },
+        {
+          "task": 3,
+          "no_harm_to_moment": false,
+          "strict_gain_over_moment": false,
+          "candidate_minus_moment_BA": -0.0027573529411764053,
+          "candidate_minus_local_oracle_BA": 0.001784953111679477,
+          "local_minus_wide_oracle_BA": 0.004752390086469438
+        }
+      ],
+      "synthetic_sequence_signal_pass": false,
+      "all_training_sealed_before_evaluation": true,
+      "candidate_old_support_reads_during_training": 0,
+      "oracle_old_support_reads": "SYNTHETIC_CONTROL_ONLY",
+      "candidate_memory_bytes": 16896,
+      "moment_memory_bytes": 16896,
+      "head_updates_per_arm": 144,
+      "total_head_updates": 576,
+      "baseline_compression_updates": 144,
+      "candidate_compression_updates": 0,
+      "CPU_pipeline_seconds": 3.6963328910060227,
+      "fixture_active_dimension": 8,
+      "head_loss": "multiclass_softmax_CE",
+      "scale_diagnostic_risk_gradient_evaluations": 12,
+      "id": "small",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 7.601261724252254
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "ISIC_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ],
+        "task_sizes": [
+          4,
+          2,
+          2
+        ],
+        "active_dimension": 16
+      },
+      "synthetic_counts": [
+        232,
+        14,
+        130,
+        1644,
+        1429,
+        23,
+        5303,
+        659
+      ],
+      "synthetic_evaluation_counts": [
+        232,
+        14,
+        130,
+        1644,
+        1429,
+        23,
+        5303,
+        659
+      ],
+      "rows": [
+        {
+          "task": 1,
+          "seen_classes": 4,
+          "mode": "oracle_wide",
+          "accuracy": 0.8633663366336634,
+          "balanced_accuracy": 0.8585928517954065,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8585928517954065
+        },
+        {
+          "task": 1,
+          "seen_classes": 4,
+          "mode": "oracle_local",
+          "accuracy": 0.8594059405940594,
+          "balanced_accuracy": 0.8386656866080475,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8386656866080475
+        },
+        {
+          "task": 1,
+          "seen_classes": 4,
+          "mode": "moment_local",
+          "accuracy": 0.8594059405940594,
+          "balanced_accuracy": 0.8386656866080475,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8386656866080475
+        },
+        {
+          "task": 1,
+          "seen_classes": 4,
+          "mode": "quadratic_local",
+          "accuracy": 0.8594059405940594,
+          "balanced_accuracy": 0.8386656866080475,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.8386656866080475
+        },
+        {
+          "task": 2,
+          "seen_classes": 6,
+          "mode": "oracle_wide",
+          "accuracy": 0.7848502304147466,
+          "balanced_accuracy": 0.7688358263399157,
+          "old_balanced_accuracy": 0.8067131364733932,
+          "new_balanced_accuracy": 0.6930812060729608
+        },
+        {
+          "task": 2,
+          "seen_classes": 6,
+          "mode": "oracle_local",
+          "accuracy": 0.7816820276497696,
+          "balanced_accuracy": 0.7596760984809086,
+          "old_balanced_accuracy": 0.758790321391001,
+          "new_balanced_accuracy": 0.7614476526607235
+        },
+        {
+          "task": 2,
+          "seen_classes": 6,
+          "mode": "moment_local",
+          "accuracy": 0.785426267281106,
+          "balanced_accuracy": 0.7658157553920297,
+          "old_balanced_accuracy": 0.768699596820664,
+          "new_balanced_accuracy": 0.7600480725347614
+        },
+        {
+          "task": 2,
+          "seen_classes": 6,
+          "mode": "quadratic_local",
+          "accuracy": 0.7816820276497696,
+          "balanced_accuracy": 0.7602245060322123,
+          "old_balanced_accuracy": 0.759787880233702,
+          "new_balanced_accuracy": 0.7610977576292329
+        },
+        {
+          "task": 3,
+          "seen_classes": 8,
+          "mode": "oracle_wide",
+          "accuracy": 0.6989612041551834,
+          "balanced_accuracy": 0.7212741684906097,
+          "old_balanced_accuracy": 0.7439980852091179,
+          "new_balanced_accuracy": 0.6531024183350851
+        },
+        {
+          "task": 3,
+          "seen_classes": 8,
+          "mode": "oracle_local",
+          "accuracy": 0.7300190799236803,
+          "balanced_accuracy": 0.7158715832810939,
+          "old_balanced_accuracy": 0.7157351812660697,
+          "new_balanced_accuracy": 0.7162807893261667
+        },
+        {
+          "task": 3,
+          "seen_classes": 8,
+          "mode": "moment_local",
+          "accuracy": 0.7280050879796481,
+          "balanced_accuracy": 0.7083691898698908,
+          "old_balanced_accuracy": 0.7075607713662581,
+          "new_balanced_accuracy": 0.7107944453807891
+        },
+        {
+          "task": 3,
+          "seen_classes": 8,
+          "mode": "quadratic_local",
+          "accuracy": 0.7297010811956752,
+          "balanced_accuracy": 0.714859924517267,
+          "old_balanced_accuracy": 0.7147649263655284,
+          "new_balanced_accuracy": 0.715144918972483
+        }
+      ],
+      "class_rows": [
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.875
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.9153846153846154
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.8582725060827251
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.8620689655172413
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.7142857142857143
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.8552311435523114
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.8620689655172413
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.7142857142857143
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.8552311435523114
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.8620689655172413
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.7142857142857143
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.8552311435523114
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.7931034482758621
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.8615384615384616
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.7864963503649635
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7774667599720084
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.6086956521739131
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.7758620689655172
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.6428571428571429
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.8384615384615385
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.7779805352798054
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7837648705388384
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.8017241379310345
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.6428571428571429
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.8461538461538461
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.7840632603406326
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.780965710286914
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.771551724137931
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.6428571428571429
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.8461538461538461
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.7785888077858881
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7830650804758572
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.7391304347826086
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.7672413793103449
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.7142857142857143
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.8153846153846154
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.7451338199513382
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7697690692792163
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.6521739130434783
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 5303,
+          "recall": 0.6673580991891382
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 659,
+          "recall": 0.6388467374810318
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.7370689655172413
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.6428571428571429
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.7846153846153846
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.73661800486618
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7410776766969909
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.6521739130434783
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 5303,
+          "recall": 0.7269470111257779
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 659,
+          "recall": 0.7056145675265554
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.7543103448275862
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.5714285714285714
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.7846153846153846
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.7396593673965937
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7431770468859342
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.6521739130434783
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 5303,
+          "recall": 0.7220441259664341
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 659,
+          "recall": 0.6995447647951442
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 232,
+          "recall": 0.728448275862069
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 14,
+          "recall": 0.6428571428571429
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 130,
+          "recall": 0.7846153846153846
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 1644,
+          "recall": 0.73661800486618
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 1429,
+          "recall": 0.7438768369489154
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 23,
+          "recall": 0.6521739130434783
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 5303,
+          "recall": 0.7261927211012634
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 659,
+          "recall": 0.7040971168437026
+        }
+      ],
+      "training": [
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "training_seconds": 2.3642656789161265,
+          "steps": 48,
+          "max_head_norm": 0.7188245600153119,
+          "boundary_heads": 0,
+          "head_change_norm": 1.3612528484879054,
+          "final_training_objective": 0.4382364979972787,
+          "projected_gradient_mapping_norm": 0.1614486242992556,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "training_seconds": 2.6886958619579673,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 4,
+          "head_change_norm": 0.25,
+          "final_training_objective": 1.043322512639593,
+          "projected_gradient_mapping_norm": 2.307634547977824e-08,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "training_seconds": 3.0278802388347685,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 4,
+          "head_change_norm": 0.25,
+          "final_training_objective": 1.043322512639593,
+          "projected_gradient_mapping_norm": 2.307634547977824e-08,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "training_seconds": 2.7921564588323236,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 4,
+          "head_change_norm": 0.25,
+          "final_training_objective": 1.043322512639593,
+          "projected_gradient_mapping_norm": 2.307634547977824e-08,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "training_seconds": 4.923816659022123,
+          "steps": 48,
+          "max_head_norm": 0.8271040048771647,
+          "boundary_heads": 0,
+          "head_change_norm": 1.0874470272933157,
+          "final_training_objective": 0.6438357441675933,
+          "projected_gradient_mapping_norm": 0.1647169116298406,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "training_seconds": 4.787915579974651,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 6,
+          "head_change_norm": 0.19236737725198047,
+          "final_training_objective": 1.4234772589716158,
+          "projected_gradient_mapping_norm": 8.509852108345709e-06,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "training_seconds": 1.8634461862966418,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 6,
+          "head_change_norm": 0.19175850633700617,
+          "final_training_objective": 1.4071722127433244,
+          "projected_gradient_mapping_norm": 5.285856482384602e-06,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "training_seconds": 1.859384078066796,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 6,
+          "head_change_norm": 0.192050356515496,
+          "final_training_objective": 1.4219834859286493,
+          "projected_gradient_mapping_norm": 7.3471878078264255e-06,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "training_seconds": 15.521714472211897,
+          "steps": 48,
+          "max_head_norm": 0.8700141450924181,
+          "boundary_heads": 0,
+          "head_change_norm": 1.0548235780468784,
+          "final_training_objective": 0.8022185584616814,
+          "projected_gradient_mapping_norm": 0.1687187376893011,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "training_seconds": 14.962728061247617,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 8,
+          "head_change_norm": 0.18965687624172936,
+          "final_training_objective": 1.6964032568680405,
+          "projected_gradient_mapping_norm": 5.124326723137171e-05,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "training_seconds": 10.339609850663692,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 8,
+          "head_change_norm": 0.18901866810975998,
+          "final_training_objective": 1.677078652550238,
+          "projected_gradient_mapping_norm": 3.289353162511256e-05,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "training_seconds": 11.10665605403483,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 8,
+          "head_change_norm": 0.18934400179154978,
+          "final_training_objective": 1.6948109263642672,
+          "projected_gradient_mapping_norm": 4.528960074962824e-05,
+          "diagnostic_risk_gradient_evaluations": 1
+        }
+      ],
+      "curvature": [
+        {
+          "class_index": 0,
+          "count": 232,
+          "omitted_second_eigenvalue": 0.03092716628253569,
+          "retained_second_trace": 0.9690728337174646,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 1,
+          "count": 14,
+          "omitted_second_eigenvalue": 2.096861817897378e-17,
+          "retained_second_trace": 1.0,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 2,
+          "count": 130,
+          "omitted_second_eigenvalue": 0.023229541317536233,
+          "retained_second_trace": 0.9767704586824639,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 3,
+          "count": 1644,
+          "omitted_second_eigenvalue": 0.0420213658544567,
+          "retained_second_trace": 0.9579786341455429,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 4,
+          "count": 1429,
+          "omitted_second_eigenvalue": 0.04087144021042207,
+          "retained_second_trace": 0.9591285597895782,
+          "second_trace": 0.9999999999999998
+        },
+        {
+          "class_index": 5,
+          "count": 23,
+          "omitted_second_eigenvalue": 0.003424410155126166,
+          "retained_second_trace": 0.9965755898448736,
+          "second_trace": 0.9999999999999999
+        },
+        {
+          "class_index": 6,
+          "count": 5303,
+          "omitted_second_eigenvalue": 0.04397886971685244,
+          "retained_second_trace": 0.9560211302831476,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 7,
+          "count": 659,
+          "omitted_second_eigenvalue": 0.036945194462923145,
+          "retained_second_trace": 0.963054805537077,
+          "second_trace": 1.0000000000000002
+        }
+      ],
+      "construction_costs": [
+        {
+          "task": 1,
+          "baseline_seconds": 20.42566199088469,
+          "spectral_seconds": 4.702654387801886,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 2,
+          "baseline_seconds": 10.15336205996573,
+          "spectral_seconds": 2.0338671966455877,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 3,
+          "baseline_seconds": 10.311303291935474,
+          "spectral_seconds": 2.2033381490036845,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        }
+      ],
+      "bound_diagnostics": [
+        {
+          "task": 1,
+          "old_classes": 0,
+          "old_loss_absolute_error": 0.0,
+          "old_loss_bound": 0.0,
+          "max_old_gradient_error": 0.0,
+          "max_old_gradient_bound": 0.0,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 2,
+          "old_classes": 4,
+          "old_loss_absolute_error": 0.001508257704890048,
+          "old_loss_bound": 0.9067143885854275,
+          "max_old_gradient_error": 0.01061951586812735,
+          "max_old_gradient_bound": 21.511476898931804,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 3,
+          "old_classes": 6,
+          "old_loss_absolute_error": 0.0016041266569943868,
+          "old_loss_bound": 1.016895336687355,
+          "max_old_gradient_error": 0.007981333918808507,
+          "max_old_gradient_bound": 24.147285407515305,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        }
+      ],
+      "stage_contributions": [
+        {
+          "task": 1,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": false,
+          "candidate_minus_moment_BA": 0.0,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": -0.01992716518735893
+        },
+        {
+          "task": 2,
+          "no_harm_to_moment": false,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": -0.005591249359817474,
+          "candidate_minus_local_oracle_BA": 0.0005484075513036979,
+          "local_minus_wide_oracle_BA": -0.009159727859007094
+        },
+        {
+          "task": 3,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.006490734647376151,
+          "candidate_minus_local_oracle_BA": -0.001011658763826917,
+          "local_minus_wide_oracle_BA": -0.005402585209515753
+        }
+      ],
+      "synthetic_sequence_signal_pass": false,
+      "all_training_sealed_before_evaluation": true,
+      "candidate_old_support_reads_during_training": 0,
+      "oracle_old_support_reads": "SYNTHETIC_CONTROL_ONLY",
+      "candidate_memory_bytes": 1573888,
+      "moment_memory_bytes": 1573888,
+      "head_updates_per_arm": 144,
+      "total_head_updates": 576,
+      "baseline_compression_updates": 144,
+      "candidate_compression_updates": 0,
+      "CPU_pipeline_seconds": 132.3654856812209,
+      "fixture_active_dimension": 16,
+      "head_loss": "multiclass_softmax_CE",
+      "scale_diagnostic_risk_gradient_evaluations": 12,
+      "id": "ISIC_scale",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 136.1355499168858
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "HK_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46
+      },
+      "synthetic_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "synthetic_evaluation_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "rows": [
+        {
+          "task": 1,
+          "seen_classes": 13,
+          "mode": "oracle_wide",
+          "accuracy": 0.948073701842546,
+          "balanced_accuracy": 0.9203860867399544,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.9203860867399544
+        },
+        {
+          "task": 1,
+          "seen_classes": 13,
+          "mode": "oracle_local",
+          "accuracy": 0.9447236180904522,
+          "balanced_accuracy": 0.9119330013637921,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.9119330013637921
+        },
+        {
+          "task": 1,
+          "seen_classes": 13,
+          "mode": "moment_local",
+          "accuracy": 0.9447236180904522,
+          "balanced_accuracy": 0.9119330013637921,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.9119330013637921
+        },
+        {
+          "task": 1,
+          "seen_classes": 13,
+          "mode": "quadratic_local",
+          "accuracy": 0.9447236180904522,
+          "balanced_accuracy": 0.9119330013637921,
+          "old_balanced_accuracy": null,
+          "new_balanced_accuracy": 0.9119330013637921
+        },
+        {
+          "task": 2,
+          "seen_classes": 15,
+          "mode": "oracle_wide",
+          "accuracy": 0.948051948051948,
+          "balanced_accuracy": 0.8600001133224013,
+          "old_balanced_accuracy": 0.8877713339124356,
+          "new_balanced_accuracy": 0.6794871794871795
+        },
+        {
+          "task": 2,
+          "seen_classes": 15,
+          "mode": "oracle_local",
+          "accuracy": 0.9366883116883117,
+          "balanced_accuracy": 0.9001485660240457,
+          "old_balanced_accuracy": 0.909441639297962,
+          "new_balanced_accuracy": 0.8397435897435898
+        },
+        {
+          "task": 2,
+          "seen_classes": 15,
+          "mode": "moment_local",
+          "accuracy": 0.935064935064935,
+          "balanced_accuracy": 0.8984417334661494,
+          "old_balanced_accuracy": 0.9074722171157739,
+          "new_balanced_accuracy": 0.8397435897435898
+        },
+        {
+          "task": 2,
+          "seen_classes": 15,
+          "mode": "quadratic_local",
+          "accuracy": 0.9366883116883117,
+          "balanced_accuracy": 0.9001485660240457,
+          "old_balanced_accuracy": 0.909441639297962,
+          "new_balanced_accuracy": 0.8397435897435898
+        },
+        {
+          "task": 3,
+          "seen_classes": 17,
+          "mode": "oracle_wide",
+          "accuracy": 0.9504,
+          "balanced_accuracy": 0.8325634303634468,
+          "old_balanced_accuracy": 0.8902385544119064,
+          "new_balanced_accuracy": 0.4
+        },
+        {
+          "task": 3,
+          "seen_classes": 17,
+          "mode": "oracle_local",
+          "accuracy": 0.9376,
+          "balanced_accuracy": 0.9011371519096341,
+          "old_balanced_accuracy": 0.9012887721642519,
+          "new_balanced_accuracy": 0.9
+        },
+        {
+          "task": 3,
+          "seen_classes": 17,
+          "mode": "moment_local",
+          "accuracy": 0.9328,
+          "balanced_accuracy": 0.8947758477385677,
+          "old_balanced_accuracy": 0.89407929410371,
+          "new_balanced_accuracy": 0.9
+        },
+        {
+          "task": 3,
+          "seen_classes": 17,
+          "mode": "quadratic_local",
+          "accuracy": 0.9344,
+          "balanced_accuracy": 0.8963096890095803,
+          "old_balanced_accuracy": 0.895817647544191,
+          "new_balanced_accuracy": 0.9
+        },
+        {
+          "task": 4,
+          "seen_classes": 19,
+          "mode": "oracle_wide",
+          "accuracy": 0.8621621621621621,
+          "balanced_accuracy": 0.8047710314729853,
+          "old_balanced_accuracy": 0.8618338772809526,
+          "new_balanced_accuracy": 0.31973684210526315
+        },
+        {
+          "task": 4,
+          "seen_classes": 19,
+          "mode": "oracle_local",
+          "accuracy": 0.9351351351351351,
+          "balanced_accuracy": 0.8996489101252496,
+          "old_balanced_accuracy": 0.8997624041957123,
+          "new_balanced_accuracy": 0.8986842105263158
+        },
+        {
+          "task": 4,
+          "seen_classes": 19,
+          "mode": "moment_local",
+          "accuracy": 0.9310810810810811,
+          "balanced_accuracy": 0.8947130959789092,
+          "old_balanced_accuracy": 0.8942459060321555,
+          "new_balanced_accuracy": 0.8986842105263158
+        },
+        {
+          "task": 4,
+          "seen_classes": 19,
+          "mode": "quadratic_local",
+          "accuracy": 0.9351351351351351,
+          "balanced_accuracy": 0.8996489101252496,
+          "old_balanced_accuracy": 0.8997624041957123,
+          "new_balanced_accuracy": 0.8986842105263158
+        },
+        {
+          "task": 5,
+          "seen_classes": 21,
+          "mode": "oracle_wide",
+          "accuracy": 0.8505338078291815,
+          "balanced_accuracy": 0.784199640564065,
+          "old_balanced_accuracy": 0.8513296399429511,
+          "new_balanced_accuracy": 0.14646464646464646
+        },
+        {
+          "task": 5,
+          "seen_classes": 21,
+          "mode": "oracle_local",
+          "accuracy": 0.9276393831553974,
+          "balanced_accuracy": 0.8686857662595971,
+          "old_balanced_accuracy": 0.8985899564347168,
+          "new_balanced_accuracy": 0.5845959595959596
+        },
+        {
+          "task": 5,
+          "seen_classes": 21,
+          "mode": "moment_local",
+          "accuracy": 0.9228944246737841,
+          "balanced_accuracy": 0.8631858786168526,
+          "old_balanced_accuracy": 0.8930427653612102,
+          "new_balanced_accuracy": 0.5795454545454546
+        },
+        {
+          "task": 5,
+          "seen_classes": 21,
+          "mode": "quadratic_local",
+          "accuracy": 0.9276393831553974,
+          "balanced_accuracy": 0.8686857662595971,
+          "old_balanced_accuracy": 0.8985899564347168,
+          "new_balanced_accuracy": 0.5845959595959596
+        },
+        {
+          "task": 6,
+          "seen_classes": 23,
+          "mode": "oracle_wide",
+          "accuracy": 0.7707129094412332,
+          "balanced_accuracy": 0.7574987126526986,
+          "old_balanced_accuracy": 0.8169126443297001,
+          "new_balanced_accuracy": 0.13365243004418262
+        },
+        {
+          "task": 6,
+          "seen_classes": 23,
+          "mode": "oracle_local",
+          "accuracy": 0.9171483622350675,
+          "balanced_accuracy": 0.8684443566850722,
+          "old_balanced_accuracy": 0.8661644137382447,
+          "new_balanced_accuracy": 0.892383757626762
+        },
+        {
+          "task": 6,
+          "seen_classes": 23,
+          "mode": "moment_local",
+          "accuracy": 0.9132947976878613,
+          "balanced_accuracy": 0.8659362847670625,
+          "old_balanced_accuracy": 0.8639033864772175,
+          "new_balanced_accuracy": 0.8872817168104354
+        },
+        {
+          "task": 6,
+          "seen_classes": 23,
+          "mode": "quadratic_local",
+          "accuracy": 0.9171483622350675,
+          "balanced_accuracy": 0.8684443566850722,
+          "old_balanced_accuracy": 0.8661644137382447,
+          "new_balanced_accuracy": 0.892383757626762
+        }
+      ],
+      "class_rows": [
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9615384615384616
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9574468085106383
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9318181818181818
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.972972972972973
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9615384615384616
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9555555555555556
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.6666666666666666
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.6923076923076923
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.925531914893617
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.8461538461538461
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8863636363636364
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.8461538461538461
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.925531914893617
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.8461538461538461
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9545454545454546
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.954954954954955
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.972972972972973
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9615384615384616
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9777777777777777
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 13,
+          "count": 6,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "class_index": 16,
+          "count": 4,
+          "recall": 0.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.925531914893617
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8863636363636364
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9324324324324325
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9148936170212766
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 1.0
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9545454545454546
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.954954954954955
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9615384615384616
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9888888888888889
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 13,
+          "count": 6,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 16,
+          "count": 4,
+          "recall": 0.5
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.3894736842105263
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.25
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.918918918918919
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8863636363636364
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.918918918918919
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9324324324324325
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.918918918918919
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9444444444444444
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9545454545454546
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9369369369369369
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9615384615384616
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9888888888888889
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 13,
+          "count": 6,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 16,
+          "count": 4,
+          "recall": 0.5
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.8421052631578947
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.7
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.29292929292929293
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9099099099099099
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.9191919191919192
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.25
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.7857142857142857
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8636363636363636
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9099099099099099
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9324324324324325
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.25
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9099099099099099
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9333333333333333
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.9191919191919192
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.25
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9468085106382979
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 2,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.9545454545454546
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9279279279279279
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9594594594594594
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9615384615384616
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9888888888888889
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 13,
+          "count": 6,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.8461538461538461
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 16,
+          "count": 4,
+          "recall": 0.5
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9263157894736842
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.75
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.7777777777777778
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 21,
+          "count": 98,
+          "recall": 0.07142857142857142
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "class_index": 22,
+          "count": 97,
+          "recall": 0.1958762886597938
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8863636363636364
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9009009009009009
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9222222222222223
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.25
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 21,
+          "count": 98,
+          "recall": 0.8775510204081632
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "class_index": 22,
+          "count": 97,
+          "recall": 0.9072164948453608
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8409090909090909
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9009009009009009
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.918918918918919
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9222222222222223
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.25
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 21,
+          "count": 98,
+          "recall": 0.8673469387755102
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "class_index": 22,
+          "count": 97,
+          "recall": 0.9072164948453608
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 0,
+          "count": 94,
+          "recall": 0.9361702127659575
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 1,
+          "count": 1,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 2,
+          "count": 2,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 3,
+          "count": 14,
+          "recall": 0.8571428571428571
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 4,
+          "count": 44,
+          "recall": 0.8863636363636364
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 5,
+          "count": 61,
+          "recall": 0.9836065573770492
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 6,
+          "count": 111,
+          "recall": 0.9009009009009009
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 7,
+          "count": 74,
+          "recall": 0.9459459459459459
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 8,
+          "count": 38,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 9,
+          "count": 26,
+          "recall": 0.9230769230769231
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 10,
+          "count": 90,
+          "recall": 0.9222222222222223
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 11,
+          "count": 40,
+          "recall": 0.975
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 12,
+          "count": 2,
+          "recall": 0.5
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 13,
+          "count": 6,
+          "recall": 0.8333333333333334
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 14,
+          "count": 13,
+          "recall": 0.7692307692307693
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 15,
+          "count": 5,
+          "recall": 0.8
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 16,
+          "count": 4,
+          "recall": 1.0
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 17,
+          "count": 95,
+          "recall": 0.9473684210526315
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 18,
+          "count": 20,
+          "recall": 0.85
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 19,
+          "count": 99,
+          "recall": 0.9090909090909091
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 20,
+          "count": 4,
+          "recall": 0.25
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 21,
+          "count": 98,
+          "recall": 0.8775510204081632
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "class_index": 22,
+          "count": 97,
+          "recall": 0.9072164948453608
+        }
+      ],
+      "training": [
+        {
+          "task": 1,
+          "mode": "oracle_wide",
+          "training_seconds": 1.2160752918571234,
+          "steps": 48,
+          "max_head_norm": 0.6518044350399989,
+          "boundary_heads": 0,
+          "head_change_norm": 2.247063995157624,
+          "final_training_objective": 0.6725595244678253,
+          "projected_gradient_mapping_norm": 0.4465608035361091,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "oracle_local",
+          "training_seconds": 0.9933623699471354,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 13,
+          "head_change_norm": 0.4506939094329987,
+          "final_training_objective": 2.0414087552408824,
+          "projected_gradient_mapping_norm": 4.2726344876213956e-05,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "moment_local",
+          "training_seconds": 1.0324406949803233,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 13,
+          "head_change_norm": 0.4506939094329987,
+          "final_training_objective": 2.0414087552408824,
+          "projected_gradient_mapping_norm": 4.2726344876213956e-05,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 1,
+          "mode": "quadratic_local",
+          "training_seconds": 1.0975082758814096,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 13,
+          "head_change_norm": 0.4506939094329987,
+          "final_training_objective": 2.0414087552408824,
+          "projected_gradient_mapping_norm": 4.2726344876213956e-05,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "oracle_wide",
+          "training_seconds": 1.1470600189641118,
+          "steps": 48,
+          "max_head_norm": 0.9233978127138913,
+          "boundary_heads": 0,
+          "head_change_norm": 1.2980550648380855,
+          "final_training_objective": 0.4436397370218234,
+          "projected_gradient_mapping_norm": 0.2910258998730984,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "oracle_local",
+          "training_seconds": 1.2119077472016215,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 15,
+          "head_change_norm": 0.18225899480560107,
+          "final_training_objective": 2.178571207001126,
+          "projected_gradient_mapping_norm": 0.00030464525022613396,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "moment_local",
+          "training_seconds": 0.7100078868679702,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 15,
+          "head_change_norm": 0.18229610758370363,
+          "final_training_objective": 2.1243914870967493,
+          "projected_gradient_mapping_norm": 0.00014897727572202015,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 2,
+          "mode": "quadratic_local",
+          "training_seconds": 1.1078518251888454,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 15,
+          "head_change_norm": 0.18218619772336334,
+          "final_training_objective": 2.174777925004205,
+          "projected_gradient_mapping_norm": 0.0002874705104908852,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "oracle_wide",
+          "training_seconds": 1.3221657602116466,
+          "steps": 48,
+          "max_head_norm": 1.0871034415547496,
+          "boundary_heads": 0,
+          "head_change_norm": 1.1050493681941238,
+          "final_training_objective": 0.3839040517539479,
+          "projected_gradient_mapping_norm": 0.2651525797091774,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "oracle_local",
+          "training_seconds": 1.3387769209221005,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 17,
+          "head_change_norm": 0.18325905302126663,
+          "final_training_objective": 2.2999199216432347,
+          "projected_gradient_mapping_norm": 0.0005130645252358471,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "moment_local",
+          "training_seconds": 0.8605988277122378,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 17,
+          "head_change_norm": 0.18208010818894496,
+          "final_training_objective": 2.2506529600342007,
+          "projected_gradient_mapping_norm": 0.00025776362408179746,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 3,
+          "mode": "quadratic_local",
+          "training_seconds": 1.3140338039956987,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 17,
+          "head_change_norm": 0.18315550812004466,
+          "final_training_objective": 2.296562616172671,
+          "projected_gradient_mapping_norm": 0.0004889167860426319,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 4,
+          "mode": "oracle_wide",
+          "training_seconds": 1.560495131649077,
+          "steps": 48,
+          "max_head_norm": 1.1986652007777312,
+          "boundary_heads": 0,
+          "head_change_norm": 0.916740725338874,
+          "final_training_objective": 0.442039169556505,
+          "projected_gradient_mapping_norm": 0.25383458782436213,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 4,
+          "mode": "oracle_local",
+          "training_seconds": 1.585808022879064,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 19,
+          "head_change_norm": 0.1807669982037363,
+          "final_training_objective": 2.418746813705846,
+          "projected_gradient_mapping_norm": 0.0005836797235729245,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 4,
+          "mode": "moment_local",
+          "training_seconds": 1.1118481028825045,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 19,
+          "head_change_norm": 0.1801328667106463,
+          "final_training_objective": 2.3731263541862426,
+          "projected_gradient_mapping_norm": 0.0003346574387164755,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 4,
+          "mode": "quadratic_local",
+          "training_seconds": 1.690934688784182,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 19,
+          "head_change_norm": 0.18072343029753324,
+          "final_training_objective": 2.415715512617034,
+          "projected_gradient_mapping_norm": 0.0005656860166628913,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 5,
+          "mode": "oracle_wide",
+          "training_seconds": 1.7637797398492694,
+          "steps": 48,
+          "max_head_norm": 1.284881616771404,
+          "boundary_heads": 0,
+          "head_change_norm": 0.9913128063309279,
+          "final_training_objective": 0.425933638438841,
+          "projected_gradient_mapping_norm": 0.25356286282867263,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 5,
+          "mode": "oracle_local",
+          "training_seconds": 1.7635992420837283,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 21,
+          "head_change_norm": 0.18217129882233563,
+          "final_training_objective": 2.5139117182501227,
+          "projected_gradient_mapping_norm": 0.0009488529282606431,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 5,
+          "mode": "moment_local",
+          "training_seconds": 1.2494358588010073,
+          "steps": 48,
+          "max_head_norm": 0.125,
+          "boundary_heads": 21,
+          "head_change_norm": 0.18161227179985864,
+          "final_training_objective": 2.46526222767967,
+          "projected_gradient_mapping_norm": 0.0005874450560774373,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 5,
+          "mode": "quadratic_local",
+          "training_seconds": 1.9260980640538037,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 21,
+          "head_change_norm": 0.1821198290364448,
+          "final_training_objective": 2.5110623710071636,
+          "projected_gradient_mapping_norm": 0.0009197398298855666,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 6,
+          "mode": "oracle_wide",
+          "training_seconds": 1.9279453321360052,
+          "steps": 48,
+          "max_head_norm": 1.3447607503051127,
+          "boundary_heads": 0,
+          "head_change_norm": 0.83451255358106,
+          "final_training_objective": 0.502475788272054,
+          "projected_gradient_mapping_norm": 0.24297440766799983,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 6,
+          "mode": "oracle_local",
+          "training_seconds": 1.9414661028422415,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 23,
+          "head_change_norm": 0.1798426297627522,
+          "final_training_objective": 2.611633964370036,
+          "projected_gradient_mapping_norm": 0.0009248543605639545,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 6,
+          "mode": "moment_local",
+          "training_seconds": 1.3462755312211812,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 23,
+          "head_change_norm": 0.1795573124269068,
+          "final_training_objective": 2.5626069328538494,
+          "projected_gradient_mapping_norm": 0.0005900859574371281,
+          "diagnostic_risk_gradient_evaluations": 1
+        },
+        {
+          "task": 6,
+          "mode": "quadratic_local",
+          "training_seconds": 1.8683239510282874,
+          "steps": 48,
+          "max_head_norm": 0.12500000000000003,
+          "boundary_heads": 23,
+          "head_change_norm": 0.17982552536877863,
+          "final_training_objective": 2.608863648152341,
+          "projected_gradient_mapping_norm": 0.0009046075885560641,
+          "diagnostic_risk_gradient_evaluations": 1
+        }
+      ],
+      "curvature": [
+        {
+          "class_index": 0,
+          "count": 94,
+          "omitted_second_eigenvalue": 0.020623621558318598,
+          "retained_second_trace": 0.6833356600386358,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 1,
+          "count": 1,
+          "omitted_second_eigenvalue": 2.1021791156177227e-18,
+          "retained_second_trace": 1.0000000000000009,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 2,
+          "count": 2,
+          "omitted_second_eigenvalue": 4.4133079152282924e-18,
+          "retained_second_trace": 1.0000000000000002,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 3,
+          "count": 14,
+          "omitted_second_eigenvalue": 2.1107527371743488e-17,
+          "retained_second_trace": 1.0,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 4,
+          "count": 44,
+          "omitted_second_eigenvalue": 0.01963073589751694,
+          "retained_second_trace": 0.8087830335082266,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 5,
+          "count": 61,
+          "omitted_second_eigenvalue": 0.019390160614833615,
+          "retained_second_trace": 0.7464231795197459,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 6,
+          "count": 111,
+          "omitted_second_eigenvalue": 0.02166085996313673,
+          "retained_second_trace": 0.6757120392996336,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 7,
+          "count": 74,
+          "omitted_second_eigenvalue": 0.02061386734597963,
+          "retained_second_trace": 0.7271937802596133,
+          "second_trace": 0.9999999999999999
+        },
+        {
+          "class_index": 8,
+          "count": 38,
+          "omitted_second_eigenvalue": 0.01990752867440873,
+          "retained_second_trace": 0.819850576309442,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 9,
+          "count": 26,
+          "omitted_second_eigenvalue": 0.01835562480366596,
+          "retained_second_trace": 0.8942284589018373,
+          "second_trace": 0.9999999999999997
+        },
+        {
+          "class_index": 10,
+          "count": 90,
+          "omitted_second_eigenvalue": 0.020908950346338787,
+          "retained_second_trace": 0.696242648762152,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 11,
+          "count": 40,
+          "omitted_second_eigenvalue": 0.02181923680645138,
+          "retained_second_trace": 0.8120386311640023,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 12,
+          "count": 2,
+          "omitted_second_eigenvalue": 5.574490316067722e-18,
+          "retained_second_trace": 1.000000000000001,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 13,
+          "count": 6,
+          "omitted_second_eigenvalue": 1.117734030535077e-17,
+          "retained_second_trace": 1.0,
+          "second_trace": 1.0000000000000004
+        },
+        {
+          "class_index": 14,
+          "count": 13,
+          "omitted_second_eigenvalue": 2.1611618352860962e-17,
+          "retained_second_trace": 1.0000000000000002,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 15,
+          "count": 5,
+          "omitted_second_eigenvalue": 8.753424228395433e-18,
+          "retained_second_trace": 1.0000000000000002,
+          "second_trace": 0.9999999999999999
+        },
+        {
+          "class_index": 16,
+          "count": 4,
+          "omitted_second_eigenvalue": 7.631120521168895e-18,
+          "retained_second_trace": 1.0000000000000004,
+          "second_trace": 1.0
+        },
+        {
+          "class_index": 17,
+          "count": 95,
+          "omitted_second_eigenvalue": 0.021195301449068924,
+          "retained_second_trace": 0.688430972821586,
+          "second_trace": 0.9999999999999998
+        },
+        {
+          "class_index": 18,
+          "count": 20,
+          "omitted_second_eigenvalue": 0.019376094507675967,
+          "retained_second_trace": 0.9387938045849293,
+          "second_trace": 0.9999999999999999
+        },
+        {
+          "class_index": 19,
+          "count": 99,
+          "omitted_second_eigenvalue": 0.020064020004932934,
+          "retained_second_trace": 0.7055793754295093,
+          "second_trace": 0.9999999999999999
+        },
+        {
+          "class_index": 20,
+          "count": 4,
+          "omitted_second_eigenvalue": 6.34264621992195e-18,
+          "retained_second_trace": 1.0000000000000004,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 21,
+          "count": 98,
+          "omitted_second_eigenvalue": 0.02131267743473381,
+          "retained_second_trace": 0.6860122935399181,
+          "second_trace": 1.0000000000000002
+        },
+        {
+          "class_index": 22,
+          "count": 97,
+          "omitted_second_eigenvalue": 0.019829515828572862,
+          "retained_second_trace": 0.693882087618396,
+          "second_trace": 1.0
+        }
+      ],
+      "construction_costs": [
+        {
+          "task": 1,
+          "baseline_seconds": 60.11584138823673,
+          "spectral_seconds": 11.290676002856344,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 2,
+          "baseline_seconds": 6.939678440336138,
+          "spectral_seconds": 1.7759305159561336,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 3,
+          "baseline_seconds": 7.0833340981043875,
+          "spectral_seconds": 1.69914576318115,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 4,
+          "baseline_seconds": 7.7404776299372315,
+          "spectral_seconds": 1.759957737289369,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 5,
+          "baseline_seconds": 6.768541157245636,
+          "spectral_seconds": 1.5969119910150766,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        },
+        {
+          "task": 6,
+          "baseline_seconds": 7.98792285611853,
+          "spectral_seconds": 1.6089544110000134,
+          "baseline_memory_updates": 48,
+          "candidate_memory_updates": 0
+        }
+      ],
+      "bound_diagnostics": [
+        {
+          "task": 1,
+          "old_classes": 0,
+          "old_loss_absolute_error": 0.0,
+          "old_loss_bound": 0.0,
+          "max_old_gradient_error": 0.0,
+          "max_old_gradient_bound": 0.0,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 2,
+          "old_classes": 13,
+          "old_loss_absolute_error": 0.003804673372267642,
+          "old_loss_bound": 1.3494215360865731,
+          "max_old_gradient_error": 0.023613706401591238,
+          "max_old_gradient_bound": 30.668924397904313,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 3,
+          "old_classes": 15,
+          "old_loss_absolute_error": 0.003365640254379798,
+          "old_loss_bound": 1.34963736737708,
+          "max_old_gradient_error": 0.018736869379854384,
+          "max_old_gradient_bound": 30.865413148339048,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 4,
+          "old_classes": 17,
+          "old_loss_absolute_error": 0.0030375095035015676,
+          "old_loss_bound": 1.3625384090249297,
+          "max_old_gradient_error": 0.015403642234229109,
+          "max_old_gradient_bound": 31.214734190538625,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 5,
+          "old_classes": 19,
+          "old_loss_absolute_error": 0.002854367178159123,
+          "old_loss_bound": 1.3574245258480826,
+          "max_old_gradient_error": 0.01287786036548125,
+          "max_old_gradient_bound": 31.24429959186922,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        },
+        {
+          "task": 6,
+          "old_classes": 21,
+          "old_loss_absolute_error": 0.0027740792950279314,
+          "old_loss_bound": 1.3637529546696778,
+          "max_old_gradient_error": 0.011004884655810442,
+          "max_old_gradient_bound": 31.437044823327447,
+          "within_shared_domain": true,
+          "old_memory_unchanged": true
+        }
+      ],
+      "stage_contributions": [
+        {
+          "task": 1,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": false,
+          "candidate_minus_moment_BA": 0.0,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": -0.008453085376162295
+        },
+        {
+          "task": 2,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.0017068325578962762,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": 0.040148452701644355
+        },
+        {
+          "task": 3,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.001533841271012637,
+          "candidate_minus_local_oracle_BA": -0.004827462900053758,
+          "local_minus_wide_oracle_BA": 0.06857372154618724
+        },
+        {
+          "task": 4,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.004935814146340367,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": 0.09487787865226427
+        },
+        {
+          "task": 5,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.005499887642744561,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": 0.08448612569553215
+        },
+        {
+          "task": 6,
+          "no_harm_to_moment": true,
+          "strict_gain_over_moment": true,
+          "candidate_minus_moment_BA": 0.0025080719180097244,
+          "candidate_minus_local_oracle_BA": 0.0,
+          "local_minus_wide_oracle_BA": 0.11094564403237361
+        }
+      ],
+      "synthetic_sequence_signal_pass": true,
+      "all_training_sealed_before_evaluation": true,
+      "candidate_old_support_reads_during_training": 0,
+      "oracle_old_support_reads": "SYNTHETIC_CONTROL_ONLY",
+      "candidate_memory_bytes": 4524928,
+      "moment_memory_bytes": 4524928,
+      "head_updates_per_arm": 288,
+      "total_head_updates": 1152,
+      "baseline_compression_updates": 288,
+      "candidate_compression_updates": 0,
+      "CPU_pipeline_seconds": 153.97302420111373,
+      "fixture_active_dimension": 46,
+      "head_loss": "multiclass_softmax_CE",
+      "scale_diagnostic_risk_gradient_evaluations": 24,
+      "id": "HK_scale",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 159.13166137831286
+    }
+  ]
+}

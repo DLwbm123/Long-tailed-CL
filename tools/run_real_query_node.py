@@ -168,6 +168,7 @@ def candidate(case,lock,root,journal):
 def metrics(obj,data,old,seen):
     with torch.no_grad():
         ss=torch.cat([scores(data['x'][i:i+256],obj['model'],obj['frame'])[:,:seen] for i in range(0,len(data['y']),256)])
+        if 'bias' in obj:ss=ss+obj['bias']
         pred=ss.argmax(1);y=data['y'];ce=-ss.log_softmax(1)[torch.arange(len(y)),y]
     rows=[]
     for c in range(seen):

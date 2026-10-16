@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 import time
 import torch
-from check_reserved_competition_memory import DT
+from check_reserved_competition_memory import DT,scores,training_batch
 from paper_medical_models import herding_indices
 from query_node_weights import select
 from run_real_query_node import load,metrics,save
@@ -48,11 +48,23 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
     state=load(prior/(name+'.teacher.private.pt'));real=load(root/(name+'.'+lock.get('selection_mode','herding')+'.private.pt'))
     moment=state['memory'];new=load(prior/(name+'.S_new.features.private.pt'))
     current={c:new['x'][new['y']==c] for c in range(old,seen)}
+    scale=1.;mass_matching=None
+    if lock.get('match_retention_mass',False):
+        masses={}
+        with torch.no_grad():
+            for key,bank in [('M',moment),('H',real)]:
+                x,y,p=training_batch({},bank)
+                correct=scores(x,state['teacher'],state['frame'])[:,:old].argmax(1)==y
+                masses[key]=float((correct*p).sum())
+        assert 0<masses['H']<=1 and 0<masses['M']<=1
+        scale=masses['M']/masses['H']
+        assert abs(scale*masses['H']-masses['M'])<1e-12
+        mass_matching=dict(original_masses=masses,scale=scale,matched_total_mass=scale*masses['H'])
     training={}
     for cell in lock['cells']:
         save(root/(job['id']+'.progress.json'),dict(phase='fit_'+cell,dataset=name))
         ce=moment if cell[0]=='M' else real;retention=moment if cell[1]=='M' else real
-        model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'])
+        model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'],retention_scale=scale)
         torch.save(dict(model=model,frame=state['frame']),root/(name+'.'+cell+'.private.pt'))
         training[cell]=info
     sealed_at=time.time();seal()
@@ -78,7 +90,7 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
                 interaction.append(dict(query=query,group=group,**{metric:rs['HH'][metric]-rs['HM'][metric]-rs['MH'][metric]+rs['MM'][metric] for metric in ('BA','CE')}))
     primary=lock.get('primary_cell','HH')
     return dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,
-        training=training,adapter_updates=len(lock['cells'])*lock['adapter_steps'],primary=primary,
+        training=training,mass_matching=mass_matching,adapter_updates=len(lock['cells'])*lock['adapter_steps'],primary=primary,
         primary_both_queries_pass=all(gates[q][primary]['selected']=='candidate' for q in gates),
         gates=gates,class_rows=rows,summaries=summary,interaction_HH_minus_HM_minus_MH_plus_MM=interaction,
         bank=next(b for b in bank_receipt['banks'] if b['dataset']==name),
@@ -90,7 +102,7 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
 def main():
     root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE']);job=json.loads(os.environ['Q356_JOB'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text())
-    assert lock['cells']==(['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
+    assert lock['cells']==(['HH'] if lock.get('match_retention_mass') else ['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
     assert os.environ['CUDA_VISIBLE_DEVICES']=='';torch.set_num_threads(2);torch.set_default_dtype(DT)
     prior=Path(cfg['prior_root']);diagnostic=Path(cfg['diagnostic_root']);sealed=False
     name=job.get('dataset');bank_job=job['role']=='banks'

@@ -11,7 +11,8 @@ from query_node_weights import select
 from run_real_query_node import load,metrics,save
 
 
-def train_reference(teacher,current,old_ce,memory,q,steps):
+def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.):
+    assert 0<float(retention_scale)<float('inf')
     old=len(memory);seen=old+len(current);x,y,p=training_batch(current,old_ce)
     rx,ry,rp=training_batch({},memory);params=clone_model(teacher,True)
     assert all(abs(float(p[y==c].sum())-1/seen)<1e-12 for c in range(seen))
@@ -23,12 +24,12 @@ def train_reference(teacher,current,old_ce,memory,q,steps):
         ss=scores(x,params,q)[:,:seen]
         ce=-(p*ss.log_softmax(1)[torch.arange(len(y)),y]).sum()
         now=centered(scores(rx,params,q)[:,:old])
-        retention=((now-target).square().mean(1)*correct*rp).sum()
+        retention=((now-target).square().mean(1)*correct*rp).sum()*retention_scale
         grad=torch.autograd.grad(ce+retention,params)
         with torch.no_grad():
             for v,g in zip(params,grad):v.sub_(g/16);assert bool(torch.isfinite(v).all())
         if step in (0,steps-1):trace.append(dict(preupdate_step=step,CE=float(ce.detach()),retention=float(retention.detach())))
-    return clone_model(params),dict(steps=steps,trace=trace,retention_weighted_teacher_correct=float((correct*rp).sum()),class_mass=1/seen)
+    return clone_model(params),dict(steps=steps,trace=trace,retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
 
 
 def unit():

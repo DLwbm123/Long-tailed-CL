@@ -59,7 +59,51 @@ def main(root):
             rows={r['mode']:r for r in v['rows'] if r['task']==task}
             lines.append('|'+ '|'.join([v['id'],str(task)]+[f"{100*rows[m]['balanced_accuracy']:.6f}" for m in MODES])+'|')
     lines+=['','全部Acc/oldBA/newBA见CPU_SUMMARY，逐类见CLASS_RECALL，全部简单效应与交互及救回破坏见STAGE_DIFFERENCES/CONTRIBUTIONS/PAIRED_PREDICTIONS。教师覆盖为合成memory上的类别概率质量，不是医学覆盖或真实旧支持正确率；全槽正确率仅诊断。','',f'独立CPU驻留 {total:.9f}秒，累计 {audit["cumulative_CPU_residence_seconds"]:.9f}秒。父wall {audit["parent_wall_seconds_separate"]}秒另列，peakRSS {audit["peak_RSS_MiB"]}MiB。内部训练/诊断/压缩/评价含驻留，不相加。新增GPU0。', '', '运行失败：'+json.dumps(program['failures'],ensure_ascii=False)+'。缺失不补0。','', '固定输入/ETF/旧memory不变不等旧类预测保护；全槽保持可能限制新类学习。压缩目标只记录最后更新前，缺最优性证书。没有生产checkpoint/预训练encoder/医学数据验证。完成后分析并停止，不自动下一轮。']
-    (root/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(audit))
+    (root/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n')
+    analyze(root,tables,audit)
+    print(json.dumps(audit))
 
+
+
+def analyze(root,tables,audit):
+    if audit['status']!='SYNTHETIC_FACTORIAL_COMPLETE':return
+    rows=tables['CPU_SUMMARY'];training=tables['TRAINING_COSTS']
+    lines=['# 四臂机制分析与证据边界','',f"主门 D相对B={audit['primary_D_vs_B_signal']}，D对全部3控制={audit['joint_D_vs_all_signal']}。四臂保持同参数/步数/数据预算；不依据结果改门或开启下一轮。",'',
+           'A=old_moment，B=full_moment，C=old_decision，D=full_decision。该轮固定槽位，隔离保持范围与记忆。对照科学数学不变；诊断只复用已有前向和梯度。','',
+           '|规模|stage|比较|ΔBA pp|Δ旧BA pp|Δ新BA pp|','|---|---:|---|---:|---:|---:|']
+    names={'old_moment':'A','full_moment':'B','old_decision':'C','full_decision':'D'}
+    for d in tables['STAGE_DIFFERENCES']:
+        vals=[d[m+'_pp'] for m in METRICS]
+        lines.append('|'+ '|'.join([d['case'],str(d['task']),names[d['candidate']]+'−'+names[d['baseline']]]+['null' if v is None else f'{v:+.6f}' for v in vals])+'|')
+    lines+=['','教师覆盖率：每类旧memory概率质量之和，宏平均；正确判定始终在旧已激活类别内，不用全槽argmax替换。有效保持总质量等于此宏平均。它不是旧真实支持正确率，不能用高覆盖替代真实旧类评价。','',
+            '|规模|stage|A覆盖%|B覆盖%|C覆盖%|D覆盖%|','|---|---:|---:|---:|---:|---:|']
+    for cid in ('small','ISIC_scale','HK_scale'):
+        for task in sorted({r['task'] for r in rows if r['case']==cid}):
+            tr={r['mode']:r for r in training if r['case']==cid and r['task']==task}
+            lines.append('|'+ '|'.join([cid,str(task)]+['null' if tr[m]['coverage_mean'] is None else f"{100*tr[m]['coverage_mean']:.6f}" for m in MODES])+'|')
+    stage2=[]
+    for cid in ('small','ISIC_scale','HK_scale'):
+        for a,b in [('old_moment','full_moment'),('old_decision','full_decision')]:
+            aa=[r['weighted_old_correct'] for r in tables['TEACHER_COVERAGE'] if r['case']==cid and r['task']==2 and r['mode']==a]
+            bb=[r['weighted_old_correct'] for r in tables['TEACHER_COVERAGE'] if r['case']==cid and r['task']==2 and r['mode']==b]
+            stage2.append(dict(case=cid,baseline=a,candidate=b,max_class_coverage_difference=max(abs(x-y) for x,y in zip(aa,bb)),recorded_coverage_equal=aa==bb))
+    (root/'STAGE2_COVERAGE_PAIR_CHECK.json').write_text(json.dumps(stage2,indent=2)+'\n')
+    lines+=['','第二阶段同记忆的两种保持臂覆盖差见STAGE2_COVERAGE_PAIR_CHECK。后续各臂模型已不同，覆盖变化是轨迹结果，不能仅凭相关性判断损害由覆盖率导致。逐类最坏值和全槽正确率在TEACHER_COVERAGE公开，未重新选择样本。','',
+            '教师在旧已见类别内正确，不保证面对全部预留槽也正确。若旧正确覆盖高而全槽正确覆盖低，全槽保持可能同时保存尚未激活方向的竞争优势；本轮只测此差距，不能把保留教师关系自动当作正确未来保护。未按全槽正确率改mask或补margin。','',
+            '旧保持误差只看旧slots内部。全保持按K个槽均方，旧保持按O个槽均方。令δ是学生减教师分数，R=K−O，则点级恒等式：MSE_all=(O/K)MSE_old+(R/K)MSE_other+(O*R/K²)(meanδ_old−meanδ_other)²。对任意固定样本权重也成立。故系数1不等旧旧子空间梯度强度相同；新增方向与旧旧权重稀释同时存在。这是预声明机制的性质，不能结果后补权重。诊断MSE覆盖全部旧memory，实际保持只覆盖教师旧argmax正确部分，两者不能混同。','',
+            '新/预留组分数变化诊断见LOGIT_MOVEMENT。每个数来自第0/47步更新前已有score；不是最终更新后测量。负的旧对新mean_shift意味着旧组相对新组平均分数下降，但平均不能保证逐样本间隔或分类。','',
+            '压缩分项见COMPRESSION_COMPONENTS；响应项和两个快照梯度项都在旧冻结公式中计算，仅取已有值。TARGET_GRADIENT_NORMS记录分母是否触底，不把分母很小直接认定为致因。压缩最后更新前目标下降不是最优证书或未来保护证明。','',
+            '|规模|臂|末阶段旧CE最大误差|末阶段旧梯度最大误差|末阶段margin SW最大误差|','|---|---|---:|---:|---:|']
+    for cid in ('small','ISIC_scale','HK_scale'):
+        last=max(r['task'] for r in rows if r['case']==cid)
+        for d in tables['MEMORY_DIAGNOSTICS']:
+            if d['case']==cid and d['task']==last:lines.append(f"|{cid}|{names[d['mode']]}|{d['max_old_CE_error']:.6f}|{d['max_old_gradient_error']:.6f}|{d['max_old_margin_sliced_W1']:.6f}|")
+    lines+=['','每个误差都在对应臂同一模型状态上比较其memory与真实旧合成支持；不同臂模型不同，跨臂误差不是固定模型压缩因果实验。旧支持只封存后诊断，没有反馈训练。','',
+            '判断坚持预注册：D改善C但低于B仅缓解判别记忆损害；旧收益伴新损害不通过；B优于A而D低于B支持保留moment。正交互不等D优于各单独改动。未测反事实共同后续模型/最优性证书，不把有限序列归因为唯一机制。','',
+            '|规模|训练秒|压缩秒|单臂memory bytes|adapter参数数|','|---|---:|---:|---:|---:|']
+    for r in tables['RESOURCE_SUMMARY']:lines.append(f"|{r['case']}|{r['training_seconds']:.6f}|{r['construction_seconds']:.6f}|{r['memory_bytes_per_arm']}|{r['adapter_parameters']}|")
+    lines+=['',f"4独立CPU驻留{audit['CPU_residence_seconds']:.9f}秒，父wall {audit['parent_wall_seconds_separate']:.9f}秒另列，user {audit['CPU_user_seconds']:.6f}/system {audit['CPU_system_seconds']:.6f}秒，peak RSS {audit['peak_RSS_MiB']}MiB。含所有训练/压缩/诊断/评价；不重复加内部时间。累计22轮86次CPU{audit['cumulative_CPU_residence_seconds']:.9f}秒。新增GPU0、历史400036.74851310626不变；client/collector未单测null。",'',
+            '没有读取医学images/features/checkpoints/val/test；没有真实预训练encoder或生产checkpoint验证。结果仅为本轮合成非线性适配器证据，不作医学、临床、患者独立或顶级期刊结论。结束后不自动开启下一轮。']
+    (root/'ANALYSIS_ZH.md').write_text('\n'.join(lines)+'\n')
 
 if __name__=='__main__':main(Path(sys.argv[1]))

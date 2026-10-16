@@ -1,0 +1,207 @@
+{
+  "version": "real-query-node-1",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "seed": 74002,
+  "jobs": [
+    {
+      "id": "unit",
+      "role": "unit"
+    },
+    {
+      "id": "split",
+      "role": "split"
+    },
+    {
+      "id": "extract_fit",
+      "role": "extract_fit"
+    },
+    {
+      "id": "ISIC_teacher",
+      "role": "teacher",
+      "dataset": "ISIC"
+    },
+    {
+      "id": "HK_teacher",
+      "role": "teacher",
+      "dataset": "HK"
+    },
+    {
+      "id": "ISIC_candidate",
+      "role": "candidate",
+      "dataset": "ISIC"
+    },
+    {
+      "id": "HK_candidate",
+      "role": "candidate",
+      "dataset": "HK"
+    },
+    {
+      "id": "extract_gate",
+      "role": "extract_gate"
+    },
+    {
+      "id": "choose",
+      "role": "choose"
+    },
+    {
+      "id": "extract_E",
+      "role": "extract_E"
+    },
+    {
+      "id": "evaluate",
+      "role": "evaluate"
+    }
+  ],
+  "overall_wall_seconds": 14400,
+  "case_wall_seconds": 3600,
+  "minimum_free_gpu_MiB": 16384,
+  "scope": "first real-image transition only; one training seed/order; fixed pretrained feature extractor and downstream nonlinear rank-8 adapter",
+  "encoder": "existing locked AugReg IN21k-to-IN1k ViT/APART initialization; 1536D concatenated unit feature; target-data encoder/pool updates zero",
+  "split": "original train only, known identity components per class, shuffled seed+c; Qfit and Qgate each max(1,floor(groups/10)); S remainder; need >=3 groups",
+  "E": "original historically reused development val; no test/reserved; no images/features/scores before all selection locks",
+  "patient_isolation": "UNKNOWN; not a launch blocker for declared development experiment",
+  "feature_transform": "existing deterministic medical eval transform: bicubic Resize224, ToTensor, Normalize .5",
+  "teacher": "fresh initial_model/frame, 48 full batch steps lr=1/16 on old S only, no Q or E",
+  "memory": "reuse original moment compress: 16 synthetic nodes/class, 48 Adam .02 updates on old S only",
+  "baseline": "same teacher; 48 steps original class-balanced CE + old teacher-correct centered retention",
+  "intervention": "old memory CE within-class log weights only; fixed nodes and fixed 1/K class mass; original retention weights and coefficient unchanged",
+  "proposal": "full 48-step differentiable baseline; Qfit old/new macroCE hypergradients; project normalized negative class-balanced gradient onto two nonpositive derivative halfspaces; scale infinity norm <= log(1.25); exactly one proposal, no outer iterations or scan",
+  "baseline_forward_updates": 96,
+  "teacher_forward_updates": 96,
+  "candidate_forward_updates_max": 96,
+  "moment_optimizer_updates": 96,
+  "hypergradient_backward_sweeps": 4,
+  "unit_engineering_forward_updates": 192,
+  "selection": "Qgate point delta_old>=-.01 AND delta_new>=-.01 AND delta_all>0; else baseline; ties baseline",
+  "evaluation": "only selected + baseline on E; 10000 paired within-class known-component cluster bootstrap; pointwise 95%; original decision() AND gates",
+  "bootstrap_seeds": {
+    "ISIC": 74102,
+    "HK": 74103
+  },
+  "query_resource": "Qfit and Qgate are additional old/new labeled development resources; actual per-class counts and cached feature bytes reported; not free memory",
+  "comparison_limit": "baseline has same resource availability but does not optimize query weights; comparison includes query use, not isolated evidence beyond extra supervision",
+  "no_patient_identity_requested": true,
+  "no_auto_retry": true,
+  "no_extra_seeds": true,
+  "no_rho_grid": true,
+  "no_unselected_E": true,
+  "no_test_access": true,
+  "runtime": "single neutral supervisor, one GPU0 extraction worker at a time; CPU-only mathematical training; no automatic monitoring or follow-up experiment",
+  "finish": "publish all outcomes/costs and stop; if long-running, startup delivery only until user next asks"
+}

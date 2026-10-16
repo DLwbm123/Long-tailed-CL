@@ -1,0 +1,276 @@
+{
+  "threads": 2,
+  "base_cases": [
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46
+    }
+  ],
+  "evaluation_seeds": {
+    "ISIC_scale": 310264,
+    "HK_scale": 310265
+  },
+  "bootstrap_draws": 10000,
+  "bootstrap": "class-stratified paired multinomial bootstrap of four correctness cells; two-sided pointwise percentile95 intervals, numpy quantile linear",
+  "cost_limit": 0.01,
+  "uncertainty_rule": "SUPPORTED per scene only if positive overall BA, both group point differences >= -0.01-1e-12, both group95 lower bounds >= -0.01-1e-12, overall95 lower bound >1e-12. Otherwise COST_EXCEEDS_LIMIT if a group point violates limit; NO_POSITIVE_GAIN if overall point<=1e-12; otherwise INCONCLUSIVE. Both new seeds in both scales must be SUPPORTED for joint support.",
+  "uncertainty_scope": "conditional evaluation-sampling uncertainty only; no seed-population CI or pooled independent-sample claim; all intervals pointwise, not simultaneous coverage",
+  "historical_GPU_seconds": 400036.74851310626,
+  "version": "candidate_transfer_CPU_v1",
+  "case_hard_wall_seconds": 600,
+  "overall_wall_seconds": 1800,
+  "cases": [
+    {
+      "id": "candidate_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "ISIC_scale_r1",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 100264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16,
+      "scale": "ISIC_scale",
+      "replicate": 1
+    },
+    {
+      "id": "ISIC_scale_r2",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 200264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16,
+      "scale": "ISIC_scale",
+      "replicate": 2
+    },
+    {
+      "id": "HK_scale_r1",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 100265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46,
+      "scale": "HK_scale",
+      "replicate": 1
+    },
+    {
+      "id": "HK_scale_r2",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 200265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46,
+      "scale": "HK_scale",
+      "replicate": 2
+    },
+    {
+      "id": "balanced_evaluation",
+      "kind": "evaluation"
+    }
+  ],
+  "bootstrap_seeds": {
+    "ISIC_scale_r1": 953000,
+    "ISIC_scale_r2": 953002,
+    "HK_scale_r1": 953004,
+    "HK_scale_r2": 953006
+  },
+  "parent_result_commit": "c6a799eecaf10b04f2092a07e48ccb094d432c3e",
+  "prior_CPU_residence_seconds": 8007.600284558721,
+  "candidate_steps": 48,
+  "total_adapter_updates": 192,
+  "total_memory_updates": 0,
+  "learning_rate": 0.0625,
+  "retention_scope": "old",
+  "retention_coefficient": 1,
+  "common_states": [
+    "teacher",
+    "moment_endpoint"
+  ],
+  "diagnostic_components": [
+    "old_CE",
+    "new_CE",
+    "classification",
+    "retention",
+    "total"
+  ],
+  "diagnostic_representations": [
+    "full_support",
+    "moment",
+    "candidate",
+    "selected"
+  ],
+  "diagnostic_updates": 0,
+  "comparisons": [
+    "candidate_vs_moment",
+    "candidate_vs_selected"
+  ],
+  "interpretation": "mechanism diagnostic only, already observed seeds and evaluation bank; never independent confirmation or revised prior pass",
+  "primary": "candidate_vs_moment retains overall BA positive and old/new loss limits and uncertainty rule; candidate_vs_selected is secondary gate contrast",
+  "no_scientific_retry": true,
+  "stop_after_this_round": true,
+  "GPU_processes": 0,
+  "test_accessed": false
+}

@@ -11,7 +11,29 @@ from query_node_weights import select
 from run_real_query_node import load,metrics,save
 
 
-def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.):
+def group_classification_loss(ss,y,p,old,use_max):
+    old_norm=ss[:,:old].logsumexp(1);new_norm=ss[:,old:].logsumexp(1)
+    within=torch.where(y<old,old_norm,new_norm)-ss[torch.arange(len(y)),y]
+    margin=ss[:,old:].max(1).values-ss[:,:old].max(1).values if use_max else new_norm-old_norm
+    between=torch.nn.functional.softplus(torch.where(y<old,margin,-margin))
+    return (p*(within+between)).sum()
+
+
+def check_group_loss():
+    ss=torch.tensor([[1.,2.,3.],[2.,1.,0.],[0.,1.,2.]],dtype=DT,requires_grad=True)
+    y=torch.arange(3);p=torch.ones(3,dtype=DT)/3
+    direct=-(p*ss.log_softmax(1)[torch.arange(3),y]).sum()
+    decomposed=group_classification_loss(ss,y,p,2,False)
+    assert abs(float((direct-decomposed).detach()))<1e-12
+    assert float((torch.autograd.grad(direct,ss)[0]-torch.autograd.grad(decomposed,ss)[0]).abs().max())<1e-12
+    zero=torch.zeros(3,3,dtype=DT,requires_grad=True);loss=group_classification_loss(zero,y,p,2,True)
+    assert abs(float(loss.detach())-(5/3)*float(torch.log(torch.tensor(2.,dtype=DT))))<1e-12
+    grad=torch.autograd.grad(loss,zero)[0]
+    assert bool(torch.isfinite(grad).all()) and float(grad.sum(1).abs().max())<1e-12
+    assert abs(float(group_classification_loss(zero+3,y,p,2,True).detach())-float(loss.detach()))<1e-12
+
+
+def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.,max_group=False):
     assert 0<float(retention_scale)<float('inf')
     old=len(memory);seen=old+len(current);x,y,p=training_batch(current,old_ce)
     rx,ry,rp=training_batch({},memory);params=clone_model(teacher,True)
@@ -22,14 +44,15 @@ def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.):
     trace=[]
     for step in range(steps):
         ss=scores(x,params,q)[:,:seen]
-        ce=-(p*ss.log_softmax(1)[torch.arange(len(y)),y]).sum()
+        standard_ce=-(p*ss.log_softmax(1)[torch.arange(len(y)),y]).sum()
+        ce=group_classification_loss(ss,y,p,old,True) if max_group else standard_ce
         now=centered(scores(rx,params,q)[:,:old])
         retention=((now-target).square().mean(1)*correct*rp).sum()*retention_scale
         grad=torch.autograd.grad(ce+retention,params)
         with torch.no_grad():
             for v,g in zip(params,grad):v.sub_(g/16);assert bool(torch.isfinite(v).all())
-        if step in (0,steps-1):trace.append(dict(preupdate_step=step,CE=float(ce.detach()),retention=float(retention.detach())))
-    return clone_model(params),dict(steps=steps,trace=trace,retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
+        if step in (0,steps-1):trace.append(dict(preupdate_step=step,CE=float(standard_ce.detach()),classification_loss=float(ce.detach()),retention=float(retention.detach())))
+    return clone_model(params),dict(steps=steps,trace=trace,classification_objective='within_CE_plus_max_group_logistic' if max_group else 'full_CE',retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
 
 
 def unit():

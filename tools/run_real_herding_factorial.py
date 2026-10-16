@@ -9,7 +9,7 @@ from check_reserved_competition_memory import DT,scores,training_batch
 from paper_medical_models import herding_indices
 from query_node_weights import select
 from run_real_query_node import load,metrics,save
-from run_real_support_ce_reference import train_reference
+from run_real_support_ce_reference import train_reference,check_group_loss
 
 
 def build_banks(root,prior,lock):
@@ -64,7 +64,7 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
     for cell in lock['cells']:
         save(root/(job['id']+'.progress.json'),dict(phase='fit_'+cell,dataset=name))
         ce=moment if cell[0]=='M' else real;retention=moment if cell[1]=='M' else real
-        model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'],retention_scale=scale)
+        model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'],retention_scale=scale,max_group=lock.get('max_group_objective',False))
         torch.save(dict(model=model,frame=state['frame']),root/(name+'.'+cell+'.private.pt'))
         training[cell]=info
     sealed_at=time.time();seal()
@@ -91,6 +91,7 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
     primary=lock.get('primary_cell','HH')
     return dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,
         training=training,mass_matching=mass_matching,adapter_updates=len(lock['cells'])*lock['adapter_steps'],primary=primary,
+        engineering_logit_gradient_evaluations=3 if lock.get('max_group_objective') else 0,
         primary_both_queries_pass=all(gates[q][primary]['selected']=='candidate' for q in gates),
         gates=gates,class_rows=rows,summaries=summary,interaction_HH_minus_HM_minus_MH_plus_MM=interaction,
         bank=next(b for b in bank_receipt['banks'] if b['dataset']==name),
@@ -102,8 +103,9 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
 def main():
     root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE']);job=json.loads(os.environ['Q356_JOB'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text())
-    assert lock['cells']==(['HH'] if lock.get('match_retention_mass') else ['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
+    assert lock['cells']==(['HH'] if lock.get('match_retention_mass') or lock.get('max_group_objective') else ['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
     assert os.environ['CUDA_VISIBLE_DEVICES']=='';torch.set_num_threads(2);torch.set_default_dtype(DT)
+    if lock.get('max_group_objective'):check_group_loss()
     prior=Path(cfg['prior_root']);diagnostic=Path(cfg['diagnostic_root']);sealed=False
     name=job.get('dataset');bank_job=job['role']=='banks'
     allowed={c['name']+'.S_old.features.private.pt' for c in lock['datasets']} if bank_job else {name+'.'+s for s in ('teacher.private.pt','S_new.features.private.pt')}

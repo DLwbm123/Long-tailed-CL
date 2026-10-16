@@ -64,7 +64,7 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
     for cell in lock['cells']:
         save(root/(job['id']+'.progress.json'),dict(phase='fit_'+cell,dataset=name))
         ce=moment if cell[0]=='M' else real;retention=moment if cell[1]=='M' else real
-        model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'],retention_scale=scale,max_group=lock.get('max_group_objective',False))
+        model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'],retention_scale=scale,max_group=lock.get('max_group_objective',False),balance_groups=lock.get('balance_groups',False))
         torch.save(dict(model=model,frame=state['frame']),root/(name+'.'+cell+'.private.pt'))
         training[cell]=info
     sealed_at=time.time();seal()

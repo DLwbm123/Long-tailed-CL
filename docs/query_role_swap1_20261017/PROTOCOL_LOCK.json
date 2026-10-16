@@ -1,0 +1,203 @@
+{
+  "version": "query-role-swap-1",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "seed": 74002,
+  "jobs": [
+    {
+      "id": "ISIC_swap",
+      "role": "diagnostic",
+      "dataset": "ISIC"
+    },
+    {
+      "id": "HK_swap",
+      "role": "diagnostic",
+      "dataset": "HK"
+    }
+  ],
+  "overall_wall_seconds": 3600,
+  "case_wall_seconds": 900,
+  "bias_steps": 48,
+  "learning_rate": 0.0625,
+  "forward_gates": {
+    "ISIC": {
+      "node": {
+        "dataset": "ISIC",
+        "selected": "candidate",
+        "delta": {
+          "all": 0.02045043680250469,
+          "old": -0.0015543099530374027,
+          "new": 0.06445993031358888
+        },
+        "feasible": true,
+        "reason": "FEASIBLE_POSITIVE_GAIN"
+      },
+      "bias": {
+        "selected": "baseline",
+        "delta": {
+          "all": -0.010366611119527303,
+          "old": -0.020776397515527956,
+          "new": 0.010452961672473893
+        },
+        "feasible": false,
+        "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+      }
+    },
+    "HK": {
+      "node": {
+        "dataset": "HK",
+        "selected": "baseline",
+        "delta": {
+          "all": -0.021699212311231786,
+          "old": 0.0006034729742196987,
+          "new": -0.16666666666666663
+        },
+        "feasible": false,
+        "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+      },
+      "bias": {
+        "selected": "candidate",
+        "delta": {
+          "all": 0.0011144077604528513,
+          "old": 0.0012858551082147729,
+          "new": 0.0
+        },
+        "feasible": true,
+        "reason": "FEASIBLE_POSITIVE_GAIN"
+      }
+    }
+  },
+  "fit_role": "previous Qgate",
+  "gate_role": "previous Qfit",
+  "intervention": "Reverse only query roles for the original full node-direction method and the fixed bias-only control. No half step, new seed, teacher or encoder training.",
+  "primary": "For each method and dataset, pass both original and reverse gates: overall BA improves and old/new costs each >= -0.01. Report both directions and all four outcomes, not only reverse winners.",
+  "secondary": "Classwise fit/gate CE and recall; baseline replay parity; finite-change behavior and bias objective trajectory",
+  "baseline_graph_replay_updates": 96,
+  "node_adapter_updates_max": 96,
+  "bias_updates": 96,
+  "hypergradient_backward_sweeps": 4,
+  "teacher_updates": 0,
+  "memory_updates": 0,
+  "encoder_updates": 0,
+  "new_labels": 0,
+  "GPU_extraction": 0,
+  "E": "Forbidden",
+  "exposure": "Both query sets already exposed in earlier development; role swap is sensitivity analysis, not independent confirmation or proper prospective cross-validation",
+  "no_parameter_scan": true,
+  "no_auto_retry": true
+}

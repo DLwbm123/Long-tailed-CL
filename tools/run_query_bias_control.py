@@ -10,6 +10,20 @@ from query_node_weights import select
 from run_real_query_node import load, metrics, save
 
 
+def fit_bias(logits,y,steps,learning_rate):
+    seen=logits.shape[1];counts=torch.bincount(y,minlength=seen);assert bool((counts>0).all())
+    w=1/(seen*counts[y].to(DT));assert abs(float(w.sum())-1)<1e-12
+    b=torch.zeros(seen,dtype=DT,requires_grad=True)
+    def loss(v):return -(w*(logits+v).log_softmax(1)[torch.arange(len(y)),y]).sum()+.5*v.square().mean()
+    trace=[float(loss(b).detach())]
+    for _ in range(steps):
+        g=torch.autograd.grad(loss(b),b)[0]
+        b=(b-g*learning_rate).detach();b=(b-b.mean()).requires_grad_()
+        value=float(loss(b).detach());assert value<=trace[-1]+1e-12 and bool(torch.isfinite(b).all());trace.append(value)
+    assert abs(float(b.detach().mean()))<1e-12
+    return b.detach(),trace
+
+
 def main():
     root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());prior=Path(cfg['prior_root']);diagnostic=Path(cfg['diagnostic_root'])
@@ -31,19 +45,10 @@ def main():
     start=time.monotonic();save(root/(job['id']+'.progress.json'),dict(phase='fit_query_class_bias',dataset=name))
     obj=load(prior/(name+'.baseline.private.pt'));fit=load(prior/(name+'.Qfit.features.private.pt'))
     with torch.no_grad():logits=scores(fit['x'],obj['model'],obj['frame'])[:,:seen]
-    y=fit['y'];counts=torch.bincount(y,minlength=seen);assert bool((counts>0).all())
-    w=1/(seen*counts[y].to(DT));assert abs(float(w.sum())-1)<1e-12
-    b=torch.zeros(seen,dtype=DT,requires_grad=True)
-    def loss(v):return -(w*(logits+v).log_softmax(1)[torch.arange(len(y)),y]).sum()+.5*v.square().mean()
-    initial=float(loss(b).detach());trace=[initial]
+    b,trace=fit_bias(logits,fit['y'],lock['bias_steps'],lock['learning_rate'])
     prior_result=json.loads((diagnostic/(name+'_half.json')).read_text())
     expected=next(r['CE'] for r in prior_result['summaries'] if r['query']=='Qfit' and r['model']=='baseline' and r['group']=='all')
-    zero_error=abs(initial-expected);assert zero_error<1e-10
-    for _ in range(lock['bias_steps']):
-        g=torch.autograd.grad(loss(b),b)[0]
-        b=(b-g*lock['learning_rate']).detach();b=(b-b.mean()).requires_grad_()
-        value=float(loss(b).detach());assert value<=trace[-1]+1e-12 and bool(torch.isfinite(b).all());trace.append(value)
-    assert abs(float(b.detach().mean()))<1e-12
+    zero_error=abs(trace[0]-expected);assert zero_error<1e-10
     obj['bias']=b.detach();torch.save(obj,root/(name+'.bias.private.pt'));sealed_at=time.time()
     rows=list(prior_result['class_rows']);summary=list(prior_result['summaries'])
     for query,data in [('Qfit',fit),('Qgate',load(prior/(name+'.Qgate.features.private.pt')))]:

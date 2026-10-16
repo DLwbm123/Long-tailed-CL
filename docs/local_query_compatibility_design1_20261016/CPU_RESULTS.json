@@ -1,0 +1,2723 @@
+{
+  "program": {
+    "status": "COMPLETE_CPU_CHECKS",
+    "source_commit": "39f159f4dc0abf483a60f901cfed0993efcc3e02",
+    "started_at": 1792108681.304892,
+    "deadline_at": 1792114181.3048928,
+    "active": null,
+    "cases": [
+      {
+        "id": "query_compatibility_arithmetic",
+        "status": "COMPLETED",
+        "result_file": "query_compatibility_arithmetic.json"
+      },
+      {
+        "id": "small",
+        "status": "COMPLETED",
+        "result_file": "small.json"
+      },
+      {
+        "id": "ISIC_scale",
+        "status": "COMPLETED",
+        "result_file": "ISIC_scale.json"
+      },
+      {
+        "id": "HK_scale",
+        "status": "COMPLETED",
+        "result_file": "HK_scale.json"
+      }
+    ],
+    "costs": [
+      {
+        "id": "query_compatibility_arithmetic",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 6.5232233121059835,
+        "CPU_user_seconds": 5.606913,
+        "CPU_system_seconds": 1.047221,
+        "peak_RSS_MiB": 397.296875,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "small",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 5.774762509856373,
+        "CPU_user_seconds": 5.4911259999999995,
+        "CPU_system_seconds": 0.9337289999999999,
+        "peak_RSS_MiB": 401.5859375,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "ISIC_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 7.025520683731884,
+        "CPU_user_seconds": 6.783824,
+        "CPU_system_seconds": 1.451385,
+        "peak_RSS_MiB": 634.17578125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "HK_scale",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 6.035010084975511,
+        "CPU_user_seconds": 5.754426,
+        "CPU_system_seconds": 0.987849,
+        "peak_RSS_MiB": 414.4296875,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      }
+    ],
+    "failures": [],
+    "finished_at": 1792108706.7205954,
+    "supervisor_wall_seconds": 25.415711221750826
+  },
+  "results": [
+    {
+      "status": "PASS",
+      "identical_anchor_feasible": true,
+      "boundary_tangent_feasible": true,
+      "separated_pair_infeasible": true,
+      "pairwise_nonviolation_not_sufficient": true,
+      "equilateral_circumradius": 0.13856406460551018,
+      "permutation_distance_invariant": true,
+      "id": "query_compatibility_arithmetic",
+      "CPU_pipeline_seconds": 0.07085816795006394,
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 5.097233951091766
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "small",
+        "kind": "scale",
+        "dimension": 32,
+        "classes": 4,
+        "n": 512,
+        "seed": 263,
+        "count_weights": [
+          8,
+          4,
+          2,
+          1
+        ],
+        "task_sizes": [
+          2,
+          1,
+          1
+        ]
+      },
+      "synthetic_counts": [
+        272,
+        136,
+        69,
+        35
+      ],
+      "stages": [
+        {
+          "seen_classes": 2,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 1,
+          "total_pairs": 1,
+          "necessary_common_radius_lower_bound": 1.4031707187583429,
+          "mean_center_radius_upper_bound": 1.4031707187583429,
+          "original_local_radius": 0.125,
+          "task": 1
+        },
+        {
+          "seen_classes": 3,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 3,
+          "total_pairs": 3,
+          "necessary_common_radius_lower_bound": 1.4335228487480267,
+          "mean_center_radius_upper_bound": 1.6523355884630362,
+          "original_local_radius": 0.125,
+          "task": 2
+        },
+        {
+          "seen_classes": 4,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 6,
+          "total_pairs": 6,
+          "necessary_common_radius_lower_bound": 1.4335228487480267,
+          "mean_center_radius_upper_bound": 1.7532286806766253,
+          "original_local_radius": 0.125,
+          "task": 3
+        }
+      ],
+      "pairs": [
+        {
+          "class_i": 0,
+          "class_j": 1,
+          "anchor_distance": 2.8063414375166857,
+          "common_radius_lower_bound": 1.4031707187583429,
+          "excess_over_two_r": 2.5563414375166857,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 2,
+          "anchor_distance": 2.7602700083133724,
+          "common_radius_lower_bound": 1.3801350041566862,
+          "excess_over_two_r": 2.5102700083133724,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 3,
+          "anchor_distance": 2.8632736712713074,
+          "common_radius_lower_bound": 1.4316368356356537,
+          "excess_over_two_r": 2.6132736712713074,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 2,
+          "anchor_distance": 2.8670456974960534,
+          "common_radius_lower_bound": 1.4335228487480267,
+          "excess_over_two_r": 2.6170456974960534,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 3,
+          "anchor_distance": 2.8603792978260763,
+          "common_radius_lower_bound": 1.4301896489130381,
+          "excess_over_two_r": 2.6103792978260763,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 3,
+          "anchor_distance": 2.7988246685553837,
+          "common_radius_lower_bound": 1.3994123342776918,
+          "excess_over_two_r": 2.5488246685553837,
+          "incompatible": true
+        }
+      ],
+      "shared_anchor_algebraic_control": {
+        "seen_classes": 4,
+        "status": "NONEMPTY_WITNESS",
+        "incompatible_pairs": 0,
+        "total_pairs": 6,
+        "necessary_common_radius_lower_bound": 0.0,
+        "mean_center_radius_upper_bound": 0.0,
+        "original_local_radius": 0.125
+      },
+      "loss_or_classifier_evaluated": false,
+      "old_fitted_memory_read": false,
+      "query_optimization_updates": 0,
+      "memory_optimization_updates": 0,
+      "id": "small",
+      "CPU_pipeline_seconds": 0.08488397905603051,
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 3.9967794180847704
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "ISIC_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ],
+        "task_sizes": [
+          4,
+          2,
+          2
+        ]
+      },
+      "synthetic_counts": [
+        232,
+        14,
+        130,
+        1644,
+        1429,
+        23,
+        5303,
+        659
+      ],
+      "stages": [
+        {
+          "seen_classes": 4,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 6,
+          "total_pairs": 6,
+          "necessary_common_radius_lower_bound": 1.4330472852968525,
+          "mean_center_radius_upper_bound": 1.7473776678871769,
+          "original_local_radius": 0.125,
+          "task": 1
+        },
+        {
+          "seen_classes": 6,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 15,
+          "total_pairs": 15,
+          "necessary_common_radius_lower_bound": 1.4330472852968525,
+          "mean_center_radius_upper_bound": 1.8350348983001803,
+          "original_local_radius": 0.125,
+          "task": 2
+        },
+        {
+          "seen_classes": 8,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 28,
+          "total_pairs": 28,
+          "necessary_common_radius_lower_bound": 1.4330472852968525,
+          "mean_center_radius_upper_bound": 1.878246840372148,
+          "original_local_radius": 0.125,
+          "task": 3
+        }
+      ],
+      "pairs": [
+        {
+          "class_i": 0,
+          "class_j": 1,
+          "anchor_distance": 2.850720410428862,
+          "common_radius_lower_bound": 1.425360205214431,
+          "excess_over_two_r": 2.600720410428862,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 2,
+          "anchor_distance": 2.8310394117070974,
+          "common_radius_lower_bound": 1.4155197058535487,
+          "excess_over_two_r": 2.5810394117070974,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 3,
+          "anchor_distance": 2.8263365562673086,
+          "common_radius_lower_bound": 1.4131682781336543,
+          "excess_over_two_r": 2.5763365562673086,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 4,
+          "anchor_distance": 2.825027192577189,
+          "common_radius_lower_bound": 1.4125135962885944,
+          "excess_over_two_r": 2.575027192577189,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 5,
+          "anchor_distance": 2.833755965804826,
+          "common_radius_lower_bound": 1.416877982902413,
+          "excess_over_two_r": 2.583755965804826,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 6,
+          "anchor_distance": 2.827497370838355,
+          "common_radius_lower_bound": 1.4137486854191774,
+          "excess_over_two_r": 2.577497370838355,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 7,
+          "anchor_distance": 2.8251410211664885,
+          "common_radius_lower_bound": 1.4125705105832442,
+          "excess_over_two_r": 2.5751410211664885,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 2,
+          "anchor_distance": 2.8179902511798187,
+          "common_radius_lower_bound": 1.4089951255899094,
+          "excess_over_two_r": 2.5679902511798187,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 3,
+          "anchor_distance": 2.866094570593705,
+          "common_radius_lower_bound": 1.4330472852968525,
+          "excess_over_two_r": 2.616094570593705,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 4,
+          "anchor_distance": 2.8094197575903457,
+          "common_radius_lower_bound": 1.4047098787951728,
+          "excess_over_two_r": 2.5594197575903457,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 5,
+          "anchor_distance": 2.7936487132470385,
+          "common_radius_lower_bound": 1.3968243566235192,
+          "excess_over_two_r": 2.5436487132470385,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 6,
+          "anchor_distance": 2.857990676790484,
+          "common_radius_lower_bound": 1.428995338395242,
+          "excess_over_two_r": 2.607990676790484,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 7,
+          "anchor_distance": 2.817872384736945,
+          "common_radius_lower_bound": 1.4089361923684725,
+          "excess_over_two_r": 2.567872384736945,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 3,
+          "anchor_distance": 2.826711887984989,
+          "common_radius_lower_bound": 1.4133559439924945,
+          "excess_over_two_r": 2.576711887984989,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 4,
+          "anchor_distance": 2.8414606159877036,
+          "common_radius_lower_bound": 1.4207303079938518,
+          "excess_over_two_r": 2.5914606159877036,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 5,
+          "anchor_distance": 2.826455280358723,
+          "common_radius_lower_bound": 1.4132276401793615,
+          "excess_over_two_r": 2.576455280358723,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 6,
+          "anchor_distance": 2.82930006545462,
+          "common_radius_lower_bound": 1.41465003272731,
+          "excess_over_two_r": 2.57930006545462,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 7,
+          "anchor_distance": 2.824357845238683,
+          "common_radius_lower_bound": 1.4121789226193415,
+          "excess_over_two_r": 2.574357845238683,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 4,
+          "anchor_distance": 2.831094228364617,
+          "common_radius_lower_bound": 1.4155471141823086,
+          "excess_over_two_r": 2.581094228364617,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 5,
+          "anchor_distance": 2.8275790807166556,
+          "common_radius_lower_bound": 1.4137895403583278,
+          "excess_over_two_r": 2.5775790807166556,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 6,
+          "anchor_distance": 2.8278112339660493,
+          "common_radius_lower_bound": 1.4139056169830246,
+          "excess_over_two_r": 2.5778112339660493,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 7,
+          "anchor_distance": 2.829784878295504,
+          "common_radius_lower_bound": 1.414892439147752,
+          "excess_over_two_r": 2.579784878295504,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 5,
+          "anchor_distance": 2.817479322842548,
+          "common_radius_lower_bound": 1.408739661421274,
+          "excess_over_two_r": 2.567479322842548,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 6,
+          "anchor_distance": 2.8297577024702987,
+          "common_radius_lower_bound": 1.4148788512351493,
+          "excess_over_two_r": 2.5797577024702987,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 7,
+          "anchor_distance": 2.827286319936233,
+          "common_radius_lower_bound": 1.4136431599681165,
+          "excess_over_two_r": 2.577286319936233,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 6,
+          "anchor_distance": 2.8351091684921674,
+          "common_radius_lower_bound": 1.4175545842460837,
+          "excess_over_two_r": 2.5851091684921674,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 7,
+          "anchor_distance": 2.8110338377902795,
+          "common_radius_lower_bound": 1.4055169188951397,
+          "excess_over_two_r": 2.5610338377902795,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 7,
+          "anchor_distance": 2.831179919819898,
+          "common_radius_lower_bound": 1.415589959909949,
+          "excess_over_two_r": 2.581179919819898,
+          "incompatible": true
+        }
+      ],
+      "shared_anchor_algebraic_control": {
+        "seen_classes": 8,
+        "status": "NONEMPTY_WITNESS",
+        "incompatible_pairs": 0,
+        "total_pairs": 28,
+        "necessary_common_radius_lower_bound": 0.0,
+        "mean_center_radius_upper_bound": 2.7063155843490726e-17,
+        "original_local_radius": 0.125
+      },
+      "loss_or_classifier_evaluated": false,
+      "old_fitted_memory_read": false,
+      "query_optimization_updates": 0,
+      "memory_optimization_updates": 0,
+      "id": "ISIC_scale",
+      "CPU_pipeline_seconds": 1.7295471709221601,
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 5.82511773519218
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "HK_scale",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "synthetic_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "stages": [
+        {
+          "seen_classes": 13,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 78,
+          "total_pairs": 78,
+          "necessary_common_radius_lower_bound": 1.4416638047301733,
+          "mean_center_radius_upper_bound": 1.9346530197705527,
+          "original_local_radius": 0.125,
+          "task": 1
+        },
+        {
+          "seen_classes": 15,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 105,
+          "total_pairs": 105,
+          "necessary_common_radius_lower_bound": 1.4416638047301733,
+          "mean_center_radius_upper_bound": 1.9478267789980728,
+          "original_local_radius": 0.125,
+          "task": 2
+        },
+        {
+          "seen_classes": 17,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 136,
+          "total_pairs": 136,
+          "necessary_common_radius_lower_bound": 1.4428250738583555,
+          "mean_center_radius_upper_bound": 1.954126696402028,
+          "original_local_radius": 0.125,
+          "task": 3
+        },
+        {
+          "seen_classes": 19,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 171,
+          "total_pairs": 171,
+          "necessary_common_radius_lower_bound": 1.4428250738583555,
+          "mean_center_radius_upper_bound": 1.9544519796820714,
+          "original_local_radius": 0.125,
+          "task": 4
+        },
+        {
+          "seen_classes": 21,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 210,
+          "total_pairs": 210,
+          "necessary_common_radius_lower_bound": 1.4428250738583555,
+          "mean_center_radius_upper_bound": 1.958929994566987,
+          "original_local_radius": 0.125,
+          "task": 5
+        },
+        {
+          "seen_classes": 23,
+          "status": "EMPTY_INTERSECTION_CERTIFIED",
+          "incompatible_pairs": 253,
+          "total_pairs": 253,
+          "necessary_common_radius_lower_bound": 1.4464081110920013,
+          "mean_center_radius_upper_bound": 1.9632681624655912,
+          "original_local_radius": 0.125,
+          "task": 6
+        }
+      ],
+      "pairs": [
+        {
+          "class_i": 0,
+          "class_j": 1,
+          "anchor_distance": 2.822711363638422,
+          "common_radius_lower_bound": 1.411355681819211,
+          "excess_over_two_r": 2.572711363638422,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 2,
+          "anchor_distance": 2.843552156486397,
+          "common_radius_lower_bound": 1.4217760782431985,
+          "excess_over_two_r": 2.593552156486397,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 3,
+          "anchor_distance": 2.832981120638494,
+          "common_radius_lower_bound": 1.416490560319247,
+          "excess_over_two_r": 2.582981120638494,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 4,
+          "anchor_distance": 2.8260048986803885,
+          "common_radius_lower_bound": 1.4130024493401943,
+          "excess_over_two_r": 2.5760048986803885,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 5,
+          "anchor_distance": 2.8321079678923335,
+          "common_radius_lower_bound": 1.4160539839461668,
+          "excess_over_two_r": 2.5821079678923335,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 6,
+          "anchor_distance": 2.836561601067801,
+          "common_radius_lower_bound": 1.4182808005339005,
+          "excess_over_two_r": 2.586561601067801,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 7,
+          "anchor_distance": 2.81336450854624,
+          "common_radius_lower_bound": 1.40668225427312,
+          "excess_over_two_r": 2.56336450854624,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 8,
+          "anchor_distance": 2.845192926266543,
+          "common_radius_lower_bound": 1.4225964631332715,
+          "excess_over_two_r": 2.595192926266543,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 9,
+          "anchor_distance": 2.806334430059545,
+          "common_radius_lower_bound": 1.4031672150297725,
+          "excess_over_two_r": 2.556334430059545,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 10,
+          "anchor_distance": 2.8287077407267023,
+          "common_radius_lower_bound": 1.4143538703633511,
+          "excess_over_two_r": 2.5787077407267023,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 11,
+          "anchor_distance": 2.8174954503917236,
+          "common_radius_lower_bound": 1.4087477251958618,
+          "excess_over_two_r": 2.5674954503917236,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 12,
+          "anchor_distance": 2.826896648743503,
+          "common_radius_lower_bound": 1.4134483243717515,
+          "excess_over_two_r": 2.576896648743503,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 13,
+          "anchor_distance": 2.8373093036789223,
+          "common_radius_lower_bound": 1.4186546518394612,
+          "excess_over_two_r": 2.5873093036789223,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 14,
+          "anchor_distance": 2.8248193137058655,
+          "common_radius_lower_bound": 1.4124096568529327,
+          "excess_over_two_r": 2.5748193137058655,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 15,
+          "anchor_distance": 2.8215535029653256,
+          "common_radius_lower_bound": 1.4107767514826628,
+          "excess_over_two_r": 2.5715535029653256,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 16,
+          "anchor_distance": 2.846313891356047,
+          "common_radius_lower_bound": 1.4231569456780235,
+          "excess_over_two_r": 2.596313891356047,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 17,
+          "anchor_distance": 2.816740722391382,
+          "common_radius_lower_bound": 1.408370361195691,
+          "excess_over_two_r": 2.566740722391382,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 18,
+          "anchor_distance": 2.823674008078973,
+          "common_radius_lower_bound": 1.4118370040394865,
+          "excess_over_two_r": 2.573674008078973,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 19,
+          "anchor_distance": 2.8380130053262027,
+          "common_radius_lower_bound": 1.4190065026631014,
+          "excess_over_two_r": 2.5880130053262027,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 20,
+          "anchor_distance": 2.826983982814581,
+          "common_radius_lower_bound": 1.4134919914072905,
+          "excess_over_two_r": 2.576983982814581,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 21,
+          "anchor_distance": 2.8403137986264815,
+          "common_radius_lower_bound": 1.4201568993132407,
+          "excess_over_two_r": 2.5903137986264815,
+          "incompatible": true
+        },
+        {
+          "class_i": 0,
+          "class_j": 22,
+          "anchor_distance": 2.826923754523017,
+          "common_radius_lower_bound": 1.4134618772615084,
+          "excess_over_two_r": 2.576923754523017,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 2,
+          "anchor_distance": 2.8490417039362588,
+          "common_radius_lower_bound": 1.4245208519681294,
+          "excess_over_two_r": 2.5990417039362588,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 3,
+          "anchor_distance": 2.8482241489828573,
+          "common_radius_lower_bound": 1.4241120744914286,
+          "excess_over_two_r": 2.5982241489828573,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 4,
+          "anchor_distance": 2.868101279635861,
+          "common_radius_lower_bound": 1.4340506398179305,
+          "excess_over_two_r": 2.618101279635861,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 5,
+          "anchor_distance": 2.8682642622569383,
+          "common_radius_lower_bound": 1.4341321311284692,
+          "excess_over_two_r": 2.6182642622569383,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 6,
+          "anchor_distance": 2.8084122693661984,
+          "common_radius_lower_bound": 1.4042061346830992,
+          "excess_over_two_r": 2.5584122693661984,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 7,
+          "anchor_distance": 2.780311073961608,
+          "common_radius_lower_bound": 1.390155536980804,
+          "excess_over_two_r": 2.530311073961608,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 8,
+          "anchor_distance": 2.8019038897516793,
+          "common_radius_lower_bound": 1.4009519448758396,
+          "excess_over_two_r": 2.5519038897516793,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 9,
+          "anchor_distance": 2.8025218684624966,
+          "common_radius_lower_bound": 1.4012609342312483,
+          "excess_over_two_r": 2.5525218684624966,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 10,
+          "anchor_distance": 2.7582004066785797,
+          "common_radius_lower_bound": 1.3791002033392898,
+          "excess_over_two_r": 2.5082004066785797,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 11,
+          "anchor_distance": 2.832620338597638,
+          "common_radius_lower_bound": 1.416310169298819,
+          "excess_over_two_r": 2.582620338597638,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 12,
+          "anchor_distance": 2.8464497445795645,
+          "common_radius_lower_bound": 1.4232248722897822,
+          "excess_over_two_r": 2.5964497445795645,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 13,
+          "anchor_distance": 2.867974805134366,
+          "common_radius_lower_bound": 1.433987402567183,
+          "excess_over_two_r": 2.617974805134366,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 14,
+          "anchor_distance": 2.8387861690312906,
+          "common_radius_lower_bound": 1.4193930845156453,
+          "excess_over_two_r": 2.5887861690312906,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 15,
+          "anchor_distance": 2.7752813020220968,
+          "common_radius_lower_bound": 1.3876406510110484,
+          "excess_over_two_r": 2.5252813020220968,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 16,
+          "anchor_distance": 2.8684238022871336,
+          "common_radius_lower_bound": 1.4342119011435668,
+          "excess_over_two_r": 2.6184238022871336,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 17,
+          "anchor_distance": 2.8114504410637666,
+          "common_radius_lower_bound": 1.4057252205318833,
+          "excess_over_two_r": 2.5614504410637666,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 18,
+          "anchor_distance": 2.8150375024143615,
+          "common_radius_lower_bound": 1.4075187512071807,
+          "excess_over_two_r": 2.5650375024143615,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 19,
+          "anchor_distance": 2.8586656724030277,
+          "common_radius_lower_bound": 1.4293328362015139,
+          "excess_over_two_r": 2.6086656724030277,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 20,
+          "anchor_distance": 2.8283702045425265,
+          "common_radius_lower_bound": 1.4141851022712633,
+          "excess_over_two_r": 2.5783702045425265,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 21,
+          "anchor_distance": 2.821495510194138,
+          "common_radius_lower_bound": 1.410747755097069,
+          "excess_over_two_r": 2.571495510194138,
+          "incompatible": true
+        },
+        {
+          "class_i": 1,
+          "class_j": 22,
+          "anchor_distance": 2.841706657594725,
+          "common_radius_lower_bound": 1.4208533287973626,
+          "excess_over_two_r": 2.591706657594725,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 3,
+          "anchor_distance": 2.868358041259671,
+          "common_radius_lower_bound": 1.4341790206298355,
+          "excess_over_two_r": 2.618358041259671,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 4,
+          "anchor_distance": 2.804876774761973,
+          "common_radius_lower_bound": 1.4024383873809865,
+          "excess_over_two_r": 2.554876774761973,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 5,
+          "anchor_distance": 2.833899632172758,
+          "common_radius_lower_bound": 1.416949816086379,
+          "excess_over_two_r": 2.583899632172758,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 6,
+          "anchor_distance": 2.878531340920162,
+          "common_radius_lower_bound": 1.439265670460081,
+          "excess_over_two_r": 2.628531340920162,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 7,
+          "anchor_distance": 2.8013224067501854,
+          "common_radius_lower_bound": 1.4006612033750927,
+          "excess_over_two_r": 2.5513224067501854,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 8,
+          "anchor_distance": 2.824777128142858,
+          "common_radius_lower_bound": 1.412388564071429,
+          "excess_over_two_r": 2.574777128142858,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 9,
+          "anchor_distance": 2.823876819677646,
+          "common_radius_lower_bound": 1.411938409838823,
+          "excess_over_two_r": 2.573876819677646,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 10,
+          "anchor_distance": 2.8833276094603466,
+          "common_radius_lower_bound": 1.4416638047301733,
+          "excess_over_two_r": 2.6333276094603466,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 11,
+          "anchor_distance": 2.774171342429194,
+          "common_radius_lower_bound": 1.387085671214597,
+          "excess_over_two_r": 2.524171342429194,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 12,
+          "anchor_distance": 2.8640640097545407,
+          "common_radius_lower_bound": 1.4320320048772703,
+          "excess_over_two_r": 2.6140640097545407,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 13,
+          "anchor_distance": 2.8503909866789825,
+          "common_radius_lower_bound": 1.4251954933394912,
+          "excess_over_two_r": 2.6003909866789825,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 14,
+          "anchor_distance": 2.8615922095066724,
+          "common_radius_lower_bound": 1.4307961047533362,
+          "excess_over_two_r": 2.6115922095066724,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 15,
+          "anchor_distance": 2.8372934619116363,
+          "common_radius_lower_bound": 1.4186467309558182,
+          "excess_over_two_r": 2.5872934619116363,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 16,
+          "anchor_distance": 2.82366962366893,
+          "common_radius_lower_bound": 1.411834811834465,
+          "excess_over_two_r": 2.57366962366893,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 17,
+          "anchor_distance": 2.8295458316161857,
+          "common_radius_lower_bound": 1.4147729158080928,
+          "excess_over_two_r": 2.5795458316161857,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 18,
+          "anchor_distance": 2.74124955341607,
+          "common_radius_lower_bound": 1.370624776708035,
+          "excess_over_two_r": 2.49124955341607,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 19,
+          "anchor_distance": 2.8059775133488873,
+          "common_radius_lower_bound": 1.4029887566744437,
+          "excess_over_two_r": 2.5559775133488873,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 20,
+          "anchor_distance": 2.791296359214107,
+          "common_radius_lower_bound": 1.3956481796070535,
+          "excess_over_two_r": 2.541296359214107,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 21,
+          "anchor_distance": 2.8099751700687645,
+          "common_radius_lower_bound": 1.4049875850343823,
+          "excess_over_two_r": 2.5599751700687645,
+          "incompatible": true
+        },
+        {
+          "class_i": 2,
+          "class_j": 22,
+          "anchor_distance": 2.8928162221840026,
+          "common_radius_lower_bound": 1.4464081110920013,
+          "excess_over_two_r": 2.6428162221840026,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 4,
+          "anchor_distance": 2.8224476212815968,
+          "common_radius_lower_bound": 1.4112238106407984,
+          "excess_over_two_r": 2.5724476212815968,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 5,
+          "anchor_distance": 2.8177831250475736,
+          "common_radius_lower_bound": 1.4088915625237868,
+          "excess_over_two_r": 2.5677831250475736,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 6,
+          "anchor_distance": 2.8186472643572116,
+          "common_radius_lower_bound": 1.4093236321786058,
+          "excess_over_two_r": 2.5686472643572116,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 7,
+          "anchor_distance": 2.8577427555446984,
+          "common_radius_lower_bound": 1.4288713777723492,
+          "excess_over_two_r": 2.6077427555446984,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 8,
+          "anchor_distance": 2.8455627781810997,
+          "common_radius_lower_bound": 1.4227813890905499,
+          "excess_over_two_r": 2.5955627781810997,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 9,
+          "anchor_distance": 2.816005604910757,
+          "common_radius_lower_bound": 1.4080028024553786,
+          "excess_over_two_r": 2.566005604910757,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 10,
+          "anchor_distance": 2.858509924709234,
+          "common_radius_lower_bound": 1.429254962354617,
+          "excess_over_two_r": 2.608509924709234,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 11,
+          "anchor_distance": 2.8340084296542485,
+          "common_radius_lower_bound": 1.4170042148271242,
+          "excess_over_two_r": 2.5840084296542485,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 12,
+          "anchor_distance": 2.792695445596964,
+          "common_radius_lower_bound": 1.396347722798482,
+          "excess_over_two_r": 2.542695445596964,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 13,
+          "anchor_distance": 2.82551281282976,
+          "common_radius_lower_bound": 1.41275640641488,
+          "excess_over_two_r": 2.57551281282976,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 14,
+          "anchor_distance": 2.841837451217587,
+          "common_radius_lower_bound": 1.4209187256087934,
+          "excess_over_two_r": 2.591837451217587,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 15,
+          "anchor_distance": 2.842190049750793,
+          "common_radius_lower_bound": 1.4210950248753964,
+          "excess_over_two_r": 2.592190049750793,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 16,
+          "anchor_distance": 2.817030599502778,
+          "common_radius_lower_bound": 1.408515299751389,
+          "excess_over_two_r": 2.567030599502778,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 17,
+          "anchor_distance": 2.8070071744616176,
+          "common_radius_lower_bound": 1.4035035872308088,
+          "excess_over_two_r": 2.5570071744616176,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 18,
+          "anchor_distance": 2.849713866563765,
+          "common_radius_lower_bound": 1.4248569332818826,
+          "excess_over_two_r": 2.599713866563765,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 19,
+          "anchor_distance": 2.829688315945193,
+          "common_radius_lower_bound": 1.4148441579725966,
+          "excess_over_two_r": 2.579688315945193,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 20,
+          "anchor_distance": 2.8126626800161603,
+          "common_radius_lower_bound": 1.4063313400080801,
+          "excess_over_two_r": 2.5626626800161603,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 21,
+          "anchor_distance": 2.811359722725346,
+          "common_radius_lower_bound": 1.405679861362673,
+          "excess_over_two_r": 2.561359722725346,
+          "incompatible": true
+        },
+        {
+          "class_i": 3,
+          "class_j": 22,
+          "anchor_distance": 2.816701993769587,
+          "common_radius_lower_bound": 1.4083509968847936,
+          "excess_over_two_r": 2.566701993769587,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 5,
+          "anchor_distance": 2.8079901957764717,
+          "common_radius_lower_bound": 1.4039950978882358,
+          "excess_over_two_r": 2.5579901957764717,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 6,
+          "anchor_distance": 2.828475900396358,
+          "common_radius_lower_bound": 1.414237950198179,
+          "excess_over_two_r": 2.578475900396358,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 7,
+          "anchor_distance": 2.833867838615104,
+          "common_radius_lower_bound": 1.416933919307552,
+          "excess_over_two_r": 2.583867838615104,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 8,
+          "anchor_distance": 2.834966350126341,
+          "common_radius_lower_bound": 1.4174831750631705,
+          "excess_over_two_r": 2.584966350126341,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 9,
+          "anchor_distance": 2.839910190271467,
+          "common_radius_lower_bound": 1.4199550951357336,
+          "excess_over_two_r": 2.589910190271467,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 10,
+          "anchor_distance": 2.846184354757468,
+          "common_radius_lower_bound": 1.423092177378734,
+          "excess_over_two_r": 2.596184354757468,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 11,
+          "anchor_distance": 2.8110952841640837,
+          "common_radius_lower_bound": 1.4055476420820419,
+          "excess_over_two_r": 2.5610952841640837,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 12,
+          "anchor_distance": 2.8486935604247203,
+          "common_radius_lower_bound": 1.4243467802123602,
+          "excess_over_two_r": 2.5986935604247203,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 13,
+          "anchor_distance": 2.84508669294116,
+          "common_radius_lower_bound": 1.42254334647058,
+          "excess_over_two_r": 2.59508669294116,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 14,
+          "anchor_distance": 2.8424375308330974,
+          "common_radius_lower_bound": 1.4212187654165487,
+          "excess_over_two_r": 2.5924375308330974,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 15,
+          "anchor_distance": 2.8513953897758326,
+          "common_radius_lower_bound": 1.4256976948879163,
+          "excess_over_two_r": 2.6013953897758326,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 16,
+          "anchor_distance": 2.7826651143830428,
+          "common_radius_lower_bound": 1.3913325571915214,
+          "excess_over_two_r": 2.5326651143830428,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 17,
+          "anchor_distance": 2.836881396235455,
+          "common_radius_lower_bound": 1.4184406981177275,
+          "excess_over_two_r": 2.586881396235455,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 18,
+          "anchor_distance": 2.8210416317771365,
+          "common_radius_lower_bound": 1.4105208158885683,
+          "excess_over_two_r": 2.5710416317771365,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 19,
+          "anchor_distance": 2.8242091421405373,
+          "common_radius_lower_bound": 1.4121045710702687,
+          "excess_over_two_r": 2.5742091421405373,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 20,
+          "anchor_distance": 2.8068013605907263,
+          "common_radius_lower_bound": 1.4034006802953631,
+          "excess_over_two_r": 2.5568013605907263,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 21,
+          "anchor_distance": 2.837197810417609,
+          "common_radius_lower_bound": 1.4185989052088046,
+          "excess_over_two_r": 2.587197810417609,
+          "incompatible": true
+        },
+        {
+          "class_i": 4,
+          "class_j": 22,
+          "anchor_distance": 2.8231803490464045,
+          "common_radius_lower_bound": 1.4115901745232022,
+          "excess_over_two_r": 2.5731803490464045,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 6,
+          "anchor_distance": 2.8254159706673034,
+          "common_radius_lower_bound": 1.4127079853336517,
+          "excess_over_two_r": 2.5754159706673034,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 7,
+          "anchor_distance": 2.8341050540750845,
+          "common_radius_lower_bound": 1.4170525270375423,
+          "excess_over_two_r": 2.5841050540750845,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 8,
+          "anchor_distance": 2.814284527065193,
+          "common_radius_lower_bound": 1.4071422635325965,
+          "excess_over_two_r": 2.564284527065193,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 9,
+          "anchor_distance": 2.836307878575721,
+          "common_radius_lower_bound": 1.4181539392878606,
+          "excess_over_two_r": 2.586307878575721,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 10,
+          "anchor_distance": 2.8411231283920073,
+          "common_radius_lower_bound": 1.4205615641960037,
+          "excess_over_two_r": 2.5911231283920073,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 11,
+          "anchor_distance": 2.8425304434131613,
+          "common_radius_lower_bound": 1.4212652217065807,
+          "excess_over_two_r": 2.5925304434131613,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 12,
+          "anchor_distance": 2.79702760259196,
+          "common_radius_lower_bound": 1.39851380129598,
+          "excess_over_two_r": 2.54702760259196,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 13,
+          "anchor_distance": 2.846294937380914,
+          "common_radius_lower_bound": 1.423147468690457,
+          "excess_over_two_r": 2.596294937380914,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 14,
+          "anchor_distance": 2.8202686053457087,
+          "common_radius_lower_bound": 1.4101343026728543,
+          "excess_over_two_r": 2.5702686053457087,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 15,
+          "anchor_distance": 2.8343379594198814,
+          "common_radius_lower_bound": 1.4171689797099407,
+          "excess_over_two_r": 2.5843379594198814,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 16,
+          "anchor_distance": 2.8500542476147475,
+          "common_radius_lower_bound": 1.4250271238073737,
+          "excess_over_two_r": 2.6000542476147475,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 17,
+          "anchor_distance": 2.819754857326631,
+          "common_radius_lower_bound": 1.4098774286633156,
+          "excess_over_two_r": 2.569754857326631,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 18,
+          "anchor_distance": 2.8572326327728312,
+          "common_radius_lower_bound": 1.4286163163864156,
+          "excess_over_two_r": 2.6072326327728312,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 19,
+          "anchor_distance": 2.8268813044106236,
+          "common_radius_lower_bound": 1.4134406522053118,
+          "excess_over_two_r": 2.5768813044106236,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 20,
+          "anchor_distance": 2.8310710094077827,
+          "common_radius_lower_bound": 1.4155355047038913,
+          "excess_over_two_r": 2.5810710094077827,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 21,
+          "anchor_distance": 2.8280432622306937,
+          "common_radius_lower_bound": 1.4140216311153468,
+          "excess_over_two_r": 2.5780432622306937,
+          "incompatible": true
+        },
+        {
+          "class_i": 5,
+          "class_j": 22,
+          "anchor_distance": 2.837363816112296,
+          "common_radius_lower_bound": 1.418681908056148,
+          "excess_over_two_r": 2.587363816112296,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 7,
+          "anchor_distance": 2.8358072435707924,
+          "common_radius_lower_bound": 1.4179036217853962,
+          "excess_over_two_r": 2.5858072435707924,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 8,
+          "anchor_distance": 2.8312552348052784,
+          "common_radius_lower_bound": 1.4156276174026392,
+          "excess_over_two_r": 2.5812552348052784,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 9,
+          "anchor_distance": 2.831010658179401,
+          "common_radius_lower_bound": 1.4155053290897004,
+          "excess_over_two_r": 2.581010658179401,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 10,
+          "anchor_distance": 2.839175933946641,
+          "common_radius_lower_bound": 1.4195879669733205,
+          "excess_over_two_r": 2.589175933946641,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 11,
+          "anchor_distance": 2.8382709666733357,
+          "common_radius_lower_bound": 1.4191354833366678,
+          "excess_over_two_r": 2.5882709666733357,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 12,
+          "anchor_distance": 2.819883725420372,
+          "common_radius_lower_bound": 1.409941862710186,
+          "excess_over_two_r": 2.569883725420372,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 13,
+          "anchor_distance": 2.880353278071575,
+          "common_radius_lower_bound": 1.4401766390357875,
+          "excess_over_two_r": 2.630353278071575,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 14,
+          "anchor_distance": 2.8338890513094994,
+          "common_radius_lower_bound": 1.4169445256547497,
+          "excess_over_two_r": 2.5838890513094994,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 15,
+          "anchor_distance": 2.8054236190391073,
+          "common_radius_lower_bound": 1.4027118095195537,
+          "excess_over_two_r": 2.5554236190391073,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 16,
+          "anchor_distance": 2.8205622990608936,
+          "common_radius_lower_bound": 1.4102811495304468,
+          "excess_over_two_r": 2.5705622990608936,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 17,
+          "anchor_distance": 2.812385965300595,
+          "common_radius_lower_bound": 1.4061929826502975,
+          "excess_over_two_r": 2.562385965300595,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 18,
+          "anchor_distance": 2.842353946774479,
+          "common_radius_lower_bound": 1.4211769733872395,
+          "excess_over_two_r": 2.592353946774479,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 19,
+          "anchor_distance": 2.8228659304676658,
+          "common_radius_lower_bound": 1.4114329652338329,
+          "excess_over_two_r": 2.5728659304676658,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 20,
+          "anchor_distance": 2.8577847541642187,
+          "common_radius_lower_bound": 1.4288923770821094,
+          "excess_over_two_r": 2.6077847541642187,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 21,
+          "anchor_distance": 2.8101055653780525,
+          "common_radius_lower_bound": 1.4050527826890262,
+          "excess_over_two_r": 2.5601055653780525,
+          "incompatible": true
+        },
+        {
+          "class_i": 6,
+          "class_j": 22,
+          "anchor_distance": 2.8374060798920797,
+          "common_radius_lower_bound": 1.4187030399460399,
+          "excess_over_two_r": 2.5874060798920797,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 8,
+          "anchor_distance": 2.8340235412610437,
+          "common_radius_lower_bound": 1.4170117706305219,
+          "excess_over_two_r": 2.5840235412610437,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 9,
+          "anchor_distance": 2.8550733227750276,
+          "common_radius_lower_bound": 1.4275366613875138,
+          "excess_over_two_r": 2.6050733227750276,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 10,
+          "anchor_distance": 2.8253704726085505,
+          "common_radius_lower_bound": 1.4126852363042752,
+          "excess_over_two_r": 2.5753704726085505,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 11,
+          "anchor_distance": 2.8250176574937504,
+          "common_radius_lower_bound": 1.4125088287468752,
+          "excess_over_two_r": 2.5750176574937504,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 12,
+          "anchor_distance": 2.837196102981713,
+          "common_radius_lower_bound": 1.4185980514908565,
+          "excess_over_two_r": 2.587196102981713,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 13,
+          "anchor_distance": 2.818238952491266,
+          "common_radius_lower_bound": 1.409119476245633,
+          "excess_over_two_r": 2.568238952491266,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 14,
+          "anchor_distance": 2.8027220004436377,
+          "common_radius_lower_bound": 1.4013610002218189,
+          "excess_over_two_r": 2.5527220004436377,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 15,
+          "anchor_distance": 2.772315173992274,
+          "common_radius_lower_bound": 1.386157586996137,
+          "excess_over_two_r": 2.522315173992274,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 16,
+          "anchor_distance": 2.830356624455609,
+          "common_radius_lower_bound": 1.4151783122278045,
+          "excess_over_two_r": 2.580356624455609,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 17,
+          "anchor_distance": 2.8225575910564364,
+          "common_radius_lower_bound": 1.4112787955282182,
+          "excess_over_two_r": 2.5725575910564364,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 18,
+          "anchor_distance": 2.7974067375910714,
+          "common_radius_lower_bound": 1.3987033687955357,
+          "excess_over_two_r": 2.5474067375910714,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 19,
+          "anchor_distance": 2.8305837250612056,
+          "common_radius_lower_bound": 1.4152918625306028,
+          "excess_over_two_r": 2.5805837250612056,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 20,
+          "anchor_distance": 2.8384594787328896,
+          "common_radius_lower_bound": 1.4192297393664448,
+          "excess_over_two_r": 2.5884594787328896,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 21,
+          "anchor_distance": 2.8209597265591766,
+          "common_radius_lower_bound": 1.4104798632795883,
+          "excess_over_two_r": 2.5709597265591766,
+          "incompatible": true
+        },
+        {
+          "class_i": 7,
+          "class_j": 22,
+          "anchor_distance": 2.827388428372424,
+          "common_radius_lower_bound": 1.413694214186212,
+          "excess_over_two_r": 2.577388428372424,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 9,
+          "anchor_distance": 2.820644699178647,
+          "common_radius_lower_bound": 1.4103223495893236,
+          "excess_over_two_r": 2.570644699178647,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 10,
+          "anchor_distance": 2.8324273328490137,
+          "common_radius_lower_bound": 1.4162136664245069,
+          "excess_over_two_r": 2.5824273328490137,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 11,
+          "anchor_distance": 2.822748605966685,
+          "common_radius_lower_bound": 1.4113743029833425,
+          "excess_over_two_r": 2.572748605966685,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 12,
+          "anchor_distance": 2.7811344308338986,
+          "common_radius_lower_bound": 1.3905672154169493,
+          "excess_over_two_r": 2.5311344308338986,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 13,
+          "anchor_distance": 2.8170733545451014,
+          "common_radius_lower_bound": 1.4085366772725507,
+          "excess_over_two_r": 2.5670733545451014,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 14,
+          "anchor_distance": 2.8595438135103683,
+          "common_radius_lower_bound": 1.4297719067551842,
+          "excess_over_two_r": 2.6095438135103683,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 15,
+          "anchor_distance": 2.8323928743003917,
+          "common_radius_lower_bound": 1.4161964371501958,
+          "excess_over_two_r": 2.5823928743003917,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 16,
+          "anchor_distance": 2.795762240553455,
+          "common_radius_lower_bound": 1.3978811202767274,
+          "excess_over_two_r": 2.545762240553455,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 17,
+          "anchor_distance": 2.8232602406115173,
+          "common_radius_lower_bound": 1.4116301203057586,
+          "excess_over_two_r": 2.5732602406115173,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 18,
+          "anchor_distance": 2.851006853286077,
+          "common_radius_lower_bound": 1.4255034266430384,
+          "excess_over_two_r": 2.601006853286077,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 19,
+          "anchor_distance": 2.812911013210064,
+          "common_radius_lower_bound": 1.406455506605032,
+          "excess_over_two_r": 2.562911013210064,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 20,
+          "anchor_distance": 2.838970342096852,
+          "common_radius_lower_bound": 1.419485171048426,
+          "excess_over_two_r": 2.588970342096852,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 21,
+          "anchor_distance": 2.830307687061275,
+          "common_radius_lower_bound": 1.4151538435306374,
+          "excess_over_two_r": 2.580307687061275,
+          "incompatible": true
+        },
+        {
+          "class_i": 8,
+          "class_j": 22,
+          "anchor_distance": 2.8288057252786243,
+          "common_radius_lower_bound": 1.4144028626393121,
+          "excess_over_two_r": 2.5788057252786243,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 10,
+          "anchor_distance": 2.797232075777169,
+          "common_radius_lower_bound": 1.3986160378885846,
+          "excess_over_two_r": 2.547232075777169,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 11,
+          "anchor_distance": 2.785502004425945,
+          "common_radius_lower_bound": 1.3927510022129725,
+          "excess_over_two_r": 2.535502004425945,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 12,
+          "anchor_distance": 2.8072614941309517,
+          "common_radius_lower_bound": 1.4036307470654759,
+          "excess_over_two_r": 2.5572614941309517,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 13,
+          "anchor_distance": 2.841112503877843,
+          "common_radius_lower_bound": 1.4205562519389214,
+          "excess_over_two_r": 2.591112503877843,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 14,
+          "anchor_distance": 2.79025630091448,
+          "common_radius_lower_bound": 1.39512815045724,
+          "excess_over_two_r": 2.54025630091448,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 15,
+          "anchor_distance": 2.80904046008413,
+          "common_radius_lower_bound": 1.404520230042065,
+          "excess_over_two_r": 2.55904046008413,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 16,
+          "anchor_distance": 2.846125587961933,
+          "common_radius_lower_bound": 1.4230627939809666,
+          "excess_over_two_r": 2.596125587961933,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 17,
+          "anchor_distance": 2.8320943351924486,
+          "common_radius_lower_bound": 1.4160471675962243,
+          "excess_over_two_r": 2.5820943351924486,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 18,
+          "anchor_distance": 2.8543050732351625,
+          "common_radius_lower_bound": 1.4271525366175812,
+          "excess_over_two_r": 2.6043050732351625,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 19,
+          "anchor_distance": 2.8448170332518723,
+          "common_radius_lower_bound": 1.4224085166259361,
+          "excess_over_two_r": 2.5948170332518723,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 20,
+          "anchor_distance": 2.8505552511800762,
+          "common_radius_lower_bound": 1.4252776255900381,
+          "excess_over_two_r": 2.6005552511800762,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 21,
+          "anchor_distance": 2.823768637303636,
+          "common_radius_lower_bound": 1.411884318651818,
+          "excess_over_two_r": 2.573768637303636,
+          "incompatible": true
+        },
+        {
+          "class_i": 9,
+          "class_j": 22,
+          "anchor_distance": 2.827139297444718,
+          "common_radius_lower_bound": 1.413569648722359,
+          "excess_over_two_r": 2.577139297444718,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 11,
+          "anchor_distance": 2.833713960233306,
+          "common_radius_lower_bound": 1.416856980116653,
+          "excess_over_two_r": 2.583713960233306,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 12,
+          "anchor_distance": 2.8326650793642068,
+          "common_radius_lower_bound": 1.4163325396821034,
+          "excess_over_two_r": 2.5826650793642068,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 13,
+          "anchor_distance": 2.844492560919625,
+          "common_radius_lower_bound": 1.4222462804598126,
+          "excess_over_two_r": 2.594492560919625,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 14,
+          "anchor_distance": 2.811335051229791,
+          "common_radius_lower_bound": 1.4056675256148956,
+          "excess_over_two_r": 2.561335051229791,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 15,
+          "anchor_distance": 2.883611913401346,
+          "common_radius_lower_bound": 1.441805956700673,
+          "excess_over_two_r": 2.633611913401346,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 16,
+          "anchor_distance": 2.8221357442872903,
+          "common_radius_lower_bound": 1.4110678721436452,
+          "excess_over_two_r": 2.5721357442872903,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 17,
+          "anchor_distance": 2.811713348519814,
+          "common_radius_lower_bound": 1.405856674259907,
+          "excess_over_two_r": 2.561713348519814,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 18,
+          "anchor_distance": 2.8349817155905055,
+          "common_radius_lower_bound": 1.4174908577952527,
+          "excess_over_two_r": 2.5849817155905055,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 19,
+          "anchor_distance": 2.8277449335794933,
+          "common_radius_lower_bound": 1.4138724667897467,
+          "excess_over_two_r": 2.5777449335794933,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 20,
+          "anchor_distance": 2.8448443122030893,
+          "common_radius_lower_bound": 1.4224221561015447,
+          "excess_over_two_r": 2.5948443122030893,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 21,
+          "anchor_distance": 2.820728498280524,
+          "common_radius_lower_bound": 1.410364249140262,
+          "excess_over_two_r": 2.570728498280524,
+          "incompatible": true
+        },
+        {
+          "class_i": 10,
+          "class_j": 22,
+          "anchor_distance": 2.8108348225007447,
+          "common_radius_lower_bound": 1.4054174112503723,
+          "excess_over_two_r": 2.5608348225007447,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 12,
+          "anchor_distance": 2.798351122264013,
+          "common_radius_lower_bound": 1.3991755611320065,
+          "excess_over_two_r": 2.548351122264013,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 13,
+          "anchor_distance": 2.8131303716204683,
+          "common_radius_lower_bound": 1.4065651858102342,
+          "excess_over_two_r": 2.5631303716204683,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 14,
+          "anchor_distance": 2.81442186477027,
+          "common_radius_lower_bound": 1.407210932385135,
+          "excess_over_two_r": 2.56442186477027,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 15,
+          "anchor_distance": 2.842098645292405,
+          "common_radius_lower_bound": 1.4210493226462024,
+          "excess_over_two_r": 2.592098645292405,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 16,
+          "anchor_distance": 2.8163054372288374,
+          "common_radius_lower_bound": 1.4081527186144187,
+          "excess_over_two_r": 2.5663054372288374,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 17,
+          "anchor_distance": 2.849916899551952,
+          "common_radius_lower_bound": 1.424958449775976,
+          "excess_over_two_r": 2.599916899551952,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 18,
+          "anchor_distance": 2.822952758521801,
+          "common_radius_lower_bound": 1.4114763792609004,
+          "excess_over_two_r": 2.572952758521801,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 19,
+          "anchor_distance": 2.800104426566164,
+          "common_radius_lower_bound": 1.400052213283082,
+          "excess_over_two_r": 2.550104426566164,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 20,
+          "anchor_distance": 2.8431337459530077,
+          "common_radius_lower_bound": 1.4215668729765039,
+          "excess_over_two_r": 2.5931337459530077,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 21,
+          "anchor_distance": 2.8254983302049768,
+          "common_radius_lower_bound": 1.4127491651024884,
+          "excess_over_two_r": 2.5754983302049768,
+          "incompatible": true
+        },
+        {
+          "class_i": 11,
+          "class_j": 22,
+          "anchor_distance": 2.8169044358102777,
+          "common_radius_lower_bound": 1.4084522179051389,
+          "excess_over_two_r": 2.5669044358102777,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 13,
+          "anchor_distance": 2.824662486131286,
+          "common_radius_lower_bound": 1.412331243065643,
+          "excess_over_two_r": 2.574662486131286,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 14,
+          "anchor_distance": 2.8317012351582447,
+          "common_radius_lower_bound": 1.4158506175791223,
+          "excess_over_two_r": 2.5817012351582447,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 15,
+          "anchor_distance": 2.853052140659559,
+          "common_radius_lower_bound": 1.4265260703297795,
+          "excess_over_two_r": 2.603052140659559,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 16,
+          "anchor_distance": 2.826049838582028,
+          "common_radius_lower_bound": 1.413024919291014,
+          "excess_over_two_r": 2.576049838582028,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 17,
+          "anchor_distance": 2.8155708943230553,
+          "common_radius_lower_bound": 1.4077854471615276,
+          "excess_over_two_r": 2.5655708943230553,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 18,
+          "anchor_distance": 2.7710646115606528,
+          "common_radius_lower_bound": 1.3855323057803264,
+          "excess_over_two_r": 2.5210646115606528,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 19,
+          "anchor_distance": 2.8161355827996615,
+          "common_radius_lower_bound": 1.4080677913998307,
+          "excess_over_two_r": 2.5661355827996615,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 20,
+          "anchor_distance": 2.8166591650873762,
+          "common_radius_lower_bound": 1.4083295825436881,
+          "excess_over_two_r": 2.5666591650873762,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 21,
+          "anchor_distance": 2.8748495662379225,
+          "common_radius_lower_bound": 1.4374247831189613,
+          "excess_over_two_r": 2.6248495662379225,
+          "incompatible": true
+        },
+        {
+          "class_i": 12,
+          "class_j": 22,
+          "anchor_distance": 2.838582319392574,
+          "common_radius_lower_bound": 1.419291159696287,
+          "excess_over_two_r": 2.588582319392574,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 14,
+          "anchor_distance": 2.8301980286469934,
+          "common_radius_lower_bound": 1.4150990143234967,
+          "excess_over_two_r": 2.5801980286469934,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 15,
+          "anchor_distance": 2.846427982568615,
+          "common_radius_lower_bound": 1.4232139912843076,
+          "excess_over_two_r": 2.596427982568615,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 16,
+          "anchor_distance": 2.777577954787344,
+          "common_radius_lower_bound": 1.388788977393672,
+          "excess_over_two_r": 2.527577954787344,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 17,
+          "anchor_distance": 2.813648358939928,
+          "common_radius_lower_bound": 1.406824179469964,
+          "excess_over_two_r": 2.563648358939928,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 18,
+          "anchor_distance": 2.8296866028149745,
+          "common_radius_lower_bound": 1.4148433014074873,
+          "excess_over_two_r": 2.5796866028149745,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 19,
+          "anchor_distance": 2.8270498730616076,
+          "common_radius_lower_bound": 1.4135249365308038,
+          "excess_over_two_r": 2.5770498730616076,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 20,
+          "anchor_distance": 2.81181890150255,
+          "common_radius_lower_bound": 1.405909450751275,
+          "excess_over_two_r": 2.56181890150255,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 21,
+          "anchor_distance": 2.830856798978943,
+          "common_radius_lower_bound": 1.4154283994894714,
+          "excess_over_two_r": 2.580856798978943,
+          "incompatible": true
+        },
+        {
+          "class_i": 13,
+          "class_j": 22,
+          "anchor_distance": 2.8576920964064163,
+          "common_radius_lower_bound": 1.4288460482032082,
+          "excess_over_two_r": 2.6076920964064163,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 15,
+          "anchor_distance": 2.8430242011186886,
+          "common_radius_lower_bound": 1.4215121005593443,
+          "excess_over_two_r": 2.5930242011186886,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 16,
+          "anchor_distance": 2.885650147716711,
+          "common_radius_lower_bound": 1.4428250738583555,
+          "excess_over_two_r": 2.635650147716711,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 17,
+          "anchor_distance": 2.8200233453521246,
+          "common_radius_lower_bound": 1.4100116726760623,
+          "excess_over_two_r": 2.5700233453521246,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 18,
+          "anchor_distance": 2.8381846410365292,
+          "common_radius_lower_bound": 1.4190923205182646,
+          "excess_over_two_r": 2.5881846410365292,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 19,
+          "anchor_distance": 2.8405785978350484,
+          "common_radius_lower_bound": 1.4202892989175242,
+          "excess_over_two_r": 2.5905785978350484,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 20,
+          "anchor_distance": 2.8084745336151298,
+          "common_radius_lower_bound": 1.4042372668075649,
+          "excess_over_two_r": 2.5584745336151298,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 21,
+          "anchor_distance": 2.8134863468139772,
+          "common_radius_lower_bound": 1.4067431734069886,
+          "excess_over_two_r": 2.5634863468139772,
+          "incompatible": true
+        },
+        {
+          "class_i": 14,
+          "class_j": 22,
+          "anchor_distance": 2.842280838722606,
+          "common_radius_lower_bound": 1.421140419361303,
+          "excess_over_two_r": 2.592280838722606,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 16,
+          "anchor_distance": 2.8815870622582094,
+          "common_radius_lower_bound": 1.4407935311291047,
+          "excess_over_two_r": 2.6315870622582094,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 17,
+          "anchor_distance": 2.85153847736639,
+          "common_radius_lower_bound": 1.425769238683195,
+          "excess_over_two_r": 2.60153847736639,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 18,
+          "anchor_distance": 2.8287058277458654,
+          "common_radius_lower_bound": 1.4143529138729327,
+          "excess_over_two_r": 2.5787058277458654,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 19,
+          "anchor_distance": 2.7989111237494146,
+          "common_radius_lower_bound": 1.3994555618747073,
+          "excess_over_two_r": 2.5489111237494146,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 20,
+          "anchor_distance": 2.8147135953192923,
+          "common_radius_lower_bound": 1.4073567976596462,
+          "excess_over_two_r": 2.5647135953192923,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 21,
+          "anchor_distance": 2.812558281098868,
+          "common_radius_lower_bound": 1.406279140549434,
+          "excess_over_two_r": 2.562558281098868,
+          "incompatible": true
+        },
+        {
+          "class_i": 15,
+          "class_j": 22,
+          "anchor_distance": 2.7943930007779554,
+          "common_radius_lower_bound": 1.3971965003889777,
+          "excess_over_two_r": 2.5443930007779554,
+          "incompatible": true
+        },
+        {
+          "class_i": 16,
+          "class_j": 17,
+          "anchor_distance": 2.8021502129916382,
+          "common_radius_lower_bound": 1.4010751064958191,
+          "excess_over_two_r": 2.5521502129916382,
+          "incompatible": true
+        },
+        {
+          "class_i": 16,
+          "class_j": 18,
+          "anchor_distance": 2.8349295631769373,
+          "common_radius_lower_bound": 1.4174647815884687,
+          "excess_over_two_r": 2.5849295631769373,
+          "incompatible": true
+        },
+        {
+          "class_i": 16,
+          "class_j": 19,
+          "anchor_distance": 2.8205671579944043,
+          "common_radius_lower_bound": 1.4102835789972021,
+          "excess_over_two_r": 2.5705671579944043,
+          "incompatible": true
+        },
+        {
+          "class_i": 16,
+          "class_j": 20,
+          "anchor_distance": 2.817175224712421,
+          "common_radius_lower_bound": 1.4085876123562104,
+          "excess_over_two_r": 2.567175224712421,
+          "incompatible": true
+        },
+        {
+          "class_i": 16,
+          "class_j": 21,
+          "anchor_distance": 2.8520060829641527,
+          "common_radius_lower_bound": 1.4260030414820764,
+          "excess_over_two_r": 2.6020060829641527,
+          "incompatible": true
+        },
+        {
+          "class_i": 16,
+          "class_j": 22,
+          "anchor_distance": 2.81225598500727,
+          "common_radius_lower_bound": 1.406127992503635,
+          "excess_over_two_r": 2.56225598500727,
+          "incompatible": true
+        },
+        {
+          "class_i": 17,
+          "class_j": 18,
+          "anchor_distance": 2.8595487010772698,
+          "common_radius_lower_bound": 1.4297743505386349,
+          "excess_over_two_r": 2.6095487010772698,
+          "incompatible": true
+        },
+        {
+          "class_i": 17,
+          "class_j": 19,
+          "anchor_distance": 2.8253752397438667,
+          "common_radius_lower_bound": 1.4126876198719334,
+          "excess_over_two_r": 2.5753752397438667,
+          "incompatible": true
+        },
+        {
+          "class_i": 17,
+          "class_j": 20,
+          "anchor_distance": 2.8320135225020957,
+          "common_radius_lower_bound": 1.4160067612510479,
+          "excess_over_two_r": 2.5820135225020957,
+          "incompatible": true
+        },
+        {
+          "class_i": 17,
+          "class_j": 21,
+          "anchor_distance": 2.834397564664636,
+          "common_radius_lower_bound": 1.417198782332318,
+          "excess_over_two_r": 2.584397564664636,
+          "incompatible": true
+        },
+        {
+          "class_i": 17,
+          "class_j": 22,
+          "anchor_distance": 2.8260063020512995,
+          "common_radius_lower_bound": 1.4130031510256498,
+          "excess_over_two_r": 2.5760063020512995,
+          "incompatible": true
+        },
+        {
+          "class_i": 18,
+          "class_j": 19,
+          "anchor_distance": 2.831566048600887,
+          "common_radius_lower_bound": 1.4157830243004434,
+          "excess_over_two_r": 2.581566048600887,
+          "incompatible": true
+        },
+        {
+          "class_i": 18,
+          "class_j": 20,
+          "anchor_distance": 2.852706995625521,
+          "common_radius_lower_bound": 1.4263534978127606,
+          "excess_over_two_r": 2.602706995625521,
+          "incompatible": true
+        },
+        {
+          "class_i": 18,
+          "class_j": 21,
+          "anchor_distance": 2.8366014749343047,
+          "common_radius_lower_bound": 1.4183007374671524,
+          "excess_over_two_r": 2.5866014749343047,
+          "incompatible": true
+        },
+        {
+          "class_i": 18,
+          "class_j": 22,
+          "anchor_distance": 2.830272094135045,
+          "common_radius_lower_bound": 1.4151360470675225,
+          "excess_over_two_r": 2.580272094135045,
+          "incompatible": true
+        },
+        {
+          "class_i": 19,
+          "class_j": 20,
+          "anchor_distance": 2.8215454912643088,
+          "common_radius_lower_bound": 1.4107727456321544,
+          "excess_over_two_r": 2.5715454912643088,
+          "incompatible": true
+        },
+        {
+          "class_i": 19,
+          "class_j": 21,
+          "anchor_distance": 2.820933365147002,
+          "common_radius_lower_bound": 1.410466682573501,
+          "excess_over_two_r": 2.570933365147002,
+          "incompatible": true
+        },
+        {
+          "class_i": 19,
+          "class_j": 22,
+          "anchor_distance": 2.834583201027915,
+          "common_radius_lower_bound": 1.4172916005139575,
+          "excess_over_two_r": 2.584583201027915,
+          "incompatible": true
+        },
+        {
+          "class_i": 20,
+          "class_j": 21,
+          "anchor_distance": 2.828880573303756,
+          "common_radius_lower_bound": 1.414440286651878,
+          "excess_over_two_r": 2.578880573303756,
+          "incompatible": true
+        },
+        {
+          "class_i": 20,
+          "class_j": 22,
+          "anchor_distance": 2.806896333200668,
+          "common_radius_lower_bound": 1.403448166600334,
+          "excess_over_two_r": 2.556896333200668,
+          "incompatible": true
+        },
+        {
+          "class_i": 21,
+          "class_j": 22,
+          "anchor_distance": 2.8310582977012224,
+          "common_radius_lower_bound": 1.4155291488506112,
+          "excess_over_two_r": 2.5810582977012224,
+          "incompatible": true
+        }
+      ],
+      "shared_anchor_algebraic_control": {
+        "seen_classes": 23,
+        "status": "NONEMPTY_WITNESS",
+        "incompatible_pairs": 0,
+        "total_pairs": 253,
+        "necessary_common_radius_lower_bound": 0.0,
+        "mean_center_radius_upper_bound": 2.3085526988369393e-16,
+        "original_local_radius": 0.125
+      },
+      "loss_or_classifier_evaluated": false,
+      "old_fitted_memory_read": false,
+      "query_optimization_updates": 0,
+      "memory_optimization_updates": 0,
+      "id": "HK_scale",
+      "CPU_pipeline_seconds": 0.36747203581035137,
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "medical_checkpoints": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "formal_updates": 0,
+      "operation_seconds_including_import": 4.246585120912641
+    }
+  ]
+}

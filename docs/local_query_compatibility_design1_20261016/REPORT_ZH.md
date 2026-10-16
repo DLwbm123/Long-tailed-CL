@@ -1,7 +1,33 @@
-# 共享查询域兼容性：CPU启动报告
+# 共享查询域兼容性审计
 
-四独立CPU检查已启动，尚无最终结果。科学源39f159f4dc0abf483a60f901cfed0993efcc3e02；执行前remoteSHA/精确DESIGN匿名HTTP200、NAS nfs/free/probe、目标compile以及启动中性父子ps已核实。2线程/CUDA不可见，无optimizer/医学/val/test/GPU。
+DOMAIN_AUDIT_COMPLETE
 
-固定radius .125，不改变任何anchor/存储或旧门。计算class-specific anchor球在共享head参数空间能否同时调用：任意pair距离>2r证明空交集；无pair违反不能直接称可行。全12stage/287匿名pair及所有费用终态完整交付。该条件只针对同一v查询多个类，不等于所有多类方法不可能；相同anchor代数control不代表分类有效。
+|规模|阶段|已见类|结论|不兼容pair数|共同半径必要下界|均值center半径上界|
+|---|---:|---:|---|---:|---:|---:|
+|small|1|2|EMPTY_INTERSECTION_CERTIFIED|1|1.4031707187583429|1.4031707187583429|
+|small|2|3|EMPTY_INTERSECTION_CERTIFIED|3|1.4335228487480267|1.6523355884630362|
+|small|3|4|EMPTY_INTERSECTION_CERTIFIED|6|1.4335228487480267|1.7532286806766253|
+|ISIC_scale|1|4|EMPTY_INTERSECTION_CERTIFIED|6|1.4330472852968525|1.7473776678871769|
+|ISIC_scale|2|6|EMPTY_INTERSECTION_CERTIFIED|15|1.4330472852968525|1.8350348983001803|
+|ISIC_scale|3|8|EMPTY_INTERSECTION_CERTIFIED|28|1.4330472852968525|1.878246840372148|
+|HK_scale|1|13|EMPTY_INTERSECTION_CERTIFIED|78|1.4416638047301733|1.9346530197705527|
+|HK_scale|2|15|EMPTY_INTERSECTION_CERTIFIED|105|1.4416638047301733|1.9478267789980728|
+|HK_scale|3|17|EMPTY_INTERSECTION_CERTIFIED|136|1.4428250738583555|1.954126696402028|
+|HK_scale|4|19|EMPTY_INTERSECTION_CERTIFIED|171|1.4428250738583555|1.9544519796820714|
+|HK_scale|5|21|EMPTY_INTERSECTION_CERTIFIED|210|1.4428250738583555|1.958929994566987|
+|HK_scale|6|23|EMPTY_INTERSECTION_CERTIFIED|253|1.4464081110920013|1.9632681624655912|
 
-上一[局部loss记忆完整结果](https://github.com/DLwbm123/Long-tailed-CL/blob/c6e24cfb76801485ed77093839e5381a846231bf/docs/local_loss_memory_design1_20261016/REPORT_ZH.md)：四CPU通过局部界及有限门，但高维linear控制也约5e-7最大误差，局部jet约2e-7；原完整查询族未检验。界宽约.01604/.38499，不称紧界。CPU225.3690093876794秒；16轮62次累计4895.222701462917，新GPU0。
+原radius .125不改。pair距>2r足以证明交集为空；pair全部不违反不是充分可行条件。shared-anchor代数control不代表loss或分类有效。
+CPU驻留25.35851659066975秒/user23.636288999999998/system4.420184/peak634.17578125MiB；父wall25.415711221750826另列。内部operation含驻留不加。
+前16轮4895.222701462917秒，累计4920.581218053587。失败[]，缺失不补0。
+
+|case|退出码|驻留秒|user|system|RSS MiB|timeout|
+|---|---:|---:|---:|---:|---:|---|
+|query_compatibility_arithmetic|0|6.5232233121059835|5.606913|1.047221|397.296875|False|
+|small|0|5.774762509856373|5.4911259999999995|0.9337289999999999|401.5859375|False|
+|ISIC_scale|0|7.025520683731884|6.783824|1.451385|634.17578125|False|
+|HK_scale|0|6.035010084975511|5.754426|0.987849|414.4296875|False|
+
+仅针对同一个v需同时调用多类局部记忆的参数域要求，不推广到不同参数耦合的所有多类方法。没有分类训练或loss评价，不改判旧局部精度或完整查询族失败。0医学images/features/checkpoint/val/test/GPU。
+
+完整证明范围、shared-anchor代数control和下一步机制见[ANALYSIS_ZH.md](ANALYSIS_ZH.md)。所有287 pair见[PAIR_GEOMETRY.csv](PAIR_GEOMETRY.csv)。

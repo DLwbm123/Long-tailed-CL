@@ -1,0 +1,1697 @@
+{
+  "status": "COMPLETED_DEVELOPMENT_ONLY",
+  "source_commit": "94a9a0169bda6a5ae1656ef84f5eb86eaca85770",
+  "program": {
+    "status": "COMPLETE_AWAITING_DELIVERY",
+    "source_commit": "94a9a0169bda6a5ae1656ef84f5eb86eaca85770",
+    "started_at": 1792184656.2227333,
+    "active": null,
+    "cases": [
+      {
+        "id": "ISIC_lse",
+        "status": "COMPLETED"
+      },
+      {
+        "id": "HK_lse",
+        "status": "COMPLETED"
+      }
+    ],
+    "costs": [
+      {
+        "id": "ISIC_lse",
+        "returncode": 0,
+        "process_residence_seconds": 24.054505384992808,
+        "CPU_only_residence_seconds": 24.054505384992808,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 30.732563,
+        "CPU_system_seconds": 5.084122,
+        "peak_RSS_MiB": 861.09375,
+        "timeout": false
+      },
+      {
+        "id": "HK_lse",
+        "returncode": 0,
+        "process_residence_seconds": 10.550559564959258,
+        "CPU_only_residence_seconds": 10.550559564959258,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 12.84961,
+        "CPU_system_seconds": 1.482493,
+        "peak_RSS_MiB": 479.39453125,
+        "timeout": false
+      }
+    ],
+    "failures": [],
+    "not_run": [],
+    "finished_at": 1792184690.859232,
+    "supervisor_wall_seconds": 34.63651352003217
+  },
+  "retirement": {
+    "checked_at": 1792185013.8063726,
+    "all_processes_exited": true
+  },
+  "results": {
+    "ISIC_lse": {
+      "status": "COMPLETED",
+      "source_commit": "94a9a0169bda6a5ae1656ef84f5eb86eaca85770",
+      "dataset": "ISIC",
+      "sealed_at": 1792184678.7932422,
+      "training": {
+        "HH": {
+          "steps": 48,
+          "trace": [
+            {
+              "preupdate_step": 0,
+              "CE": 1.5522325133966985,
+              "classification_loss": 1.7310969587368534,
+              "retention": 0.0
+            },
+            {
+              "preupdate_step": 47,
+              "CE": 1.1629984533082474,
+              "classification_loss": 1.1784981302834778,
+              "retention": 0.022202707990288895
+            }
+          ],
+          "classification_objective": "within_CE_plus_balanced_logsumexp_group_logistic",
+          "retention_weighted_teacher_correct": 0.59375,
+          "retention_scale": 1.0,
+          "class_mass": 0.16666666666666666
+        }
+      },
+      "mass_matching": null,
+      "adapter_updates": 48,
+      "primary": "HH",
+      "engineering_logit_gradient_evaluations": 3,
+      "primary_both_queries_pass": false,
+      "gates": {
+        "Qfit": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": -0.03236856045367964,
+              "old": -0.14464127605466903,
+              "new": 0.19217687074829937
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        },
+        "Qgate": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": -0.011101853254557426,
+              "old": -0.12727995758218452,
+              "new": 0.22125435540069688
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        }
+      },
+      "class_rows": [
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 42,
+          "correct": 20,
+          "recall": 0.47619047619047616,
+          "CE": 1.2907011713438075,
+          "errors_to_old": 17,
+          "errors_to_new": 5
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.474763802843876,
+          "errors_to_old": 1,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 23,
+          "correct": 10,
+          "recall": 0.43478260869565216,
+          "CE": 1.3682482547674075,
+          "errors_to_old": 10,
+          "errors_to_new": 3
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 311,
+          "correct": 127,
+          "recall": 0.40836012861736337,
+          "CE": 1.7060448158516874,
+          "errors_to_old": 97,
+          "errors_to_new": 87
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 4,
+          "group": "new",
+          "count": 294,
+          "correct": 41,
+          "recall": 0.13945578231292516,
+          "CE": 1.6822898269559377,
+          "errors_to_old": 228,
+          "errors_to_new": 25
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 5,
+          "group": "new",
+          "count": 5,
+          "correct": 2,
+          "recall": 0.4,
+          "CE": 1.5689041136950466,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 41,
+          "correct": 17,
+          "recall": 0.4146341463414634,
+          "CE": 1.5001914605362765,
+          "errors_to_old": 20,
+          "errors_to_new": 4
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.985259767127019,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 25,
+          "correct": 6,
+          "recall": 0.24,
+          "CE": 1.6101378534990092,
+          "errors_to_old": 12,
+          "errors_to_new": 7
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 322,
+          "correct": 169,
+          "recall": 0.5248447204968945,
+          "CE": 1.3704000916974968,
+          "errors_to_old": 92,
+          "errors_to_new": 61
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 4,
+          "group": "new",
+          "count": 287,
+          "correct": 24,
+          "recall": 0.08362369337979095,
+          "CE": 1.818559491536098,
+          "errors_to_old": 232,
+          "errors_to_new": 31
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 5,
+          "group": "new",
+          "count": 3,
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "CE": 1.5222517342662971,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 42,
+          "correct": 12,
+          "recall": 0.2857142857142857,
+          "CE": 1.5145847127233087,
+          "errors_to_old": 4,
+          "errors_to_new": 26
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.7322723763121273,
+          "errors_to_old": 0,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 23,
+          "correct": 1,
+          "recall": 0.043478260869565216,
+          "CE": 1.6750751691854537,
+          "errors_to_old": 6,
+          "errors_to_new": 16
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 311,
+          "correct": 128,
+          "recall": 0.4115755627009646,
+          "CE": 1.56211789344988,
+          "errors_to_old": 35,
+          "errors_to_new": 148
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 4,
+          "group": "new",
+          "count": 294,
+          "correct": 154,
+          "recall": 0.5238095238095238,
+          "CE": 1.2276914010297106,
+          "errors_to_old": 104,
+          "errors_to_new": 36
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 5,
+          "group": "new",
+          "count": 5,
+          "correct": 2,
+          "recall": 0.4,
+          "CE": 1.2928643537028262,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 41,
+          "correct": 7,
+          "recall": 0.17073170731707318,
+          "CE": 1.7459458754678476,
+          "errors_to_old": 11,
+          "errors_to_new": 23
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 5.06815017653745,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 25,
+          "correct": 1,
+          "recall": 0.04,
+          "CE": 1.7824799602154422,
+          "errors_to_old": 8,
+          "errors_to_new": 16
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 322,
+          "correct": 148,
+          "recall": 0.45962732919254656,
+          "CE": 1.3602645810520773,
+          "errors_to_old": 55,
+          "errors_to_new": 119
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 4,
+          "group": "new",
+          "count": 287,
+          "correct": 151,
+          "recall": 0.5261324041811847,
+          "CE": 1.3073906353744793,
+          "errors_to_old": 95,
+          "errors_to_new": 41
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 5,
+          "group": "new",
+          "count": 3,
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "CE": 1.450756957617563,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        }
+      ],
+      "summaries": [
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.30979816596940285,
+          "CE": 1.681825330909627
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.3298333033758729,
+          "CE": 1.7099395112016946
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.26972789115646256,
+          "CE": 1.6255969703254922
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.2774296055157232,
+          "CE": 1.6674343177338846
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.18519202732120388,
+          "CE": 1.8710125379176925
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "new",
+          "BA": 0.46190476190476193,
+          "CE": 1.2602778773662684
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.32162820448080254,
+          "CE": 1.9678000664436992
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.29486971670958945,
+          "CE": 2.1164972932149504
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.3751451800232288,
+          "CE": 1.6704056129011975
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.3105263512262451,
+          "CE": 2.1191646977108096
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.16758975912740492,
+          "CE": 2.489210148318204
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "new",
+          "BA": 0.5963995354239257,
+          "CE": 1.3790737964960211
+        }
+      ],
+      "interaction_HH_minus_HM_minus_MH_plus_MM": [],
+      "bank": {
+        "dataset": "ISIC",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 375,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 23,
+            "selected": 16
+          },
+          {
+            "class_index": 2,
+            "available": 208,
+            "selected": 16
+          },
+          {
+            "class_index": 3,
+            "available": 2630,
+            "selected": 16
+          }
+        ],
+        "node_count": 64,
+        "feature_bytes": 786432,
+        "probability_bytes": 512
+      },
+      "original_moment_node_count": 64,
+      "mixed_cells_use_both_banks": false,
+      "old_S_access_in_training": false,
+      "query_used_for_fitting": false,
+      "E_access": false,
+      "new_labels": 0,
+      "GPU_used": false,
+      "operation_seconds": 14.771534281782806
+    },
+    "HK_lse": {
+      "status": "COMPLETED",
+      "source_commit": "94a9a0169bda6a5ae1656ef84f5eb86eaca85770",
+      "dataset": "HK",
+      "sealed_at": 1792184688.7949822,
+      "training": {
+        "HH": {
+          "steps": 48,
+          "trace": [
+            {
+              "preupdate_step": 0,
+              "CE": 1.588160292793106,
+              "classification_loss": 2.7987435492962884,
+              "retention": 0.0
+            },
+            {
+              "preupdate_step": 47,
+              "CE": 1.2507539136031596,
+              "classification_loss": 1.2458288673122635,
+              "retention": 0.03647099337192401
+            }
+          ],
+          "classification_objective": "within_CE_plus_balanced_logsumexp_group_logistic",
+          "retention_weighted_teacher_correct": 0.6298076923076923,
+          "retention_scale": 1.0,
+          "class_mass": 0.06666666666666667
+        }
+      },
+      "mass_matching": null,
+      "adapter_updates": 48,
+      "primary": "HH",
+      "engineering_logit_gradient_evaluations": 3,
+      "primary_both_queries_pass": false,
+      "gates": {
+        "Qfit": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": -0.0105596474098687,
+              "old": -0.09872267008831004,
+              "new": 0.5625
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        },
+        "Qgate": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": -0.050827834525157656,
+              "old": -0.11954493727261789,
+              "new": 0.39583333333333337
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        }
+      },
+      "class_rows": [
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 45,
+          "recall": 0.7258064516129032,
+          "CE": 1.1702741211555732,
+          "errors_to_old": 17,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 4.340601148213935,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.860385399257604,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 5,
+          "recall": 0.625,
+          "CE": 1.5317521797439226,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 4,
+          "recall": 0.14285714285714285,
+          "CE": 2.016496257736424,
+          "errors_to_old": 23,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 15,
+          "recall": 0.375,
+          "CE": 1.9385876740056696,
+          "errors_to_old": 21,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 32,
+          "recall": 0.4383561643835616,
+          "CE": 1.3652377330622059,
+          "errors_to_old": 17,
+          "errors_to_new": 24
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 37,
+          "recall": 0.7708333333333334,
+          "CE": 0.9456704210797287,
+          "errors_to_old": 9,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 18,
+          "recall": 0.72,
+          "CE": 1.0977239116955204,
+          "errors_to_old": 5,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 4,
+          "recall": 0.25,
+          "CE": 1.6197498508855495,
+          "errors_to_old": 12,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 41,
+          "recall": 0.6949152542372882,
+          "CE": 1.2993852228972624,
+          "errors_to_old": 18,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 9,
+          "recall": 0.34615384615384615,
+          "CE": 1.4887174112379944,
+          "errors_to_old": 16,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.0622583334936233,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.890317311113928,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 7,
+          "recall": 0.875,
+          "CE": 0.7614540810843202,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 40,
+          "recall": 0.6451612903225806,
+          "CE": 1.3207573999983342,
+          "errors_to_old": 21,
+          "errors_to_new": 1
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 5.426101849916089,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.0265320612030138,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 5,
+          "recall": 0.625,
+          "CE": 1.8093645358199424,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 5,
+          "recall": 0.17857142857142858,
+          "CE": 2.0157537343713408,
+          "errors_to_old": 21,
+          "errors_to_new": 2
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 17,
+          "recall": 0.425,
+          "CE": 1.9041536815811586,
+          "errors_to_old": 22,
+          "errors_to_new": 1
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 37,
+          "recall": 0.5068493150684932,
+          "CE": 1.2859989771566467,
+          "errors_to_old": 20,
+          "errors_to_new": 16
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 37,
+          "recall": 0.7708333333333334,
+          "CE": 0.8802622843183484,
+          "errors_to_old": 8,
+          "errors_to_new": 3
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 15,
+          "recall": 0.6,
+          "CE": 1.1674378778488455,
+          "errors_to_old": 9,
+          "errors_to_new": 1
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 1.4476020128572165,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 44,
+          "recall": 0.7457627118644068,
+          "CE": 1.2128345416711739,
+          "errors_to_old": 13,
+          "errors_to_new": 2
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 7,
+          "recall": 0.2692307692307692,
+          "CE": 1.4817426946730856,
+          "errors_to_old": 19,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.608794084171141,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 1,
+          "recall": 0.3333333333333333,
+          "CE": 1.7312417769412398,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 7,
+          "recall": 0.875,
+          "CE": 0.8617813662464657,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 51,
+          "recall": 0.8225806451612904,
+          "CE": 1.0518403595647043,
+          "errors_to_old": 11,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.810702423494121,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.3910720203358427,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 7,
+          "recall": 0.875,
+          "CE": 1.4022880408711866,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 2,
+          "recall": 0.07142857142857142,
+          "CE": 2.0585657961147574,
+          "errors_to_old": 19,
+          "errors_to_new": 7
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 19,
+          "recall": 0.475,
+          "CE": 1.7066501572669086,
+          "errors_to_old": 12,
+          "errors_to_new": 9
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 11,
+          "recall": 0.1506849315068493,
+          "CE": 2.116671283674162,
+          "errors_to_old": 12,
+          "errors_to_new": 50
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 34,
+          "recall": 0.7083333333333334,
+          "CE": 1.0133853105888533,
+          "errors_to_old": 4,
+          "errors_to_new": 10
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 16,
+          "recall": 0.64,
+          "CE": 1.1746538624116651,
+          "errors_to_old": 4,
+          "errors_to_new": 5
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 1,
+          "recall": 0.0625,
+          "CE": 2.2283181681064868,
+          "errors_to_old": 0,
+          "errors_to_new": 15
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.144344539962284,
+          "errors_to_old": 2,
+          "errors_to_new": 57
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.237563646447836,
+          "errors_to_old": 1,
+          "errors_to_new": 25
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.278047683561528,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 3,
+          "recall": 1.0,
+          "CE": 0.5603574514492745,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 8,
+          "recall": 1.0,
+          "CE": 0.26727600256139383,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 48,
+          "recall": 0.7741935483870968,
+          "CE": 1.1348565022923698,
+          "errors_to_old": 13,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 4.707868417952932,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.4766989293413735,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 6,
+          "recall": 0.75,
+          "CE": 1.4948461010634377,
+          "errors_to_old": 1,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 4,
+          "recall": 0.14285714285714285,
+          "CE": 2.098301179933169,
+          "errors_to_old": 20,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 19,
+          "recall": 0.475,
+          "CE": 1.743509925103203,
+          "errors_to_old": 10,
+          "errors_to_new": 11
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 19,
+          "recall": 0.2602739726027397,
+          "CE": 1.8974544100471344,
+          "errors_to_old": 15,
+          "errors_to_new": 39
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 36,
+          "recall": 0.75,
+          "CE": 0.9812708789142617,
+          "errors_to_old": 0,
+          "errors_to_new": 12
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 14,
+          "recall": 0.56,
+          "CE": 1.3456099281093552,
+          "errors_to_old": 6,
+          "errors_to_new": 5
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 3,
+          "recall": 0.1875,
+          "CE": 1.8942162408386085,
+          "errors_to_old": 1,
+          "errors_to_new": 12
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.1459395719654673,
+          "errors_to_old": 0,
+          "errors_to_new": 59
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.3257412542479665,
+          "errors_to_old": 0,
+          "errors_to_new": 26
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.9880740984663594,
+          "errors_to_old": 0,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 3,
+          "recall": 1.0,
+          "CE": 0.4734626567996045,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 8,
+          "recall": 1.0,
+          "CE": 0.27475065832989365,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        }
+      ],
+      "summaries": [
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.39759481283853837,
+          "CE": 1.759240737110884
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.39145555327523657,
+          "CE": 1.8259107434203856
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.4375,
+          "CE": 1.325885696099124
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.38703516542866967,
+          "CE": 1.7627824497607338
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.29273288318692653,
+          "CE": 1.970315637876949
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "new",
+          "BA": 1.0,
+          "CE": 0.4138167270053342
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.444149478781623,
+          "CE": 1.8120239252516024
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.4195314498762317,
+          "CE": 1.8913335181220257
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.6041666666666666,
+          "CE": 1.2965115715938529
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.3933216442564653,
+          "CE": 1.798840050227009
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.2999865126036138,
+          "CE": 2.01802980294428
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "new",
+          "BA": 1.0,
+          "CE": 0.37410665756474903
+        }
+      ],
+      "interaction_HH_minus_HM_minus_MH_plus_MM": [],
+      "bank": {
+        "dataset": "HK",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 502,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 1,
+            "selected": 1
+          },
+          {
+            "class_index": 2,
+            "available": 4,
+            "selected": 4
+          },
+          {
+            "class_index": 3,
+            "available": 69,
+            "selected": 16
+          },
+          {
+            "class_index": 4,
+            "available": 232,
+            "selected": 16
+          },
+          {
+            "class_index": 5,
+            "available": 323,
+            "selected": 16
+          },
+          {
+            "class_index": 6,
+            "available": 590,
+            "selected": 16
+          },
+          {
+            "class_index": 7,
+            "available": 392,
+            "selected": 16
+          },
+          {
+            "class_index": 8,
+            "available": 202,
+            "selected": 16
+          },
+          {
+            "class_index": 9,
+            "available": 135,
+            "selected": 16
+          },
+          {
+            "class_index": 10,
+            "available": 477,
+            "selected": 16
+          },
+          {
+            "class_index": 11,
+            "available": 209,
+            "selected": 16
+          },
+          {
+            "class_index": 12,
+            "available": 4,
+            "selected": 4
+          }
+        ],
+        "node_count": 169,
+        "feature_bytes": 2076672,
+        "probability_bytes": 1352
+      },
+      "original_moment_node_count": 208,
+      "mixed_cells_use_both_banks": false,
+      "old_S_access_in_training": false,
+      "query_used_for_fitting": false,
+      "E_access": false,
+      "new_labels": 0,
+      "GPU_used": false,
+      "operation_seconds": 3.6933210333809257
+    }
+  },
+  "reused_banks": {
+    "status": "COMPLETED",
+    "banks": [
+      {
+        "dataset": "ISIC",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 375,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 23,
+            "selected": 16
+          },
+          {
+            "class_index": 2,
+            "available": 208,
+            "selected": 16
+          },
+          {
+            "class_index": 3,
+            "available": 2630,
+            "selected": 16
+          }
+        ],
+        "node_count": 64,
+        "feature_bytes": 786432,
+        "probability_bytes": 512
+      },
+      {
+        "dataset": "HK",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 502,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 1,
+            "selected": 1
+          },
+          {
+            "class_index": 2,
+            "available": 4,
+            "selected": 4
+          },
+          {
+            "class_index": 3,
+            "available": 69,
+            "selected": 16
+          },
+          {
+            "class_index": 4,
+            "available": 232,
+            "selected": 16
+          },
+          {
+            "class_index": 5,
+            "available": 323,
+            "selected": 16
+          },
+          {
+            "class_index": 6,
+            "available": 590,
+            "selected": 16
+          },
+          {
+            "class_index": 7,
+            "available": 392,
+            "selected": 16
+          },
+          {
+            "class_index": 8,
+            "available": 202,
+            "selected": 16
+          },
+          {
+            "class_index": 9,
+            "available": 135,
+            "selected": 16
+          },
+          {
+            "class_index": 10,
+            "available": 477,
+            "selected": 16
+          },
+          {
+            "class_index": 11,
+            "available": 209,
+            "selected": 16
+          },
+          {
+            "class_index": 12,
+            "available": 4,
+            "selected": 4
+          }
+        ],
+        "node_count": 169,
+        "feature_bytes": 2076672,
+        "probability_bytes": 1352
+      }
+    ],
+    "banks_sealed_at": 1792170954.813959,
+    "query_access": false,
+    "E_access": false,
+    "source_commit": "48e675b6c8934be8f27f20f8e8f00b9d251442bc",
+    "engineering_adapter_updates": 0
+  },
+  "delivery_failures": []
+}

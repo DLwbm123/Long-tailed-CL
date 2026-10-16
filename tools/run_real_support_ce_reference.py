@@ -49,26 +49,54 @@ def check_group_loss():
     assert abs(float(group_classification_loss(probe,y,p,2,False,True)-expected_lse))<1e-12
 
 
-def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.,max_group=False,balance_groups=False):
+def project_pair(a,b):
+    dot=sum((x*y).sum() for x,y in zip(a,b))
+    if float(dot)>=0:return a,b,False
+    aa=sum(x.square().sum() for x in a);bb=sum(y.square().sum() for y in b)
+    assert float(aa)>0 and float(bb)>0
+    return tuple(x-dot/bb*y for x,y in zip(a,b)),tuple(y-dot/aa*x for x,y in zip(a,b)),True
+
+
+def check_projection():
+    a=(torch.tensor([1.,0.],dtype=DT),);b=(torch.tensor([-1.,1.],dtype=DT),)
+    pa,pb,active=project_pair(a,b)
+    assert active and torch.allclose(pa[0],torch.tensor([.5,.5],dtype=DT)) and torch.allclose(pb[0],torch.tensor([0.,1.],dtype=DT))
+    for direction in (pa[0],pb[0]):assert float(a[0]@direction)>=0 and float(b[0]@direction)>=0
+    for other in (a,(torch.zeros(2,dtype=DT),)):
+        x,y,active=project_pair(a,other);assert not active and x is a and y is other
+
+
+def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.,max_group=False,balance_groups=False,project_conflicts=False):
     assert 0<float(retention_scale)<float('inf')
+    assert not project_conflicts or not (max_group or balance_groups)
     old=len(memory);seen=old+len(current);x,y,p=training_batch(current,old_ce)
     rx,ry,rp=training_batch({},memory);params=clone_model(teacher,True)
     assert all(abs(float(p[y==c].sum())-1/seen)<1e-12 for c in range(seen))
     assert abs(float(rp.sum())-1)<1e-12
     with torch.no_grad():
         ts=scores(rx,teacher,q)[:,:old];target=centered(ts);correct=ts.argmax(1)==ry
-    trace=[]
+    trace=[];projection_trace=[]
     for step in range(steps):
         ss=scores(x,params,q)[:,:seen]
         standard_ce=-(p*ss.log_softmax(1)[torch.arange(len(y)),y]).sum()
         ce=group_classification_loss(ss,y,p,old,max_group,balance_groups) if max_group or balance_groups else standard_ce
         now=centered(scores(rx,params,q)[:,:old])
         retention=((now-target).square().mean(1)*correct*rp).sum()*retention_scale
-        grad=torch.autograd.grad(ce+retention,params)
+        if project_conflicts:
+            mask=y<old;mass=old/seen;sample_ce=-ss.log_softmax(1)[torch.arange(len(y)),y]
+            old_ce=(p[mask]*sample_ce[mask]).sum()/mass;new_ce=(p[~mask]*sample_ce[~mask]).sum()/(1-mass)
+            ga=torch.autograd.grad(old_ce,params,retain_graph=True);gb=torch.autograd.grad(new_ce,params)
+            gr=torch.autograd.grad(retention,params);pa,pb,active=project_pair(ga,gb)
+            original=tuple(mass*a+(1-mass)*b+r for a,b,r in zip(ga,gb,gr))
+            grad=tuple(mass*a+(1-mass)*b+r for a,b,r in zip(pa,pb,gr))
+            derivative=lambda g,d:-float(sum((a*b).sum() for a,b in zip(g,d)))
+            projection_trace.append(dict(step=step,projected=active,old_new_dot=float(sum((a*b).sum() for a,b in zip(ga,gb))),
+                original_derivatives=[derivative(g,original) for g in (ga,gb,gr)],updated_derivatives=[derivative(g,grad) for g in (ga,gb,gr)]))
+        else:grad=torch.autograd.grad(ce+retention,params)
         with torch.no_grad():
             for v,g in zip(params,grad):v.sub_(g/16);assert bool(torch.isfinite(v).all())
         if step in (0,steps-1):trace.append(dict(preupdate_step=step,CE=float(standard_ce.detach()),classification_loss=float(ce.detach()),retention=float(retention.detach())))
-    return clone_model(params),dict(steps=steps,trace=trace,classification_objective=('within_CE_plus_balanced_max_group_logistic' if max_group else 'within_CE_plus_balanced_logsumexp_group_logistic') if balance_groups else 'within_CE_plus_max_group_logistic' if max_group else 'full_CE',retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
+    return clone_model(params),dict(steps=steps,trace=trace,projection_trace=projection_trace,update_rule='symmetric_conflict_projection_then_original_weights_plus_retention' if project_conflicts else 'gradient_descent',adapter_gradient_evaluations=steps*(3 if project_conflicts else 1),classification_objective=('within_CE_plus_balanced_max_group_logistic' if max_group else 'within_CE_plus_balanced_logsumexp_group_logistic') if balance_groups else 'within_CE_plus_max_group_logistic' if max_group else 'full_CE',retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
 
 
 def unit():

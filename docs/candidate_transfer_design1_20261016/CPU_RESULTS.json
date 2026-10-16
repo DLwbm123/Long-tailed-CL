@@ -1,0 +1,1658 @@
+{
+  "program": {
+    "status": "COMPLETE_CPU_CHECKS",
+    "source_commit": "2a9d32effa88bbcb3a029cb8a6ba164771365b1a",
+    "started_at": 1792151470.2685916,
+    "deadline_at": 1792153270.2685921,
+    "active": null,
+    "cases": [
+      {
+        "id": "candidate_arithmetic",
+        "status": "COMPLETED",
+        "result_file": "candidate_arithmetic.json"
+      },
+      {
+        "id": "ISIC_scale_r1",
+        "status": "WORKER_FAILED",
+        "result_file": null
+      },
+      {
+        "id": "ISIC_scale_r2",
+        "status": "WORKER_FAILED",
+        "result_file": null
+      },
+      {
+        "id": "HK_scale_r1",
+        "status": "COMPLETED",
+        "result_file": "HK_scale_r1.json"
+      },
+      {
+        "id": "HK_scale_r2",
+        "status": "COMPLETED",
+        "result_file": "HK_scale_r2.json"
+      },
+      {
+        "id": "balanced_evaluation",
+        "status": "WORKER_FAILED",
+        "result_file": null
+      }
+    ],
+    "costs": [
+      {
+        "id": "candidate_arithmetic",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 20.783880913164467,
+        "CPU_user_seconds": 6.983281,
+        "CPU_system_seconds": 1.348076,
+        "peak_RSS_MiB": 439.84375,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "ISIC_scale_r1",
+        "returncode": 1,
+        "CPU_process_residence_seconds": 21.787705907132477,
+        "CPU_user_seconds": 29.648106,
+        "CPU_system_seconds": 6.332915,
+        "peak_RSS_MiB": 874.25390625,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "ISIC_scale_r2",
+        "returncode": 1,
+        "CPU_process_residence_seconds": 19.289427656680346,
+        "CPU_user_seconds": 25.296055,
+        "CPU_system_seconds": 6.426802,
+        "peak_RSS_MiB": 915.88671875,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "HK_scale_r1",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 10.28531183861196,
+        "CPU_user_seconds": 11.838519999999999,
+        "CPU_system_seconds": 1.97642,
+        "peak_RSS_MiB": 571.4375,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "HK_scale_r2",
+        "returncode": 0,
+        "CPU_process_residence_seconds": 11.532216521911323,
+        "CPU_user_seconds": 11.502984,
+        "CPU_system_seconds": 2.281485,
+        "peak_RSS_MiB": 565.33203125,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      },
+      {
+        "id": "balanced_evaluation",
+        "returncode": 1,
+        "CPU_process_residence_seconds": 7.300485006067902,
+        "CPU_user_seconds": 6.858273,
+        "CPU_system_seconds": 0.9344889999999999,
+        "peak_RSS_MiB": 421.9296875,
+        "timeout": false,
+        "GPU_seconds": 0.0
+      }
+    ],
+    "failures": [
+      {
+        "id": "ISIC_scale_r1",
+        "reason": "WORKER_FAILED"
+      },
+      {
+        "id": "ISIC_scale_r2",
+        "reason": "WORKER_FAILED"
+      },
+      {
+        "id": "balanced_evaluation",
+        "reason": "WORKER_FAILED"
+      }
+    ],
+    "finished_at": 1792151561.3081841,
+    "supervisor_wall_seconds": 91.0396090829745
+  },
+  "results": [
+    {
+      "status": "PASS",
+      "objective_literal_error": 0.0,
+      "total_gradient_FD_error": 3.7442215994332173e-10,
+      "teacher_retention_gradient_zero": true,
+      "adapter_updates": 0,
+      "memory_updates": 0,
+      "id": "candidate_arithmetic",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "operation_seconds_including_import": 19.24395256442949
+    },
+    {
+      "id": "ISIC_scale_r1",
+      "status": "WORKER_FAILED",
+      "result": null,
+      "last_progress": {
+        "phase": "zero_update_diagnostics",
+        "common_state": "teacher"
+      }
+    },
+    {
+      "id": "ISIC_scale_r2",
+      "status": "WORKER_FAILED",
+      "result": null,
+      "last_progress": {
+        "phase": "zero_update_diagnostics",
+        "common_state": "teacher"
+      }
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "HK_scale_r1",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 100265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46,
+        "scale": "HK_scale",
+        "replicate": 1
+      },
+      "training": {
+        "seconds": 1.9003927391022444,
+        "updates": 48,
+        "retention_scope": "old",
+        "teacher_coverage": [
+          {
+            "class_index": 0,
+            "weighted_old_correct": 0.02971413200563844,
+            "weighted_full_correct": 0.02971413200563844,
+            "effective_retention_mass": 0.0022857024619721876,
+            "unweighted_old_correct": 0.0625
+          },
+          {
+            "class_index": 1,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 2,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 3,
+            "weighted_old_correct": 0.9999999999999999,
+            "weighted_full_correct": 0.9999999999999999,
+            "effective_retention_mass": 0.07692307692307691,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 4,
+            "weighted_old_correct": 0.8476308863654375,
+            "weighted_full_correct": 0.8476308863654375,
+            "effective_retention_mass": 0.06520237587426442,
+            "unweighted_old_correct": 0.8125
+          },
+          {
+            "class_index": 5,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 6,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 7,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 8,
+            "weighted_old_correct": 0.805771388850918,
+            "weighted_full_correct": 0.805771388850918,
+            "effective_retention_mass": 0.0619824145269937,
+            "unweighted_old_correct": 0.8125
+          },
+          {
+            "class_index": 9,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 10,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 11,
+            "weighted_old_correct": 0.8258271448957665,
+            "weighted_full_correct": 0.8258271448957665,
+            "effective_retention_mass": 0.06352516499198203,
+            "unweighted_old_correct": 0.8125
+          },
+          {
+            "class_index": 12,
+            "weighted_old_correct": 0.9713449523453347,
+            "weighted_full_correct": 0.9713449523453347,
+            "effective_retention_mass": 0.07471884248810266,
+            "unweighted_old_correct": 0.9375
+          }
+        ],
+        "coverage_mean": 0.8830991157279305,
+        "movement": [
+          {
+            "preupdate_step": 0,
+            "old_centered_MSE": 0.0,
+            "full_centered_MSE": 0.0,
+            "retention": 0.0,
+            "coverage_mean": 0.8830991157279305,
+            "old_vs_new_mean_shift": 0.0,
+            "old_vs_new_shift_MSE": 0.0,
+            "old_vs_reserved_mean_shift": 0.0,
+            "old_vs_reserved_shift_MSE": 0.0
+          },
+          {
+            "preupdate_step": 47,
+            "old_centered_MSE": 0.06052760411845724,
+            "full_centered_MSE": 0.2975527115721861,
+            "retention": 0.0393371957048841,
+            "coverage_mean": 0.8830991157279305,
+            "old_vs_new_mean_shift": 0.3663701572372125,
+            "old_vs_new_shift_MSE": 1.209311840974402,
+            "old_vs_reserved_mean_shift": 0.04952883285222516,
+            "old_vs_reserved_shift_MSE": 0.021945339808407766
+          }
+        ],
+        "last_preupdate_classification": 0.659847900592305,
+        "last_preupdate_retention": 0.0393371957048841,
+        "last_preupdate_gradient_norm": 0.20390225153465344
+      },
+      "diagnostics": [
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "old_CE",
+          "value": 1.169819366386425,
+          "reference_value": 1.169819366386425,
+          "norm": 0.32771686418862833,
+          "reference_norm": 0.32771686418862833,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "new_CE",
+          "value": 0.4852071277110318,
+          "reference_value": 0.4852071277110318,
+          "norm": 0.6243502990219502,
+          "reference_norm": 0.6243502990219502,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0000000000000007
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "classification",
+          "value": 1.6550264940974566,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.6975667005753174,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0000000000000002
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "total",
+          "value": 1.6550264940974566,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.6975667005753174,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0000000000000002
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "old_CE",
+          "value": 0.6491567827214924,
+          "reference_value": 1.169819366386425,
+          "norm": 0.5674431646132028,
+          "reference_norm": 0.32771686418862833,
+          "absolute_error": 0.4348179528070834,
+          "relative_error": 1.3268098176260148,
+          "cosine": 0.6461672900469362
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "new_CE",
+          "value": 0.4852071277110319,
+          "reference_value": 0.4852071277110318,
+          "norm": 0.6243502990219502,
+          "reference_norm": 0.6243502990219502,
+          "absolute_error": 1.6626138008556876e-16,
+          "relative_error": 2.662950275606796e-16,
+          "cosine": 1.0000000000000007
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "classification",
+          "value": 1.1343639104325243,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.8159473547445228,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.4348179528070834,
+          "relative_error": 0.6233353060696099,
+          "cosine": 0.8462231816678564
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "total",
+          "value": 1.1343639104325243,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.8159473547445228,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.4348179528070834,
+          "relative_error": 0.6233353060696099,
+          "cosine": 0.8462231816678564
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "old_CE",
+          "value": 0.6527881973193953,
+          "reference_value": 1.169819366386425,
+          "norm": 0.5209221880546255,
+          "reference_norm": 0.32771686418862833,
+          "absolute_error": 0.372561111551405,
+          "relative_error": 1.1368383878376336,
+          "cosine": 0.7027985443038951
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "new_CE",
+          "value": 0.4852071277110319,
+          "reference_value": 0.4852071277110318,
+          "norm": 0.6243502990219502,
+          "reference_norm": 0.6243502990219502,
+          "absolute_error": 1.6626138008556876e-16,
+          "relative_error": 2.662950275606796e-16,
+          "cosine": 1.0000000000000007
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "classification",
+          "value": 1.137995325030427,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.7864135506920071,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.372561111551405,
+          "relative_error": 0.5340867206593084,
+          "cosine": 0.880683768945915
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "total",
+          "value": 1.137995325030427,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.7864135506920071,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.372561111551405,
+          "relative_error": 0.5340867206593084,
+          "cosine": 0.880683768945915
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "old_CE",
+          "value": 0.6612503016470284,
+          "reference_value": 1.169819366386425,
+          "norm": 0.5436169590370455,
+          "reference_norm": 0.32771686418862833,
+          "absolute_error": 0.3999378361341736,
+          "relative_error": 1.2203761229204735,
+          "cosine": 0.6819088794150309
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "new_CE",
+          "value": 0.4852071277110319,
+          "reference_value": 0.4852071277110318,
+          "norm": 0.6243502990219502,
+          "reference_norm": 0.6243502990219502,
+          "absolute_error": 1.6626138008556876e-16,
+          "relative_error": 2.662950275606796e-16,
+          "cosine": 1.0000000000000007
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "classification",
+          "value": 1.1464574293580603,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.8012579625087014,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.39993783613417355,
+          "relative_error": 0.5733327519853302,
+          "cosine": 0.8665323368955767
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "total",
+          "value": 1.1464574293580603,
+          "reference_value": 1.6550264940974566,
+          "norm": 0.8012579625087014,
+          "reference_norm": 0.6975667005753174,
+          "absolute_error": 0.39993783613417355,
+          "relative_error": 0.5733327519853302,
+          "cosine": 0.8665323368955767
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "old_CE",
+          "value": 1.133805306644223,
+          "reference_value": 1.133805306644223,
+          "norm": 0.5038183154250276,
+          "reference_norm": 0.5038183154250276,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "new_CE",
+          "value": 0.14751435556492706,
+          "reference_value": 0.14751435556492706,
+          "norm": 0.36310628089195807,
+          "reference_norm": 0.36310628089195807,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999993
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "classification",
+          "value": 1.28131966220915,
+          "reference_value": 1.28131966220915,
+          "norm": 0.33250202563175696,
+          "reference_norm": 0.33250202563175696,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999999
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "retention",
+          "value": 0.028702259324612053,
+          "reference_value": 0.028702259324612053,
+          "norm": 0.19207611674362504,
+          "reference_norm": 0.19207611674362504,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "total",
+          "value": 1.310021921533762,
+          "reference_value": 1.310021921533762,
+          "norm": 0.3395660088281139,
+          "reference_norm": 0.3395660088281139,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999991
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "old_CE",
+          "value": 0.5052993042234413,
+          "reference_value": 1.133805306644223,
+          "norm": 0.4998695982007417,
+          "reference_norm": 0.5038183154250276,
+          "absolute_error": 0.3319667569938925,
+          "relative_error": 0.658901724749409,
+          "cosine": 0.7812404263672176
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "new_CE",
+          "value": 0.1475143555649271,
+          "reference_value": 0.14751435556492706,
+          "norm": 0.3631062808919581,
+          "reference_norm": 0.36310628089195807,
+          "absolute_error": 1.4471427733641976e-16,
+          "relative_error": 3.9854523304012844e-16,
+          "cosine": 0.9999999999999993
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "classification",
+          "value": 0.6528136597883684,
+          "reference_value": 1.28131966220915,
+          "norm": 0.3635311281078752,
+          "reference_norm": 0.33250202563175696,
+          "absolute_error": 0.3319667569938925,
+          "relative_error": 0.9983901793174118,
+          "cosine": 0.5481312499223173
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "retention",
+          "value": 0.04337552731428618,
+          "reference_value": 0.028702259324612053,
+          "norm": 0.2642736757371038,
+          "reference_norm": 0.19207611674362504,
+          "absolute_error": 0.14326721244980012,
+          "relative_error": 0.745887697433133,
+          "cosine": 0.8491646265213282
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "total",
+          "value": 0.6961891871026545,
+          "reference_value": 1.310021921533762,
+          "norm": 0.2015849338614639,
+          "reference_norm": 0.3395660088281139,
+          "absolute_error": 0.31253171334887414,
+          "relative_error": 0.9203857430473132,
+          "cosine": 0.4255975433395736
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "old_CE",
+          "value": 0.5108983949567082,
+          "reference_value": 1.133805306644223,
+          "norm": 0.4726757188806614,
+          "reference_norm": 0.5038183154250276,
+          "absolute_error": 0.3097813613323329,
+          "relative_error": 0.6148672087694894,
+          "cosine": 0.8005510210459519
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "new_CE",
+          "value": 0.1475143555649271,
+          "reference_value": 0.14751435556492706,
+          "norm": 0.3631062808919581,
+          "reference_norm": 0.36310628089195807,
+          "absolute_error": 1.4471427733641976e-16,
+          "relative_error": 3.9854523304012844e-16,
+          "cosine": 0.9999999999999993
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "classification",
+          "value": 0.6584127505216353,
+          "reference_value": 1.28131966220915,
+          "norm": 0.35230415298969664,
+          "reference_norm": 0.33250202563175696,
+          "absolute_error": 0.30978136133233286,
+          "relative_error": 0.9316675913289412,
+          "cosine": 0.5920656363966945
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "retention",
+          "value": 0.04352780464413838,
+          "reference_value": 0.028702259324612053,
+          "norm": 0.2622186568722493,
+          "reference_norm": 0.19207611674362504,
+          "absolute_error": 0.13691667361523557,
+          "relative_error": 0.7128250817252104,
+          "cosine": 0.8627425676197176
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "total",
+          "value": 0.7019405551657737,
+          "reference_value": 1.310021921533762,
+          "norm": 0.23493022401345529,
+          "reference_norm": 0.3395660088281139,
+          "absolute_error": 0.2990362531158999,
+          "relative_error": 0.8806424828795808,
+          "cosine": 0.5081497738346631
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "old_CE",
+          "value": 0.5143778854906502,
+          "reference_value": 1.133805306644223,
+          "norm": 0.4846978867769902,
+          "reference_norm": 0.5038183154250276,
+          "absolute_error": 0.31971946105078697,
+          "relative_error": 0.6345927713665341,
+          "cosine": 0.7914515162683791
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "new_CE",
+          "value": 0.1475143555649271,
+          "reference_value": 0.14751435556492706,
+          "norm": 0.3631062808919581,
+          "reference_norm": 0.36310628089195807,
+          "absolute_error": 1.4471427733641976e-16,
+          "relative_error": 3.9854523304012844e-16,
+          "cosine": 0.9999999999999993
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "classification",
+          "value": 0.6618922410555773,
+          "reference_value": 1.28131966220915,
+          "norm": 0.36110616579043214,
+          "reference_norm": 0.33250202563175696,
+          "absolute_error": 0.3197194610507869,
+          "relative_error": 0.9615564309520128,
+          "cosine": 0.5777314189043831
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "retention",
+          "value": 0.04395831323131755,
+          "reference_value": 0.028702259324612053,
+          "norm": 0.2667152610261597,
+          "reference_norm": 0.19207611674362504,
+          "absolute_error": 0.14214668300825925,
+          "relative_error": 0.7400539193427704,
+          "cosine": 0.8571658904241032
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "total",
+          "value": 0.7058505542868949,
+          "reference_value": 1.310021921533762,
+          "norm": 0.22193330649330953,
+          "reference_norm": 0.3395660088281139,
+          "absolute_error": 0.3005208213905473,
+          "relative_error": 0.8850144407200339,
+          "cosine": 0.4926068907422822
+        }
+      ],
+      "diagnostic_checks": [
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "new_CE_gradient_max_difference": 0.0,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "new_CE_gradient_max_difference": 1.0408340855860843e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "new_CE_gradient_max_difference": 1.0408340855860843e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "new_CE_gradient_max_difference": 1.0408340855860843e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "new_CE_gradient_max_difference": 0.0,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "new_CE_gradient_max_difference": 1.3877787807814457e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "new_CE_gradient_max_difference": 1.3877787807814457e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "new_CE_gradient_max_difference": 1.3877787807814457e-17,
+          "gradient_additivity_checked": true
+        }
+      ],
+      "diagnostic_seconds": 1.5060771335847676,
+      "synthetic_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "accepted_classes": [
+        0,
+        1,
+        2,
+        3,
+        10,
+        12
+      ],
+      "adapter_updates": 48,
+      "memory_updates": 0,
+      "diagnostic_updates": 0,
+      "sealed": true,
+      "pipeline_seconds": 3.5180075792595744,
+      "id": "HK_scale_r1",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "operation_seconds_including_import": 8.51230994425714
+    },
+    {
+      "status": "COMPLETED",
+      "case": {
+        "id": "HK_scale_r2",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 200265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46,
+        "scale": "HK_scale",
+        "replicate": 2
+      },
+      "training": {
+        "seconds": 3.0108277490362525,
+        "updates": 48,
+        "retention_scope": "old",
+        "teacher_coverage": [
+          {
+            "class_index": 0,
+            "weighted_old_correct": 0.9999999999999998,
+            "weighted_full_correct": 0.9999999999999998,
+            "effective_retention_mass": 0.0769230769230769,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 1,
+            "weighted_old_correct": 1.0000000000000002,
+            "weighted_full_correct": 1.0000000000000002,
+            "effective_retention_mass": 0.07692307692307694,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 2,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 3,
+            "weighted_old_correct": 0.5726480208803827,
+            "weighted_full_correct": 0.5726480208803827,
+            "effective_retention_mass": 0.04404984776002944,
+            "unweighted_old_correct": 0.5625
+          },
+          {
+            "class_index": 4,
+            "weighted_old_correct": 0.8308934086425673,
+            "weighted_full_correct": 0.8308934086425673,
+            "effective_retention_mass": 0.0639148775878898,
+            "unweighted_old_correct": 0.8125
+          },
+          {
+            "class_index": 5,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 6,
+            "weighted_old_correct": 0.8444557349175396,
+            "weighted_full_correct": 0.8444557349175396,
+            "effective_retention_mass": 0.06495813345519535,
+            "unweighted_old_correct": 0.8125
+          },
+          {
+            "class_index": 7,
+            "weighted_old_correct": 1.0000000000000002,
+            "weighted_full_correct": 1.0000000000000002,
+            "effective_retention_mass": 0.07692307692307694,
+            "unweighted_old_correct": 1.0
+          },
+          {
+            "class_index": 8,
+            "weighted_old_correct": 0.8035141287600298,
+            "weighted_full_correct": 0.8035141287600298,
+            "effective_retention_mass": 0.06180877913538691,
+            "unweighted_old_correct": 0.6875
+          },
+          {
+            "class_index": 9,
+            "weighted_old_correct": 0.6944759580749627,
+            "weighted_full_correct": 0.6944759580749627,
+            "effective_retention_mass": 0.053421227544227894,
+            "unweighted_old_correct": 0.5625
+          },
+          {
+            "class_index": 10,
+            "weighted_old_correct": 0.9366282284380953,
+            "weighted_full_correct": 0.9366282284380953,
+            "effective_retention_mass": 0.07204832526446887,
+            "unweighted_old_correct": 0.9375
+          },
+          {
+            "class_index": 11,
+            "weighted_old_correct": 0.5654411423978131,
+            "weighted_full_correct": 0.5654411423978131,
+            "effective_retention_mass": 0.04349547249213947,
+            "unweighted_old_correct": 0.5625
+          },
+          {
+            "class_index": 12,
+            "weighted_old_correct": 1.0,
+            "weighted_full_correct": 1.0,
+            "effective_retention_mass": 0.07692307692307693,
+            "unweighted_old_correct": 1.0
+          }
+        ],
+        "coverage_mean": 0.8652351247777992,
+        "movement": [
+          {
+            "preupdate_step": 0,
+            "old_centered_MSE": 0.0,
+            "full_centered_MSE": 0.0,
+            "retention": 0.0,
+            "coverage_mean": 0.8652351247777992,
+            "old_vs_new_mean_shift": 0.0,
+            "old_vs_new_shift_MSE": 0.0,
+            "old_vs_reserved_mean_shift": 0.0,
+            "old_vs_reserved_shift_MSE": 0.0
+          },
+          {
+            "preupdate_step": 47,
+            "old_centered_MSE": 0.06355091353317276,
+            "full_centered_MSE": 0.2684153664587859,
+            "retention": 0.04586500382836532,
+            "coverage_mean": 0.8652351247777992,
+            "old_vs_new_mean_shift": 0.376841435736503,
+            "old_vs_new_shift_MSE": 2.2182059780564893,
+            "old_vs_reserved_mean_shift": 0.0520128936268885,
+            "old_vs_reserved_shift_MSE": 0.03908036970838866
+          }
+        ],
+        "last_preupdate_classification": 0.6326358475085184,
+        "last_preupdate_retention": 0.04586500382836532,
+        "last_preupdate_gradient_norm": 0.22085118772193377
+      },
+      "diagnostics": [
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "old_CE",
+          "value": 1.1322646323191696,
+          "reference_value": 1.1322646323191696,
+          "norm": 0.3243753969922815,
+          "reference_norm": 0.3243753969922815,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999988
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "new_CE",
+          "value": 0.4834441962102336,
+          "reference_value": 0.4834441962102336,
+          "norm": 0.6099981229555542,
+          "reference_norm": 0.6099981229555542,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999986
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "classification",
+          "value": 1.6157088285294032,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.6789288096002943,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0000000000000002
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "component": "total",
+          "value": 1.6157088285294032,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.6789288096002943,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0000000000000002
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "old_CE",
+          "value": 0.6413810870204291,
+          "reference_value": 1.1322646323191696,
+          "norm": 0.5742006757411137,
+          "reference_norm": 0.3243753969922815,
+          "absolute_error": 0.4349787632627917,
+          "relative_error": 1.3409733515428792,
+          "cosine": 0.6596258238667969
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "new_CE",
+          "value": 0.48344419621023366,
+          "reference_value": 0.4834441962102336,
+          "norm": 0.6099981229555542,
+          "reference_norm": 0.6099981229555542,
+          "absolute_error": 1.2894462559052317e-16,
+          "relative_error": 2.1138528257392416e-16,
+          "cosine": 0.9999999999999987
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "classification",
+          "value": 1.1248252832306627,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.808842267368678,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.43497876326279167,
+          "relative_error": 0.6406839084039999,
+          "cosine": 0.8430937143584848
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "component": "total",
+          "value": 1.1248252832306627,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.808842267368678,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.43497876326279167,
+          "relative_error": 0.6406839084039999,
+          "cosine": 0.8430937143584848
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "old_CE",
+          "value": 0.6180254023771675,
+          "reference_value": 1.1322646323191696,
+          "norm": 0.526398726900454,
+          "reference_norm": 0.3243753969922815,
+          "absolute_error": 0.3760945090760258,
+          "relative_error": 1.15944215425492,
+          "cosine": 0.7053201031011113
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "new_CE",
+          "value": 0.48344419621023366,
+          "reference_value": 0.4834441962102336,
+          "norm": 0.6099981229555542,
+          "reference_norm": 0.6099981229555542,
+          "absolute_error": 1.2894462559052317e-16,
+          "relative_error": 2.1138528257392416e-16,
+          "cosine": 0.9999999999999987
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "classification",
+          "value": 1.1014695985874012,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.7739613209203194,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.3760945090760258,
+          "relative_error": 0.5539527911585368,
+          "cosine": 0.8740011297615692
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "component": "total",
+          "value": 1.1014695985874012,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.7739613209203194,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.3760945090760258,
+          "relative_error": 0.5539527911585368,
+          "cosine": 0.8740011297615692
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "old_CE",
+          "value": 0.6406900999154944,
+          "reference_value": 1.1322646323191696,
+          "norm": 0.5678642618715495,
+          "reference_norm": 0.3243753969922815,
+          "absolute_error": 0.42431231446021145,
+          "relative_error": 1.3080903126272179,
+          "cosine": 0.672222233325469
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "new_CE",
+          "value": 0.48344419621023366,
+          "reference_value": 0.4834441962102336,
+          "norm": 0.6099981229555542,
+          "reference_norm": 0.6099981229555542,
+          "absolute_error": 1.2894462559052317e-16,
+          "relative_error": 2.1138528257392416e-16,
+          "cosine": 0.9999999999999987
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "classification",
+          "value": 1.1241342961257281,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.8047342826326759,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.42431231446021145,
+          "relative_error": 0.6249732055265363,
+          "cosine": 0.8497192893749185
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "retention",
+          "value": 0.0,
+          "reference_value": 0.0,
+          "norm": 0.0,
+          "reference_norm": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "cosine": null
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "component": "total",
+          "value": 1.1241342961257281,
+          "reference_value": 1.6157088285294032,
+          "norm": 0.8047342826326759,
+          "reference_norm": 0.6789288096002943,
+          "absolute_error": 0.42431231446021145,
+          "relative_error": 0.6249732055265363,
+          "cosine": 0.8497192893749185
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "old_CE",
+          "value": 1.0918139027743483,
+          "reference_value": 1.0918139027743483,
+          "norm": 0.5010764255169573,
+          "reference_norm": 0.5010764255169573,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 1.0000000000000007
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "new_CE",
+          "value": 0.17111829883906834,
+          "reference_value": 0.17111829883906834,
+          "norm": 0.3180564793252981,
+          "reference_norm": 0.3180564793252981,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999989
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "classification",
+          "value": 1.2629322016134166,
+          "reference_value": 1.2629322016134166,
+          "norm": 0.3643167422359494,
+          "reference_norm": 0.3643167422359494,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999996
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "retention",
+          "value": 0.03550856389306227,
+          "reference_value": 0.03550856389306227,
+          "norm": 0.20431293930952868,
+          "reference_norm": 0.20431293930952868,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999997
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "component": "total",
+          "value": 1.298440765506479,
+          "reference_value": 1.298440765506479,
+          "norm": 0.4093266559357583,
+          "reference_norm": 0.4093266559357583,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "cosine": 0.9999999999999996
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "old_CE",
+          "value": 0.45305240093737653,
+          "reference_value": 1.0918139027743483,
+          "norm": 0.45422055851611576,
+          "reference_norm": 0.5010764255169573,
+          "absolute_error": 0.3775305797960056,
+          "relative_error": 0.7534391174091054,
+          "cosine": 0.6917083674627127
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "new_CE",
+          "value": 0.17111829883906843,
+          "reference_value": 0.17111829883906834,
+          "norm": 0.3180564793252982,
+          "reference_norm": 0.3180564793252981,
+          "absolute_error": 1.2390659078407752e-16,
+          "relative_error": 3.895741757782264e-16,
+          "cosine": 0.9999999999999989
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "classification",
+          "value": 0.6241706997764449,
+          "reference_value": 1.2629322016134166,
+          "norm": 0.3710716217518899,
+          "reference_norm": 0.3643167422359494,
+          "absolute_error": 0.3775305797960056,
+          "relative_error": 1.0362701902716793,
+          "cosine": 0.4730148857033859
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "retention",
+          "value": 0.04981655146511218,
+          "reference_value": 0.03550856389306227,
+          "norm": 0.25412079711485336,
+          "reference_norm": 0.20431293930952868,
+          "absolute_error": 0.1409024165833839,
+          "relative_error": 0.6896402012499094,
+          "cosine": 0.8326982625029021
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "component": "total",
+          "value": 0.6739872512415571,
+          "reference_value": 1.298440765506479,
+          "norm": 0.22080309352106406,
+          "reference_norm": 0.4093266559357583,
+          "absolute_error": 0.3937497057668169,
+          "relative_error": 0.9619449406896527,
+          "cosine": 0.3389194809118102
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "old_CE",
+          "value": 0.4540294300574478,
+          "reference_value": 1.0918139027743483,
+          "norm": 0.4601629714504635,
+          "reference_norm": 0.5010764255169573,
+          "absolute_error": 0.3450506803807296,
+          "relative_error": 0.6886188669218335,
+          "cosine": 0.7454512927816872
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "new_CE",
+          "value": 0.17111829883906843,
+          "reference_value": 0.17111829883906834,
+          "norm": 0.3180564793252982,
+          "reference_norm": 0.3180564793252981,
+          "absolute_error": 1.2390659078407752e-16,
+          "relative_error": 3.895741757782264e-16,
+          "cosine": 0.9999999999999989
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "classification",
+          "value": 0.6251477288965162,
+          "reference_value": 1.2629322016134166,
+          "norm": 0.3663363256068097,
+          "reference_norm": 0.3643167422359494,
+          "absolute_error": 0.3450506803807296,
+          "relative_error": 0.9471172756514655,
+          "cosine": 0.5539723445414101
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "retention",
+          "value": 0.05003078851181637,
+          "reference_value": 0.03550856389306227,
+          "norm": 0.2612122144724426,
+          "reference_norm": 0.20431293930952868,
+          "absolute_error": 0.1446964173114539,
+          "relative_error": 0.7082097580332035,
+          "cosine": 0.8341779501748706
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "component": "total",
+          "value": 0.6751785174083326,
+          "reference_value": 1.298440765506479,
+          "norm": 0.23855823187994746,
+          "reference_norm": 0.4093266559357583,
+          "absolute_error": 0.3614533983137559,
+          "relative_error": 0.8830438796795197,
+          "cosine": 0.48034546722543103
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "old_CE",
+          "value": 0.45409716892666674,
+          "reference_value": 1.0918139027743483,
+          "norm": 0.45268540655230755,
+          "reference_norm": 0.5010764255169573,
+          "absolute_error": 0.3636512183787734,
+          "relative_error": 0.7257400265909473,
+          "cosine": 0.7136610539310395
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "new_CE",
+          "value": 0.17111829883906843,
+          "reference_value": 0.17111829883906834,
+          "norm": 0.3180564793252982,
+          "reference_norm": 0.3180564793252981,
+          "absolute_error": 1.2390659078407752e-16,
+          "relative_error": 3.895741757782264e-16,
+          "cosine": 0.9999999999999989
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "classification",
+          "value": 0.6252154677657351,
+          "reference_value": 1.2629322016134166,
+          "norm": 0.3703041788902205,
+          "reference_norm": 0.3643167422359494,
+          "absolute_error": 0.3636512183787734,
+          "relative_error": 0.998173227359546,
+          "cosine": 0.5100129444393955
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "retention",
+          "value": 0.050075617449804107,
+          "reference_value": 0.03550856389306227,
+          "norm": 0.2563774814120748,
+          "reference_norm": 0.20431293930952868,
+          "absolute_error": 0.14556988139909463,
+          "relative_error": 0.7124848866207153,
+          "cosine": 0.8236021621947249
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "component": "total",
+          "value": 0.6752910852155393,
+          "reference_value": 1.298440765506479,
+          "norm": 0.22890660242117553,
+          "reference_norm": 0.4093266559357583,
+          "absolute_error": 0.38176194416702064,
+          "relative_error": 0.9326584004021868,
+          "cosine": 0.3959780314352762
+        }
+      ],
+      "diagnostic_checks": [
+        {
+          "common_state": "teacher",
+          "mode": "full_support",
+          "new_CE_gradient_max_difference": 0.0,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "teacher",
+          "mode": "moment",
+          "new_CE_gradient_max_difference": 1.0408340855860843e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "teacher",
+          "mode": "candidate",
+          "new_CE_gradient_max_difference": 1.0408340855860843e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "teacher",
+          "mode": "selected",
+          "new_CE_gradient_max_difference": 1.0408340855860843e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "full_support",
+          "new_CE_gradient_max_difference": 0.0,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "moment",
+          "new_CE_gradient_max_difference": 1.3877787807814457e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "candidate",
+          "new_CE_gradient_max_difference": 1.3877787807814457e-17,
+          "gradient_additivity_checked": true
+        },
+        {
+          "common_state": "moment_endpoint",
+          "mode": "selected",
+          "new_CE_gradient_max_difference": 1.3877787807814457e-17,
+          "gradient_additivity_checked": true
+        }
+      ],
+      "diagnostic_seconds": 1.6930263717658818,
+      "synthetic_counts": [
+        94,
+        1,
+        2,
+        14,
+        44,
+        61,
+        111,
+        74,
+        38,
+        26,
+        90,
+        40,
+        2,
+        6,
+        13,
+        5,
+        4,
+        95,
+        20,
+        99,
+        4,
+        98,
+        97
+      ],
+      "accepted_classes": [
+        0,
+        2,
+        5,
+        7,
+        12
+      ],
+      "adapter_updates": 48,
+      "memory_updates": 0,
+      "diagnostic_updates": 0,
+      "sealed": true,
+      "pipeline_seconds": 4.865948298946023,
+      "id": "HK_scale_r2",
+      "GPU_initialized": false,
+      "medical_images": 0,
+      "val_accessed": false,
+      "test_accessed": false,
+      "operation_seconds_including_import": 10.318644453771412
+    },
+    {
+      "id": "balanced_evaluation",
+      "status": "WORKER_FAILED",
+      "result": null,
+      "last_progress": null
+    }
+  ]
+}

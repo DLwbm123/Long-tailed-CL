@@ -1,0 +1,23 @@
+{
+  "original_source_commit": "2a9d32effa88bbcb3a029cb8a6ba164771365b1a",
+  "correction_commit": "39395298e3451a77f0f62363fec2038234bff8a1",
+  "original_failed_cases": [
+    "ISIC_scale_r1",
+    "ISIC_scale_r2",
+    "balanced_evaluation"
+  ],
+  "failure": "Exact-zero engineering assertion rejected float64 teacher-retention roundoff; evaluation blocked before inference",
+  "candidate_training_completed_before_failure": true,
+  "correction": "Zero-update diagnostic continuation with 1e-12 numerical assertion tolerance; all actual residuals retained",
+  "scientific_thresholds_changed": false,
+  "training_retries": 0,
+  "additional_adapter_updates_after_initial": 0,
+  "additional_memory_updates": 0,
+  "probe_processes": 2,
+  "continuation_processes": 3,
+  "missing_fields": [
+    "ISIC per-training internal seconds",
+    "ISIC original training coverage and first/last summaries"
+  ],
+  "costs_include_failed_and_probe_and_continuation_processes": true
+}

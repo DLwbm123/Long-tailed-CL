@@ -44,10 +44,13 @@ def check_group_loss():
     assert abs(float(balanced-expected))<1e-12
     assert abs(float(group_classification_loss(probe,y,p,2,True)-balanced)-1/3)<1e-12
 
+    margin=torch.tensor(2.,dtype=DT)-torch.log(torch.tensor(2.,dtype=DT))
+    expected_lse=(2/3)*torch.log(torch.tensor(2.,dtype=DT))+.5*(torch.nn.functional.softplus(margin)+torch.nn.functional.softplus(-margin))
+    assert abs(float(group_classification_loss(probe,y,p,2,False,True)-expected_lse))<1e-12
+
 
 def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.,max_group=False,balance_groups=False):
     assert 0<float(retention_scale)<float('inf')
-    assert not balance_groups or max_group
     old=len(memory);seen=old+len(current);x,y,p=training_batch(current,old_ce)
     rx,ry,rp=training_batch({},memory);params=clone_model(teacher,True)
     assert all(abs(float(p[y==c].sum())-1/seen)<1e-12 for c in range(seen))
@@ -58,14 +61,14 @@ def train_reference(teacher,current,old_ce,memory,q,steps,retention_scale=1.,max
     for step in range(steps):
         ss=scores(x,params,q)[:,:seen]
         standard_ce=-(p*ss.log_softmax(1)[torch.arange(len(y)),y]).sum()
-        ce=group_classification_loss(ss,y,p,old,True,balance_groups) if max_group else standard_ce
+        ce=group_classification_loss(ss,y,p,old,max_group,balance_groups) if max_group or balance_groups else standard_ce
         now=centered(scores(rx,params,q)[:,:old])
         retention=((now-target).square().mean(1)*correct*rp).sum()*retention_scale
         grad=torch.autograd.grad(ce+retention,params)
         with torch.no_grad():
             for v,g in zip(params,grad):v.sub_(g/16);assert bool(torch.isfinite(v).all())
         if step in (0,steps-1):trace.append(dict(preupdate_step=step,CE=float(standard_ce.detach()),classification_loss=float(ce.detach()),retention=float(retention.detach())))
-    return clone_model(params),dict(steps=steps,trace=trace,classification_objective='within_CE_plus_balanced_max_group_logistic' if balance_groups else 'within_CE_plus_max_group_logistic' if max_group else 'full_CE',retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
+    return clone_model(params),dict(steps=steps,trace=trace,classification_objective=('within_CE_plus_balanced_max_group_logistic' if max_group else 'within_CE_plus_balanced_logsumexp_group_logistic') if balance_groups else 'within_CE_plus_max_group_logistic' if max_group else 'full_CE',retention_weighted_teacher_correct=float((correct*rp).sum()),retention_scale=retention_scale,class_mass=1/seen)
 
 
 def unit():

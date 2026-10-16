@@ -91,7 +91,7 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
     primary=lock.get('primary_cell','HH')
     return dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,
         training=training,mass_matching=mass_matching,adapter_updates=len(lock['cells'])*lock['adapter_steps'],primary=primary,
-        engineering_logit_gradient_evaluations=3 if lock.get('max_group_objective') else 0,
+        engineering_logit_gradient_evaluations=3 if lock.get('max_group_objective') or lock.get('balance_groups') else 0,
         primary_both_queries_pass=all(gates[q][primary]['selected']=='candidate' for q in gates),
         gates=gates,class_rows=rows,summaries=summary,interaction_HH_minus_HM_minus_MH_plus_MM=interaction,
         bank=next(b for b in bank_receipt['banks'] if b['dataset']==name),
@@ -103,9 +103,9 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
 def main():
     root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE']);job=json.loads(os.environ['Q356_JOB'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text())
-    assert lock['cells']==(['HH'] if lock.get('match_retention_mass') or lock.get('max_group_objective') else ['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
+    assert lock['cells']==(['HH'] if lock.get('match_retention_mass') or lock.get('max_group_objective') or lock.get('balance_groups') else ['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
     assert os.environ['CUDA_VISIBLE_DEVICES']=='';torch.set_num_threads(2);torch.set_default_dtype(DT)
-    if lock.get('max_group_objective'):check_group_loss()
+    if lock.get('max_group_objective') or lock.get('balance_groups'):check_group_loss()
     prior=Path(cfg['prior_root']);diagnostic=Path(cfg['diagnostic_root']);sealed=False
     name=job.get('dataset');bank_job=job['role']=='banks'
     allowed={c['name']+'.S_old.features.private.pt' for c in lock['datasets']} if bank_job else {name+'.'+s for s in ('teacher.private.pt','S_new.features.private.pt')}

@@ -13,23 +13,31 @@ from run_real_support_ce_reference import train_reference
 
 
 def build_banks(root,prior,lock):
+    selection=lock.get('selection_mode','herding')
+    assert selection in ('herding','random')
+    def indices(x,c):
+        if selection=='herding':return herding_indices(x,lock['nodes_per_class'])
+        return torch.randperm(len(x),generator=torch.Generator().manual_seed(lock['seed']+c))[:min(lock['nodes_per_class'],len(x))].sort().values.tolist()
     # Ties are resolved by source order; scarce classes keep all available samples.
     example=torch.tensor([[1.,0.],[1.,0.],[0.,1.]],dtype=DT)
     assert herding_indices(example,1)==[0]
     assert sorted(herding_indices(example,16))==[0,1,2]
+    assert sorted(indices(example,0))==[0,1,2]
+    probe=torch.zeros(23,2,dtype=DT);idx=indices(probe,0)
+    assert idx==indices(probe,0) and len(set(idx))==16 and all(0<=i<23 for i in idx)
     banks=[]
     for case in lock['datasets']:
         name=case['name'];data=load(prior/(name+'.S_old.features.private.pt'));bank={};counts=[]
         for c in range(case['old']):
-            x=data['x'][data['y']==c];idx=herding_indices(x,lock['nodes_per_class'])
+            x=data['x'][data['y']==c];idx=indices(x,c)
             assert len(idx)==min(16,len(x)) and len(set(idx))==len(idx)>0
             bank[c]=(x[idx].clone(),torch.full((len(idx),),1/len(idx),dtype=DT))
             counts.append(dict(class_index=c,available=len(x),selected=len(idx)))
-        torch.save(bank,root/(name+'.herding.private.pt'))
+        torch.save(bank,root/(name+'.'+selection+'.private.pt'))
         banks.append(dict(dataset=name,counts=counts,node_count=sum(len(z) for z,p in bank.values()),
                           feature_bytes=sum(z.numel()*z.element_size() for z,p in bank.values()),
                           probability_bytes=sum(p.numel()*p.element_size() for z,p in bank.values())))
-    return dict(status='COMPLETED',banks=banks,banks_sealed_at=time.time(),query_access=False,
+    return dict(status='COMPLETED',selection=selection,banks=banks,banks_sealed_at=time.time(),query_access=False,
                 E_access=False,source_commit=os.environ['Q356_SHA'],engineering_adapter_updates=0)
 
 
@@ -37,13 +45,13 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
     name=job['dataset'];case=next(c for c in lock['datasets'] if c['name']==name)
     old=case['old'];seen=old+case['new'];start=time.monotonic()
     bank_receipt=json.loads((root/'banks.json').read_text());assert bank_receipt['status']=='COMPLETED'
-    state=load(prior/(name+'.teacher.private.pt'));real=load(root/(name+'.herding.private.pt'))
+    state=load(prior/(name+'.teacher.private.pt'));real=load(root/(name+'.'+lock.get('selection_mode','herding')+'.private.pt'))
     moment=state['memory'];new=load(prior/(name+'.S_new.features.private.pt'))
     current={c:new['x'][new['y']==c] for c in range(old,seen)}
     training={}
     for cell in lock['cells']:
         save(root/(job['id']+'.progress.json'),dict(phase='fit_'+cell,dataset=name))
-        ce=real if cell[0]=='H' else moment;retention=real if cell[1]=='H' else moment
+        ce=moment if cell[0]=='M' else real;retention=moment if cell[1]=='M' else real
         model,info=train_reference(state['teacher'],current,ce,retention,state['frame'],lock['adapter_steps'])
         torch.save(dict(model=model,frame=state['frame']),root/(name+'.'+cell+'.private.pt'))
         training[cell]=info
@@ -66,20 +74,23 @@ def run_cells(root,prior,diagnostic,lock,job,seal):
         gates[query]={cell:select(get('MM'),get(cell)) for cell in lock['cells']}
         for group in ('all','old','new'):
             rs={r['model']:r for r in summary if r['query']==query and r['group']==group}
-            interaction.append(dict(query=query,group=group,**{metric:rs['HH'][metric]-rs['HM'][metric]-rs['MH'][metric]+rs['MM'][metric] for metric in ('BA','CE')}))
+            if all(cell in rs for cell in ('HH','HM','MH')):
+                interaction.append(dict(query=query,group=group,**{metric:rs['HH'][metric]-rs['HM'][metric]-rs['MH'][metric]+rs['MM'][metric] for metric in ('BA','CE')}))
+    primary=lock.get('primary_cell','HH')
     return dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,
-        training=training,adapter_updates=3*lock['adapter_steps'],primary='HH',
-        primary_both_queries_pass=all(gates[q]['HH']['selected']=='candidate' for q in gates),
+        training=training,adapter_updates=len(lock['cells'])*lock['adapter_steps'],primary=primary,
+        primary_both_queries_pass=all(gates[q][primary]['selected']=='candidate' for q in gates),
         gates=gates,class_rows=rows,summaries=summary,interaction_HH_minus_HM_minus_MH_plus_MM=interaction,
         bank=next(b for b in bank_receipt['banks'] if b['dataset']==name),
         original_moment_node_count=sum(len(z) for z,p in moment.values()),
-        mixed_cells_use_both_banks=True,old_S_access_in_training=False,query_used_for_fitting=False,
+        mixed_cells_use_both_banks=any('M' in cell for cell in lock['cells']),old_S_access_in_training=False,query_used_for_fitting=False,
         E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start)
 
 
 def main():
     root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE']);job=json.loads(os.environ['Q356_JOB'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text())
+    assert lock['cells']==(['RR'] if lock.get('selection_mode')=='random' else ['HM','MH','HH'])
     assert os.environ['CUDA_VISIBLE_DEVICES']=='';torch.set_num_threads(2);torch.set_default_dtype(DT)
     prior=Path(cfg['prior_root']);diagnostic=Path(cfg['diagnostic_root']);sealed=False
     name=job.get('dataset');bank_job=job['role']=='banks'

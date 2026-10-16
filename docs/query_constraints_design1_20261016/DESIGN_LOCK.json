@@ -1,0 +1,518 @@
+{
+  "version": "query_constraints_v1",
+  "threads": 2,
+  "scenes": [
+    {
+      "id": "ISIC_scale_r1",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 100264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16,
+      "scale": "ISIC_scale",
+      "replicate": 1
+    },
+    {
+      "id": "ISIC_scale_r2",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 200264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16,
+      "scale": "ISIC_scale",
+      "replicate": 2
+    },
+    {
+      "id": "HK_scale_r1",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 100265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46,
+      "scale": "HK_scale",
+      "replicate": 1
+    },
+    {
+      "id": "HK_scale_r2",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 200265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46,
+      "scale": "HK_scale",
+      "replicate": 2
+    }
+  ],
+  "rhos": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "steps": 48,
+  "learning_rate": 0.0625,
+  "retention_coefficient": 1,
+  "query_per_class": 1000,
+  "evaluation_per_class": 1000,
+  "query_seeds": {
+    "ISIC_scale_r1": 955100,
+    "ISIC_scale_r2": 955101,
+    "HK_scale_r1": 955102,
+    "HK_scale_r2": 955103
+  },
+  "E_seed_rule": "After all four choices locked, draw four distinct secrets.randbits(62) values >= 10^9; exclude all training/Q seeds; no outcome-dependent redraw",
+  "bootstrap_draws": 10000,
+  "bootstrap_seeds": {
+    "ISIC_scale_r1": 955200,
+    "ISIC_scale_r2": 955201,
+    "HK_scale_r1": 955202,
+    "HK_scale_r2": 955203
+  },
+  "bootstrap": "paired correctness multinomial within class x fixed mixture stratum (.2/.8); class macro, percentile two-sided pointwise95 linear",
+  "cost_limit": 0.01,
+  "selection": "Q point constraints old/new >= -.01-1e-12, maximize all BA difference; require >1e-12 for nonbaseline; ties within 1e-12 prefer baseline then abs(log(rho)) then numeric rho",
+  "E_decision": "original positive overall point and CI lower>1e-12; old/new point and CI lower >=-.01-1e-12; all four SUPPORTED required, otherwise preserve statuses; pointwise conditional not simultaneous or seed-population",
+  "prior_CPU_residence_seconds": 8352.909403781872,
+  "historical_GPU_seconds": 400036.74851310626,
+  "parent_result_commit": "6d3a499b1e8efd45fda2a748dcd36958e6525df8",
+  "total_adapter_updates": 384,
+  "total_memory_updates": 0,
+  "case_hard_wall_seconds": 600,
+  "overall_wall_seconds": 1800,
+  "stop_after_this_round": true,
+  "no_retry": true,
+  "GPU_processes": 0,
+  "cases": [
+    {
+      "id": "query_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "ISIC_scale_r1_half",
+      "kind": "training",
+      "scene": {
+        "id": "ISIC_scale_r1",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 100264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ],
+        "task_sizes": [
+          4,
+          2,
+          2
+        ],
+        "active_dimension": 16,
+        "scale": "ISIC_scale",
+        "replicate": 1
+      },
+      "rho": 0.5
+    },
+    {
+      "id": "ISIC_scale_r1_double",
+      "kind": "training",
+      "scene": {
+        "id": "ISIC_scale_r1",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 100264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ],
+        "task_sizes": [
+          4,
+          2,
+          2
+        ],
+        "active_dimension": 16,
+        "scale": "ISIC_scale",
+        "replicate": 1
+      },
+      "rho": 2.0
+    },
+    {
+      "id": "ISIC_scale_r2_half",
+      "kind": "training",
+      "scene": {
+        "id": "ISIC_scale_r2",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 200264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ],
+        "task_sizes": [
+          4,
+          2,
+          2
+        ],
+        "active_dimension": 16,
+        "scale": "ISIC_scale",
+        "replicate": 2
+      },
+      "rho": 0.5
+    },
+    {
+      "id": "ISIC_scale_r2_double",
+      "kind": "training",
+      "scene": {
+        "id": "ISIC_scale_r2",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 8,
+        "n": 9434,
+        "seed": 200264,
+        "count_weights": [
+          458,
+          27,
+          256,
+          3263,
+          2835,
+          44,
+          10529,
+          1306
+        ],
+        "task_sizes": [
+          4,
+          2,
+          2
+        ],
+        "active_dimension": 16,
+        "scale": "ISIC_scale",
+        "replicate": 2
+      },
+      "rho": 2.0
+    },
+    {
+      "id": "HK_scale_r1_half",
+      "kind": "training",
+      "scene": {
+        "id": "HK_scale_r1",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 100265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46,
+        "scale": "HK_scale",
+        "replicate": 1
+      },
+      "rho": 0.5
+    },
+    {
+      "id": "HK_scale_r1_double",
+      "kind": "training",
+      "scene": {
+        "id": "HK_scale_r1",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 100265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46,
+        "scale": "HK_scale",
+        "replicate": 1
+      },
+      "rho": 2.0
+    },
+    {
+      "id": "HK_scale_r2_half",
+      "kind": "training",
+      "scene": {
+        "id": "HK_scale_r2",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 200265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46,
+        "scale": "HK_scale",
+        "replicate": 2
+      },
+      "rho": 0.5
+    },
+    {
+      "id": "HK_scale_r2_double",
+      "kind": "training",
+      "scene": {
+        "id": "HK_scale_r2",
+        "kind": "scale",
+        "dimension": 1536,
+        "classes": 23,
+        "n": 1038,
+        "seed": 200265,
+        "count_weights": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6,
+          34,
+          83,
+          25,
+          23,
+          635,
+          127,
+          662,
+          18,
+          654,
+          644
+        ],
+        "task_sizes": [
+          13,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "active_dimension": 46,
+        "scale": "HK_scale",
+        "replicate": 2
+      },
+      "rho": 2.0
+    },
+    {
+      "id": "query_selection",
+      "kind": "query"
+    },
+    {
+      "id": "sealed_evaluation",
+      "kind": "evaluation"
+    }
+  ]
+}

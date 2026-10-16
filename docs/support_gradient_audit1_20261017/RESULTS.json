@@ -1,0 +1,587 @@
+{
+  "status": "COMPLETED_SUPPORT_DIAGNOSTIC_ONLY",
+  "source_commit": "e94fa52f859e4137a3ebdc16787b9edc160132fc",
+  "program": {
+    "status": "COMPLETE_AWAITING_DELIVERY",
+    "source_commit": "e94fa52f859e4137a3ebdc16787b9edc160132fc",
+    "started_at": 1792185261.9864464,
+    "active": null,
+    "cases": [
+      {
+        "id": "ISIC_gradient",
+        "status": "COMPLETED"
+      },
+      {
+        "id": "HK_gradient",
+        "status": "COMPLETED"
+      }
+    ],
+    "costs": [
+      {
+        "id": "ISIC_gradient",
+        "returncode": 0,
+        "process_residence_seconds": 12.052781381178647,
+        "CPU_only_residence_seconds": 12.052781381178647,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 8.888128,
+        "CPU_system_seconds": 2.283115,
+        "peak_RSS_MiB": 887.359375,
+        "timeout": false
+      },
+      {
+        "id": "HK_gradient",
+        "returncode": 0,
+        "process_residence_seconds": 6.5459428881295025,
+        "CPU_only_residence_seconds": 6.5459428881295025,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 6.005841,
+        "CPU_system_seconds": 1.022018,
+        "peak_RSS_MiB": 476.2109375,
+        "timeout": false
+      }
+    ],
+    "failures": [],
+    "not_run": [],
+    "finished_at": 1792185280.605493,
+    "supervisor_wall_seconds": 18.619067217689008
+  },
+  "retirement": {
+    "checked_at": 1792186813.4803033,
+    "all_processes_exited": true
+  },
+  "results": {
+    "ISIC_gradient": {
+      "status": "COMPLETED",
+      "source_commit": "e94fa52f859e4137a3ebdc16787b9edc160132fc",
+      "dataset": "ISIC",
+      "states": [
+        {
+          "state": "teacher",
+          "old_CE": 1.2874259563361068,
+          "new_CE": 2.0818456275178816,
+          "retention": 0.0,
+          "old_class_mass": 0.6666666666666666,
+          "norms": [
+            1.8935088061413667,
+            5.165728305144748,
+            0.0
+          ],
+          "gram": [
+            [
+              3.585375598934904,
+              -6.5152766707265695,
+              0.0
+            ],
+            [
+              -6.5152766707265695,
+              26.684748922573633,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "cosine": [
+            [
+              1.0,
+              -0.6660916248384711,
+              null
+            ],
+            [
+              -0.6660916248384711,
+              1.0,
+              null
+            ],
+            [
+              null,
+              null,
+              null
+            ]
+          ],
+          "original_full_objective_gradient_norm": 1.28949364030171,
+          "derivative_along_negative_full": [
+            -0.21849150904774653,
+            -4.55139852704017,
+            -0.0
+          ],
+          "derivative_along_negative_new": [
+            6.515276670726568,
+            -26.68474892257363,
+            -0.0
+          ],
+          "old_new_conflict": true
+        },
+        {
+          "state": "original_HH",
+          "old_CE": 1.0616867861456634,
+          "new_CE": 1.2505027718733035,
+          "retention": 0.02337688853517024,
+          "old_class_mass": 0.6666666666666666,
+          "norms": [
+            1.759595896074593,
+            3.190648284361735,
+            0.3664826636738402
+          ],
+          "gram": [
+            [
+              3.09617771748255,
+              -5.1858900685020615,
+              -0.2737079290447633
+            ],
+            [
+              -5.1858900685020615,
+              10.180236474500484,
+              0.1311247276855808
+            ],
+            [
+              -0.2737079290447633,
+              0.13112472768558062,
+              0.13430954277347307
+            ]
+          ],
+          "cosine": [
+            [
+              1.0000000000000002,
+              -0.9237010403274917,
+              -0.42444459053060235
+            ],
+            [
+              -0.9237010403274917,
+              1.0000000000000002,
+              0.1121378514565137
+            ],
+            [
+              -0.42444459053060235,
+              0.11213785145651353,
+              1.0
+            ]
+          ],
+          "original_full_objective_gradient_norm": 0.24322512958620432,
+          "derivative_along_negative_full": [
+            -0.06178052644291744,
+            -0.06727684018436894,
+            0.004454167361175499
+          ],
+          "derivative_along_negative_new": [
+            5.185890068502058,
+            -10.180236474500482,
+            -0.13112472768558076
+          ],
+          "old_new_conflict": true
+        },
+        {
+          "state": "balanced_max",
+          "old_CE": 1.1309201343880866,
+          "new_CE": 1.1454467143244014,
+          "retention": 0.024539790712951964,
+          "old_class_mass": 0.6666666666666666,
+          "norms": [
+            1.8946861380559554,
+            2.7411612413649826,
+            0.4328713634238686
+          ],
+          "gram": [
+            [
+              3.5898355617413906,
+              -4.6950424003934845,
+              -0.24212545772950275
+            ],
+            [
+              -4.6950424003934845,
+              7.513964951161611,
+              0.1009299075609992
+            ],
+            [
+              -0.24212545772950264,
+              0.10092990756099905,
+              0.18737761727243896
+            ]
+          ],
+          "cosine": [
+            [
+              0.9999999999999999,
+              -0.9039983930340983,
+              -0.29521901098584147
+            ],
+            [
+              -0.9039983930340983,
+              0.9999999999999999,
+              0.08506020733374728
+            ],
+            [
+              -0.29521901098584136,
+              0.08506020733374715,
+              1.0000000000000002
+            ]
+          ],
+          "original_full_objective_gradient_norm": 0.5248925926762062,
+          "derivative_along_negative_full": [
+            -0.5860841166335964,
+            0.5244433756474527,
+            -0.059603947973103595
+          ],
+          "derivative_along_negative_new": [
+            4.695042400393483,
+            -7.513964951161611,
+            -0.1009299075609992
+          ],
+          "old_new_conflict": true
+        },
+        {
+          "state": "balanced_lse",
+          "old_CE": 1.2551558730080796,
+          "new_CE": 0.9664560549025167,
+          "retention": 0.022467260571371397,
+          "old_class_mass": 0.6666666666666666,
+          "norms": [
+            2.6237823343373945,
+            2.499493396623026,
+            0.3584258019403977
+          ],
+          "gram": [
+            [
+              6.8842337379809875,
+              -6.2313494282657445,
+              -0.30782167251435827
+            ],
+            [
+              -6.2313494282657445,
+              6.247467239762113,
+              0.10150209121766227
+            ],
+            [
+              -0.3078216725143583,
+              0.10150209121766227,
+              0.1284690554966172
+            ]
+          ],
+          "cosine": [
+            [
+              1.0000000000000002,
+              -0.950172174223147,
+              -0.3273196847772791
+            ],
+            [
+              -0.950172174223147,
+              1.0,
+              0.11329838795957478
+            ],
+            [
+              -0.32731968477727913,
+              0.11329838795957478,
+              1.0
+            ]
+          ],
+          "original_full_objective_gradient_norm": 0.8775203989541789,
+          "derivative_along_negative_full": [
+            -2.204551010051051,
+            1.9702417810387953,
+            0.042911362440400815
+          ],
+          "derivative_along_negative_new": [
+            6.231349428265744,
+            -6.247467239762113,
+            -0.10150209121766225
+          ],
+          "old_new_conflict": true
+        }
+      ],
+      "primary_original_HH_conflict": true,
+      "gradient_terms": [
+        "old_group_normalized_full_CE",
+        "new_group_normalized_full_CE",
+        "original_H_retention"
+      ],
+      "diagnostic_adapter_gradient_evaluations": 12,
+      "adapter_updates": 0,
+      "engineering_gradient_evaluations": 0,
+      "old_support_count": 64,
+      "new_support_count": 2290,
+      "query_access": false,
+      "E_access": false,
+      "old_S_access": false,
+      "GPU_used": false,
+      "new_labels": 0,
+      "model_updates": 0,
+      "operation_seconds": 2.6889695548452437,
+      "scope": "Local support CE geometry only; directional derivatives are not finite-step BA or query generalization evidence"
+    },
+    "HK_gradient": {
+      "status": "COMPLETED",
+      "source_commit": "e94fa52f859e4137a3ebdc16787b9edc160132fc",
+      "dataset": "HK",
+      "states": [
+        {
+          "state": "teacher",
+          "old_CE": 1.2212458228690064,
+          "new_CE": 3.9731043472997523,
+          "retention": 0.0,
+          "old_class_mass": 0.8666666666666666,
+          "norms": [
+            0.532446939427308,
+            8.331463334212229,
+            0.0
+          ],
+          "gram": [
+            [
+              0.2834997433055074,
+              -1.5258749811547774,
+              0.0
+            ],
+            [
+              -1.5258749811547774,
+              69.41328128932275,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "cosine": [
+            [
+              1.0,
+              -0.34397060465803847,
+              null
+            ],
+            [
+              -0.34397060465803847,
+              1.0,
+              null
+            ],
+            [
+              null,
+              null,
+              null
+            ]
+          ],
+          "original_full_objective_gradient_norm": 1.0460913126828604,
+          "derivative_along_negative_full": [
+            -0.04224978004413618,
+            -7.932679188242236,
+            -0.0
+          ],
+          "derivative_along_negative_new": [
+            1.5258749811547763,
+            -69.41328128932275,
+            -0.0
+          ],
+          "old_new_conflict": true
+        },
+        {
+          "state": "original_HH",
+          "old_CE": 1.0987364663434651,
+          "new_CE": 1.2942889513928602,
+          "retention": 0.030366462476912236,
+          "old_class_mass": 0.8666666666666666,
+          "norms": [
+            0.9397275893603607,
+            5.751432916533957,
+            0.23998748246472562
+          ],
+          "gram": [
+            [
+              0.8830879422050348,
+              -4.913913680918318,
+              -0.0649640873778902
+            ],
+            [
+              -4.913913680918318,
+              33.0789805933903,
+              -0.07551060787014041
+            ],
+            [
+              -0.06496408737789018,
+              -0.0755106078701404,
+              0.05759399173975699
+            ]
+          ],
+          "cosine": [
+            [
+              1.0000000000000002,
+              -0.9091791910408956,
+              -0.2880598793687475
+            ],
+            [
+              -0.9091791910408956,
+              1.0000000000000002,
+              -0.05470705266893584
+            ],
+            [
+              -0.28805987936874744,
+              -0.054707052668935836,
+              1.0
+            ]
+          ],
+          "original_full_objective_gradient_norm": 0.20139834259849215,
+          "derivative_along_negative_full": [
+            -0.04519030507736434,
+            -0.07629494778602829,
+            0.008776298370433238
+          ],
+          "derivative_along_negative_new": [
+            4.9139136809183155,
+            -33.07898059339029,
+            0.07551060787014036
+          ],
+          "old_new_conflict": true
+        },
+        {
+          "state": "balanced_max",
+          "old_CE": 1.1891126081385288,
+          "new_CE": 0.7606616484425506,
+          "retention": 0.03735733245033571,
+          "old_class_mass": 0.8666666666666666,
+          "norms": [
+            1.3919616316126746,
+            4.077127689267448,
+            0.2818432300227746
+          ],
+          "gram": [
+            [
+              1.9375571838818195,
+              -5.357880248093112,
+              -0.031537706420124365
+            ],
+            [
+              -5.357880248093112,
+              16.622970194591325,
+              -0.15313225410002765
+            ],
+            [
+              -0.031537706420124316,
+              -0.15313225410002762,
+              0.07943560630967063
+            ]
+          ],
+          "cosine": [
+            [
+              1.0000000000000002,
+              -0.9440857122899925,
+              -0.0803887423347376
+            ],
+            [
+              -0.9440857122899925,
+              1.0,
+              -0.13326151764324118
+            ],
+            [
+              -0.08038874233473747,
+              -0.13326151764324115,
+              0.9999999999999998
+            ]
+          ],
+          "original_full_objective_gradient_norm": 0.7046343184734636,
+          "derivative_along_negative_full": [
+            -0.9332944865317042,
+            2.580232443168546,
+            -0.031685293532225836
+          ],
+          "derivative_along_negative_new": [
+            5.357880248093114,
+            -16.622970194591325,
+            0.15313225410002762
+          ],
+          "old_new_conflict": true
+        },
+        {
+          "state": "balanced_lse",
+          "old_CE": 1.3794203674179275,
+          "new_CE": 0.3893093182124148,
+          "retention": 0.03696754016258487,
+          "old_class_mass": 0.8666666666666666,
+          "norms": [
+            2.160805699332636,
+            2.3714047509495058,
+            0.2798166810107194
+          ],
+          "gram": [
+            [
+              4.669081270268403,
+              -4.883391147231674,
+              0.013107709104881377
+            ],
+            [
+              -4.883391147231674,
+              5.623560492825888,
+              -0.17177502704594552
+            ],
+            [
+              0.013107709104881444,
+              -0.17177502704594538,
+              0.0782973749718547
+            ]
+          ],
+          "cosine": [
+            [
+              1.0,
+              -0.9530158185057279,
+              0.021678911727017528
+            ],
+            [
+              -0.9530158185057279,
+              1.0000000000000002,
+              -0.258869413040833
+            ],
+            [
+              0.02167891172701764,
+              -0.25886941304083283,
+              1.0000000000000002
+            ]
+          ],
+          "original_full_objective_gradient_norm": 1.5917217111423436,
+          "derivative_along_negative_full": [
+            -3.4085259903732728,
+            3.654239288936612,
+            -0.06675405258995916
+          ],
+          "derivative_along_negative_new": [
+            4.8833911472316744,
+            -5.62356049282589,
+            0.1717750270459455
+          ],
+          "old_new_conflict": true
+        }
+      ],
+      "primary_original_HH_conflict": true,
+      "gradient_terms": [
+        "old_group_normalized_full_CE",
+        "new_group_normalized_full_CE",
+        "original_H_retention"
+      ],
+      "diagnostic_adapter_gradient_evaluations": 12,
+      "adapter_updates": 0,
+      "engineering_gradient_evaluations": 0,
+      "old_support_count": 169,
+      "new_support_count": 95,
+      "query_access": false,
+      "E_access": false,
+      "old_S_access": false,
+      "GPU_used": false,
+      "new_labels": 0,
+      "model_updates": 0,
+      "operation_seconds": 0.607202251907438,
+      "scope": "Local support CE geometry only; directional derivatives are not finite-step BA or query generalization evidence"
+    }
+  },
+  "primary_both_datasets_conflict": true,
+  "prelaunch_failures": [
+    {
+      "stage": "source_push",
+      "exit_code": 128,
+      "error": "LibreSSL SSL_connect SSL_ERROR_SYSCALL through required proxy",
+      "recorded_at": 1792185241.622047
+    },
+    {
+      "stage": "prelaunch_remote_SHA_guard",
+      "exit_code": 1,
+      "error": "remote did not equal local frozen source; stopped before remote dispatch",
+      "experiment_started": false
+    }
+  ],
+  "prelaunch_recovered_same_proxy": true,
+  "stderr_summary": "TypedStorage deprecation warning only"
+}

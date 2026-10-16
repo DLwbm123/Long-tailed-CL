@@ -1,0 +1,140 @@
+{
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "cases": [
+    {
+      "id": "fullslot_retention_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "task_sizes": [
+        2,
+        1,
+        1
+      ],
+      "active_dimension": 8
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46
+    }
+  ],
+  "version": "fullslot_retention_CPU_v1",
+  "status": "PROSPECTIVE_SYNTHETIC_2X2",
+  "parent_result_commit": "6550e55fed000d61fed93706dbab254f7b195989",
+  "prior_CPU_residence_seconds": 6593.252146674786,
+  "historical_GPU_seconds": 400036.74851310626,
+  "beta": 8,
+  "adapter_rank": 8,
+  "adapter_activation": "tanh(3*x@U)",
+  "adapter_initialization": "U=N(0,1)/sqrt(8), V=0; seed+2100",
+  "adapter_steps": 48,
+  "adapter_lr": 0.0625,
+  "retention_coefficient": 1,
+  "memory_nodes": 16,
+  "memory_steps": 48,
+  "memory_lr": 0.02,
+  "memory_initialization": "current class mean + .1*N(0,I)/sqrt(d), seed+1000+class; ball projected; identical all arms",
+  "decision_objective": "mean sliced W1 of 4D pre/post joint seen/reserved margins divided by beta + mean relative squared CE adapter-gradient error across pre/post snapshots",
+  "sliced_directions": "4 coordinate + 4 normalized Hadamard directions",
+  "gradient_denominator_floor": 1e-12,
+  "slot_assignment": "fixed 0..K-1 shared across all four arms; no Hungarian",
+  "frame": "global fixed random-orientation ETF capacity K; seed+2000",
+  "modes": [
+    "old_moment",
+    "old_decision",
+    "full_moment",
+    "full_decision"
+  ],
+  "evaluation_seed_offset": 10000,
+  "screen": "Primary D vs B: both high-dimensional cases every stage BA/oldBA/newBA >= B and at least one strict BA benefit per case. Same no-harm+strict screen separately for B vs A, D vs C, C vs A. Full joint gate additionally D dominates A/B/C. No tuning or posthoc primary switch.",
+  "scope": "Only retention range changes; added scalar diagnostics reuse same forward/gradient. Synthetic CPU only.",
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_ready": false,
+  "original_full_query_gate": null,
+  "total_scale_adapter_updates": 2304,
+  "actual_scale_memory_updates": 1728,
+  "unit_adapter_updates": 2,
+  "sharing": "moment two arms share one construction; decision two trajectories independent, unchanged 1728 memory updates total",
+  "stop_after_this_round": true,
+  "retention": "old-only versus all Kmax centered logits; mean over respective dimensions; coefficient1 and identical old-argmax-correct mask rule; class-balanced mass not renormalized",
+  "diagnostics": "per-class teacher old/full weighted coverage and effective retention mass; first/last preupdate old/full drift and relative group shifts; decision component endpoints and target gradient squared norms. No additional model probes or optimizer steps."
+}

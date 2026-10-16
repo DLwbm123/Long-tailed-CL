@@ -1,0 +1,139 @@
+{
+  "status": "QUERY_PREREQUISITES_NOT_MET",
+  "audit_type": "metadata_and_existing_protocol_only",
+  "training_updates": 0,
+  "model_inference_calls": 0,
+  "test_manifest_or_images_opened": false,
+  "metadata_read_scope": "schema and patient linkage for existing train/val IDs; no label extraction from external metadata",
+  "new_annotations": 0,
+  "sources": [
+    "docs/three_dataset1_20261008/DATA_PROTOCOL.json",
+    "docs/three_dataset1_20261008/PROTOCOL_LOCK.json",
+    "docs/dat_hao_isic_hk2_20261012/PROTOCOL_ZH.md",
+    "docs/isic_apart_transfer_v2/V2_DATASET_SUMMARY.json"
+  ],
+  "datasets": {
+    "ISIC": {
+      "train": {
+        "n": 18718,
+        "class_counts": {
+          "0": 10529,
+          "1": 3263,
+          "2": 2835,
+          "3": 1306,
+          "4": 458,
+          "5": 256,
+          "6": 44,
+          "7": 27
+        },
+        "identity_components": 9936,
+        "schema_has_verified_patient_key": false,
+        "metadata_matched_images": 18718,
+        "patient_id_nonmissing_images": 0,
+        "patient_id_nonmissing_by_class": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0
+        },
+        "patient_keys_with_attribution_namespace": 0
+      },
+      "val": {
+        "n": 295,
+        "class_counts": {
+          "0": 44,
+          "1": 37,
+          "2": 46,
+          "3": 40,
+          "4": 41,
+          "5": 37,
+          "6": 26,
+          "7": 24
+        },
+        "identity_components": 278,
+        "schema_has_verified_patient_key": false,
+        "metadata_matched_images": 295,
+        "patient_id_nonmissing_images": 0,
+        "patient_id_nonmissing_by_class": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0
+        },
+        "patient_keys_with_attribution_namespace": 0
+      },
+      "train_val_identity_overlap": 0
+    },
+    "HK": {
+      "train": {
+        "n": 6821,
+        "class_counts": {
+          "0": 25,
+          "1": 403,
+          "2": 736,
+          "3": 644,
+          "4": 626,
+          "5": 3,
+          "6": 6,
+          "7": 83,
+          "8": 654,
+          "9": 635,
+          "10": 595,
+          "11": 261,
+          "12": 167,
+          "13": 662,
+          "14": 252,
+          "15": 488,
+          "16": 34,
+          "17": 23,
+          "18": 127,
+          "19": 6,
+          "20": 288,
+          "21": 18,
+          "22": 85
+        },
+        "identity_components": 6821,
+        "schema_has_verified_patient_key": false
+      },
+      "val": {
+        "n": 1698,
+        "class_counts": {
+          "0": 7,
+          "1": 113,
+          "2": 182,
+          "3": 157,
+          "4": 165,
+          "5": 1,
+          "6": 1,
+          "7": 21,
+          "8": 153,
+          "9": 164,
+          "10": 150,
+          "11": 61,
+          "12": 41,
+          "13": 160,
+          "14": 60,
+          "15": 123,
+          "16": 8,
+          "17": 5,
+          "18": 33,
+          "19": 2,
+          "20": 66,
+          "21": 4,
+          "22": 21
+        },
+        "identity_components": 1698,
+        "schema_has_verified_patient_key": false
+      },
+      "train_val_identity_overlap": 0
+    }
+  }
+}

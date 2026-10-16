@@ -13,8 +13,9 @@ def save(path,value):
 
 def main():
     root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE'])
+    worker=os.environ.get('Q356_WORKER','/tmp/q356w.py')
     cfg=json.loads((root/'CONFIG.private.json').read_text())
-    lock=json.loads((source/'docs/real_query_node1_20261016/PROTOCOL_LOCK.json').read_text())
+    lock=json.loads((source/os.environ.get('Q356_PROTOCOL','docs/real_query_node1_20261016/PROTOCOL_LOCK.json')).read_text())
     assert not (root/'PROGRAM.json').exists(),'Duplicate launch forbidden'
     start=time.monotonic();deadline=start+lock['overall_wall_seconds']
     state=dict(status='RUNNING',source_commit=os.environ['Q356_SHA'],started_at=time.time(),active=None,cases=[],costs=[],failures=[])
@@ -34,10 +35,10 @@ def main():
                 state['failures'].append(dict(id=job['id'],reason='GPU_ADMISSION_FAILED',available_MiB=available[cfg['gpu']]));break
         env=os.environ.copy();env.update(Q356_JOB=json.dumps(job),CUDA_VISIBLE_DEVICES=str(cfg['gpu']) if gpu else '')
         with (root/(job['id']+'.stdout.private.log')).open('x') as fo,(root/(job['id']+'.stderr.private.log')).open('x') as fe:
-            p=subprocess.Popen([sys.executable,'-u','/tmp/q356w.py'],env=env,stdout=fo,stderr=fe)
+            p=subprocess.Popen([sys.executable,'-u',worker],env=env,stdout=fo,stderr=fe)
             state['active']=dict(id=job['id'],pid=p.pid,role=job['role'],started_at=time.time());update()
             commands=subprocess.check_output(['ps','-p',str(p.pid),'-o','args='],text=True).strip()
-            assert 'q356w.py' in commands and not any(v in commands.lower() for v in ('wangbomin','longtailed','query_node'))
+            assert worker in commands and not any(v in commands.lower() for v in ('wangbomin','longtailed','query_node'))
             stopped=None
             while True:
                 pid,status,usage=os.wait4(p.pid,os.WNOHANG)

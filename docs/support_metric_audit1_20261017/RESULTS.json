@@ -1,0 +1,1100 @@
+{
+  "status": "COMPLETED_SUPPORT_DIAGNOSTIC_ONLY",
+  "source_commit": "ebcc3d20faf9acf15c4d59dd9cd1e0db6ad7d48a",
+  "program": {
+    "status": "COMPLETE_AWAITING_DELIVERY",
+    "source_commit": "ebcc3d20faf9acf15c4d59dd9cd1e0db6ad7d48a",
+    "started_at": 1792188824.5394752,
+    "active": null,
+    "cases": [
+      {
+        "id": "ISIC_metrics",
+        "status": "COMPLETED"
+      },
+      {
+        "id": "HK_metrics",
+        "status": "COMPLETED"
+      }
+    ],
+    "costs": [
+      {
+        "id": "ISIC_metrics",
+        "returncode": 0,
+        "process_residence_seconds": 10.545632509049028,
+        "CPU_only_residence_seconds": 10.545632509049028,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 7.844333,
+        "CPU_system_seconds": 1.360266,
+        "peak_RSS_MiB": 541.03515625,
+        "timeout": false
+      },
+      {
+        "id": "HK_metrics",
+        "returncode": 0,
+        "process_residence_seconds": 6.5447139837779105,
+        "CPU_only_residence_seconds": 6.5447139837779105,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 5.846132,
+        "CPU_system_seconds": 1.053501,
+        "peak_RSS_MiB": 446.890625,
+        "timeout": false
+      }
+    ],
+    "failures": [],
+    "not_run": [],
+    "finished_at": 1792188841.6492527,
+    "supervisor_wall_seconds": 17.109794130083174
+  },
+  "retirement": {
+    "checked_at": 1792190418.2633636,
+    "all_processes_exited": true
+  },
+  "results": {
+    "ISIC_metrics": {
+      "status": "COMPLETED",
+      "source_commit": "ebcc3d20faf9acf15c4d59dd9cd1e0db6ad7d48a",
+      "dataset": "ISIC",
+      "class_rows": [
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "class_index": 0,
+          "group": "old",
+          "count": 16,
+          "correct": 9,
+          "recall": 0.5625,
+          "CE": 1.262157227859146,
+          "errors_to_old": 7,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "class_index": 1,
+          "group": "old",
+          "count": 16,
+          "correct": 12,
+          "recall": 0.75,
+          "CE": 0.9773162367220053,
+          "errors_to_old": 3,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "class_index": 2,
+          "group": "old",
+          "count": 16,
+          "correct": 6,
+          "recall": 0.375,
+          "CE": 1.6851346559160507,
+          "errors_to_old": 10,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "class_index": 3,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 1.2250957048472246,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "class_index": 4,
+          "group": "new",
+          "count": 2254,
+          "correct": 17,
+          "recall": 0.0075421472937000885,
+          "CE": 2.0287728566743,
+          "errors_to_old": 2233,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "class_index": 5,
+          "group": "new",
+          "count": 36,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.1349183983614646,
+          "errors_to_old": 35,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.0742320787870685,
+          "errors_to_old": 2,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 16,
+          "correct": 12,
+          "recall": 0.75,
+          "CE": 0.7585325716413432,
+          "errors_to_old": 2,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 16,
+          "correct": 7,
+          "recall": 0.4375,
+          "CE": 1.4642200626555126,
+          "errors_to_old": 5,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 0.9497624314987283,
+          "errors_to_old": 4,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "class_index": 4,
+          "group": "new",
+          "count": 2254,
+          "correct": 435,
+          "recall": 0.1929902395740905,
+          "CE": 1.6530536135406404,
+          "errors_to_old": 1605,
+          "errors_to_new": 214
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "class_index": 5,
+          "group": "new",
+          "count": 36,
+          "correct": 29,
+          "recall": 0.8055555555555556,
+          "CE": 0.8479519302059668,
+          "errors_to_old": 5,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "class_index": 0,
+          "group": "old",
+          "count": 16,
+          "correct": 7,
+          "recall": 0.4375,
+          "CE": 1.4106406823027697,
+          "errors_to_old": 0,
+          "errors_to_new": 9
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "class_index": 1,
+          "group": "old",
+          "count": 16,
+          "correct": 13,
+          "recall": 0.8125,
+          "CE": 0.7211798862065388,
+          "errors_to_old": 0,
+          "errors_to_new": 3
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "class_index": 2,
+          "group": "old",
+          "count": 16,
+          "correct": 2,
+          "recall": 0.125,
+          "CE": 1.8460943350361134,
+          "errors_to_old": 2,
+          "errors_to_new": 12
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "class_index": 3,
+          "group": "old",
+          "count": 16,
+          "correct": 7,
+          "recall": 0.4375,
+          "CE": 1.1455291616903425,
+          "errors_to_old": 1,
+          "errors_to_new": 8
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "class_index": 4,
+          "group": "new",
+          "count": 2254,
+          "correct": 1685,
+          "recall": 0.7475598935226264,
+          "CE": 0.9101309226745559,
+          "errors_to_old": 376,
+          "errors_to_new": 193
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "class_index": 5,
+          "group": "new",
+          "count": 36,
+          "correct": 33,
+          "recall": 0.9166666666666666,
+          "CE": 0.41677530170372445,
+          "errors_to_old": 0,
+          "errors_to_new": 3
+        }
+      ],
+      "summaries": [
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "group": "all",
+          "BA": 0.39709035788228336,
+          "CE": 1.5522325133966983,
+          "count": 2354
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "group": "old",
+          "BA": 0.59375,
+          "CE": 1.2874259563361066,
+          "count": 64
+        },
+        {
+          "dataset": "ISIC",
+          "model": "teacher",
+          "group": "new",
+          "BA": 0.0037710736468500442,
+          "CE": 2.0818456275178825,
+          "count": 2290
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "group": "all",
+          "BA": 0.5830909658549409,
+          "CE": 1.1246254480548765,
+          "count": 2354
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "group": "old",
+          "BA": 0.625,
+          "CE": 1.0616867861456631,
+          "count": 64
+        },
+        {
+          "dataset": "ISIC",
+          "model": "original_HH",
+          "group": "new",
+          "BA": 0.49927289756482307,
+          "CE": 1.2505027718733035,
+          "count": 2290
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "group": "all",
+          "BA": 0.5794544266982155,
+          "CE": 1.075058381602341,
+          "count": 2354
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "group": "old",
+          "BA": 0.453125,
+          "CE": 1.2808610163089411,
+          "count": 64
+        },
+        {
+          "dataset": "ISIC",
+          "model": "projected",
+          "group": "new",
+          "BA": 0.8321132800946465,
+          "CE": 0.6634531121891402,
+          "count": 2290
+        }
+      ],
+      "comparisons": [
+        {
+          "reference": "teacher",
+          "group": "all",
+          "delta_CE": -0.4771741317943574,
+          "delta_BA": 0.1823640688159321,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        },
+        {
+          "reference": "teacher",
+          "group": "old",
+          "delta_CE": -0.006564940027165456,
+          "delta_BA": -0.140625,
+          "category": "SUPPORT_CE_BA_MISMATCH"
+        },
+        {
+          "reference": "teacher",
+          "group": "new",
+          "delta_CE": -1.4183925153287422,
+          "delta_BA": 0.8283422064477964,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        },
+        {
+          "reference": "original_HH",
+          "group": "all",
+          "delta_CE": -0.04956706645253561,
+          "delta_BA": -0.00363653915672546,
+          "category": "SUPPORT_CE_BA_MISMATCH"
+        },
+        {
+          "reference": "original_HH",
+          "group": "old",
+          "delta_CE": 0.21917423016327797,
+          "delta_BA": -0.171875,
+          "category": "SUPPORT_CE_NOT_IMPROVED"
+        },
+        {
+          "reference": "original_HH",
+          "group": "new",
+          "delta_CE": -0.5870496596841633,
+          "delta_BA": 0.3328403825298234,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        }
+      ],
+      "primary_old_vs_HH": {
+        "reference": "original_HH",
+        "group": "old",
+        "delta_CE": 0.21917423016327797,
+        "delta_BA": -0.171875,
+        "category": "SUPPORT_CE_NOT_IMPROVED"
+      },
+      "support_samples": 2354,
+      "sample_forward_evaluations": 7062,
+      "gradient_evaluations": 0,
+      "adapter_updates": 0,
+      "model_updates": 0,
+      "old_S_access": false,
+      "query_access": false,
+      "E_access": false,
+      "new_labels": 0,
+      "GPU_used": false,
+      "operation_seconds": 0.7493463070131838,
+      "scope": "Development support metrics on H and new S only; historical query comparison belongs to report, no new query inference"
+    },
+    "HK_metrics": {
+      "status": "COMPLETED",
+      "source_commit": "ebcc3d20faf9acf15c4d59dd9cd1e0db6ad7d48a",
+      "dataset": "HK",
+      "class_rows": [
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 0,
+          "group": "old",
+          "count": 16,
+          "correct": 8,
+          "recall": 0.5,
+          "CE": 1.4063616084433446,
+          "errors_to_old": 8,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 1,
+          "recall": 1.0,
+          "CE": 0.16020154829381703,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 2,
+          "group": "old",
+          "count": 4,
+          "correct": 4,
+          "recall": 1.0,
+          "CE": 0.9662999140948572,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 3,
+          "group": "old",
+          "count": 16,
+          "correct": 7,
+          "recall": 0.4375,
+          "CE": 1.7841177732141578,
+          "errors_to_old": 9,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 4,
+          "group": "old",
+          "count": 16,
+          "correct": 2,
+          "recall": 0.125,
+          "CE": 2.14984951705655,
+          "errors_to_old": 14,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 5,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.3179694528593773,
+          "errors_to_old": 6,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 6,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 1.107297058159805,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 7,
+          "group": "old",
+          "count": 16,
+          "correct": 15,
+          "recall": 0.9375,
+          "CE": 0.8438244429936942,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 8,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.284964719961657,
+          "errors_to_old": 6,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 12,
+          "recall": 0.75,
+          "CE": 1.0705447624047826,
+          "errors_to_old": 4,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 10,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.2176410754951905,
+          "errors_to_old": 6,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 11,
+          "group": "old",
+          "count": 16,
+          "correct": 6,
+          "recall": 0.375,
+          "CE": 1.3469263271044158,
+          "errors_to_old": 10,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 12,
+          "group": "old",
+          "count": 4,
+          "correct": 2,
+          "recall": 0.5,
+          "CE": 1.220197497215434,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 13,
+          "group": "new",
+          "count": 28,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 4.010490739899811,
+          "errors_to_old": 28,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "class_index": 14,
+          "group": "new",
+          "count": 67,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.935717954699698,
+          "errors_to_old": 67,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 16,
+          "correct": 14,
+          "recall": 0.875,
+          "CE": 0.9508989727903471,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 1,
+          "recall": 1.0,
+          "CE": 0.14978256811145163,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 4,
+          "correct": 4,
+          "recall": 1.0,
+          "CE": 0.6910099654700043,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.3931564488322858,
+          "errors_to_old": 6,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 4,
+          "group": "old",
+          "count": 16,
+          "correct": 4,
+          "recall": 0.25,
+          "CE": 1.9498329817275615,
+          "errors_to_old": 11,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 5,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 1.0836214719263728,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 6,
+          "group": "old",
+          "count": 16,
+          "correct": 9,
+          "recall": 0.5625,
+          "CE": 1.2315919332525431,
+          "errors_to_old": 4,
+          "errors_to_new": 3
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 7,
+          "group": "old",
+          "count": 16,
+          "correct": 15,
+          "recall": 0.9375,
+          "CE": 0.6666686355349716,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 8,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 1.0789553981715136,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 13,
+          "recall": 0.8125,
+          "CE": 1.2112924438151655,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 10,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.3378953086382768,
+          "errors_to_old": 4,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 11,
+          "group": "old",
+          "count": 16,
+          "correct": 6,
+          "recall": 0.375,
+          "CE": 1.4967343858998046,
+          "errors_to_old": 10,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 12,
+          "group": "old",
+          "count": 4,
+          "correct": 2,
+          "recall": 0.5,
+          "CE": 1.042133548294748,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 13,
+          "group": "new",
+          "count": 28,
+          "correct": 2,
+          "recall": 0.07142857142857142,
+          "CE": 1.6201763421043311,
+          "errors_to_old": 26,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "class_index": 14,
+          "group": "new",
+          "count": 67,
+          "correct": 51,
+          "recall": 0.7611940298507462,
+          "CE": 0.9684015606813912,
+          "errors_to_old": 16,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 0,
+          "group": "old",
+          "count": 16,
+          "correct": 15,
+          "recall": 0.9375,
+          "CE": 0.762560229690819,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 1,
+          "recall": 1.0,
+          "CE": 0.16603010334559115,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 2,
+          "group": "old",
+          "count": 4,
+          "correct": 4,
+          "recall": 1.0,
+          "CE": 0.5880112434451321,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 3,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.2203791108611068,
+          "errors_to_old": 5,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 4,
+          "group": "old",
+          "count": 16,
+          "correct": 4,
+          "recall": 0.25,
+          "CE": 1.8282954658963226,
+          "errors_to_old": 11,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 5,
+          "group": "old",
+          "count": 16,
+          "correct": 12,
+          "recall": 0.75,
+          "CE": 0.965990821296266,
+          "errors_to_old": 2,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 6,
+          "group": "old",
+          "count": 16,
+          "correct": 10,
+          "recall": 0.625,
+          "CE": 1.3156479739343168,
+          "errors_to_old": 2,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 7,
+          "group": "old",
+          "count": 16,
+          "correct": 15,
+          "recall": 0.9375,
+          "CE": 0.5829843135952781,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 8,
+          "group": "old",
+          "count": 16,
+          "correct": 12,
+          "recall": 0.75,
+          "CE": 0.9255380937817037,
+          "errors_to_old": 3,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 9,
+          "recall": 0.5625,
+          "CE": 1.3252998594277847,
+          "errors_to_old": 0,
+          "errors_to_new": 7
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 10,
+          "group": "old",
+          "count": 16,
+          "correct": 2,
+          "recall": 0.125,
+          "CE": 1.4797622411931435,
+          "errors_to_old": 0,
+          "errors_to_new": 14
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 11,
+          "group": "old",
+          "count": 16,
+          "correct": 1,
+          "recall": 0.0625,
+          "CE": 1.6497662673039268,
+          "errors_to_old": 1,
+          "errors_to_new": 14
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 12,
+          "group": "old",
+          "count": 4,
+          "correct": 3,
+          "recall": 0.75,
+          "CE": 0.9420559118245264,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 13,
+          "group": "new",
+          "count": 28,
+          "correct": 23,
+          "recall": 0.8214285714285714,
+          "CE": 1.1308946533263267,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "class_index": 14,
+          "group": "new",
+          "count": 67,
+          "correct": 65,
+          "recall": 0.9701492537313433,
+          "CE": 0.5042287966108209,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        }
+      ],
+      "summaries": [
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "group": "all",
+          "BA": 0.5458333333333333,
+          "CE": 1.588160292793106,
+          "count": 264
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "group": "old",
+          "BA": 0.6298076923076923,
+          "CE": 1.2212458228690064,
+          "count": 169
+        },
+        {
+          "dataset": "HK",
+          "model": "teacher",
+          "group": "new",
+          "BA": 0.0,
+          "CE": 3.9731043472997545,
+          "count": 95
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "group": "all",
+          "BA": 0.6513415067519545,
+          "CE": 1.1248101310167182,
+          "count": 264
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "group": "old",
+          "BA": 0.6875,
+          "CE": 1.0987364663434653,
+          "count": 169
+        },
+        {
+          "dataset": "HK",
+          "model": "original_HH",
+          "group": "new",
+          "BA": 0.4163113006396588,
+          "CE": 1.2942889513928613,
+          "count": 95
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "group": "all",
+          "BA": 0.677771855010661,
+          "CE": 1.025829672368871,
+          "count": 264
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "group": "old",
+          "BA": 0.6442307692307693,
+          "CE": 1.0578708950458398,
+          "count": 169
+        },
+        {
+          "dataset": "HK",
+          "model": "projected",
+          "group": "new",
+          "BA": 0.8957889125799574,
+          "CE": 0.8175617249685738,
+          "count": 95
+        }
+      ],
+      "comparisons": [
+        {
+          "reference": "teacher",
+          "group": "all",
+          "delta_CE": -0.5623306204242351,
+          "delta_BA": 0.13193852167732767,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        },
+        {
+          "reference": "teacher",
+          "group": "old",
+          "delta_CE": -0.16337492782316665,
+          "delta_BA": 0.014423076923076983,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        },
+        {
+          "reference": "teacher",
+          "group": "new",
+          "delta_CE": -3.155542622331181,
+          "delta_BA": 0.8957889125799574,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        },
+        {
+          "reference": "original_HH",
+          "group": "all",
+          "delta_CE": -0.09898045864784732,
+          "delta_BA": 0.026430348258706493,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        },
+        {
+          "reference": "original_HH",
+          "group": "old",
+          "delta_CE": -0.04086557129762558,
+          "delta_BA": -0.043269230769230727,
+          "category": "SUPPORT_CE_BA_MISMATCH"
+        },
+        {
+          "reference": "original_HH",
+          "group": "new",
+          "delta_CE": -0.47672722642428744,
+          "delta_BA": 0.4794776119402986,
+          "category": "SUPPORT_CE_IMPROVED_BA_NONWORSE"
+        }
+      ],
+      "primary_old_vs_HH": {
+        "reference": "original_HH",
+        "group": "old",
+        "delta_CE": -0.04086557129762558,
+        "delta_BA": -0.043269230769230727,
+        "category": "SUPPORT_CE_BA_MISMATCH"
+      },
+      "support_samples": 264,
+      "sample_forward_evaluations": 792,
+      "gradient_evaluations": 0,
+      "adapter_updates": 0,
+      "model_updates": 0,
+      "old_S_access": false,
+      "query_access": false,
+      "E_access": false,
+      "new_labels": 0,
+      "GPU_used": false,
+      "operation_seconds": 0.21877472614869475,
+      "scope": "Development support metrics on H and new S only; historical query comparison belongs to report, no new query inference"
+    }
+  },
+  "delivery_failures": [],
+  "stderr_summary": "TypedStorage deprecation warning only"
+}

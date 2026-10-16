@@ -1,0 +1,138 @@
+{
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "cases": [
+    {
+      "id": "reserved_competition_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "task_sizes": [
+        2,
+        1,
+        1
+      ],
+      "active_dimension": 8
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46
+    }
+  ],
+  "version": "reserved_competition_CPU_v1",
+  "status": "PROSPECTIVE_SYNTHETIC_2X2",
+  "parent_result_commit": "3358a74ab5e9085ad83d56ff2460d87b357230b7",
+  "prior_CPU_residence_seconds": 5862.192477149423,
+  "historical_GPU_seconds": 400036.74851310626,
+  "beta": 8,
+  "adapter_rank": 8,
+  "adapter_activation": "tanh(3*x@U)",
+  "adapter_initialization": "U=N(0,1)/sqrt(8), V=0; seed+2100",
+  "adapter_steps": 48,
+  "adapter_lr": 0.0625,
+  "retention_coefficient": 1,
+  "memory_nodes": 16,
+  "memory_steps": 48,
+  "memory_lr": 0.02,
+  "memory_initialization": "current class mean + .1*N(0,I)/sqrt(d), seed+1000+class; ball projected; identical all arms",
+  "decision_objective": "mean sliced W1 of 4D pre/post joint seen/reserved margins divided by beta + mean relative squared CE adapter-gradient error across pre/post snapshots",
+  "sliced_directions": "4 coordinate + 4 normalized Hadamard directions",
+  "gradient_denominator_floor": 1e-12,
+  "slot_assignment": "Hungarian current alignment + old-memory softplus collision, coefficient 1",
+  "frame": "global fixed random-orientation ETF capacity K; seed+2000",
+  "modes": [
+    "fixed_moment",
+    "fixed_decision",
+    "assigned_moment",
+    "assigned_decision"
+  ],
+  "evaluation_seed_offset": 10000,
+  "screen": "Both high-dimensional cases: every stage full arm BA/oldBA/newBA >= each of other 3 arms, and at least one strict BA benefit versus each control per case; all unit/interface checks pass. stage1 oldBA=null. No tolerance or tuning.",
+  "scope": "Synthetic fixed input nonlinear adapter sequence only; not medical Core/LT, pretrained encoder, full production or future uniform guarantee",
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_ready": false,
+  "original_full_query_gate": null,
+  "total_scale_adapter_updates": 2304,
+  "actual_scale_memory_updates": 1728,
+  "unit_adapter_updates": 2,
+  "sharing": "moment construction shared by fixed and assigned arms; counted once; decision fits separate",
+  "stop_after_this_round": true
+}

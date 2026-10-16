@@ -1,0 +1,130 @@
+{
+  "threads": 2,
+  "case_hard_wall_seconds": 1800,
+  "overall_wall_seconds": 5500,
+  "cases": [
+    {
+      "id": "lowrank_noise_arithmetic",
+      "kind": "unit"
+    },
+    {
+      "id": "small",
+      "kind": "scale",
+      "dimension": 32,
+      "classes": 4,
+      "n": 512,
+      "seed": 263,
+      "count_weights": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "task_sizes": [
+        2,
+        1,
+        1
+      ],
+      "active_dimension": 8
+    },
+    {
+      "id": "ISIC_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 8,
+      "n": 9434,
+      "seed": 264,
+      "count_weights": [
+        458,
+        27,
+        256,
+        3263,
+        2835,
+        44,
+        10529,
+        1306
+      ],
+      "task_sizes": [
+        4,
+        2,
+        2
+      ],
+      "active_dimension": 16
+    },
+    {
+      "id": "HK_scale",
+      "kind": "scale",
+      "dimension": 1536,
+      "classes": 23,
+      "n": 1038,
+      "seed": 265,
+      "count_weights": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "task_sizes": [
+        13,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "active_dimension": 46
+    }
+  ],
+  "version": "lowrank_noise_memory_CPU_v1",
+  "status": "PROSPECTIVE_LOW_RANK_NOISE_CLASSIFIER_VALIDATION",
+  "parent_result_commit": "a927baf65fd67141316c9ac72c50702ed994a716",
+  "prior_CPU_residence_seconds": 5240.123274484184,
+  "beta": 8.0,
+  "shared_anchor": 0,
+  "local_radius": 0.125,
+  "wide_oracle_radius": 2.0,
+  "head_steps_per_stage": 48,
+  "head_learning_rate": 0.0625,
+  "head_loss": "class-balanced sum of one-vs-rest binary softplus terms",
+  "memory_baseline_steps_per_stage": 48,
+  "memory_baseline_lr": 0.02,
+  "retained_second_moment_rank": 15,
+  "memory_scalars_per_class": "16*d+16",
+  "modes": [
+    "oracle_wide",
+    "oracle_local",
+    "moment_local",
+    "quadratic_local"
+  ],
+  "evaluation_seed_offset": 10000,
+  "unit_synthetic_head_updates": 2,
+  "scale_total_head_updates": 2304,
+  "scale_total_baseline_memory_updates": 576,
+  "GPU_processes": 0,
+  "medical_reads": 0,
+  "val_reads": 0,
+  "test_accessed": false,
+  "GPU_ready": false,
+  "scope": "New synthetic distribution to test saturated classifier validation; methods and all optimizer/domain settings unchanged; not medical or old gate reversal.",
+  "screen": "All units/bounds/state checks, then BOTH high-dimensional cases every stage candidate BA/old BA/new BA >= moment-local, with at least one strict gain per dataset. Oracle-local and wide-oracle differences always reported; neither replaces primary moment control. First-stage old BA=null. No threshold tuning.",
+  "fixture_noise_rank": "2*classes; embed into original ambient dimension"
+}

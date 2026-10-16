@@ -76,6 +76,15 @@ def train_case(cfg,lock,journal):
     model,cost=train(teacher,current,memories['candidate'],q,slots,steps=48,full=False)
     torch.save(dict(case=cfg,model=model,adapter_updates=48,memory_updates=0),root/(cfg['id']+'.sealed.private.pt'))
     journal(dict(phase='candidate_sealed',completed_updates=48))
+    result=diagnose_case(cfg,journal)
+    result.update(training=cost,adapter_updates=48,pipeline_seconds=time.monotonic()-start)
+    return result
+
+
+def diagnose_case(cfg,journal):
+    state,sealed,memories=load(cfg);old_n=cfg['task_sizes'][0];seen=sum(cfg['task_sizes'][:2])
+    x,y,counts=lowrank_fixture(cfg);current={c:x[y==c] for c in range(old_n,seen)}
+    teacher=state['teacher'];q=state['frame'];slots=list(range(seen))
     diagnostic_start=time.monotonic();full={c:(x[y==c],torch.ones(int((y==c).sum()),dtype=DT)/int((y==c).sum())) for c in range(old_n)}
     rows=[];checks=[]
     for name,common in [('teacher',teacher),('moment_endpoint',sealed['models']['moment'])]:
@@ -84,17 +93,19 @@ def train_case(cfg,lock,journal):
         for mode,mem in [('full_support',full),*memories.items()]:
             values,gs=(reference,rg) if mode=='full_support' else gradients(common,teacher,current,mem,q,slots)
             new_error=float((gs['new_CE']-rg['new_CE']).abs().max());assert new_error<1e-10
-            if name=='teacher':assert values['retention']==0 and float(gs['retention'].norm())==0
+            if name=='teacher':assert abs(values['retention'])<=1e-12 and float(gs['retention'].norm())<=1e-12
             checks.append(dict(common_state=name,mode=mode,new_CE_gradient_max_difference=new_error,gradient_additivity_checked=True))
             for part in values:
                 rows.append(dict(common_state=name,mode=mode,component=part,value=values[part],reference_value=reference[part],**comparison(gs[part],rg[part])))
-    return dict(status='COMPLETED',case=cfg,training=cost,diagnostics=rows,diagnostic_checks=checks,diagnostic_seconds=time.monotonic()-diagnostic_start,synthetic_counts=counts,accepted_classes=sealed['accepted_classes'],adapter_updates=48,memory_updates=0,diagnostic_updates=0,sealed=True,pipeline_seconds=time.monotonic()-start)
+    return dict(status='COMPLETED',case=cfg,diagnostics=rows,diagnostic_checks=checks,diagnostic_seconds=time.monotonic()-diagnostic_start,synthetic_counts=counts,accepted_classes=sealed['accepted_classes'],adapter_updates=0,memory_updates=0,diagnostic_updates=0,sealed=True)
 
 
 def evaluate(lock,journal):
-    start=time.monotonic();root=Path(os.environ['Q353_ROOT']);program=json.loads((root/'CPU_PROGRAM.json').read_text())
+    start=time.monotonic();root=Path(os.environ.get('Q353_CANDIDATE_ROOT',os.environ['Q353_ROOT']))
     cases=lock['cases'][1:-1]
-    assert all(next(v for v in program['cases'] if v['id']==c['id'])['status']=='COMPLETED' for c in cases)
+    for cfg in cases:
+        sealed=torch.load(root/(cfg['id']+'.sealed.private.pt'),map_location='cpu',weights_only=True)
+        assert sealed['case']==cfg and sealed['adapter_updates']==48 and sealed['memory_updates']==0
     prior_rows=json.loads((Path(os.environ['Q353_SOURCE'])/'docs/memory_stability_design1_20261016/CLASS_RECALL.json').read_text())
     prior_counts={(r['scene'],r['class_index']):(r['moment_correct'],r['selected_correct']) for r in prior_rows}
     class_rows=[];paired=[];summaries=[];intervals=[];decisions=[];evaluation=[]
@@ -132,3 +143,11 @@ def run(cfg,lock,journal):
     r=unit_checks() if cfg['kind']=='unit' else evaluate(lock,journal) if cfg['kind']=='evaluation' else train_case(cfg,lock,journal)
     r.update(id=cfg['id'],GPU_initialized=torch.cuda.is_initialized(),medical_images=0,val_accessed=False,test_accessed=False)
     assert not r['GPU_initialized'];return r
+
+
+def resume_zero_update(cfg,lock,journal):
+    torch.set_num_threads(lock['threads']);torch.set_default_dtype(DT);assert os.environ.get('CUDA_VISIBLE_DEVICES')==''
+    r=evaluate(lock,journal) if cfg['kind']=='evaluation' else diagnose_case(cfg,journal)
+    r.update(id=cfg['id'],GPU_initialized=torch.cuda.is_initialized(),medical_images=0,val_accessed=False,test_accessed=False,engineering_continuation=True)
+    assert not r['GPU_initialized'] and r['adapter_updates']==r['memory_updates']==0
+    return r

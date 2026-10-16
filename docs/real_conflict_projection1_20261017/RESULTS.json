@@ -1,0 +1,3146 @@
+{
+  "status": "COMPLETED_DEVELOPMENT_ONLY",
+  "source_commit": "596a7faa6811d09cf85b9dc10d2ea0cbdbe4f3c8",
+  "program": {
+    "status": "COMPLETE_AWAITING_DELIVERY",
+    "source_commit": "596a7faa6811d09cf85b9dc10d2ea0cbdbe4f3c8",
+    "started_at": 1792187004.347499,
+    "active": null,
+    "cases": [
+      {
+        "id": "ISIC_project",
+        "status": "COMPLETED"
+      },
+      {
+        "id": "HK_project",
+        "status": "COMPLETED"
+      }
+    ],
+    "costs": [
+      {
+        "id": "ISIC_project",
+        "returncode": 0,
+        "process_residence_seconds": 29.57002192409709,
+        "CPU_only_residence_seconds": 29.57002192409709,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 37.42979,
+        "CPU_system_seconds": 6.667768,
+        "peak_RSS_MiB": 927.4453125,
+        "timeout": false
+      },
+      {
+        "id": "HK_project",
+        "returncode": 0,
+        "process_residence_seconds": 11.539285691920668,
+        "CPU_only_residence_seconds": 11.539285691920668,
+        "GPU_process_residence_seconds": 0.0,
+        "CPU_user_seconds": 14.247318,
+        "CPU_system_seconds": 1.7628849999999998,
+        "peak_RSS_MiB": 492.84375,
+        "timeout": false
+      }
+    ],
+    "failures": [],
+    "not_run": [],
+    "finished_at": 1792187045.4777358,
+    "supervisor_wall_seconds": 41.13024860806763
+  },
+  "retirement": {
+    "checked_at": 1792188617.4442697,
+    "all_processes_exited": true
+  },
+  "results": {
+    "ISIC_project": {
+      "status": "COMPLETED",
+      "source_commit": "596a7faa6811d09cf85b9dc10d2ea0cbdbe4f3c8",
+      "dataset": "ISIC",
+      "sealed_at": 1792187032.3549795,
+      "training": {
+        "HH": {
+          "steps": 48,
+          "trace": [
+            {
+              "preupdate_step": 0,
+              "CE": 1.5522325133966985,
+              "classification_loss": 1.5522325133966985,
+              "retention": 0.0
+            },
+            {
+              "preupdate_step": 47,
+              "CE": 1.0758946899964519,
+              "classification_loss": 1.0758946899964519,
+              "retention": 0.046962510688164504
+            }
+          ],
+          "projection_trace": [
+            {
+              "step": 0,
+              "projected": true,
+              "old_new_dot": -6.515276670726567,
+              "original_derivatives": [
+                -0.21849150904774656,
+                -4.55139852704017,
+                -0.0
+              ],
+              "updated_derivatives": [
+                -1.3297487567154942,
+                -4.948437161450887,
+                -0.0
+              ]
+            },
+            {
+              "step": 1,
+              "projected": true,
+              "old_new_dot": -7.298843964914635,
+              "original_derivatives": [
+                0.27163876457565017,
+                -2.5681726601392674,
+                -0.3973912158272179
+              ],
+              "updated_derivatives": [
+                -0.5714645785558925,
+                -1.8294664324847636,
+                -0.43237607088596747
+              ]
+            },
+            {
+              "step": 2,
+              "projected": true,
+              "old_new_dot": -7.0125350414988725,
+              "original_derivatives": [
+                -0.26751129508189525,
+                -2.425563849244387,
+                -1.0304392246963658
+              ],
+              "updated_derivatives": [
+                -1.0384012690346418,
+                -2.203453522501571,
+                -1.3192415459661313
+              ]
+            },
+            {
+              "step": 3,
+              "projected": true,
+              "old_new_dot": -6.532462647436672,
+              "original_derivatives": [
+                -1.94666371583451,
+                -3.1459418218612702,
+                -4.688988140643755
+              ],
+              "updated_derivatives": [
+                -2.594562301714189,
+                -4.0634262975033195,
+                -5.712222912767835
+              ]
+            },
+            {
+              "step": 4,
+              "projected": true,
+              "old_new_dot": -4.842372851843218,
+              "original_derivatives": [
+                -6.9514362124696385,
+                -5.343885091334014,
+                -10.765573017583577
+              ],
+              "updated_derivatives": [
+                -7.695217391258838,
+                -7.354499294677398,
+                -12.30796342230703
+              ]
+            },
+            {
+              "step": 5,
+              "projected": true,
+              "old_new_dot": -4.228522199298925,
+              "original_derivatives": [
+                -6.353517120435537,
+                -5.107352790421626,
+                -13.326233711349898
+              ],
+              "updated_derivatives": [
+                -6.899212086451662,
+                -6.86516877571782,
+                -15.014332417702434
+              ]
+            },
+            {
+              "step": 6,
+              "projected": true,
+              "old_new_dot": -3.6876125332568144,
+              "original_derivatives": [
+                -4.59327472211686,
+                -1.760232266859596,
+                -5.794895879993071
+              ],
+              "updated_derivatives": [
+                -4.806345191678935,
+                -3.3375307578705344,
+                -6.709627257210613
+              ]
+            },
+            {
+              "step": 7,
+              "projected": true,
+              "old_new_dot": -4.3030490068238265,
+              "original_derivatives": [
+                -1.5798334794024345,
+                -0.5189337883172503,
+                -1.7988379046391354
+              ],
+              "updated_derivatives": [
+                -1.5139258001566653,
+                -1.7453912377782106,
+                -2.2178206822232993
+              ]
+            },
+            {
+              "step": 8,
+              "projected": true,
+              "old_new_dot": -4.240371934539026,
+              "original_derivatives": [
+                -1.1650063096374963,
+                0.47849589375041685,
+                -0.671065234775378
+              ],
+              "updated_derivatives": [
+                -0.8225250181397663,
+                -0.6648710899721377,
+                -0.7826590210311477
+              ]
+            },
+            {
+              "step": 9,
+              "projected": true,
+              "old_new_dot": -4.513284698617783,
+              "original_derivatives": [
+                -0.7834759550375153,
+                0.4911960061687271,
+                -0.3067111422554752
+              ],
+              "updated_derivatives": [
+                -0.413147569403237,
+                -0.5533407797413802,
+                -0.3423744364911837
+              ]
+            },
+            {
+              "step": 10,
+              "projected": true,
+              "old_new_dot": -4.407899500233897,
+              "original_derivatives": [
+                -0.7352772120159047,
+                0.677171718571196,
+                -0.20203136669285543
+              ],
+              "updated_derivatives": [
+                -0.2907714632489533,
+                -0.3594093801587572,
+                -0.17610334914322315
+              ]
+            },
+            {
+              "step": 11,
+              "projected": true,
+              "old_new_dot": -4.559382748287771,
+              "original_derivatives": [
+                -0.6653137839875226,
+                0.6852057915172676,
+                -0.1058924575551213
+              ],
+              "updated_derivatives": [
+                -0.19606733388583236,
+                -0.3544701087568046,
+                -0.06507330720171947
+              ]
+            },
+            {
+              "step": 12,
+              "projected": true,
+              "old_new_dot": -4.479441123487491,
+              "original_derivatives": [
+                -0.6545324821624621,
+                0.7410804194851852,
+                -0.09715374094692616
+              ],
+              "updated_derivatives": [
+                -0.146380716810735,
+                -0.3064271424392012,
+                -0.03895076312706692
+              ]
+            },
+            {
+              "step": 13,
+              "projected": true,
+              "old_new_dot": -4.588088420276571,
+              "original_derivatives": [
+                -0.6705482396084375,
+                0.7807832706222252,
+                -0.062041428242712415
+              ],
+              "updated_derivatives": [
+                -0.12176814901366981,
+                -0.305815578441211,
+                -0.0002707738002377877
+              ]
+            },
+            {
+              "step": 14,
+              "projected": true,
+              "old_new_dot": -4.541985400957184,
+              "original_derivatives": [
+                -0.6742792819956654,
+                0.8066430852835329,
+                -0.0667064990079004
+              ],
+              "updated_derivatives": [
+                -0.09103186699189074,
+                -0.29799877831587185,
+                -0.00039031728909436937
+              ]
+            },
+            {
+              "step": 15,
+              "projected": true,
+              "old_new_dot": -4.6263205078067715,
+              "original_derivatives": [
+                -0.721464428022428,
+                0.863073667569354,
+                -0.051661907823313785
+              ],
+              "updated_derivatives": [
+                -0.08576741473003392,
+                -0.29317859558749493,
+                0.015581310497508823
+              ]
+            },
+            {
+              "step": 16,
+              "projected": true,
+              "old_new_dot": -4.610552931125546,
+              "original_derivatives": [
+                -0.7391368107018055,
+                0.8883228589754927,
+                -0.05628523422074278
+              ],
+              "updated_derivatives": [
+                -0.06332681589390952,
+                -0.29556040892170204,
+                0.0111549240271661
+              ]
+            },
+            {
+              "step": 17,
+              "projected": true,
+              "old_new_dot": -4.68120940843159,
+              "original_derivatives": [
+                -0.7987056061321668,
+                0.950082142624757,
+                -0.0486496641881923
+              ],
+              "updated_derivatives": [
+                -0.06253294449325603,
+                -0.28921860508743313,
+                0.01875239585814143
+              ]
+            },
+            {
+              "step": 18,
+              "projected": true,
+              "old_new_dot": -4.688976342675838,
+              "original_derivatives": [
+                -0.8304759657565773,
+                0.9826673263196944,
+                -0.051564928945371194
+              ],
+              "updated_derivatives": [
+                -0.04529495200201808,
+                -0.29258485698537323,
+                0.01438340283085719
+              ]
+            },
+            {
+              "step": 19,
+              "projected": true,
+              "old_new_dot": -4.753094032110926,
+              "original_derivatives": [
+                -0.8966848375396496,
+                1.045339666687347,
+                -0.046859180054367
+              ],
+              "updated_derivatives": [
+                -0.044662853531164545,
+                -0.28652334111027855,
+                0.018380651007332063
+              ]
+            },
+            {
+              "step": 20,
+              "projected": true,
+              "old_new_dot": -4.778229550521008,
+              "original_derivatives": [
+                -0.9417583950396957,
+                1.0859087320351144,
+                -0.04827355192479149
+              ],
+              "updated_derivatives": [
+                -0.031078139993838655,
+                -0.2885887485015469,
+                0.01477016275491641
+              ]
+            },
+            {
+              "step": 21,
+              "projected": true,
+              "old_new_dot": -4.840154569744074,
+              "original_derivatives": [
+                -1.013623097028702,
+                1.1485765118719302,
+                -0.04478661142051427
+              ],
+              "updated_derivatives": [
+                -0.02959752941707349,
+                -0.28326027336651627,
+                0.016950883757592808
+              ]
+            },
+            {
+              "step": 22,
+              "projected": true,
+              "old_new_dot": -4.877975167583679,
+              "original_derivatives": [
+                -1.0710173496487725,
+                1.195847856895524,
+                -0.04502775822276071
+              ],
+              "updated_derivatives": [
+                -0.01862371640938093,
+                -0.2838326491288996,
+                0.014086067288242604
+              ]
+            },
+            {
+              "step": 23,
+              "projected": true,
+              "old_new_dot": -4.940008239920932,
+              "original_derivatives": [
+                -1.1490990957912914,
+                1.258709964232823,
+                -0.0420385683877896
+              ],
+              "updated_derivatives": [
+                -0.016272062189618013,
+                -0.27913856901736944,
+                0.0152270148184596
+              ]
+            },
+            {
+              "step": 24,
+              "projected": true,
+              "old_new_dot": -4.987054618160124,
+              "original_derivatives": [
+                -1.218080581580444,
+                1.3112257240504486,
+                -0.04135833618766821
+              ],
+              "updated_derivatives": [
+                -0.007177944303726799,
+                -0.2785014259990862,
+                0.012969913545701338
+              ]
+            },
+            {
+              "step": 25,
+              "projected": true,
+              "old_new_dot": -5.050160981928241,
+              "original_derivatives": [
+                -1.3033155857709715,
+                1.374624595777926,
+                -0.038522354876159896
+              ],
+              "updated_derivatives": [
+                -0.004183687288036864,
+                -0.27422304038116274,
+                0.013477734114037205
+              ]
+            },
+            {
+              "step": 26,
+              "projected": true,
+              "old_new_dot": -5.103798327632399,
+              "original_derivatives": [
+                -1.383457548302104,
+                1.4311518050887233,
+                -0.03711128046541294
+              ],
+              "updated_derivatives": [
+                0.0035346062181844037,
+                -0.2726763997112888,
+                0.011687902230556449
+              ]
+            },
+            {
+              "step": 27,
+              "projected": true,
+              "old_new_dot": -5.168118955381599,
+              "original_derivatives": [
+                -1.4767588282591244,
+                1.4952785373746793,
+                -0.03424936892099767
+              ],
+              "updated_derivatives": [
+                0.006919695972947726,
+                -0.2686179081672376,
+                0.011809047060625556
+              ]
+            },
+            {
+              "step": 28,
+              "projected": true,
+              "old_new_dot": -5.226245399919151,
+              "original_derivatives": [
+                -1.56785570758282,
+                1.55480776732881,
+                -0.03225698946656047
+              ],
+              "updated_derivatives": [
+                0.013601289376589429,
+                -0.2663888619705323,
+                0.010372137445669682
+              ]
+            },
+            {
+              "step": 29,
+              "projected": true,
+              "old_new_dot": -5.291427835647083,
+              "original_derivatives": [
+                -1.6699832019062435,
+                1.6196484442059556,
+                -0.029279138342435288
+              ],
+              "updated_derivatives": [
+                0.017163707730472724,
+                -0.2624087077553643,
+                0.010266905530352758
+              ]
+            },
+            {
+              "step": 30,
+              "projected": true,
+              "old_new_dot": -5.352296219410011,
+              "original_derivatives": [
+                -1.7719431647040609,
+                1.681316999461767,
+                -0.02682722117282911
+              ],
+              "updated_derivatives": [
+                0.02303102888269128,
+                -0.25965882198020285,
+                0.009097919403225088
+              ]
+            },
+            {
+              "step": 31,
+              "projected": true,
+              "old_new_dot": -5.417707745370126,
+              "original_derivatives": [
+                -1.8834625462201149,
+                1.7466730072761238,
+                -0.023699209116013958
+              ],
+              "updated_derivatives": [
+                0.026604245320722367,
+                -0.25566794745888544,
+                0.008872027839502309
+              ]
+            },
+            {
+              "step": 32,
+              "projected": true,
+              "old_new_dot": -5.4798251341553925,
+              "original_derivatives": [
+                -1.9962171259287507,
+                1.8097022380780046,
+                -0.020890784435182268
+              ],
+              "updated_derivatives": [
+                0.0317992419845089,
+                -0.25251556538096104,
+                0.007910246529993909
+              ]
+            },
+            {
+              "step": 33,
+              "projected": true,
+              "old_new_dot": -5.5446960034517065,
+              "original_derivatives": [
+                -2.1174900280937643,
+                1.875232178508465,
+                -0.017614901738450935
+              ],
+              "updated_derivatives": [
+                0.03525780291946702,
+                -0.24846741054865137,
+                0.007632261157092441
+              ]
+            },
+            {
+              "step": 34,
+              "projected": true,
+              "old_new_dot": -5.606772617233922,
+              "original_derivatives": [
+                -2.2409300028236854,
+                1.9388940492694025,
+                -0.014540061289700795
+              ],
+              "updated_derivatives": [
+                0.03986921405735593,
+                -0.2450049166893724,
+                0.006834450162776136
+              ]
+            },
+            {
+              "step": 35,
+              "projected": true,
+              "old_new_dot": -5.6702971689411115,
+              "original_derivatives": [
+                -2.372119539094419,
+                2.004161412489405,
+                -0.011141563504881016
+              ],
+              "updated_derivatives": [
+                0.04312089044329907,
+                -0.24088414418829798,
+                0.006547291865639069
+              ]
+            },
+            {
+              "step": 36,
+              "projected": true,
+              "old_new_dot": -5.731225538608593,
+              "original_derivatives": [
+                -2.506057014934517,
+                2.067769440716027,
+                -0.007880547839053481
+              ],
+              "updated_derivatives": [
+                0.04720459065657817,
+                -0.23718808415397813,
+                0.005881847578265625
+              ]
+            },
+            {
+              "step": 37,
+              "projected": true,
+              "old_new_dot": -5.792635649654317,
+              "original_derivatives": [
+                -2.647143980132455,
+                2.132289661562686,
+                -0.0043975006134329975
+              ],
+              "updated_derivatives": [
+                0.05018393675939989,
+                -0.23300030759854973,
+                0.0056109446234584885
+              ]
+            },
+            {
+              "step": 38,
+              "projected": true,
+              "old_new_dot": -5.851486149400024,
+              "original_derivatives": [
+                -2.7912968444991515,
+                2.1952051114007327,
+                -0.0010218870536696303
+              ],
+              "updated_derivatives": [
+                0.053777607847904585,
+                -0.2291364898638369,
+                0.005053696443047401
+              ]
+            },
+            {
+              "step": 39,
+              "projected": true,
+              "old_new_dot": -5.910103828007466,
+              "original_derivatives": [
+                -2.9421036980479616,
+                2.2584879363167634,
+                0.002502357319829611
+              ],
+              "updated_derivatives": [
+                0.05644109977652887,
+                -0.22489997393033817,
+                0.004812851447234409
+              ]
+            },
+            {
+              "step": 40,
+              "projected": true,
+              "old_new_dot": -5.966126256429506,
+              "original_derivatives": [
+                -3.096096606563776,
+                2.3201327530509905,
+                0.00592947604167135
+              ],
+              "updated_derivatives": [
+                0.05957422557467195,
+                -0.2209259013362798,
+                0.004344358198125695
+              ]
+            },
+            {
+              "step": 41,
+              "projected": true,
+              "old_new_dot": -6.02139849642907,
+              "original_derivatives": [
+                -3.2563159847565286,
+                2.381717126608317,
+                0.009451598620380516
+              ],
+              "updated_derivatives": [
+                0.06189641160470549,
+                -0.21666551872786688,
+                0.004139951677134135
+              ]
+            },
+            {
+              "step": 42,
+              "projected": true,
+              "old_new_dot": -6.0740225939792545,
+              "original_derivatives": [
+                -3.419691730502666,
+                2.4415873725403414,
+                0.012875760701012214
+              ],
+              "updated_derivatives": [
+                0.06459662636446942,
+                -0.21263170163874712,
+                0.0037438571091682124
+              ]
+            },
+            {
+              "step": 43,
+              "projected": true,
+              "old_new_dot": -6.125540454910423,
+              "original_derivatives": [
+                -3.588916448263719,
+                2.501067474726278,
+                0.01635601225763996
+              ],
+              "updated_derivatives": [
+                0.06656683358086538,
+                -0.20837493433255408,
+                0.0035778282933967296
+              ]
+            },
+            {
+              "step": 44,
+              "projected": true,
+              "old_new_dot": -6.174371302613722,
+              "original_derivatives": [
+                -3.7611526090643377,
+                2.558743552955258,
+                0.019731472196120668
+              ],
+              "updated_derivatives": [
+                0.06886367396226913,
+                -0.204325839979832,
+                0.003239849499089945
+              ]
+            },
+            {
+              "step": 45,
+              "projected": true,
+              "old_new_dot": -6.221875257458545,
+              "original_derivatives": [
+                -3.938905063125069,
+                2.615785915143368,
+                0.023135872220914497
+              ],
+              "updated_derivatives": [
+                0.07048303512552417,
+                -0.20010033951513978,
+                0.003111801235898477
+              ]
+            },
+            {
+              "step": 46,
+              "projected": true,
+              "old_new_dot": -6.266682001841456,
+              "original_derivatives": [
+                -4.119432339507036,
+                2.6709378817194134,
+                0.026425471558991793
+              ],
+              "updated_derivatives": [
+                0.07241002944630297,
+                -0.19607522388496756,
+                0.0028190277815898016
+              ]
+            },
+            {
+              "step": 47,
+              "projected": true,
+              "old_new_dot": -6.31005595644225,
+              "original_derivatives": [
+                -4.305192302157522,
+                2.7252903781232023,
+                0.029727091309541626
+              ],
+              "updated_derivatives": [
+                0.0736886855186898,
+                -0.19190738901161486,
+                0.0027277498362318423
+              ]
+            }
+          ],
+          "update_rule": "symmetric_conflict_projection_then_original_weights_plus_retention",
+          "adapter_gradient_evaluations": 144,
+          "classification_objective": "full_CE",
+          "retention_weighted_teacher_correct": 0.59375,
+          "retention_scale": 1.0,
+          "class_mass": 0.16666666666666666
+        }
+      },
+      "mass_matching": null,
+      "adapter_updates": 48,
+      "primary": "HH",
+      "engineering_logit_gradient_evaluations": 0,
+      "primary_both_queries_pass": false,
+      "gates": {
+        "Qfit": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": -0.0016935950949651946,
+              "old": -0.20730229740435246,
+              "new": 0.4095238095238095
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        },
+        "Qgate": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": 0.00780942281472502,
+              "old": -0.14246705044690197,
+              "new": 0.30836236933797917
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        }
+      },
+      "class_rows": [
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 42,
+          "correct": 20,
+          "recall": 0.47619047619047616,
+          "CE": 1.2907011713438075,
+          "errors_to_old": 17,
+          "errors_to_new": 5
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.474763802843876,
+          "errors_to_old": 1,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 23,
+          "correct": 10,
+          "recall": 0.43478260869565216,
+          "CE": 1.3682482547674075,
+          "errors_to_old": 10,
+          "errors_to_new": 3
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 311,
+          "correct": 127,
+          "recall": 0.40836012861736337,
+          "CE": 1.7060448158516874,
+          "errors_to_old": 97,
+          "errors_to_new": 87
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 4,
+          "group": "new",
+          "count": 294,
+          "correct": 41,
+          "recall": 0.13945578231292516,
+          "CE": 1.6822898269559377,
+          "errors_to_old": 228,
+          "errors_to_new": 25
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 5,
+          "group": "new",
+          "count": 5,
+          "correct": 2,
+          "recall": 0.4,
+          "CE": 1.5689041136950466,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 41,
+          "correct": 17,
+          "recall": 0.4146341463414634,
+          "CE": 1.5001914605362765,
+          "errors_to_old": 20,
+          "errors_to_new": 4
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.985259767127019,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 25,
+          "correct": 6,
+          "recall": 0.24,
+          "CE": 1.6101378534990092,
+          "errors_to_old": 12,
+          "errors_to_new": 7
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 322,
+          "correct": 169,
+          "recall": 0.5248447204968945,
+          "CE": 1.3704000916974968,
+          "errors_to_old": 92,
+          "errors_to_new": 61
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 4,
+          "group": "new",
+          "count": 287,
+          "correct": 24,
+          "recall": 0.08362369337979095,
+          "CE": 1.818559491536098,
+          "errors_to_old": 232,
+          "errors_to_new": 31
+        },
+        {
+          "query": "Qgate",
+          "dataset": "ISIC",
+          "model": "MM",
+          "class_index": 5,
+          "group": "new",
+          "count": 3,
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "CE": 1.5222517342662971,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 42,
+          "correct": 6,
+          "recall": 0.14285714285714285,
+          "CE": 1.7812781660505759,
+          "errors_to_old": 3,
+          "errors_to_new": 33
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.9468290875341703,
+          "errors_to_old": 0,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 23,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.8652937312736795,
+          "errors_to_old": 5,
+          "errors_to_new": 18
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 311,
+          "correct": 108,
+          "recall": 0.34726688102893893,
+          "CE": 1.6733512520458678,
+          "errors_to_old": 24,
+          "errors_to_new": 179
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 4,
+          "group": "new",
+          "count": 294,
+          "correct": 223,
+          "recall": 0.7585034013605442,
+          "CE": 0.9111290975489674,
+          "errors_to_old": 49,
+          "errors_to_new": 22
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 5,
+          "group": "new",
+          "count": 5,
+          "correct": 3,
+          "recall": 0.6,
+          "CE": 0.7614912827754201,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 41,
+          "correct": 4,
+          "recall": 0.0975609756097561,
+          "CE": 1.9551008476915555,
+          "errors_to_old": 9,
+          "errors_to_new": 28
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 2,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 5.34219710553604,
+          "errors_to_old": 0,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 25,
+          "correct": 1,
+          "recall": 0.04,
+          "CE": 1.8806255668858205,
+          "errors_to_old": 6,
+          "errors_to_new": 18
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 322,
+          "correct": 152,
+          "recall": 0.4720496894409938,
+          "CE": 1.391952004616851,
+          "errors_to_old": 37,
+          "errors_to_new": 133
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 4,
+          "group": "new",
+          "count": 287,
+          "correct": 201,
+          "recall": 0.7003484320557491,
+          "CE": 1.00468989096594,
+          "errors_to_old": 59,
+          "errors_to_new": 27
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 5,
+          "group": "new",
+          "count": 3,
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "CE": 1.4990850897908439,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        }
+      ],
+      "summaries": [
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.30979816596940285,
+          "CE": 1.681825330909627
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.3298333033758729,
+          "CE": 1.7099395112016946
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.26972789115646256,
+          "CE": 1.6255969703254922
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.30810457087443766,
+          "CE": 1.6565621028714466
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.12253100597152045,
+          "CE": 2.066688059226073
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "new",
+          "BA": 0.6792517006802721,
+          "CE": 0.8363101901621938
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.32162820448080254,
+          "CE": 1.9678000664436992
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.29486971670958945,
+          "CE": 2.1164972932149504
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.3751451800232288,
+          "CE": 1.6704056129011975
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.32943762729552756,
+          "CE": 2.1789417509145084
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.15240266626268748,
+          "CE": 2.6424688811825665
+        },
+        {
+          "dataset": "ISIC",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "new",
+          "BA": 0.6835075493612079,
+          "CE": 1.251887490378392
+        }
+      ],
+      "interaction_HH_minus_HM_minus_MH_plus_MM": [],
+      "bank": {
+        "dataset": "ISIC",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 375,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 23,
+            "selected": 16
+          },
+          {
+            "class_index": 2,
+            "available": 208,
+            "selected": 16
+          },
+          {
+            "class_index": 3,
+            "available": 2630,
+            "selected": 16
+          }
+        ],
+        "node_count": 64,
+        "feature_bytes": 786432,
+        "probability_bytes": 512
+      },
+      "original_moment_node_count": 64,
+      "mixed_cells_use_both_banks": false,
+      "old_S_access_in_training": false,
+      "query_used_for_fitting": false,
+      "E_access": false,
+      "new_labels": 0,
+      "GPU_used": false,
+      "operation_seconds": 19.796822308097035
+    },
+    "HK_project": {
+      "status": "COMPLETED",
+      "source_commit": "596a7faa6811d09cf85b9dc10d2ea0cbdbe4f3c8",
+      "dataset": "HK",
+      "sealed_at": 1792187043.6469626,
+      "training": {
+        "HH": {
+          "steps": 48,
+          "trace": [
+            {
+              "preupdate_step": 0,
+              "CE": 1.588160292793106,
+              "classification_loss": 1.588160292793106,
+              "retention": 0.0
+            },
+            {
+              "preupdate_step": 47,
+              "CE": 1.0290874607150535,
+              "classification_loss": 1.0290874607150535,
+              "retention": 0.06754897148294778
+            }
+          ],
+          "projection_trace": [
+            {
+              "step": 0,
+              "projected": true,
+              "old_new_dot": -1.525874981154777,
+              "original_derivatives": [
+                -0.04224978004413615,
+                -7.9326791882422425,
+                -0.0
+              ],
+              "updated_derivatives": [
+                -0.216629617476312,
+                -8.160079331808394,
+                -0.0
+              ]
+            },
+            {
+              "step": 1,
+              "projected": true,
+              "old_new_dot": -2.5438720800288053,
+              "original_derivatives": [
+                0.05214177696255172,
+                -6.645947609351174,
+                -0.07331943134752261
+              ],
+              "updated_derivatives": [
+                -0.20502435972851749,
+                -6.1484874158225935,
+                -0.07565569743650133
+              ]
+            },
+            {
+              "step": 2,
+              "projected": true,
+              "old_new_dot": -3.0284740331204247,
+              "original_derivatives": [
+                0.10665072040590295,
+                -6.3143319087385805,
+                -0.003644833056198389
+              ],
+              "updated_derivatives": [
+                -0.17834416865786004,
+                -5.603607384293881,
+                0.01834695415377686
+              ]
+            },
+            {
+              "step": 3,
+              "projected": true,
+              "old_new_dot": -3.8870337484986077,
+              "original_derivatives": [
+                0.09383913902084193,
+                -4.810720441245109,
+                -0.16161753263770473
+              ],
+              "updated_derivatives": [
+                -0.21922477392851203,
+                -3.749723883426379,
+                -0.17879152125264108
+              ]
+            },
+            {
+              "step": 4,
+              "projected": true,
+              "old_new_dot": -4.038108438794058,
+              "original_derivatives": [
+                0.04118832807860229,
+                -4.800070574789851,
+                -0.1297705022472792
+              ],
+              "updated_derivatives": [
+                -0.26632807349381415,
+                -4.322139945899628,
+                -0.16087583899698354
+              ]
+            },
+            {
+              "step": 5,
+              "projected": true,
+              "old_new_dot": -4.840012685380314,
+              "original_derivatives": [
+                -0.13109898502201944,
+                -3.0094535034198406,
+                -0.637865142849775
+              ],
+              "updated_derivatives": [
+                -0.42256296731112813,
+                -2.6494488118939805,
+                -0.7766661970291764
+              ]
+            },
+            {
+              "step": 6,
+              "projected": true,
+              "old_new_dot": -4.835508126980508,
+              "original_derivatives": [
+                -0.46441501471059016,
+                -3.343415546716112,
+                -0.6662652580440934
+              ],
+              "updated_derivatives": [
+                -0.7342116252131861,
+                -4.331532117704158,
+                -0.8675275916493774
+              ]
+            },
+            {
+              "step": 7,
+              "projected": true,
+              "old_new_dot": -5.641496233526065,
+              "original_derivatives": [
+                -0.6721529587092738,
+                -1.2015330349677131,
+                -1.5835955735652563
+              ],
+              "updated_derivatives": [
+                -0.8621769735996415,
+                -2.188722399854728,
+                -1.8719301254512224
+              ]
+            },
+            {
+              "step": 8,
+              "projected": true,
+              "old_new_dot": -5.699457205314257,
+              "original_derivatives": [
+                -1.1152990423103204,
+                -1.5175822395888239,
+                -1.1932659661994123
+              ],
+              "updated_derivatives": [
+                -1.2564952010005128,
+                -3.6893770025139347,
+                -1.4876761832746959
+              ]
+            },
+            {
+              "step": 9,
+              "projected": true,
+              "old_new_dot": -6.1576376897984195,
+              "original_derivatives": [
+                -0.9517838966547317,
+                0.26016111674091924,
+                -1.790241853385901
+              ],
+              "updated_derivatives": [
+                -0.9653101411610052,
+                -1.5150224416924445,
+                -2.0582011814690877
+              ]
+            },
+            {
+              "step": 10,
+              "projected": true,
+              "old_new_dot": -6.290325082133015,
+              "original_derivatives": [
+                -1.1817055675384749,
+                0.14781489472786435,
+                -0.9814420209465413
+              ],
+              "updated_derivatives": [
+                -1.1207050843032846,
+                -2.420097155130568,
+                -1.212513530726945
+              ]
+            },
+            {
+              "step": 11,
+              "projected": true,
+              "old_new_dot": -6.339393403561715,
+              "original_derivatives": [
+                -0.8641698585790468,
+                1.1213804975709691,
+                -1.2742962970777694
+              ],
+              "updated_derivatives": [
+                -0.7141168487920821,
+                -0.9056470872181674,
+                -1.430639501057628
+              ]
+            },
+            {
+              "step": 12,
+              "projected": true,
+              "old_new_dot": -6.4580552311302775,
+              "original_derivatives": [
+                -0.9824386315841718,
+                1.1273474404127888,
+                -0.5686216160322508
+              ],
+              "updated_derivatives": [
+                -0.7597811405101025,
+                -1.4401077803337632,
+                -0.6909528981163312
+              ]
+            },
+            {
+              "step": 13,
+              "projected": true,
+              "old_new_dot": -6.319370565329564,
+              "original_derivatives": [
+                -0.7061045613996664,
+                1.5234740198748034,
+                -0.7749742293004863
+              ],
+              "updated_derivatives": [
+                -0.45570870516333317,
+                -0.5337426764380855,
+                -0.8362841270980521
+              ]
+            },
+            {
+              "step": 14,
+              "projected": true,
+              "old_new_dot": -6.394227832721378,
+              "original_derivatives": [
+                -0.7954917599360596,
+                1.5729521610129389,
+                -0.29154599312205853
+              ],
+              "updated_derivatives": [
+                -0.48811191474034854,
+                -0.8694255711421159,
+                -0.3325258119190039
+              ]
+            },
+            {
+              "step": 15,
+              "projected": true,
+              "old_new_dot": -6.210402639404564,
+              "original_derivatives": [
+                -0.5861104590834345,
+                1.6777295948717252,
+                -0.46043980502674586
+              ],
+              "updated_derivatives": [
+                -0.28720153167962453,
+                -0.34125570673625977,
+                -0.46326861037716116
+              ]
+            },
+            {
+              "step": 16,
+              "projected": true,
+              "old_new_dot": -6.249041894982618,
+              "original_derivatives": [
+                -0.6631824900958957,
+                1.7429389787126097,
+                -0.1449800192096068
+              ],
+              "updated_derivatives": [
+                -0.32191970020075156,
+                -0.5574881583173577,
+                -0.13706724914827667
+              ]
+            },
+            {
+              "step": 17,
+              "projected": true,
+              "old_new_dot": -6.072612948870514,
+              "original_derivatives": [
+                -0.5087382838549948,
+                1.7212263853701313,
+                -0.2798852378941592
+              ],
+              "updated_derivatives": [
+                -0.18949627268446861,
+                -0.24801015290428985,
+                -0.24994576423785908
+              ]
+            },
+            {
+              "step": 18,
+              "projected": true,
+              "old_new_dot": -6.08595895761118,
+              "original_derivatives": [
+                -0.5742491415165394,
+                1.7896809928273116,
+                -0.07465363747040438
+              ],
+              "updated_derivatives": [
+                -0.22333635031177096,
+                -0.38649895023321057,
+                -0.039150748770085564
+              ]
+            },
+            {
+              "step": 19,
+              "projected": true,
+              "old_new_dot": -5.9320747760188235,
+              "original_derivatives": [
+                -0.46201346716414593,
+                1.722792075930242,
+                -0.17743917433457462
+              ],
+              "updated_derivatives": [
+                -0.1346300870947269,
+                -0.20503447696572452,
+                -0.12960857276117133
+              ]
+            },
+            {
+              "step": 20,
+              "projected": true,
+              "old_new_dot": -5.927698024175937,
+              "original_derivatives": [
+                -0.5154860218690336,
+                1.7871830372537827,
+                -0.04440377286695771
+              ],
+              "updated_derivatives": [
+                -0.16397515847912944,
+                -0.2913697188992843,
+                0.006365475521817512
+              ]
+            },
+            {
+              "step": 21,
+              "projected": true,
+              "old_new_dot": -5.7986880338571405,
+              "original_derivatives": [
+                -0.4358386866188226,
+                1.7137076893784122,
+                -0.11924889519295451
+              ],
+              "updated_derivatives": [
+                -0.10415638439949218,
+                -0.18631929459607566,
+                -0.061770093285952024
+              ]
+            },
+            {
+              "step": 22,
+              "projected": true,
+              "old_new_dot": -5.7815680692407625,
+              "original_derivatives": [
+                -0.47768913933286855,
+                1.7697795770574225,
+                -0.034354076771637806
+              ],
+              "updated_derivatives": [
+                -0.12733311799154612,
+                -0.23768629795264876,
+                0.024748390454202192
+              ]
+            },
+            {
+              "step": 23,
+              "projected": true,
+              "old_new_dot": -5.6753663923827595,
+              "original_derivatives": [
+                -0.423177911169584,
+                1.7068110089418784,
+                -0.08645650733839505
+              ],
+              "updated_derivatives": [
+                -0.08725113969282162,
+                -0.17829479607261822,
+                -0.02383730184464361
+              ]
+            },
+            {
+              "step": 24,
+              "projected": true,
+              "old_new_dot": -5.649115114517601,
+              "original_derivatives": [
+                -0.45463310034594684,
+                1.7527343519196794,
+                -0.033778689991713996
+              ],
+              "updated_derivatives": [
+                -0.1040703902866153,
+                -0.20674536753852743,
+                0.0298111419100035
+              ]
+            },
+            {
+              "step": 25,
+              "projected": true,
+              "old_new_dot": -5.562132293174316,
+              "original_derivatives": [
+                -0.4191502666360408,
+                1.7061193971514756,
+                -0.06838308957802842
+              ],
+              "updated_derivatives": [
+                -0.07762108325861497,
+                -0.17401274473023776,
+                -0.0030289416391365708
+              ]
+            },
+            {
+              "step": 26,
+              "projected": true,
+              "old_new_dot": -5.529651451135891,
+              "original_derivatives": [
+                -0.4419546781220147,
+                1.7419692587871565,
+                -0.03691438776781092
+              ],
+              "updated_derivatives": [
+                -0.08878321079324625,
+                -0.18805157421935476,
+                0.029088187416957813
+              ]
+            },
+            {
+              "step": 27,
+              "projected": true,
+              "old_new_dot": -5.457941963652856,
+              "original_derivatives": [
+                -0.4204030818840912,
+                1.711669524736844,
+                -0.05879581976137345
+              ],
+              "updated_derivatives": [
+                -0.07164350377038309,
+                -0.1702101801486371,
+                0.00806475129226371
+              ]
+            },
+            {
+              "step": 28,
+              "projected": true,
+              "old_new_dot": -5.421645168672264,
+              "original_derivatives": [
+                -0.43652818500126167,
+                1.7387879233147239,
+                -0.04084579027946009
+              ],
+              "updated_derivatives": [
+                -0.07829164861681945,
+                -0.17569014136263697,
+                0.026496852419713963
+              ]
+            },
+            {
+              "step": 29,
+              "projected": true,
+              "old_new_dot": -5.3615163235205605,
+              "original_derivatives": [
+                -0.4247499426695094,
+                1.7220231719334962,
+                -0.0540188129720048
+              ],
+              "updated_derivatives": [
+                -0.06734265113110476,
+                -0.16568348818763706,
+                0.013749586686584818
+              ]
+            },
+            {
+              "step": 30,
+              "projected": true,
+              "old_new_dot": -5.32334729368809,
+              "original_derivatives": [
+                -0.4361143952115088,
+                1.742344583076517,
+                -0.04432775163030225
+              ],
+              "updated_derivatives": [
+                -0.07072570628779778,
+                -0.1664353081389882,
+                0.023821944155385234
+              ]
+            },
+            {
+              "step": 31,
+              "projected": true,
+              "old_new_dot": -5.2716930649590354,
+              "original_derivatives": [
+                -0.4308751709177228,
+                1.7355129398379034,
+                -0.051908714654934324
+              ],
+              "updated_derivatives": [
+                -0.06375402368589964,
+                -0.16027317511155098,
+                0.016478632725238286
+              ]
+            },
+            {
+              "step": 32,
+              "projected": true,
+              "old_new_dot": -5.233104113930963,
+              "original_derivatives": [
+                -0.4391220911077348,
+                1.7509997725580908,
+                -0.047024193576738385
+              ],
+              "updated_derivatives": [
+                -0.06499243306732472,
+                -0.15863770839945635,
+                0.02166877731743691
+              ]
+            },
+            {
+              "step": 33,
+              "projected": true,
+              "old_new_dot": -5.187530300391483,
+              "original_derivatives": [
+                -0.43804835207707193,
+                1.7507528204952165,
+                -0.051239558572611685
+              ],
+              "updated_derivatives": [
+                -0.060484400799042624,
+                -0.15423050084873888,
+                0.017614624175302164
+              ]
+            },
+            {
+              "step": 34,
+              "projected": true,
+              "old_new_dot": -5.149501028645816,
+              "original_derivatives": [
+                -0.44442770994939995,
+                1.7630406754397538,
+                -0.049007670154494545
+              ],
+              "updated_derivatives": [
+                -0.06044919943791731,
+                -0.15152687383973742,
+                0.02008796720727861
+              ]
+            },
+            {
+              "step": 35,
+              "projected": true,
+              "old_new_dot": -5.108292571868523,
+              "original_derivatives": [
+                -0.4458805224584275,
+                1.76674656562331,
+                -0.05132067561803147
+              ],
+              "updated_derivatives": [
+                -0.05741723587638553,
+                -0.1478765557913027,
+                0.01790307038707594
+              ]
+            },
+            {
+              "step": 36,
+              "projected": true,
+              "old_new_dot": -5.071401912242699,
+              "original_derivatives": [
+                -0.4512415794700232,
+                1.7770096868791514,
+                -0.05046983112278998
+              ],
+              "updated_derivatives": [
+                -0.05670908103977211,
+                -0.14478515811318488,
+                0.018940198516192882
+              ]
+            },
+            {
+              "step": 37,
+              "projected": true,
+              "old_new_dot": -5.033399607080927,
+              "original_derivatives": [
+                -0.4541541056477898,
+                1.7828241948663224,
+                -0.051767287154484525
+              ],
+              "updated_derivatives": [
+                -0.0545409265022329,
+                -0.14146601552438548,
+                0.017750560872309754
+              ]
+            },
+            {
+              "step": 38,
+              "projected": true,
+              "old_new_dot": -4.997928309604797,
+              "original_derivatives": [
+                -0.4590125356757837,
+                1.7918017514270177,
+                -0.05158890394432342
+              ],
+              "updated_derivatives": [
+                -0.053531833376702975,
+                -0.1383066666652288,
+                0.018068988921516017
+              ]
+            },
+            {
+              "step": 39,
+              "projected": true,
+              "old_new_dot": -4.962378620850174,
+              "original_derivatives": [
+                -0.4627266779373431,
+                1.7985423842194985,
+                -0.05236865848388751
+              ],
+              "updated_derivatives": [
+                -0.051866817666415294,
+                -0.13516336434636267,
+                0.017378474747828446
+              ]
+            },
+            {
+              "step": 40,
+              "projected": true,
+              "old_new_dot": -4.9284123303921215,
+              "original_derivatives": [
+                -0.46735975943165536,
+                1.806643625022132,
+                -0.052490829523184485
+              ],
+              "updated_derivatives": [
+                -0.05076463504243954,
+                -0.13207260210011373,
+                0.017358365984289484
+              ]
+            },
+            {
+              "step": 41,
+              "projected": true,
+              "old_new_dot": -4.89483241669406,
+              "original_derivatives": [
+                -0.4714872760562867,
+                1.813605383190195,
+                -0.05301321361571212
+              ],
+              "updated_derivatives": [
+                -0.049399963787339234,
+                -0.12906219075534636,
+                0.016905748544276584
+              ]
+            },
+            {
+              "step": 42,
+              "projected": true,
+              "old_new_dot": -4.862345358261172,
+              "original_derivatives": [
+                -0.47602266255949555,
+                1.8210276582312113,
+                -0.05325253938947566
+              ],
+              "updated_derivatives": [
+                -0.04830870934173072,
+                -0.12609252237837967,
+                0.01673731113069151
+              ]
+            },
+            {
+              "step": 43,
+              "projected": true,
+              "old_new_dot": -4.830421098157592,
+              "original_derivatives": [
+                -0.48034137407900523,
+                1.827815691138153,
+                -0.05364520587904961
+              ],
+              "updated_derivatives": [
+                -0.04713431325306618,
+                -0.12321071971074686,
+                0.016394381975830576
+              ]
+            },
+            {
+              "step": 44,
+              "projected": true,
+              "old_new_dot": -4.7993337968073035,
+              "original_derivatives": [
+                -0.4848236893481056,
+                1.8346397785276065,
+                -0.0539170680064045
+              ],
+              "updated_derivatives": [
+                -0.046099085474057014,
+                -0.12037961664096461,
+                0.01616743161530435
+              ]
+            },
+            {
+              "step": 45,
+              "projected": true,
+              "old_new_dot": -4.7688515762497214,
+              "original_derivatives": [
+                -0.4892077535804604,
+                1.8410457748462195,
+                -0.054239273563686255
+              ],
+              "updated_derivatives": [
+                -0.045056041708745186,
+                -0.11763084582050395,
+                0.015875297593466862
+              ]
+            },
+            {
+              "step": 46,
+              "projected": true,
+              "old_new_dot": -4.739065402316389,
+              "original_derivatives": [
+                -0.4936413907459705,
+                1.8472988413453324,
+                -0.05450750242757073
+              ],
+              "updated_derivatives": [
+                -0.044091745240040656,
+                -0.11494215200969221,
+                0.01562986318960322
+              ]
+            },
+            {
+              "step": 47,
+              "projected": true,
+              "old_new_dot": -4.709870462344744,
+              "original_derivatives": [
+                -0.4980185111279865,
+                1.8532207912464387,
+                -0.05478573391700538
+              ],
+              "updated_derivatives": [
+                -0.04314784542763739,
+                -0.1123296194428121,
+                0.015363112453542757
+              ]
+            }
+          ],
+          "update_rule": "symmetric_conflict_projection_then_original_weights_plus_retention",
+          "adapter_gradient_evaluations": 144,
+          "classification_objective": "full_CE",
+          "retention_weighted_teacher_correct": 0.6298076923076923,
+          "retention_scale": 1.0,
+          "class_mass": 0.06666666666666667
+        }
+      },
+      "mass_matching": null,
+      "adapter_updates": 48,
+      "primary": "HH",
+      "engineering_logit_gradient_evaluations": 0,
+      "primary_both_queries_pass": false,
+      "gates": {
+        "Qfit": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": 0.05590615969085,
+              "old": -0.022031354202865394,
+              "new": 0.5625
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        },
+        "Qgate": {
+          "HH": {
+            "selected": "baseline",
+            "delta": {
+              "all": 0.01506358462829177,
+              "old": -0.04351637671094544,
+              "new": 0.39583333333333337
+            },
+            "feasible": false,
+            "reason": "NO_FEASIBLE_POSITIVE_GAIN"
+          }
+        }
+      },
+      "class_rows": [
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 45,
+          "recall": 0.7258064516129032,
+          "CE": 1.1702741211555732,
+          "errors_to_old": 17,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 4.340601148213935,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.860385399257604,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 5,
+          "recall": 0.625,
+          "CE": 1.5317521797439226,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 4,
+          "recall": 0.14285714285714285,
+          "CE": 2.016496257736424,
+          "errors_to_old": 23,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 15,
+          "recall": 0.375,
+          "CE": 1.9385876740056696,
+          "errors_to_old": 21,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 32,
+          "recall": 0.4383561643835616,
+          "CE": 1.3652377330622059,
+          "errors_to_old": 17,
+          "errors_to_new": 24
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 37,
+          "recall": 0.7708333333333334,
+          "CE": 0.9456704210797287,
+          "errors_to_old": 9,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 18,
+          "recall": 0.72,
+          "CE": 1.0977239116955204,
+          "errors_to_old": 5,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 4,
+          "recall": 0.25,
+          "CE": 1.6197498508855495,
+          "errors_to_old": 12,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 41,
+          "recall": 0.6949152542372882,
+          "CE": 1.2993852228972624,
+          "errors_to_old": 18,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 9,
+          "recall": 0.34615384615384615,
+          "CE": 1.4887174112379944,
+          "errors_to_old": 16,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.0622583334936233,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.890317311113928,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 7,
+          "recall": 0.875,
+          "CE": 0.7614540810843202,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 40,
+          "recall": 0.6451612903225806,
+          "CE": 1.3207573999983342,
+          "errors_to_old": 21,
+          "errors_to_new": 1
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 5.426101849916089,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.0265320612030138,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 5,
+          "recall": 0.625,
+          "CE": 1.8093645358199424,
+          "errors_to_old": 3,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 5,
+          "recall": 0.17857142857142858,
+          "CE": 2.0157537343713408,
+          "errors_to_old": 21,
+          "errors_to_new": 2
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 17,
+          "recall": 0.425,
+          "CE": 1.9041536815811586,
+          "errors_to_old": 22,
+          "errors_to_new": 1
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 37,
+          "recall": 0.5068493150684932,
+          "CE": 1.2859989771566467,
+          "errors_to_old": 20,
+          "errors_to_new": 16
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 37,
+          "recall": 0.7708333333333334,
+          "CE": 0.8802622843183484,
+          "errors_to_old": 8,
+          "errors_to_new": 3
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 15,
+          "recall": 0.6,
+          "CE": 1.1674378778488455,
+          "errors_to_old": 9,
+          "errors_to_new": 1
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 11,
+          "recall": 0.6875,
+          "CE": 1.4476020128572165,
+          "errors_to_old": 5,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 44,
+          "recall": 0.7457627118644068,
+          "CE": 1.2128345416711739,
+          "errors_to_old": 13,
+          "errors_to_new": 2
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 7,
+          "recall": 0.2692307692307692,
+          "CE": 1.4817426946730856,
+          "errors_to_old": 19,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.608794084171141,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 1,
+          "recall": 0.3333333333333333,
+          "CE": 1.7312417769412398,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "query": "Qgate",
+          "dataset": "HK",
+          "model": "MM",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 7,
+          "recall": 0.875,
+          "CE": 0.8617813662464657,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 55,
+          "recall": 0.8870967741935484,
+          "CE": 0.8410388973253724,
+          "errors_to_old": 7,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 3.6566751643384676,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.597367605032195,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 7,
+          "recall": 0.875,
+          "CE": 1.2510962638588332,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 2,
+          "recall": 0.07142857142857142,
+          "CE": 1.8743015064072968,
+          "errors_to_old": 24,
+          "errors_to_new": 2
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 24,
+          "recall": 0.6,
+          "CE": 1.4905097042605528,
+          "errors_to_old": 11,
+          "errors_to_new": 5
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 26,
+          "recall": 0.3561643835616438,
+          "CE": 1.5827072614424593,
+          "errors_to_old": 16,
+          "errors_to_new": 31
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 40,
+          "recall": 0.8333333333333334,
+          "CE": 0.820164505052572,
+          "errors_to_old": 7,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 19,
+          "recall": 0.76,
+          "CE": 0.9211472506747279,
+          "errors_to_old": 5,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 4,
+          "recall": 0.25,
+          "CE": 1.640256371045663,
+          "errors_to_old": 1,
+          "errors_to_new": 11
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 10,
+          "recall": 0.1694915254237288,
+          "CE": 1.5376449573052082,
+          "errors_to_old": 7,
+          "errors_to_new": 42
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.6619350397943955,
+          "errors_to_old": 3,
+          "errors_to_new": 23
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.285719902252918,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 3,
+          "recall": 1.0,
+          "CE": 1.1328541852608498,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 8,
+          "recall": 1.0,
+          "CE": 0.5207095248517456,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 0,
+          "group": "old",
+          "count": 62,
+          "correct": 52,
+          "recall": 0.8387096774193549,
+          "CE": 0.9172184869700947,
+          "errors_to_old": 10,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 1,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 4.6545393331284775,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 2,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 2.5376374017375793,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 3,
+          "group": "old",
+          "count": 8,
+          "correct": 6,
+          "recall": 0.75,
+          "CE": 1.2968129718810852,
+          "errors_to_old": 2,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 4,
+          "group": "old",
+          "count": 28,
+          "correct": 4,
+          "recall": 0.14285714285714285,
+          "CE": 1.9131253495299607,
+          "errors_to_old": 21,
+          "errors_to_new": 3
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 5,
+          "group": "old",
+          "count": 40,
+          "correct": 21,
+          "recall": 0.525,
+          "CE": 1.5252012530171828,
+          "errors_to_old": 13,
+          "errors_to_new": 6
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 6,
+          "group": "old",
+          "count": 73,
+          "correct": 34,
+          "recall": 0.4657534246575342,
+          "CE": 1.4625219503624796,
+          "errors_to_old": 17,
+          "errors_to_new": 22
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 7,
+          "group": "old",
+          "count": 48,
+          "correct": 40,
+          "recall": 0.8333333333333334,
+          "CE": 0.7883401670671984,
+          "errors_to_old": 4,
+          "errors_to_new": 4
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 8,
+          "group": "old",
+          "count": 25,
+          "correct": 17,
+          "recall": 0.68,
+          "CE": 1.109459789363063,
+          "errors_to_old": 7,
+          "errors_to_new": 1
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 9,
+          "group": "old",
+          "count": 16,
+          "correct": 8,
+          "recall": 0.5,
+          "CE": 1.4548915936484004,
+          "errors_to_old": 2,
+          "errors_to_new": 6
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 10,
+          "group": "old",
+          "count": 59,
+          "correct": 9,
+          "recall": 0.15254237288135594,
+          "CE": 1.4734995090171275,
+          "errors_to_old": 6,
+          "errors_to_new": 44
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 11,
+          "group": "old",
+          "count": 26,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.6874761887459455,
+          "errors_to_old": 4,
+          "errors_to_new": 22
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 12,
+          "group": "old",
+          "count": 1,
+          "correct": 0,
+          "recall": 0.0,
+          "CE": 1.7635397045527323,
+          "errors_to_old": 1,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 13,
+          "group": "new",
+          "count": 3,
+          "correct": 3,
+          "recall": 1.0,
+          "CE": 1.107446007095306,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "class_index": 14,
+          "group": "new",
+          "count": 8,
+          "correct": 8,
+          "recall": 1.0,
+          "CE": 0.5228050695681437,
+          "errors_to_old": 0,
+          "errors_to_new": 0
+        }
+      ],
+      "summaries": [
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.39759481283853837,
+          "CE": 1.759240737110884
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.39145555327523657,
+          "CE": 1.8259107434203856
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.4375,
+          "CE": 1.325885696099124
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.45350097252938837,
+          "CE": 1.5876085425935509
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.3694241990723712,
+          "CE": 1.7046588022146667
+        },
+        {
+          "dataset": "HK",
+          "query": "Qfit",
+          "model": "HH",
+          "group": "new",
+          "BA": 1.0,
+          "CE": 0.8267818550562978
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "all",
+          "BA": 0.444149478781623,
+          "CE": 1.8120239252516024
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "old",
+          "BA": 0.4195314498762317,
+          "CE": 1.8913335181220257
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "MM",
+          "group": "new",
+          "BA": 0.6041666666666666,
+          "CE": 1.2965115715938529
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "all",
+          "BA": 0.45921306340991475,
+          "CE": 1.6143009850456522
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "old",
+          "BA": 0.37601507316528626,
+          "CE": 1.7372510537708719
+        },
+        {
+          "dataset": "HK",
+          "query": "Qgate",
+          "model": "HH",
+          "group": "new",
+          "BA": 1.0,
+          "CE": 0.8151255383317249
+        }
+      ],
+      "interaction_HH_minus_HM_minus_MH_plus_MM": [],
+      "bank": {
+        "dataset": "HK",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 502,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 1,
+            "selected": 1
+          },
+          {
+            "class_index": 2,
+            "available": 4,
+            "selected": 4
+          },
+          {
+            "class_index": 3,
+            "available": 69,
+            "selected": 16
+          },
+          {
+            "class_index": 4,
+            "available": 232,
+            "selected": 16
+          },
+          {
+            "class_index": 5,
+            "available": 323,
+            "selected": 16
+          },
+          {
+            "class_index": 6,
+            "available": 590,
+            "selected": 16
+          },
+          {
+            "class_index": 7,
+            "available": 392,
+            "selected": 16
+          },
+          {
+            "class_index": 8,
+            "available": 202,
+            "selected": 16
+          },
+          {
+            "class_index": 9,
+            "available": 135,
+            "selected": 16
+          },
+          {
+            "class_index": 10,
+            "available": 477,
+            "selected": 16
+          },
+          {
+            "class_index": 11,
+            "available": 209,
+            "selected": 16
+          },
+          {
+            "class_index": 12,
+            "available": 4,
+            "selected": 4
+          }
+        ],
+        "node_count": 169,
+        "feature_bytes": 2076672,
+        "probability_bytes": 1352
+      },
+      "original_moment_node_count": 208,
+      "mixed_cells_use_both_banks": false,
+      "old_S_access_in_training": false,
+      "query_used_for_fitting": false,
+      "E_access": false,
+      "new_labels": 0,
+      "GPU_used": false,
+      "operation_seconds": 4.889405956957489
+    }
+  },
+  "reused_banks": {
+    "status": "COMPLETED",
+    "banks": [
+      {
+        "dataset": "ISIC",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 375,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 23,
+            "selected": 16
+          },
+          {
+            "class_index": 2,
+            "available": 208,
+            "selected": 16
+          },
+          {
+            "class_index": 3,
+            "available": 2630,
+            "selected": 16
+          }
+        ],
+        "node_count": 64,
+        "feature_bytes": 786432,
+        "probability_bytes": 512
+      },
+      {
+        "dataset": "HK",
+        "counts": [
+          {
+            "class_index": 0,
+            "available": 502,
+            "selected": 16
+          },
+          {
+            "class_index": 1,
+            "available": 1,
+            "selected": 1
+          },
+          {
+            "class_index": 2,
+            "available": 4,
+            "selected": 4
+          },
+          {
+            "class_index": 3,
+            "available": 69,
+            "selected": 16
+          },
+          {
+            "class_index": 4,
+            "available": 232,
+            "selected": 16
+          },
+          {
+            "class_index": 5,
+            "available": 323,
+            "selected": 16
+          },
+          {
+            "class_index": 6,
+            "available": 590,
+            "selected": 16
+          },
+          {
+            "class_index": 7,
+            "available": 392,
+            "selected": 16
+          },
+          {
+            "class_index": 8,
+            "available": 202,
+            "selected": 16
+          },
+          {
+            "class_index": 9,
+            "available": 135,
+            "selected": 16
+          },
+          {
+            "class_index": 10,
+            "available": 477,
+            "selected": 16
+          },
+          {
+            "class_index": 11,
+            "available": 209,
+            "selected": 16
+          },
+          {
+            "class_index": 12,
+            "available": 4,
+            "selected": 4
+          }
+        ],
+        "node_count": 169,
+        "feature_bytes": 2076672,
+        "probability_bytes": 1352
+      }
+    ],
+    "banks_sealed_at": 1792170954.813959,
+    "query_access": false,
+    "E_access": false,
+    "source_commit": "48e675b6c8934be8f27f20f8e8f00b9d251442bc",
+    "engineering_adapter_updates": 0
+  },
+  "delivery_failures": [],
+  "stderr_summary": "TypedStorage deprecation warning only"
+}

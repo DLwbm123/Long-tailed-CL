@@ -28,7 +28,56 @@ def objective(w,z,y,p,penalty=REGULARIZATION,center=0.,response_scale=None):
     return ce+penalty*protection(w,z,y,p,center,response_scale)/2
 
 
-def fit(z,y,p,initial,penalty=REGULARIZATION,center=0.,response_scale=None,gradient_map=None):
+def hessian_vector(v,z,y,p,prob,penalty,response_scale):
+    change=z@v
+    out=BETA**2*z.T@(p[:,None]*prob*(change-(prob*change).sum(1,keepdim=True)))
+    if response_scale is None:return out+penalty*v
+    gap=change.gather(1,y[:,None])-change
+    adj=-gap;adj.scatter_add_(1,y[:,None],gap.sum(1,keepdim=True))
+    return out+penalty*response_scale*z.T@(p[:,None]*adj)
+
+
+def newton_steps(w,z,y,p,penalty,center,response_scale,gradient_map,trace):
+    counts=dict(hessian_vector_evaluations=0,line_search_objective_evaluations=0,curvature_probability_evaluations=0)
+    work=lambda:len(trace)+sum(counts.values())
+    reason='iteration_cap';iterations=0
+    for _ in range(200):
+        if work()>=300:reason='evaluation_cap';break
+        loss=objective(w,z,y,p,penalty,center,response_scale);g=torch.autograd.grad(loss,w)[0].detach()
+        assert bool(torch.isfinite(loss)) and bool(torch.isfinite(g).all())
+        original_gradient=gradient_map@g if gradient_map is not None else g
+        trace.append(dict(evaluation=len(trace)+1,objective=float(loss.detach()),gradient_max_abs=float(original_gradient.abs().max()),optimizer_gradient_max_abs=float(g.abs().max())))
+        if float(g.abs().max())<=1e-8:reason='optimizer_gradient';break
+        if work()>297:reason='evaluation_cap';break
+        iterations+=1;counts['curvature_probability_evaluations']+=1
+        with torch.no_grad():
+            prob=(BETA*z@w).softmax(1);direction=torch.zeros_like(g);residual=-g.clone();cg_direction=residual.clone();rr=float(residual.square().sum())
+            target=min(.5,math.sqrt(math.sqrt(rr)))*math.sqrt(rr)
+            for _ in range(50):
+                if work()>=299:break  # Reserve one objective evaluation for accepting a step.
+                hd=hessian_vector(cg_direction,z,y,p,prob,penalty,response_scale);counts['hessian_vector_evaluations']+=1
+                assert bool(torch.isfinite(hd).all())
+                curvature=float((cg_direction*hd).sum())
+                if curvature<=0:break
+                alpha=rr/curvature;direction.add_(cg_direction,alpha=alpha);residual.add_(hd,alpha=-alpha)
+                next_rr=float(residual.square().sum())
+                if math.sqrt(next_rr)<=target:break
+                cg_direction=residual+(next_rr/rr)*cg_direction;rr=next_rr
+            slope=float((g*direction).sum())
+            if slope>=0:direction=-g;slope=-float(g.square().sum())
+            accepted=False;step=1.
+            for _ in range(20):
+                if work()>=300:break
+                candidate=w+step*direction;trial=objective(candidate,z,y,p,penalty,center,response_scale);counts['line_search_objective_evaluations']+=1
+                if bool(torch.isfinite(trial)) and float(trial)<=float(loss)+1e-4*step*slope:
+                    w.copy_(candidate);accepted=True;break
+                step*=.5
+            if not accepted:reason='evaluation_cap' if work()>=300 else 'line_search_stop';break
+    assert work()<=300
+    return dict(optimizer_iterations=iterations,optimizer_stop_reason=reason,**counts,combined_optimizer_evaluations=work())
+
+
+def fit(z,y,p,initial,penalty=REGULARIZATION,center=0.,response_scale=None,gradient_map=None,solver='lbfgs'):
     if gradient_map is not None:
         assert isinstance(center,torch.Tensor) and gradient_map.shape==(z.shape[1],z.shape[1]) and gradient_map.dtype==z.dtype and bool(torch.isfinite(gradient_map).all())
     assert response_scale is None or (math.isfinite(response_scale) and response_scale>0)
@@ -43,7 +92,10 @@ def fit(z,y,p,initial,penalty=REGULARIZATION,center=0.,response_scale=None,gradi
         original_gradient=gradient_map@w.grad if gradient_map is not None else w.grad
         trace.append(dict(evaluation=len(trace)+1,objective=float(loss.detach()),gradient_max_abs=float(original_gradient.abs().max()),optimizer_gradient_max_abs=float(w.grad.abs().max())))
         return loss
-    opt.step(closure)
+    assert solver in ('lbfgs','newton_cg')
+    if solver=='newton_cg':solver_info=newton_steps(w,z,y,p,penalty,center,response_scale,gradient_map,trace)
+    else:
+        opt.step(closure);solver_info=dict(optimizer_iterations=int(opt.state[w]['n_iter']),optimizer_stop_reason='lbfgs_return',hessian_vector_evaluations=0,line_search_objective_evaluations=0,curvature_probability_evaluations=0,combined_optimizer_evaluations=len(trace))
     final=objective(w,z,y,p,penalty,center,response_scale);g=torch.autograd.grad(final,w)[0]
     end=float(final.detach());optimizer_grad=float(g.abs().max());original_gradient=gradient_map@g if gradient_map is not None else g;grad=float(original_gradient.abs().max());assert end<=trace[0]['objective']+1e-10 and bool(torch.isfinite(w).all())
     initial_protection=float(protection(initial,z,y,p,center,response_scale));final_protection=float(protection(w.detach(),z,y,p,center,response_scale))
@@ -52,14 +104,14 @@ def fit(z,y,p,initial,penalty=REGULARIZATION,center=0.,response_scale=None,gradi
         original_w=torch.linalg.solve_triangular(gradient_map.T,original_w,upper=True)
         original_initial=torch.linalg.solve_triangular(gradient_map.T,initial,upper=True)
         original_center=torch.linalg.solve_triangular(gradient_map.T,center,upper=True)
-    return original_w,dict(initial_protection_squared=initial_protection,final_protection_squared=final_protection,initial_objective=trace[0]['objective'],final_objective=end,initial_support_CE=trace[0]['objective']-penalty*initial_protection/2,final_support_CE=end-penalty*final_protection/2,initial_head_norm=float(original_initial.norm()),final_head_norm=float(original_w.norm()),initial_center_distance=float((original_initial-original_center).norm()),final_center_distance=float((original_w-original_center).norm()),final_optimizer_gradient_max_abs=optimizer_grad,final_gradient_max_abs=grad,converged=grad<=1e-6,optimizer_iterations=int(opt.state[w]['n_iter']),closure_gradient_evaluations=len(trace),final_gradient_evaluations=1,trace=trace)
+    return original_w,dict(initial_protection_squared=initial_protection,final_protection_squared=final_protection,initial_objective=trace[0]['objective'],final_objective=end,initial_support_CE=trace[0]['objective']-penalty*initial_protection/2,final_support_CE=end-penalty*final_protection/2,initial_head_norm=float(original_initial.norm()),final_head_norm=float(original_w.norm()),initial_center_distance=float((original_initial-original_center).norm()),final_center_distance=float((original_w-original_center).norm()),final_optimizer_gradient_max_abs=optimizer_grad,final_gradient_max_abs=grad,converged=grad<=1e-6,**solver_info,closure_gradient_evaluations=len(trace),final_gradient_evaluations=1,trace=trace)
 
 
-def unit(penalty=REGULARIZATION,centered=False,response=False,preconditioned=False):
+def unit(penalty=REGULARIZATION,centered=False,response=False,preconditioned=False,solver='lbfgs'):
     a0=.1 if centered else 0.;center=torch.tensor([[a0,-a0],[-a0,a0]],dtype=DT)
     z=torch.eye(2,dtype=DT);y=torch.arange(2);p=torch.full((2,),.5,dtype=DT);w=torch.tensor([[.2,-.1],[.3,.4]],dtype=DT,requires_grad=True)
     scale=float(z.shape[1]/(2*(p[:,None]*z.square()).sum())) if response else None
-    g=torch.autograd.grad(objective(w,z,y,p,penalty,center,scale),w)[0]
+    g=torch.autograd.grad(objective(w,z,y,p,penalty,center,scale),w,create_graph=solver=='newton_cg')[0]
     pg=w-center
     if response:
         pg=torch.zeros_like(w);explicit=w.new_zeros(());eye=torch.eye(2,dtype=DT)
@@ -97,8 +149,15 @@ def unit(penalty=REGULARIZATION,centered=False,response=False,preconditioned=Fal
         v=(factor.T@w.detach()).requires_grad_();ct=factor.T@center
         transformed=objective(v,zt,y,p,penalty,ct,scale)
         assert torch.allclose(transformed,objective(w,z,y,p,penalty,center,scale),atol=1e-12,rtol=0)
-        gv=torch.autograd.grad(transformed,v)[0];assert torch.allclose(factor@gv,g,atol=1e-12,rtol=0)
-        fitted,info=fit(zt,y,p,torch.zeros((2,2),dtype=DT),penalty,ct,scale,factor)
+        if solver=='newton_cg':
+            direction=torch.tensor([[.2,-.4],[.1,.5]],dtype=DT)
+            exact=torch.autograd.grad((g*direction).sum(),w)[0]
+            native=hessian_vector(direction,z,y,p,(BETA*z@w).softmax(1),penalty,scale)
+            transformed_hv=factor@hessian_vector(factor.T@direction,zt,y,p,(BETA*zt@v).softmax(1),penalty,scale)
+            assert torch.allclose(native,exact,atol=1e-12,rtol=0) and torch.allclose(transformed_hv,exact,atol=1e-12,rtol=0)
+        else:
+            gv=torch.autograd.grad(transformed,v)[0];assert torch.allclose(factor@gv,g,atol=1e-12,rtol=0)
+        fitted,info=fit(zt,y,p,torch.zeros((2,2),dtype=DT),penalty,ct,scale,factor,solver)
     else:
         gd=torch.autograd.grad(objective(w,zd,yd,pd,penalty,center,scale),w)[0];assert torch.allclose(g,gd,atol=1e-12,rtol=0)
         fitted,info=fit(z,y,p,torch.zeros((2,2),dtype=DT),penalty,center,scale)
@@ -109,6 +168,7 @@ def unit(penalty=REGULARIZATION,centered=False,response=False,preconditioned=Fal
         else:lo=a
     expected=torch.tensor([[a,-a],[-a,a]],dtype=DT)
     assert info['converged'] and torch.allclose(fitted,expected,atol=1e-5,rtol=0)
+    assert info['combined_optimizer_evaluations']==info['closure_gradient_evaluations']+sum(info[k] for k in ('hessian_vector_evaluations','line_search_objective_evaluations','curvature_probability_evaluations'))<=300
     return info
 
 
@@ -123,7 +183,8 @@ def main():
     response=geometry=='response';assert not response or center_kind=='ridge'
     solver_coordinates=lock.get('solver_coordinates','native');assert solver_coordinates in ('native','ridge_cholesky')
     preconditioned=solver_coordinates=='ridge_cholesky';assert not preconditioned or response
-    torch.set_num_threads(2);torch.set_default_dtype(DT);unit_info=unit(penalty,center_kind=='ridge',response,preconditioned)
+    solver=lock.get('solver','lbfgs');assert solver in ('lbfgs','newton_cg') and (solver=='lbfgs' or preconditioned)
+    torch.set_num_threads(2);torch.set_default_dtype(DT);unit_info=unit(penalty,center_kind=='ridge',response,preconditioned,solver)
     case=next(v for v in lock['datasets'] if v['name']==name);old=case['old'];seen=old+case['new'];sealed=False
     prior=Path(cfg['prior_root']);cr=Path(cfg['centroid_root']);rr=Path(cfg['ridge_root']);ar=Path(cfg['affine_root'])
     par=Path(cfg['parameter_root']) if response else None
@@ -177,7 +238,7 @@ def main():
         conditioning=dict(cholesky_relative_residual=float((factor@factor.T-metric).norm()/metric.norm()),feature_transform_relative_residual=float((zt@factor.T-z).norm()/z.norm()),ridge_floor=REGULARIZATION)
         before=float(objective(initial,zt,y,mass,penalty,ct,response_scale));native_before=float(objective(ridge['frame'],z,y,mass,penalty,center,response_scale))
         assert conditioning['cholesky_relative_residual']<1e-10 and conditioning['feature_transform_relative_residual']<1e-10 and abs(before-native_before)<1e-10
-        w,fit_info=fit(zt,y,mass,initial,penalty,ct,response_scale,factor)
+        w,fit_info=fit(zt,y,mass,initial,penalty,ct,response_scale,factor,solver)
         native_after=float(objective(w,z,y,mass,penalty,center,response_scale));conditioning['objective_equivalence_max_abs']=max(abs(before-native_before),abs(native_after-fit_info['final_objective']))
         assert conditioning['objective_equivalence_max_abs']<1e-10
     else:w,fit_info=fit(z,y,mass,ridge['frame'],penalty,center,response_scale)
@@ -227,7 +288,7 @@ def main():
         get=lambda m:{v['group']:v['BA'] for v in summaries if v['query']==query and v['model']==m}
         from query_node_weights import select
         gates[query]=select(get('raw_ridge'),get('linear_ce'))
-    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,solver_coordinates=solver_coordinates,conditioning=conditioning,formal_cholesky_factorizations=int(preconditioned),formal_triangular_solves=4*int(preconditioned),ce_protection_geometry=geometry,response_scale=response_scale,support_response_rows=response_rows,support_response_diagnostic_sample_evaluations=2*sum(v['count'] for v in counts) if response else 0,ce_penalty_center=center_kind,ce_penalty_coordinates=coordinates,ce_head_penalty=penalty,ce_logit_penalty=penalty/BETA**2,fit=fit_info,unit_fit=unit_info,class_rows=classes,summaries=summaries,gates=gates,primary_both_queries_pass=fit_info['converged'] and all(v['selected']=='candidate' for v in gates.values()),primary_reference='raw_ridge',paired_rows=pairs,margin_rows=margin_rows,competitor_rows=competitors,query_counts=queries,support_counts=counts,head_stats=head_stats,full_centroid_max_abs_reconstruction_error=mean_error,full_ridge_normal_relative_residual=normal_error,published_aggregates_matched=True,engineering_checks_passed=True,support_feature_sample_forwards=sum(v['count'] for v in counts),shared_query_feature_sample_forwards=sum(v['count'] for v in queries),model_logit_sample_evaluations=3*sum(v['count'] for v in queries),formal_head_fits=1,engineering_head_fits=1,production_linear_solves=4*int(preconditioned),full_reference_head_fits=0,full_support_moment_reconstructions=1,head_elements=w.numel(),head_bytes=w.numel()*w.element_size(),formal_gradient_evaluations=fit_info['closure_gradient_evaluations']+1,engineering_gradient_evaluations=unit_info['closure_gradient_evaluations']+3,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Standard linear class-balanced CE baseline on the same legal H/new-S and same feature/parameter class. Fixed beta8; head/logit penalty, zero/ridge center and parameter/response geometry and optimizer coordinates explicitly recorded, no bias or column normalization; loss scale interacts with regularization. No optimal-hyperparameter, full-history, compression-loss, novel-method or independent-validation claim.'))
+    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,solver=solver,engineering_explicit_hessian_vector_checks=2*int(solver=='newton_cg'),solver_coordinates=solver_coordinates,conditioning=conditioning,formal_cholesky_factorizations=int(preconditioned),formal_triangular_solves=4*int(preconditioned),ce_protection_geometry=geometry,response_scale=response_scale,support_response_rows=response_rows,support_response_diagnostic_sample_evaluations=2*sum(v['count'] for v in counts) if response else 0,ce_penalty_center=center_kind,ce_penalty_coordinates=coordinates,ce_head_penalty=penalty,ce_logit_penalty=penalty/BETA**2,fit=fit_info,unit_fit=unit_info,class_rows=classes,summaries=summaries,gates=gates,primary_both_queries_pass=fit_info['converged'] and all(v['selected']=='candidate' for v in gates.values()),primary_reference='raw_ridge',paired_rows=pairs,margin_rows=margin_rows,competitor_rows=competitors,query_counts=queries,support_counts=counts,head_stats=head_stats,full_centroid_max_abs_reconstruction_error=mean_error,full_ridge_normal_relative_residual=normal_error,published_aggregates_matched=True,engineering_checks_passed=True,support_feature_sample_forwards=sum(v['count'] for v in counts),shared_query_feature_sample_forwards=sum(v['count'] for v in queries),model_logit_sample_evaluations=3*sum(v['count'] for v in queries),formal_head_fits=1,engineering_head_fits=1,production_linear_solves=4*int(preconditioned),full_reference_head_fits=0,full_support_moment_reconstructions=1,head_elements=w.numel(),head_bytes=w.numel()*w.element_size(),formal_gradient_evaluations=fit_info['closure_gradient_evaluations']+1,engineering_gradient_evaluations=unit_info['closure_gradient_evaluations']+3,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Standard linear class-balanced CE baseline on the same legal H/new-S and same feature/parameter class. Fixed beta8; head/logit penalty, zero/ridge center and parameter/response geometry and optimizer coordinates explicitly recorded, no bias or column normalization; loss scale interacts with regularization. No optimal-hyperparameter, full-history, compression-loss, novel-method or independent-validation claim.'))
 
 
 if __name__=='__main__':main()

@@ -1,0 +1,251 @@
+{
+  "version": "nullspace-response-1",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "support_counts": {
+    "ISIC": [
+      16,
+      16,
+      16,
+      16,
+      2254,
+      36
+    ],
+    "HK": [
+      16,
+      1,
+      4,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      4,
+      28,
+      67
+    ]
+  },
+  "logit_scale": 8,
+  "inputs": {
+    "centroid": {
+      "source": "d8f4fb7eaae1435636889f969ee84166c5b1db30",
+      "delivery": "78711f1adc0cf2282441caa6f57c79afbedba4b0"
+    },
+    "ridge": {
+      "source": "703dd54c9150a013a386a2b77bd996d9e8c08743",
+      "delivery": "3b32f0d63280cd174502f821158d976063d16ad6"
+    },
+    "constrained": {
+      "source": "8f049d1fd736ff013215882f0123afa889ba4e55",
+      "delivery": "40f29fdb2820599febf843380f12e7683ac6a7d6"
+    }
+  },
+  "prior_delivery": "40f29fdb2820599febf843380f12e7683ac6a7d6",
+  "overall_wall_seconds": 3600,
+  "case_wall_seconds": 900,
+  "jobs": [
+    {
+      "id": "ISIC_nullspace",
+      "dataset": "ISIC",
+      "role": "constrained_response"
+    },
+    {
+      "id": "HK_nullspace",
+      "dataset": "HK",
+      "role": "constrained_response"
+    }
+  ],
+  "basis": "Full right singular vectors of original normalized old H. Same cutoff max(H.shape)*float64_eps*smax; N=Vh[rank:].T. No rank/threshold/mixing search; original row-space Q reconstructs H, N orthonormal and HN residual<1e-10.",
+  "primary_reference": "raw_ridge",
+  "method_success_claim": false,
+  "formal_thin_SVDs": 0,
+  "derived_head_builds": 2,
+  "new_head_elements": 32256,
+  "new_head_bytes": 258048,
+  "expected_support_feature_sample_forwards": 2618,
+  "expected_shared_query_feature_sample_forwards": 2155,
+  "expected_support_head_logit_sample_evaluations": 7854,
+  "expected_query_head_logit_sample_evaluations": 6465,
+  "adapter_updates": 0,
+  "encoder_updates": 0,
+  "teacher_updates": 0,
+  "memory_updates": 0,
+  "GPU_used": false,
+  "new_labels": 0,
+  "old_S_access": false,
+  "E_access": false,
+  "no_auto_retry": true,
+  "no_parameter_scan": true,
+  "scope": "Complementary fixed constraint: optimize same objective with W=W0+N A, H N=0. From original ridge; exact old-H response preservation within numerical tolerance, not presumed query safety. q404 frozen inside-span candidate secondary.",
+  "heads": [
+    "raw_ridge",
+    "frozen_constrained",
+    "constrained_response"
+  ],
+  "regularization": 0.001,
+  "ce_head_penalty": 0.064,
+  "objective": "Same class-balanced CE(8*z@W)+.064/2 Rnorm(W-W0), original 1536/(2 sum p||z||^2) scale, all H+newS/all rivals. W=W0+N A with fixed HN=0.",
+  "initialization": "A=0, original ridge; q404 head/results inaccessible until candidate seal.",
+  "coordinates": "Same reduced-Gram Cholesky coordinates with N replacing Q: G=(zN)^Tdiag(p)(zN), L L^T=G+.001I, V=L^T A, ztilde=zN L^-T, fixed offset=8zW0. No extra objective penalty.",
+  "solver": "newton_cg",
+  "optimizer": {
+    "name": "matrix_free_Newton_CG",
+    "max_iter": 200,
+    "hard_combined_evaluation_cap": 300,
+    "combined_count": "objective+gradient evaluations + analytic Hessian-vector products + line-search objective evaluations + curvature probability evaluations",
+    "max_CG_iterations_per_step": 50,
+    "CG_relative_residual": "min(.5,sqrt(norm(gradient)))",
+    "line_search": "Armijo",
+    "Armijo_c1": 0.0001,
+    "initial_step": 1.0,
+    "backtrack_factor": 0.5,
+    "max_backtracks": 20,
+    "tolerance_optimizer_gradient": 1e-08,
+    "nonpositive_curvature": "truncate CG; use negative gradient only if assembled direction is not descent",
+    "no_damping": true
+  },
+  "convergence": "max_abs(N N^T grad_W)<=1e-6, original-W nullspace tangent coordinates; full gradient separately reported without unconstrained convergence claim.",
+  "primary": "Original ridge only; constrained tangent convergence and both exposed queries BA_all strictly increases, old/new decreases at most1pp. This is a development criterion, not independent method success.",
+  "query_access": "Only after fitted candidate saved and sealed; q404 private head/results also blocked until then. Only ridge/centroid models, original retained H, new S before seal. No old S, E, teacher, raw images or new labels.",
+  "validation": "Reuse offset objective/HVP/root checks plus fixed 2D complementary update preserving old-H response. Formal full-right SVD/H reconstruction, N orthogonality/HN residual, Cholesky/feature/gradient/objective identities and old-H all-class baseline logit max error<1e-10. Reference ridge/q404 support and query per-class aggregates match at1e-10.",
+  "formal_head_fits": 2,
+  "engineering_head_fits": 2,
+  "maximum_formal_combined_optimizer_evaluations": 600,
+  "formal_final_gradient_evaluations": 4,
+  "formal_cholesky_factorizations": 2,
+  "formal_triangular_solves": 4,
+  "engineering_cholesky_factorizations": 2,
+  "engineering_triangular_solves": 4,
+  "engineering_additional_HVP_checks": 2,
+  "engineering_extra_autograd_calls_per_case": 4,
+  "update_space": "old_nullspace",
+  "reference_kind": "constrained",
+  "formal_full_right_SVDs": 2,
+  "expected_old_H_ranks": {
+    "ISIC": 64,
+    "HK": 169
+  },
+  "expected_update_dimensions": {
+    "ISIC": 1472,
+    "HK": 1367
+  }
+}

@@ -23,8 +23,8 @@ def protection(w,z,y,p,center=0.,response_scale=None):
     return response_scale*(p[:,None]*gaps.square()).sum()
 
 
-def objective(w,z,y,p,penalty=REGULARIZATION,center=0.,response_scale=None):
-    ce=-(p*(BETA*z@w).log_softmax(1)[torch.arange(len(y)),y]).sum()
+def objective(w,z,y,p,penalty=REGULARIZATION,center=0.,response_scale=None,offset=0.):
+    ce=-(p*(BETA*z@w+offset).log_softmax(1)[torch.arange(len(y)),y]).sum()
     return ce+penalty*protection(w,z,y,p,center,response_scale)/2
 
 
@@ -37,13 +37,13 @@ def hessian_vector(v,z,y,p,prob,penalty,response_scale):
     return out+penalty*response_scale*z.T@(p[:,None]*adj)
 
 
-def newton_steps(w,z,y,p,penalty,center,response_scale,gradient_map,trace):
+def newton_steps(w,z,y,p,penalty,center,response_scale,gradient_map,trace,offset=0.):
     counts=dict(hessian_vector_evaluations=0,line_search_objective_evaluations=0,curvature_probability_evaluations=0)
     work=lambda:len(trace)+sum(counts.values())
     reason='iteration_cap';iterations=0
     for _ in range(200):
         if work()>=300:reason='evaluation_cap';break
-        loss=objective(w,z,y,p,penalty,center,response_scale);g=torch.autograd.grad(loss,w)[0].detach()
+        loss=objective(w,z,y,p,penalty,center,response_scale,offset);g=torch.autograd.grad(loss,w)[0].detach()
         assert bool(torch.isfinite(loss)) and bool(torch.isfinite(g).all())
         original_gradient=gradient_map@g if gradient_map is not None else g
         trace.append(dict(evaluation=len(trace)+1,objective=float(loss.detach()),gradient_max_abs=float(original_gradient.abs().max()),optimizer_gradient_max_abs=float(g.abs().max())))
@@ -51,7 +51,7 @@ def newton_steps(w,z,y,p,penalty,center,response_scale,gradient_map,trace):
         if work()>297:reason='evaluation_cap';break
         iterations+=1;counts['curvature_probability_evaluations']+=1
         with torch.no_grad():
-            prob=(BETA*z@w).softmax(1);direction=torch.zeros_like(g);residual=-g.clone();cg_direction=residual.clone();rr=float(residual.square().sum())
+            prob=(BETA*z@w+offset).softmax(1);direction=torch.zeros_like(g);residual=-g.clone();cg_direction=residual.clone();rr=float(residual.square().sum())
             target=min(.5,math.sqrt(math.sqrt(rr)))*math.sqrt(rr)
             for _ in range(50):
                 if work()>=299:break  # Reserve one objective evaluation for accepting a step.
@@ -68,7 +68,7 @@ def newton_steps(w,z,y,p,penalty,center,response_scale,gradient_map,trace):
             accepted=False;step=1.
             for _ in range(20):
                 if work()>=300:break
-                candidate=w+step*direction;trial=objective(candidate,z,y,p,penalty,center,response_scale);counts['line_search_objective_evaluations']+=1
+                candidate=w+step*direction;trial=objective(candidate,z,y,p,penalty,center,response_scale,offset);counts['line_search_objective_evaluations']+=1
                 if bool(torch.isfinite(trial)) and float(trial)<=float(loss)+1e-4*step*slope:
                     w.copy_(candidate);accepted=True;break
                 step*=.5

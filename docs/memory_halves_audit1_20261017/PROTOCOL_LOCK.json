@@ -1,0 +1,215 @@
+{
+  "version": "old-memory-halves-stress-1",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "seed": 74002,
+  "regularization": 0.001,
+  "logit_scale": 8,
+  "inputs": {
+    "ridge": {
+      "source": "703dd54c9150a013a386a2b77bd996d9e8c08743",
+      "delivery": "3b32f0d63280cd174502f821158d976063d16ad6"
+    },
+    "affine": {
+      "source": "e37a5a0f3b47af2788e0bdb284d179c9bcf6d9dc",
+      "delivery": "ab368f1407d7de995be924397405a328698df136"
+    },
+    "centroid": {
+      "source": "d8f4fb7eaae1435636889f969ee84166c5b1db30",
+      "delivery": "78711f1adc0cf2282441caa6f57c79afbedba4b0"
+    }
+  },
+  "support_counts": {
+    "ISIC": [
+      16,
+      16,
+      16,
+      16,
+      2254,
+      36
+    ],
+    "HK": [
+      16,
+      1,
+      4,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      4,
+      28,
+      67
+    ]
+  },
+  "overall_wall_seconds": 3600,
+  "case_wall_seconds": 900,
+  "jobs": [
+    {
+      "id": "ISIC_halves",
+      "dataset": "ISIC",
+      "role": "memory_halves_audit"
+    },
+    {
+      "id": "HK_halves",
+      "dataset": "HK",
+      "role": "memory_halves_audit"
+    }
+  ],
+  "partition": "Old H stored zero-based rows 0,2,... form A; 1,3,... form B; singleton row retained in both. New S unchanged. No shuffle or selection.",
+  "objective": "Same class-balanced centroid and raw ridge with lambda .001, no bias or ridge column normalization, on each fixed support subset.",
+  "primary": "Within each method, per-class fraction of query predictions differing anywhere among full/A/B. Macro across classes, ridge minus centroid, all/old/new and each query. Descriptive sign only; no selection or success gate.",
+  "comparisons": [
+    "centroid_full_to_A",
+    "centroid_full_to_B",
+    "centroid_A_to_B",
+    "ridge_full_to_A",
+    "ridge_full_to_B",
+    "ridge_A_to_B"
+  ],
+  "head_fits": 8,
+  "centroid_head_fits": 4,
+  "ridge_head_fits": 4,
+  "production_linear_solves": 4,
+  "engineering_small_linear_solves": 4,
+  "full_reference_head_fits": 0,
+  "full_support_moment_reconstructions": 2,
+  "expected_support_feature_sample_forwards": 2618,
+  "expected_shared_query_feature_sample_forwards": 2155,
+  "expected_model_logit_sample_evaluations": 12930,
+  "diagnostic_head_elements": 129024,
+  "diagnostic_head_bytes": 1032192,
+  "gradient_evaluations": 0,
+  "adapter_updates": 0,
+  "encoder_updates": 0,
+  "teacher_updates": 0,
+  "memory_updates": 0,
+  "GPU_used": false,
+  "new_labels": 0,
+  "old_S_access": false,
+  "E_access": false,
+  "query_used_for_fitting": false,
+  "no_parameter_scan": true,
+  "no_auto_retry": true,
+  "source_heads_not_modified": true,
+  "prior_competition_delivery": "c1f3b3744767020f7d2a599ba53ab4953e6cba59"
+}

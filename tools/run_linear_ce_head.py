@@ -15,39 +15,46 @@ from run_raw_ridge_head import REGULARIZATION
 from run_real_query_node import load, save
 
 
-def objective(w,z,y,p):
+def objective(w,z,y,p,penalty=REGULARIZATION):
     ce=-(p*(BETA*z@w).log_softmax(1)[torch.arange(len(y)),y]).sum()
-    return ce+REGULARIZATION*w.square().sum()/2
+    return ce+penalty*w.square().sum()/2
 
 
-def fit(z,y,p,initial):
+def fit(z,y,p,initial,penalty=REGULARIZATION):
     w=initial.detach().clone().requires_grad_();trace=[]
     opt=torch.optim.LBFGS([w],lr=1.,max_iter=200,max_eval=250,tolerance_grad=1e-8,tolerance_change=1e-14,history_size=20,line_search_fn='strong_wolfe')
     def closure():
         assert len(trace)<300,'Gradient evaluation cap'
-        opt.zero_grad();loss=objective(w,z,y,p);assert bool(torch.isfinite(loss))
+        opt.zero_grad();loss=objective(w,z,y,p,penalty);assert bool(torch.isfinite(loss))
         loss.backward();assert bool(torch.isfinite(w.grad).all())
         trace.append(dict(evaluation=len(trace)+1,objective=float(loss.detach()),gradient_max_abs=float(w.grad.abs().max())))
         return loss
     opt.step(closure)
-    final=objective(w,z,y,p);g=torch.autograd.grad(final,w)[0]
+    final=objective(w,z,y,p,penalty);g=torch.autograd.grad(final,w)[0]
     end=float(final.detach());grad=float(g.abs().max());assert end<=trace[0]['objective']+1e-10 and bool(torch.isfinite(w).all())
-    return w.detach(),dict(initial_objective=trace[0]['objective'],final_objective=end,initial_support_CE=trace[0]['objective']-REGULARIZATION*float(initial.square().sum())/2,final_support_CE=end-REGULARIZATION*float(w.detach().square().sum())/2,initial_head_norm=float(initial.norm()),final_head_norm=float(w.detach().norm()),final_gradient_max_abs=grad,converged=grad<=1e-6,optimizer_iterations=int(opt.state[w]['n_iter']),closure_gradient_evaluations=len(trace),final_gradient_evaluations=1,trace=trace)
+    return w.detach(),dict(initial_objective=trace[0]['objective'],final_objective=end,initial_support_CE=trace[0]['objective']-penalty*float(initial.square().sum())/2,final_support_CE=end-penalty*float(w.detach().square().sum())/2,initial_head_norm=float(initial.norm()),final_head_norm=float(w.detach().norm()),final_gradient_max_abs=grad,converged=grad<=1e-6,optimizer_iterations=int(opt.state[w]['n_iter']),closure_gradient_evaluations=len(trace),final_gradient_evaluations=1,trace=trace)
 
 
-def unit():
+def unit(penalty=REGULARIZATION):
     z=torch.eye(2,dtype=DT);y=torch.arange(2);p=torch.full((2,),.5,dtype=DT);w=torch.tensor([[.2,-.1],[.3,.4]],dtype=DT,requires_grad=True)
-    g=torch.autograd.grad(objective(w,z,y,p),w)[0]
-    expected=BETA*z.T@(p[:,None]*((BETA*z@w).softmax(1)-torch.eye(2,dtype=DT)))+REGULARIZATION*w
+    g=torch.autograd.grad(objective(w,z,y,p,penalty),w)[0]
+    expected=BETA*z.T@(p[:,None]*((BETA*z@w).softmax(1)-torch.eye(2,dtype=DT)))+penalty*w
     assert torch.allclose(g,expected,atol=1e-12,rtol=0)
+    u=BETA*w
+    logit_objective=-(p*(z@u).log_softmax(1)[torch.arange(len(y)),y]).sum()+penalty/BETA**2*u.square().sum()/2
+    assert torch.allclose(objective(w,z,y,p,penalty),logit_objective,atol=1e-12,rtol=0)
+    gu=z.T@(p[:,None]*((z@u).softmax(1)-torch.eye(2,dtype=DT)))+penalty/BETA**2*u
+    assert torch.allclose(g,BETA*gu,atol=1e-12,rtol=0)
+    original=-(p*(BETA*z@w).log_softmax(1)[torch.arange(len(y)),y]).sum()+REGULARIZATION*w.square().sum()/2
+    assert torch.allclose(objective(w,z,y,p),original,atol=1e-12,rtol=0)
     zd=z[[0,0,1]];yd=torch.tensor([0,0,1]);pd=torch.tensor([.25,.25,.5],dtype=DT)
-    assert torch.allclose(objective(w,zd,yd,pd),objective(w,z,y,p),atol=1e-12,rtol=0)
-    gd=torch.autograd.grad(objective(w,zd,yd,pd),w)[0];assert torch.allclose(g,gd,atol=1e-12,rtol=0)
-    fitted,info=fit(z,y,p,torch.zeros((2,2),dtype=DT))
+    assert torch.allclose(objective(w,zd,yd,pd,penalty),objective(w,z,y,p,penalty),atol=1e-12,rtol=0)
+    gd=torch.autograd.grad(objective(w,zd,yd,pd,penalty),w)[0];assert torch.allclose(g,gd,atol=1e-12,rtol=0)
+    fitted,info=fit(z,y,p,torch.zeros((2,2),dtype=DT),penalty)
     lo,hi=0.,1.
     for _ in range(80):
         a=(lo+hi)/2
-        if REGULARIZATION*a-BETA*.5/(1+math.exp(2*BETA*a))>0:hi=a
+        if penalty*a-BETA*.5/(1+math.exp(2*BETA*a))>0:hi=a
         else:lo=a
     expected=torch.tensor([[a,-a],[-a,a]],dtype=DT)
     assert info['converged'] and torch.allclose(fitted,expected,atol=1e-5,rtol=0)
@@ -58,7 +65,9 @@ def main():
     start=time.monotonic();root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text());job=json.loads(os.environ['Q356_JOB']);name=job['dataset']
     assert os.environ['CUDA_VISIBLE_DEVICES']=='' and lock['regularization']==REGULARIZATION and lock['logit_scale']==BETA
-    torch.set_num_threads(2);torch.set_default_dtype(DT);unit_info=unit()
+    coordinates=lock.get('ce_penalty_coordinates','head');assert coordinates in ('head','logits')
+    penalty=REGULARIZATION*(BETA**2 if coordinates=='logits' else 1);assert penalty==lock.get('ce_head_penalty',REGULARIZATION)
+    torch.set_num_threads(2);torch.set_default_dtype(DT);unit_info=unit(penalty)
     case=next(v for v in lock['datasets'] if v['name']==name);old=case['old'];seen=old+case['new'];sealed=False
     prior=Path(cfg['prior_root']);cr=Path(cfg['centroid_root']);rr=Path(cfg['ridge_root']);ar=Path(cfg['affine_root'])
     allowed={cr:{'DELIVERY.private.json',name+'.centroid.private.pt',name+'.herding.private.pt'},rr:{'DELIVERY.private.json',name+'.ridge.private.pt'}}
@@ -101,7 +110,7 @@ def main():
     z=torch.from_numpy(np.concatenate(zz));y=torch.cat([torch.full((len(v),),c,dtype=torch.int64) for c,v in enumerate(zz)])
     mass=torch.cat([torch.full((len(v),),1/(seen*len(v)),dtype=DT) for v in zz]);assert abs(float(mass.sum())-1)<1e-12
     for c in range(seen):assert abs(float(mass[y==c].sum())-1/seen)<1e-12
-    w,fit_info=fit(z,y,mass,ridge['frame'])
+    w,fit_info=fit(z,y,mass,ridge['frame'],penalty)
     head_stats=[dict(dataset=name,class_index=c,head_norm=float(w[:,c].norm()),head_change_from_ridge_norm=float((w[:,c]-ridge['frame'][:,c]).norm())) for c in range(seen)]
     torch.save(dict(model=centroid['model'],frame=w),root/(name+'.ce.private.pt'))
     sealed=True;sealed_at=time.time();save(root/(job['id']+'.progress.json'),dict(phase='linear_ce_head_sealed',fit={k:v for k,v in fit_info.items() if k!='trace'}))
@@ -132,7 +141,7 @@ def main():
         get=lambda m:{v['group']:v['BA'] for v in summaries if v['query']==query and v['model']==m}
         from query_node_weights import select
         gates[query]=select(get('raw_ridge'),get('linear_ce'))
-    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,fit=fit_info,unit_fit=unit_info,class_rows=classes,summaries=summaries,gates=gates,primary_both_queries_pass=fit_info['converged'] and all(v['selected']=='candidate' for v in gates.values()),primary_reference='raw_ridge',paired_rows=pairs,margin_rows=margin_rows,competitor_rows=competitors,query_counts=queries,support_counts=counts,head_stats=head_stats,full_centroid_max_abs_reconstruction_error=mean_error,full_ridge_normal_relative_residual=normal_error,published_aggregates_matched=True,engineering_checks_passed=True,support_feature_sample_forwards=sum(v['count'] for v in counts),shared_query_feature_sample_forwards=sum(v['count'] for v in queries),model_logit_sample_evaluations=3*sum(v['count'] for v in queries),formal_head_fits=1,engineering_head_fits=1,production_linear_solves=0,full_reference_head_fits=0,full_support_moment_reconstructions=1,head_elements=w.numel(),head_bytes=w.numel()*w.element_size(),formal_gradient_evaluations=fit_info['closure_gradient_evaluations']+1,engineering_gradient_evaluations=unit_info['closure_gradient_evaluations']+3,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Standard linear class-balanced CE baseline on the same legal H/new-S and same feature/parameter class. Fixed beta8 and lambda.001, no bias or column normalization; loss scale interacts with regularization. No optimal-hyperparameter, full-history, compression-loss, novel-method or independent-validation claim.'))
+    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,ce_penalty_coordinates=coordinates,ce_head_penalty=penalty,ce_logit_penalty=penalty/BETA**2,fit=fit_info,unit_fit=unit_info,class_rows=classes,summaries=summaries,gates=gates,primary_both_queries_pass=fit_info['converged'] and all(v['selected']=='candidate' for v in gates.values()),primary_reference='raw_ridge',paired_rows=pairs,margin_rows=margin_rows,competitor_rows=competitors,query_counts=queries,support_counts=counts,head_stats=head_stats,full_centroid_max_abs_reconstruction_error=mean_error,full_ridge_normal_relative_residual=normal_error,published_aggregates_matched=True,engineering_checks_passed=True,support_feature_sample_forwards=sum(v['count'] for v in counts),shared_query_feature_sample_forwards=sum(v['count'] for v in queries),model_logit_sample_evaluations=3*sum(v['count'] for v in queries),formal_head_fits=1,engineering_head_fits=1,production_linear_solves=0,full_reference_head_fits=0,full_support_moment_reconstructions=1,head_elements=w.numel(),head_bytes=w.numel()*w.element_size(),formal_gradient_evaluations=fit_info['closure_gradient_evaluations']+1,engineering_gradient_evaluations=unit_info['closure_gradient_evaluations']+3,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Standard linear class-balanced CE baseline on the same legal H/new-S and same feature/parameter class. Fixed beta8; head/logit penalty explicitly recorded, no bias or column normalization; loss scale interacts with regularization. No optimal-hyperparameter, full-history, compression-loss, novel-method or independent-validation claim.'))
 
 
 if __name__=='__main__':main()

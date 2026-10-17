@@ -42,23 +42,24 @@ def within_diagonal_ridge(bank,regularization):
     return analytic.ridge(dict(bank,S=between),regularization)
 
 
-def new_covariance_ridge(bank,new_bank,regularization):
-    combined=bank['mu'].T@bank['mu']+new_bank['S']-new_bank['mu'].T@new_bank['mu']
-    old_variances=np.diag(bank['S'])-np.diag(combined)
-    assert np.isfinite(old_variances).all() and (old_variances>=0).all()
+def group_covariance_ridge(bank,group_bank,regularization):
+    combined=bank['mu'].T@bank['mu']+group_bank['S']-group_bank['mu'].T@group_bank['mu']
+    other_variances=np.diag(bank['S'])-np.diag(combined)
+    assert np.isfinite(other_variances).all() and (other_variances>=0).all()
     np.fill_diagonal(combined,np.diag(bank['S']))
     return analytic.ridge(dict(bank,S=combined),regularization)
 
 
-def unit(diagonal=False,prototype=False,isotropic=False,within_diagonal=False,new_covariance=False):
-    if new_covariance:
-        x=np.eye(2);y=np.array([0,1]);bank=analytic.append(analytic.empty(2),x,y,[0,1]);nb=analytic.append(analytic.empty(2),x[1:],y[1:],[1])
-        w,res=new_covariance_ridge(bank,nb,REGULARIZATION)
+def unit(diagonal=False,prototype=False,isotropic=False,within_diagonal=False,new_covariance=False,old_covariance=False):
+    if new_covariance or old_covariance:
+        index=0 if old_covariance else 1
+        x=np.eye(2);y=np.array([0,1]);bank=analytic.append(analytic.empty(2),x,y,[0,1]);nb=analytic.append(analytic.empty(2),x[index:index+1],y[index:index+1],[index])
+        w,res=group_covariance_ridge(bank,nb,REGULARIZATION)
         assert np.allclose(w,np.eye(2)/(1+2*REGULARIZATION),atol=1e-12,rtol=0) and res<1e-12
-        xx=np.vstack((x,x[1:]));yy=np.array([0,1,1]);bb=analytic.append(analytic.empty(2),xx,yy,[0,1]);nn=analytic.append(analytic.empty(2),xx[1:],yy[1:],[1]);ww,_=new_covariance_ridge(bb,nn,REGULARIZATION)
+        xx=np.vstack((x,x[index:index+1]));yy=np.array([0,1,index]);bb=analytic.append(analytic.empty(2),xx,yy,[0,1]);nn=analytic.append(analytic.empty(2),xx[yy==index],yy[yy==index],[index]);ww,_=group_covariance_ridge(bb,nn,REGULARIZATION)
         assert np.allclose(ww,w,atol=1e-12,rtol=0)
-        correlated=dict(S=np.array([[3.,.75],[.75,3.]]),mu=np.eye(2),n=np.array([2,2]));nb=dict(S=np.array([[1.,.25],[.25,2.]]),mu=np.array([[0.,1.]]),n=np.array([2]))
-        wc,_=new_covariance_ridge(correlated,nb,REGULARIZATION);a=1.5+REGULARIZATION;b=.125
+        correlated=dict(S=np.array([[3.,.75],[.75,3.]]),mu=np.eye(2),n=np.array([2,2]));nb=dict(S=np.array([[1.,.25],[.25,1.]])+np.outer(x[index],x[index]),mu=x[index:index+1],n=np.array([2]))
+        wc,_=group_covariance_ridge(correlated,nb,REGULARIZATION);a=1.5+REGULARIZATION;b=.125
         assert np.allclose(wc,.5*np.array([[a,-b],[-b,a]])/(a*a-b*b),atol=1e-12,rtol=0)
         assert np.array_equal(correlated['S'],np.array([[3.,.75],[.75,3.]]))
         assert np.linalg.norm((correlated['S']/2+REGULARIZATION*np.eye(2))@wc-np.eye(2)/2)>.05
@@ -98,10 +99,10 @@ def main():
     start=time.monotonic();root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text());job=json.loads(os.environ['Q356_JOB']);name=job['dataset']
     assert os.environ['CUDA_VISIBLE_DEVICES']=='' and lock['regularization']==REGULARIZATION
-    diagonal=lock.get('diagonal_second_moment',False);prototype=lock.get('prototype_only_second_moment',False);isotropic=lock.get('isotropic_within_second_moment',False);within_diagonal=lock.get('diagonal_within_second_moment',False);new_covariance=lock.get('new_class_cross_covariance_only',False);assert sum((diagonal,prototype,isotropic,within_diagonal,new_covariance))<=1
-    label='raw_new_covariance_ridge' if new_covariance else 'raw_within_diagonal_ridge' if within_diagonal else 'raw_isotropic_ridge' if isotropic else 'raw_prototype_ridge' if prototype else 'raw_diagonal_ridge' if diagonal else 'raw_ridge'
-    torch.set_num_threads(2);torch.set_default_dtype(DT);unit(diagonal,prototype,isotropic,within_diagonal,new_covariance)
-    case=next(c for c in lock['datasets'] if c['name']==name);old=case['old'];seen=old+case['new'];prior=Path(cfg['prior_root']);refroot=Path(cfg['within_diagonal_root'] if new_covariance else cfg['isotropic_root'] if within_diagonal else cfg['prototype_root'] if isotropic else cfg['diagonal_root'] if prototype else cfg['ridge_root'] if diagonal else cfg['centered_root']);refname=name+('_within_diagonal.json' if new_covariance else '_isotropic.json' if within_diagonal else '_prototype.json' if isotropic else '_diagonal.json' if prototype else '_ridge.json' if diagonal else '_centered.json');sealed=False
+    diagonal=lock.get('diagonal_second_moment',False);prototype=lock.get('prototype_only_second_moment',False);isotropic=lock.get('isotropic_within_second_moment',False);within_diagonal=lock.get('diagonal_within_second_moment',False);new_covariance=lock.get('new_class_cross_covariance_only',False);old_covariance=lock.get('old_class_cross_covariance_only',False);assert sum((diagonal,prototype,isotropic,within_diagonal,new_covariance,old_covariance))<=1
+    label='raw_old_covariance_ridge' if old_covariance else 'raw_new_covariance_ridge' if new_covariance else 'raw_within_diagonal_ridge' if within_diagonal else 'raw_isotropic_ridge' if isotropic else 'raw_prototype_ridge' if prototype else 'raw_diagonal_ridge' if diagonal else 'raw_ridge'
+    torch.set_num_threads(2);torch.set_default_dtype(DT);unit(diagonal,prototype,isotropic,within_diagonal,new_covariance,old_covariance)
+    case=next(c for c in lock['datasets'] if c['name']==name);old=case['old'];seen=old+case['new'];prior=Path(cfg['prior_root']);refroot=Path(cfg['new_covariance_root'] if old_covariance else cfg['within_diagonal_root'] if new_covariance else cfg['isotropic_root'] if within_diagonal else cfg['prototype_root'] if isotropic else cfg['diagonal_root'] if prototype else cfg['ridge_root'] if diagonal else cfg['centered_root']);refname=name+('_new_covariance.json' if old_covariance else '_within_diagonal.json' if new_covariance else '_isotropic.json' if within_diagonal else '_prototype.json' if isotropic else '_diagonal.json' if prototype else '_ridge.json' if diagonal else '_centered.json');sealed=False
     def audit(event,args):
         if event!='open' or not isinstance(args[0],(str,bytes,os.PathLike)):return
         p=Path(os.fsdecode(args[0])).absolute()
@@ -122,15 +123,17 @@ def main():
             z=torch.cat([features(x[i:i+256],model) for i in range(0,len(x),256)]);assert z.shape==(len(x),1536) and bool(torch.isfinite(z).all())
             zz.append(z.numpy());yy.append(np.full(len(x),c,dtype=np.int64));stats.append(dict(class_index=c,count=len(x)))
     z=np.concatenate(zz);y=np.concatenate(yy);moments=analytic.append(analytic.empty(1536),z,y,list(range(seen)))
-    if new_covariance:
-        new_moments=analytic.append(analytic.empty(1536),z[y>=old],y[y>=old],list(range(old,seen)))
-        w,residual=new_covariance_ridge(moments,new_moments,REGULARIZATION)
+    if new_covariance or old_covariance:
+        selected=y<old if old_covariance else y>=old;classes=list(range(old)) if old_covariance else list(range(old,seen))
+        group_moments=analytic.append(analytic.empty(1536),z[selected],y[selected],classes)
+        assert np.array_equal(group_moments['n'],moments['n'][classes]) and np.allclose(group_moments['mu'],moments['mu'][classes],atol=1e-12,rtol=0)
+        w,residual=group_covariance_ridge(moments,group_moments,REGULARIZATION)
     else:
         w,residual=(within_diagonal_ridge if within_diagonal else isotropic_ridge if isotropic else prototype_ridge if prototype else diagonal_ridge if diagonal else analytic.ridge)(moments,REGULARIZATION)
     head=torch.from_numpy(w);assert head.shape==(1536,seen) and bool(torch.isfinite(head).all())
     obj=dict(model=model,frame=head);torch.save(obj,root/(name+'.ridge.private.pt'));sealed=True;sealed_at=time.time()
     for c in range(seen):stats[c]['head_norm']=float(head[:,c].norm())
-    ref=json.loads((refroot/refname).read_text());rows=list(ref['class_rows']);references=['raw_centroid','MM','HH','identity_ETF','teacher_centroid','teacher_ETF','coordinate_median','centered_centroid']+(['raw_ridge'] if diagonal or prototype or isotropic or within_diagonal or new_covariance else [])+(['raw_diagonal_ridge'] if prototype or isotropic or within_diagonal or new_covariance else [])+(['raw_prototype_ridge'] if isotropic or within_diagonal or new_covariance else [])+(['raw_isotropic_ridge'] if within_diagonal or new_covariance else [])+(['raw_within_diagonal_ridge'] if new_covariance else []);summaries=[];gates={};counts=[]
+    ref=json.loads((refroot/refname).read_text());rows=list(ref['class_rows']);references=['raw_centroid','MM','HH','identity_ETF','teacher_centroid','teacher_ETF','coordinate_median','centered_centroid']+(['raw_ridge'] if diagonal or prototype or isotropic or within_diagonal or new_covariance or old_covariance else [])+(['raw_diagonal_ridge'] if prototype or isotropic or within_diagonal or new_covariance or old_covariance else [])+(['raw_prototype_ridge'] if isotropic or within_diagonal or new_covariance or old_covariance else [])+(['raw_isotropic_ridge'] if within_diagonal or new_covariance or old_covariance else [])+(['raw_within_diagonal_ridge'] if new_covariance or old_covariance else [])+(['raw_new_covariance_ridge'] if old_covariance else []);summaries=[];gates={};counts=[]
     for query in ('Qfit','Qgate'):
         data=load(prior/(name+'.'+query+'.features.private.pt'));assert data['y'].dtype==torch.int64 and bool(((data['y']>=0)&(data['y']<seen)).all())
         counts.append(dict(query=query,count=len(data['y'])));_,rr,_=metrics(obj,data,old,seen);rows.extend(dict(dataset=name,query=query,model=label,**r) for r in rr)
@@ -145,10 +148,11 @@ def main():
     if within_diagonal:
         within=moments['S']-moments['mu'].T@moments['mu'];variances=np.diag(within)/seen
         within_stats=dict(within_diagonal_variance_min=float(variances.min()),within_diagonal_variance_max=float(variances.max()),within_offdiagonal_frobenius_fraction=float(np.linalg.norm(within-np.diag(np.diag(within)))/max(np.linalg.norm(within),1e-15)))
-    if new_covariance:
-        within=moments['S']-moments['mu'].T@moments['mu'];new_within=new_moments['S']-new_moments['mu'].T@new_moments['mu'];old_within=within-new_within
-        within_stats=dict(old_within_trace=float(np.trace(old_within)/seen),new_within_trace=float(np.trace(new_within)/seen),old_within_frobenius_fraction=float(np.linalg.norm(old_within)/max(np.linalg.norm(within),1e-15)),new_within_frobenius_fraction=float(np.linalg.norm(new_within)/max(np.linalg.norm(within),1e-15)),old_within_offdiagonal_frobenius_fraction=float(np.linalg.norm(old_within-np.diag(np.diag(old_within)))/max(np.linalg.norm(within),1e-15)),additional_support_rows_for_moments=int((y>=old).sum()))
-    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,class_rows=rows,summaries=summaries,gates=gates,primary_reference='raw_ridge' if diagonal or prototype or isotropic or within_diagonal or new_covariance else 'raw_centroid',primary_both_queries_pass=all(g['raw_ridge' if diagonal or prototype or isotropic or within_diagonal or new_covariance else 'raw_centroid']['selected']=='candidate' for g in gates.values()),head_stats=stats,head_shape=list(head.shape),head_elements=head.numel(),head_bytes=head.numel()*head.element_size(),regularization=REGULARIZATION,solve_relative_residual=residual,diagonal_second_moment=diagonal,prototype_only_second_moment=prototype,isotropic_within_second_moment=isotropic,diagonal_within_second_moment=within_diagonal,new_class_cross_covariance_only=new_covariance,**within_stats,isotropic_within_variance=float((np.trace(moments['S'])-np.square(moments['mu']).sum())/(seen*1536)) if isotropic else None,within_class_trace_fraction=float((np.trace(moments['S'])-np.square(moments['mu']).sum())/np.trace(moments['S'])),within_class_frobenius_fraction=float(np.linalg.norm(moments['S']-moments['mu'].T@moments['mu'])/np.linalg.norm(moments['S'])),second_moment_offdiagonal_fraction=float(np.linalg.norm(moments['S']-np.diag(np.diag(moments['S'])))/np.linalg.norm(moments['S'])),production_linear_solves=0 if diagonal else 1,production_elementwise_solutions=1 if diagonal else 0,engineering_small_linear_solves=0 if diagonal else 3 if prototype or isotropic or within_diagonal or new_covariance else 2,engineering_small_elementwise_solutions=3 if diagonal else 0,logit_scale=BETA,head_constructions=1,head_column_normalization=False,derived_bias_elements=0,support_feature_forwards=len(z),query_sample_forwards=sum(v['count'] for v in counts),query_counts=counts,gradient_evaluations=0,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,query_used_for_fitting=False,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Full, diagonal, prototype-only, isotropic-within, diagonal-within or new-class-cross-covariance class-balanced second-moment readout on fixed H/new-S features; variant recorded explicitly. Removing cross terms, removing within-class scatter, isotropizing it or removing all/old-class cross-coordinate terms changes the objective; not an equivalent full least-squares solve. No temperature/regularization selection; CE depends on unnormalized head scale.'))
+    if new_covariance or old_covariance:
+        within=moments['S']-moments['mu'].T@moments['mu'];group_within=group_moments['S']-group_moments['mu'].T@group_moments['mu']
+        old_within=group_within if old_covariance else within-group_within;new_within=within-old_within
+        within_stats=dict(old_within_trace=float(np.trace(old_within)/seen),new_within_trace=float(np.trace(new_within)/seen),old_within_frobenius_fraction=float(np.linalg.norm(old_within)/max(np.linalg.norm(within),1e-15)),new_within_frobenius_fraction=float(np.linalg.norm(new_within)/max(np.linalg.norm(within),1e-15)),old_within_offdiagonal_frobenius_fraction=float(np.linalg.norm(old_within-np.diag(np.diag(old_within)))/max(np.linalg.norm(within),1e-15)),new_within_offdiagonal_frobenius_fraction=float(np.linalg.norm(new_within-np.diag(np.diag(new_within)))/max(np.linalg.norm(within),1e-15)),additional_support_rows_for_moments=int(selected.sum()),retained_cross_covariance_group='old' if old_covariance else 'new')
+    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,class_rows=rows,summaries=summaries,gates=gates,primary_reference='raw_ridge' if diagonal or prototype or isotropic or within_diagonal or new_covariance or old_covariance else 'raw_centroid',primary_both_queries_pass=all(g['raw_ridge' if diagonal or prototype or isotropic or within_diagonal or new_covariance or old_covariance else 'raw_centroid']['selected']=='candidate' for g in gates.values()),head_stats=stats,head_shape=list(head.shape),head_elements=head.numel(),head_bytes=head.numel()*head.element_size(),regularization=REGULARIZATION,solve_relative_residual=residual,diagonal_second_moment=diagonal,prototype_only_second_moment=prototype,isotropic_within_second_moment=isotropic,diagonal_within_second_moment=within_diagonal,new_class_cross_covariance_only=new_covariance,old_class_cross_covariance_only=old_covariance,**within_stats,isotropic_within_variance=float((np.trace(moments['S'])-np.square(moments['mu']).sum())/(seen*1536)) if isotropic else None,within_class_trace_fraction=float((np.trace(moments['S'])-np.square(moments['mu']).sum())/np.trace(moments['S'])),within_class_frobenius_fraction=float(np.linalg.norm(moments['S']-moments['mu'].T@moments['mu'])/np.linalg.norm(moments['S'])),second_moment_offdiagonal_fraction=float(np.linalg.norm(moments['S']-np.diag(np.diag(moments['S'])))/np.linalg.norm(moments['S'])),production_linear_solves=0 if diagonal else 1,production_elementwise_solutions=1 if diagonal else 0,engineering_small_linear_solves=0 if diagonal else 3 if prototype or isotropic or within_diagonal or new_covariance or old_covariance else 2,engineering_small_elementwise_solutions=3 if diagonal else 0,logit_scale=BETA,head_constructions=1,head_column_normalization=False,derived_bias_elements=0,support_feature_forwards=len(z),query_sample_forwards=sum(v['count'] for v in counts),query_counts=counts,gradient_evaluations=0,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,query_used_for_fitting=False,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Full, diagonal, prototype-only, isotropic-within, diagonal-within or single-group-cross-covariance class-balanced second-moment readout on fixed H/new-S features; variant recorded explicitly. Removing cross terms, removing within-class scatter, isotropizing it or removing all/old/new-class cross-coordinate terms changes the objective; not an equivalent full least-squares solve. No temperature/regularization selection; CE depends on unnormalized head scale.'))
 
 
 if __name__=='__main__':main()

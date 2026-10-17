@@ -1,0 +1,214 @@
+{
+  "version": "response-projection-1",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "support_counts": {
+    "ISIC": [
+      16,
+      16,
+      16,
+      16,
+      2254,
+      36
+    ],
+    "HK": [
+      16,
+      1,
+      4,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      4,
+      28,
+      67
+    ]
+  },
+  "logit_scale": 8,
+  "inputs": {
+    "centroid": {
+      "source": "d8f4fb7eaae1435636889f969ee84166c5b1db30",
+      "delivery": "78711f1adc0cf2282441caa6f57c79afbedba4b0"
+    },
+    "ridge": {
+      "source": "703dd54c9150a013a386a2b77bd996d9e8c08743",
+      "delivery": "3b32f0d63280cd174502f821158d976063d16ad6"
+    },
+    "response": {
+      "source": "8fb4ab6b2a8c5d0966f902ff8af89d3d34a75ed5",
+      "delivery": "b8cc1aa3eca875ff718e76256ffa86cd9df17e34"
+    }
+  },
+  "prior_delivery": "c69f961c34ff2e494443b13ac1a813517aa6a10d",
+  "overall_wall_seconds": 3600,
+  "case_wall_seconds": 900,
+  "jobs": [
+    {
+      "id": "ISIC_projection",
+      "dataset": "ISIC",
+      "role": "projection_diagnostic"
+    },
+    {
+      "id": "HK_projection",
+      "dataset": "HK",
+      "role": "projection_diagnostic"
+    }
+  ],
+  "scope": "One no-fit old-H projection of frozen q401 response update, with original ridge and full response as controls. No rank/coefficient search, optimizer continuation or method-success claim.",
+  "projection": "Wprojected=W0+Q@(Q.T@(Wresponse-W0))",
+  "basis": "Thin SVD of original normalized old-H features only. Retain singular values above max(H.shape)*float64_eps*smax. No rank scan, label/outcome/query-driven threshold, regularization or feature adaptation.",
+  "heads": [
+    "raw_ridge",
+    "full_response",
+    "projected_response"
+  ],
+  "query_access": "Only after support-derived Q and derived head are sealed; q401 result reference after seal. No original old S, teacher, E, raw images, new labels or parameter/q398 head access.",
+  "primary_reference": "raw_ridge",
+  "metric_gate": "Same diagnostic metric thresholds: BA_all strictly improves and old/new decline at most1pp on each already exposed query. Metric pass alone is never full-method success.",
+  "full_method_success_evaluated": false,
+  "method_success_claim": false,
+  "reference_response_not_converged": true,
+  "validation": "Q orthogonality/H reconstruction<1e-10; old-H all-class logits full vs projected<1e-10; update outside Q<1e-10; unchanged raw/full query aggregates and support macro CE match q401 at1e-10.",
+  "formal_head_fits": 0,
+  "engineering_head_fits": 0,
+  "gradient_evaluations": 0,
+  "hessian_vector_evaluations": 0,
+  "formal_thin_SVDs": 2,
+  "derived_head_builds": 2,
+  "new_head_elements": 32256,
+  "new_head_bytes": 258048,
+  "expected_support_feature_sample_forwards": 2618,
+  "expected_shared_query_feature_sample_forwards": 2155,
+  "expected_support_head_logit_sample_evaluations": 7854,
+  "expected_query_head_logit_sample_evaluations": 6465,
+  "adapter_updates": 0,
+  "encoder_updates": 0,
+  "teacher_updates": 0,
+  "memory_updates": 0,
+  "GPU_used": false,
+  "new_labels": 0,
+  "old_S_access": false,
+  "E_access": false,
+  "no_auto_retry": true,
+  "no_parameter_scan": true
+}

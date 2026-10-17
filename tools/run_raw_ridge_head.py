@@ -23,8 +23,12 @@ def diagonal_ridge(bank,regularization):
     return w,residual
 
 
-def unit(diagonal=False):
-    solve=diagonal_ridge if diagonal else analytic.ridge
+def prototype_ridge(bank,regularization):
+    return analytic.ridge(dict(bank,S=bank['mu'].T@bank['mu']),regularization)
+
+
+def unit(diagonal=False,prototype=False):
+    solve=prototype_ridge if prototype else diagonal_ridge if diagonal else analytic.ridge
     x=np.eye(2,dtype=np.float64);bank=analytic.append(analytic.empty(2),x,np.array([0,1]),[0,1]);w,res=solve(bank,REGULARIZATION)
     assert np.allclose(w,np.eye(2)/(1+2*REGULARIZATION),atol=1e-12,rtol=0) and res<1e-12
     xx=np.vstack((x,x[1:]));bb=analytic.append(analytic.empty(2),xx,np.array([0,1,1]),[0,1]);ww,_=solve(bb,REGULARIZATION)
@@ -34,6 +38,11 @@ def unit(diagonal=False):
         wd,_=diagonal_ridge(correlated,REGULARIZATION)
         assert np.allclose(wd,np.eye(2)*.5/(1+REGULARIZATION),atol=1e-12,rtol=0)
         assert np.linalg.norm((correlated['S']/2+REGULARIZATION*np.eye(2))@wd-np.eye(2)/2)>.1
+    if prototype:
+        correlated=dict(S=np.array([[2.,1.],[1.,2.]]),mu=np.eye(2),n=np.array([1,1]))
+        wp,_=prototype_ridge(correlated,REGULARIZATION)
+        assert np.allclose(wp,w,atol=1e-12,rtol=0),'Within-class scatter changed prototype-only fit'
+        assert np.linalg.norm((correlated['S']/2+REGULARIZATION*np.eye(2))@wp-np.eye(2)/2)>.1
 
 
 
@@ -41,9 +50,10 @@ def main():
     start=time.monotonic();root=Path(os.environ['Q356_ROOT']);source=Path(os.environ['Q356_SOURCE'])
     cfg=json.loads((root/'CONFIG.private.json').read_text());lock=json.loads((source/os.environ['Q356_PROTOCOL']).read_text());job=json.loads(os.environ['Q356_JOB']);name=job['dataset']
     assert os.environ['CUDA_VISIBLE_DEVICES']=='' and lock['regularization']==REGULARIZATION
-    diagonal=lock.get('diagonal_second_moment',False);label='raw_diagonal_ridge' if diagonal else 'raw_ridge'
-    torch.set_num_threads(2);torch.set_default_dtype(DT);unit(diagonal)
-    case=next(c for c in lock['datasets'] if c['name']==name);old=case['old'];seen=old+case['new'];prior=Path(cfg['prior_root']);refroot=Path(cfg['ridge_root'] if diagonal else cfg['centered_root']);refname=name+('_ridge.json' if diagonal else '_centered.json');sealed=False
+    diagonal=lock.get('diagonal_second_moment',False);prototype=lock.get('prototype_only_second_moment',False);assert not (diagonal and prototype)
+    label='raw_prototype_ridge' if prototype else 'raw_diagonal_ridge' if diagonal else 'raw_ridge'
+    torch.set_num_threads(2);torch.set_default_dtype(DT);unit(diagonal,prototype)
+    case=next(c for c in lock['datasets'] if c['name']==name);old=case['old'];seen=old+case['new'];prior=Path(cfg['prior_root']);refroot=Path(cfg['diagonal_root'] if prototype else cfg['ridge_root'] if diagonal else cfg['centered_root']);refname=name+('_diagonal.json' if prototype else '_ridge.json' if diagonal else '_centered.json');sealed=False
     def audit(event,args):
         if event!='open' or not isinstance(args[0],(str,bytes,os.PathLike)):return
         p=Path(os.fsdecode(args[0])).absolute()
@@ -64,10 +74,10 @@ def main():
             z=torch.cat([features(x[i:i+256],model) for i in range(0,len(x),256)]);assert z.shape==(len(x),1536) and bool(torch.isfinite(z).all())
             zz.append(z.numpy());yy.append(np.full(len(x),c,dtype=np.int64));stats.append(dict(class_index=c,count=len(x)))
     z=np.concatenate(zz);y=np.concatenate(yy);moments=analytic.append(analytic.empty(1536),z,y,list(range(seen)))
-    w,residual=(diagonal_ridge if diagonal else analytic.ridge)(moments,REGULARIZATION);head=torch.from_numpy(w);assert head.shape==(1536,seen) and bool(torch.isfinite(head).all())
+    w,residual=(prototype_ridge if prototype else diagonal_ridge if diagonal else analytic.ridge)(moments,REGULARIZATION);head=torch.from_numpy(w);assert head.shape==(1536,seen) and bool(torch.isfinite(head).all())
     obj=dict(model=model,frame=head);torch.save(obj,root/(name+'.ridge.private.pt'));sealed=True;sealed_at=time.time()
     for c in range(seen):stats[c]['head_norm']=float(head[:,c].norm())
-    ref=json.loads((refroot/refname).read_text());rows=list(ref['class_rows']);references=['raw_centroid','MM','HH','identity_ETF','teacher_centroid','teacher_ETF','coordinate_median','centered_centroid']+(['raw_ridge'] if diagonal else []);summaries=[];gates={};counts=[]
+    ref=json.loads((refroot/refname).read_text());rows=list(ref['class_rows']);references=['raw_centroid','MM','HH','identity_ETF','teacher_centroid','teacher_ETF','coordinate_median','centered_centroid']+(['raw_ridge'] if diagonal or prototype else [])+(['raw_diagonal_ridge'] if prototype else []);summaries=[];gates={};counts=[]
     for query in ('Qfit','Qgate'):
         data=load(prior/(name+'.'+query+'.features.private.pt'));assert data['y'].dtype==torch.int64 and bool(((data['y']>=0)&(data['y']<seen)).all())
         counts.append(dict(query=query,count=len(data['y'])));_,rr,_=metrics(obj,data,old,seen);rows.extend(dict(dataset=name,query=query,model=label,**r) for r in rr)
@@ -78,7 +88,7 @@ def main():
                 summaries.append(dict(dataset=name,query=query,model=ref_label,group=group,BA=sum(r['recall'] for r in cc)/len(cc),CE=sum(r['CE'] for r in cc)/len(cc)))
         get=lambda label:{r['group']:r['BA'] for r in summaries if r['query']==query and r['model']==label}
         gates[query]={ref_label:select(get(ref_label),get(label)) for ref_label in references}
-    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,class_rows=rows,summaries=summaries,gates=gates,primary_reference='raw_ridge' if diagonal else 'raw_centroid',primary_both_queries_pass=all(g['raw_ridge' if diagonal else 'raw_centroid']['selected']=='candidate' for g in gates.values()),head_stats=stats,head_shape=list(head.shape),head_elements=head.numel(),head_bytes=head.numel()*head.element_size(),regularization=REGULARIZATION,solve_relative_residual=residual,diagonal_second_moment=diagonal,second_moment_offdiagonal_fraction=float(np.linalg.norm(moments['S']-np.diag(np.diag(moments['S'])))/np.linalg.norm(moments['S'])),production_linear_solves=0 if diagonal else 1,production_elementwise_solutions=1 if diagonal else 0,engineering_small_linear_solves=0 if diagonal else 2,engineering_small_elementwise_solutions=3 if diagonal else 0,logit_scale=BETA,head_constructions=1,head_column_normalization=False,derived_bias_elements=0,support_feature_forwards=len(z),query_sample_forwards=sum(v['count'] for v in counts),query_counts=counts,gradient_evaluations=0,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,query_used_for_fitting=False,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Full or diagonal class-balanced second-moment readout on fixed H/new-S features; variant recorded explicitly. Diagonalization changes cross terms and is not an equivalent least-squares solve. No temperature/regularization selection; CE depends on unnormalized head scale.'))
+    save(root/(job['id']+'.json'),dict(status='COMPLETED',source_commit=os.environ['Q356_SHA'],dataset=name,sealed_at=sealed_at,class_rows=rows,summaries=summaries,gates=gates,primary_reference='raw_ridge' if diagonal or prototype else 'raw_centroid',primary_both_queries_pass=all(g['raw_ridge' if diagonal or prototype else 'raw_centroid']['selected']=='candidate' for g in gates.values()),head_stats=stats,head_shape=list(head.shape),head_elements=head.numel(),head_bytes=head.numel()*head.element_size(),regularization=REGULARIZATION,solve_relative_residual=residual,diagonal_second_moment=diagonal,prototype_only_second_moment=prototype,within_class_trace_fraction=float((np.trace(moments['S'])-np.square(moments['mu']).sum())/np.trace(moments['S'])),within_class_frobenius_fraction=float(np.linalg.norm(moments['S']-moments['mu'].T@moments['mu'])/np.linalg.norm(moments['S'])),second_moment_offdiagonal_fraction=float(np.linalg.norm(moments['S']-np.diag(np.diag(moments['S'])))/np.linalg.norm(moments['S'])),production_linear_solves=0 if diagonal else 1,production_elementwise_solutions=1 if diagonal else 0,engineering_small_linear_solves=0 if diagonal else 3 if prototype else 2,engineering_small_elementwise_solutions=3 if diagonal else 0,logit_scale=BETA,head_constructions=1,head_column_normalization=False,derived_bias_elements=0,support_feature_forwards=len(z),query_sample_forwards=sum(v['count'] for v in counts),query_counts=counts,gradient_evaluations=0,adapter_updates=0,teacher_updates=0,encoder_updates=0,memory_updates=0,query_used_for_fitting=False,old_S_access=False,E_access=False,new_labels=0,GPU_used=False,operation_seconds=time.monotonic()-start,scope='Full, diagonal or prototype-only class-balanced second-moment readout on fixed H/new-S features; variant recorded explicitly. Removing cross terms or within-class scatter changes the objective; not an equivalent full least-squares solve. No temperature/regularization selection; CE depends on unnormalized head scale.'))
 
 
 if __name__=='__main__':main()

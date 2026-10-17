@@ -1,0 +1,330 @@
+{
+  "version": "offline-information-ab-1",
+  "authorization": "User explicitly authorized freezing a new offline information comparison, rebuilding full statistics from existing old S caches, executing and publishing all results/costs. Not preexisting protocol memory, not equal budget, not a performance upper bound.",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "seed": 74002,
+  "coordinate": "Same q356 frozen AugReg ViT and untrained seeded adapter pools; 1536D float64 cached features through q383 zero residual adapter and identical unit normalization.",
+  "inputs": {
+    "prior": {
+      "artifact": "real_query_node1_20261016",
+      "source": "3ad4710ec8267ed27cb0a9ab4588149e0c121ae3",
+      "delivery": "8d087c4812ad7ad5644e3b1c82a5e84183598dcf"
+    },
+    "ridge": {
+      "artifact": "raw_ridge_head1_20261017",
+      "source": "703dd54c9150a013a386a2b77bd996d9e8c08743",
+      "delivery": "3b32f0d63280cd174502f821158d976063d16ad6"
+    }
+  },
+  "old_counts": {
+    "ISIC": [
+      375,
+      23,
+      208,
+      2630
+    ],
+    "HK": [
+      502,
+      1,
+      4,
+      69,
+      232,
+      323,
+      590,
+      392,
+      202,
+      135,
+      477,
+      209,
+      4
+    ]
+  },
+  "new_counts": {
+    "ISIC": [
+      2254,
+      36
+    ],
+    "HK": [
+      28,
+      67
+    ]
+  },
+  "H_counts": {
+    "ISIC": [
+      16,
+      16,
+      16,
+      16
+    ],
+    "HK": [
+      16,
+      1,
+      4,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      4
+    ]
+  },
+  "query_counts": {
+    "ISIC": {
+      "Qfit": [
+        42,
+        2,
+        23,
+        311,
+        294,
+        5
+      ],
+      "Qgate": [
+        41,
+        2,
+        25,
+        322,
+        287,
+        3
+      ]
+    },
+    "HK": {
+      "Qfit": [
+        62,
+        1,
+        1,
+        8,
+        28,
+        40,
+        73,
+        48,
+        25,
+        16,
+        59,
+        26,
+        1,
+        3,
+        8
+      ],
+      "Qgate": [
+        62,
+        1,
+        1,
+        8,
+        28,
+        40,
+        73,
+        48,
+        25,
+        16,
+        59,
+        26,
+        1,
+        3,
+        8
+      ]
+    }
+  },
+  "jobs": [
+    {
+      "id": "unit",
+      "role": "unit"
+    },
+    {
+      "id": "ISIC_build",
+      "dataset": "ISIC",
+      "role": "build"
+    },
+    {
+      "id": "HK_build",
+      "dataset": "HK",
+      "role": "build"
+    },
+    {
+      "id": "ISIC_fit",
+      "dataset": "ISIC",
+      "role": "fit"
+    },
+    {
+      "id": "HK_fit",
+      "dataset": "HK",
+      "role": "fit"
+    },
+    {
+      "id": "ISIC_evaluate",
+      "dataset": "ISIC",
+      "role": "evaluate"
+    },
+    {
+      "id": "HK_evaluate",
+      "dataset": "HK",
+      "role": "evaluate"
+    }
+  ],
+  "case_wall_seconds": 300,
+  "overall_wall_seconds": 1800,
+  "storage_limit_bytes": 1073741824,
+  "CPU_threads": 2,
+  "GPU_used": false,
+  "regularization": 0.001,
+  "logit_scale": 8.0,
+  "objective": "mean_c mean_i_in_c ||z_i W-e_c||^2 + .001 ||W||_F^2; no bias or head column normalization",
+  "arms": {
+    "A": "sealed q383 ridge head from H plus S_new, no refit",
+    "B": "newly constructed full old-S G/mu/n plus identical S_new; one fixed ridge solve"
+  },
+  "statistic_format": "float64 aggregate sum_c mean_i z_i z_i^T, per-class means, int64 counts; no per-class Q retained",
+  "old_S_access": "build role only; newly authorized offline reconstruction, not original protocol memory",
+  "query_access": "evaluate role only after BOTH B heads sealed; no model or parameter selection",
+  "E_access": false,
+  "automatic_retry": false,
+  "parameter_scan": false,
+  "seed_expansion": false,
+  "performance_upper_bound": false,
+  "equal_memory_budget": false,
+  "primary": "Per dataset, both Qfit and Qgate must have B minus A overall BA > 1e-12 and old/new BA >= -0.01-1e-12; existing tolerance unchanged. Report only, no deployment selection.",
+  "production_linear_solves": 2,
+  "engineering_small_linear_solves": 3,
+  "gradient_evaluations": 0,
+  "encoder_updates": 0,
+  "adapter_updates": 0,
+  "new_labels": 0,
+  "expected_old_statistic_payload_bytes": {
+    "ISIC": 18923552,
+    "HK": 19034216
+  },
+  "expected_H_payload_bytes": {
+    "ISIC": 786944,
+    "HK": 2078024
+  },
+  "expected_head_bytes": {
+    "ISIC": 73728,
+    "HK": 184320
+  },
+  "expected_normalized_samples": {
+    "build": 6376,
+    "fit": 2618,
+    "evaluate": 2155
+  },
+  "expected_logit_sample_evaluations": 4310,
+  "scope": "Single seed and first transition, development-only fixed-objective information diagnostic. Full moments are sufficient only for this fixed-coordinate weighted quadratic objective; no claim about CE or moving encoders. Query development history and unknown patient overlap retained."
+}

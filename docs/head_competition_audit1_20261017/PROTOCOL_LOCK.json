@@ -1,0 +1,196 @@
+{
+  "version": "fixed-head-competition-audit-1",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2,
+      "expected_train_counts": {
+        "1": 3263,
+        "3": 1306,
+        "0": 10529,
+        "5": 256,
+        "2": 2835,
+        "6": 44,
+        "4": 458,
+        "7": 27
+      },
+      "expected_val_counts": {
+        "3": 40,
+        "4": 41,
+        "6": 26,
+        "1": 37,
+        "0": 44,
+        "2": 46,
+        "7": 24,
+        "5": 37
+      }
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2,
+      "expected_train_counts": {
+        "13": 662,
+        "1": 403,
+        "9": 635,
+        "2": 736,
+        "8": 654,
+        "4": 626,
+        "10": 595,
+        "22": 85,
+        "15": 488,
+        "20": 288,
+        "7": 83,
+        "5": 3,
+        "12": 167,
+        "3": 644,
+        "11": 261,
+        "16": 34,
+        "18": 127,
+        "14": 252,
+        "0": 25,
+        "21": 18,
+        "17": 23,
+        "6": 6,
+        "19": 6
+      },
+      "expected_val_counts": {
+        "19": 2,
+        "8": 153,
+        "9": 164,
+        "4": 165,
+        "10": 150,
+        "2": 182,
+        "15": 123,
+        "3": 157,
+        "20": 66,
+        "13": 160,
+        "1": 113,
+        "16": 8,
+        "6": 1,
+        "14": 60,
+        "12": 41,
+        "11": 61,
+        "22": 21,
+        "0": 7,
+        "18": 33,
+        "7": 21,
+        "21": 4,
+        "5": 1,
+        "17": 5
+      }
+    }
+  ],
+  "seed": 74002,
+  "logit_scale": 8,
+  "overall_wall_seconds": 3600,
+  "case_wall_seconds": 900,
+  "jobs": [
+    {
+      "id": "ISIC_competition",
+      "dataset": "ISIC",
+      "role": "head_competition_audit"
+    },
+    {
+      "id": "HK_competition",
+      "dataset": "HK",
+      "role": "head_competition_audit"
+    }
+  ],
+  "inputs": {
+    "ridge": {
+      "source": "703dd54c9150a013a386a2b77bd996d9e8c08743",
+      "delivery": "3b32f0d63280cd174502f821158d976063d16ad6"
+    },
+    "affine": {
+      "source": "e37a5a0f3b47af2788e0bdb284d179c9bcf6d9dc",
+      "delivery": "ab368f1407d7de995be924397405a328698df136"
+    },
+    "centroid": {
+      "source": "d8f4fb7eaae1435636889f969ee84166c5b1db30",
+      "delivery": "78711f1adc0cf2282441caa6f57c79afbedba4b0"
+    }
+  },
+  "models": [
+    "raw_centroid",
+    "raw_ridge",
+    "raw_affine_ridge"
+  ],
+  "paired_comparisons": [
+    "raw_centroid__to__raw_ridge",
+    "raw_centroid__to__raw_affine_ridge"
+  ],
+  "focus_after_prior_results": {
+    "ISIC": [
+      0,
+      2,
+      4
+    ],
+    "HK": [
+      11,
+      13
+    ]
+  },
+  "all_classes_reported": true,
+  "query_used_for_fitting": false,
+  "support_access": false,
+  "E_access": false,
+  "new_labels": 0,
+  "GPU_used": false,
+  "head_fits": 0,
+  "head_constructions": 0,
+  "production_linear_solves": 0,
+  "engineering_linear_solves": 0,
+  "gradient_evaluations": 0,
+  "adapter_updates": 0,
+  "teacher_updates": 0,
+  "encoder_updates": 0,
+  "memory_updates": 0,
+  "expected_shared_feature_sample_forwards": 2155,
+  "expected_model_logit_sample_evaluations": 6465,
+  "expected_decision_sample_evaluations": 6465,
+  "rank_tie_rule": "1 + number strictly greater + number equal with lower class index; matches torch.argmax first index",
+  "margin": "s_true minus maximum over all other classes; rival argmax first index excluding true",
+  "effect": "Class/outcome summaries of actual margins plus margin delta against baseline strongest rival fixed across heads",
+  "published_CE_absolute_tolerance": 1e-10,
+  "no_new_candidate": true,
+  "no_parameter_scan": true,
+  "no_auto_retry": true,
+  "prior_affine_pair_delivery": "2d0047d76ad454258871ad761eab7cab4fe4b102"
+}

@@ -1,0 +1,346 @@
+{
+  "seed": 74002,
+  "dim": 128,
+  "tau": 20.0,
+  "eps_relative": 0.001,
+  "ridge_alpha": 1.0,
+  "batch_size": 64,
+  "local_lambda": 0.5,
+  "calibration_patients_per_class": 32,
+  "version": "v2-isic-hk-first-transfer",
+  "max_wall_seconds": 14400,
+  "workers": 0,
+  "output_budget_bytes": 2147483648,
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2
+    }
+  ],
+  "support_counts": {
+    "ISIC": [
+      375,
+      23,
+      208,
+      2630,
+      2254,
+      36
+    ],
+    "HK": [
+      502,
+      1,
+      4,
+      69,
+      232,
+      323,
+      590,
+      392,
+      202,
+      135,
+      477,
+      209,
+      4,
+      28,
+      67
+    ]
+  },
+  "query_counts": {
+    "ISIC": {
+      "Qfit": [
+        42,
+        2,
+        23,
+        311,
+        294,
+        5
+      ],
+      "Qgate": [
+        41,
+        2,
+        25,
+        322,
+        287,
+        3
+      ]
+    },
+    "HK": {
+      "Qfit": [
+        62,
+        1,
+        1,
+        8,
+        28,
+        40,
+        73,
+        48,
+        25,
+        16,
+        59,
+        26,
+        1,
+        3,
+        8
+      ],
+      "Qgate": [
+        62,
+        1,
+        1,
+        8,
+        28,
+        40,
+        73,
+        48,
+        25,
+        16,
+        59,
+        26,
+        1,
+        3,
+        8
+      ]
+    }
+  },
+  "queries": [
+    "Qfit",
+    "Qgate"
+  ],
+  "E_access": false,
+  "test_access": false,
+  "parameter_scan": false,
+  "reference_source_commit": "74a03f1f7ab61d947c3693e3d4ba6c74ff217cca",
+  "reference_metrics": [
+    {
+      "dataset": "ISIC",
+      "query": "Qfit",
+      "model": "A",
+      "group": "all",
+      "BA": 0.6961784900362121,
+      "CE": 0.9601427628517194
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qfit",
+      "model": "A",
+      "group": "old",
+      "BA": 0.6378051500203046,
+      "CE": 1.199588105544754
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qfit",
+      "model": "A",
+      "group": "new",
+      "BA": 0.8129251700680272,
+      "CE": 0.48125207746565024
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qfit",
+      "model": "B",
+      "group": "all",
+      "BA": 0.6858595714720019,
+      "CE": 0.8197134152284322
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qfit",
+      "model": "B",
+      "group": "old",
+      "BA": 0.6495376565277307,
+      "CE": 0.9155187153408819
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qfit",
+      "model": "B",
+      "group": "new",
+      "BA": 0.7585034013605443,
+      "CE": 0.6281028150035328
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qgate",
+      "model": "A",
+      "group": "all",
+      "BA": 0.5265843559056709,
+      "CE": 1.4968885738374802
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qgate",
+      "model": "A",
+      "group": "old",
+      "BA": 0.3874375094682624,
+      "CE": 1.9756909290500702
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qgate",
+      "model": "A",
+      "group": "new",
+      "BA": 0.8048780487804879,
+      "CE": 0.5392838634123
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qgate",
+      "model": "B",
+      "group": "all",
+      "BA": 0.5471893147502903,
+      "CE": 1.0950389171604655
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qgate",
+      "model": "B",
+      "group": "old",
+      "BA": 0.4444773519163763,
+      "CE": 1.314650181969095
+    },
+    {
+      "dataset": "ISIC",
+      "query": "Qgate",
+      "model": "B",
+      "group": "new",
+      "BA": 0.7526132404181185,
+      "CE": 0.6558163875432069
+    },
+    {
+      "dataset": "HK",
+      "query": "Qfit",
+      "model": "A",
+      "group": "all",
+      "BA": 0.5972331662996859,
+      "CE": 1.412214143685188
+    },
+    {
+      "dataset": "HK",
+      "query": "Qfit",
+      "model": "A",
+      "group": "old",
+      "BA": 0.6121921149611761,
+      "CE": 1.5010449682280327
+    },
+    {
+      "dataset": "HK",
+      "query": "Qfit",
+      "model": "A",
+      "group": "new",
+      "BA": 0.5,
+      "CE": 0.8348137841566985
+    },
+    {
+      "dataset": "HK",
+      "query": "Qfit",
+      "model": "B",
+      "group": "all",
+      "BA": 0.6116226919122205,
+      "CE": 1.3675749571994844
+    },
+    {
+      "dataset": "HK",
+      "query": "Qfit",
+      "model": "B",
+      "group": "old",
+      "BA": 0.6287954137448698,
+      "CE": 1.4411338968405814
+    },
+    {
+      "dataset": "HK",
+      "query": "Qfit",
+      "model": "B",
+      "group": "new",
+      "BA": 0.5,
+      "CE": 0.8894418495323551
+    },
+    {
+      "dataset": "HK",
+      "query": "Qgate",
+      "model": "A",
+      "group": "all",
+      "BA": 0.6940500533957698,
+      "CE": 1.1228651332367983
+    },
+    {
+      "dataset": "HK",
+      "query": "Qgate",
+      "model": "A",
+      "group": "old",
+      "BA": 0.698262882123324,
+      "CE": 1.1677040478144025
+    },
+    {
+      "dataset": "HK",
+      "query": "Qgate",
+      "model": "A",
+      "group": "new",
+      "BA": 0.6666666666666666,
+      "CE": 0.8314121884823711
+    },
+    {
+      "dataset": "HK",
+      "query": "Qgate",
+      "model": "B",
+      "group": "all",
+      "BA": 0.7000253802127496,
+      "CE": 1.1384327696096044
+    },
+    {
+      "dataset": "HK",
+      "query": "Qgate",
+      "model": "B",
+      "group": "old",
+      "BA": 0.70515748998907,
+      "CE": 1.1834967586936518
+    },
+    {
+      "dataset": "HK",
+      "query": "Qgate",
+      "model": "B",
+      "group": "new",
+      "BA": 0.6666666666666666,
+      "CE": 0.8455168405632961
+    }
+  ]
+}

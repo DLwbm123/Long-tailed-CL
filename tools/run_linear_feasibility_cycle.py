@@ -17,7 +17,7 @@ def main():
     cfg=json.loads((root/'CONFIG.private.json').read_text())
     lock=json.loads((source/os.environ.get('Q356_PROTOCOL','docs/real_query_node1_20261016/PROTOCOL_LOCK.json')).read_text())
     assert not (root/'PROGRAM_COMPACT.json').exists(),'Duplicate launch forbidden'
-    start=time.monotonic();deadline=min(start+lock['overall_wall_seconds'],lock['original_overall_deadline_epoch'])
+    start=time.monotonic();deadline=start+min(lock['overall_wall_seconds'],max(0.,lock['original_overall_deadline_epoch']-time.time()))
     state=dict(status='RUNNING',source_commit=os.environ['Q356_SHA'],started_at=time.time(),active=None,cases=[],costs=[],failures=[])
     update=lambda:save(root/'PROGRAM_COMPACT.json',state)
     update()

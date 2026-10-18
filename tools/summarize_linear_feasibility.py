@@ -44,7 +44,7 @@ def main():
     for name,value in [('COSTS.json',costs),('RESULTS.json',results)]:
         (root/name).write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
     with (root/'COSTS.csv').open('w') as fo:
-        writer=csv.DictWriter(fo,fieldnames=list(attempts[-1]))
+        writer=csv.DictWriter(fo,fieldnames=list(attempts[-1]),lineterminator='\n')
         writer.writeheader();writer.writerows(attempts)
     print(json.dumps(dict(CPU_seconds=cpu,GPU_seconds=0,solver_seconds=solver,elapsed_seconds=elapsed,cumulative_CPU=costs['cumulative_CPU_residence_seconds'])))
 

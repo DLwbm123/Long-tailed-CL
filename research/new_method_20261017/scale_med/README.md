@@ -13,3 +13,7 @@ Completed class statistics and validation features are atomic checkpoints. Resum
 Diagnostics record fixed-old-score drift, old-class restricted rank flips, harm/rescue, and new-class wins separately. Fixed scores do not imply zero forgetting. One order/seed on a previously used development split provides exploratory evidence only.
 
 Public delivery allowlist: these source files, public config, aggregate `support.json`, `results.json`, `summary.csv`, and `REPORT.md`. Never publish private configs, subject identities, paths, images, features, logits, checkpoints, or raw runtime logs. Existing experiments and their automations remain separate.
+
+## Frozen same-split benchmark, 2026-10-18
+
+[Full results and analysis](results_fair_benchmark/REPORT_ZH.md): nine frozen arms on ISIC 586 and HK 1271 images. Consensus versus B: -0.5853 pp and +0.0291 pp; both 95% intervals cross zero. No robust improvement demonstrated. Current overlap audit is clear at available identity/content level, but historical exposure and unknown patient isolation preclude a fresh-blind claim. See [protocol](PROTOCOL_FAIR_BENCHMARK.md).

@@ -1,0 +1,72 @@
+{
+  "version": "linear-feasibility-compact-repair-1",
+  "quotas": [
+    329,
+    23,
+    202,
+    2297,
+    2171,
+    36
+  ],
+  "counts": [
+    375,
+    23,
+    208,
+    2630,
+    2254,
+    36
+  ],
+  "inputs": {
+    "prior": {
+      "artifact": "real_query_node1_20261016",
+      "source": "3ad4710ec8267ed27cb0a9ab4588149e0c121ae3",
+      "delivery": "8d087c4812ad7ad5644e3b1c82a5e84183598dcf"
+    },
+    "ce": {
+      "artifact": "linear_ce_head1_20261017",
+      "source": "b346abb9d5130a5d72c9cad929ca78bbfb2b6f3c",
+      "delivery": "f73b69de98da56534ad4b3ab0bcb2b88b8f58dc8"
+    },
+    "offline": {
+      "artifact": "offline_information_ab1_20261018",
+      "source": "04b865ef217362236b958f781b1f3825925e3613",
+      "delivery": "74a03f1f7ab61d947c3693e3d4ba6c74ff217cca"
+    },
+    "full": {
+      "artifact": "full_support_linear_ce1_20261018",
+      "source": "e5d7e7057c94f476f2e6ff5a6016d24d18d71543",
+      "delivery": "d2133c9cee4d645cae89657a1d6d4a13b810948e"
+    }
+  },
+  "CPU_threads": 2,
+  "GPU_used": false,
+  "solver": "PySCIPOpt 6.0.0 / bundled SCIP",
+  "solver_seconds": 9000,
+  "case_wall_seconds": 9787,
+  "overall_wall_seconds": 9907,
+  "memory_limit_MiB": 20000,
+  "storage_limit_bytes": 2147483648,
+  "jobs": [
+    {
+      "id": "unit_compact",
+      "role": "unit"
+    },
+    {
+      "id": "solve_compact",
+      "role": "solve",
+      "dataset": "ISIC"
+    },
+    {
+      "id": "verify_compact",
+      "role": "verify",
+      "dataset": "ISIC"
+    }
+  ],
+  "deadline_Beijing": "2026-10-18T20:00:00+08:00",
+  "automatic_retry": false,
+  "original_overall_deadline_epoch": 1792322313.3972406,
+  "original_solve_seconds_used": 812.206364,
+  "repair": "Equivalent shared score variables, symmetry disabled, no aggregation, skip costly destructor only after durable result write. No new scientific target, budget reset or memory increase.",
+  "worker_RSS_limit_MiB": 20000,
+  "solver_memory_limit_is_not_process_RSS": true
+}

@@ -1,0 +1,60 @@
+{
+  "status": "UNRESOLVED_MEMORY_LIMIT",
+  "source_commit": "4bddb0a3b5538d690ec7ef5e912bf9b8850f323a",
+  "unit": {
+    "contradictory_labels_rejected": true,
+    "optional_correct_set_allowed": true,
+    "tie_rule_checked": true,
+    "source_commit": "4bddb0a3b5538d690ec7ef5e912bf9b8850f323a",
+    "GPU_used": false,
+    "query_access": false,
+    "E_access": false,
+    "role": "unit"
+  },
+  "solve": {
+    "status": "UNRESOLVED",
+    "solver_status": "memlimit",
+    "solver_seconds": 812.206364,
+    "nodes": 0,
+    "solutions": 0,
+    "infeasibility_certified": false,
+    "build_and_solve_seconds": 1102.060838624835,
+    "source_commit": "4bddb0a3b5538d690ec7ef5e912bf9b8850f323a",
+    "GPU_used": false,
+    "query_access": false,
+    "E_access": false,
+    "role": "solve"
+  },
+  "costs": [
+    {
+      "id": "unit",
+      "returncode": 0,
+      "process_residence_seconds": 13.056613919325173,
+      "CPU_only_residence_seconds": 13.056613919325173,
+      "GPU_process_residence_seconds": 0.0,
+      "CPU_user_seconds": 6.234571,
+      "CPU_system_seconds": 1.073395,
+      "peak_RSS_MiB": 440.9375,
+      "timeout": false
+    },
+    {
+      "id": "solve",
+      "returncode": -15,
+      "process_residence_seconds": 1700.5656959274784,
+      "CPU_only_residence_seconds": 1700.5656959274784,
+      "GPU_process_residence_seconds": 0.0,
+      "CPU_user_seconds": 1607.046429,
+      "CPU_system_seconds": 94.404733,
+      "peak_RSS_MiB": 40467.19921875,
+      "timeout": false
+    }
+  ],
+  "failures": [
+    {
+      "id": "solve",
+      "reason": "WORKER_FAILED"
+    }
+  ],
+  "cleanup_terminated_after_result": true,
+  "scope": "First dense formulation only; continuation uses an equivalent compact formulation within the original elapsed wall budget."
+}

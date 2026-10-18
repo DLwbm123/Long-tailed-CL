@@ -11,9 +11,16 @@ from run_full_support_linear_ce import check_head
 from run_real_query_node import load, save
 
 
+_LIVE_MODELS = []
+
 def model(z, y, quotas, seconds, logfile=None):
     from pyscipopt import Model, quicksum
     m = Model('support_feasibility')
+    # Keep C models alive until process exit; dense destructor cleanup can dominate wall time.
+    _LIVE_MODELS.append(m)
+    m.setIntParam('misc/usesymmetry', 0)
+    m.setBoolParam('presolving/donotaggr', True)
+    m.setBoolParam('presolving/donotmultaggr', True)
     m.setRealParam('limits/time', seconds)
     m.setRealParam('limits/memory', 20000.)
     m.setIntParam('parallel/maxnthreads', 2)
@@ -30,7 +37,10 @@ def model(z, y, quotas, seconds, logfile=None):
     for c in range(k):
         m.addCons(quicksum(a[i] for i in range(n) if y[i] == c) >= int(quotas[c]))
     for i in range(n):
-        scores = [quicksum(float(z[i,h])*w[c][h] for h in range(d)) for c in range(k-1)] + [0.]
+        scores = [m.addVar(lb=None, ub=None, name=f's{i}_{c}') for c in range(k-1)] + [0.]
+        # Share each dense feature dot product across all five competitor comparisons.
+        for c in range(k-1):
+            m.addCons(scores[c] == quicksum(float(z[i,h])*w[c][h] for h in range(d)))
         for j in range(k):
             if j != y[i]:
                 # Smaller-index rivals require strict superiority; scale to unit margin.
@@ -50,7 +60,13 @@ def unit():
     m.optimize(); assert m.getNSols() > 0
     # A weak tie is correct only for the smaller class index.
     assert np.array([[0.,0.],[0.,0.]]).argmax(1).tolist() == [0,0]
-    return dict(contradictory_labels_rejected=True,optional_correct_set_allowed=True,tie_rule_checked=True)
+    m,w = model(np.eye(3),np.arange(3),[1,1,1],10.)
+    m.optimize(); assert m.getNSols() > 0
+    sol=m.getBestSol();ww=np.zeros((3,3))
+    for c in range(2):
+        for h in range(3):ww[h,c]=m.getSolVal(sol,w[c][h])
+    assert (np.eye(3)@ww).argmax(1).tolist() == [0,1,2]
+    return dict(contradictory_labels_rejected=True,optional_correct_set_allowed=True,tie_rule_checked=True,compact_multiclass_witness_verified=True)
 
 
 def inputs(root,cfg):
@@ -129,7 +145,7 @@ def main():
         else:
             begin=time.monotonic()
             print(json.dumps(dict(stage='INPUTS_VERIFIED',samples=len(y))),flush=True)
-            m,w=model(z,y,quotas,lock['solver_seconds'],root/'solver.private.log')
+            m,w=model(z,y,quotas,lock['solver_seconds'],root/'solver_compact.private.log')
             remaining=min(lock['solver_seconds'],cfg['deadline_epoch']-time.time()-300)
             assert remaining>0
             m.setRealParam('limits/time',remaining)
@@ -149,3 +165,5 @@ def main():
 
 if __name__=='__main__':
     main()
+    sys.stdout.flush();sys.stderr.flush()
+    os._exit(0)

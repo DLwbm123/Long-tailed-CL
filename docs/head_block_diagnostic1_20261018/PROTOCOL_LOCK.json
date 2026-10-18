@@ -1,0 +1,217 @@
+{
+  "version": "head-block-diagnostic-1",
+  "authorization": "User authorized frozen four-cell head-block diagnostic, reuse sealed A/B heads, complete confusions/paired outcomes/score changes and public delivery. No refit, tuning, extra seeds or E.",
+  "datasets": [
+    {
+      "name": "ISIC",
+      "order": [
+        4,
+        7,
+        5,
+        1,
+        2,
+        6,
+        0,
+        3
+      ],
+      "old": 4,
+      "new": 2
+    },
+    {
+      "name": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "old": 13,
+      "new": 2
+    }
+  ],
+  "seed": 74002,
+  "query_counts": {
+    "ISIC": {
+      "Qfit": [
+        42,
+        2,
+        23,
+        311,
+        294,
+        5
+      ],
+      "Qgate": [
+        41,
+        2,
+        25,
+        322,
+        287,
+        3
+      ]
+    },
+    "HK": {
+      "Qfit": [
+        62,
+        1,
+        1,
+        8,
+        28,
+        40,
+        73,
+        48,
+        25,
+        16,
+        59,
+        26,
+        1,
+        3,
+        8
+      ],
+      "Qgate": [
+        62,
+        1,
+        1,
+        8,
+        28,
+        40,
+        73,
+        48,
+        25,
+        16,
+        59,
+        26,
+        1,
+        3,
+        8
+      ]
+    }
+  },
+  "inputs": {
+    "prior": {
+      "artifact": "real_query_node1_20261016",
+      "source": "3ad4710ec8267ed27cb0a9ab4588149e0c121ae3",
+      "delivery": "8d087c4812ad7ad5644e3b1c82a5e84183598dcf"
+    },
+    "ridge": {
+      "artifact": "raw_ridge_head1_20261017",
+      "source": "703dd54c9150a013a386a2b77bd996d9e8c08743",
+      "delivery": "3b32f0d63280cd174502f821158d976063d16ad6"
+    },
+    "offline": {
+      "artifact": "offline_information_ab1_20261018",
+      "source": "04b865ef217362236b958f781b1f3825925e3613",
+      "delivery": "74a03f1f7ab61d947c3693e3d4ba6c74ff217cca"
+    }
+  },
+  "coordinate": "Same q356 frozen AugReg ViT and untrained seeded adapter pools; 1536D float64 cached features through q383 zero residual adapter and identical unit normalization.",
+  "models": [
+    "A",
+    "old_B_new_A",
+    "old_A_new_B",
+    "B"
+  ],
+  "comparisons": [
+    [
+      "A",
+      "old_B_new_A"
+    ],
+    [
+      "A",
+      "old_A_new_B"
+    ],
+    [
+      "A",
+      "B"
+    ],
+    [
+      "old_B_new_A",
+      "old_A_new_B"
+    ],
+    [
+      "old_B_new_A",
+      "B"
+    ],
+    [
+      "old_A_new_B",
+      "B"
+    ]
+  ],
+  "jobs": [
+    {
+      "id": "ISIC_blocks",
+      "dataset": "ISIC",
+      "role": "diagnose"
+    },
+    {
+      "id": "HK_blocks",
+      "dataset": "HK",
+      "role": "diagnose"
+    }
+  ],
+  "case_wall_seconds": 300,
+  "overall_wall_seconds": 900,
+  "storage_limit_bytes": 1073741824,
+  "CPU_threads": 2,
+  "logit_scale": 8.0,
+  "heads": {
+    "A": "[A_old,A_new]",
+    "old_B_new_A": "[B_old,A_new]",
+    "old_A_new_B": "[A_old,B_new]",
+    "B": "[B_old,B_new]"
+  },
+  "expected_query_samples": 2155,
+  "expected_model_logit_sample_evaluations": 8620,
+  "head_fits": 0,
+  "production_linear_solves": 0,
+  "engineering_linear_solves": 0,
+  "gradient_evaluations": 0,
+  "adapter_updates": 0,
+  "encoder_updates": 0,
+  "mixed_head_assemblies": 4,
+  "mixed_head_payload_bytes": 516096,
+  "engineering_fixtures": 2,
+  "support_access": false,
+  "full_statistics_access": false,
+  "E_access": false,
+  "GPU_used": false,
+  "new_labels": 0,
+  "query_used_for_selection": false,
+  "parameter_scan": false,
+  "seed_expansion": false,
+  "automatic_retry": false,
+  "primary": "Diagnostic readouts only. For each non-A readout report the unchanged descriptive gate vs A: both queries overall BA > A +1e-12 and old/new BA >= A -0.01-1e-12. No model selection or deployment.",
+  "confusion": "Every true/predicted class cell, including zeros, for every dataset/query/readout.",
+  "paired": "All six unordered readout pairs in fixed order; class and group rescue/harm/both correct/both wrong/wrong-to-other-wrong plus every nonzero changed prediction transition.",
+  "scores": "Per class/readout min,median,mean,max of true score, strongest nontrue rival, strongest old/new nontrue rival, margins and rank. No column normalization, bias, scale adjustment or mixing coefficients.",
+  "effects": "For all six pairs and every class, all/rescued/harmed/both-correct/both-wrong cohorts. Delta true score, fixed source-rival score, actual max-rival score, fixed/actual margins, old/new max-rival scores/margins and rival switch counts. Empty cohorts omitted and identified by zero paired counts.",
+  "identity": "actual margin delta = true score delta - fixed source-rival score delta - (target max-rival score - target score of source rival). Last term >=0. All logits: B-O-N+A=0; BA may be non-additive.",
+  "interpretation": "Compare isolated old-column and new-column replacements, plus their conditional effects with the other block already replaced. Report BA interaction B-O-N+A descriptively, not population causal attribution. Highlight ISIC class4 and class3 selected from prior evidence, but retain all classes and both datasets. Mixed heads are not assumed to solve one common ridge objective; preserving new columns does not ensure new predictions are preserved.",
+  "no_claims": [
+    "preexisting original-protocol memory",
+    "equal memory budget",
+    "performance upper bound",
+    "new trained method",
+    "independent confirmation",
+    "uniform classwise benefit"
+  ],
+  "stop": "Deliver all results, negatives, missing cases and actual plus cumulative cost, then stop. No automatic follow-on experiment or monitor."
+}

@@ -1,0 +1,113 @@
+{
+  "version": "support-query-tradeoff-1",
+  "authorization": "User authorized ISIC only, three sealed heads, complete old S and new S scoring, reused query results, frozen protocol, all classwise signs and costs publicly delivered. No fit, tuning or E.",
+  "seed": 74002,
+  "order": [
+    4,
+    7,
+    5,
+    1,
+    2,
+    6,
+    0,
+    3
+  ],
+  "old": 4,
+  "new": 2,
+  "old_counts": [
+    375,
+    23,
+    208,
+    2630
+  ],
+  "new_counts": [
+    2254,
+    36
+  ],
+  "query_counts": {
+    "Qfit": [
+      42,
+      2,
+      23,
+      311,
+      294,
+      5
+    ],
+    "Qgate": [
+      41,
+      2,
+      25,
+      322,
+      287,
+      3
+    ]
+  },
+  "inputs": {
+    "prior": {
+      "artifact": "real_query_node1_20261016",
+      "source": "3ad4710ec8267ed27cb0a9ab4588149e0c121ae3",
+      "delivery": "8d087c4812ad7ad5644e3b1c82a5e84183598dcf"
+    },
+    "ce": {
+      "artifact": "linear_ce_head1_20261017",
+      "source": "b346abb9d5130a5d72c9cad929ca78bbfb2b6f3c",
+      "delivery": "f73b69de98da56534ad4b3ab0bcb2b88b8f58dc8"
+    },
+    "offline": {
+      "artifact": "offline_information_ab1_20261018",
+      "source": "04b865ef217362236b958f781b1f3825925e3613",
+      "delivery": "74a03f1f7ab61d947c3693e3d4ba6c74ff217cca"
+    },
+    "full": {
+      "artifact": "full_support_linear_ce1_20261018",
+      "source": "e5d7e7057c94f476f2e6ff5a6016d24d18d71543",
+      "delivery": "d2133c9cee4d645cae89657a1d6d4a13b810948e"
+    }
+  },
+  "coordinate": "Same q356 frozen AugReg ViT and untrained seeded adapter pools; 1536D float64 cached features through q383 zero residual adapter and identical unit normalization.",
+  "models": [
+    "C_H",
+    "C_F",
+    "R_F"
+  ],
+  "comparisons": [
+    [
+      "C_H",
+      "C_F"
+    ],
+    [
+      "R_F",
+      "C_F"
+    ]
+  ],
+  "logit_scale": 8.0,
+  "jobs": [
+    {
+      "id": "ISIC_audit",
+      "dataset": "ISIC",
+      "role": "audit"
+    }
+  ],
+  "CPU_threads": 2,
+  "case_wall_seconds": 300,
+  "overall_wall_seconds": 600,
+  "storage_limit_bytes": 1073741824,
+  "head_fits": 0,
+  "linear_solves": 0,
+  "gradient_evaluations": 0,
+  "GPU_used": false,
+  "expected_support_samples": 5526,
+  "expected_model_logit_sample_evaluations": 16578,
+  "query_feature_evaluations": 0,
+  "new_head_bytes": 0,
+  "primary": "For C_H -> C_F, test whether full support has delta_correct(class3)>0 AND delta_correct(class4)<0. Report exact signs and counts, including ties/zero. This is a descriptive training-domain sign test, not a significance test or model gate.",
+  "secondary": "Compare R_F -> C_F class3/class4 support and query changes; report all 6 classes, all/old/new groups and all positive, negative and zero changes. Classes0/2 retained as additional well-populated query checks; classes1/5 never dropped.",
+  "access": "Read only ISIC S_old/S_new features, three frozen heads, delivery receipts and previously delivered ISIC aggregate query result. No raw Qfit/Qgate, HK data, H, moments, teacher, E/test or original images.",
+  "boundary": "Full S is a shared scoring domain, not a common training set: C_H fitted H plus new S; C_F and R_F fitted complete old/new support. All three fitted current new S. Only within-domain predictions are paired; support-query differences are descriptive, not samplewise pairs.",
+  "interpretation": "Support matching query sign supports current-recipe support-domain tradeoff, not irreducible representation limits. Lack of support sign match rejects that exact sign hypothesis, not all margin mechanisms. Query-only harm motivates generalization explanations; support failure cannot distinguish objective/regularization/linear family/representation. No selected model.",
+  "tail_accounting": "Per class contribution to original overall BA delta = delta_recall/6; keep original 6-class denominator. Do not remove tiny classes or redefine success. Primary mechanism uses class3/class4 paired outcomes, not macro BA sign.",
+  "automatic_retry": false,
+  "parameter_scan": false,
+  "seed_expansion": false,
+  "stop": "Publish all outcomes and costs then stop; no follow-on experiment or monitoring."
+}

@@ -1,0 +1,39 @@
+{
+  "primary": "consensus",
+  "primary_source_commit": "61ea835df655feda64f40206f4326e44ce93f21f",
+  "seed": 74002,
+  "local_lambda": 0.5,
+  "scale_refit": false,
+  "parameter_scan": false,
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 74003,
+  "feature_parity_atol": 1e-06,
+  "score_parity_atol": 1e-05,
+  "arms": [
+    "A",
+    "B",
+    "ridge",
+    "uniform",
+    "local_shrink",
+    "distance_local",
+    "B_density",
+    "B_distance",
+    "consensus"
+  ],
+  "dataset_counts": {
+    "ISIC": {
+      "old": 4,
+      "new": 2,
+      "images": 586,
+      "groups": 500
+    },
+    "HK": {
+      "old": 13,
+      "new": 2,
+      "images": 1271,
+      "groups": 1271
+    }
+  },
+  "comparison_scope": "same-split first-transition benchmark; historically exposed; not independent confirmation",
+  "prior_protocol_independent_admission_rules_superseded_for_benchmark": true
+}

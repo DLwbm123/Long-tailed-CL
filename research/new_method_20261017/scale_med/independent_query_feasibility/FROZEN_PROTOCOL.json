@@ -1,0 +1,117 @@
+{
+  "version": "independent-confirmation-v1-20261018",
+  "state": "FROZEN_METHOD_AND_DECISION_RULES__DATA_GATE_FAILED__NO_EVALUATION_AUTHORIZED",
+  "primary_candidate": {
+    "name": "B_anchored_common_positive_support_minimum",
+    "implementation_commit": "61ea835df655feda64f40206f4326e44ce93f21f",
+    "implementation_file": "research/new_method_20261017/scale_med/run_b_consensus.py",
+    "local_lambda": 0.5,
+    "scales": "exact saved b_local calibration, no refit",
+    "ISIC_scales": [
+      1.7405670166111153,
+      0.044688890003855536
+    ],
+    "HK_scales": [
+      1.4104317475523676,
+      0.08982480665589912
+    ],
+    "tie_rule": "retain B if no strictly positive challenger",
+    "model_fits": 0
+  },
+  "comparators": [
+    "frozen_B_primary",
+    "frozen_B_plus_density_diagnostic_only",
+    "frozen_B_plus_distance_diagnostic_only"
+  ],
+  "excluded_candidates": [
+    "entry_mean",
+    "per_dataset_winner_selection",
+    "tuned_lambda",
+    "new_feature_or_head",
+    "class_specific_protection"
+  ],
+  "class_orders": {
+    "ISIC": [
+      4,
+      7,
+      5,
+      1,
+      2,
+      6
+    ],
+    "HK": [
+      4,
+      5,
+      6,
+      22,
+      20,
+      1,
+      2,
+      15,
+      14,
+      12,
+      10,
+      11,
+      19,
+      16,
+      7
+    ]
+  },
+  "old_class_counts": {
+    "ISIC": 4,
+    "HK": 13
+  },
+  "data_gate": {
+    "current_decision": "FAIL_BOTH_DATASETS",
+    "eligible_source": "new documented unexposed cohort with full current-class coverage",
+    "require_known_group_and_path_disjoint_from_support_and_all_development": true,
+    "require_exposure_ledger": "no known fit/tuning/evaluation exposure; UNKNOWN fails truly-unused claim",
+    "patient_isolation": "must describe available identifiers honestly; current HK IDs establish exact-image identity only",
+    "minimum_known_groups_per_class": 50,
+    "minimum_is_resolution_screen_not_power_guarantee": true,
+    "power_target": 0.8,
+    "power_effect_BA_pp": 1.0,
+    "power_plan": "Before scoring, use development-only paired disagreement assumptions and actual candidate group sizes; use documented sensitivity bounds. No test predictions, no unblinding to set sample size. Require sufficient planned precision/power; 50 alone never passes this gate.",
+    "lock_final_roster_before_inference": true,
+    "no_replenishment_after_scoring": true
+  },
+  "endpoint": {
+    "primary": "image-level macro recall difference candidate minus B, separately per dataset",
+    "secondary": [
+      "old_BA",
+      "new_BA",
+      "group_equal_BA",
+      "class_counts_and_recall",
+      "rescue_harm_all_old_new_per_class",
+      "macro_harm_rate_among_B_correct_when_defined",
+      "micro_accuracy",
+      "runtime_and_storage"
+    ],
+    "CE": "descriptive only, no selection"
+  },
+  "uncertainty": {
+    "method": "paired class-stratified known-group bootstrap, resample groups with all member images; identical draws for all arms",
+    "draws": 10000,
+    "seed": 74003,
+    "interval": "95 percent percentile",
+    "interpretation": "approximate conditional uncertainty of frozen models and observed cohort, not training-seed variability or verified-patient uncertainty"
+  },
+  "success_each_dataset": {
+    "overall_BA_point_gain_at_least_pp": 1.0,
+    "overall_BA_95CI_lower_above_pp": 0.0,
+    "old_BA_95CI_lower_above_pp": -1.0,
+    "new_BA_95CI_lower_above_pp": -1.0,
+    "harm_subset_invariant_must_pass": true
+  },
+  "success_both_datasets_required": true,
+  "decision_rationale": "1 pp is a pre-unblinding practical gain threshold; -1 pp preserves earlier old/new protection tolerance with uncertainty added. These are design criteria, not a clinical standard.",
+  "stops": [
+    "Any data exposure UNKNOWN/known, overlap, insufficient class coverage, or inadequate planned power: stop before inference.",
+    "Any reference binding, scale, mapping or invariant error: mark invalid, preserve outputs; no performance-driven retry.",
+    "Missing classes or low independent-group counts after lock: no post-hoc exclusion/replacement.",
+    "Either dataset fails efficacy or old/new protection: no cross-dataset success claim; CI crossing zero is inconclusive, not evidence of no effect.",
+    "Do not switch primary candidate, choose a better reference arm, pool away a negative dataset, scan thresholds, increase seeds or modify rules after results.",
+    "A failed or inconclusive completed confirmation ends this fixed-route campaign; any new method requires a separately agreed new protocol and fresh unexposed data."
+  ],
+  "authorization": "This file freezes design only. No model execution, E/test score inspection, training, download, resplitting or monitoring is authorized by this audit."
+}

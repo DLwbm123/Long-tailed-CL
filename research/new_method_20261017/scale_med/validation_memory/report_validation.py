@@ -5,9 +5,10 @@ root,out=map(Path,sys.argv[1:]);out.mkdir(exist_ok=True)
 result=json.loads((root/'results.json').read_text());exit_info=json.loads((root/'EXIT.json').read_text());assert exit_info['exit_code']==0
 costs=json.loads((root/'costs.json').read_text())
 for phase in ['fit','audit','test']:costs[phase]=json.loads((root/(phase+'.costs.json')).read_text())
-public=dict(results=result,costs=costs,exit=exit_info,data_audit=json.loads((root/'DATA_AUDIT.json').read_text()),model_seal=json.loads((root/'MODEL_SEAL.json').read_text()),audit_seal=json.loads((root/'AUDIT_SEAL.json').read_text()))
+prior_failures=json.loads((root/'PRIOR_FAILURES.json').read_text()) if (root/'PRIOR_FAILURES.json').exists() else []
+public=dict(results=result,costs=costs,exit=exit_info,prior_failures=prior_failures,cumulative_wall_seconds=exit_info['wall_seconds']+sum(f['wall_seconds'] for f in prior_failures),data_audit=json.loads((root/'DATA_AUDIT.json').read_text()),model_seal=json.loads((root/'MODEL_SEAL.json').read_text()),audit_seal=json.loads((root/'AUDIT_SEAL.json').read_text()))
 (out/'aggregate.json').write_text(json.dumps(public,indent=2,allow_nan=False))
-lines=['# 历史验证记忆：最小证伪结果','',f"退出码：0；总墙钟：{exit_info['wall_seconds']:.2f} 秒。主检验 ISIC；HK 验证覆盖 14/15 类，只作辅助诊断。",'', '旧测试已经暴露、患者隔离未知；这不是盲测，也不是隐私保证。所有选择器永久排除验证行，未进行选参后全量重拟合。','']
+lines=['# 历史验证记忆：最小证伪结果','',f"退出码：0；成功轮墙钟：{exit_info['wall_seconds']:.2f} 秒；含失败累计 {public['cumulative_wall_seconds']:.2f} 秒。主检验 ISIC；HK 验证覆盖 14/15 类，只作辅助诊断。",'', '首次启动因路径字符串与Path混用，退休拦截未生效，被自检及时停止；保留失败成本并修正，在独立目录重跑，科学协议未改变。' if prior_failures else '', '', '旧测试已经暴露、患者隔离未知；这不是盲测，也不是隐私保证。所有选择器永久排除验证行，未进行选参后全量重拟合。','']
 for n,res in result.items():
     v=res['validation'];lines += [f'## {n}', '',f"停止判断：`{res['decision']}`。完整验证候选 BA 跨度 {v['validation_BA_spread_pp']:.4f} pp；精确矩与直接 MSE 最大误差 {v['quadratic_max_abs_error']:.3g}。",'', '| 选择器 | alpha | 验证 BA % | 选择遗憾 pp | 测试 BA % | 旧类 BA % | 新类 BA % |','|---|---:|---:|---:|---:|---:|---:|']
     for k,a in v['selection'].items():

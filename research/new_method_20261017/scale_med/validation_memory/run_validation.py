@@ -100,7 +100,7 @@ def main(cfg):
             assert len(rr[2])==bc['expected_test_images'][n];del rr
             train,oldval,norm,base,oldinfo,paths,baseheads=birth(case,'S_old')
             first=choose(base);del baseheads
-            retired.update(str(Path(p).resolve()) for p in paths)
+            retired.update(Path(p).resolve() for p in paths)
             caught=False
             try:open(paths[1],'rb')
             except AssertionError:caught=True

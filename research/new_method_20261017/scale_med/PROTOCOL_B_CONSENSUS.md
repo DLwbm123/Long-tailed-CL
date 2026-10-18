@@ -1,0 +1,9 @@
+# Conservative shared-support fusion
+
+Freeze B, both original scales and lambda=0.5. For a=argmax B and every candidate c, let u=(L_c-L_a)/scale_local and v=(D_c-D_a)/scale_local. Score T_c=(B_c-B_a)/scale_B + 0.5 max(0,min(u,v)). Change B only for strictly positive T; exact zero ties retain B. No fitted thresholds, scan, scale refit, category-specific rules, model fitting, image forwards or E/test. This is a single post-hoc diagnostic on reused development queries.
+
+Reuse density and distance score caches; check identical B/labels/scales and exact prior metric reproduction. Verify per-row that any change requires BOTH prior fusions to leave B; verify harm is a subset of their B-harm intersection, globally and old/new. Audit the two prior HK Qgate harms after prediction; never use their identities or labels in the rule. Report rescue retention/loss/additions relative to each prior fusion, BA all/old/new, micro, CE and per-class rescue/harm. Margin diagnostics local refers to distance local, not an independent consensus branch. CE of anchored rectified decision scores is descriptive, not a calibrated probability claim.
+
+Known harm upper bounds from existing outputs are ISIC 4/2 and HK 0/0 for Qfit/Qgate. Count bounds do not guarantee rescue retention or BA improvement. Both-query criterion versus B: overall BA improves on each query and no old/new BA loss exceeds 1 pp. Also report comparisons against both prior fusions. Publish aggregate diagnostics only; per-row scores, labels and indices stay private. Prior cache costs excluded. CPU only, four threads, expected below one minute.
+
+RUN_CONFIG JSON keys: density, distance, output (absolute directories; output must be new), local_lambda=0.5, parameter_scan=false. Use existing environment and this source folder on PYTHONPATH; run check_b_consensus.py before run_b_consensus.py.

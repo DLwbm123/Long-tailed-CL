@@ -40,3 +40,6 @@ Bias与HeadOnly从同一初始head状态开始，独立重置optimizer/排列；
 
 ## 正式缓存路径预检
 head-only缓存核查必须实际走batch32训练像素提取→CPU暂存→原八行取样→连续GPU tensor，再与batch8 fresh的loss/head梯度比较，使用FP32 atol1e-7+rtol1e-5的预先数值门；不能只detach同一GPU tensor。head-only更新前后特征仍要求exact。该门在正式训练前固定，不涉及任何分类风险门或训练超参调整。
+
+## 全窗守卫计费明确
+本轮check_space的17GB软停及20GB硬限均显式包含remote每文件max(logical,allocated)、默认cache全量1,040,384及本地/Git/helper1GB预留；写前reserve也加在该总额上，硬限使用严格小于。父协调和子入口共享同一实现，边界逻辑在合成预检中检查。不将预留当免费空间。

@@ -37,6 +37,8 @@ def build(g,h,q):
  return ts
 
 def selfcheck(cfg):
+ from space import selfcheck as spacecheck
+ spacecheck()
  torch.manual_seed(74163);x=torch.cat([torch.randn(24,8,dtype=torch.float64),torch.ones(24,1,dtype=torch.float64)],1);y=torch.arange(24)%4;q=torch.ones(24,dtype=torch.float64)/6;a=x.T@(x*q[:,None]);b=x.T@(torch.nn.functional.one_hot(y,6).double()*q[:,None]);w,e=fit(a,b,4,.01)
  assert torch.allclose(a,x[:12].T@(x[:12]*q[:12,None])+x[12:].T@(x[12:]*q[12:,None]))
  yy=torch.arange(60)%6;gg=['synthetic'+str(i) for i in range(60)];scores={}

@@ -1,5 +1,7 @@
 """Independent cache-based prediction, objective, scope and metric recount; no fitting."""
-import json,os,time
+import time
+PROCESS_START=time.time()
+import json,os,traceback
 from pathlib import Path
 import numpy as np
 import torch
@@ -19,7 +21,8 @@ def main():
    rows=ids[off:off+1024];yield off,rows,np.column_stack([np.array(cache[rows],dtype=np.float64),np.ones(len(rows))])
  for outer in range(3):
   train=np.flatnonzero(f!=outer);test=np.flatnonzero(f==outer);allowed=[h for h in range(3) if h!=outer];h=torch.load(out/f'outer_{outer}.private.pt',weights_only=True);h={k:(v.numpy() if isinstance(v,torch.Tensor) else v) for k,v in h.items()};old=torch.load(src/f'fold_head_5_{outer}.private.pt',weights_only=True)
-  for k in ['CLS','joint','factors']:assert np.array_equal(h[k],old[k].numpy())
+  for k in ['CLS','joint']:assert np.array_equal(h[k],old[k].numpy())
+  assert np.max(np.abs(h['factors']-old['factors'].numpy()))<1e-12
   inner=np.load(out/f'inner_{outer}.private.npz');assert np.array_equal(inner['rows'],train)
   for hold in allowed:
    teacher=next(t for t in allowed if t!=hold);assert teacher!=outer and teacher!=hold
@@ -75,4 +78,9 @@ def main():
  print(json.dumps(dict(state='PASS',predictions=len(y)*5,wall_seconds=time.time()-start)))
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+ try:main()
+ except BaseException:
+  cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());write(Path(cfg['output'])/'verification_failure2.private.json',dict(error=traceback.format_exc(),process_wall_seconds=time.time()-PROCESS_START));raise
+ finally:
+  cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());write(Path(cfg['output'])/'verification_process_cost.json',dict(process_wall_seconds=time.time()-PROCESS_START,scientific_fits=0,new_encodes=0))

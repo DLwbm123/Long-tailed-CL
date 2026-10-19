@@ -38,13 +38,13 @@ def selfcheck(cfg):
  yy=torch.arange(60)%6;groups=['synthetic'+str(i) for i in range(60)];s={}
  for n in ['G_ridge','P_ridge','C_ridge']+NAMES:
   for st in range(3):s[n,st]=torch.randn(60,st+4)
- r=evaluate(s,yy,groups,NAMES);assert len(r['comparisons']['C_Matched']['vs_ridge'])==4 and not r['method_success'];json.dumps(r,allow_nan=False)
+ r=evaluate(s,yy,groups,NAMES);assert len(r['comparisons']['C_Matched']['vs_ridge'])==4 and not r['method_success'];write(Path(cfg["output"])/"synthetic_failure_case.json",r)
  assert evaluate({},yy,groups,NAMES)['decision']=='UNRESOLVED_MISSING_CELLS'
  # Deliberately strong synthetic candidate exercises success gate and risks.
  for key in s:
   n,st=key;s[key]=torch.zeros(60,st+4)
   if n=='C_Matched':s[key][torch.arange(60)[yy<st+4],yy[yy<st+4]]=1
- r2=evaluate(s,yy,groups,NAMES);assert r2['gates']['C_Matched']['pass_all'];json.dumps(r2,allow_nan=False)
+ r2=evaluate(s,yy,groups,NAMES);assert r2['gates']['C_Matched']['pass_all'];write(Path(cfg["output"])/"synthetic_success_case.json",r2)
  m=model_for(cfg);pixels=torch.load(Path(cfg['prior_replay'])/'original/pixels.private.pt',weights_only=False);vals=[];manual=0.
  with torch.inference_mode(),torch.autocast('cuda',dtype=torch.float16):
   for z in pixels.split(64):

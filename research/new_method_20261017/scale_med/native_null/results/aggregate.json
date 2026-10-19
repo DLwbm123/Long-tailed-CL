@@ -1,0 +1,133 @@
+{
+  "status": "COMPLETE",
+  "source_commit": "9b12cbb",
+  "training_rows": 2555,
+  "class1_query_rows": 20,
+  "class1_query_groups": 16,
+  "core": 1318,
+  "extra": 96,
+  "heads": 24,
+  "fold_audit": [
+    {
+      "fold": 0,
+      "train_rows": 1880,
+      "query_rows": 675,
+      "class1_query_rows": 5,
+      "overlap": 0,
+      "normalization_and_head_train_only": true
+    },
+    {
+      "fold": 1,
+      "train_rows": 1911,
+      "query_rows": 644,
+      "class1_query_rows": 4,
+      "overlap": 0,
+      "normalization_and_head_train_only": true
+    },
+    {
+      "fold": 2,
+      "train_rows": 1956,
+      "query_rows": 599,
+      "class1_query_rows": 5,
+      "overlap": 0,
+      "normalization_and_head_train_only": true
+    },
+    {
+      "fold": 3,
+      "train_rows": 1918,
+      "query_rows": 637,
+      "class1_query_rows": 6,
+      "overlap": 0,
+      "normalization_and_head_train_only": true
+    }
+  ],
+  "summaries": [
+    {
+      "arm": "G_PAD",
+      "class1_group_error_pp": 52.083333333333336,
+      "class1_image_error_pp": 55.00000000000001,
+      "BA_pp": 59.61409156496475
+    },
+    {
+      "arm": "RANGE",
+      "class1_group_error_pp": 33.333333333333336,
+      "class1_image_error_pp": 40.0,
+      "BA_pp": 63.819708897984505
+    },
+    {
+      "arm": "NATIVE",
+      "class1_group_error_pp": 34.375,
+      "class1_image_error_pp": 45.0,
+      "BA_pp": 62.82732427545239
+    },
+    {
+      "arm": "NULL",
+      "class1_group_error_pp": 34.375,
+      "class1_image_error_pp": 45.0,
+      "BA_pp": 62.34970465617611
+    },
+    {
+      "arm": "UNIFORM_NULL",
+      "class1_group_error_pp": 27.083333333333332,
+      "class1_image_error_pp": 30.0,
+      "BA_pp": 66.2054333133905
+    },
+    {
+      "arm": "CLS",
+      "class1_group_error_pp": 30.208333333333332,
+      "class1_image_error_pp": 35.0,
+      "BA_pp": 65.50851168759732
+    }
+  ],
+  "primary": {
+    "G_PAD": {
+      "null_benefit_pp": 17.708333333333332,
+      "CI95_pp": [
+        2.083333333333333,
+        34.375
+      ],
+      "family3_CI_pp": [
+        -2.0833333333333344,
+        37.5
+      ]
+    },
+    "RANGE": {
+      "null_benefit_pp": -1.0416666666666672,
+      "CI95_pp": [
+        -9.375,
+        6.25
+      ],
+      "family3_CI_pp": [
+        -12.5,
+        9.375
+      ]
+    },
+    "NATIVE": {
+      "null_benefit_pp": 0.0,
+      "CI95_pp": [
+        0.0,
+        0.0
+      ],
+      "family3_CI_pp": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "necessary_null_gate": false,
+  "method_success": false,
+  "next_decision": "STOP_NO_NULL_SPECIFIC_EVIDENCE",
+  "numerics": {
+    "W2_gram_eigen_ratio": 0.00026930916975353183,
+    "null_relative_error": 6.09967685256433e-16,
+    "null_range_cross": 7.546047120499111e-16
+  },
+  "planned_max_state_bytes": 18561200,
+  "test_used": false,
+  "permanent_validation_used": false,
+  "patient_isolation": "UNKNOWN",
+  "costs": {
+    "body_wall_seconds": 184.90965345222503,
+    "feature_extraction_seconds": 166.94965877570212
+  }
+}

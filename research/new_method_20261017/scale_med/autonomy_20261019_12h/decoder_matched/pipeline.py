@@ -96,7 +96,7 @@ def main(cfg):
   if stage==0:
    maps=build(g[tr],h[tr],q);torch.save(maps,out/'transforms.private.pt');write(out/'TRANSFORM_SEAL.json',dict(training_rows=2555,rank=128,width={a:WIDTH[a] for a in ARMS},test_used=False,source_commit=cfg['source_commit']))
   for arm in ARMS:
-   x=mapped(g,h,maps[arm]);aa=x[tr].T@(x[tr]*q[:,None]);bb=x[tr].T@(torch.nn.functional.one_hot(y[tr],6).double()*q[:,None]);old=state.get(arm,(torch.zeros_like(aa),torch.zeros_like(bb)));state[arm]=(old[0]+aa,old[1]+bb)
+   x=mapped(g,h,maps[arm]);aa=x[tr].T@(x[tr]*q[:,None]);aa=(aa+aa.T)/2;bb=x[tr].T@(torch.nn.functional.one_hot(y[tr],6).double()*q[:,None]);old=state.get(arm,(torch.zeros_like(aa),torch.zeros_like(bb)));state[arm]=(old[0]+aa,old[1]+bb)
    if arm=='G':
     err=float((x-data['G']).abs().max());assert err<=1e-10;parity[f'G_map.{stage}']=err
    if stage==0 and arm=='G':
@@ -109,6 +109,7 @@ def main(cfg):
    aa,bb=state[arm];assert nbytes(state[arm])+nbytes(maps[arm])+x.shape[1]*6*8+64==planned(arm,WIDTH[arm])<=BUDGET
    # Same dimensions and exact dense matrix; packed persistence only avoids serializer overhead.
    ix=torch.triu_indices(len(aa),len(aa));artifact=dict(A=aa[ix.unbind()].contiguous(),B=bb.contiguous(),W=heads[arm,stage].contiguous(),mapper=maps[arm],PERM=PERM,alpha=alpha,classes=k,source_commit=cfg['source_commit']);fn=out/f'{arm}.{stage}.state.private.pt';torch.save(artifact,fn);sizes[f'{arm}.{stage}']=fn.stat().st_size;assert sizes[f'{arm}.{stage}']<=BUDGET
+   loaded=torch.load(fn,weights_only=False);recovered=torch.zeros_like(aa);recovered[ix.unbind()]=loaded['A'];recovered[(ix[1],ix[0])]=loaded['A'];assert torch.equal(aa,recovered) and torch.equal(loaded['W'],heads[arm,stage]);rw,re=fit(recovered,loaded['B'],k,alpha);assert float((rw-heads[arm,stage]).abs().max())<=1e-10
   checkpoint('stage_retired');del obj,data,g,h,x,y,gg;reject_probe(ref/'inputs'/f'{stage-1}.private.pt') if stage else None
  assert len(fits)==11 and len(heads)==9
  write(out/'MODEL_SEAL.json',dict(heads=9,fit_units=11,test_used=False,source_commit=cfg['source_commit'],alpha=alpha,artifact_bytes=sizes,all_transforms_initial_only=True));sealed=True;stage=3

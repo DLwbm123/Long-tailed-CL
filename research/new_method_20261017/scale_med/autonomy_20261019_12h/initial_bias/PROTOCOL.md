@@ -34,3 +34,6 @@ Bias与HeadOnly从同一初始head状态开始，独立重置optimizer/排列；
 所有运行数据在本窗NFS，直接只读复用decoder_matched的pixels_0..3，禁止再生成/复制3.68GB像素。stage0训练只取~valid行，物理chunk包含验证像素时必须先按原mask筛训练后再进入loss；验证只供后续G选alpha，不选择epoch。当前stage退休后当前learner的逐例输入访问守卫关闭。预计本轮新增<=512MiB（含恢复checkpoint、g临时输出、统计/头/报告及NFS分配余量），写前至少保守预留1GiB；当前全窗约12.55GB，需实际扫描而非估计放行。单文件512MiB/17GB软停/全窗20GB硬限。可重写本轮自己的恢复checkpoint，不得覆盖旧失败/历史资产，不清理旧模型环境来腾空间。
 
 只GPU0，先显存/NFS挂载容量/写读probe，中性主子入口，现场完整ps/GPU核验。新启动硬截止2026-10-20 03:29:18UTC，无时间/CPU/GPU时长上限；到期不新启、不强杀健康任务。成本累计并避免父子/正文重复计算。完成公开源码/协议/全聚合/成本/失败/实质中文报告，push核SHA匿名访问并存DELIVERY；禁逐例/图像/特征/模型/私有路径/日志。
+
+## 参数持久表示（实现前工程明确）
+为避免FP32的“减原值再加回”额外舍入，74个canonical bias存实际FP32 absolute overrides，而非数值差；它们与delta同为102912值/411648bytes，全部计入持久budget。原g按原loader映射，现代h逐key加载同实际值；前向恢复须逐元素一致。这不增加参数、改变训练规则或节省账外模型状态。

@@ -1,0 +1,97 @@
+{
+  "status": "FAILED_FINALIZATION",
+  "source_commit": "b271e83",
+  "next_decision": "STOP_EVIDENCE_INSUFFICIENT_NO_EXTENSION",
+  "method_success": false,
+  "primary_gate": null,
+  "primary_gate_reason": "Group-level predictions and baseline scores were not persisted before finalization failure; no substitute primary metric.",
+  "fit_counts": {
+    "heads": 132,
+    "C_geometry": 36,
+    "P_geometry": 4
+  },
+  "completed_condition_records": 128,
+  "fold_query_coverage": [
+    {
+      "fold": 0,
+      "query_rows": 675,
+      "class1_query_rows": 5
+    },
+    {
+      "fold": 1,
+      "query_rows": 644,
+      "class1_query_rows": 4
+    },
+    {
+      "fold": 2,
+      "query_rows": 599,
+      "class1_query_rows": 5
+    },
+    {
+      "fold": 3,
+      "query_rows": 637,
+      "class1_query_rows": 6
+    }
+  ],
+  "auxiliary_image_error": [
+    {
+      "mapping": "FIXED",
+      "readout": "H0",
+      "class1_image_error_pp": 45.0
+    },
+    {
+      "mapping": "FIXED",
+      "readout": "H1",
+      "class1_image_error_pp": 58.75
+    },
+    {
+      "mapping": "NORM",
+      "readout": "H0",
+      "class1_image_error_pp": 45.0
+    },
+    {
+      "mapping": "NORM",
+      "readout": "H1",
+      "class1_image_error_pp": 58.75
+    },
+    {
+      "mapping": "GEOM",
+      "readout": "H0",
+      "class1_image_error_pp": 45.0
+    },
+    {
+      "mapping": "GEOM",
+      "readout": "H1",
+      "class1_image_error_pp": 57.5
+    },
+    {
+      "mapping": "FULL",
+      "readout": "H0",
+      "class1_image_error_pp": 45.0
+    },
+    {
+      "mapping": "FULL",
+      "readout": "H1",
+      "class1_image_error_pp": 57.5
+    }
+  ],
+  "costs": {
+    "coordinator_wall_seconds": 265.21753764152527,
+    "worker_entry_wall_seconds": 254.23899173736572,
+    "last_checkpoint_body_seconds": 253.66125422157347,
+    "remote_directory_bytes": 47387894,
+    "worker_cpu_seconds": null,
+    "peak_RSS_bytes": null,
+    "peak_GPU_bytes": null,
+    "note": "Times are nested, not additive. Final CPU/RSS/GPU receipt unavailable; last checkpoint passed runtime guards. No budget expansion or retry."
+  },
+  "training_rows": 2555,
+  "class1_query_rows": 20,
+  "class1_known_groups": 16,
+  "test_scored": false,
+  "permanent_validation_fit_or_scored": false,
+  "patient_isolation": "UNKNOWN",
+  "worker_retired": true,
+  "coordinator_retired": true,
+  "retry_count": 0
+}

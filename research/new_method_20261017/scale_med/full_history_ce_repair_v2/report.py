@@ -14,17 +14,18 @@ if r:
  for a in ['G','P','C']:
   for mode in ['ridge','CE']:
    n=a+'_'+mode;m=r['summary'][n]
-   if not all(str(s) in m for s in range(3)):
-    lines.append(f'|{n}|{r["chosen"].get(a)}|未决|未决|未决|未决|未决|未决|未决|');continue
-   vals=[100*m[str(s)]['BA'] for s in range(3)];J=(vals[1]+vals[2])/2
-   row=[n,str(.01 if mode=='ridge' else r['chosen'][a])]+[f'{v:.4f}' for v in vals+[J,100*m['1']['recall'][4],100*m['2']['recall'][4],100*m['2']['recall'][5]]]
+   def metric(stage,key,index=None):
+    if str(stage) not in m:return None
+    value=m[str(stage)][key];return 100*(value if index is None else value[index])
+   vals=[metric(stage,'BA') for stage in range(3)];J=(vals[1]+vals[2])/2 if vals[1] is not None and vals[2] is not None else None
+   row=[n,'0.01' if mode=='ridge' else ('未决' if r['chosen'][a] is None else str(r['chosen'][a]))]+['未决' if v is None else f'{v:.4f}' for v in vals+[J,metric(1,'recall',4),metric(2,'recall',4),metric(2,'recall',5)]]
    lines.append('| '+' | '.join(row)+' |')
  lines+=['','|CE臂减ridge控制|J差pp|95%区间|9项调整区间|','|---|---:|---|---|']
  for a,v in r['comparisons'].items():
   for b,z in v['vs_ridge'].items():lines.append(f"|{a}_CE−{b}_ridge|{z['J_gain_pp']:+.4f}|{z['CI95_pp']}|{z['CI9_adjusted_pp']}|")
- lines+=['','## 优化认证','', '|臂|阶段|lambda|状态|原坐标梯度max|目标|closure次数|wall秒|','|---|---:|---:|---|---:|---:|---:|---:|']
- for f in r['fits']:lines.append(f"|{f['arm']}|{f['stage']}|{f['lambda_value']}|{f['status']}|{f['gradient_max_abs']:.3e}|{f['final_objective']:.8f}|{f['closure_evaluations']}|{f['wall_seconds']:.2f}|")
- lines+=['','## 逐类风险','', '|臂|阶段|图像召回%按类顺序|组等权BA%|','|---|---:|---|---:|']
+ lines+=['','## 优化认证','', '|臂|阶段|lambda|复用|状态|停止分支|原坐标梯度max|目标|closure次数|wall秒|','|---|---:|---:|---|---|---|---:|---:|---:|---:|']
+ for f in r['fits']:lines.append(f"|{f['arm']}|{f['stage']}|{f['lambda_value']}|{f.get('reused',False)}|{f['status']}|{f['stop_reason']}|{f['gradient_max_abs']:.3e}|{f['final_objective']:.8f}|{f['closure_evaluations']}|{f['wall_seconds']:.2f}|")
+ lines+=['','复用行的优化次数和原认证梯度继承旧回执，wall为本轮复核时间；不算本轮重新拟合。主J比较缺失时不生成区间，不将缺失当零收益。','', '## 逐类风险','', '|臂|阶段|图像召回%按类顺序|组等权BA%|','|---|---:|---|---:|']
  for n,ms in r['summary'].items():
   for st,m in ms.items():lines.append(f"|{n}|{st}|{[round(v*100,4) for v in m['recall']]}|{100*m['group_equal_BA']:.4f}|")
  lines+=['','## 预设门','']+[f'- {a}: {v}' for a,v in r['gates'].items()]

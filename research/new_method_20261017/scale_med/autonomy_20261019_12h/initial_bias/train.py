@@ -55,8 +55,16 @@ def main(cfg):
  for p in heads:p.requires_grad_(True)
  initial_heads=[p.detach().clone() for p in heads];initial_bias={k:params[k].detach().clone() for k in bkeys}
  if mode=='TRAIN_PREFLIGHT':
-  pick=torch.cat([torch.where(yy==c)[0][:2] for c in range(4)]);x=pixels[pick].cuda();y=yy[pick].cuda();w=q[pick].cuda();o=raw(m,pointwise,x);z=[o[k].detach() for k in ['pre_logits','pre_logits_few']];baseline=torch.nn.functional.normalize(torch.cat(z,1),dim=1);fresh=loss(o,y,w,2555);gr=torch.autograd.grad(fresh,heads)
-  co=dict(logits=m.net.backbone.head(z[0]),logits_few=m.net.backbone.head_few(z[1]));cached=loss(co,y,w,2555);cg=torch.autograd.grad(cached,heads);err=max(float((a-b).abs().max()) for a,b in zip(gr,cg));assert err<=1e-7 and float(abs(fresh-cached))<=1e-7
+  pick=torch.cat([torch.where(yy==c)[0][:2] for c in range(4)]);x=pixels[pick].cuda();y=yy[pick].cuda();w=q[pick].cuda();o=raw(m,pointwise,x);baseline=torch.nn.functional.normalize(torch.cat([o['pre_logits'].detach(),o['pre_logits_few'].detach()],1),dim=1)
+  cache=[torch.empty(8,768),torch.empty(8,768)]
+  with torch.no_grad():
+   for first in sorted({int(i)//32*32 for i in pick}):
+    oo=raw(m,pointwise,pixels[first:first+32].cuda())
+    for j,i in enumerate(pick.tolist()):
+     if first<=i<first+32:
+      for t,key in enumerate(['pre_logits','pre_logits_few']):cache[t][j]=oo[key][i-first].cpu()
+  z=[v.contiguous().cuda() for v in cache];fresh=loss(o,y,w,2555);gr=torch.autograd.grad(fresh,heads);co=dict(logits=m.net.backbone.head(z[0]),logits_few=m.net.backbone.head_few(z[1]));cached=loss(co,y,w,2555);cg=torch.autograd.grad(cached,heads);err=max(float((a-b).abs().max()) for a,b in zip(gr,cg))
+  assert all(torch.allclose(a,b,atol=1e-7,rtol=1e-5) for a,b in zip(gr,cg)) and torch.allclose(fresh,cached,atol=1e-7,rtol=1e-5)
   optimizer=opt(heads);optimizer.zero_grad();loss(raw(m,pointwise,x),y,w,2555).backward();optimizer.step();after=raw(m,pointwise,x);g=torch.nn.functional.normalize(torch.cat([after['pre_logits'],after['pre_logits_few']],1),dim=1);assert torch.equal(g,baseline)
   with torch.no_grad():
    for p,v in zip(heads,initial_heads):p.copy_(v)
@@ -66,7 +74,7 @@ def main(cfg):
   # q-weighted uniform batch mean equals full objective in expectation; check exhaustive singleton average.
   v=torch.arange(1,9,dtype=torch.float32);toyq=torch.ones(8)/2;assert torch.allclose(torch.stack([(8/4)*(toyq[i:i+1]*v[i:i+1]).mean() for i in range(8)]).mean(),(toyq*v).sum()/4)
   torch.save(dict(bias_overrides=overrides),out/'preflight_encoder.private.pt')
-  write(out/'aggregate.json',dict(pass_all=True,head_only_features_exact=True,head_cached_gradient_error=err,actual_bias_step_finite=True,canonical_override_roundtrip=True,weighted_loss_rule=True,training_rows=8,discarded_preflight_model=True,not_formal_training=True));return
+  write(out/'aggregate.json',dict(pass_all=True,head_only_features_exact=True,head_cached_gradient_error=err,actual_batch32_CPU_batch8_cache_test=True,actual_bias_step_finite=True,canonical_override_roundtrip=True,weighted_loss_rule=True,training_rows=8,discarded_preflight_model=True,not_formal_training=True));return
  assert mode=='TRAIN';assert json.loads(Path(cfg['preflight_training']).read_text())['pass_all'];logs=[];n=len(yy)
  # HeadOnly exact cache: these two pre_logits do not depend on the temporary heads.
  vals=[[],[]]

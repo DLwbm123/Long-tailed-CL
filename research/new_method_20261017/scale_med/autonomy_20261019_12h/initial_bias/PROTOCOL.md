@@ -37,3 +37,6 @@ Bias与HeadOnly从同一初始head状态开始，独立重置optimizer/排列；
 
 ## 参数持久表示（实现前工程明确）
 为避免FP32的“减原值再加回”额外舍入，74个canonical bias存实际FP32 absolute overrides，而非数值差；它们与delta同为102912值/411648bytes，全部计入持久budget。原g按原loader映射，现代h逐key加载同实际值；前向恢复须逐元素一致。这不增加参数、改变训练规则或节省账外模型状态。
+
+## 正式缓存路径预检
+head-only缓存核查必须实际走batch32训练像素提取→CPU暂存→原八行取样→连续GPU tensor，再与batch8 fresh的loss/head梯度比较，使用FP32 atol1e-7+rtol1e-5的预先数值门；不能只detach同一GPU tensor。head-only更新前后特征仍要求exact。该门在正式训练前固定，不涉及任何分类风险门或训练超参调整。

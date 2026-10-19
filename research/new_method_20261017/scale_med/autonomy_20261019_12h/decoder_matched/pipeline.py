@@ -32,6 +32,11 @@ def build(g,h,q):
  return ts
 
 def selfcheck(cfg):
+ env=os.environ.copy();env['READ_STAGE']='-1';env['CUDA_VISIBLE_DEVICES']=''
+ log=(Path(cfg['output'])/'reader_probe.private.log').open('w')
+ p=subprocess.run([cfg['reader_python'],cfg['reader_entry']],env=env,stdout=log,stderr=subprocess.STDOUT);log.close();assert p.returncode==0
+ probe=Path(cfg['output'])/'pixels_-1';assert json.loads((probe/'EXIT.json').read_text())['exit_code']==0
+ assert torch.equal(torch.load(probe/'bridge.private.pt',weights_only=False),torch.arange(12,dtype=torch.float32).reshape(3,4))
  torch.manual_seed(74159);x=torch.randn(32,9,dtype=torch.float64);x=torch.cat([x,torch.ones(32,1,dtype=torch.float64)],1);y=torch.arange(32)%4;q=torch.ones(32,dtype=torch.float64)/8;a=x.T@(x*q[:,None]);b=x.T@(torch.nn.functional.one_hot(y,6).double()*q[:,None]);w,err=fit(a,b,4,.01);assert torch.allclose(a,x[:16].T@(x[:16]*q[:16,None])+x[16:].T@(x[16:]*q[16:,None]))
  # Lossless storage doesn't change coordinates, penalties, solve or predictions.
  ix=torch.triu_indices(len(a),len(a));v=a[ix.unbind()];aa=torch.zeros_like(a);aa[ix.unbind()]=v;aa[(ix[1],ix[0])]=v;assert torch.equal(a,aa);assert torch.allclose(fit(aa,b,4,.01)[0],w)
@@ -51,7 +56,7 @@ def selfcheck(cfg):
    h=block6(m,z.cuda());capture=[];hook=m.blocks[5].register_forward_hook(lambda mod,args,out:capture.append(out[:,0].float()));m.forward_features(z.cuda());hook.remove();manual=max(manual,float((h-capture[0]).abs().max()));vals.append(h.cpu())
   repeated=block6(m,pixels.cuda()).cpu()
  assert manual<1e-5 and torch.equal(torch.cat(vals),repeated)
- return dict(pass_all=True,original_W_residual=err,incremental_statistics=True,packed_dense_identical=True,three_arm_four_contrast_JSON=True,synthetic_success_failure_missing=True,same_pixels_same_modern_FP16_exact=True,manual_hook_error=manual,encoder_runtime_is_fixed=True)
+ return dict(pass_all=True,original_W_residual=err,incremental_statistics=True,packed_dense_identical=True,three_arm_four_contrast_JSON=True,synthetic_success_failure_missing=True,same_pixels_same_modern_FP16_exact=True,manual_hook_error=manual,encoder_runtime_is_fixed=True,qualified_reader_subprocess_Tensor_bridge=True)
 
 def main(cfg):
  out=Path(cfg['output']);start=time.monotonic()

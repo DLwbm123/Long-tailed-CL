@@ -8,7 +8,10 @@ cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());stage=int(os.environ[
 def write(n,v):(out/n).write_text(json.dumps(v,indent=2,allow_nan=False))
 code=1;start=time.monotonic()
 try:
- torch.set_num_threads(2);signature=require_canonical_reader();bc=json.loads(Path(cfg['benchmark_config']).read_text());ref=Path(cfg['reference']).resolve();testroot=Path(bc['output']).resolve();legacy=Path(bc['legacy_source']);sys.path.insert(0,str(legacy/'tools'))
+ torch.set_num_threads(2);signature=require_canonical_reader()
+ if stage==-1:
+  torch.save(torch.arange(12,dtype=torch.float32).reshape(3,4),out/'bridge.private.pt');write('PROBE.json',dict(pass_all=True,torch=torch.__version__,signature=signature));write('EXIT.json',dict(exit_code=0,CPU_seconds=resource.getrusage(resource.RUSAGE_SELF).ru_utime+resource.getrusage(resource.RUSAGE_SELF).ru_stime,wall_seconds=time.monotonic()-start));raise SystemExit(0)
+ bc=json.loads(Path(cfg['benchmark_config']).read_text());ref=Path(cfg['reference']).resolve();testroot=Path(bc['output']).resolve();legacy=Path(bc['legacy_source']);sys.path.insert(0,str(legacy/'tools'))
  from run_prototype_single import Images
  from run_medical_v2 import transform
  if stage==3:
@@ -28,6 +31,8 @@ try:
   x=torch.stack([ds[i][0] for i in range(first,first+count)]);assert x.shape==(count,3,224,224) and torch.isfinite(x).all()
   fn=out/f'{first:05d}.private.pt';torch.save(x,fn);chunks.append(dict(first=first,rows=count,file=fn.name));assert fn.stat().st_size<512*2**20
  write('INDEX.json',dict(stage=stage,rows=len(rr),chunks=chunks,signature=signature,reader_only=True));code=0
+except SystemExit as e:
+ code=int(e.code)
 except BaseException as e:
  write('FAILURE.json',dict(error=type(e).__name__));(out/'FAILURE.private.txt').write_text(traceback.format_exc())
 finally:

@@ -1,0 +1,120 @@
+{
+  "audit_date": "2026-10-19",
+  "audit_type": "metadata_and_existing_aggregate_only",
+  "new_model_fits": 0,
+  "new_forwards": 0,
+  "new_prediction_scoring": 0,
+  "image_reads": 0,
+  "feature_or_model_payload_reads": 0,
+  "new_hashes": 0,
+  "official_training": {
+    "images": 25331,
+    "diagnosis_counts": {
+      "NV": 12875,
+      "MEL": 4522,
+      "BKL": 2624,
+      "DF": 239,
+      "SCC": 628,
+      "BCC": 3323,
+      "VASC": 253,
+      "AK": 867
+    },
+    "historical_dispositions_rows": 24645,
+    "image_id_matches": 24645,
+    "outside_old_dispositions": 686,
+    "outside_diagnoses": {
+      "BKL": 686
+    },
+    "DF_all_accounted": true,
+    "DF_retained": {
+      "images": 151,
+      "known_groups": 113
+    },
+    "DF_excluded": {
+      "images": 88,
+      "known_groups": 56,
+      "all56_groups_overlap_retained": true
+    }
+  },
+  "canonical_current6": {
+    "train_images": 6883,
+    "val_images": 211,
+    "internal_test_images": 586,
+    "class1_original_label": 7,
+    "class1_diagnosis": "DF",
+    "class1_train": {
+      "images": 27,
+      "groups": 23
+    },
+    "class1_val": {
+      "images": 24,
+      "groups": 20
+    },
+    "class1_internal_test": {
+      "images": 100,
+      "groups": 70
+    },
+    "unassigned_within_canonical_train_val": 0,
+    "unassigned_basis": "prior metadata partition audit; current source totals reconfirmed"
+  },
+  "new_candidate_metadata": [
+    {
+      "name": "ISIC2019_official_test",
+      "images": 8238,
+      "DF_images": 91,
+      "all_image_ID_overlap_old_dispositions": 0,
+      "DF_image_ID_overlap": 0,
+      "initial4_eligible_images": 1957,
+      "six_class_eligible_images": 3036,
+      "test_metadata_columns": [
+        "image",
+        "age_approx",
+        "anatom_site_general",
+        "sex"
+      ],
+      "patient_lesion_independence": "NOT_CERTIFIED",
+      "project_global_exposure": "NOT_CERTIFIED; no matching files found in bounded known-root filename search or current local source text",
+      "status": "PRIORITY_CANDIDATE_NOT_EVALUATION_READY",
+      "source": "https://isic-archive.s3.amazonaws.com/challenges/2019/ISIC_2019_Test_GroundTruth.csv"
+    },
+    {
+      "name": "ISIC2018_official_test",
+      "images": 1512,
+      "DF_images": 44,
+      "all_image_ID_overlap_old_dispositions": 0,
+      "all1512_inside_official2019_test": true,
+      "all44DF_inside_official2019_test": true,
+      "SCC_class_missing": true,
+      "status": "NOT_SECOND_INDEPENDENT_REPLICATION; nested candidate",
+      "source": "https://isic-archive.s3.amazonaws.com/challenges/2018/ISIC2018_Task3_Test_GroundTruth.zip"
+    },
+    {
+      "name": "MILK10k_training_groundtruth",
+      "lesions": 5240,
+      "DF_lesions": 52,
+      "identifier_namespace": "lesion_id; cannot compare directly to historical image IDs",
+      "patient_lesion_overlap": "UNKNOWN; 0 mixed-namespace intersection not accepted",
+      "SCCKA_AKIEC_semantics_require_review": true,
+      "status": "RESERVE_ONLY; not qualified",
+      "source": "https://isic-archive.s3.amazonaws.com/challenges/milk10k/MILK10k_Training_GroundTruth.csv"
+    }
+  ],
+  "frozen_historical_asset_presence": {
+    "transforms": true,
+    "stage0_heads": true,
+    "stage1_heads": true,
+    "stage2_heads": true,
+    "transform_seal": true,
+    "model_seal": true,
+    "complete_predictor_reconstruction": "not executed; encoder/checkpoint/adapter initialization/preprocessing binding must be preserved"
+  },
+  "decisions": {
+    "same16group_mechanism_extension": "STOP",
+    "stable_C_class1_defect": "NOT_ESTABLISHED",
+    "original_paper_method_success": "NOT_ESTABLISHED",
+    "official2019_candidate_qualification": "CONTINUE_NON_SCORING_QUALIFICATION_ONLY",
+    "new_evaluation_now": "NO_GO; not authorized and independence/exposure qualification incomplete",
+    "entire_project_stop": "NO; candidate public query evidence exists"
+  },
+  "inventory_scope": "current local protocols/aggregates, named remote canonical/disposition manifests, frozen asset presence, bounded maxdepth5 known-root metadata filename search, official public labels/metadata. No exhaustive cross-server history or image-content deduplication."
+}

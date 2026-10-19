@@ -78,7 +78,7 @@ def main(cfg):
  write(root/'costs.json',costs)
  assert sum(p.stat().st_size for p in root.iterdir() if p.is_file())<cfg['output_budget_bytes']
  with (root/'summary.csv').open('w',newline='') as f:
-  w=csv.writer(f);w.writerow(['stage','arm','BA','old_BA','new_BA'])
+  w=csv.writer(f,lineterminator="\n");w.writerow(['stage','arm','BA','old_BA','new_BA'])
   for r in results:
    for arm,m in r['metrics'].items():w.writerow([r['stage'],arm,m['macro'],m['old_macro'],m['new_macro']])
  write(root/'status.private.json',dict(state='COMPLETE',finished=time.time(),started=start,costs=costs))

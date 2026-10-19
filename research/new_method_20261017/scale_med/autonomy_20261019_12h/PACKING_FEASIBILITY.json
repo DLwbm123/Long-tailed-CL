@@ -1,0 +1,35 @@
+{
+  "original_cap_bytes": 19058800,
+  "scope": "static formula only; not measured deployment artifact",
+  "baseline_formula": "core_depth.planned with only n*n -> n*(n+1)//2; includes full1536x128 V for conservative C",
+  "arms": {
+    "G": {
+      "global_coordinates": 1536,
+      "extra_coordinates": 0,
+      "dense_logical_bytes": 19071160,
+      "packed_logical_bytes": 9627832,
+      "under_original_cap": true,
+      "packed_with_extra_metadata_reserve_bytes": 9693368,
+      "conservative_plan_under_original_cap": true
+    },
+    "P": {
+      "global_coordinates": 1536,
+      "extra_coordinates": 128,
+      "dense_logical_bytes": 23155904,
+      "packed_logical_bytes": 12073664,
+      "under_original_cap": true,
+      "packed_with_extra_metadata_reserve_bytes": 12139200,
+      "conservative_plan_under_original_cap": true
+    },
+    "C": {
+      "global_coordinates": 1536,
+      "extra_coordinates": 128,
+      "dense_logical_bytes": 24728768,
+      "packed_logical_bytes": 13646528,
+      "under_original_cap": true,
+      "packed_with_extra_metadata_reserve_bytes": 13712064,
+      "conservative_plan_under_original_cap": true
+    }
+  },
+  "additional_metadata_reserve_bytes": 65536
+}

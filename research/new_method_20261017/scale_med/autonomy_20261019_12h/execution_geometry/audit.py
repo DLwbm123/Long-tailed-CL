@@ -6,7 +6,7 @@ import torch
 def unit(x):return torch.nn.functional.normalize(x,dim=1)
 def compare(a,b):
  assert a.shape==b.shape and torch.isfinite(a).all() and torch.isfinite(b).all();d=(a-b).abs();l=(unit(a)-unit(b)).norm(dim=1)
- return dict(max_abs=float(d.max()),mean_unit_L2=float(l.mean()),max_unit_L2=float(l.max()),rows_above1e4=int((l>1e-4).sum()))
+ return dict(max_abs=float(d.max()),mean_unit_L2=float(l.mean()),max_unit_L2=float(l.max()),rows_above_1e_minus4=int((l>1e-4).sum()))
 def main(cfg):
  out=Path(cfg['output']);start=time.monotonic();torch.set_num_threads(4);base=Path(cfg['prior_replay']);ref=Path(cfg['reference']).resolve();bc=json.loads(Path(cfg['benchmark_config']).read_text());root=Path(bc['datasets']['ISIC']['development_images']).resolve();testroot=Path(bc['output']).resolve();allowed=set()
  def write(n,v):(out/n).write_text(json.dumps(v,indent=2,allow_nan=False))
@@ -43,7 +43,7 @@ def main(cfg):
   outputs[name]=torch.cat(vals)
   if amp:outputs[name+'_FP16']=torch.cat(half)
   torch.save(outputs,out/'outputs.private.pt');write('status.json',dict(state='RUNNING',completed_schedules=list(outputs)))
- prior=torch.load(base/'modern/outputs.private.pt',map_location='cpu',weights_only=False)['bare'];u=unit(g[:,:768]);comp={name+'_vs_cache':compare(v,u) for name,v in outputs.items()};comp.update(no_grad32_vs_prior32=compare(outputs['NO_GRAD32'],prior),context32=compare(outputs['INFERENCE32'],outputs['NO_GRAD32']),batch16_vs32=compare(outputs['INFERENCE16'],outputs['INFERENCE32']),AMP_schedule_FP32=compare(outputs['INTERLEAVED16'],outputs['INFERENCE16']))
+ prior=torch.load(base/'modern/outputs.private.pt',map_location='cpu',weights_only=False)['bare'];u=unit(g[:,:768]);comp={name+'_vs_cache':compare(unit(v),u) for name,v in outputs.items()};comp.update(no_grad32_vs_prior32=compare(outputs['NO_GRAD32'],prior),context32=compare(outputs['INFERENCE32'],outputs['NO_GRAD32']),batch16_vs32=compare(outputs['INFERENCE16'],outputs['INFERENCE32']),AMP_schedule_FP32=compare(outputs['INTERLEAVED16'],outputs['INFERENCE16']))
  decisions=[]
  if not pixel['exact']:decisions.append('DECODE_TENSOR_DIFFERENCE')
  for label in ['context32','batch16_vs32','AMP_schedule_FP32']:

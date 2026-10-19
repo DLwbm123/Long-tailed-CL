@@ -1,0 +1,87 @@
+{
+  "source_commit": "3c0b069335e4be56938c6c990ae819667eed82b6",
+  "decision": "DECODE_TENSOR_DIFFERENCE",
+  "pixels": {
+    "exact": false,
+    "max_abs": 0.08627450466156006,
+    "different_rows": 3
+  },
+  "comparisons": {
+    "NO_GRAD32_vs_cache": {
+      "max_abs": 1.0883400045069713e-06,
+      "mean_unit_L2": 1.9488539155290863e-06,
+      "max_unit_L2": 5.038834576936756e-06,
+      "rows_above_1e_minus4": 0
+    },
+    "INFERENCE32_vs_cache": {
+      "max_abs": 1.0883400045069713e-06,
+      "mean_unit_L2": 1.9488539155290863e-06,
+      "max_unit_L2": 5.038834576936756e-06,
+      "rows_above_1e_minus4": 0
+    },
+    "INFERENCE16_vs_cache": {
+      "max_abs": 1.0883400045069713e-06,
+      "mean_unit_L2": 1.9488539155290863e-06,
+      "max_unit_L2": 5.038834576936756e-06,
+      "rows_above_1e_minus4": 0
+    },
+    "INTERLEAVED16_vs_cache": {
+      "max_abs": 1.0883400045069713e-06,
+      "mean_unit_L2": 1.9488539155290863e-06,
+      "max_unit_L2": 5.038834576936756e-06,
+      "rows_above_1e_minus4": 0
+    },
+    "INTERLEAVED16_FP16_vs_cache": {
+      "max_abs": 0.0006887237243943757,
+      "mean_unit_L2": 0.001608891267505594,
+      "max_unit_L2": 0.0032778002805776618,
+      "rows_above_1e_minus4": 64
+    },
+    "no_grad32_vs_prior32": {
+      "max_abs": 0.0,
+      "mean_unit_L2": 0.0,
+      "max_unit_L2": 0.0,
+      "rows_above_1e_minus4": 0
+    },
+    "context32": {
+      "max_abs": 0.0,
+      "mean_unit_L2": 0.0,
+      "max_unit_L2": 0.0,
+      "rows_above_1e_minus4": 0
+    },
+    "batch16_vs32": {
+      "max_abs": 0.0,
+      "mean_unit_L2": 0.0,
+      "max_unit_L2": 0.0,
+      "rows_above_1e_minus4": 0
+    },
+    "AMP_schedule_FP32": {
+      "max_abs": 0.0,
+      "mean_unit_L2": 0.0,
+      "max_unit_L2": 0.0,
+      "rows_above_1e_minus4": 0
+    }
+  },
+  "training_images": 64,
+  "validation_images": 0,
+  "test_images": 0,
+  "classification_fits": 0,
+  "classification_scores": 0,
+  "forward_image_instances": 320,
+  "schedules": [
+    "NO_GRAD32",
+    "INFERENCE32",
+    "INFERENCE16",
+    "INTERLEAVED16"
+  ],
+  "tolerance": 0.0001,
+  "no_tolerance_selection": true,
+  "prior_norm_audit_gate_unchanged": true,
+  "synthetic_comparison_pass": true,
+  "access_guard_probes_pass": true,
+  "method_success": false,
+  "torch_version": "2.6.0+cu124",
+  "peak_GPU_allocated_bytes": 585022464,
+  "body_wall_seconds": 16.423370585776865,
+  "body_CPU_seconds": 34.019707
+}

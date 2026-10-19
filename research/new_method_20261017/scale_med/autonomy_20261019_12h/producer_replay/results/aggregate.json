@@ -1,0 +1,80 @@
+{
+  "source_commit": "e8e18c3ae22d61853f4f5ff9e020ffca8bbabea5",
+  "decision": "HISTORICAL_CACHE_REPLAY_PASS_PRIOR_DIFFERENCE_STILL_UNRESOLVED",
+  "comparison": 0,
+  "classification_fits": 0,
+  "classification_scores": 0,
+  "test_images": 0,
+  "validation_images": 0,
+  "comparisons": {
+    "original_APART_vs_cached": {
+      "rows": 64,
+      "max_abs": 1.3877787807814457e-16,
+      "mean_L2": 3.4360627717621673e-16,
+      "max_L2": 6.705598231124743e-16
+    },
+    "original_bare_vs_cached_direction": {
+      "rows": 64,
+      "max_abs": 1.0883400045069713e-06,
+      "mean_L2": 1.9488539155291786e-06,
+      "max_L2": 5.03883457693858e-06
+    },
+    "modern_bare_vs_cached_direction": {
+      "rows": 64,
+      "max_abs": 1.0883400045069713e-06,
+      "mean_L2": 1.9488539155291786e-06,
+      "max_L2": 5.03883457693858e-06
+    },
+    "modern_vs_original_bare_direction": {
+      "rows": 64,
+      "max_abs": 0.0,
+      "mean_L2": 0.0,
+      "max_L2": 0.0
+    },
+    "original_APART_vs_original_bare_direction": {
+      "rows": 64,
+      "max_abs": 1.0883400045069713e-06,
+      "mean_L2": 1.948853915529227e-06,
+      "max_L2": 5.038834576943092e-06
+    }
+  },
+  "versions": {
+    "original": {
+      "source_commit": "e8e18c3ae22d61853f4f5ff9e020ffca8bbabea5",
+      "python": "3.10.4",
+      "torch": "2.1.2+cu121",
+      "torchvision": "0.16.2+cu121",
+      "timm": "1.0.15",
+      "Pillow": "10.4.0",
+      "matmul_tf32": false,
+      "cudnn_tf32": true,
+      "batch_size": 32,
+      "rows": 64,
+      "peak_GPU_allocated_bytes": 1017668608,
+      "worker_body_wall_seconds": 46.082940137945116,
+      "worker_CPU_seconds": 40.267127,
+      "training_only": true
+    },
+    "modern": {
+      "source_commit": "e8e18c3ae22d61853f4f5ff9e020ffca8bbabea5",
+      "python": "3.12.7",
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "timm": "1.0.15",
+      "Pillow": "10.4.0",
+      "matmul_tf32": false,
+      "cudnn_tf32": true,
+      "batch_size": 32,
+      "rows": 64,
+      "peak_GPU_allocated_bytes": 585022464,
+      "worker_body_wall_seconds": 13.378188444301486,
+      "worker_CPU_seconds": 17.14433,
+      "training_only": true
+    }
+  },
+  "same_decoded_pixels": true,
+  "original_cache_tolerance": 1e-05,
+  "prior_norm_audit_gate_unchanged": true,
+  "feature_forward_image_instances": 192,
+  "method_success": false
+}

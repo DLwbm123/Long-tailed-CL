@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "records_recounted": 162,
+  "max_metric_error": 3.3306690738754696e-16,
+  "risk_recount_method": "mean((score-onehot)^2)-mean(score-onehot)^2",
+  "weights_recount_method": "per-class np.unique patient multiplicities",
+  "existing_validation_BA_and_OOF_risk_preserved": true,
+  "protected_OOF_correct_subsets": [
+    {
+      "stage": 0,
+      "CLS_correct_images": 12190,
+      "protected_CLS_correct_images": 12190,
+      "protected_images_harmed": 33,
+      "unprotected_CLS_correct_images": 0,
+      "unprotected_images_harmed": 0
+    },
+    {
+      "stage": 1,
+      "CLS_correct_images": 11078,
+      "protected_CLS_correct_images": 11078,
+      "protected_images_harmed": 130,
+      "unprotected_CLS_correct_images": 0,
+      "unprotected_images_harmed": 0
+    },
+    {
+      "stage": 2,
+      "CLS_correct_images": 9827,
+      "protected_CLS_correct_images": 9827,
+      "protected_images_harmed": 0,
+      "unprotected_CLS_correct_images": 0,
+      "unprotected_images_harmed": 0
+    },
+    {
+      "stage": 3,
+      "CLS_correct_images": 9415,
+      "protected_CLS_correct_images": 9414,
+      "protected_images_harmed": 0,
+      "unprotected_CLS_correct_images": 1,
+      "unprotected_images_harmed": 0
+    },
+    {
+      "stage": 4,
+      "CLS_correct_images": 8103,
+      "protected_CLS_correct_images": 8102,
+      "protected_images_harmed": 497,
+      "unprotected_CLS_correct_images": 1,
+      "unprotected_images_harmed": 0
+    },
+    {
+      "stage": 5,
+      "CLS_correct_images": 6918,
+      "protected_CLS_correct_images": 6916,
+      "protected_images_harmed": 517,
+      "unprotected_CLS_correct_images": 2,
+      "unprotected_images_harmed": 0
+    }
+  ],
+  "no_training_no_solver_no_encodes": true,
+  "wall_seconds": 3.400794506072998
+}

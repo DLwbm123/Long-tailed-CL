@@ -42,6 +42,10 @@ def main():
  for f,row in zip([None,0,1,2],results):
   mask=np.ones(len(y),dtype=bool) if f is None else fold==f;scores={k:v[mask] for k,v in ss.items()};mm={k:metrics(v,y[mask],g[mask],cfg['order'],cfg['frequency_bins']) for k,v in scores.items()};cs,gs=contrasts(scores,y[mask],g[mask]);metricerr=max(metricerr,close(mm,row['metrics']),close(cs,row['contrasts']),close(gs,row['groups']))
   for arm,v in scores.items():bw=1/(20*np.bincount(y[mask],minlength=20)[y[mask]]);assert abs(float(bw@(v.argmax(1)==y[mask]))-row['metrics'][arm]['BA'])<1e-12
+ bw=1/(20*np.bincount(y,minlength=20)[y]);pw=weights(y,g);pw/=pw.sum();cls_correct=ss['cls768_ridge'].argmax(1)==y;harm_summary={}
+ for arm,score in ss.items():
+  ok=score.argmax(1)==y;harm=cls_correct&~ok;rescue=~cls_correct&ok;harm_summary[arm]=dict(harm=int(harm.sum()),rescue=int(rescue.sum()),BA_harm=float(bw@harm),BA_rescue=float(bw@rescue),PP_harm=float(pw@harm),PP_rescue=float(pw@rescue))
+ write(out/'WEIGHTED_HARM.json',harm_summary)
  c=json.loads((out/'costs.json').read_text());assert c['new_encodes']==0 and c['new_ridge_heads']==0 and c['correction_completed']==6 and c['correction_attempts']==6;size=sum(p.stat().st_size for rr in [out.parent,*map(Path,cfg['prior_roots'])] for p in rr.rglob('*') if p.is_file());assert size<cfg['new_storage_cap_bytes']-100000000
  write(out/'VERIFICATION.json',dict(state='PASS',new_predictions_recounted=len(y)*2,metric_records_recounted=36,max_score_error=scoreerr,max_objective_error=objerr,max_projected_gradient_error=graderr,max_diagnostic_error=diagnosticerr,max_metric_error=metricerr,original_coordinate_penalty_preserved=True,training_only_subspace_geometry_verified=True,fixed_competitor_decomposition_verified=True,model_seal_verified=True,new_fits=0,new_encodes=0,objectives=records,combined_remote_bytes=size,process_wall_seconds=time.time()-START));print('PASS',flush=True)
 

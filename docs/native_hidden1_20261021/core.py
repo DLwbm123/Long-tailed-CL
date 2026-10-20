@@ -63,3 +63,33 @@ class NativeCapture:
         for handle in self.handles:
             handle.remove()
         self.values.clear()
+
+
+def self_check(df):
+    base = []
+    for mu in [torch.tensor([0., 1., 0., 2.]), torch.tensor([2., 1., 2., 2.])]:
+        g = torch.zeros(9, 9, dtype=torch.float64)
+        g[-1, -1] = 1
+        g[4:8, -1] = mu; g[-1, 4:8] = mu
+        g[range(4, 8), range(4, 8)] = mu.double().square() + torch.tensor([1., 0., 1., 1.])
+        base.append(g)
+    selected = choose_hidden(base, 2, 2, 4, 2)
+    assert selected.tolist() == [4, 6]
+    indices = feature_indices(selected, 2, 2, 4)['native_pre']
+    x = torch.arange(54, dtype=torch.float64).reshape(6, 9)/100
+    assert torch.allclose((x.T@x)[indices][:, indices], x[:, indices].T@x[:, indices], atol=1e-12, rtol=0)
+    values = df.spectrum(x.T@x)
+    alpha = df.match_alpha(values, df.degrees(values, 1.))
+    assert abs(alpha-1.) < 1e-7
+    direct = torch.trace(torch.linalg.solve(x.T@x+torch.eye(9,dtype=torch.float64), x.T@x))
+    assert abs(float(direct)-df.degrees(values,1.)) < 1e-9
+    base[0][4,4] -= 1.
+    base[1][4,4] -= 1.
+    assert choose_hidden(base,2,2,4,1).tolist() == [4]
+    base[0][4,4] -= .01
+    try:
+        choose_hidden(base,2,2,4,1)
+    except AssertionError:
+        pass
+    else:
+        raise AssertionError('Invalid negative variance was accepted')

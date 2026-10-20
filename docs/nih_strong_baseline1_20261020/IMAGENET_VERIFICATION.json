@@ -1,0 +1,74 @@
+{
+  "state": "PASS_IMAGENET_ONLY",
+  "checkpoints": [
+    {
+      "arm": "imagenet_frozen_LA",
+      "checkpoint": "epoch10",
+      "epoch": 10,
+      "BA": 0.16333333333333333,
+      "correct": 49
+    },
+    {
+      "arm": "imagenet_frozen_LA",
+      "checkpoint": "best",
+      "epoch": 30,
+      "BA": 0.2666666666666667,
+      "correct": 80
+    },
+    {
+      "arm": "imagenet_frozen_LA",
+      "checkpoint": "last",
+      "epoch": 30,
+      "BA": 0.2666666666666667,
+      "correct": 80
+    },
+    {
+      "arm": "imagenet_full_LA",
+      "checkpoint": "epoch10",
+      "epoch": 10,
+      "BA": 0.21000000000000002,
+      "correct": 63
+    },
+    {
+      "arm": "imagenet_full_LA",
+      "checkpoint": "best",
+      "epoch": 17,
+      "BA": 0.31000000000000005,
+      "correct": 93
+    },
+    {
+      "arm": "imagenet_full_LA",
+      "checkpoint": "last",
+      "epoch": 30,
+      "BA": 0.18000000000000005,
+      "correct": 54
+    }
+  ],
+  "validation_image_encodes": 1800,
+  "training_image_encodes": 0,
+  "optimizer_updates": 0,
+  "max_score_error": 0.0,
+  "patient_overlap": 0,
+  "checkpoint_selection": [
+    {
+      "arm": "imagenet_frozen_LA",
+      "saved_best_epoch": 30,
+      "earliest_max_correct_epoch": 29,
+      "integer_tie_selection_deviation": true
+    },
+    {
+      "arm": "imagenet_full_LA",
+      "saved_best_epoch": 17,
+      "earliest_max_correct_epoch": 17,
+      "integer_tie_selection_deviation": false
+    }
+  ],
+  "all_four_arms_verified": false,
+  "CLIP_restarted_or_rescored": false,
+  "pack_recreated": false,
+  "verification_seconds": 109.01558494567871,
+  "RSS_peak_bytes": 3296026624,
+  "GPU_peak_reserved_bytes": 786432000,
+  "worker_returncode": 0,
+  "worker_and_guardian_retired": true
+}

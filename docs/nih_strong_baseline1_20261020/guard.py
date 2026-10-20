@@ -18,7 +18,7 @@ def monitor(p,name):
    ss=Path(f'/proc/{p.pid}/status').read_text().splitlines();peak=max(peak,max([int(s.split()[1])*1024 for s in ss if s.startswith(('VmRSS:','VmHWM:'))] or [0]))
   except FileNotFoundError:
    if p.poll() is not None:break
-  size=sum(q.stat().st_size for q in root.rglob('*') if q.is_file());write(root/(name+'_resources.private.json'),dict(updated=time.time(),RSS_sampled_peak_bytes=peak,new_output_bytes=size,hard_deadline_epoch=cfg['hard_deadline_epoch']))
+  size=sum(max(q.stat().st_size,q.stat().st_blocks*512) for q in root.rglob('*') if q.is_file());write(root/(name+'_resources.private.json'),dict(updated=time.time(),RSS_sampled_peak_bytes=peak,new_output_bytes=size,hard_deadline_epoch=cfg['hard_deadline_epoch']))
   if size>=cfg['storage_stop_threshold_bytes'] or time.time()>=cfg['hard_deadline_epoch']-60:
    reason='storage_limit' if size>=cfg['storage_stop_threshold_bytes'] else 'hard_24h_deadline';os.killpg(p.pid,signal.SIGTERM)
    try:p.wait(timeout=30)

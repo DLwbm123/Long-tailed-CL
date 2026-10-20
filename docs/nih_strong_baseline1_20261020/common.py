@@ -1,5 +1,5 @@
 """Matched static NIH training baseline; no test path or download code."""
-import csv,json,random
+import csv,json,random,io,mmap
 from pathlib import Path
 import numpy as np
 import torch
@@ -33,15 +33,23 @@ def rows(cfg):
 
 
 class Images(torch.utils.data.Dataset):
- def __init__(self,items,backbone,train):
-  self.items=items
+ def __init__(self,items,backbone,train,pack=None):
+  self.items=items;self.pack=pack;self._mapped=None;self._handle=None;self.offsets=None
+  if pack is not None:
+   ready=json.loads((Path(pack)/'PACK_READY.private.json').read_text());assert ready['state']=='READY' and ready['images']==68358
+   idx=np.load(Path(pack)/'pack_index.private.npz');self.offsets={name:(int(off),int(size)) for name,off,size in zip(idx['names'],idx['offsets'],idx['sizes'])}
   mean,std=([.5]*3,[.5]*3) if backbone=='imagenet' else ([.48145466,.4578275,.40821073],[.26862954,.26130258,.27577711])
   geo=[T.RandomResizedCrop(224,scale=(.8,1.),ratio=(.9,1.1),interpolation=InterpolationMode.BICUBIC),T.RandomHorizontalFlip(.5)] if train else [T.Resize(256,interpolation=InterpolationMode.BICUBIC),T.CenterCrop(224)]
   self.transform=T.Compose([*geo,T.ToTensor(),T.Normalize(mean,std)])
  def __len__(self):return len(self.items)
  def __getitem__(self,i):
   path,label,_=self.items[i]
-  with Image.open(path) as im:x=self.transform(im.convert('RGB'))
+  source=path
+  if self.pack is not None:
+   if self._mapped is None:
+    self._handle=(Path(self.pack)/'images.private.pack').open('rb');self._mapped=mmap.mmap(self._handle.fileno(),0,access=mmap.ACCESS_READ)
+   offset,size=self.offsets[Path(path).name];source=io.BytesIO(self._mapped[offset:offset+size])
+  with Image.open(source) as im:x=self.transform(im.convert('RGB'))
   return x,label,i
 
 

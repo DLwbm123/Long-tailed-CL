@@ -27,6 +27,13 @@ def monitor(p,name):
   time.sleep(5)
  return p.wait(),reason,peak
 
+
+# Audited I/O repair, not a new scientific run: packing shares the original deadline.
+if cfg.get('packed_cache'):
+ with (root/'packing.stdout.private.log').open('xb') as log:
+  start=time.time();p=subprocess.Popen([sys.executable,str(Path(__file__).with_name('pack.py'))],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,stdin=subprocess.DEVNULL);rc,reason,peak=monitor(p,'packing_guardian');write(root/'packing_terminal.private.json',dict(returncode=rc,reason=reason,wall_seconds=time.time()-start,finished=time.time(),RSS_sampled_peak_bytes=peak))
+  if rc!=0:sys.exit(rc)
+
 while gpu_free()<cfg['required_GPU_free_bytes']:
  write(root/'admission.private.json',dict(state='WAITING_GPU',updated=time.time(),required_free_bytes=cfg['required_GPU_free_bytes'],free_bytes=gpu_free()))
  if time.time()>=cfg['hard_deadline_epoch']-60:raise TimeoutError('24h admission deadline; no training launched')

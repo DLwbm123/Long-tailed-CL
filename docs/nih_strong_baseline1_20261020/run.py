@@ -8,7 +8,7 @@ import torch
 from torch.nn import functional as F
 from common import write,seed_all,rows,Images,Model,metrics,lr_multiplier,worker_seed
 CFG=json.loads(Path(os.environ['RUN_CONFIG']).read_text());STOP=False
-COST=dict(attempts=1,optimizer_updates=0,train_image_exposures=0,val_image_exposures=0,arms_completed=0,engineering_image_exposures=CFG['engineering_image_exposures'])
+COST=dict(attempts=2,prior_attempt_optimizer_updates=CFG['prior_attempt_optimizer_updates'],prior_attempt_train_image_exposures=CFG['prior_attempt_train_image_exposures'],optimizer_updates=0,train_image_exposures=0,val_image_exposures=0,arms_completed=0,engineering_image_exposures=CFG['engineering_image_exposures'])
 
 
 def interrupted(*_):
@@ -41,7 +41,7 @@ def main():
   if backbone in initial_heads:assert torch.equal(initial_heads[backbone],head0)
   else:initial_heads[backbone]=head0.clone()
   for p in model.visual.parameters():p.requires_grad_(full)
-  optimizer=torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],lr=CFG['lr'],weight_decay=CFG['weight_decay'],betas=(.9,.999));generator=torch.Generator().manual_seed(CFG['seed']);trainloader=torch.utils.data.DataLoader(Images(dataset['train'],backbone,True),batch_size=CFG['batch_size'],shuffle=True,num_workers=CFG['workers'],worker_init_fn=worker_seed,generator=generator,pin_memory=True,persistent_workers=True,multiprocessing_context='spawn',prefetch_factor=2);valloader=torch.utils.data.DataLoader(Images(dataset['val'],backbone,False),batch_size=CFG['micro_batch_size'],shuffle=False,num_workers=0,pin_memory=True);best=-1.;best_epoch=None;update=0;arm_start=time.time();local=[]
+  optimizer=torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],lr=CFG['lr'],weight_decay=CFG['weight_decay'],betas=(.9,.999));generator=torch.Generator().manual_seed(CFG['seed']);trainloader=torch.utils.data.DataLoader(Images(dataset['train'],backbone,True,CFG['packed_cache']),batch_size=CFG['batch_size'],shuffle=True,num_workers=CFG['workers'],worker_init_fn=worker_seed,generator=generator,pin_memory=True,persistent_workers=True,multiprocessing_context='spawn',prefetch_factor=2);valloader=torch.utils.data.DataLoader(Images(dataset['val'],backbone,False,CFG['packed_cache']),batch_size=CFG['micro_batch_size'],shuffle=False,num_workers=0,pin_memory=True);best=-1.;best_epoch=None;update=0;arm_start=time.time();local=[]
   def checkpoint(epoch,complete_epoch,tag='last'):
    atomic_save(adir/(tag+'.private.pt'),dict(model=model.state_dict(),optimizer=optimizer.state_dict(),epoch=epoch,complete_epoch=complete_epoch,update=update,costs=dict(COST),torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state_all(),numpy_rng=np.random.get_state(),python_rng=random.getstate(),loader_rng=generator.get_state(),arm=arm,backbone=backbone,started=arm_start,original_start_epoch=CFG['original_start_epoch']))
   for epoch in range(1,CFG['epochs']+1):
@@ -62,7 +62,7 @@ def main():
    if epoch==10:atomic_save(adir/'epoch10.private.pt',dict(model=model.state_dict(),epoch=epoch,arm=arm,backbone=backbone))
    status('epoch_complete',True,arm=arm,epoch=epoch,best_epoch=best_epoch,best_BA=best);print(json.dumps(record),flush=True)
   assert update==total;COST['arms_completed']+=1;summary=dict(arm=arm,backbone=backbone,full_tuning=full,epochs=CFG['epochs'],updates=update,best_epoch=best_epoch,best=local[best_epoch-1]['metrics'],epoch10=local[9]['metrics'],final=local[-1]['metrics'],final_train_loss=local[-1]['train_LA_loss'],last5_train_loss=[r['train_LA_loss'] for r in local[-5:]],wall_seconds=time.time()-arm_start);summaries.append(summary);write(out/'RESULTS.json',summaries);write(adir/'COMPLETE.json',summary);del optimizer,model,trainloader,valloader;gc.collect();torch.cuda.empty_cache()
- assert COST['arms_completed']==4;status('final_resource_check',True);COST.update(process_wall_seconds=time.time()-START,cumulative_recorded_seconds=CFG['prior_recorded_seconds']+CFG['engineering_seconds']+time.time()-START,historical_unrecorded_overhead_unknown=True);write(out/'costs.json',COST);write(out/'FIT_SEAL.json',dict(completed_at=time.time(),arms=4,validation_checkpoint_selection_predeclared=True,test_access=False));write(out/'status.private.json',dict(state='COMPLETE',costs=COST,finished=time.time(),independent_verification='PENDING'));print('COMPLETE',flush=True)
+ assert COST['arms_completed']==4;status('final_resource_check',True);COST.update(process_wall_seconds=time.time()-START,cumulative_recorded_seconds=CFG['prior_recorded_seconds']+CFG['engineering_seconds']+CFG['prior_attempt_seconds']+json.loads((Path(CFG['packed_cache'])/'PACK_COSTS.private.json').read_text())['process_wall_seconds']+time.time()-START,cumulative_optimizer_updates=CFG['prior_attempt_optimizer_updates']+COST['optimizer_updates'],cumulative_train_image_exposures=CFG['prior_attempt_train_image_exposures']+COST['train_image_exposures'],historical_unrecorded_overhead_unknown=True);write(out/'costs.json',COST);write(out/'FIT_SEAL.json',dict(completed_at=time.time(),arms=4,validation_checkpoint_selection_predeclared=True,test_access=False));write(out/'status.private.json',dict(state='COMPLETE',costs=COST,finished=time.time(),independent_verification='PENDING'));print('COMPLETE',flush=True)
 
 
 if __name__=='__main__':

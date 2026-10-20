@@ -1,6 +1,6 @@
 # CLS–patch交叉特征：固定配对假说
 
-状态：DESIGNED_NOT_LAUNCHED。已冻结协议与代数实现草稿，仅静态语法检查；runner、独立verifier及实际资格尚未完成。没有服务器启动、新实验原时钟、图像编码或拟合。不是Spatial参数搜索、ProtoTail B、原生MLP或容量调度续跑。
+状态：IMPLEMENTED_PENDING_QUALIFICATION。runner/独立显式矩阵verifier/资源guard已补齐，静态语法通过；尚无数学/真实图资格PASS、未启动科学编码，实际状态以运行回执为准。
 
 ## 证据与假说
 
@@ -45,4 +45,4 @@ mu_c、mu_p只来自基类最初10类的等类混合训练均值，60129图后�
 
 独立guard每5秒检查整个新增根max(st_size,st_blocks*512)、RSS和截止；截止前60秒TERM，30秒后必要KILL进程组；全程峰值跨run/verify保持。若现实资格吞吐/存储不可行，停止并保留失败，不改科学精度或数据预算。可行后持续授权直接科学运行，无需逐轮确认，唯一automation承接。
 
-当前只完成协议、core与AST。下次优先补齐bounded runner/独立verifier，核对映射/基类封存/12头query时序及成本计数，再在有效guard下资格/启动。不能把源存在当RUNNING/PASS。最终匿名代码/聚合/成本/报告代理交付、远端SHA/匿名访问核对；身份/原图/权重/统计/逐图分数/日志私有。
+已补齐bounded runner/独立verifier及guard，核对映射/基类封存/12头query时序及成本计数；下一步在有效guard下资格/启动。不能把源存在当RUNNING/PASS。最终匿名代码/聚合/成本/报告代理交付、远端SHA/匿名访问核对；身份/原图/权重/统计/逐图分数/日志私有。

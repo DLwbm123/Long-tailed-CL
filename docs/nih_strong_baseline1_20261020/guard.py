@@ -29,16 +29,24 @@ def monitor(p,name):
 
 
 # Audited I/O repair, not a new scientific run: packing shares the original deadline.
-if cfg.get('packed_cache'):
+if cfg.get('packed_cache') and not cfg.get('resume_checkpoint'):
  with (root/'packing.stdout.private.log').open('xb') as log:
   start=time.time();p=subprocess.Popen([sys.executable,str(Path(__file__).with_name('pack.py'))],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,stdin=subprocess.DEVNULL);rc,reason,peak=monitor(p,'packing_guardian');write(root/'packing_terminal.private.json',dict(returncode=rc,reason=reason,wall_seconds=time.time()-start,finished=time.time(),RSS_sampled_peak_bytes=peak))
   if rc!=0:sys.exit(rc)
+elif cfg.get('packed_cache'):
+ assert json.loads((Path(cfg['packed_cache'])/'PACK_COSTS.private.json').read_text())['state']=='PASS'
+ assert json.loads((root/'input_qualification.private.json').read_text())['state']=='PASS'
 
 while gpu_free()<cfg['required_GPU_free_bytes']:
  write(root/'admission.private.json',dict(state='WAITING_GPU',updated=time.time(),required_free_bytes=cfg['required_GPU_free_bytes'],free_bytes=gpu_free()))
  if time.time()>=cfg['hard_deadline_epoch']-60:raise TimeoutError('24h admission deadline; no training launched')
  time.sleep(30)
 write(root/'admission.private.json',dict(state='ADMITTED',updated=time.time(),free_bytes=gpu_free(),required_free_bytes=cfg['required_GPU_free_bytes']))
+if cfg.get('throughput_qualification'):
+ with (root/'throughput.stdout.private.log').open('xb') as log:
+  start=time.time();p=subprocess.Popen([sys.executable,str(Path(__file__).with_name('benchmark.py'))],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,stdin=subprocess.DEVNULL);ident=dict(pid=p.pid,start_ticks=Path(f'/proc/{p.pid}/stat').read_text().split()[21]);write(root/'throughput_launch.private.json',ident);rc,reason,peak=monitor(p,'throughput_guardian');write(root/'throughput_terminal.private.json',dict(**ident,returncode=rc,reason=reason,wall_seconds=time.time()-start,finished=time.time(),RSS_sampled_peak_bytes=peak))
+  if rc!=0:sys.exit(rc)
+ assert json.loads((root/'ENGINEERING_THROUGHPUT.json').read_text())['state']=='PASS'
 start=time.time()
 with (root/'stdout.private.log').open('xb') as log:
  p=subprocess.Popen([sys.executable,str(Path(__file__).with_name('run.py'))],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,stdin=subprocess.DEVNULL);ident=dict(pid=p.pid,start_ticks=Path(f'/proc/{p.pid}/stat').read_text().split()[21],started=start,entry=str(Path(__file__).with_name('run.py')));write(root/'launch.private.json',ident);rc,reason,peak=monitor(p,'guardian');write(root/'terminal.private.json',dict(**ident,returncode=rc,reason=reason,finished=time.time(),wall_seconds=time.time()-start,RSS_sampled_peak_bytes=peak))

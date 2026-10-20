@@ -3,11 +3,13 @@ import csv,json,random,io,mmap
 from pathlib import Path
 import numpy as np
 import torch
+from concurrent.futures import ThreadPoolExecutor
 from torch import nn
 from torch.nn import functional as F
 from PIL import Image
 from torchvision import transforms as T
 from torchvision.transforms import InterpolationMode
+from torchvision.transforms import functional as TF
 
 
 def write(p,v):
@@ -33,8 +35,9 @@ def rows(cfg):
 
 
 class Images(torch.utils.data.Dataset):
- def __init__(self,items,backbone,train,pack=None):
+ def __init__(self,items,backbone,train,pack=None,replay_batches=0):
   self.items=items;self.pack=pack;self._mapped=None;self._handle=None;self.offsets=None
+  self.train=train;self.replay_batches=replay_batches;self._pool=None
   if pack is not None:
    ready=json.loads((Path(pack)/'PACK_READY.private.json').read_text());assert ready['state']=='READY' and ready['images']==68358
    idx=np.load(Path(pack)/'pack_index.private.npz');self.offsets={name:(int(off),int(size)) for name,off,size in zip(idx['names'],idx['offsets'],idx['sizes'])}
@@ -51,6 +54,41 @@ class Images(torch.utils.data.Dataset):
    offset,size=self.offsets[Path(path).name];source=io.BytesIO(self._mapped[offset:offset+size])
   with Image.open(source) as im:x=self.transform(im.convert('RGB'))
   return x,label,i
+
+ def __getitems__(self,indices):
+  # Draw crop/flip randomness serially in original sample order; only pixels run concurrently.
+  if self._mapped is None and self.pack is not None:
+   self._handle=(Path(self.pack)/'images.private.pack').open('rb');self._mapped=mmap.mmap(self._handle.fileno(),0,access=mmap.ACCESS_READ)
+  replay=self.replay_batches>0
+  if replay:self.replay_batches-=1
+  jobs=[]
+  for i in indices:
+   path,label,_=self.items[i]
+   if self.pack is None:payload=Path(path).read_bytes()
+   else:
+    offset,size=self.offsets[Path(path).name];payload=self._mapped[offset:offset+size]
+   with Image.open(io.BytesIO(payload)) as im:
+    if self.train:
+     op=self.transform.transforms[0];params=T.RandomResizedCrop.get_params(im,op.scale,op.ratio);flip=bool(torch.rand(1)<self.transform.transforms[1].p)
+    else:params=None;flip=False
+   jobs.append((payload,label,i,params,flip))
+  if replay:return [(torch.zeros(1),job[1],job[2]) for job in jobs]
+  if self._pool is None:self._pool=ThreadPoolExecutor(max_workers=4)
+  return list(self._pool.map(self._render,jobs))
+
+ def _render(self,job):
+  payload,label,i,params,flip=job
+  with Image.open(io.BytesIO(payload)) as im:
+   # L-mode bicubic pixels equal replicated RGB pixels; other modes keep original conversion.
+   value=im if im.mode=='L' else im.convert('RGB')
+   if self.train:
+    op=self.transform.transforms[0];value=TF.resized_crop(value,*params,op.size,op.interpolation,antialias=op.antialias)
+    if flip:value=TF.hflip(value)
+   else:
+    for op in self.transform.transforms[:-2]:value=op(value)
+   value=value.convert('RGB')
+   for op in self.transform.transforms[-2:]:value=op(value)
+  return value,label,i
 
 
 def worker_seed(_):

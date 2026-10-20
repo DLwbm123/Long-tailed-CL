@@ -1,0 +1,76 @@
+{
+  "scope": "ANALYTICAL_REVIEW_NO_NEW_PERFORMANCE_EXPERIMENT",
+  "training_rows": 2555,
+  "batch_size": 8,
+  "full_batches_per_epoch": 319,
+  "tail_rows": 3,
+  "optimizer_steps_per_epoch": 320,
+  "optimizer_steps_ten_epochs": 3200,
+  "class_cells": [
+    {
+      "class_index": 0,
+      "rows": 307,
+      "expected_rows_per_full_batch": 0.961252446183953,
+      "probability_no_class_in_full_batch": 0.35858480887168503,
+      "expected_full_batches_containing_class": 204.6114459699325,
+      "expected_rows_per_tail": 0.3604696673189824,
+      "mean_image_objective_weight": 0.0008143322475570033
+    },
+    {
+      "class_index": 1,
+      "rows": 20,
+      "expected_rows_per_full_batch": 0.06262230919765166,
+      "probability_no_class_in_full_batch": 0.9389854229367501,
+      "expected_full_batches_containing_class": 19.463650083176706,
+      "expected_rows_per_tail": 0.023483365949119372,
+      "mean_image_objective_weight": 0.0125
+    },
+    {
+      "class_index": 2,
+      "rows": 170,
+      "expected_rows_per_full_batch": 0.5322896281800391,
+      "probability_no_class_in_full_batch": 0.5760230976109793,
+      "expected_full_batches_containing_class": 135.24863186209762,
+      "expected_rows_per_tail": 0.19960861056751467,
+      "mean_image_objective_weight": 0.0014705882352941176
+    },
+    {
+      "class_index": 3,
+      "rows": 2058,
+      "expected_rows_per_full_batch": 6.443835616438356,
+      "probability_no_class_in_full_batch": 1.958378474054998e-06,
+      "expected_full_batches_containing_class": 318.9993752772668,
+      "expected_rows_per_tail": 2.4164383561643836,
+      "mean_image_objective_weight": 0.00012147716229348882
+    }
+  ],
+  "weighted_image_ESS_upper_bound": 268.3411576171726,
+  "ESS_is_not_patient_or_information_count": true,
+  "fixed_parameter_uniform_subset_identity_error": 0.0,
+  "adam_first_step_counterexample": {
+    "gradients": [
+      9.0,
+      -1.0
+    ],
+    "expected_gradient": 4.0,
+    "expected_normalized_gradient": 4.4444443125790656e-09,
+    "normalized_expected_gradient": 0.9999999975,
+    "epsilon": 1e-08
+  },
+  "no_claim_this_counterexample_caused_observed_risk": true,
+  "source_read": [
+    "initial_bias/train.py",
+    "initial_bias/PROTOCOL.md",
+    "information_attribution/core_attribution.py"
+  ],
+  "new_fit_units": 0,
+  "new_image_forwards": 0,
+  "new_test_scores": 0,
+  "frozen_bias_stop_preserved": true,
+  "method_success": false,
+  "review_cost": {
+    "wall_seconds": 2.7582980692386627e-05,
+    "CPU_seconds": 2.7000000000002716e-05,
+    "scope": "pure arithmetic only, excludes source reading/network/serialization"
+  }
+}

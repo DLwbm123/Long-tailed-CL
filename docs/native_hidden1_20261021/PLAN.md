@@ -1,6 +1,6 @@
 # 原生MLP隐藏特征：投影前/后固定配对
 
-状态：运行器/独立验收/硬守卫已实现，已在独立guard下启动资格检查；最新资格与进度以运行回执为准，不以本文宣称PASS或性能结果。持续自主授权内无需逐轮确认，资格可行后同一worker直接推进科学提取。不是Spatial失败后的p/M搜索，也不是被A继续门禁止的ProtoTail共享query阶段。
+状态：COMPLETE_VERIFIED_GATE_FAILED。两臂已完成，独立12头验收PASS；预登记主门失败，关闭这套固定迁移。详见REPORT_ZH.md与DECISION.json；不启动扫参、融合补救或附条件ProtoTail B。
 
 ## 机制与去重
 

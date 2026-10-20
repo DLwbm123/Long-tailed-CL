@@ -13,3 +13,5 @@ P/C各800步×32槽、同seed74250/AdamW.003/wd0，P只102912既有bias，C另61
 driver按TRAIN成功→FIT自动推进，禁止另起FIT/重复编码/重启。唯一scale-med每30分钟跟进，健康静默。所有预检费用88.3564145s活动wall/81.172894knownworker CPU/3.979484coord CPU待整轮结束统一一次并账，不重复正文和wait4。正式费用尚未产生最终回执。
 
 完成验收2×800/6解/4artifact<=19058800/2FEATURE_SEAL/全聚合finite/parity/退出退休，公开源码协议聚合成本失败中文报告并核SHA/匿名访问，DELIVERY私有双端。当前运行未完成，禁止把启动交付称为实验完成。
+
+执行补充：原3h包络不变。另设不修改TRAIN/FIT源码的外围deadline_guard，在原硬截止前10秒预留退出/落盘；仅核对本driver身份及独立进程组，正常DRIVER_EXIT后退出，超限仅终止本轮组。其等待墙钟与driver重叠不相加，仅CPU另计，HARD_DEADLINE_EXIT/FAILURE须纳入最终回执。此为硬资源约束补强，不改训练目标/参数/步数/科学门，不重启已有进程。

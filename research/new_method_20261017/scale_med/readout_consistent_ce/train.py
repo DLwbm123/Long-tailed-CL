@@ -55,6 +55,7 @@ def run(cfg):
     reset()
     ps = [params[k] for k in bkeys]
     assert sum(p.numel() for p in ps) == 102912
+    assert sorted(k for k, v in params.items() if v.requires_grad) == bkeys
     if cfg['mode'] == 'PREFLIGHT':
         ids = orders[0]
         with torch.no_grad():
@@ -66,6 +67,8 @@ def run(cfg):
         wc = initial_w.detach().clone().requires_grad_(True)
         lp = task(ids, wp, False, True)
         gp = torch.autograd.grad(lp, ps)
+        bias_gradient_norm = sum(float(v.square().sum()) for v in gp)**.5
+        assert bias_gradient_norm > 0 and all(torch.isfinite(v).all() for v in gp)
         lc = task(ids, wc, False, True)
         gradients = torch.autograd.grad(lc, ps+[wc])
         assert torch.allclose(lp, lc, atol=1e-12, rtol=0)
@@ -107,7 +110,7 @@ def run(cfg):
         assert all(torch.equal(back['bias_overrides'][k], v) for k, v in over.items())
         write(out/'aggregate.json', dict(pass_all=True, original_G_replay_error=replay,
               micro_feature_roundoff=float((g-micro).abs().max()), checkpoint_gradient_max_errors=errors,
-              same_initial_bias_gradients=True, C_head_gradient_nonzero=True,
+              same_initial_bias_gradients=True, initial_bias_gradient_L2=bias_gradient_norm, C_head_gradient_nonzero=True,
               P_head_fixed_exact=True, native_heads_unchanged=True, both_one_steps_finite=True,
               override_roundtrip_restore_exact=True, discarded_probe_parameters=True,
               capacity_template_bytes=size, training_rows_only=True, forward_counts=counts))

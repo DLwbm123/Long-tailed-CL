@@ -1,0 +1,97 @@
+{
+  "training_arms": 3,
+  "steps_each": 800,
+  "supervised_slots_each": 25600,
+  "counts_equal_across_arms": true,
+  "fits_certified": 12,
+  "max_residual": 8.326672684688674e-17,
+  "new_heads": 3,
+  "artifact_bytes": {
+    "E.0": 10064508,
+    "I.0": 10064508,
+    "O.0": 10064508
+  },
+  "feature_rows": {
+    "E": 3236,
+    "I": 3236,
+    "O": 3236
+  },
+  "test_used": false,
+  "future_stages_used": false,
+  "stop_stage": 0,
+  "formal_failures": false,
+  "processes_retired": [
+    961278,
+    961279,
+    961283
+  ],
+  "status_file_stale": true,
+  "status_interpretation": "FIT status says RUNNING but aggregate, EXIT, coordinator and driver confirm clean early stop; no rerun for stale status",
+  "method_success": false,
+  "seals": {
+    "I.TRANSFORM_SEAL.json": {
+      "training_rows": 2555,
+      "width": 1535,
+      "initial_only": true,
+      "test_used": false
+    },
+    "F.TRANSFORM_SEAL.json": {
+      "training_rows": 2555,
+      "width": 1535,
+      "initial_only": true,
+      "test_used": false
+    },
+    "E.TRANSFORM_SEAL.json": {
+      "training_rows": 2555,
+      "width": 1535,
+      "initial_only": true,
+      "test_used": false
+    },
+    "O.SELECTION_SEAL.json": {
+      "alpha": 1.0,
+      "grid": [
+        0.0001,
+        0.01,
+        1.0
+      ],
+      "source": "own_initial_G_validation_681",
+      "test_used": false
+    },
+    "O.TRANSFORM_SEAL.json": {
+      "training_rows": 2555,
+      "width": 1535,
+      "initial_only": true,
+      "test_used": false
+    },
+    "I.SELECTION_SEAL.json": {
+      "alpha": 1.0,
+      "grid": [
+        0.0001,
+        0.01,
+        1.0
+      ],
+      "source": "own_initial_G_validation_681",
+      "test_used": false
+    },
+    "E.SELECTION_SEAL.json": {
+      "alpha": 0.01,
+      "grid": [
+        0.0001,
+        0.01,
+        1.0
+      ],
+      "source": "own_initial_G_validation_681",
+      "test_used": false
+    },
+    "F.SELECTION_SEAL.json": {
+      "alpha": 0.01,
+      "grid": [
+        0.0001,
+        0.01,
+        1.0
+      ],
+      "source": "own_initial_G_validation_681",
+      "test_used": false
+    }
+  }
+}

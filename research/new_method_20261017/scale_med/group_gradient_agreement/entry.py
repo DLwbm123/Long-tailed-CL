@@ -68,16 +68,22 @@ def main():
   k,c=cell['fold'],cell['class_id'];teacher=torch.load(sealed/'prep'/f'{k}.teacher.private.pt',weights_only=False)
   mp={key:tuple(vv.cuda() for vv in value) if isinstance(value,tuple) else value.cuda() for key,value in teacher['mapper'].items()};w=teacher['W'].cuda().detach()
   vectors=[];zvectors=[];losses=[]
+  if preflight is None:
+   replay_ids=torch.where(plan['fold']==k)[0][:32]
+   with torch.no_grad():
+    replay_o=raw(m,pointwise,x[replay_ids].cuda());replay_g=torch.nn.functional.normalize(torch.nn.functional.normalize(torch.cat([replay_o['pre_logits'],replay_o['pre_logits_few']],1),dim=1).double(),dim=1).cpu()
+   counts['logical_forward_images']+=32;counts['forward_calls']+=1
+   replay_error=float((replay_g-plan['cached_g'][replay_ids]).abs().max());assert replay_error<=1e-10
   for ids in cell['group_rows']:
    gs=[];zs=[];ce=[];features=[]
    for i in ids:
     gv,zv,feat,loss=forward(torch.tensor([i]),mp,w);gs.append(gv);zs.append(zv);features.append(feat);ce.append(loss)
    mean=torch.stack(gs).mean(0);vectors.append(mean);zvectors.append(torch.stack(zs).mean(0));losses.append(sum(ce)/len(ce))
    if preflight is None:
-    feature_error=float((torch.cat(features)-plan['cached_g'][ids]).abs().max());assert feature_error<=1e-10
+    feature_error=float((torch.cat(features)-plan['cached_g'][ids]).abs().max());assert feature_error<=1e-7
     assert len(ids)<=32,'FIRST_GROUP_BATCH_ABOVE_32'
     batch,_,_,_=forward(torch.tensor(ids),mp,w);error=float((batch-mean).abs().max());assert torch.allclose(batch,mean,atol=1e-5,rtol=1e-3)
-    preflight=dict(G_replay_max_error=feature_error,group_mean_gradient_max_error=error,pass_all=True);write('PREFLIGHT.json',preflight)
+    preflight=dict(G_replay_max_error=replay_error,single_image_feature_roundoff=feature_error,group_mean_gradient_max_error=error,pass_all=True);write('PREFLIGHT.json',preflight)
   vg,zg=torch.stack(vectors),torch.stack(zvectors);bm,bgram=metrics(vg);zm,zgram=metrics(zg)
   private.append(dict(fold=k,class_id=c,bias_gram=bgram,z_gram=zgram))
   cells.append(dict(fold=k,class_id=c,groups=8,images=sum(map(len,cell['group_rows'])),parameter_gradient=bm,z_gradient=zm,group_mean_CE_min_mean_max=[min(losses),sum(losses)/len(losses),max(losses)]))

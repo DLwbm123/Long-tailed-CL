@@ -16,6 +16,9 @@ def main(cfg):
   except AssertionError:pass
   else:raise AssertionError('guard selfcheck failed')
  if cfg['mode']=='INJECT_FAILURE':raise RuntimeError('synthetic injected failure')
+ if cfg['mode']=='GRAD_PROBE':
+  from grad_probe import run
+  run(cfg);return
  from train import run as train,write
  if cfg['mode']=='PREFLIGHT':
   train(cfg);from pipeline import synthetic;a=synthetic();write(Path(cfg['output'])/'EVALUATION_PREFLIGHT.json',a);return

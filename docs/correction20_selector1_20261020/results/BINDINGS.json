@@ -1,0 +1,92 @@
+[
+  {
+    "kind": "singleton_B_F",
+    "training_folds": [
+      0
+    ],
+    "reused_CLS_joint": true,
+    "teacher_check": 2.1436235646955895e-14,
+    "df_residual": 1.3405928231935249e-14,
+    "temperature": 0.10631223995550884,
+    "missing_classes": []
+  },
+  {
+    "kind": "singleton_B_F",
+    "training_folds": [
+      1
+    ],
+    "reused_CLS_joint": true,
+    "teacher_check": 1.7405549666329626e-14,
+    "df_residual": 1.8726169047745574e-14,
+    "temperature": 0.11102366379699376,
+    "missing_classes": []
+  },
+  {
+    "kind": "singleton_B_F",
+    "training_folds": [
+      2
+    ],
+    "reused_CLS_joint": true,
+    "teacher_check": 1.8791129644855555e-14,
+    "df_residual": 2.6697875270865496e-14,
+    "temperature": 0.10745831531895027,
+    "missing_classes": []
+  },
+  {
+    "kind": "selector",
+    "outer": 0,
+    "training_folds": [
+      1,
+      2
+    ],
+    "disagreement_images": 17471,
+    "utility_counts": [
+      3776,
+      329,
+      13366
+    ],
+    "train_label_weight": "class_image_BA",
+    "dimensions": [
+      4,
+      5
+    ]
+  },
+  {
+    "kind": "selector",
+    "outer": 1,
+    "training_folds": [
+      0,
+      2
+    ],
+    "disagreement_images": 18365,
+    "utility_counts": [
+      4014,
+      349,
+      14002
+    ],
+    "train_label_weight": "class_image_BA",
+    "dimensions": [
+      4,
+      5
+    ]
+  },
+  {
+    "kind": "selector",
+    "outer": 2,
+    "training_folds": [
+      0,
+      1
+    ],
+    "disagreement_images": 17363,
+    "utility_counts": [
+      3792,
+      355,
+      13216
+    ],
+    "train_label_weight": "class_image_BA",
+    "dimensions": [
+      4,
+      5
+    ]
+  }
+]

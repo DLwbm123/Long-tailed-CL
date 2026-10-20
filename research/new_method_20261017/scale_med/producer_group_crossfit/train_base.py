@@ -7,6 +7,9 @@ from space import check_space
 def write(p,x):
  t=p.with_suffix(p.suffix+'.tmp');t.write_text(json.dumps(x,indent=2,allow_nan=False));t.replace(p)
 def setup(cfg):
+ import subprocess
+ free=int(subprocess.check_output(["nvidia-smi","--query-gpu=memory.free","--format=csv,noheader,nounits","--id=0"],text=True).strip());assert free>=8192,"GPU0_FREE_BELOW_FROZEN_LAUNCH_MARGIN"
+ receipt=Path(cfg["output"])/"GPU_AVAILABILITY.json";items=json.loads(receipt.read_text()) if receipt.exists() else [];items.append(dict(GPU=0,free_MiB=free,minimum_MiB=8192));receipt.write_text(json.dumps(items))
  bc=json.loads(Path(cfg['benchmark_config']).read_text());s=Path(bc['legacy_source']);sys.path.insert(0,str(s/'third_party/APART'));sys.path.insert(0,str(s/'tools'))
  from run_multilabel import ApartFeatures
  from run_medical_v2 import seed_all

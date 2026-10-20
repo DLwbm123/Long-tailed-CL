@@ -1,0 +1,672 @@
+{
+  "summary": {
+    "F": {
+      "BA": 0.5932712153687386,
+      "recall": [
+        0.7205882352941176,
+        0.6666666666666666,
+        0.4473684210526316,
+        0.5384615384615384
+      ],
+      "correct": [
+        49,
+        2,
+        17,
+        308
+      ],
+      "counts": [
+        68,
+        3,
+        38,
+        572
+      ]
+    },
+    "E": {
+      "BA": 0.5435917281892515,
+      "recall": [
+        0.7205882352941176,
+        0.3333333333333333,
+        0.4473684210526316,
+        0.6730769230769231
+      ],
+      "correct": [
+        49,
+        1,
+        17,
+        385
+      ],
+      "counts": [
+        68,
+        3,
+        38,
+        572
+      ]
+    },
+    "I": {
+      "BA": 0.6083230494995201,
+      "recall": [
+        0.7205882352941176,
+        0.3333333333333333,
+        0.5,
+        0.8793706293706294
+      ],
+      "correct": [
+        49,
+        1,
+        19,
+        503
+      ],
+      "counts": [
+        68,
+        3,
+        38,
+        572
+      ]
+    },
+    "O": {
+      "BA": 0.6315148989297596,
+      "recall": [
+        0.6764705882352942,
+        0.6666666666666666,
+        0.3157894736842105,
+        0.8671328671328671
+      ],
+      "correct": [
+        46,
+        2,
+        12,
+        496
+      ],
+      "counts": [
+        68,
+        3,
+        38,
+        572
+      ]
+    }
+  },
+  "vs_F": {
+    "E": {
+      "BA_gain_pp": -4.967948717948718,
+      "classes": [
+        {
+          "class_index": 0,
+          "count": 68,
+          "rescued": 1,
+          "harmed": 1,
+          "both_correct": 48,
+          "both_wrong": 18,
+          "net_correct": 0,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              48,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              3,
+              1
+            ],
+            [
+              1,
+              0,
+              12,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              2
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "rescued_from": [
+            0,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "class_index": 1,
+          "count": 3,
+          "rescued": 0,
+          "harmed": 1,
+          "both_correct": 1,
+          "both_wrong": 1,
+          "net_correct": -1,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "rescued_from": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "class_index": 2,
+          "count": 38,
+          "rescued": 4,
+          "harmed": 4,
+          "both_correct": 13,
+          "both_wrong": 17,
+          "net_correct": 0,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              11,
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              1,
+              13,
+              3
+            ],
+            [
+              2,
+              0,
+              1,
+              2
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            1,
+            0,
+            3
+          ],
+          "rescued_from": [
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        {
+          "class_index": 3,
+          "count": 572,
+          "rescued": 96,
+          "harmed": 19,
+          "both_correct": 289,
+          "both_wrong": 168,
+          "net_correct": 77,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              133,
+              0,
+              5,
+              40
+            ],
+            [
+              0,
+              0,
+              1,
+              14
+            ],
+            [
+              2,
+              0,
+              27,
+              42
+            ],
+            [
+              11,
+              1,
+              7,
+              289
+            ]
+          ],
+          "harmed_destination": [
+            11,
+            1,
+            7,
+            0
+          ],
+          "rescued_from": [
+            40,
+            14,
+            42,
+            0
+          ]
+        }
+      ]
+    },
+    "I": {
+      "BA_gain_pp": 1.5051834130781496,
+      "classes": [
+        {
+          "class_index": 0,
+          "count": 68,
+          "rescued": 12,
+          "harmed": 12,
+          "both_correct": 37,
+          "both_wrong": 7,
+          "net_correct": 0,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              37,
+              1,
+              6,
+              5
+            ],
+            [
+              3,
+              0,
+              0,
+              1
+            ],
+            [
+              9,
+              0,
+              3,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              2
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            1,
+            6,
+            5
+          ],
+          "rescued_from": [
+            0,
+            3,
+            9,
+            0
+          ]
+        },
+        {
+          "class_index": 1,
+          "count": 3,
+          "rescued": 0,
+          "harmed": 1,
+          "both_correct": 1,
+          "both_wrong": 1,
+          "net_correct": -1,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "rescued_from": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "class_index": 2,
+          "count": 38,
+          "rescued": 9,
+          "harmed": 7,
+          "both_correct": 10,
+          "both_wrong": 12,
+          "net_correct": 2,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              6,
+              0,
+              7,
+              1
+            ],
+            [
+              0,
+              0,
+              2,
+              0
+            ],
+            [
+              5,
+              0,
+              10,
+              2
+            ],
+            [
+              0,
+              0,
+              0,
+              5
+            ]
+          ],
+          "harmed_destination": [
+            5,
+            0,
+            0,
+            2
+          ],
+          "rescued_from": [
+            7,
+            2,
+            0,
+            0
+          ]
+        },
+        {
+          "class_index": 3,
+          "count": 572,
+          "rescued": 201,
+          "harmed": 6,
+          "both_correct": 302,
+          "both_wrong": 63,
+          "net_correct": 195,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              45,
+              0,
+              6,
+              127
+            ],
+            [
+              1,
+              0,
+              0,
+              14
+            ],
+            [
+              7,
+              1,
+              3,
+              60
+            ],
+            [
+              3,
+              0,
+              3,
+              302
+            ]
+          ],
+          "harmed_destination": [
+            3,
+            0,
+            3,
+            0
+          ],
+          "rescued_from": [
+            127,
+            14,
+            60,
+            0
+          ]
+        }
+      ]
+    },
+    "O": {
+      "BA_gain_pp": 3.8243683561021014,
+      "classes": [
+        {
+          "class_index": 0,
+          "count": 68,
+          "rescued": 10,
+          "harmed": 13,
+          "both_correct": 36,
+          "both_wrong": 9,
+          "net_correct": -3,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              36,
+              0,
+              4,
+              9
+            ],
+            [
+              2,
+              0,
+              1,
+              1
+            ],
+            [
+              8,
+              0,
+              3,
+              2
+            ],
+            [
+              0,
+              0,
+              0,
+              2
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            0,
+            4,
+            9
+          ],
+          "rescued_from": [
+            0,
+            2,
+            8,
+            0
+          ]
+        },
+        {
+          "class_index": 1,
+          "count": 3,
+          "rescued": 0,
+          "harmed": 0,
+          "both_correct": 2,
+          "both_wrong": 1,
+          "net_correct": 0,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "harmed_destination": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "rescued_from": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "class_index": 2,
+          "count": 38,
+          "rescued": 6,
+          "harmed": 11,
+          "both_correct": 6,
+          "both_wrong": 15,
+          "net_correct": -5,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              6,
+              0,
+              5,
+              3
+            ],
+            [
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              4,
+              0,
+              6,
+              7
+            ],
+            [
+              0,
+              0,
+              0,
+              5
+            ]
+          ],
+          "harmed_destination": [
+            4,
+            0,
+            0,
+            7
+          ],
+          "rescued_from": [
+            5,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "class_index": 3,
+          "count": 572,
+          "rescued": 194,
+          "harmed": 6,
+          "both_correct": 302,
+          "both_wrong": 70,
+          "net_correct": 188,
+          "baseline_prediction_by_candidate_prediction": [
+            [
+              43,
+              0,
+              7,
+              128
+            ],
+            [
+              1,
+              0,
+              0,
+              14
+            ],
+            [
+              12,
+              3,
+              4,
+              52
+            ],
+            [
+              3,
+              0,
+              3,
+              302
+            ]
+          ],
+          "harmed_destination": [
+            3,
+            0,
+            3,
+            0
+          ],
+          "rescued_from": [
+            128,
+            14,
+            52,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "interpretation": "CROSS_READOUT_CLASS2_HARM",
+  "not_information_loss_proof": true,
+  "method_success": false
+}

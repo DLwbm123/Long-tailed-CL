@@ -50,12 +50,17 @@ def run(cfg):
    g=encode(pixels[ids].cuda())[0].cpu();micro=torch.cat([encode(pixels[z].cuda())[0].cpu() for z in ids.split(8)]);micro_error=float((micro-g).abs().max())
   replay=float((g-cached[ids]).abs().max());write(out/'REPLAY_CHECK.json',dict(canonical32_error=replay,micro8_error=micro_error));assert replay<=1e-10
   loss=task(ids,'O',False,True);fresh=torch.autograd.grad(loss,ps);loss2=task(ids,'O',True);cp=torch.autograd.grad(loss2,ps);err=max(float((a-b).abs().max()) for a,b in zip(fresh,cp));write(out/'GRADIENT_CHECK.json',dict(full32_micro8_gradient_max_error=err));assert all(torch.allclose(a,b,atol=1e-5,rtol=1e-3) for a,b in zip(fresh,cp))
-  length=sum(float(g.square().sum()) for g in fresh)**.5;assert length>0;direction=[g/length for g in fresh];epsilon=.001
-  def shifted(sign):
-   with torch.no_grad():
-    for k,d in zip(bkeys,direction):params[k].copy_(initial_bias[k]+sign*epsilon*d)
-    return float(task(ids,'O',False,True))
-  positive,negative=shifted(1),shifted(-1);fd=(positive-negative)/(2*epsilon);write(out/'FINITE_DIFFERENCE_CHECK.json',dict(epsilon=epsilon,analytical_direction=length,finite_difference=fd,positive_loss=positive,negative_loss=negative,error=abs(fd-length),allowed_error=.05*abs(length)+.001));assert abs(fd-length)<=.05*abs(length)+.001
+  length=sum(float(g.square().sum()) for g in fresh)**.5;assert length>0;direction=[g/length for g in fresh];cells=[]
+  for epsilon in [.001,.0005,.00025,.000125,.0000625,.00003125]:
+   values=[]
+   for sign in [1,-1]:
+    with torch.no_grad():
+     for k,d in zip(bkeys,direction):params[k].copy_(initial_bias[k]+sign*epsilon*d)
+    values.append(float(task(ids,'O',False,True).detach()))
+   fd=(values[0]-values[1])/(2*epsilon);cells.append(dict(epsilon=epsilon,analytical_direction=length,finite_difference=fd,error=abs(fd-length),allowed_error=.05*abs(length)+.001))
+  write(out/'FINITE_DIFFERENCE_CHECK.json',dict(cells=cells,criterion='last two errors within fixed tolerance and average < first error /4'))
+  tolerance=.05*abs(length)+.001;assert all(c['error']<=tolerance for c in cells[-2:]) and (cells[-1]['error']+cells[-2]['error'])/2<=max(cells[0]['error']/4,.001)
+  fd=cells[-1]['finite_difference']
   reset('O');optimizer=opt(ps);optimizer.zero_grad();task(ids,'O',True).backward();finite(ps);optimizer.step();finite(ps);overrides=checkpoint({k:params[k].detach().cpu() for k in bkeys},ckeys);assert all(torch.equal(native(overrides)[k],params[k].detach().cpu()) for k in bkeys)
   # Test I and E actual paths too, then discard all trained probe parameters.
   for arm in ['I','E']:
@@ -64,7 +69,7 @@ def run(cfg):
   from solver import mapper
   from core_depth import PERM
   g=torch.cat([encode(pixels[z].cuda())[0].detach().cpu() for z in ids.split(8)]);q=torch.ones(32,dtype=torch.float64)/8;t=mapper(g,q);d=1536;template=dict(A=torch.ones(d*(d+1)//2,dtype=torch.float64),B=torch.zeros(d,6,dtype=torch.float64),W=torch.zeros(d,6,dtype=torch.float64),mapper=t,PERM=PERM,bias_overrides=overrides,bias_representation='absolute_overrides',alpha=.01,classes=6,source_commit=cfg['source_commit']);torch.save(template,out/'capacity.private.pt');capacity=(out/'capacity.private.pt').stat().st_size;assert capacity<=19058800;back=torch.load(out/'capacity.private.pt',weights_only=False);assert all(torch.equal(back['bias_overrides'][k],v) for k,v in overrides.items())
-  write(out/'aggregate.json',dict(pass_all=True,capacity_template_bytes=capacity,**s,zero_G_replay_error=replay,micro_batch_feature_roundoff_max=micro_error,full32_vs_micro8_checkpoint_gradient_test=True,micro_checkpoint_gradient_error=err,bias_direction_derivative=length,bias_center_difference=fd,bias_roundtrip_exact=True,actual_E_I_O_step_finite=True,training_query_not_validation=True,sampling_steps=800,unique_groups_per_task=32,discarded_probe_models=True,forward_counts=counter));return
+  write(out/'aggregate.json',dict(pass_all=True,capacity_template_bytes=capacity,**s,zero_G_replay_error=replay,micro_batch_feature_roundoff_max=micro_error,full32_vs_micro8_checkpoint_gradient_test=True,micro_checkpoint_gradient_error=err,bias_direction_derivative=length,bias_center_difference=fd,multiscale_bias_gradient_converged=True,bias_roundtrip_exact=True,actual_E_I_O_step_finite=True,training_query_not_validation=True,sampling_steps=800,unique_groups_per_task=32,discarded_probe_models=True,forward_counts=counter));return
  assert json.loads(Path(cfg['preflight']).read_text())['pass_all'];arm_receipts=[]
  for arm in ['E','I','O']:
   reset(arm);ps=[params[k] for k in bkeys]+(heads if arm=='E' else []);optimizer=opt(ps);counter.update(logical_forward_images=0,forward_calls=0);start=time.monotonic();losses=[]

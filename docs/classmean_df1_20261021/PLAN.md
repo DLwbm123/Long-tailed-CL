@@ -1,6 +1,6 @@
 # 按类平均风险的CLS容量参照：固定阶段规则诊断
 
-状态：RUNNING（数学资格PASS，正在读取只读统计，尚无最终结果/独立验收）。仅CPU复用既有统计，0新训练/验证编码、0优化器更新。不是原生MLP失败后的正则搜索，不重拟合任何旧对照。
+状态：COMPLETE_VERIFIED_GATE_FAILED。独立12头验收PASS，主门失败；固定调度已关闭，禁止扫参补救。详见REPORT_ZH.md与DECISION.json。
 
 ## 问题及唯一干预
 

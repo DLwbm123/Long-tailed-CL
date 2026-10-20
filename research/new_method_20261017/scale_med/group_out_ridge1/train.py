@@ -30,9 +30,9 @@ def run(cfg):
  out=Path(cfg['output']);pixels,y,groups,cached=load_training(cfg);orders,members=schedule(y,groups);torch.save(orders,out/'sampling.private.pt');m,params,bkeys,ckeys,heads,pointwise=setup(cfg);initial_bias={k:params[k].detach().clone() for k in bkeys};initial_heads=[p.detach().clone() for p in heads];counter={'logical_forward_images':0,'forward_calls':0}
  def encode(x):
   counter['logical_forward_images']+=len(x);counter['forward_calls']+=1;o=raw(m,pointwise,x);g=torch.nn.functional.normalize(torch.nn.functional.normalize(torch.cat([o['pre_logits'],o['pre_logits_few']],1),dim=1).double(),dim=1);return g,o['logits'][:,:4],o['logits_few'][:,:4]
- def task(ids,arm,ck=True):
+ def task(ids,arm,ck=True,full=False):
   vals=[[],[],[]]
-  for part in ids.split(8):
+  for part in ids.split(len(ids) if full else 8):
    x=pixels[part].cuda();v=recompute(encode,x,use_reentrant=False) if ck else encode(x)
    for i,z in enumerate(v):vals[i].append(z)
   g,a,b=[torch.cat(z) for z in vals];yy=y[ids].cuda()
@@ -46,14 +46,15 @@ def run(cfg):
   m.zero_grad(set_to_none=True)
  if cfg['mode']=='PREFLIGHT':
   s=synthetic();ids=orders[0];reset('O');ps=[params[k] for k in bkeys]
-  with torch.no_grad():g=torch.cat([encode(pixels[z].cuda())[0].cpu() for z in ids.split(8)])
+  with torch.no_grad():
+   g=encode(pixels[ids].cuda())[0].cpu();micro=torch.cat([encode(pixels[z].cuda())[0].cpu() for z in ids.split(8)]);micro_error=float((micro-g).abs().max())
   replay=float((g-cached[ids]).abs().max());assert replay<=1e-10
-  loss=task(ids,'O',False);fresh=torch.autograd.grad(loss,ps);loss2=task(ids,'O',True);cp=torch.autograd.grad(loss2,ps);err=max(float((a-b).abs().max()) for a,b in zip(fresh,cp));assert all(torch.allclose(a,b,atol=1e-5,rtol=1e-3) for a,b in zip(fresh,cp))
+  loss=task(ids,'O',False,True);fresh=torch.autograd.grad(loss,ps);loss2=task(ids,'O',True);cp=torch.autograd.grad(loss2,ps);err=max(float((a-b).abs().max()) for a,b in zip(fresh,cp));assert all(torch.allclose(a,b,atol=1e-5,rtol=1e-3) for a,b in zip(fresh,cp))
   length=sum(float(g.square().sum()) for g in fresh)**.5;assert length>0;direction=[g/length for g in fresh];epsilon=.001
   def shifted(sign):
    with torch.no_grad():
     for k,d in zip(bkeys,direction):params[k].copy_(initial_bias[k]+sign*epsilon*d)
-    return float(task(ids,'O',False))
+    return float(task(ids,'O',False,True))
   fd=(shifted(1)-shifted(-1))/(2*epsilon);assert abs(fd-length)<=.05*abs(length)+.001
   reset('O');optimizer=opt(ps);optimizer.zero_grad();task(ids,'O',True).backward();finite(ps);optimizer.step();finite(ps);overrides=checkpoint({k:params[k].detach().cpu() for k in bkeys},ckeys);assert all(torch.equal(native(overrides)[k],params[k].detach().cpu()) for k in bkeys)
   # Test I and E actual paths too, then discard all trained probe parameters.
@@ -63,7 +64,7 @@ def run(cfg):
   from solver import mapper
   from core_depth import PERM
   g=torch.cat([encode(pixels[z].cuda())[0].detach().cpu() for z in ids.split(8)]);q=torch.ones(32,dtype=torch.float64)/8;t=mapper(g,q);d=1536;template=dict(A=torch.ones(d*(d+1)//2,dtype=torch.float64),B=torch.zeros(d,6,dtype=torch.float64),W=torch.zeros(d,6,dtype=torch.float64),mapper=t,PERM=PERM,bias_overrides=overrides,bias_representation='absolute_overrides',alpha=.01,classes=6,source_commit=cfg['source_commit']);torch.save(template,out/'capacity.private.pt');capacity=(out/'capacity.private.pt').stat().st_size;assert capacity<=19058800;back=torch.load(out/'capacity.private.pt',weights_only=False);assert all(torch.equal(back['bias_overrides'][k],v) for k,v in overrides.items())
-  write(out/'aggregate.json',dict(pass_all=True,capacity_template_bytes=capacity,**s,zero_G_replay_error=replay,micro_checkpoint_gradient_error=err,bias_direction_derivative=length,bias_center_difference=fd,bias_roundtrip_exact=True,actual_E_I_O_step_finite=True,training_query_not_validation=True,sampling_steps=800,unique_groups_per_task=32,discarded_probe_models=True,forward_counts=counter));return
+  write(out/'aggregate.json',dict(pass_all=True,capacity_template_bytes=capacity,**s,zero_G_replay_error=replay,micro_batch_feature_roundoff_max=micro_error,full32_vs_micro8_checkpoint_gradient_test=True,micro_checkpoint_gradient_error=err,bias_direction_derivative=length,bias_center_difference=fd,bias_roundtrip_exact=True,actual_E_I_O_step_finite=True,training_query_not_validation=True,sampling_steps=800,unique_groups_per_task=32,discarded_probe_models=True,forward_counts=counter));return
  assert json.loads(Path(cfg['preflight']).read_text())['pass_all'];arm_receipts=[]
  for arm in ['E','I','O']:
   reset(arm);ps=[params[k] for k in bkeys]+(heads if arm=='E' else []);optimizer=opt(ps);counter.update(logical_forward_images=0,forward_calls=0);start=time.monotonic();losses=[]

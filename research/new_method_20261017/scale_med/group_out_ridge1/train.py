@@ -48,14 +48,14 @@ def run(cfg):
   s=synthetic();ids=orders[0];reset('O');ps=[params[k] for k in bkeys]
   with torch.no_grad():
    g=encode(pixels[ids].cuda())[0].cpu();micro=torch.cat([encode(pixels[z].cuda())[0].cpu() for z in ids.split(8)]);micro_error=float((micro-g).abs().max())
-  replay=float((g-cached[ids]).abs().max());assert replay<=1e-10
-  loss=task(ids,'O',False,True);fresh=torch.autograd.grad(loss,ps);loss2=task(ids,'O',True);cp=torch.autograd.grad(loss2,ps);err=max(float((a-b).abs().max()) for a,b in zip(fresh,cp));assert all(torch.allclose(a,b,atol=1e-5,rtol=1e-3) for a,b in zip(fresh,cp))
+  replay=float((g-cached[ids]).abs().max());write(out/'REPLAY_CHECK.json',dict(canonical32_error=replay,micro8_error=micro_error));assert replay<=1e-10
+  loss=task(ids,'O',False,True);fresh=torch.autograd.grad(loss,ps);loss2=task(ids,'O',True);cp=torch.autograd.grad(loss2,ps);err=max(float((a-b).abs().max()) for a,b in zip(fresh,cp));write(out/'GRADIENT_CHECK.json',dict(full32_micro8_gradient_max_error=err));assert all(torch.allclose(a,b,atol=1e-5,rtol=1e-3) for a,b in zip(fresh,cp))
   length=sum(float(g.square().sum()) for g in fresh)**.5;assert length>0;direction=[g/length for g in fresh];epsilon=.001
   def shifted(sign):
    with torch.no_grad():
     for k,d in zip(bkeys,direction):params[k].copy_(initial_bias[k]+sign*epsilon*d)
     return float(task(ids,'O',False,True))
-  fd=(shifted(1)-shifted(-1))/(2*epsilon);assert abs(fd-length)<=.05*abs(length)+.001
+  positive,negative=shifted(1),shifted(-1);fd=(positive-negative)/(2*epsilon);write(out/'FINITE_DIFFERENCE_CHECK.json',dict(epsilon=epsilon,analytical_direction=length,finite_difference=fd,positive_loss=positive,negative_loss=negative,error=abs(fd-length),allowed_error=.05*abs(length)+.001));assert abs(fd-length)<=.05*abs(length)+.001
   reset('O');optimizer=opt(ps);optimizer.zero_grad();task(ids,'O',True).backward();finite(ps);optimizer.step();finite(ps);overrides=checkpoint({k:params[k].detach().cpu() for k in bkeys},ckeys);assert all(torch.equal(native(overrides)[k],params[k].detach().cpu()) for k in bkeys)
   # Test I and E actual paths too, then discard all trained probe parameters.
   for arm in ['I','E']:

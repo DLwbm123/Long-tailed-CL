@@ -1,6 +1,6 @@
 # CLS–patch交叉特征：固定配对假说
 
-状态：RUNNING/math_qualification。独立guard已启动，尚无真实图资格PASS或科学结果；实际回执优先，不将源存在视为资格通过。
+状态：COMPLETE_VERIFIED_GATE_FAILED。两臂结束、独立12头验收PASS；固定主门失败，关闭本配置，不扫参补救。详见REPORT_ZH.md与DECISION.json。
 
 ## 证据与假说
 

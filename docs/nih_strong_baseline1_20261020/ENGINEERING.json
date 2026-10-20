@@ -1,0 +1,94 @@
+{
+  "state": "PASS",
+  "arms": [
+    {
+      "arm": "imagenet_frozen_LA",
+      "loss": 1.9388105869293213,
+      "gradient_norm": 13.586236953735352,
+      "GPU_reserved_peak_bytes": 627048448,
+      "trainable_parameters": 15360
+    },
+    {
+      "arm": "imagenet_full_LA",
+      "loss": 1.9388105869293213,
+      "gradient_norm": 32.070945739746094,
+      "GPU_reserved_peak_bytes": 3311403008,
+      "trainable_parameters": 85814016
+    },
+    {
+      "arm": "clip_frozen_LA",
+      "loss": 2.427614212036133,
+      "gradient_norm": 13.679465293884277,
+      "GPU_reserved_peak_bytes": 3311403008,
+      "trainable_parameters": 15360
+    },
+    {
+      "arm": "clip_full_LA",
+      "loss": 2.427614212036133,
+      "gradient_norm": 55.44038009643555,
+      "GPU_reserved_peak_bytes": 3785359360,
+      "trainable_parameters": 85814784
+    }
+  ],
+  "engineering_seconds": 77.57120156288147,
+  "engineering_image_exposures": 128,
+  "optimizer_updates": 0,
+  "data_audit": {
+    "train_images": 68058,
+    "val_images": 300,
+    "train_patients": 23379,
+    "val_patients": 112,
+    "train_counts": [
+      3135,
+      800,
+      868,
+      435,
+      2875,
+      229,
+      519,
+      49,
+      6941,
+      1665,
+      2036,
+      811,
+      213,
+      1485,
+      59,
+      7,
+      32,
+      339,
+      121,
+      45439
+    ],
+    "val_counts": [
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+    ],
+    "patient_overlap": 0,
+    "image_overlap": 0,
+    "test_access": false
+  },
+  "RSS_peak_bytes": 2854563840,
+  "GPU_reserved_peak_bytes": 3785359360,
+  "LA_identity_and_gradient": true,
+  "LA_math_check_seconds": 5.455771446228027,
+  "total_engineering_seconds": 83.0269730091095
+}

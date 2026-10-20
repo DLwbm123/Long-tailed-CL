@@ -5,8 +5,11 @@ r=Path(os.environ['ROUND_ROOT']);clock=json.loads((r/'ROUND_CLOCK.private.json')
 while not (r/'DRIVER_EXIT.json').exists():
  try:
   command=Path('/proc')/str(pid)/'cmdline'
-  if not command.exists():retired=True;break
-  assert b'/tmp/q746/driver.py' in command.read_bytes() and os.getpgid(pid)==pid,'driver identity/group mismatch'
+  if not command.exists():
+   retired=True
+   try:os.killpg(pid,0)
+   except ProcessLookupError:break
+  else:assert b'/tmp/q746/driver.py' in command.read_bytes() and os.getpgid(pid)==pid,'driver identity/group mismatch'
  except ProcessLookupError:retired=True;break
  if time.time()>=clock['deadline_unix']-10:
   forced=True;os.killpg(pid,signal.SIGTERM);time.sleep(5)

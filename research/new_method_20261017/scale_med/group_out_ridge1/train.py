@@ -29,7 +29,7 @@ def load_training(cfg):
 def run(cfg):
  out=Path(cfg['output']);pixels,y,groups,cached=load_training(cfg);orders,members=schedule(y,groups);torch.save(orders,out/'sampling.private.pt');m,params,bkeys,ckeys,heads,pointwise=setup(cfg);initial_bias={k:params[k].detach().clone() for k in bkeys};initial_heads=[p.detach().clone() for p in heads];counter={'logical_forward_images':0,'forward_calls':0}
  def encode(x):
-  counter['logical_forward_images']+=len(x);counter['forward_calls']+=1;o=raw(m,pointwise,x);g=torch.nn.functional.normalize(torch.cat([o['pre_logits'],o['pre_logits_few']],1).double(),dim=1);return g,o['logits'][:,:4],o['logits_few'][:,:4]
+  counter['logical_forward_images']+=len(x);counter['forward_calls']+=1;o=raw(m,pointwise,x);g=torch.nn.functional.normalize(torch.nn.functional.normalize(torch.cat([o['pre_logits'],o['pre_logits_few']],1),dim=1).double(),dim=1);return g,o['logits'][:,:4],o['logits_few'][:,:4]
  def task(ids,arm,ck=True):
   vals=[[],[],[]]
   for part in ids.split(8):
@@ -59,7 +59,11 @@ def run(cfg):
   # Test I and E actual paths too, then discard all trained probe parameters.
   for arm in ['I','E']:
    reset(arm);pp=ps+(heads if arm=='E' else []);optimizer=opt(pp);optimizer.zero_grad();l=task(ids,arm,True);assert torch.isfinite(l);l.backward();finite(pp);optimizer.step();finite(pp)
-  write(out/'aggregate.json',dict(pass_all=True,**s,zero_G_replay_error=replay,micro_checkpoint_gradient_error=err,bias_direction_derivative=length,bias_center_difference=fd,bias_roundtrip_exact=True,actual_E_I_O_step_finite=True,training_query_not_validation=True,sampling_steps=800,unique_groups_per_task=32,discarded_probe_models=True,forward_counts=counter));return
+  # Match actual persistence format at full original width, without fitting a probe classifier.
+  from solver import mapper
+  from core_depth import PERM
+  g=torch.cat([encode(pixels[z].cuda())[0].detach().cpu() for z in ids.split(8)]);q=torch.ones(32,dtype=torch.float64)/8;t=mapper(g,q);d=1536;template=dict(A=torch.ones(d*(d+1)//2,dtype=torch.float64),B=torch.zeros(d,6,dtype=torch.float64),W=torch.zeros(d,6,dtype=torch.float64),mapper=t,PERM=PERM,bias_overrides=overrides,bias_representation='absolute_overrides',alpha=.01,classes=6,source_commit=cfg['source_commit']);torch.save(template,out/'capacity.private.pt');capacity=(out/'capacity.private.pt').stat().st_size;assert capacity<=19058800;back=torch.load(out/'capacity.private.pt',weights_only=False);assert all(torch.equal(back['bias_overrides'][k],v) for k,v in overrides.items())
+  write(out/'aggregate.json',dict(pass_all=True,capacity_template_bytes=capacity,**s,zero_G_replay_error=replay,micro_checkpoint_gradient_error=err,bias_direction_derivative=length,bias_center_difference=fd,bias_roundtrip_exact=True,actual_E_I_O_step_finite=True,training_query_not_validation=True,sampling_steps=800,unique_groups_per_task=32,discarded_probe_models=True,forward_counts=counter));return
  assert json.loads(Path(cfg['preflight']).read_text())['pass_all'];arm_receipts=[]
  for arm in ['E','I','O']:
   reset(arm);ps=[params[k] for k in bkeys]+(heads if arm=='E' else []);optimizer=opt(ps);counter.update(logical_forward_images=0,forward_calls=0);start=time.monotonic();losses=[]

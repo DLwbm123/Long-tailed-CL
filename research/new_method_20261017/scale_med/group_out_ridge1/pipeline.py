@@ -32,7 +32,8 @@ def synthetic():
  for s in range(3):
   mask=y<s+4;scores['O',s][torch.arange(60)[mask],y[mask]]=1
  success=evaluate(scores,y,groups,[]);assert success['gates']['pass_all'] and success['mechanism_O_minus_I']['gatekeeping_pass'];scores['O',0]=scores['G_Matched',0].clone();fail=evaluate(scores,y,groups,[]);assert not fail['gates']['pass_all'];assert evaluate({},y,groups,[])['decision']=='UNRESOLVED_GROUP_OUT_RIDGE1';json.dumps(success,default=lambda x:x.item() if isinstance(x,np.generic) else x,allow_nan=False)
- return dict(full_six_comparisons_and_mechanism=True,rescue_harm_identity=True,success_failure_missing_JSON=True)
+ base=dict(BA=.5,recall=[.5,2/3,.5,.5]);good=dict(BA=.5+1/12,recall=[.5,1.,.5,.5]);dev={'F':{'0':base},'O':{'0':good}};assert initial_gate(dev)['pass_all'];bad=dict(BA=good['BA'],recall=[.5-1/68,1.,.5,.5]);dev['O']['0']=bad;assert not initial_gate(dev)['pass_all']
+ return dict(development_discrete_gate_success_failure=True,full_six_comparisons_and_mechanism=True,rescue_harm_identity=True,success_failure_missing_JSON=True)
 
 def run(cfg,access):
  out=Path(cfg['output']);ref=Path(cfg['reference']);matched=Path(cfg['matched']);training=Path(cfg['training_output']);assert json.loads((training/'ENCODER_SEAL.json').read_text())['future_frozen'];maps={};state={};heads={};alphas={};fits=[];sizes={};devx={a:[] for a in ARMS};devy=[];checks=[];counts=[];forward={};stage=-1;train_groups=set();val_groups=set()

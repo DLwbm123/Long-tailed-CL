@@ -1,0 +1,48 @@
+{
+  "pass_all": true,
+  "orthogonal_trace_matched": true,
+  "quadratic_finite_difference": true,
+  "zero_drift_gradient": true,
+  "common_logit_shift_invariance": true,
+  "synthetic_rank": 3,
+  "synthetic_support_dimension": 9,
+  "actual_protection_gradients": [
+    {
+      "arm": "L",
+      "regularizer": 0.0006791210257455647,
+      "gradient_L2": 0.10934895182951039,
+      "checkpoint_gradient_max_error": 9.5367431640625e-07
+    },
+    {
+      "arm": "R",
+      "regularizer": 0.0004243051567323974,
+      "gradient_L2": 0.3121321917981298,
+      "checkpoint_gradient_max_error": 9.5367431640625e-07
+    },
+    {
+      "arm": "D",
+      "regularizer": 0.0025998024861761167,
+      "gradient_L2": 1.2324742345081339,
+      "checkpoint_gradient_max_error": 9.5367431640625e-07
+    }
+  ],
+  "zero_G_replay_error": 1.1102230246251565e-16,
+  "micro_feature_roundoff": 8.722792738113938e-09,
+  "actual_four_steps_finite": true,
+  "bias_roundtrip_restore_exact": true,
+  "head_rows_outside4_unchanged": true,
+  "capacity_template_bytes": 10076844,
+  "training_rows_only": true,
+  "teacher_rank": 3,
+  "support_dimension": 768,
+  "random_overlap": [
+    0.06881645766774307,
+    0.027640197919738003,
+    0.00015651473355216832
+  ],
+  "discarded_probe_parameters": true,
+  "forward_counts": {
+    "logical_forward_images": 704,
+    "forward_calls": 67
+  }
+}

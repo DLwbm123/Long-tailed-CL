@@ -1,6 +1,6 @@
 # 训练充分统计读出风险诊断
 
-状态：FROZEN_NOT_LAUNCHED。纯CPU读取20类旧CLS/patch/cross Gram、原最终联合头和封存离线CE头。禁止读取逐图训练缓存、原图、query/val/test及既有逐图预测；不重新优化/评分旧科学实验。
+状态：COMPLETE_VERIFIED；一次诊断/独立block核验通过、全部进程退役。纯CPU读取20类旧CLS/patch/cross Gram、原最终联合头和封存离线CE头。禁止读取逐图训练缓存、原图、query/val/test及既有逐图预测；不重新优化/评分旧科学实验。
 
 两头都固定在原1537输入下，原ridge输出列中心化，目标为e_y−1/20。每类质量1；报告半平方风险、score二阶总能量、真类对平均错类差的均值与方差。固定原频率tail7/middle6/head7和initial/later组，只给描述均值，不设性能选择门，不挑类别或候选。最后完整正则目标必须服从ridge最优：CE−ridge总目标差等于.5 tr(ΔᵀGΔ)+alpha/2||Δ||²。独立检查器直接从原block矩计算输出二阶矩与均值，而worker组装完整G；合成4维样本自检两公式对直接样本计算。
 

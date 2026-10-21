@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-21",
+  "user_update": "CLIP explicitly allowed; reading existing ISIC initial training and HK S_old/E/Qgate original images for re-encoding explicitly allowed. Future/test/PAD/external images remain excluded.",
+  "new_reads": {
+    "DEFTS": {
+      "id": "PBE61MdMI3",
+      "scope": "2.2/2.3 including Eqs2-5, main implementation, Appendix backbone-variation passages",
+      "mechanism": "95percent text scatter subspace, pooled covariance and empirical-Bayes posterior prototypes; new semantic prior, not FROST score fusion.",
+      "boundary": "Original balanced image-shot recipe extended explicitly to unequal known-group observations using G_c and pooled group df; not literal reproduction, no patient-iid or fixed covariance correctness claim.",
+      "chosen_backbone": "official frozen OpenAI CLIP ViT-B/32, also evaluated in paper appendix, shared across all new controls; original F retained separately.",
+      "choice": "bounded new pilot; no ensembling, hyperparameter or prompt search; protocol in defts_clip_pilot/PROTOCOL.md"
+    },
+    "Medical_label_guided": {
+      "id": "G0TvJbOPGB",
+      "scope": "Method3.1-3.4, implementation4.1 and AppendixA.2/B.1",
+      "mechanism": "two frozen modalities, random expansion5120, withinclass diagonal uncertainty, cross-modal ridge alignment, label-supervised shared ridge",
+      "boundary": "Class-specific sample-variance denominator n_c-1 needs singleton handling not specified by the inspected formula. Three5120square states alone far exceed project fullartifact cap; expansion parameters excluded by author storage statement are not free here. Not launched or reduced to a renamed diagonal/alpha rescue."
+    },
+    "Exponential_tilting": {
+      "id": "XjKQSAmTGd",
+      "scope": "Method3, practical classifier4.1, Theorem.3 and empirical-form proof, temperature/notebook references",
+      "mechanism": "global support exponential weights plus soft-posterior-weighted prototypes; marginal formulation itself independent of query",
+      "boundary": "With empirical P0 and c set equal to its empirical score mean as Eq2, P0 is already feasible and uniquely KL-minimal (KL=0); nonzero default lambda is not forced by that constraint. Theorem.3 optimizes z-independent marginal log-loss, not per-query BA/cosine-prototype safety. Practical prototype rule is additional. No notebook verified; fixed cosine-softmax temperature numeric not found in inspected text. No performance run or invented rule."
+    }
+  },
+  "TAP_rank_followup": {
+    "scope": "Completed AppendixF continuation and own conditional algebra, no real feature/text rank measured",
+    "correction": "If visual/text prototype matrices X,T each have full row rank C, range((X^T T)^T)=range(T^T). Arbitrary orthogonal completion annihilates observed t_c and cannot change those aligned class names. C<d_text alone is not a reason to reject observed-class scoring.",
+    "low_rank_formula": "Let Gx=XX^T,Gt=TT^T positive definite. Aligned named vectors Y=L X with L=Gt^(1/2)[Gt^(1/2)GxGt^(1/2)]^(-1/2)Gt^(1/2); then YY^T=Gt. Text reshapes observed class geometry inside visual-prototype span; does not by itself add query-discriminating directions outside it.",
+    "limits": "Conditional algebra only, not verified ranks on ISIC/HK, not class1 benefit, not full TAP learned-map characterization."
+  },
+  "new_real_fits_or_forwards_so_far": 0,
+  "cost_totals_unchanged_until_new_actual": true
+}

@@ -82,7 +82,7 @@ def main():
  mc['text_cfg']['hf_model_name']=str(assets/'text');mc['text_cfg']['hf_tokenizer_name']=str(assets)
  mc['text_cfg']['hf_model_pretrained']=False
  _MODEL_CONFIGS['fixed_biomedical']=mc
- backbone,_,preprocess=open_clip.create_model_and_transforms('fixed_biomedical',pretrained=None,precision='fp32',device='cuda',**{f'image_{k}':v for k,v in spec['preprocess_cfg'].items()})
+ backbone,_,preprocess=open_clip.create_model_and_transforms('fixed_biomedical',pretrained=None,pretrained_hf=False,precision='fp32',device='cuda',**{f'image_{k}':v for k,v in spec['preprocess_cfg'].items()})
  state=torch.load(checkpoint,map_location='cpu',weights_only=False)
  if 'state_dict' in state:state=state['state_dict']
  backbone.load_state_dict(state,strict=True);del state;checkpoint.close();del checkpoint

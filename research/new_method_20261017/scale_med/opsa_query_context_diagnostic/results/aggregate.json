@@ -1,0 +1,47 @@
+{
+  "decision": "QUERY_CONTEXT_DIAGNOSTIC_COMPLETE",
+  "comparisons": {
+    "first32": {
+      "feature": {
+        "maxabs": 1.1102230246251565e-16,
+        "RMS": 5.0477712543451275e-18
+      },
+      "score": {
+        "maxabs": 1.942890293094024e-16,
+        "RMS": 5.2444911114692733e-17
+      },
+      "replay_gate": true
+    },
+    "tail10": {
+      "feature": {
+        "maxabs": 0.00018710370947928618,
+        "RMS": 1.2943517916997464e-05
+      },
+      "score": {
+        "maxabs": 0.0003547359325339894,
+        "RMS": 7.073888246746153e-05
+      },
+      "replay_gate": false
+    },
+    "tail10_padded32": {
+      "feature": {
+        "maxabs": 0.00018710370947928618,
+        "RMS": 1.2943517902701286e-05
+      },
+      "score": {
+        "maxabs": 0.0003547359325339894,
+        "RMS": 7.073888243091566e-05
+      },
+      "replay_gate": false
+    }
+  },
+  "pairs": {
+    "tail10_vs_padded32": {
+      "maxabs": 9.705602987963857e-09,
+      "RMS": 6.083466577933882e-10
+    }
+  },
+  "parameters_unchanged": true,
+  "method_success": false,
+  "performance_test": false
+}

@@ -1,0 +1,34 @@
+{
+  "cells": [
+    {
+      "name": "first32",
+      "input_rows": 32,
+      "retained_rows": 32,
+      "cudnn_tf32": true,
+      "matmul_tf32": false,
+      "finite": true
+    },
+    {
+      "name": "tail10",
+      "input_rows": 10,
+      "retained_rows": 10,
+      "cudnn_tf32": true,
+      "matmul_tf32": false,
+      "finite": true
+    },
+    {
+      "name": "tail10_padded32",
+      "input_rows": 32,
+      "retained_rows": 10,
+      "cudnn_tf32": true,
+      "matmul_tf32": false,
+      "finite": true
+    }
+  ],
+  "encoder_calls": 3,
+  "encoder_images": 74,
+  "unique_query_images": 42,
+  "backward": 0,
+  "updates": 0,
+  "fits": 0
+}

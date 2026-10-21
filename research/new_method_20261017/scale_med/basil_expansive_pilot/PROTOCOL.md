@@ -1,0 +1,19 @@
+# BASIL expansive-readout transfer: frozen protocol
+
+User explicitly requests BASIL and CAFE trials and removes the previous 19,058,800-byte artifact cap. This independent BASIL experiment uses all real support references; no subsampling, precision/dimension rescue. CAFE is a separate experiment. Source must be pushed and anonymous protocol verified before first actual execution.
+
+## Estimand and provenance
+Transfer only BASIL's expansive class readout (OpenReview Uyz13nNEDN, equations 5–10, appendix A.2). This is not full base-VPT/FSCIL reproduction. Frozen existing native 1536-dimensional features and original F mapper/head. All current initial classes receive the readout. No new encoder, CLIP asset, future class, test data or old T/P/C/D learned endpoint.
+
+For each class use the normalized original-F class/group-balanced weighted native mean p. Keep every normalized real support feature. Generate 96 fixed tangent references (sigma .025), with normalized projected Gaussian tangent and denominator sqrt(1+sigma²). Seed 74410 plus dataset/fold index. Fixed alpha .75 from paper's CUB/mini/FGVC/iNF setting; paper CIFAR uses .5, hence this is an explicit transfer choice, not a universal paper default. No query-dependent selection or search. A common positive temperature has no argmax effect and is omitted.
+
+Full B score: .25 cosine-to-mean + .75 maximum cosine across real and tangent references. Public key M denotes this full arm, not old fusion M. Controls: unchanged F, cosine mean P, real-only R and tangent-only T with same .25/.75 rule. Real-only control tests whether tangent expansion adds to memorized support geometry. More support can inflate a maximum; no claim that tangent generation adds semantic information or that its mean preservation guarantees class safety.
+
+## Data separation
+ISIC fixed seed74290 two producer folds, all 2555 initial images with documented lesion-linked groups disjoint between support/query; patient independence unknown. HK original 13-class S_old3140 support and disjoint E986/Qgate388 cohorts. HK cohorts are not two producer folds. Means, all references and artifacts for all three support sets sealed before any query scoring. Existing cached tensors may contain all ISIC rows but only support masks enter fitting. HK exclude other classes immediately. No evaluation-based model selection; query historically exposed, not blind confirmation.
+
+## Gates
+Primary must improve pooled BA versus original F by at least 1pp and rescue at least one class1 image with zero class1 harm. ISIC both folds BA and class1 correct nondecreasing. HK each cohort BA at least +1pp and class1 at least +1 correct. Every other class pooled and each fold/cohort may lose at most1pp recall. Full arm must strictly exceed P and real-only R pooled, and each HK cohort. Report all five arms, all class counts/confusions/RH, all cells and failed gates; no control promotion, no bootstrap, method_success remains false for this bounded transfer screen even if point gates pass. No rank/weight/alpha/temperature/offset/seed rescue.
+
+## Engineering and budget
+CPU only, zero encoder/mapper/ridge solve/update. Three prototype/reference fits. Original F A/B residual, score/count parity; reference and artifact exact readback; finite/coverage and seals. Artifact size reported without old cap, FP64, no compression. Independent600s absolute wall from first actual, TERM at590s/KILL5s; CPU300s, RSS4GiB, file128MiB, new round plus16MiB strictly below512MiB. Window plus1,001,040,384 outside reserve stays below17GB and existing20GB hard boundary; per-server <50GB, <24h never loosened. NFS mount/capacity/probe before launch. Neutral parent/child argv. No retries, no deletion of history. Cost counted once including coordinator; publish source and aggregate/NA Chinese report only, retain all private assets on NFS.

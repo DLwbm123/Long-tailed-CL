@@ -24,7 +24,7 @@ def unpack(a):
  d=1536;ix=torch.triu_indices(d,d);m=torch.zeros(d,d,dtype=torch.float64);m[ix.unbind()]=a;m[ix[1],ix[0]]=a;return m
 BUCKETS=[(c,sgn) for c in range(4) for sgn in [-1,0,1]]
 def main():
- synthetic();old=Path(cfg['producer_root']);prior=Path(cfg['measure_root']);allowed={old/'prep/PLAN.private.pt',old/'evaluate/responses.private.pt'}
+ synthetic();old=Path(cfg['producer_root']);prior=Path(cfg['measure_root']);allowed={old/'prep/PLAN.private.pt',old/'evaluate/responses.private.pt',prior/'aggregate.json'}
  for k in [0,1]:allowed.update({old/'prep'/f'{k}.teacher.private.pt',prior/f'{k}.artifact.private.pt'})
  original=torch.load
  def load(p):

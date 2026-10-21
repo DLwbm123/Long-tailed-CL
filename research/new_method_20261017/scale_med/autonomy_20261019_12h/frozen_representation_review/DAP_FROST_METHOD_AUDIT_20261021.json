@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-21",
+  "read_scope": {
+    "DAP": [
+      "Main1-3 incl Eqs1-16",
+      "4.1 implementation and results/parameter-analysis text",
+      "Appendix algorithm1, proofs3.1/3.2, recursive derivation and base adaptation/repro settings"
+    ],
+    "FROST": [
+      "Main1-4 including Eqs1-10 and component-ablation text",
+      "AppendixA.1/A.2/Table6",
+      "AppendixB.2/Table9"
+    ]
+  },
+  "full_pdfs_obtained": true,
+  "not_claimed": "Not every references/result table read line-by-line; no official-code reproduction; both under review.",
+  "DAP": {
+    "url": "https://openreview.net/forum?id=Tsqun8N1mn",
+    "mechanism": "base class means/covariances transferred by cosine softmax -> synthetic features -> fixed RBF anchors -> inverse-class-frequency ridge",
+    "distinct": "Synthetic statistical prior transfer differs from our old pure covariance distance head, but not automatically new utility or budget fit. Class-balanced recursive ridge itself is existing objective family.",
+    "limits": [
+      "Novel-vs-base prior assumed; current initial four classes no justified external rich-base partition.",
+      "Empirical per-dataset alpha/beta/K/gamma/tau; no query tuning permitted here. Nsyn and precise lambda numeric not found in inspected implementation text.",
+      "Packed float64 Gram alone K3000=36012000/K5000=100020000bytes >19058800; anchor features and class covariance additional.",
+      "Cauchy-Schwarz/concentration do not alone prove class-conditional strict separation or population minority benefit; identical input with different label has identical kernel embedding.",
+      "Original pipeline includes supervised base adaptation; cannot call fully zero-training."
+    ],
+    "decision": "No DAP run, no resizing anchors/diagonal covariance/pseudobase split to rename stopped kernel/covariance routes."
+  },
+  "FROST": {
+    "url": "https://openreview.net/forum?id=yKWeZIY0Sn",
+    "mechanism": "base adapter -> frozen random ReLU CorrMem with unweighted ridge + native cosine ProtoMem, Eq10 fixed0.5 fusion",
+    "actual_selection": "lambda chosen once with20percent base holdout; alpha0.5 fixed default but paper reports sweeps, not parameter-free",
+    "budget": "At our native1536 dims, V2000 FP32 projection=12288000 plus packed FP32 Gram=8004000 =>20292000 before B/W/adapter/metadata, already above cap. No full recipe claimed.",
+    "old_control_difference": "Old covariance NCM uses mapped Euclidean distances, no joint ridge+native cosine means estimator; core.py global/local fusion uses patch Gaussian densities. Bounded audit not proof all-history untouched.",
+    "current_F_difference": "Current F already equal class mass; no base-frequency debias explanation. Reuse as global inverse-moment vs native direction estimator combination, not additional semantic info/originality.",
+    "chosen": "Fixed existing-F + native support weighted cosine means0.5 fusion; preserve original F mapper/alpha/weights; P standalone and native Euclidean N control. No RP/adapter/new ridge solve/selection."
+  },
+  "protocol": "frozen_stat_fusion/PROTOCOL.md",
+  "protocol_required_before_actual": true,
+  "prior_stops_preserved": true,
+  "no_patient_requirement": true
+}

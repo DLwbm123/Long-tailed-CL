@@ -1,0 +1,92 @@
+{
+  "state": "COMPLETE_VERIFIED_GATE_FAILED",
+  "original_start_epoch": 1792589768.029071,
+  "original_deadline_epoch": 1792661768.029071,
+  "all_processes_exited_epoch": 1792597950.600024,
+  "elapsed_until_all_exit_seconds": 8182.570954084396,
+  "hard_limits": {
+    "storage_bytes": 2000000000,
+    "wall_seconds": 72000,
+    "RSS_bytes": 17179869184,
+    "GPU_reserved_bytes": 8589934592
+  },
+  "sampled_storage_peak_bytes": 239552261,
+  "exit_accounted_bytes": 239606159,
+  "storage_accounting": "max(st_size,st_blocks*512), entire experiment root plus neutral entry; sampled peak is not a continuous peak guarantee",
+  "RSS_sampled_peak_bytes": 2299482112,
+  "GPU_reserved_peak_bytes": 700448768,
+  "worker_counters": {
+    "qualification_encodes": 20,
+    "science_train_encodes": 68058,
+    "validation_encodes": 300,
+    "qualification_updates": 3,
+    "meta_updates": {
+      "META": 3000,
+      "WORST": 3000,
+      "PAIRED": 3000
+    },
+    "embedding_rows": {
+      "META": 177000,
+      "WORST": 177000,
+      "PAIRED": 177000
+    },
+    "support_view_rows": {
+      "META": 198000,
+      "WORST": 198000,
+      "PAIRED": 198000
+    },
+    "query_rows": {
+      "META": 57000,
+      "WORST": 57000,
+      "PAIRED": 57000
+    },
+    "state_embedding_rows": {
+      "META": 68058,
+      "WORST": 68058,
+      "PAIRED": 68058
+    },
+    "validation_embedding_rows": {
+      "META": 5400,
+      "WORST": 5400,
+      "PAIRED": 5400
+    },
+    "encoder_seconds": {
+      "qualification_encodes": 4.551231622695923,
+      "science_train_encodes": 5705.0564522743225,
+      "validation_encodes": 25.367528200149536
+    },
+    "wall_from_first": 8143.254073858261,
+    "GPU_peak_reserved_bytes": 700448768
+  },
+  "formal_optimizer_updates_total": 9000,
+  "engineering_optimizer_updates_total": 3,
+  "encoder_parameter_updates": 0,
+  "train_encodes_including_qualification": 68078,
+  "attempts": 1,
+  "runtime_failure_or_retry_count": 0,
+  "preparation_seconds_from_first_record_to_worker_start": 725.6532735824585,
+  "worker_residence_seconds": 7421.760764598846,
+  "verifier_residence_seconds": 35.12744331359863,
+  "verifier_internal_seconds": 25.380300998687744,
+  "remaining_group_members": [],
+  "run_returncode": 0,
+  "verify_returncode": 0,
+  "postcompletion_aggregate_read": {
+    "internal_wall_seconds": 0.17074203491210938,
+    "CPU_threads": 4,
+    "RSS_max_bytes": 429219840,
+    "new_model_forwards": 0,
+    "new_encodes": 0,
+    "new_optimization": 0,
+    "saved_score_tables_read": 54
+  },
+  "postcompletion_SSH_residence_seconds": 4.604332,
+  "cost_interpretation": [
+    "Verifier internal time is nested inside verifier residence and total elapsed; do not add twice.",
+    "Postcompletion saved-score read is separate from original all-process-exit runtime; no new model forward/encoding/optimization.",
+    "Embedding rows include support union and query; logical support_view_rows overlap and reuse mapped rows. Query rows are a subset, not extra unique images.",
+    "300 devval images encoded once; per-arm deployment validation embedding rows5400 reflect repeated prefixes/settings. Independent verifier adds900 NumPy query embeddings, zero encoder calls.",
+    "Preparation within original clock is retained; unmeasured client preparation remains unknown, not asserted zero.",
+    "Previous experiments and their failures/costs remain archived unchanged; no costs reset or transferred as new attempts."
+  ]
+}

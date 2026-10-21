@@ -9,7 +9,7 @@ from common import settings,write,report
 
 
 def solve(q,mu,components):
-    k,d=mu.shape;P=np.stack([np.asarray(c['center'])*float(c['mass'])**.5 for c in components],axis=1)
+    k,d=mu.shape;P=np.stack([np.asarray(c['center'])/max(np.linalg.norm(c['center']),1e-12)*float(c['mass'])**.5 for c in components],axis=1)
     # Same mathematical R, independent NumPy implementation.
     R=np.eye(d)-P@np.linalg.solve(np.eye(P.shape[1])+P.T@P,P.T);R=(R+R.T)/2
     base=q.sum(0)/k+.001*R;factor=cho_factor(base);ref=cho_solve(factor,mu.T/k)
@@ -45,7 +45,7 @@ def self_check():
     w,res=solve(q,mu,comp)
     assert np.isfinite(w).all() and res<=1e-8
     # Check the operator's explicit class difference against a dense construction via finite basis.
-    P=mu.T;R=np.eye(3)-P@np.linalg.solve(np.eye(3)+P.T@P,P.T)
+    P=(mu/np.maximum(np.linalg.norm(mu,axis=1,keepdims=True),1e-12)).T;R=np.eye(3)-P@np.linalg.solve(np.eye(3)+P.T@P,P.T)
     ref=np.linalg.solve(q.sum(0)/3+.001*R,mu.T/3);hard=np.stack([np.maximum(1-mu[c]@ref[:,c]+mu[c]@ref,0)**2 for c in range(3)])
     np.fill_diagonal(hard,0);a=.5*(1-np.eye(3))/2+.5*hard/hard.sum(1,keepdims=True)
     H=np.kron(q.sum(0)/3+.001*R,np.eye(3));rhs=mu.T/3

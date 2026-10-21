@@ -32,6 +32,3 @@ class Images(Dataset):
         with Image.open(self.root / self.rows[i]['relative_path']) as im:
             x = self.transform(im.convert('RGB'))
         return x, i
-
-
-

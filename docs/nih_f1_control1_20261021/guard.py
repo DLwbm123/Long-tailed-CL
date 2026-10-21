@@ -2,7 +2,7 @@
 import json,os,signal,subprocess,sys,time
 from pathlib import Path
 from common import settings,write
-cfg,out=settings();root=out.parent;config=Path(os.environ['RUN_CONFIG'])
+cfg,out=settings();root=out.parent;config=Path(os.environ['RUN_CONFIG']).resolve()
 assert not (root/'guardian.private.json').exists(),'Experiment already launched'
 cfg.setdefault('original_start_epoch',time.time());cfg.setdefault('hard_deadline_epoch',cfg['original_start_epoch']+cfg['max_wall_seconds']);assert cfg['hard_deadline_epoch']==cfg['original_start_epoch']+cfg['max_wall_seconds'];write(config,cfg)
 

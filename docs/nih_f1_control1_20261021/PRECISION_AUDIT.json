@@ -1,0 +1,84 @@
+{
+  "status": "CAUSE_CONFIRMED",
+  "startup_flags": {
+    "matmul_tf32": false,
+    "cudnn_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  },
+  "records": [
+    {
+      "cudnn_tf32": true,
+      "correct": {
+        "13": 5,
+        "19": 1,
+        "6": 6,
+        "14": 3,
+        "17": 13,
+        "1": 8,
+        "9": 4,
+        "4": 9,
+        "15": 3,
+        "8": 0
+      },
+      "validation_n": 150
+    },
+    {
+      "cudnn_tf32": false,
+      "correct": {
+        "13": 5,
+        "19": 1,
+        "6": 7,
+        "14": 3,
+        "17": 13,
+        "1": 8,
+        "9": 4,
+        "4": 9,
+        "15": 3,
+        "8": 0
+      },
+      "validation_n": 150
+    }
+  ],
+  "original_expected_counts": {
+    "13": 5,
+    "19": 1,
+    "6": 6,
+    "14": 3,
+    "17": 13,
+    "1": 8,
+    "9": 4,
+    "4": 9,
+    "15": 3,
+    "8": 0
+  },
+  "F1_recorded_counts": {
+    "13": 5,
+    "19": 1,
+    "6": 7,
+    "14": 3,
+    "17": 13,
+    "1": 8,
+    "9": 4,
+    "4": 9,
+    "15": 3,
+    "8": 0
+  },
+  "original_counts_exact": true,
+  "F1_counts_exact": true,
+  "changed_prediction_count": 1,
+  "feature_global_max_delta": 0.0027607306838035583,
+  "F1_prefix_features_match_saved_exact": true,
+  "F1_prefix_features_vs_saved_max_delta": 0.0,
+  "diagnostic_validation_encodes": 300,
+  "model_updates": 0,
+  "head_fits": 0,
+  "worker_seconds": 44.43612217903137,
+  "GPU_reserved_peak_bytes": 1621098496,
+  "changed_true_class_counts": {
+    "6": 1
+  },
+  "sample_level_evidence_private": true,
+  "F1_scientific_acceptance": false,
+  "prior_scientific_status_overwritten": false
+}

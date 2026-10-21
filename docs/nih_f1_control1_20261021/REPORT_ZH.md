@@ -42,3 +42,8 @@
 后继先核对原Task1评价执行依赖和非张量配置的历史绑定，不重复F1或以换名/参数调节救分；没有可解释的原状态复现前，不把此终点用于选择新机制。持续研究入口保持，但本固定控制停止，不自行新增重复监测。
 
 来源：PLAN、DECISION、TASK1_PARITY、VERIFICATION、COSTS、BOUNDARY_AUDIT和COMPARISON；父A见../nih_cxr_lt1_20261011/results/REPORT_ZH.md，A/B边界见../nih_learner_contract1_20261021/CONTRACT_ZH.md。
+
+
+## 人工指定原因取证追补（不追认本轮）
+
+Fibrosis差异已通过固定复放定位为F1额外关闭原评价默认开启的cuDNN TF32。原设置精确复现十类52/150与Fibrosis6/15；F1设置精确复现十类53/150与7/15，False全150特征与F1缓存逐项相同。旧失败状态和指标保持。详情见[原因取证](PRECISION_REPORT_ZH.md)，新增300诊断编码及总成本见PRECISION_COSTS.json。当前类训练统计同样受该覆盖影响，仅改验证开关不足以修复；本次没有重建统计/重训/重跑F1。

@@ -1,0 +1,91 @@
+{
+  "original_start_epoch": 1792552424.3168447,
+  "hard_deadline_epoch": 1792581224.3168447,
+  "first_run_to_all_exit_seconds": 1934.9983985424042,
+  "scientific_training_encodes": 7929,
+  "qualification_training_encodes": 64,
+  "total_training_encodes": 7993,
+  "formal_validation_encodes": 300,
+  "engineering_boundary_validation_encodes": 128,
+  "total_validation_encodes": 428,
+  "new_encoder_optimizer_updates": 0,
+  "inherited_task1_optimizer_updates": 1504,
+  "worker_analytic_solves": 12,
+  "independent_head_rebuilds": 6,
+  "independent_native_subsolves": 6,
+  "verifier_query_reencodes": 0,
+  "worker_seconds": 312.74977588653564,
+  "resume_worker_seconds": 39.340912103652954,
+  "verify_worker_seconds": 12.73914909362793,
+  "boundary_worker_seconds": 31.231518745422363,
+  "sampled_output_peak_bytes": 1428284068,
+  "exit_actual_accounted_bytes": 763593120,
+  "storage_hard_limit_bytes": 3000000000,
+  "RSS_group_sampled_peak_bytes": 4484501504,
+  "GPU_reserved_observed_peak_bytes": 4896849920,
+  "first_attempt_GPU_peak_unknown": true,
+  "source_history_cost_retained": true,
+  "all_process_groups_retired": true,
+  "main_failed_attempts": 4,
+  "resume_failed_scientific_parity": true,
+  "prelaunch_template_syntax_failure_no_remote_execution": true,
+  "pre_retry_config_key_failure_no_new_worker": true,
+  "phases": [
+    {
+      "phase": "boundary_terminal.json",
+      "returncode": 0,
+      "finished": 1792554359.3023827,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 40.24899339675903
+    },
+    {
+      "phase": "attempt4/run_terminal.json",
+      "returncode": 1,
+      "finished": 1792552957.0200837,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 326.0229711532593
+    },
+    {
+      "phase": "attempt3/run_terminal.json",
+      "returncode": 1,
+      "finished": 1792552580.5948734,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 10.037480592727661
+    },
+    {
+      "phase": "attempt5_recovery/resume_terminal.json",
+      "returncode": 1,
+      "finished": 1792554095.981996,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 50.29161858558655
+    },
+    {
+      "phase": "attempt1/run_terminal.json",
+      "returncode": 1,
+      "finished": 1792552430.3296375,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 5.021205902099609
+    },
+    {
+      "phase": "attempt2/run_terminal.json",
+      "returncode": 1,
+      "finished": 1792552552.2950208,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 10.049493074417114
+    },
+    {
+      "phase": "verification_attempt1/verify_terminal.json",
+      "returncode": 0,
+      "finished": 1792554206.9560628,
+      "reason": "process_exit",
+      "observed_process_residence_seconds": 25.159827709197998
+    }
+  ],
+  "notes": [
+    "All failed attempts, debugging, waiting and recovery share the original clock.",
+    "Process/guard observation intervals are not CPU-core or GPU-active seconds.",
+    "Historical Task1 creation and earlier experiment costs are not reset or counted as new training here.",
+    "Engineering validation exceeded the formal 300 encoder exposures by an explicit 128; it cannot repair scientific acceptance.",
+    "RSS and space maxima are sampled observations; first failed GPU peak remains unknown."
+  ]
+}

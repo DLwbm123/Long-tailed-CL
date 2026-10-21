@@ -1,0 +1,63 @@
+{
+  "state": "SOURCE_RECEIPT_BOUND_NO_NEW_EXPERIMENT",
+  "families": {
+    "A_trainable_NIH": {
+      "dataset": "NIH author20",
+      "source_commit": "41e6545c514b90b2b771d3eb7661cc9042a7977d",
+      "report_commit": "f871dba41122df54f55ad9509827c2024c82eedd",
+      "runner": "tools/run_module_additions.py",
+      "feature_wrapper": "tools/run_multilabel.py:ApartFeatures -> tools/ct3p_core.py:features",
+      "feature": "L2 normalized concatenated regular/few pre_logits, 1536",
+      "arms": {
+        "base": {
+          "final_BA": 24.6667,
+          "mean_BA": 28.3192
+        },
+        "local_transport": {
+          "final_BA": 24.0,
+          "mean_BA": 28.0924
+        }
+      },
+      "optimizer_updates": 3412,
+      "policy_updates": 0,
+      "tail_classes": [
+        7,
+        14,
+        15,
+        16
+      ],
+      "tail_denominator": 60,
+      "internal_fit_meta_patient_disjoint": false
+    },
+    "B_frozen_strong_joint": {
+      "runners": [
+        "docs/matched_heads1_20261018/run.py",
+        "docs/joint_heads1_20261019/run.py",
+        "docs/joint_controls1_20261019/run.py"
+      ],
+      "feature": "raw final CLS768 plus patch mean768 and penalized bias",
+      "final_correct": 82,
+      "val_denominator": 300,
+      "mean_BA_percent": 34.005291005291,
+      "tail_classes": [
+        15,
+        16,
+        7,
+        14,
+        18,
+        12,
+        5
+      ],
+      "tail_denominator": 105,
+      "encoder_optimizer_updates": 0,
+      "per_class_patient_equal_weights": true
+    }
+  },
+  "families_are_not_same_ablation": true,
+  "remote_text_checks": 2,
+  "new_tensor_or_model_reads": 0,
+  "new_image_or_feature_reads": 0,
+  "new_scores": 0,
+  "new_fits_or_solves": 0,
+  "new_experiment_processes": 0
+}

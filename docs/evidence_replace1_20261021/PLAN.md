@@ -35,3 +35,6 @@ Reuse old B82/300/mean34.005291 and archived controls as contextual comparisons;
 
 ## Delivery
 Guard auto run then verify. At actual end inspect terminals+wholegroup retirement, aggregate metrics/curves/area/costs/qualification/verification; publish anonymous source/config/aggregate/Chinese report via effective proxy and verify remoteSHA/anonymousHTTP200. Private identities/raw images/model parameters/reference vectors/query scores/logs stay private. No third-party全文. Continuous unique automation unchanged30min, no duplicate monitors.
+
+## Engineering correction after attempt1
+The first mathematical permutation test used a large all-positive ramp; full-image dominance made it an invalid sensitivity test. Attempt1 failed before model loading,0encodes/0updates. Replace only this unit fixture by a positive4x4island amid negative background. Scientific layout/models/thresholds unchanged. Also preserve config symlink through resolve before atomic write; recover exact first-clock1792562774.593389/deadline1792634774.593389 from guardian, never reset. Original source and failure receipts archived.

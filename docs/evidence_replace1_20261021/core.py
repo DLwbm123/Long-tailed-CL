@@ -71,5 +71,6 @@ def math_check():
     m,p,_,perm=layout(dtype=torch.float64);assert abs(float(p.exp().sum())-1)<1e-12
     z=torch.zeros(3,196,dtype=torch.float64)
     for a in ARMS:assert aggregate(z,a,m,p,perm).abs().max()<1e-12
-    assert not torch.allclose(aggregate(torch.arange(196,dtype=torch.float64)[None], 'E',m,p,perm),aggregate(torch.arange(196,dtype=torch.float64)[None],'E_shuffle',m,p,perm))
+    spatial=-torch.ones(1,14,14,dtype=torch.float64);spatial[:,:4,:4]=1
+    assert not torch.allclose(aggregate(spatial.flatten(1),'E',m,p,perm),aggregate(spatial.flatten(1),'E_shuffle',m,p,perm))
     return dict(inverse_max_error=err,logdet_error=de,regions=len(m),identity_ratio_zero=True,region_prior_sum=float(p.exp().sum()))

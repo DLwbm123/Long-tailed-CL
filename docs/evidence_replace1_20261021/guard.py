@@ -7,7 +7,7 @@ import sys
 import time
 from pathlib import Path
 
-cfg_path = Path(os.environ['RUN_CONFIG'])
+cfg_path = Path(os.environ['RUN_CONFIG']).resolve()
 cfg = json.loads(cfg_path.read_text())
 root = Path(cfg['output']).parent
 entry = Path(cfg['neutral_entry'])

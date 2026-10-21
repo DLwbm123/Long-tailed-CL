@@ -1,0 +1,37 @@
+{
+  "prediction_histograms": {
+    "G": {
+      "19": 300
+    },
+    "E": {
+      "19": 300
+    },
+    "E_shuffle": {
+      "19": 300
+    }
+  },
+  "top_two_score_gap": {
+    "G": {
+      "min": 4670.750353462245,
+      "median": 11145.858470646395,
+      "max": 14599.399100889605
+    },
+    "E": {
+      "min": 4664.373763644107,
+      "median": 11131.683678997306,
+      "max": 14575.277802122022
+    },
+    "E_shuffle": {
+      "min": 4675.696439379055,
+      "median": 11151.3585374084,
+      "max": 14606.839744675432
+    }
+  },
+  "prediction_differences": {
+    "E_vs_G": 0,
+    "E_vs_E_shuffle": 0
+  },
+  "source": "saved query score tensors only; no model evaluation or new encoding",
+  "region_diagnosis": "18 of 20 E class models have mean posterior area fraction approximately 1 and global_like_fraction 1 on the 300 query images; class15=0.680049, class16=0.983733. These are model posterior summaries, not lesion annotations.",
+  "causal_limit": "Class19 score dominance and near-global region selection observed; training support, optimization allocation and reference fit are not isolated causes. No convergence claim or parameter rescue."
+}

@@ -1,0 +1,73 @@
+{
+  "qualification_encodes": 64,
+  "reference_encodes": 60129,
+  "science_training_encodes": 68058,
+  "validation_encodes": 300,
+  "qualification_updates": 3,
+  "optimizer_updates": 32025,
+  "arm_updates": {
+    "G": 10675,
+    "E": 10675,
+    "E_shuffle": 10675
+  },
+  "feature_image_exposures": {
+    "G": 340290,
+    "E": 340290,
+    "E_shuffle": 340290
+  },
+  "encoder_seconds": {
+    "qualification_encodes": 7.109999179840088,
+    "reference_encodes": 5627.435790777206,
+    "science_training_encodes": 5112.776823997498,
+    "validation_encodes": 28.633347272872925
+  },
+  "wall_from_first": 11752.590247869492,
+  "GPU_peak_reserved_bytes": 3036676096,
+  "original_start_epoch": 1792562774.593389,
+  "original_deadline_epoch": 1792634774.593389,
+  "all_processes_exited_epoch": 1792574586.7300596,
+  "total_wall_seconds": 11812.136671304703,
+  "worker_residence_seconds": 11676.147752523422,
+  "verifier_residence_seconds": 50.32482314109802,
+  "verifier_internal_seconds": 41.29860472679138,
+  "sampled_storage_peak_bytes": 646315998,
+  "exit_accounted_bytes": 646339749,
+  "storage_hard_limit_bytes": 3000000000,
+  "RSS_sampled_peak_bytes": 15718912000,
+  "RSS_budget_bytes": 51539607552,
+  "GPU_reserved_budget_bytes": 12884901888,
+  "training_encoder_evaluations_total": 128251,
+  "encoder_parameter_updates": 0,
+  "all_density_updates_including_qualification": 32028,
+  "feature_image_exposures_total": 1020870,
+  "remaining_group_members": [],
+  "run_returncode": 0,
+  "verify_returncode": 0,
+  "attempts": 2,
+  "prior_failure": {
+    "kind": "Invalid mathematical permutation unit fixture before model loading",
+    "encodes": 0,
+    "updates": 0,
+    "wall_seconds": 10.245173215866089
+  },
+  "preparation_failures": [
+    "Default Python2 staging SyntaxError: no remote scientific execution.",
+    "NFS directory-metadata EIO while copytree archiving; recovered with copyfile; no added scientific execution.",
+    "Atomic config write changed to resolve symlink; original first clock restored exactly, not reset."
+  ],
+  "accounting_limits": [
+    "Client preparation overhead before original first timestamp is unknown and retained as unknown.",
+    "All prior failures, qualification and verification share the original clock. Nested component times must not be summed again into total wall.",
+    "Storage uses max(st_size,st_blocks*512), full experiment root plus neutral entry; exit includes retained attempt archive.",
+    "Prior creation costs of existing shared backbone/data are not newly measured; no historical cache copied or recreated."
+  ],
+  "timing_breakdown": {
+    "reference_encoder_seconds": 5627.435790777206,
+    "class_training_phase_seconds_including_science_encoding": 5915.058050632477,
+    "science_encoder_seconds": 5112.776823997498,
+    "non_encoder_class_phase_seconds_including_all_three_arms_and_initialization_IO": 802.2812266349792,
+    "qualification_encoder_seconds": 7.109999179840088,
+    "validation_encoder_seconds": 28.633347272872925,
+    "note": "No isolated >=60s same-class same-epoch optimizer window was captured. Residual is not pure optimizer time or a throughput upper bound."
+  }
+}

@@ -71,6 +71,13 @@ def main():
         saved.append(stored);records.append(dict(task=task,relative_head_error=rel,max_double_score_error=score,residual=res))
     actual=report(query['x'],query['labels'],saved,cfg['order'])
     parity=json.loads((out/'TASK1_PARITY.json').read_text());parity_pass=parity['actual']==parity['expected']
+    original=json.loads(Path(cfg['historical_metrics']).read_text())
+    expected={k:round(v*15) for k,v in original['stages'][0]['per_class_recall'].items()}
+    assert parity['expected']==expected and parity['actual']==actual['stages'][0]['correct']
+    precision=json.loads((out/'RUNTIME_PRECISION.json').read_text())
+    assert precision['matmul_tf32'] is False and precision['cudnn_tf32'] is True and precision['original_source_precision_inherited'] is True
+    assert precision['cudnn_benchmark'] is False and precision['cudnn_deterministic'] is False
+    assert parity_pass, 'Strict original Task1 replay must pass'
     if (out/'RESULTS.json').exists():assert actual==json.loads((out/'RESULTS.json').read_text())
     else:
         assert not parity_pass and json.loads((out/'status.private.json').read_text())['error']=='Task1 validation parity failed'

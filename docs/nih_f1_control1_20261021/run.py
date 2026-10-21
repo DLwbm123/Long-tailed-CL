@@ -21,10 +21,12 @@ def main():
     from run_medical_v2 import transform
     from torch.utils.data import DataLoader
     torch.set_num_threads(4);random.seed(cfg['seed']);np.random.seed(cfg['seed']);torch.manual_seed(cfg['seed']);torch.cuda.manual_seed_all(cfg['seed'])
-    torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
+    torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=True
+    torch.backends.cudnn.benchmark=False;torch.backends.cudnn.deterministic=False
     def status(phase,**extra):write(out/'status.private.json',dict(state='RUNNING',phase=phase,updated=time.time(),**counts,**extra))
     def budget():
         assert time.time()<cfg['hard_deadline_epoch']-60,'Original deadline'
+        assert torch.backends.cuda.matmul.allow_tf32 is False and torch.backends.cudnn.allow_tf32 is True,'Original precision settings changed'
         assert torch.cuda.memory_reserved()<cfg['GPU_reserved_budget_bytes'],'GPU reserved hard limit'
     def load(rows,task):
         return DataLoader(Images(rows,cfg['images'],transform(False),cfg['seed']+task*100003),batch_size=64,num_workers=cfg['workers'],shuffle=False,multiprocessing_context='spawn' if cfg['workers'] else None)
@@ -49,6 +51,8 @@ def main():
         assert tuple(source['head'].shape)==(1536,10) and bool((source['selected_coefficients']==0).all())
         encoder=ApartFeatures(original['legacy_repo'],original['weight'],20,'cuda:0',cfg['seed'])
         encoder.load_state_dict(source['model'],strict=True);encoder.requires_grad_(False).eval()
+        budget()
+        write(out/'RUNTIME_PRECISION.json',dict(matmul_tf32=torch.backends.cuda.matmul.allow_tf32,cudnn_tf32=torch.backends.cudnn.allow_tf32,cudnn_benchmark=torch.backends.cudnn.benchmark,cudnn_deterministic=torch.backends.cudnn.deterministic,float32_matmul_precision=torch.get_float32_matmul_precision(),torch_version=torch.__version__,cuda_version=torch.version.cuda,cudnn_version=torch.backends.cudnn.version(),original_source_precision_inherited=True))
         parameters=dict(encoder.named_parameters())
         assert source['adapter'] and all(torch.equal(parameters[k].detach().cpu(),v) for k,v in source['adapter'].items())
         bank={k:(v.cuda() if torch.is_tensor(v) else [dict(c,**{a:(b.cuda() if torch.is_tensor(b) else b) for a,b in c.items()}) for c in v] if k=='components' else list(v)) for k,v in source['bank'].items()}

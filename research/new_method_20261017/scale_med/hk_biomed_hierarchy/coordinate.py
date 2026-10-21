@@ -1,11 +1,11 @@
 """Independent original clock/RSS/storage guard, neutral CPU/GPU process names."""
 import os,json,time,resource,signal,subprocess,traceback
 from pathlib import Path
-cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());out=Path(cfg['output']);start=time.time();deadline=start+7190
+cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());out=Path(cfg['output']);start=time.time();deadline=cfg.get('original_deadline',start+7190)
 (out/'FIRST_ACTUAL.private.json').write_text(json.dumps(dict(start_unix=start,deadline_unix=deadline)))
 def used(r):return sum(max(p.stat().st_size,p.stat().st_blocks*512) for p in Path(r).rglob('*') if p.is_file() and not p.is_symlink())
 def limits():
- resource.setrlimit(resource.RLIMIT_CPU,(7200,7200));resource.setrlimit(resource.RLIMIT_FSIZE,(1024*2**20,1024*2**20));os.setsid()
+ resource.setrlimit(resource.RLIMIT_CPU,(int(cfg.get('remaining_CPU',7200)),int(cfg.get('remaining_CPU',7200))));resource.setrlimit(resource.RLIMIT_FSIZE,(1024*2**20,1024*2**20));os.setsid()
 worker=None;reason=None;code=1;usage=None;gpu_seen=False
 try:
  with (out/'worker.private.log').open('w') as log:worker=subprocess.Popen([cfg['python'],cfg['entry']],stdout=log,stderr=subprocess.STDOUT,preexec_fn=limits)
@@ -25,7 +25,7 @@ try:
   if reason is None:
    if time.time()>=deadline:reason='WALL_LIMIT'
    elif rss>6*2**30:reason='RSS_LIMIT'
-   elif used(out)+32*2**20>=1500000000:reason='ROUND_STORAGE_LIMIT'
+   elif used(cfg.get('round_root',out))+32*2**20>=1500000000:reason='ROUND_STORAGE_LIMIT'
    elif used(cfg['window_root'])+1001040384>=17000000000:reason='WINDOW_STORAGE_LIMIT'
    if reason:os.killpg(worker.pid,signal.SIGTERM);term=time.time()
   elif time.time()-term>5:os.killpg(worker.pid,signal.SIGKILL)
@@ -37,6 +37,6 @@ except BaseException:
   except ProcessLookupError:pass
 finally:
  u=resource.getrusage(resource.RUSAGE_SELF)
- rec=dict(exit_code=code,stop_reason=reason,wall_seconds=time.time()-start,worker_CPU_seconds=None if usage is None else usage.ru_utime+usage.ru_stime,worker_peak_RSS_bytes=None if usage is None else usage.ru_maxrss*1024,coordinator_CPU_seconds=u.ru_utime+u.ru_stime,round_bytes=used(out),window_bytes=used(cfg['window_root']),GPU_active_name_captured=gpu_seen,completed_unix=time.time(),deadline_unix=deadline)
+ rec=dict(exit_code=code,stop_reason=reason,wall_seconds=time.time()-start,worker_CPU_seconds=None if usage is None else usage.ru_utime+usage.ru_stime,worker_peak_RSS_bytes=None if usage is None else usage.ru_maxrss*1024,coordinator_CPU_seconds=u.ru_utime+u.ru_stime,round_bytes=used(cfg.get('round_root',out)),window_bytes=used(cfg['window_root']),GPU_active_name_captured=gpu_seen,completed_unix=time.time(),deadline_unix=deadline)
  (out/'COORDINATOR_EXIT.json').write_text(json.dumps(rec,indent=2));(out/'EXIT.json').write_text(json.dumps(dict(exit_code=code)))
  if code or reason:(out/'FAILURE.json').write_text(json.dumps(dict(exit_code=code,reason=reason or 'WORKER_FAILURE',no_retry=True)))

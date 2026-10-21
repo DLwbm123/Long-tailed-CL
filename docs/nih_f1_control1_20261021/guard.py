@@ -9,9 +9,11 @@ cfg.setdefault('original_start_epoch',time.time());cfg.setdefault('hard_deadline
 def identity(pid):return dict(pid=pid,start_ticks=Path(f'/proc/{pid}/stat').read_text().split()[21])
 def usage():
     total=0
-    for path in root.rglob('*'):
+    for path in list(root.rglob('*'))+list(Path(__file__).parent.rglob('*')):
         try:
-            if path.is_file():
+            if path.is_symlink():
+                s=path.lstat();total+=max(s.st_size,s.st_blocks*512)
+            elif path.is_file():
                 s=path.stat();total+=max(s.st_size,s.st_blocks*512)
         except FileNotFoundError:pass
     return total

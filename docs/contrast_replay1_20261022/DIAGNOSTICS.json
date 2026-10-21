@@ -1,0 +1,185 @@
+{
+  "scope": "Saved metrics and training curves only, no new model forwards.",
+  "main_final_delta": {
+    "ER": -6,
+    "INSTANCE": -15
+  },
+  "main_mean_delta_pp": {
+    "ER": -2.0374779541446237,
+    "INSTANCE": -3.822089947089946
+  },
+  "initial10_base_correct": {
+    "ER": 59,
+    "INSTANCE": 57,
+    "SUPERVISED": 49
+  },
+  "initial10_final_correct": {
+    "ER": 12,
+    "INSTANCE": 25,
+    "SUPERVISED": 16
+  },
+  "last_step_training_per_stage": [
+    {
+      "task": 0,
+      "arms": {
+        "ER": {
+          "loss": 1.1945202350616455,
+          "CE": 1.1945202350616455,
+          "auxiliary": 0.0,
+          "gradient_norm_before_clip": 5.057790756225586
+        },
+        "INSTANCE": {
+          "loss": 1.5998671054840088,
+          "CE": 1.235844612121582,
+          "auxiliary": 0.36402249336242676,
+          "gradient_norm_before_clip": 3.4435653686523438
+        },
+        "SUPERVISED": {
+          "loss": 5.397587299346924,
+          "CE": 1.2264299392700195,
+          "auxiliary": 4.171157360076904,
+          "gradient_norm_before_clip": 4.725127696990967
+        }
+      }
+    },
+    {
+      "task": 1,
+      "arms": {
+        "ER": {
+          "loss": 0.5354591012001038,
+          "CE": 0.5354591012001038,
+          "auxiliary": 0.0,
+          "gradient_norm_before_clip": 6.9965410232543945
+        },
+        "INSTANCE": {
+          "loss": 1.1134945154190063,
+          "CE": 0.7404128313064575,
+          "auxiliary": 0.37308168411254883,
+          "gradient_norm_before_clip": 3.7993030548095703
+        },
+        "SUPERVISED": {
+          "loss": 4.631571292877197,
+          "CE": 0.7172424793243408,
+          "auxiliary": 3.9143288135528564,
+          "gradient_norm_before_clip": 8.361289978027344
+        }
+      }
+    },
+    {
+      "task": 2,
+      "arms": {
+        "ER": {
+          "loss": 0.7623680830001831,
+          "CE": 0.7623680830001831,
+          "auxiliary": 0.0,
+          "gradient_norm_before_clip": 11.571369171142578
+        },
+        "INSTANCE": {
+          "loss": 1.496699571609497,
+          "CE": 0.9488992094993591,
+          "auxiliary": 0.5478003025054932,
+          "gradient_norm_before_clip": 6.876434803009033
+        },
+        "SUPERVISED": {
+          "loss": 4.531269073486328,
+          "CE": 0.6569513082504272,
+          "auxiliary": 3.8743176460266113,
+          "gradient_norm_before_clip": 7.510566711425781
+        }
+      }
+    },
+    {
+      "task": 3,
+      "arms": {
+        "ER": {
+          "loss": 0.13691917061805725,
+          "CE": 0.13691917061805725,
+          "auxiliary": 0.0,
+          "gradient_norm_before_clip": 5.185291767120361
+        },
+        "INSTANCE": {
+          "loss": 0.9131213426589966,
+          "CE": 0.4531451165676117,
+          "auxiliary": 0.4599761962890625,
+          "gradient_norm_before_clip": 8.783550262451172
+        },
+        "SUPERVISED": {
+          "loss": 3.7742230892181396,
+          "CE": 0.20785745978355408,
+          "auxiliary": 3.5663657188415527,
+          "gradient_norm_before_clip": 7.06779146194458
+        }
+      }
+    },
+    {
+      "task": 4,
+      "arms": {
+        "ER": {
+          "loss": 0.7664622664451599,
+          "CE": 0.7664622664451599,
+          "auxiliary": 0.0,
+          "gradient_norm_before_clip": 20.670867919921875
+        },
+        "INSTANCE": {
+          "loss": 1.024207592010498,
+          "CE": 0.6955426335334778,
+          "auxiliary": 0.32866501808166504,
+          "gradient_norm_before_clip": 12.161458015441895
+        },
+        "SUPERVISED": {
+          "loss": 4.401585578918457,
+          "CE": 0.47459790110588074,
+          "auxiliary": 3.926987648010254,
+          "gradient_norm_before_clip": 13.981128692626953
+        }
+      }
+    },
+    {
+      "task": 5,
+      "arms": {
+        "ER": {
+          "loss": 0.5587118268013,
+          "CE": 0.5587118268013,
+          "auxiliary": -0.0,
+          "gradient_norm_before_clip": 12.460380554199219
+        },
+        "INSTANCE": {
+          "loss": 1.2603033781051636,
+          "CE": 0.7691572904586792,
+          "auxiliary": 0.491146057844162,
+          "gradient_norm_before_clip": 7.209444999694824
+        },
+        "SUPERVISED": {
+          "loss": 4.584531784057617,
+          "CE": 0.6373270750045776,
+          "auxiliary": 3.94720458984375,
+          "gradient_norm_before_clip": 11.44658088684082
+        }
+      }
+    }
+  ],
+  "interpretation": "All arms predict multiple classes. Accuracy degradation does not identify representation drift versus expanded competition versus head change. Last sampled batch CE and gradient are not full-objective stationarity; no convergence claim or extra steps. This frozen feature-level contrastive adaptation failed, not all SCR or replay.",
+  "validation_is_reused_development": true,
+  "saved_final_score_summary": {
+    "ER": {
+      "prediction_classes": 18,
+      "mean_max_probability": 0.5623800573529169
+    },
+    "INSTANCE": {
+      "prediction_classes": 20,
+      "mean_max_probability": 0.5135882099238726
+    },
+    "SUPERVISED": {
+      "prediction_classes": 18,
+      "mean_max_probability": 0.5161546841936421
+    }
+  },
+  "post_completion_score_aggregation": {
+    "internal_seconds": 0.009270240552723408,
+    "CPU_highwater_bytes": 429035520,
+    "model_forwards": 0,
+    "new_encodes": 0,
+    "new_optimizer_steps": 0,
+    "scope": "Saved score tables only, no changed scoring rule or parameter selection"
+  }
+}

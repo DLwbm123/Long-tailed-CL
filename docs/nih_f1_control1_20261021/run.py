@@ -9,6 +9,8 @@ from common import settings,write,report
 def main():
     cfg,out=settings();out.mkdir(exist_ok=False);start=time.time();counts=dict(qualification_training_encodes=0,scientific_training_encodes=0,validation_encodes=0,encoder_optimizer_updates=0,analytic_solves=0)
     sys.path.insert(0,str(Path(cfg['source'])/'tools'))
+    legacy=Path(json.loads(Path(cfg['source_input']).read_text())['legacy_repo'])
+    sys.path.insert(1,str(legacy/'third_party/APART'))
     import prototype_coherent as method
     import module_additions as modules
     import core1_competition as competition

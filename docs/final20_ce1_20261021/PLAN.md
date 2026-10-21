@@ -1,6 +1,6 @@
 # 最终20类离线CE读出能力参照
 
-状态：RUNNING_OFFLINE_REFERENCE；数学/完整缓存/原ridge正规方程资格PASS，已进入单次CE拟合，尚无最终性能或独立验收。只新增一个固定CE头，非六阶段CIL算法或新ICLR机制；不重开弱头选择器、静态微调或已关闭特征路线。
+状态：COMPLETE_VERIFIED_GATE_FAILED；run/verify均0且全部进程退出，独立数值核验PASS；500次迭代达到预定上限但未收敛，尾类门失败，固定配方关闭。详见REPORT_ZH.md。只新增一个固定CE头，非六阶段CIL算法或新ICLR机制；不重开弱头选择器、静态微调或已关闭特征路线。
 
 ## 输入及权限审查
 

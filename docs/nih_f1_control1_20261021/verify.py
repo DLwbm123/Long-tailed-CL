@@ -69,7 +69,12 @@ def main():
         w,res=solve(q[:k],mu[:k],components);stored=heads[f'stage{task}'];rel=float(np.linalg.norm(w-stored)/np.linalg.norm(stored));score=float(abs(query['x']@(w-stored)).max())
         assert rel<=2e-5 and score<=2e-5,(task,rel,score)
         saved.append(stored);records.append(dict(task=task,relative_head_error=rel,max_double_score_error=score,residual=res))
-    actual=report(query['x'],query['labels'],saved,cfg['order']);assert actual==json.loads((out/'RESULTS.json').read_text())
+    actual=report(query['x'],query['labels'],saved,cfg['order'])
+    parity=json.loads((out/'TASK1_PARITY.json').read_text());parity_pass=parity['actual']==parity['expected']
+    if (out/'RESULTS.json').exists():assert actual==json.loads((out/'RESULTS.json').read_text())
+    else:
+        assert not parity_pass and json.loads((out/'status.private.json').read_text())['error']=='Task1 validation parity failed'
+        write(out/'RESULTS_UNQUALIFIED.json',actual)
     # Manifests are metadata: independent coverage and patient separation check.
     import csv
     sets=[]
@@ -80,6 +85,6 @@ def main():
         if split=='train':assert bank['n']==[sum(int(r['original_label'])==c for r in rows) for c in cfg['order']]
     assert not sets[0]&sets[1]
     costs=json.loads((out/'COSTS.json').read_text());assert costs['qualification_training_encodes']==64 and costs['scientific_training_encodes']==7929 and costs['validation_encodes']==300 and costs['encoder_optimizer_updates']==0
-    write(out/'VERIFICATION.json',dict(status='PASS',stages=records,synthetic_dense_error=test,patient_intersection=0,query_reencodes=0,verification_seconds=time.time()-start,scope='NIH_A_single_F1_control'))
+    write(out/'VERIFICATION.json',dict(status='PASS_NUMERICAL_ONLY_TASK1_PARITY_FAILED' if not parity_pass else 'PASS',scientific_acceptance=parity_pass,task1_parity_pass=parity_pass,stages=records,synthetic_dense_error=test,patient_intersection=0,query_reencodes=0,verification_seconds=time.time()-start,scope='NIH_A_single_F1_control'))
 
 if __name__=='__main__':main()

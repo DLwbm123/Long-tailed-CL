@@ -1,0 +1,82 @@
+{
+  "original_start_epoch": 1792602397.202569,
+  "original_deadline_epoch": 1792631197.202569,
+  "original_guard_exit_epoch": 1792607741.6197832,
+  "original_scientific_group_elapsed_seconds": 5344.41721534729,
+  "partial_verifier_finish_epoch": 1792609155.1352112,
+  "elapsed_first_to_partial_verifier_finish_seconds": 6757.932642221451,
+  "retirement_observation_epoch": 1792609197.374088,
+  "conservative_elapsed_first_to_retirement_observation_seconds": 6800.171519041061,
+  "hard_wall_seconds": 28800,
+  "hard_storage_bytes": 2000000000,
+  "sampled_storage_peak_bytes": 15933168,
+  "exit_accounted_bytes": 15353986,
+  "storage_measure": "max(st_size,st_blocks*512) entire experiment root and neutral entry",
+  "RSS_sampled_peak_bytes": 3469275136,
+  "GPU_reserved_peak_bytes": 650117120,
+  "worker_costs": {
+    "qualification_encodes": 20,
+    "science_train_encodes": 60129,
+    "validation_encodes": 0,
+    "qualification_updates": 3,
+    "optimizer_updates": {
+      "POINT": 38,
+      "CLASS": 5,
+      "CELL": 0
+    },
+    "objective_evaluations": {
+      "POINT": 48,
+      "CLASS": 10,
+      "CELL": 0
+    },
+    "objective_feature_rows": {
+      "POINT": 14160,
+      "CLASS": 2950,
+      "CELL": 0
+    },
+    "current_training_risk_rows": {
+      "POINT": 60129,
+      "CLASS": 0,
+      "CELL": 0
+    },
+    "cover_rows": 60129,
+    "independent_cover_rows": 60129,
+    "encoder_seconds": {
+      "qualification_encodes": 3.9663708209991455,
+      "science_train_encodes": 5077.2201561927795
+    },
+    "wall_from_first": 5337.328227519989,
+    "GPU_peak_reserved_bytes": 650117120
+  },
+  "training_encodes_including_qualification": 60149,
+  "unvisited_later_training_images": 7929,
+  "formal_optimizer_updates_total": 43,
+  "engineering_updates_total": 3,
+  "runtime_attempts": 1,
+  "failed_runtime_attempts": 1,
+  "failure_type": "predeclared solver convergence gate; no restart or tolerance change",
+  "worker_returncode": 1,
+  "automatic_full_verifier": "NOT_STARTED_BECAUSE_RUN_RETURNED_1",
+  "partial_verifier_returncode": 0,
+  "partial_verification": {
+    "internal_seconds": 0.5318915843963623,
+    "SSH_residence_seconds": 7.069349050521851,
+    "RSS_max_bytes": 567508992,
+    "objective_gradient_evaluations": 2,
+    "objective_feature_rows": 590,
+    "new_encodes": 0,
+    "new_training": 0,
+    "new_validation_scores": 0
+  },
+  "remaining_original_group_members": [],
+  "query_opened": false,
+  "saved_score_tables": 0,
+  "uncertainties": [
+    "Sampler peaks are not continuous peaks; partial-verifier RSS is process highwater.",
+    "Original worker did not persist its entire per-class full-current-risk table before CLASS assertion; POINT 60129 risk-row cost is retained, no re-encoding/replay to fill absent values.",
+    "Internal verifier time is nested within SSH residence. All durations from original start overlap and must not be added together.",
+    "Conservative closed-loop elapsed includes idle time until heartbeat and post-failure verification/metadata reads, not continuous compute.",
+    "Local source preparation before first remote timestamp was not separately timed, not asserted zero.",
+    "All prior experimental failure and duplicate costs remain in their original ledgers unchanged."
+  ]
+}

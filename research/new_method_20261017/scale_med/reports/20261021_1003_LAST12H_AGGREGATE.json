@@ -1,0 +1,146 @@
+{
+  "window_start_UTC": "2026-10-20T14:03:49+00:00",
+  "window_end_UTC": "2026-10-21T02:03:49+00:00",
+  "timezone": "Asia/Shanghai",
+  "interpretation": "rolling previous12hours; predecessor producer training before window is background only",
+  "included_runs": [
+    "query_readout_cross_audit",
+    "matched_ridge_query_probe",
+    "group_gradient_agreement",
+    "forward_context_factorial"
+  ],
+  "source_result_commits": {
+    "query_readout_cross_audit": "b3eabac85aaaee0ee22edd7d6b0a09942e69aa96",
+    "matched_ridge_query_probe": "d7ce7569c6d720fe90edf231877a104ca72eb840",
+    "group_gradient_agreement": "ac7306de1cff170aae3d9d25f09066a8a7a26d5a",
+    "forward_context_factorial": "3ebf5de4ad95df6abec960553e417ebcd94e4013"
+  },
+  "costs_this_window": {
+    "activity_wall_seconds": 112.62362122535706,
+    "known_worker_wait4_CPU_seconds": 112.174354,
+    "coordinator_CPU_seconds": 13.106133999999999,
+    "round_remote_bytes": 40839765
+  },
+  "new_training_optimizer_steps": 0,
+  "completed_new_ridge_solves": 2,
+  "scientific_method_success": false,
+  "current_active_run": null,
+  "predecessor_excluded_from_costs": "producer_group_crossfit",
+  "cumulative": {
+    "activity_wall_seconds": 31589.94306927998,
+    "known_worker_wait4_CPU_seconds": 40042.813288,
+    "coordinator_CPU_seconds": 1209.4447679999998
+  },
+  "cost_gaps": "Reading/preparation/network/reporting and historical CPU gaps unmetered. Wall is sum of bounded run coordinator activity, not12h GPU uptime.",
+  "readout_summary": {
+    "query_readout_cross_audit": {
+      "F_on_F": {
+        "BA": 0.6471362556190461,
+        "correct": [
+          237,
+          13,
+          64,
+          1626
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      },
+      "F_on_T": {
+        "BA": 0.582713674115528,
+        "correct": [
+          200,
+          9,
+          48,
+          1949
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      },
+      "T_on_F": {
+        "BA": 0.6434234000719878,
+        "correct": [
+          224,
+          12,
+          78,
+          1616
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      },
+      "T_on_T": {
+        "BA": 0.5663420091163501,
+        "correct": [
+          226,
+          6,
+          54,
+          1876
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      }
+    },
+    "matched_ridge_query_probe": {
+      "F": {
+        "BA": 0.6471362556190461,
+        "correct": [
+          237,
+          13,
+          64,
+          1626
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      },
+      "T_CE": {
+        "BA": 0.5663420091163501,
+        "correct": [
+          226,
+          6,
+          54,
+          1876
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      },
+      "T_probe": {
+        "BA": 0.5344942700207118,
+        "correct": [
+          226,
+          5,
+          42,
+          1862
+        ],
+        "counts": [
+          307,
+          20,
+          170,
+          2058
+        ]
+      }
+    }
+  }
+}

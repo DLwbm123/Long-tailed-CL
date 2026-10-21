@@ -85,6 +85,10 @@ def main():
  backbone,_,preprocess=open_clip.create_model_and_transforms('fixed_biomedical',pretrained=None,pretrained_hf=False,precision='fp32',device='cuda',**{f'image_{k}':v for k,v in spec['preprocess_cfg'].items()})
  state=torch.load(checkpoint,map_location='cpu',weights_only=False)
  if 'state_dict' in state:state=state['state_dict']
+ key='text.transformer.embeddings.position_ids'
+ if key in state:
+  assert torch.equal(state[key],backbone.text.transformer.embeddings.position_ids.cpu())
+  del state[key]  # OpenCLIP factory compatibility for transformers>=4.31; no learned weight removed.
  backbone.load_state_dict(state,strict=True);del state;checkpoint.close();del checkpoint
  write('BACKBONE_RECEIPT.json',dict(model='BiomedCLIP-PubMedBERT_256-vit_base_patch16_224',revision=revision,embedding_dimension=512,strict_checkpoint_loading=True,preprocess=spec['preprocess_cfg'],open_clip_version=open_clip.__version__,no_separate_text_weights=True))
  backbone.eval().requires_grad_(False);versions={n:p._version for n,p in backbone.named_parameters()}

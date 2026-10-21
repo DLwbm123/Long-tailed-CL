@@ -90,7 +90,7 @@ def main():
         assert all(torch.equal(v.detach().cpu(),source['model'][k]) for k,v in encoder.state_dict().items()),'Frozen model changed'
         for k in ['mu','Q']:assert torch.equal(bank[k][:10].cpu(),source['bank'][k]),'Inherited bank changed'
         np.savez(out/'heads.private.npz',**{f'stage{j+1}':w for j,w in enumerate(heads)})
-        write(out/'FIT_SEAL.json',dict(status='SEALED',stages=records,validation_encodes=0,encoder_unchanged=True,old_bank_unchanged=True,**counts))
+        write(out/'FIT_SEAL.json',dict(status='SEALED',stages=records,encoder_unchanged=True,old_bank_unchanged=True,**counts))
         del source,bank,R,native,head;torch.cuda.empty_cache();budget()
         x,labels=encode(val,6,'validation_encodes');assert len(x)==300
         np.savez(out/'query.private.npz',x=x,labels=labels)

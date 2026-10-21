@@ -43,8 +43,8 @@ def retire(p):
 write(root/'guardian.private.json',dict(**identity(os.getpid()),original_start_epoch=cfg['original_start_epoch'],hard_deadline_epoch=cfg['hard_deadline_epoch'],storage_initial_bytes=usage()))
 rows=subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.free','--format=csv,noheader,nounits'],text=True).splitlines()
 assert next(int(r.split(',')[1])*1024**2 for r in rows if int(r.split(',')[0])==cfg['GPU_index'])>=cfg['required_GPU_free_bytes'],'GPU admission failed'
-peak=0;rss_peak=0
-for name in ['run','verify']:
+peak=cfg.get('prior_peak_output_bytes',0);rss_peak=cfg.get('prior_RSS_group_sampled_peak_bytes',0)
+for name in (['resume','verify'] if cfg.get('resume_sealed_heads') else ['run','verify']):
     if time.time()>=cfg['hard_deadline_epoch']-60:break
     with (root/(name+'.stdout.private.log')).open('xb') as log:
         p=subprocess.Popen([sys.executable,str(Path(__file__).with_name(name+'.py'))],stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)

@@ -1,0 +1,169 @@
+{
+  "state": "COMPLETE_REPAIRED_VERIFIED_GATE_FAILED",
+  "scientific_source": "1f1cc1e1e603cc59e3b1c0ce37a2a3aee19c3c4f",
+  "engineering_repair_source": "c606d742fe1fe5b5e7650a769dadfb70d4ecf223",
+  "original_start_epoch": 1792664736.8019886,
+  "hard_deadline_epoch": 1792693536.8019886,
+  "all_groups_exit_epoch": 1792674862.5064015,
+  "first_to_all_groups_exit_seconds": 10125.704412937164,
+  "headroom_original_seconds": 18674.295587062836,
+  "physical_image_encoder_calls": {
+    "science_train_explicit_prefix": 68058,
+    "real_qualification_explicit_prefix": 20,
+    "qualification_repeated_interface_prefix": 2,
+    "qualification_repeated_full_encoder": 2,
+    "validation_explicit_prefix": 300,
+    "total_train_image_model_calls": 68082,
+    "total_image_model_calls_including_val": 68382,
+    "unique_science_training_images": 68058,
+    "unique_real_qualification_images": 20,
+    "qualification_images_overlap_training": true,
+    "validation_images": 300,
+    "prefix_parameter_optimizer_updates": 0,
+    "plastic_pretrained_upper_optimizer_updates": 4500
+  },
+  "formal_updates_each": {
+    "FROZEN_UPPER": 4500,
+    "PLASTIC_UPPER": 4500
+  },
+  "formal_optimizer_updates_total": 9000,
+  "discarded_real_qualification_updates": 4,
+  "synthetic_optimizer_updates": 0,
+  "formal_model_mappings": {
+    "FROZEN_UPPER": {
+      "updates": 4500,
+      "logical_draws": 288000,
+      "head_forward_rows": 288000,
+      "head_backward_rows": 288000,
+      "upper_forward_rows": 288000,
+      "upper_backward_rows": 0,
+      "initialization_rows": 68058,
+      "FP64_probe_rows": 12,
+      "validation_rows": 1350,
+      "numpy_probe_rows": 0
+    },
+    "PLASTIC_UPPER": {
+      "updates": 4500,
+      "logical_draws": 288000,
+      "head_forward_rows": 288000,
+      "head_backward_rows": 288000,
+      "upper_forward_rows": 288000,
+      "upper_backward_rows": 288000,
+      "initialization_rows": 68058,
+      "FP64_probe_rows": 12,
+      "validation_rows": 1350,
+      "numpy_probe_rows": 0
+    }
+  },
+  "real_qualification_model_mappings": {
+    "FROZEN_UPPER": {
+      "updates": 2,
+      "logical_draws": 128,
+      "head_forward_rows": 128,
+      "head_backward_rows": 128,
+      "upper_forward_rows": 128,
+      "upper_backward_rows": 0,
+      "initialization_rows": 20,
+      "FP64_probe_rows": 2,
+      "validation_rows": 0,
+      "numpy_probe_rows": 2
+    },
+    "PLASTIC_UPPER": {
+      "updates": 2,
+      "logical_draws": 128,
+      "head_forward_rows": 128,
+      "head_backward_rows": 128,
+      "upper_forward_rows": 128,
+      "upper_backward_rows": 128,
+      "initialization_rows": 20,
+      "FP64_probe_rows": 2,
+      "validation_rows": 0,
+      "numpy_probe_rows": 2
+    }
+  },
+  "synthetic_checks": {
+    "old_failed_CPU_forward_backward_rows": 2,
+    "old_failed_synthetic_shape": [
+      2,
+      3,
+      24
+    ],
+    "old_NumPy_first_call_failed_before_attention": true,
+    "old_objectives_completed_NumPy": 0,
+    "repair_CPU_forward_backward_rows": 2,
+    "repair_NumPy_objectives": 7,
+    "repair_NumPy_rows": 14,
+    "repair_math_internal_seconds": 5.645248889923096,
+    "no_NIH_images_or_optimizer_steps": true
+  },
+  "original_failure": {
+    "failure": "Sequential slice retains10/11 keys, NumPy expected0/1",
+    "returncode": 1,
+    "first_to_old_group_exit_seconds": 32.35130190849304,
+    "actual_qualification_encodes": 0,
+    "science_train_encodes": 0,
+    "validation_encodes": 0,
+    "optimizer_steps": 0,
+    "CPU_synthetic_forward_backward_rows": 2,
+    "old_elapsed_nested_in_total": true
+  },
+  "recovery_pre_worker_seconds_from_original_first": 1247.438677072525,
+  "GPU_encoder_internal_seconds": {
+    "qualification_encodes": 1.9035539627075195,
+    "science_train_encodes": 190.7044174671173,
+    "validation_encodes": 0.884300708770752
+  },
+  "encoder_timer_scope": "Timer begins after DataLoader yields each decoded batch; excludes image reading/decoding/wait, which remains included in total original-clock residence.",
+  "real_GPU_qualification_after_encoding_residence_seconds": 19.833385705947876,
+  "stage_training_loop_residence_seconds": [
+    594.3599395751953,
+    142.37751364707947,
+    145.33474278450012,
+    144.4743947982788,
+    146.0031464099884,
+    150.5755524635315
+  ],
+  "total_training_loop_residence_seconds": 1323.1252896785736,
+  "training_time_scope": "Both arms plus sampling and copies, not pure kernels; loop timer excludes subsequent stage probe and sealing.",
+  "independent_acceptance": {
+    "residence_seconds": 839.1891124248505,
+    "internal_seconds": 830.236453294754,
+    "numpy_query_model_rows": 2700,
+    "numpy_training_probe_rows": 24,
+    "new_encodes": 0,
+    "new_optimizer_steps": 0,
+    "internal_time_nested_in_residence": true
+  },
+  "groups_retired": true,
+  "run_returncode": 0,
+  "verify_returncode": 0,
+  "resource": {
+    "shared_output_budget_bytes": 6000000000,
+    "prestop_bytes": 5400000000,
+    "whole_root_and_entries_sampled_peak_bytes": 4120050876,
+    "RSS_sampled_peak_bytes": 25076400128,
+    "GPU_reserved_peak_bytes": 1130364928,
+    "RSS_limit_bytes": 34359738368,
+    "GPU_reserved_limit_bytes": 8589934592,
+    "retirement_root_bytes": 4119864508,
+    "retirement_entry_bytes": 188416,
+    "sampled_not_continuous_peak_guarantee": true
+  },
+  "earlier_local_preparation_seconds": null,
+  "cumulative_original_clock_endpoints_not_additive": true,
+  "attempts": 2,
+  "failed_pre_real_data_attempts": 1,
+  "scientific_recipe_retries": 0,
+  "one_human_authorized_interface_repair_relaunch": true,
+  "all_old_costs_retained": true,
+  "postcompletion_reporting": "Saved aggregate/receipt reads and saved-score arithmetic only;0 new model forward, encoding or optimizer steps.",
+  "postcompletion_saved_score_aggregation": {
+    "internal_seconds": 0.15278339385986328,
+    "RSS_highwater_bytes": 507666432,
+    "saved_model_score_rows_read": 2700,
+    "new_model_forward": 0,
+    "new_encodes": 0,
+    "new_optimizer_steps": 0,
+    "SSH_residence_seconds": null
+  }
+}

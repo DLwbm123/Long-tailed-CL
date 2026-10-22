@@ -1,3 +1,7 @@
+# 最新执行状态
+
+完整配方已冻结并真实GPU资格PASS，structured_prototype1_20261022已进入正式编码。最终协议以 [PLAN](../structured_prototype1_20261022/PLAN.md)、[config](../structured_prototype1_20261022/config.json)及[启动](../structured_prototype1_20261022/STARTUP_ZH.md)为准；以下是构建时的机制论证，不表示未启动，也不能以草案覆盖冻结参数。
+
 # 面向 NIH 的结构化原型方法：改造后组合的完整母体 v0
 
 状态：**方法结构已明确，尚未冻结实验配方、实现、GPU资格或启动新实验**。这不是对现有非对称重放改loss，也不是重启旧token/Spatial/ProtoTail条件分支。来源组件经过任务化改造；新组合没有NIH效果证据，不冒称论文原方法或已具TMI创新性。先建立可复现、可消融的完整方法，再处理创新论证。

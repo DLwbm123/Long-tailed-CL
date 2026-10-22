@@ -30,3 +30,5 @@ r03 BiomedCLIP两臂平均28.8446%、最终22%，双曲分支发生距离饱和�
 计划四臂：H-full、H-no-tree（保留图文锚定）、H-shuffle、H-no-proj。正式配置、适配差异、验收和结果将在此目录发布；私有数据与模型不入库。
 
 - r06零初始化负结果：[报告](r06_zero_init/RESULTS_ZH.md)。r07父节点文本适配器一致性：[预注册](r07_parent_text/PROTOCOL.md)。
+
+- r07父文本路由负结果：[报告](r07_parent_text/RESULTS_ZH.md)。r08全部已见类分类目标：[预注册](r08_class_ce/PROTOCOL.md)。

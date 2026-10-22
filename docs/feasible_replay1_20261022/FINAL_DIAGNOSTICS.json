@@ -1,0 +1,135 @@
+{
+  "scope": "Aggregate JSON only; zero model forward/encoding/optimization. No extra validation pass. Descriptive stage arrivals do not modify original gates.",
+  "new_class_arrival": [
+    {
+      "task": 0,
+      "new_classes": [
+        13,
+        19,
+        6,
+        14,
+        17,
+        1,
+        9,
+        4,
+        15,
+        8
+      ],
+      "new_class_validation_total": 150,
+      "new_class_validation_correct": {
+        "ER": 52,
+        "PROJECT": 52,
+        "FEASIBLE": 52
+      }
+    },
+    {
+      "task": 1,
+      "new_classes": [
+        18,
+        2
+      ],
+      "new_class_validation_total": 30,
+      "new_class_validation_correct": {
+        "ER": 13,
+        "PROJECT": 1,
+        "FEASIBLE": 0
+      }
+    },
+    {
+      "task": 2,
+      "new_classes": [
+        0,
+        12
+      ],
+      "new_class_validation_total": 30,
+      "new_class_validation_correct": {
+        "ER": 14,
+        "PROJECT": 0,
+        "FEASIBLE": 1
+      }
+    },
+    {
+      "task": 3,
+      "new_classes": [
+        16,
+        3
+      ],
+      "new_class_validation_total": 30,
+      "new_class_validation_correct": {
+        "ER": 15,
+        "PROJECT": 0,
+        "FEASIBLE": 0
+      }
+    },
+    {
+      "task": 4,
+      "new_classes": [
+        7,
+        11
+      ],
+      "new_class_validation_total": 30,
+      "new_class_validation_correct": {
+        "ER": 12,
+        "PROJECT": 0,
+        "FEASIBLE": 0
+      }
+    },
+    {
+      "task": 5,
+      "new_classes": [
+        5,
+        10
+      ],
+      "new_class_validation_total": 30,
+      "new_class_validation_correct": {
+        "ER": 6,
+        "PROJECT": 0,
+        "FEASIBLE": 0
+      }
+    }
+  ],
+  "initial_stage_correct_each": 52,
+  "final_initial_correct": {
+    "ER": {
+      "tail4": 15,
+      "tail7": 19,
+      "initial10": 0,
+      "later10": 36
+    },
+    "PROJECT": {
+      "tail4": 13,
+      "tail7": 15,
+      "initial10": 21,
+      "later10": 27
+    },
+    "FEASIBLE": {
+      "tail4": 8,
+      "tail7": 12,
+      "initial10": 27,
+      "later10": 24
+    }
+  },
+  "primary_rejections_by_increment": [
+    357,
+    0,
+    5,
+    6,
+    106
+  ],
+  "primary_vs_ER": {
+    "final_correct_gain": 15,
+    "mean_gain_pp": 3.2892416225749557,
+    "tail4_gain": -7,
+    "initial_gain": 27,
+    "later_gain": -12
+  },
+  "primary_vs_PROJECT": {
+    "final_correct_gain": 3,
+    "mean_gain_pp": 1.1697530864197532,
+    "tail4_gain": -5,
+    "initial_gain": 6,
+    "later_gain": -3
+  },
+  "support_stress_test_performed": false,
+  "no_unique_causal_claim": true
+}

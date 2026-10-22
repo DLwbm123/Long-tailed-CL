@@ -1,0 +1,249 @@
+{
+  "state": "COMPLETE_REPAIRED_VERIFIED_GATE_FAILED",
+  "scientific_source": "62ae38c8115e2cf6cf054249833c6995c0787acb",
+  "numerical_repair_source": "64a286ea727b3153712f3350f2163737e146c49a",
+  "authorization": "Human explicitly requested solving reported failure; numerical repair plus same-clock sealed resume.",
+  "original_start_epoch": 1792649284.2551625,
+  "hard_deadline_epoch": 1792678084.2551625,
+  "all_groups_exit_epoch": 1792659730.4184403,
+  "first_to_all_groups_exit_seconds": 10446.16327881813,
+  "remaining_original_seconds_at_exit": 18353.836722135544,
+  "wall_hours": 2.901712021893925,
+  "elapsed_times_are_nested_not_additive": true,
+  "local_preparation_before_original_admission_seconds": null,
+  "physical_encoder_counts": {
+    "unique_science_train_images": 68058,
+    "extra_reencoded_current_stage_images": 3348,
+    "total_science_train_encoder_rows": 71406,
+    "qualification_encoder_rows": 40,
+    "total_train_encoder_rows": 71446,
+    "validation_encoder_rows": 300,
+    "total_encoder_rows_including_val": 71746,
+    "encoder_parameter_updates": 0,
+    "prior_attempt_train_encoder_rows": 64486,
+    "new_repair_science_encoder_rows": 6940,
+    "new_repair_qualification_encoder_rows": 20,
+    "reused_sealed_stage_coverage_not_new_encoding": 61118
+  },
+  "complete_trajectory": {
+    "opportunities_each": 4500,
+    "opportunities_total": 13500,
+    "accepted_updates": {
+      "ER": 4500,
+      "PROJECT": 4500,
+      "FEASIBLE": 4026
+    },
+    "accepted_updates_total": 13026,
+    "primary_rejections": 474,
+    "primary_old_memory_stage_rejection_fraction": 0.1896,
+    "logical_sample_rows_each": 288000,
+    "input_dropout_views_each": 576000,
+    "arms_mapping_counters": {
+      "ER": {
+        "opportunities": 4500,
+        "accepted_updates": 4500,
+        "batch_forward_rows": 576000,
+        "batch_backward_rows": 576000,
+        "constraint_forward_rows": 0,
+        "constraint_backward_rows": 0,
+        "feasibility_forward_rows": 0,
+        "candidate_checks": 0,
+        "training_view_rows": 576000,
+        "sampled_image_rows": 288000
+      },
+      "PROJECT": {
+        "opportunities": 4500,
+        "accepted_updates": 4500,
+        "batch_forward_rows": 576000,
+        "batch_backward_rows": 576000,
+        "constraint_forward_rows": 1057500,
+        "constraint_backward_rows": 15445000,
+        "feasibility_forward_rows": 0,
+        "candidate_checks": 0,
+        "training_view_rows": 576000,
+        "sampled_image_rows": 288000
+      },
+      "FEASIBLE": {
+        "opportunities": 4500,
+        "accepted_updates": 4026,
+        "batch_forward_rows": 576000,
+        "batch_backward_rows": 576000,
+        "constraint_forward_rows": 1057500,
+        "constraint_backward_rows": 15445000,
+        "feasibility_forward_rows": 5980799,
+        "candidate_checks": 12133,
+        "training_view_rows": 576000,
+        "sampled_image_rows": 288000
+      }
+    },
+    "head_initialization_model_rows_each": 4230,
+    "risk_ledger_model_rows_each": 6345,
+    "training_probe_FP64_model_rows_each": 768,
+    "validation_model_rows_each": 1350
+  },
+  "additional_failed_original_iteration": {
+    "evidence": "The last status is the completed task2 encoding; no step1 status/curve was emitted. Exception is in project() during the first arm loop of task2 step1. Failed-arm identity/Gram/dual/KKT residual and current model states were not persisted. No replay to reconstruct them.",
+    "shared_logical_draw_rows": 64,
+    "shared_input_dropout_views": 128,
+    "all_three_arms_arrival_extra_head_forward_rows_each": 718,
+    "all_three_arms_arrival_extra_ledger_forward_rows_each": 718,
+    "ER": {
+      "accepted_extra_updates": 1,
+      "batch_forward_rows": 128,
+      "batch_backward_rows": 128
+    },
+    "PROJECT": {
+      "accepted_extra_updates_min": 0,
+      "accepted_extra_updates_max": 1,
+      "batch_forward_rows": 128,
+      "batch_backward_rows": 128,
+      "constraint_forward_rows": 359,
+      "constraint_backward_graph_rows": 4308
+    },
+    "FEASIBLE": {
+      "accepted_extra_updates": 0,
+      "batch_forward_rows_min": 0,
+      "batch_forward_rows_max": 128,
+      "batch_backward_rows_min": 0,
+      "batch_backward_rows_max": 128,
+      "constraint_forward_rows_min": 0,
+      "constraint_forward_rows_max": 359,
+      "constraint_backward_graph_rows_min": 0,
+      "constraint_backward_graph_rows_max": 4308,
+      "additional_candidate_checks": 0
+    },
+    "failed_projection_solver_calls": 1,
+    "exact_failed_arm_unknown": true
+  },
+  "all_physical_formal_accepted_updates_bounds": [
+    13027,
+    13028
+  ],
+  "discarded_real_qualification_updates": 12,
+  "qualification_rounds": 2,
+  "qualification_arms_each_round": {
+    "ER": {
+      "opportunities": 2,
+      "accepted_updates": 2,
+      "batch_forward_rows": 256,
+      "batch_backward_rows": 256,
+      "constraint_forward_rows": 0,
+      "constraint_backward_rows": 0,
+      "feasibility_forward_rows": 0,
+      "candidate_checks": 0,
+      "training_view_rows": 256,
+      "sampled_image_rows": 128
+    },
+    "PROJECT": {
+      "opportunities": 2,
+      "accepted_updates": 2,
+      "batch_forward_rows": 256,
+      "batch_backward_rows": 256,
+      "constraint_forward_rows": 16,
+      "constraint_backward_rows": 128,
+      "feasibility_forward_rows": 0,
+      "candidate_checks": 0,
+      "training_view_rows": 256,
+      "sampled_image_rows": 128
+    },
+    "FEASIBLE": {
+      "opportunities": 2,
+      "accepted_updates": 2,
+      "batch_forward_rows": 256,
+      "batch_backward_rows": 256,
+      "constraint_forward_rows": 16,
+      "constraint_backward_rows": 128,
+      "feasibility_forward_rows": 32,
+      "candidate_checks": 1,
+      "training_view_rows": 256,
+      "sampled_image_rows": 128
+    }
+  },
+  "old_qualification_placeholder_zero_fields_are_not_zero_work": true,
+  "qualification_arrival_model_rows_each_arm_per_round": 48,
+  "qualification_FP64_model_rows_each_arm_per_round": 128,
+  "qualification_NumPy_model_rows_each_arm_per_round": 144,
+  "repair_real_GPU_active_projection_stress_calls": 2,
+  "math_checks": {
+    "rounds": 2,
+    "CPU_forward_backward_rows_total": 24,
+    "numpy_objectives_total": 18,
+    "numpy_model_rows_total": 216,
+    "analytic_small_projection_calls": 2,
+    "synthetic_optimizer_updates": 0,
+    "segment_seconds_not_independently_saved": true
+  },
+  "repair_solver_check": {
+    "synthetic_projection_calls": 6,
+    "saved_real_gradient_projection_calls": 4,
+    "internal_seconds": 2.1611745357513428,
+    "residence_seconds": 9.097046136856079,
+    "new_encoding": 0,
+    "optimization": 0
+  },
+  "entry_checks": {
+    "missing_ARMS_import_worker_seconds": 10.02561068534851,
+    "missing_ARMS_import_worker_RSS_sampled_peak_bytes": 452468736,
+    "entry_check_missing_CUBLAS_env_seconds": 4.9943249225616455,
+    "entry_check_correct_env_seconds": 4.905045747756958,
+    "new_encoding": 0,
+    "optimization": 0
+  },
+  "encoder_seconds": {
+    "prior_science": 5769.869656801224,
+    "new_repair_science": 576.1072316169739,
+    "combined_science": 6345.976888418198,
+    "old_qualification": 2.7297401428222656,
+    "repair_qualification": 3.2951550483703613,
+    "validation": 28.26781415939331
+  },
+  "training_residence_seconds": {
+    "first_two_sealed_stages": 203.2914595603943,
+    "new_four_stages": 819.6652433872223,
+    "all_six_sealed_stages": 1022.9567029476166,
+    "scope": "All arms, sampling, copies, stage probes and sealing; not pure-arm time. Original failed third-stage first iteration extra work remains separately recorded, included in original clock."
+  },
+  "independent_acceptance": {
+    "prior_partial": {
+      "residence_seconds": 15.389247417449951,
+      "internal_seconds": 8.767027139663696,
+      "RSS_peak_bytes": 640368640,
+      "numpy_model_forward_rows": 3718,
+      "new_encoding": 0,
+      "optimization": 0,
+      "validation_scoring": 0,
+      "internal_nested_in_residence": true
+    },
+    "full": {
+      "residence_seconds": 20.121073484420776,
+      "internal_seconds": 14.2029128074646,
+      "memory_risk_numpy_model_rows": 21150,
+      "training_probe_numpy_model_rows": 2304,
+      "validation_numpy_model_rows": 4050,
+      "total_numpy_model_rows": 27504,
+      "extra_encoding": 0,
+      "extra_optimization": 0,
+      "prior_partial_numpy_model_rows_not_counted_twice": 3718
+    }
+  },
+  "resource_samples": {
+    "output_budget_bytes": 3000000000,
+    "storage_prestop_bytes": 2700000000,
+    "whole_root_and_entries_guard_peak_bytes": 492093457,
+    "post_retirement_observed_root_bytes": 491838481,
+    "post_retirement_observed_entry_bytes": 258048,
+    "RSS_sampled_combined_peak_bytes": 2695241728,
+    "GPU_reserved_combined_peak_bytes": 843055104,
+    "sampled_not_continuous_peak_guarantee": true
+  },
+  "groups_retired": true,
+  "failed_scientific_attempts": 1,
+  "failed_pre_main_repair_import_launches": 1,
+  "numerical_repair_resume_runs": 1,
+  "post_completion_reporting_new_model_forward": 0,
+  "post_completion_reporting_new_encoding": 0,
+  "post_completion_reporting_new_optimization": 0,
+  "all_old_failure_and_unknown_costs_preserved": true,
+  "prior_partial_failure_cost_record": "FINAL_COSTS.json",
+  "current_runtime_counter_record": "REPAIRED_COSTS.json"
+}

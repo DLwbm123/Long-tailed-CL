@@ -1,0 +1,287 @@
+{
+  "state": "STOPPED_FIXED_PROJECTION_SOLVER_GATE_FAILED_PARTIAL_VERIFIED",
+  "scientific_source": "62ae38c8115e2cf6cf054249833c6995c0787acb",
+  "attempts": 1,
+  "retry": false,
+  "original_start_epoch": 1792649284.2551625,
+  "hard_deadline_epoch": 1792678084.2551625,
+  "scientific_group_exit_epoch": 1792655380.0829117,
+  "scientific_group_elapsed_seconds": 6095.827750205994,
+  "partial_verifier_exit_epoch": 1792657099.519427,
+  "first_to_partial_verifier_exit_seconds": 7815.264264583588,
+  "closure_observed_epoch": 1792657210.7848089,
+  "conservative_observed_elapsed_seconds": 7926.529647350311,
+  "earlier_local_preparation_seconds": null,
+  "worker_preparation_before_start_seconds": 39.85914874076843,
+  "budgets": {
+    "wall_seconds": 28800,
+    "output_bytes": 3000000000,
+    "storage_prestop_bytes": 2700000000,
+    "RSS_bytes": 17179869184,
+    "GPU_reserved_bytes": 8589934592
+  },
+  "encoded_training_images": 64486,
+  "science_train_encodes": 64466,
+  "qualification_train_encodes": 20,
+  "unencoded_future_training_images": 3592,
+  "validation_encodes": 0,
+  "encoder_parameter_updates": 0,
+  "qualification": {
+    "ER": {
+      "logical_draw_rows": 128,
+      "view_forward_rows": 256,
+      "view_backward_rows": 256,
+      "arrival_risk_and_head_rows": 48,
+      "FP64_rows": 128,
+      "numpy_rows": 144,
+      "extra_constraint_forward_rows": 0,
+      "extra_constraint_backward_graph_rows": 0,
+      "extra_feasibility_forward_rows": 0,
+      "discarded_engineering_updates": 2
+    },
+    "PROJECT": {
+      "logical_draw_rows": 128,
+      "view_forward_rows": 256,
+      "view_backward_rows": 256,
+      "arrival_risk_and_head_rows": 48,
+      "FP64_rows": 128,
+      "numpy_rows": 144,
+      "extra_constraint_forward_rows": 16,
+      "extra_constraint_backward_graph_rows": 128,
+      "extra_feasibility_forward_rows": 0,
+      "discarded_engineering_updates": 2
+    },
+    "FEASIBLE": {
+      "logical_draw_rows": 128,
+      "view_forward_rows": 256,
+      "view_backward_rows": 256,
+      "arrival_risk_and_head_rows": 48,
+      "FP64_rows": 128,
+      "numpy_rows": 144,
+      "extra_constraint_forward_rows": 16,
+      "extra_constraint_backward_graph_rows": 128,
+      "extra_feasibility_forward_rows": 32,
+      "discarded_engineering_updates": 2
+    }
+  },
+  "mathematical_check": {
+    "CPU_forward_backward_rows": 12,
+    "numpy_objectives": 9,
+    "numpy_rows": 108,
+    "orthant_projection_calls": 1,
+    "synthetic_optimizer_updates": 0,
+    "segment_seconds": null,
+    "included_in_original_clock": true
+  },
+  "persisted_cost_counters": {
+    "qualification_encodes": 20,
+    "science_train_encodes": 64466,
+    "validation_encodes": 0,
+    "encoder_parameter_updates": 0,
+    "encoder_seconds": {
+      "qualification_encodes": 2.7297401428222656,
+      "science_train_encodes": 5769.869656801224
+    },
+    "qualification_arms": {
+      "ER": {
+        "opportunities": 2,
+        "accepted_updates": 2,
+        "batch_forward_rows": 256,
+        "batch_backward_rows": 256,
+        "constraint_forward_rows": 0,
+        "constraint_backward_rows": 0,
+        "feasibility_forward_rows": 0,
+        "candidate_checks": 0,
+        "training_view_rows": 0,
+        "sampled_image_rows": 0
+      },
+      "PROJECT": {
+        "opportunities": 2,
+        "accepted_updates": 2,
+        "batch_forward_rows": 256,
+        "batch_backward_rows": 256,
+        "constraint_forward_rows": 16,
+        "constraint_backward_rows": 128,
+        "feasibility_forward_rows": 0,
+        "candidate_checks": 0,
+        "training_view_rows": 0,
+        "sampled_image_rows": 0
+      },
+      "FEASIBLE": {
+        "opportunities": 2,
+        "accepted_updates": 2,
+        "batch_forward_rows": 256,
+        "batch_backward_rows": 256,
+        "constraint_forward_rows": 16,
+        "constraint_backward_rows": 128,
+        "feasibility_forward_rows": 32,
+        "candidate_checks": 1,
+        "training_view_rows": 0,
+        "sampled_image_rows": 0
+      }
+    },
+    "arms": {
+      "ER": {
+        "opportunities": 2500,
+        "accepted_updates": 2500,
+        "batch_forward_rows": 320000,
+        "batch_backward_rows": 320000,
+        "constraint_forward_rows": 0,
+        "constraint_backward_rows": 0,
+        "feasibility_forward_rows": 0,
+        "candidate_checks": 0,
+        "training_view_rows": 320000,
+        "sampled_image_rows": 160000
+      },
+      "PROJECT": {
+        "opportunities": 2500,
+        "accepted_updates": 2500,
+        "batch_forward_rows": 320000,
+        "batch_backward_rows": 320000,
+        "constraint_forward_rows": 147500,
+        "constraint_backward_rows": 1475000,
+        "feasibility_forward_rows": 0,
+        "candidate_checks": 0,
+        "training_view_rows": 320000,
+        "sampled_image_rows": 160000
+      },
+      "FEASIBLE": {
+        "opportunities": 2500,
+        "accepted_updates": 2143,
+        "batch_forward_rows": 320000,
+        "batch_backward_rows": 320000,
+        "constraint_forward_rows": 147500,
+        "constraint_backward_rows": 1475000,
+        "feasibility_forward_rows": 1744040,
+        "candidate_checks": 5412,
+        "training_view_rows": 320000,
+        "sampled_image_rows": 160000
+      }
+    },
+    "validation_model_rows": {
+      "ER": 0,
+      "PROJECT": 0,
+      "FEASIBLE": 0
+    },
+    "head_initialization_rows": {
+      "ER": 590,
+      "PROJECT": 590,
+      "FEASIBLE": 590
+    },
+    "ledger_forward_rows": {
+      "ER": 885,
+      "PROJECT": 885,
+      "FEASIBLE": 885
+    },
+    "probe_FP64_rows": {
+      "ER": 256,
+      "PROJECT": 256,
+      "FEASIBLE": 256
+    },
+    "qualification_FP64_rows": {
+      "ER": 128,
+      "PROJECT": 128,
+      "FEASIBLE": 128
+    },
+    "qualification_numpy_rows": {
+      "ER": 144,
+      "PROJECT": 144,
+      "FEASIBLE": 144
+    },
+    "qualification_arrival_ledger_rows": {
+      "ER": 48,
+      "PROJECT": 48,
+      "FEASIBLE": 48
+    },
+    "wall_from_first": 6091.686885595322,
+    "GPU_peak_reserved_bytes": 698351616
+  },
+  "unpersisted_third_stage_first_iteration": {
+    "evidence": "The last status is the completed task2 encoding; no step1 status/curve was emitted. Exception is in project() during the first arm loop of task2 step1. Failed-arm identity/Gram/dual/KKT residual and current model states were not persisted. No replay to reconstruct them.",
+    "shared_logical_draw_rows": 64,
+    "shared_input_dropout_views": 128,
+    "all_three_arms_arrival_extra_head_forward_rows_each": 718,
+    "all_three_arms_arrival_extra_ledger_forward_rows_each": 718,
+    "ER": {
+      "accepted_extra_updates": 1,
+      "batch_forward_rows": 128,
+      "batch_backward_rows": 128
+    },
+    "PROJECT": {
+      "accepted_extra_updates_min": 0,
+      "accepted_extra_updates_max": 1,
+      "batch_forward_rows": 128,
+      "batch_backward_rows": 128,
+      "constraint_forward_rows": 359,
+      "constraint_backward_graph_rows": 4308
+    },
+    "FEASIBLE": {
+      "accepted_extra_updates": 0,
+      "batch_forward_rows_min": 0,
+      "batch_forward_rows_max": 128,
+      "batch_backward_rows_min": 0,
+      "batch_backward_rows_max": 128,
+      "constraint_forward_rows_min": 0,
+      "constraint_forward_rows_max": 359,
+      "constraint_backward_graph_rows_min": 0,
+      "constraint_backward_graph_rows_max": 4308,
+      "additional_candidate_checks": 0
+    },
+    "failed_projection_solver_calls": 1,
+    "exact_failed_arm_unknown": true
+  },
+  "actual_formal_accepted_update_bounds": {
+    "ER": [
+      2501,
+      2501
+    ],
+    "PROJECT": [
+      2500,
+      2501
+    ],
+    "FEASIBLE": [
+      2143,
+      2143
+    ],
+    "all_arms_total": [
+      7144,
+      7145
+    ]
+  },
+  "sealed_training_opportunities_each": 2500,
+  "sealed_formal_accepted_updates": {
+    "ER": 2500,
+    "PROJECT": 2500,
+    "FEASIBLE": 2143
+  },
+  "stage1_primary_rejected_updates": 357,
+  "stage1_primary_rejected_fraction": 0.714,
+  "stage1_FEASIBLE_candidate_checks": 5412,
+  "encoder_seconds": {
+    "qualification_encodes": 2.7297401428222656,
+    "science_train_encodes": 5769.869656801224
+  },
+  "sealed_stage_training_residence_seconds": 203.2914595603943,
+  "training_residence_scope": "Includes three arms, sampling, copies and stage end sealing/probe; not pure per-arm compute; excludes the failed third-stage first iteration.",
+  "partial_verifier": {
+    "residence_seconds": 15.389247417449951,
+    "internal_seconds": 8.767027139663696,
+    "RSS_peak_bytes": 640368640,
+    "numpy_model_forward_rows": 3718,
+    "new_encoding": 0,
+    "optimization": 0,
+    "validation_scoring": 0,
+    "internal_nested_in_residence": true
+  },
+  "resource_samples": {
+    "guard_peak_output_bytes": 100761828,
+    "observed_root_bytes": 100690145,
+    "observed_neutral_entry_bytes": 102400,
+    "RSS_sampled_peak_bytes": 2695241728,
+    "GPU_reserved_reported_peak_bytes": 698351616,
+    "sampled_not_continuous_peak_guarantee": true
+  },
+  "all_groups_retired": true,
+  "post_scientific_work": "One bounded CPU read-only partial acceptance; then aggregate JSON/process metadata reporting only; no new encoding, optimization or validation scoring.",
+  "old_experiment_costs_preserved": true
+}

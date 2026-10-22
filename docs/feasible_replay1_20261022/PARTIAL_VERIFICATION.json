@@ -1,0 +1,139 @@
+{
+  "state": "PASS_PARTIAL_FAILURE_RECORD_ONLY",
+  "scope": "Two existing sealed stages; not six-stage or 18-score scientific verification. Frozen solver failure retained; no failed QP reconstruction or retry.",
+  "sealed_stages": 2,
+  "training_probe_objective_max_error": 8.881784197001252e-16,
+  "class_risk_max_error": 1.105355601715985e-06,
+  "parameter_transition_max_error": 0.0,
+  "metadata_memory_selection": true,
+  "old_features_unchanged": true,
+  "patient_overlap": 0,
+  "first_stage_three_states_identical": true,
+  "stage1_FEASIBLE_risk_ceiling_verified": true,
+  "stage1_real_transition_and_first_order_direction_verified": true,
+  "numpy_model_forward_rows": 3718,
+  "new_encodes": 0,
+  "optimization": 0,
+  "validation_scoring_rows": 0,
+  "scientific_metrics_available": false,
+  "details": [
+    {
+      "task": 0,
+      "seen_classes": 10,
+      "memory_rows": 295,
+      "arms": {
+        "ER": {
+          "saved_training_probe_CE": 1.3034797467783306,
+          "accepted_updates": 2000
+        },
+        "PROJECT": {
+          "saved_training_probe_CE": 1.3034797467783306,
+          "accepted_updates": 2000
+        },
+        "FEASIBLE": {
+          "saved_training_probe_CE": 1.3034797467783306,
+          "accepted_updates": 2000
+        }
+      }
+    },
+    {
+      "task": 1,
+      "seen_classes": 12,
+      "memory_rows": 359,
+      "arms": {
+        "ER": {
+          "saved_training_probe_CE": 0.9755736505005208,
+          "accepted_updates": 2500,
+          "max_arrival_class_CE_increase": 0.004011859775707061,
+          "max_final_CE_minus_fixed_ceiling": 1.3107786686135503,
+          "old_class_CE_before": [
+            2.3789049658043697,
+            1.7895522717244392,
+            0.9591113760900831,
+            0.9237335941870088,
+            0.9563336379837961,
+            1.1553753433449034,
+            2.6901674812299836,
+            1.6139915512536909,
+            0.05506482620365543,
+            2.6100082608381157
+          ],
+          "old_class_CE_after": [
+            1.1167319354769565,
+            1.493951802520554,
+            0.9945018407219279,
+            1.2614852596324782,
+            0.7984673052318674,
+            2.486154249401209,
+            1.2154181238845676,
+            0.6939337658549998,
+            0.213809193785,
+            1.301806265467207
+          ]
+        },
+        "PROJECT": {
+          "saved_training_probe_CE": 0.7779521912913657,
+          "accepted_updates": 2500,
+          "max_arrival_class_CE_increase": 0.004011859775707061,
+          "max_final_CE_minus_fixed_ceiling": -0.044802366743237634,
+          "old_class_CE_before": [
+            2.3789049658043697,
+            1.7895522717244392,
+            0.9591113760900831,
+            0.9237335941870088,
+            0.9563336379837961,
+            1.1553753433449034,
+            2.6901674812299836,
+            1.6139915512536909,
+            0.05506482620365543,
+            2.6100082608381157
+          ],
+          "old_class_CE_after": [
+            0.6791984298041175,
+            0.236801434160045,
+            0.40778156640076046,
+            0.4867059687906155,
+            0.3695478883643982,
+            0.4170386947705804,
+            0.6280259070857057,
+            0.3462571908239026,
+            0.030262508442252017,
+            0.6257075988691816
+          ]
+        },
+        "FEASIBLE": {
+          "saved_training_probe_CE": 1.5423995428467716,
+          "accepted_updates": 2143,
+          "max_arrival_class_CE_increase": 0.004011859775707061,
+          "max_final_CE_minus_fixed_ceiling": 1.6134250506727454e-06,
+          "old_class_CE_before": [
+            2.3789049658043697,
+            1.7895522717244392,
+            0.9591113760900831,
+            0.9237335941870088,
+            0.9563336379837961,
+            1.1553753433449034,
+            2.6901674812299836,
+            1.6139915512536909,
+            0.05506482620365543,
+            2.6100082608381157
+          ],
+          "old_class_CE_after": [
+            2.080721469739105,
+            1.71094031808863,
+            0.9791130464542255,
+            0.9377312899879261,
+            0.9756621207684649,
+            1.1710346374394054,
+            2.1188448342806288,
+            1.6008608283659198,
+            0.04788401342535774,
+            2.2604619522037517
+          ]
+        }
+      }
+    }
+  ],
+  "seconds": 8.767027139663696,
+  "RSS_peak_bytes": 640368640
+}

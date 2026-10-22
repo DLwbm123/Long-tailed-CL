@@ -1,0 +1,124 @@
+{
+  "scope": "Persisted counters through completion of task2 encoding; additional unpersisted task2 arrival and partial first iteration are explicitly accounted in FINAL_COSTS.json. Not final exact update counters.",
+  "qualification_encodes": 20,
+  "science_train_encodes": 64466,
+  "validation_encodes": 0,
+  "encoder_parameter_updates": 0,
+  "encoder_seconds": {
+    "qualification_encodes": 2.7297401428222656,
+    "science_train_encodes": 5769.869656801224
+  },
+  "qualification_arms": {
+    "ER": {
+      "opportunities": 2,
+      "accepted_updates": 2,
+      "batch_forward_rows": 256,
+      "batch_backward_rows": 256,
+      "constraint_forward_rows": 0,
+      "constraint_backward_rows": 0,
+      "feasibility_forward_rows": 0,
+      "candidate_checks": 0,
+      "training_view_rows": 0,
+      "sampled_image_rows": 0
+    },
+    "PROJECT": {
+      "opportunities": 2,
+      "accepted_updates": 2,
+      "batch_forward_rows": 256,
+      "batch_backward_rows": 256,
+      "constraint_forward_rows": 16,
+      "constraint_backward_rows": 128,
+      "feasibility_forward_rows": 0,
+      "candidate_checks": 0,
+      "training_view_rows": 0,
+      "sampled_image_rows": 0
+    },
+    "FEASIBLE": {
+      "opportunities": 2,
+      "accepted_updates": 2,
+      "batch_forward_rows": 256,
+      "batch_backward_rows": 256,
+      "constraint_forward_rows": 16,
+      "constraint_backward_rows": 128,
+      "feasibility_forward_rows": 32,
+      "candidate_checks": 1,
+      "training_view_rows": 0,
+      "sampled_image_rows": 0
+    }
+  },
+  "arms": {
+    "ER": {
+      "opportunities": 2500,
+      "accepted_updates": 2500,
+      "batch_forward_rows": 320000,
+      "batch_backward_rows": 320000,
+      "constraint_forward_rows": 0,
+      "constraint_backward_rows": 0,
+      "feasibility_forward_rows": 0,
+      "candidate_checks": 0,
+      "training_view_rows": 320000,
+      "sampled_image_rows": 160000
+    },
+    "PROJECT": {
+      "opportunities": 2500,
+      "accepted_updates": 2500,
+      "batch_forward_rows": 320000,
+      "batch_backward_rows": 320000,
+      "constraint_forward_rows": 147500,
+      "constraint_backward_rows": 1475000,
+      "feasibility_forward_rows": 0,
+      "candidate_checks": 0,
+      "training_view_rows": 320000,
+      "sampled_image_rows": 160000
+    },
+    "FEASIBLE": {
+      "opportunities": 2500,
+      "accepted_updates": 2143,
+      "batch_forward_rows": 320000,
+      "batch_backward_rows": 320000,
+      "constraint_forward_rows": 147500,
+      "constraint_backward_rows": 1475000,
+      "feasibility_forward_rows": 1744040,
+      "candidate_checks": 5412,
+      "training_view_rows": 320000,
+      "sampled_image_rows": 160000
+    }
+  },
+  "validation_model_rows": {
+    "ER": 0,
+    "PROJECT": 0,
+    "FEASIBLE": 0
+  },
+  "head_initialization_rows": {
+    "ER": 590,
+    "PROJECT": 590,
+    "FEASIBLE": 590
+  },
+  "ledger_forward_rows": {
+    "ER": 885,
+    "PROJECT": 885,
+    "FEASIBLE": 885
+  },
+  "probe_FP64_rows": {
+    "ER": 256,
+    "PROJECT": 256,
+    "FEASIBLE": 256
+  },
+  "qualification_FP64_rows": {
+    "ER": 128,
+    "PROJECT": 128,
+    "FEASIBLE": 128
+  },
+  "qualification_numpy_rows": {
+    "ER": 144,
+    "PROJECT": 144,
+    "FEASIBLE": 144
+  },
+  "qualification_arrival_ledger_rows": {
+    "ER": 48,
+    "PROJECT": 48,
+    "FEASIBLE": 48
+  },
+  "wall_from_first": 6091.686885595322,
+  "GPU_peak_reserved_bytes": 698351616
+}

@@ -1,5 +1,7 @@
 # 非 CLIP、CLIP 与 BiomedCLIP 实验汇总报告
 
+> 后续R0、A–D、层级×几何与HASTEN实现审计已整合到[最新综合报告](SYNTHESIS_AND_HASTEN_AUDIT_20261022_ZH.md)。本页保留前期实验数值；暂停后曾按后续授权完成上述实验，目前再次暂停。
+
 日期：2026-10-22（Asia/Shanghai）  
 范围：上一轮非 CLIP OPSA 内部适配器试验，以及后续普通 CLIP / BiomedCLIP 层级信息对照。仅汇总已完成实验，没有新增训练或查询评分。  
 **当前状态：按用户要求，项目已暂停；定时监测已删除。**

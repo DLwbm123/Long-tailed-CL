@@ -25,7 +25,7 @@ def identity(pid):
 
 def usage():
     total=0
-    for p in list(root.rglob('*'))+list(entry.rglob('*')):
+    for p in [p for location in [cfg.get('whole_budget_root',str(root))]+cfg.get('experiment_entries',[str(entry)]) for p in Path(location).rglob('*')]:
         try:
             if p.is_file():
                 st=p.stat();total+=max(st.st_size,st.st_blocks*512)

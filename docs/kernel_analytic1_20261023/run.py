@@ -13,6 +13,13 @@ from verify import mapping,stats,np_system
 def write(p,x):
     q=p.with_suffix(p.suffix+'.tmp');q.write_text(json.dumps(x,indent=2,allow_nan=False)+'\n');q.replace(p)
 def save(p,x):
+    def bounded(v):
+        if isinstance(v,torch.Tensor):assert v.untyped_storage().nbytes()==v.numel()*v.element_size(),'Unbounded tensor backing storage'
+        elif isinstance(v,dict):
+            for z in v.values():bounded(z)
+        elif isinstance(v,(list,tuple)):
+            for z in v:bounded(z)
+    bounded(x)
     q=p.with_suffix(p.suffix+'.tmp');torch.save(x,q);q.replace(p)
 def cpu_record(r):return {k:({t:z.cpu() for t,z in v.items()} if isinstance(v,dict) and k in ['linear','kernel'] else v) for k,v in r.items()}
 
@@ -45,7 +52,7 @@ def main(cfg):
             ix=[i for i,r in enumerate(rows) if r['label']==c];rr=[rows[i] for i in ix];x=features[ix];weights,patients=patient_weights(rr);rec=dict(label=c,images=len(rr),patients=patients);err=0.;probe={}
             for k in ['linear','kernel']:
                 phi=feature_map(x.cuda(),ref,k);gram,mean=moments(phi,weights);refphi=mapping(x.numpy(),ref,k);ng,nm,n=stats(refphi,rr);err=max(err,float(abs(phi.cpu().numpy()-refphi).max()),float(abs(gram.cpu().numpy()-ng).max()),float(abs(mean.cpu().numpy()-nm).max()));assert n==patients and err<=cfg['score_absolute_tolerance']
-                rec[k]=dict(gram=gram.detach().cpu(),mean=mean.detach().cpu());probe[k]=dict(features=x[:min(8,len(x))],mapping=phi[:min(8,len(x))].cpu())
+                rec[k]=dict(gram=gram.detach().cpu(),mean=mean.detach().cpu());probe[k]=dict(features=x[:min(8,len(x))].clone(),mapping=phi[:min(8,len(x))].cpu().clone())
                 if not qualification:
                     cost['mapping_rows'][k]+=len(x);cost['moment_rows'][k]+=len(x);cost['online_independent_mapping_rows'][k]+=len(x);cost['online_independent_moment_rows'][k]+=len(x)
                 del phi,gram,mean,refphi,ng,nm
@@ -75,7 +82,12 @@ def main(cfg):
                 mat,rhs=np_system(qrecords,a,cfg['ridge']);nh=np.linalg.solve(mat,rhs);ns=mapping(xx.numpy(),saved['ref'],kind)@nh;score=(phi@head).cpu().numpy();err=float(abs(ns-score).max());assert err<=cfg['score_absolute_tolerance']
                 receipts[a]=dict(score_error=err,normal_equation_residual=res,full_dimension=list(head.shape),actual_discarded_optimizer_delta=delta,engineering_forward_backward_rows=64,analytic_qualification_solves=2,qualification_mapping_and_moments_rows=20,independent_numpy_rows=64)
             del gpu,head
-    write(p/'QUALIFICATION.json',dict(state='PASS',real_legal_base_encodes=20,actual_GPUFP16_encoder=True,actual_GPUFP64_fixed_map_moments_and_solve=True,formal_kernel_dimension=cfg['anchors']+1,base_and_8plus2_arrival=True,actual_GPU64_forward_backward_clip_discarded_SGD=True,save_load=True,arms=receipts,discarded_optimizer_updates=3,qualification_solves=6,formal_optimizer_updates=0,repeated_landmarks_only_discarded_qualification=True,post_encoding_seconds=time.time()-qs,validation_encodes=0))
+    save(p/'qualification_moments.private.pt',qrecords)
+    loaded=torch.load(p/'qualification_moments.private.pt',map_location='cpu',weights_only=False)
+    assert all(all(torch.equal(rec[k]['gram'],again[k]['gram']) and torch.equal(rec['map_probe'][k]['features'],again['map_probe'][k]['features']) for k in ['linear','kernel']) for rec,again in zip(qrecords,loaded))
+    assert all(rec['map_probe'][k]['features'].untyped_storage().nbytes()==rec['map_probe'][k]['features'].numel()*rec['map_probe'][k]['features'].element_size() for rec in loaded for k in ['linear','kernel'])
+    del loaded
+    write(p/'QUALIFICATION.json',dict(actual_class_moments_and_bounded_audit_save_load=True,state='PASS',real_legal_base_encodes=20,actual_GPUFP16_encoder=True,actual_GPUFP64_fixed_map_moments_and_solve=True,formal_kernel_dimension=cfg['anchors']+1,base_and_8plus2_arrival=True,actual_GPU64_forward_backward_clip_discarded_SGD=True,save_load=True,arms=receipts,discarded_optimizer_updates=3,qualification_solves=6,formal_optimizer_updates=0,repeated_landmarks_only_discarded_qualification=True,post_encoding_seconds=time.time()-qs,validation_encodes=0))
     cost['qualification_seconds']=time.time()-qs;del qx,anchors,qrecords,ref,xx,phi,labels,param,before,opt,loss,mat,rhs,nh,ns,score,saved;torch.cuda.empty_cache();status('qualified_before_bulk')
     records=[];seals=[];ref=None
     for task in range(6):
@@ -85,7 +97,7 @@ def main(cfg):
         newrecords=build(features,rows,new,ref);records+=newrecords
         for rec in newrecords:save(p/f"class_{rec['label']}.private.pt",rec)
         status('actual_arrival_statistics',task=task)
-        gpu=[{**r,**{k:{z:t.cuda() for z,t in r[k].items()} for k in ['linear','kernel']}} for r in records];heads={};resids={};probe=dict(features=features[:64],scores={})
+        gpu=[{**r,**{k:{z:t.cuda() for z,t in r[k].items()} for k in ['linear','kernel']}} for r in records];heads={};resids={};probe=dict(features=features[:64].clone(),scores={})
         for a in ARMS:
             st=time.time();head,res=solve(gpu,a,cfg['ridge']);cost['formal_solves']+=1;cost['solve_seconds'][a]=cost['solve_seconds'].get(a,0.)+time.time()-st;heads[a]=head.cpu();resids[a]=res;kind='linear' if a=='LINEAR_BALANCED' else 'kernel';probe['scores'][a]=(feature_map(probe['features'].cuda(),ref,kind)@head).cpu()
         save(p/f'stage_{task}.private.pt',dict(seen=seen,heads=heads,probe=probe,residuals=resids))

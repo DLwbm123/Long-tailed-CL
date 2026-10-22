@@ -1,0 +1,627 @@
+{
+  "title": "NIH过去12小时自主实验汇总",
+  "rolling_start_beijing": "2026-10-21T21:54:45.164614+08:00",
+  "observation_end_beijing": "2026-10-22T09:54:45.164614+08:00",
+  "scope": "Experiments active or completed in the rolling12h; full original costs retained, not costs prorated to the window. competition_meta1 began before rolling start and completed inside it.",
+  "offline_authorization_start_beijing": "2026-10-22T00:18:00+08:00",
+  "offline_authorization_summary_due_beijing": "2026-10-22T12:18:00+08:00",
+  "offline_authorization_window_complete": false,
+  "completed_or_closed": [
+    {
+      "experiment": "competition_meta1_20261021",
+      "report_commit": "8544dc139279bf22a929f4853c23840256612373",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/8544dc139279bf22a929f4853c23840256612373/docs/competition_meta1_20261021/REPORT_ZH.md",
+      "state": "COMPLETE_VERIFIED_GATE_FAILED_DELIVERED",
+      "scientific_gate_pass": false,
+      "cost_ledger": {
+        "state": "COMPLETE_VERIFIED_GATE_FAILED",
+        "original_start_epoch": 1792589768.029071,
+        "original_deadline_epoch": 1792661768.029071,
+        "all_processes_exited_epoch": 1792597950.600024,
+        "elapsed_until_all_exit_seconds": 8182.570954084396,
+        "hard_limits": {
+          "storage_bytes": 2000000000,
+          "wall_seconds": 72000,
+          "RSS_bytes": 17179869184,
+          "GPU_reserved_bytes": 8589934592
+        },
+        "sampled_storage_peak_bytes": 239552261,
+        "exit_accounted_bytes": 239606159,
+        "storage_accounting": "max(st_size,st_blocks*512), entire experiment root plus neutral entry; sampled peak is not a continuous peak guarantee",
+        "RSS_sampled_peak_bytes": 2299482112,
+        "GPU_reserved_peak_bytes": 700448768,
+        "worker_counters": {
+          "qualification_encodes": 20,
+          "science_train_encodes": 68058,
+          "validation_encodes": 300,
+          "qualification_updates": 3,
+          "meta_updates": {
+            "META": 3000,
+            "WORST": 3000,
+            "PAIRED": 3000
+          },
+          "embedding_rows": {
+            "META": 177000,
+            "WORST": 177000,
+            "PAIRED": 177000
+          },
+          "support_view_rows": {
+            "META": 198000,
+            "WORST": 198000,
+            "PAIRED": 198000
+          },
+          "query_rows": {
+            "META": 57000,
+            "WORST": 57000,
+            "PAIRED": 57000
+          },
+          "state_embedding_rows": {
+            "META": 68058,
+            "WORST": 68058,
+            "PAIRED": 68058
+          },
+          "validation_embedding_rows": {
+            "META": 5400,
+            "WORST": 5400,
+            "PAIRED": 5400
+          },
+          "encoder_seconds": {
+            "qualification_encodes": 4.551231622695923,
+            "science_train_encodes": 5705.0564522743225,
+            "validation_encodes": 25.367528200149536
+          },
+          "wall_from_first": 8143.254073858261,
+          "GPU_peak_reserved_bytes": 700448768
+        },
+        "formal_optimizer_updates_total": 9000,
+        "engineering_optimizer_updates_total": 3,
+        "encoder_parameter_updates": 0,
+        "train_encodes_including_qualification": 68078,
+        "attempts": 1,
+        "runtime_failure_or_retry_count": 0,
+        "preparation_seconds_from_first_record_to_worker_start": 725.6532735824585,
+        "worker_residence_seconds": 7421.760764598846,
+        "verifier_residence_seconds": 35.12744331359863,
+        "verifier_internal_seconds": 25.380300998687744,
+        "remaining_group_members": [],
+        "run_returncode": 0,
+        "verify_returncode": 0,
+        "postcompletion_aggregate_read": {
+          "internal_wall_seconds": 0.17074203491210938,
+          "CPU_threads": 4,
+          "RSS_max_bytes": 429219840,
+          "new_model_forwards": 0,
+          "new_encodes": 0,
+          "new_optimization": 0,
+          "saved_score_tables_read": 54
+        },
+        "postcompletion_SSH_residence_seconds": 4.604332,
+        "cost_interpretation": [
+          "Verifier internal time is nested inside verifier residence and total elapsed; do not add twice.",
+          "Postcompletion saved-score read is separate from original all-process-exit runtime; no new model forward/encoding/optimization.",
+          "Embedding rows include support union and query; logical support_view_rows overlap and reuse mapped rows. Query rows are a subset, not extra unique images.",
+          "300 devval images encoded once; per-arm deployment validation embedding rows5400 reflect repeated prefixes/settings. Independent verifier adds900 NumPy query embeddings, zero encoder calls.",
+          "Preparation within original clock is retained; unmeasured client preparation remains unknown, not asserted zero.",
+          "Previous experiments and their failures/costs remain archived unchanged; no costs reset or transferred as new attempts."
+        ]
+      },
+      "arms": {
+        "META": {
+          "final_correct": 15,
+          "mean_BA_percent": 6.480820105820105,
+          "tail4": 15,
+          "tail7": 15,
+          "initial10": 0,
+          "later10": 15
+        },
+        "WORST": {
+          "final_correct": 15,
+          "mean_BA_percent": 7.046957671957672,
+          "tail4": 15,
+          "tail7": 15,
+          "initial10": 15,
+          "later10": 0
+        },
+        "PAIRED": {
+          "final_correct": 15,
+          "mean_BA_percent": 7.046957671957672,
+          "tail4": 15,
+          "tail7": 15,
+          "initial10": 15,
+          "later10": 0
+        }
+      },
+      "gates": {
+        "META": {
+          "final": false,
+          "mean": false,
+          "tail4": false,
+          "initial10": true,
+          "later10": false,
+          "support_stress": true
+        },
+        "WORST": {
+          "final": false,
+          "mean": false,
+          "tail4": false,
+          "initial10": true,
+          "later10": true,
+          "support_stress": false
+        }
+      },
+      "independent_verification": {
+        "state": "PASS",
+        "max_score_error": 3.552713678800501e-15,
+        "prediction_mismatches": 0,
+        "moment_error": 1.6375789613221059e-15,
+        "patient_overlap": 0,
+        "new_encodes": 0,
+        "new_model_training": 0,
+        "wall_seconds": 25.380300998687744
+      }
+    },
+    {
+      "experiment": "loss_cover1_20261022",
+      "report_commit": "afaf335df174b1bca2945c8d3527a8a6b6d7ac8a",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/afaf335df174b1bca2945c8d3527a8a6b6d7ac8a/docs/loss_cover1_20261022/REPORT_ZH.md",
+      "state": "STOPPED_FIXED_SOLVER_GATE_FAILED_PARTIAL_VERIFIED_DELIVERED",
+      "scientific_gate_pass": false,
+      "cost_ledger": {
+        "original_start_epoch": 1792602397.202569,
+        "original_deadline_epoch": 1792631197.202569,
+        "original_guard_exit_epoch": 1792607741.6197832,
+        "original_scientific_group_elapsed_seconds": 5344.41721534729,
+        "partial_verifier_finish_epoch": 1792609155.1352112,
+        "elapsed_first_to_partial_verifier_finish_seconds": 6757.932642221451,
+        "retirement_observation_epoch": 1792609197.374088,
+        "conservative_elapsed_first_to_retirement_observation_seconds": 6800.171519041061,
+        "hard_wall_seconds": 28800,
+        "hard_storage_bytes": 2000000000,
+        "sampled_storage_peak_bytes": 15933168,
+        "exit_accounted_bytes": 15353986,
+        "storage_measure": "max(st_size,st_blocks*512) entire experiment root and neutral entry",
+        "RSS_sampled_peak_bytes": 3469275136,
+        "GPU_reserved_peak_bytes": 650117120,
+        "worker_costs": {
+          "qualification_encodes": 20,
+          "science_train_encodes": 60129,
+          "validation_encodes": 0,
+          "qualification_updates": 3,
+          "optimizer_updates": {
+            "POINT": 38,
+            "CLASS": 5,
+            "CELL": 0
+          },
+          "objective_evaluations": {
+            "POINT": 48,
+            "CLASS": 10,
+            "CELL": 0
+          },
+          "objective_feature_rows": {
+            "POINT": 14160,
+            "CLASS": 2950,
+            "CELL": 0
+          },
+          "current_training_risk_rows": {
+            "POINT": 60129,
+            "CLASS": 0,
+            "CELL": 0
+          },
+          "cover_rows": 60129,
+          "independent_cover_rows": 60129,
+          "encoder_seconds": {
+            "qualification_encodes": 3.9663708209991455,
+            "science_train_encodes": 5077.2201561927795
+          },
+          "wall_from_first": 5337.328227519989,
+          "GPU_peak_reserved_bytes": 650117120
+        },
+        "training_encodes_including_qualification": 60149,
+        "unvisited_later_training_images": 7929,
+        "formal_optimizer_updates_total": 43,
+        "engineering_updates_total": 3,
+        "runtime_attempts": 1,
+        "failed_runtime_attempts": 1,
+        "failure_type": "predeclared solver convergence gate; no restart or tolerance change",
+        "worker_returncode": 1,
+        "automatic_full_verifier": "NOT_STARTED_BECAUSE_RUN_RETURNED_1",
+        "partial_verifier_returncode": 0,
+        "partial_verification": {
+          "internal_seconds": 0.5318915843963623,
+          "SSH_residence_seconds": 7.069349050521851,
+          "RSS_max_bytes": 567508992,
+          "objective_gradient_evaluations": 2,
+          "objective_feature_rows": 590,
+          "new_encodes": 0,
+          "new_training": 0,
+          "new_validation_scores": 0
+        },
+        "remaining_original_group_members": [],
+        "query_opened": false,
+        "saved_score_tables": 0,
+        "uncertainties": [
+          "Sampler peaks are not continuous peaks; partial-verifier RSS is process highwater.",
+          "Original worker did not persist its entire per-class full-current-risk table before CLASS assertion; POINT 60129 risk-row cost is retained, no re-encoding/replay to fill absent values.",
+          "Internal verifier time is nested within SSH residence. All durations from original start overlap and must not be added together.",
+          "Conservative closed-loop elapsed includes idle time until heartbeat and post-failure verification/metadata reads, not continuous compute.",
+          "Local source preparation before first remote timestamp was not separately timed, not asserted zero.",
+          "All prior experimental failure and duplicate costs remain in their original ledgers unchanged."
+        ]
+      },
+      "final_metrics": null,
+      "reason": "CLASS gradient infinity norm1.876277271e-5 exceeds frozen1e-5; CELL not trained, val0; partial failure record verification only."
+    },
+    {
+      "experiment": "contrast_replay1_20261022",
+      "report_commit": "0c3d394de6795362525f52ea74ff89cea1b05a8f",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/0c3d394de6795362525f52ea74ff89cea1b05a8f/docs/contrast_replay1_20261022/REPORT_ZH.md",
+      "state": "COMPLETE_VERIFIED_GATE_FAILED_DELIVERED",
+      "scientific_gate_pass": false,
+      "cost_ledger": {
+        "original_start_epoch": 1792612787.4441535,
+        "hard_deadline_epoch": 1792634387.4441535,
+        "guardian_finished_epoch": 1792619414.604879,
+        "elapsed_first_to_all_groups_exit_seconds": 6627.160726070404,
+        "first_to_worker_exit_seconds": 6612.084908008575,
+        "pre_worker_preparation_seconds_in_original_clock": 350.6470630168915,
+        "client_pre_first_preparation_seconds": "unknown, not zero",
+        "verify_residence_seconds": 15.057009935379028,
+        "verify_internal_seconds": 7.60522723197937,
+        "verify_time_nested_not_added_twice": true,
+        "attempts": 1,
+        "run_returncode": 0,
+        "verify_returncode": 0,
+        "science_process_failures": 0,
+        "retries": 0,
+        "resource": {
+          "storage_sampled_peak_bytes": 100095703,
+          "storage_exit_bytes": 100098439,
+          "RSS_sampled_peak_bytes": 2435018752,
+          "GPU_reserved_peak_bytes": 717225984,
+          "storage_hard_limit_bytes": 2000000000,
+          "RSS_limit_bytes": 17179869184,
+          "GPU_reserved_limit_bytes": 8589934592
+        },
+        "counts": {
+          "qualification_encodes": 20,
+          "science_train_encodes": 68058,
+          "validation_encodes": 300,
+          "qualification_updates": 3,
+          "qualification_model_rows": {
+            "ER": 40,
+            "INSTANCE": 40,
+            "SUPERVISED": 40
+          },
+          "qualification_FP64_model_rows": {
+            "ER": 40,
+            "INSTANCE": 40,
+            "SUPERVISED": 40
+          },
+          "qualification_numpy_rows": {
+            "ER": 40,
+            "INSTANCE": 40,
+            "SUPERVISED": 40
+          },
+          "updates": {
+            "ER": 4500,
+            "INSTANCE": 4500,
+            "SUPERVISED": 4500
+          },
+          "sampled_image_rows": {
+            "ER": 288000,
+            "INSTANCE": 288000,
+            "SUPERVISED": 288000
+          },
+          "training_view_rows": {
+            "ER": 576000,
+            "INSTANCE": 576000,
+            "SUPERVISED": 576000
+          },
+          "validation_model_rows": {
+            "ER": 1350,
+            "INSTANCE": 1350,
+            "SUPERVISED": 1350
+          },
+          "encoder_parameter_updates": 0,
+          "encoder_seconds": {
+            "qualification_encodes": 2.936755418777466,
+            "science_train_encodes": 5958.256493806839,
+            "validation_encodes": 25.18870234489441
+          },
+          "contrastive_similarity_pairs": {
+            "ER": 0,
+            "INSTANCE": 73728000,
+            "SUPERVISED": 73728000
+          },
+          "wall_from_first": 6606.518442392349,
+          "GPU_peak_reserved_bytes": 717225984
+        },
+        "remaining_process_groups": 0,
+        "stage_training_residence_seconds": [
+          93.64966583251953,
+          20.658809185028076,
+          20.957926750183105,
+          21.50440764427185,
+          19.97194266319275,
+          18.361523866653442
+        ],
+        "stage_training_residence_includes_three_arms_python_copies_and_sampling": true,
+        "no_pure_arm_runtime_instrumented": true,
+        "history_costs_retained": true,
+        "post_completion_saved_score_aggregation": {
+          "internal_seconds": 0.009270240552723408,
+          "CPU_highwater_bytes": 429035520,
+          "model_forwards": 0,
+          "new_encodes": 0,
+          "new_optimizer_steps": 0,
+          "scope": "Saved score tables only, no changed scoring rule or parameter selection"
+        },
+        "conservative_postprocessing_observed_at_epoch": 1792620015.115851,
+        "conservative_first_to_postprocessing_observation_seconds": 7227.671697378159
+      },
+      "arms": {
+        "ER": {
+          "final_correct": 51,
+          "mean_BA_percent": 21.763227513227516,
+          "tail4": 14,
+          "tail7": 22,
+          "initial10": 12,
+          "later10": 39
+        },
+        "INSTANCE": {
+          "final_correct": 60,
+          "mean_BA_percent": 23.54783950617284,
+          "tail4": 15,
+          "tail7": 22,
+          "initial10": 25,
+          "later10": 35
+        },
+        "SUPERVISED": {
+          "final_correct": 45,
+          "mean_BA_percent": 19.725749559082892,
+          "tail4": 8,
+          "tail7": 15,
+          "initial10": 16,
+          "later10": 29
+        }
+      },
+      "gates": {
+        "final": false,
+        "mean": false,
+        "tail7": false,
+        "initial10": false,
+        "later10": false,
+        "vs_ER_final": false,
+        "vs_ER_mean": false,
+        "vs_ER_tail4": false,
+        "vs_ER_later": false,
+        "vs_INSTANCE_final": false,
+        "vs_INSTANCE_mean": false,
+        "vs_INSTANCE_tail4": false,
+        "vs_INSTANCE_later": false
+      },
+      "independent_verification": {
+        "state": "PASS",
+        "score_groups": 18,
+        "max_score_error": 3.552713678800501e-14,
+        "prediction_mismatches": 0,
+        "patient_overlap": 0,
+        "memory_reconstruction": true,
+        "future_prefix_checks": true,
+        "new_encodes": 0,
+        "new_optimization": 0,
+        "wall_seconds": 7.60522723197937
+      }
+    },
+    {
+      "experiment": "frozen_expansion1_20261022",
+      "report_commit": "c966ca31417f2310917f6d141db0c8d26ad4329c",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/c966ca31417f2310917f6d141db0c8d26ad4329c/docs/frozen_expansion1_20261022/REPORT_ZH.md",
+      "state": "COMPLETE_VERIFIED_GATE_FAILED_DELIVERED",
+      "scientific_gate_pass": false,
+      "cost_ledger": {
+        "original_start_epoch": 1792621704.2340882,
+        "hard_deadline_epoch": 1792639704.2340882,
+        "guardian_finished_epoch": 1792628447.9109411,
+        "elapsed_first_to_all_groups_exit_seconds": 6743.676853656769,
+        "first_to_worker_exit_seconds": 6723.497360467911,
+        "pre_worker_preparation_seconds_in_original_clock": 230.88162779808044,
+        "client_pre_first_preparation_seconds": "unknown, not zero",
+        "verify_residence_seconds": 20.162704467773438,
+        "verify_internal_seconds": 11.25558352470398,
+        "verify_time_nested_not_added_twice": true,
+        "attempts": 1,
+        "run_returncode": 0,
+        "verify_returncode": 0,
+        "science_process_failures": 0,
+        "retries": 0,
+        "resource": {
+          "storage_sampled_peak_bytes": 181872088,
+          "storage_exit_root_bytes": 181768710,
+          "RSS_sampled_peak_bytes": 2527903744,
+          "GPU_reserved_peak_bytes": 778043392,
+          "storage_hard_limit_bytes": 2000000000,
+          "RSS_limit_bytes": 17179869184,
+          "GPU_reserved_limit_bytes": 8589934592
+        },
+        "counts": {
+          "qualification_encodes": 20,
+          "science_train_encodes": 68058,
+          "validation_encodes": 300,
+          "qualification_updates": 2,
+          "qualification_model_rows": {
+            "ALL_TRAINABLE": 40,
+            "FROZEN_PAST": 40
+          },
+          "qualification_init_embedding_rows": {
+            "ALL_TRAINABLE": 4,
+            "FROZEN_PAST": 4
+          },
+          "qualification_freeze_probe_rows": {
+            "ALL_TRAINABLE": 40,
+            "FROZEN_PAST": 40
+          },
+          "head_initialization_embedding_rows": {
+            "ALL_TRAINABLE": 7929,
+            "FROZEN_PAST": 7929
+          },
+          "head_initialization_branch_rows": {
+            "ALL_TRAINABLE": 31780,
+            "FROZEN_PAST": 31780
+          },
+          "current_class_input_mean_rows": 68058,
+          "training_branch_rows": {
+            "ALL_TRAINABLE": 1536000,
+            "FROZEN_PAST": 1536000
+          },
+          "gradient_branch_rows": {
+            "ALL_TRAINABLE": 1536000,
+            "FROZEN_PAST": 576000
+          },
+          "validation_branch_rows": {
+            "ALL_TRAINABLE": 5250,
+            "FROZEN_PAST": 5250
+          },
+          "qualification_FP64_model_rows": {
+            "ALL_TRAINABLE": 40,
+            "FROZEN_PAST": 40
+          },
+          "qualification_numpy_rows": {
+            "ALL_TRAINABLE": 40,
+            "FROZEN_PAST": 40
+          },
+          "updates": {
+            "ALL_TRAINABLE": 4500,
+            "FROZEN_PAST": 4500
+          },
+          "sampled_image_rows": {
+            "ALL_TRAINABLE": 288000,
+            "FROZEN_PAST": 288000
+          },
+          "training_view_rows": {
+            "ALL_TRAINABLE": 576000,
+            "FROZEN_PAST": 576000
+          },
+          "validation_model_rows": {
+            "ALL_TRAINABLE": 1350,
+            "FROZEN_PAST": 1350
+          },
+          "encoder_parameter_updates": 0,
+          "encoder_seconds": {
+            "qualification_encodes": 4.374175548553467,
+            "science_train_encodes": 6220.673136949539,
+            "validation_encodes": 24.947551250457764
+          },
+          "contrastive_similarity_pairs": {
+            "ALL_TRAINABLE": 0,
+            "FROZEN_PAST": 0
+          },
+          "wall_from_first": 6716.63596868515,
+          "GPU_peak_reserved_bytes": 778043392
+        },
+        "remaining_process_groups": 0,
+        "stage_training_residence_seconds": [
+          58.80204367637634,
+          14.048767566680908,
+          17.30657410621643,
+          20.811723232269287,
+          22.28275179862976,
+          23.760594129562378
+        ],
+        "training_residence_includes_both_arms_sampling_and_copies": true,
+        "no_pure_arm_runtime_instrumented": true,
+        "history_costs_retained": true,
+        "post_completion_work": "Only existing JSON aggregate/receipt reads and report preparation; no model forward, encoding, scoring or optimizer step."
+      },
+      "arms": {
+        "ALL_TRAINABLE": {
+          "final_correct": 45,
+          "mean_BA_percent": 20.085097001763668,
+          "tail4": 10,
+          "tail7": 17,
+          "initial10": 8,
+          "later10": 37
+        },
+        "FROZEN_PAST": {
+          "final_correct": 51,
+          "mean_BA_percent": 22.475308641975307,
+          "tail4": 10,
+          "tail7": 20,
+          "initial10": 11,
+          "later10": 40
+        }
+      },
+      "gates": {
+        "final": false,
+        "mean": false,
+        "tail7": false,
+        "initial10": false,
+        "later10": false,
+        "vs_control_final": true,
+        "vs_control_mean": true,
+        "vs_control_tail4": false,
+        "vs_control_initial": true,
+        "vs_control_later": true
+      },
+      "independent_verification": {
+        "state": "PASS",
+        "score_groups": 12,
+        "max_score_error": 3.197442310920451e-14,
+        "prediction_mismatches": 0,
+        "patient_overlap": 0,
+        "memory_reconstruction": true,
+        "future_prefix_checks": true,
+        "frozen_old_branch_parameter_equality": true,
+        "new_encodes": 0,
+        "new_optimization": 0,
+        "wall_seconds": 11.25558352470398
+      }
+    }
+  ],
+  "active_experiment": {
+    "experiment": "functional_margin1_20261022",
+    "state": "RUNNING_QUALIFIED_BASE_ENCODING",
+    "observation_beijing": "2026-10-22T09:54:45.164614+08:00",
+    "original_start_epoch": 1792630907.4253917,
+    "hard_deadline_epoch": 1792645307.4253917,
+    "science_train_encodes": 32992,
+    "qualification_encodes": 20,
+    "validation_encodes": 0,
+    "updates": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "qualification_updates": 3,
+    "encoder_seconds": {
+      "qualification_encodes": 3.120356559753418,
+      "science_train_encodes": 3044.104222536087
+    },
+    "wall_at_status_seconds": 3175.644675016403,
+    "observed_elapsed_seconds": 3177.739222049713,
+    "storage_current_sample_bytes": 311754,
+    "storage_sampled_peak_bytes": 311758,
+    "RSS_sampled_peak_bytes": 1828888576,
+    "GPU_reserved_peak_bytes": 614465536,
+    "original_guard_worker_identity_match": true,
+    "method_metrics": null,
+    "scientific_gate_decision": null,
+    "automatic_independent_verifier_not_yet_started": true,
+    "startup_commit": "b4e3583a326e63a5e5d48b7ab34b37a9dddb4115",
+    "scientific_source": "476f3c3a9dcecd23c9fa99cf7453af8bcac92f63"
+  },
+  "any_complete_primary_scientific_pass": false,
+  "execution_totals": {
+    "training_encoder_invocations_including_qualification": 297395,
+    "validation_encoder_invocations": 900,
+    "unique_validation_image_pool": 300,
+    "formal_neural_optimizer_updates": 31500,
+    "formal_LBFGS_updates": 43,
+    "NIH_qualification_optimizer_updates": 14,
+    "local_synthetic_optimizer_updates": 3,
+    "encoder_parameter_updates": 0,
+    "cost_interpretation": "Counts include all whole carried-in experiments plus running snapshot, repeatedly encoding same training images; not new unique data, not exact within-window billed usage. No sums of overlapping nested wall intervals."
+  },
+  "privacy": "Aggregate results/code only; patient identities, images, weights, stored features/teacher targets, per-image scores, probes and raw logs remain private.",
+  "reporting_work": "Only existing JSON/receipts read, aggregate arithmetic and report writing; zero new image encoding/model scoring/optimizer steps."
+}

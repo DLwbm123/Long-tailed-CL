@@ -23,3 +23,5 @@ SciPy官方接口与主动集/KKT说明：https://docs.scipy.org/doc/scipy-1.13.
 resume的COSTS中science_train_encodes=61118已封存前缀+new_science_train_encodes，前者为复用逻辑覆盖，不能重复当新物理编码；原全部编码、失败首步不确定更新区间/梯度成本、原部分验收、修复测试另账合并。正式机会/映射计数从前两封存阶段承接，额外失败首步仍在旧成本里，不计完成模型的新机会进度。新异常立即持久化current task/arm/iteration及费用，并保存失败QP的g/G/Gram/b，避免继续失去定位证据。
 
 完成后独立CPU NumPy按原18模型/风险/记忆/计数验收，原stage0/1直接只读，后四stage读恢复输出。必须完整组退、全成本、三臂比较、中文报告及有效代理push/SHA/匿名访问后才最终交付。本说明只冻结修复，不代表资格或科学结果已经完成。既有test/future/val调参/隐私约束保持。
+
+恢复入口第一次在import阶段因包装层遗漏导出ARMS而退出，尚未进入main，0新增编码/优化/模型映射。此导出遗漏已修正，补完整run/verify模块接口导入检查；原失败stdout、guardian/run退出回执原样归入私有import_failure，耗时约10.034秒、RSS采样452468736B保留在同原钟，不计成新的科学效果失败。投影数值实现未因此改变，不重复运行已通过的投影问题测试。

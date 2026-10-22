@@ -11,6 +11,7 @@ try:
 except ModuleNotFoundError:
     import core as frozen_core
 
+ARMS=frozen_core.ARMS
 Model=frozen_core.Model
 key=frozen_core.key
 memory_indices=frozen_core.memory_indices

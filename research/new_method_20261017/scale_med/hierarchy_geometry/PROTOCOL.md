@@ -1,0 +1,43 @@
+# Frozen hierarchy × geometry support experiment — 2026-10-22
+
+## Scope and provenance
+
+User authorized the proposed prioritization: test representation/hierarchy mechanisms first, not complete HASTEN, no reliability module. One bounded experiment; analyse and deliver before any new decision. No zero-space projection, Gaussian replay, class-incremental sequence, additional backbone download, query access, or subsequent experiment is authorized.
+
+Sources: HASTEN v2 arXiv2511.15633, Sections4.1–4.3/Algorithm1; original model tree/geometry idea. This implementation is a controlled adaptation, NOT faithful HASTEN reproduction: identity-initialized bias-free visual/text/shared linear matrices; normalized cached inputs; class-prototype CE instead of symmetric batch-pair contrastive objective; common identity penalty instead of TP exponential-map approximation loss; existing shallow semantic forest instead of GPT-built incremental full tree; no task accumulation, cached historical anchors, replay, projection or class-incremental forgetting claims. Original paper/code use different backbone/training details. These differences are frozen and must remain in result interpretation.
+
+The earlier flat/true/shuffled negative results and A-D scale-negative results remain unchanged. Same support data have been analysed previously: this is exploratory mechanism evidence, not a new independent confirmation dataset. Unknown patient relationships and unseen-group count remain UNKNOWN.
+
+## Data and splits
+
+Read only the previous A-D PLAN.private.json and cached support_features.private.pt for CLIP and BiomedCLIP. Reference prior source238da7018bae747499bcb8961bdc6a9a016009a5, completed96fits before this experiment. Each cache has3140 normalized512D support vectors,20 normalized text vectors, sequential row_indices; identical PLAN rows and outer indices are required. Provenance depends on the qualified producer and its plan; sequential indices are not independent image-identity proof. No copy of feature/model cache, no images or E/Qgate responses read. File-open guard denies image directory and known query-response patterns.
+
+Reuse the four fixed outer group folds, same3 seeds74510/74511/74512 and both backbones. No inner fits because no hyperparameter selection is performed. Every eligible group appears in outer validation once. Class1 singleton stays in all train folds and has NO evaluable recall; primary metrics average the12 remaining classes. Two4-group classes2/12 have3 training groups and1 held-out per outer fold. Row/group/class counts remain[502,1,4,69,232,323,590,392,202,135,477,209,4]. Reused split is sealed in SPLIT_SEAL.json. No new split selected using prior results.
+
+## Matched factorial
+
+Six arms: Eflat,Etrue,Eshuffled,Hflat,Htrue,Hshuffled. E means Euclidean distance, H Lorentz geodesic distance with curvature1. All share exactly three512×512 bias-free trainable matrices (visual,text,shared),786432parameters, identity initialization, and identical sampled minibatch indices for a given seed/fold. All use600steps, batch64 class/group balanced replacement sampling, AdamW .001 cosine schedule, weight_decay.0001, gradientclip1. Total2*3*4*6=144fits,86400updates. Freeze source before any formal fit.
+
+Both spaces start with u=x Wv^T M^T and z=t Wt^T M^T, without output renormalization. E distance=sqrt(||u-z||²+1e-10). H distance=acosh(max(sqrt(1+||u||²)sqrt(1+||z||²)-u·z,1+1e-10)), calculated in float64 for metric stability with float32 parameters. Leaf logits=-10*distance in both spaces; no learned logit-scale or temperature search. Primary prediction uses the learned branch only. Secondary fixed50% mixture uses the original NCM probabilities from matching old outer OOF files; no adjustment or selection from those mixture scores. Prior pure-adapter B is a reference with different capacity/objective, NOT the matched geometry control.
+
+All arms use leaf CE plus .001 times the sum of matrix-wise mean squared deviation from identity. True/shuffled arms additionally use .5*text-tree loss + .1*image-leaf anchoring. Text-tree loss averages softplus(exterior_angle-aperture)+softplus(.2-parent_child_distance) over edges. Image anchoring averages softplus(exterior_angle-aperture) with true class text as parent; labels are never shuffled. Aperture=asin(min(.2/max(parent_norm,1e-8),1-1e-5)). Euclidean exterior angle is angle between parent radial vector and child-parent displacement; Lorentz exterior follows the parent radial geodesic construction. acos arguments clamp to[-1+1e-5,1-1e-5]; distance and denominator floors are frozen. These Euclidean/Lorentz counterparts are controlled analogues, not an assertion of identical optimization landscapes. Report final parent radii and aperture cap counts, fail on any nonfinite loss/gradient/parameter/output. No result-dependent clamp/tolerance changes.
+
+Tree uses the prior20 fixed text embeddings:13leaves,4finding-type parents,3pathological-family parents. Existing TYPE/SUB mapping yields16edges; pathology-type parent connects to3family nodes, family or finding-type node connects to a leaf. No synthetic root, no ordinal severity chain, no new prompt, no medical validation claim. True and shuffled have identical edge count and parent degrees. Shuffled permutes leaf attachment with the previous fixed seed permutation, preserving each leaf once while changing top-level association. Image-to-own-label anchoring remains unchanged across true/shuffled. Flat arms use no parents in their loss, checked synthetically.
+
+## Frozen outputs and gates
+
+Per backbone report all6arms and prior NCM/B, eachseed and outerfold, primary12-class groupBA/imageBA/NLL, complete class counts/recalls/confusions, and secondary fixed-mixture metrics. Report paired rescue/harm for Etrue−Eflat,Etrue−Eshuffled,Htrue−Hflat,Htrue−Hshuffled,Htrue−Etrue,and eachtrue−referenceB. Do not pool repeated seed images as independent observations.
+
+Hierarchy signal for geometry G requires mean(Gtrue−Gflat)>=1pp and mean(Gtrue−Gshuffled)>=1pp, each comparison strictly positive in all3seeds, conditional paired group-bootstrap lower95% bound>0, and class-protection gate. Also mean Gtrue−referenceB>=0 and class protection versusB must pass. Protection: mean per-class recall change>=0 for4-group classes2/12, >=−1pp for all other evaluable classes. Class1 always NOT_ESTIMABLE, never safety-passed by imputation.
+
+Additional hyperbolic value requires H hierarchy signal AND mean(Htrue−Etrue)>=.5pp, all3seeds positive, CI lower>0 and the same class-protection gate. If E hierarchy passes but H does not add value, prefer simpler E interpretation; no claim that hyperbolic geometry was necessary. All false -> NO_QUALIFIED_MECHANISM_SIGNAL. Any pass -> MECHANISM_CANDIDATE only, method_success=false. No automatic next run.
+
+Uncertainty:2,000 paired stratified known-group bootstrap replicates, seed86422, average seed differences before group resampling. Conditional on fixedOOF models, overlapping training splits, no adjustment for unknown patient dependence; these exploratory intervals are not independent confirmation or multiplicity-adjusted discovery tests. Keep all comparisons, failures, tiny denominators and singleton limitation visible. Reusing support after earlier analyses further limits generalization claims.
+
+## Hard resources and completion
+
+GPU0 my-gpu only. Existing feature caches/environment read-only; no downloads or installations. Both backbones/144fits share original3-hour wall clock: TERM10790seconds, KILL5seconds. CPU21600seconds, RSS6GiB; guards independent of chat/SSH. New allocated/logical max storage strictly<1.5GB including128MiBreserve and<1MiB neutral-entry overhead. Expected model states~454MB logical/~910MB allocated plus small outputs; feature cache remains shared. Existing assets/costs untouched. No automatic failure retry, no reset clock or budget expansion.
+
+Before run: freeze actualsplit/source/protocol; synthetic geometry symmetry/formula/cone direction/finite gradients/flat-parent-independence/shuffle tests; verify mount and GPU free memory; source push via mandatory proxy and anonymous access. Neutral parent/worker command lines and GPU display verified after launch; receipt of nonzero real updates required before claiming startup.
+
+One30-minute monitor for this experiment only through analysis and public aggregate delivery. At completion/failure analyse, preserve evidence, record cost once, publish code/report/aggregate/resource summaries but no private rows/features/models/predictions/raw logs. Delete monitor and pause for user decision. Do not reactivate full HASTEN or other old experiments.

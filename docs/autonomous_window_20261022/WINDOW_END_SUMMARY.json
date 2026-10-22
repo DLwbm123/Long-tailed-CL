@@ -1,0 +1,113 @@
+{
+  "state": "OFFLINE_WINDOW_ENDED_EXPERIMENT_STILL_RUNNING",
+  "authorized_window_start_beijing": "2026-10-22T00:18:00+08:00",
+  "authorized_window_end_beijing": "2026-10-22T12:18:00+08:00",
+  "observation_beijing": "2026-10-22T12:32:32.589118+08:00",
+  "measurement_caveat": "First scheduled heartbeat after12:18 is12:32; current counters are12:32 observations, not reconstructed12:18 counters.",
+  "complete_experiments_in_window": [
+    {
+      "name": "contrast_replay1_20261022",
+      "primary": "SUPERVISED",
+      "main_final_correct": 45,
+      "ER_final_correct": 51,
+      "INSTANCE_final_correct": 60,
+      "scientific_gate_pass": false,
+      "passed_gates": 0,
+      "total_gates": 13,
+      "report_commit": "0c3d394de6795362525f52ea74ff89cea1b05a8f"
+    },
+    {
+      "name": "frozen_expansion1_20261022",
+      "primary": "FROZEN_PAST",
+      "main_final_correct": 51,
+      "control_final_correct": 45,
+      "scientific_gate_pass": false,
+      "passed_gates": 4,
+      "total_gates": 10,
+      "report_commit": "c966ca31417f2310917f6d141db0c8d26ad4329c"
+    }
+  ],
+  "partial_solver_failure": {
+    "name": "loss_cover1_20261022",
+    "CLASS_gradient_inf": 1.876277271e-05,
+    "required_gradient_inf": 1e-05,
+    "CELL_formal_updates": 0,
+    "validation_encodes": 0,
+    "report_commit": "afaf335df174b1bca2945c8d3527a8a6b6d7ac8a"
+  },
+  "pre_window_context": {
+    "name": "competition_meta1_20261021",
+    "scientific_gate_pass": false,
+    "delivery_beijing": "2026-10-22T00:06:00+08:00",
+    "note": "Completed before00:18, retained as prior context, not a new window result"
+  },
+  "active_experiment": {
+    "name": "functional_margin1_20261022",
+    "attempt": 2,
+    "scientific_source": "476f3c3a9dcecd23c9fa99cf7453af8bcac92f63",
+    "original_start_epoch": 1792630907.4253917,
+    "hard_deadline_epoch": 1792645307.4253917,
+    "attempt1": {
+      "state": "ATTEMPT1_ENGINEERING_FAILED_NO_SCIENTIFIC_RESULT",
+      "original_start_epoch": 1792630907.4253917,
+      "hard_deadline_epoch": 1792645307.4253917,
+      "returncode": 1,
+      "finished_epoch": 1792636578.1502733,
+      "elapsed_original_first_to_attempt1_group_exit_seconds": 5670.724882364273,
+      "cause": "CUBLAS_WORKSPACE_CONFIG missing under torch.use_deterministic_algorithms(True); first formal GPU FP32 classifier forward raised RuntimeError.",
+      "science_train_encodes": 60129,
+      "qualification_encodes": 20,
+      "formal_optimizer_updates": {
+        "ER": 0,
+        "LOGIT": 0,
+        "MARGIN": 0
+      },
+      "qualification_optimizer_updates": 3,
+      "validation_encodes": 0,
+      "scientific_metrics": null,
+      "independent_full_verification": "not run: no stage models/scores saved",
+      "failure_record_acceptance": "Read-only check of terminal receipts, original group retirement, expected artifact absence and counters; not scientific verification",
+      "remaining_original_groups": [],
+      "storage_exit_root_bytes": 211902,
+      "storage_sampled_peak_bytes": 315621,
+      "RSS_sampled_peak_bytes": 1852735488,
+      "GPU_reserved_sampled_peak_bytes": 616562688,
+      "encoder_seconds": {
+        "qualification_encodes": 3.120356559753418,
+        "science_train_encodes": 5512.805144071579
+      },
+      "cost_limitations": [
+        "Counters persisted before formal batch; first64 draws/128 dropout views reached incomplete forward, but no completed objective, backward or optimizer step. Partial operations not treated as zero FLOPs.",
+        "Original qualification real-image steps were CPU FP32; encoder used GPUFP16 and missed this GPUFP32 configuration failure.",
+        "Current patient-equal means over60129 features completed before failing forward; no re-encode used to reconstruct missing counters."
+      ],
+      "retry_policy": "One disclosed environment-only retry under same original4h/2GB; all first-attempt counts retained. No scientific target or parameter change, no new budget. If insufficient time, stop by original guard."
+    },
+    "attempt2_train_encodes": 57728,
+    "all_attempts_train_encodes_excluding_qualification": 117857,
+    "all_attempts_qualification_encodes": 40,
+    "all_attempts_NIH_qualification_updates": 6,
+    "GPU_synthetic_preflight_updates": 1,
+    "local_synthetic_updates": 3,
+    "formal_updates": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "validation_encodes": 0,
+    "metrics": null,
+    "independent_scientific_acceptance": "Not yet applicable:18-model sealed outputs unavailable",
+    "storage_current_sample_bytes": 436743,
+    "storage_sampled_peak_bytes": 436750,
+    "RSS_sampled_peak_bytes": 1820467200,
+    "GPU_reserved_peak_bytes": 648019968,
+    "remaining_wall_seconds_at_snapshot": 1754.836273908615,
+    "engineering_failure_retained": true,
+    "guard_worker_identity_match": true
+  },
+  "next_action": "Continue healthy attempt2 under same4h/2GB; hard deadline remains13:01:47, no third attempt. Independently accept available final artifacts, compare all three arms without filling absent metrics, merge failed/repeated costs and push. Do not stop merely because12h window ended.",
+  "all_past_costs_retained": true,
+  "new_image_downloads": 0,
+  "test_access": false,
+  "val_tuning": false
+}

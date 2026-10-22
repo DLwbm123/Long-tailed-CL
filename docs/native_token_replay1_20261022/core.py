@@ -1,4 +1,4 @@
-"""Draft native upper-ViT learner. No experiment has been frozen or started."""
+"""Native upper-ViT learner with canonical0/1 keys for independent acceptance."""
 import copy
 import hashlib
 import numpy as np
@@ -13,7 +13,8 @@ class Upper(nn.Module):
     def __init__(self, backbone):
         super().__init__()
         assert len(backbone.blocks) == 12
-        self.blocks = copy.deepcopy(backbone.blocks[10:])
+        # Sequential slicing retains10/11 names; serialization and NumPy use local0/1.
+        self.blocks = nn.Sequential(*copy.deepcopy(list(backbone.blocks.children())[10:]))
         self.norm = copy.deepcopy(backbone.norm)
         assert isinstance(self.norm, nn.LayerNorm)
         for block in self.blocks:

@@ -192,9 +192,9 @@ def main(cfg):
         ref=numpy_scores(q[:2].numpy(),seal,cfg['layernorm_epsilon'])
         error=float(abs(fp64-ref).max());assert error<=cfg['score_absolute_tolerance']
         ac['FP64_probe_rows']+=2;ac['numpy_probe_rows']+=2
-        if a=='PLASTIC_UPPER':assert any(not torch.equal(v,seal['upper.'+k]) for k,v in state(upper).items())
-        else:assert all(torch.equal(v,seal['upper.'+k]) for k,v in state(upper).items())
-        qual[a]=dict(state='PASS',score_error=error,updates=2,
+        upper_delta=max(float((v-seal['upper.'+k]).abs().max()) for k,v in state(upper).items())
+        assert upper_delta>0 if a=='PLASTIC_UPPER' else upper_delta==0
+        qual[a]=dict(state='PASS',score_error=error,updates=2,actual_upper_parameter_max_delta=upper_delta,
                      total_parameters=sum(p.numel() for p in m.parameters()),
                      trainable_parameters=sum(p.numel() for p in m.parameters() if p.requires_grad))
         del u,m,opt,loaded,seal,fp64,ref

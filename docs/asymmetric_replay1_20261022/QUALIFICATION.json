@@ -1,0 +1,49 @@
+{
+  "state": "PASS",
+  "math": {
+    "ER": {
+      "objective_error": 1.7763568394002505e-15,
+      "finite_difference_error": 2.0616164331244136e-10,
+      "torch_forward_backward_rows": 16,
+      "numpy_objective_rows": 112
+    },
+    "ASYMMETRIC": {
+      "objective_error": 3.552713678800501e-15,
+      "finite_difference_error": 1.502356017368811e-10,
+      "torch_forward_backward_rows": 16,
+      "numpy_objective_rows": 112
+    },
+    "routing": {
+      "old_head_acquisition_gradient_exact_zero": true,
+      "replay_reaches_all_head_rows": true,
+      "extra_torch_forward_backward_rows": 16
+    },
+    "seconds": 0.18404698371887207
+  },
+  "real_GPU": {
+    "ER": {
+      "actual_residual_weight_change": 0.000599998573306948,
+      "score_error": 3.197442310920451e-14,
+      "objective_error": 2.220446049250313e-16,
+      "engineering_updates": 2,
+      "model_forward_backward_rows": 256,
+      "FP64_rows": 256,
+      "numpy_rows": 256
+    },
+    "ASYMMETRIC": {
+      "actual_residual_weight_change": 0.000599998573306948,
+      "score_error": 3.197442310920451e-14,
+      "objective_error": 6.661338147750939e-16,
+      "engineering_updates": 2,
+      "model_forward_backward_rows": 256,
+      "FP64_rows": 256,
+      "numpy_rows": 256
+    }
+  },
+  "legal_base_encodes": 20,
+  "discarded_optimization": 4,
+  "validation_encodes": 0,
+  "actual_arrival_branch": true,
+  "save_load": true,
+  "post_encoding_seconds": 2.0822854042053223
+}

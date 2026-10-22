@@ -59,6 +59,8 @@ def main(cfg):
         seen=cfg['order'][:sum(cfg['task_sizes'][:task+1])];old=sum(cfg['task_sizes'][:task]);pack=load(f'stage_{task}.private.pt');assert pack['seen']==seen
         for c in seen[old:]:
             rec=load(f'class_{c}.private.pt');assert rec['label']==c and rec['online_independent']['state']=='PASS';rr=[r for r in train if r['label']==c];assert rec['images']==len(rr) and rec['patients']==len(set(r['group'] for r in rr))
+            for kind in ['linear','kernel']:
+                pr=rec['map_probe'][kind];assert np.max(np.abs(mapping(pr['features'].numpy(),ref,kind)-pr['mapping'].numpy()))<=cfg['score_absolute_tolerance']
             assert all(abs(float(rec[k]['gram'][-1,-1])-.5)<1e-9 and abs(float(rec[k]['mean'][-1])-1/np.sqrt(2))<1e-9 for k in ['linear','kernel']);records.append(rec)
         mask=np.isin(labels,seen);metrics={}
         for a in cfg['arms']:

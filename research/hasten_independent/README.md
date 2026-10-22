@@ -1,3 +1,11 @@
+# 当前运行：r04 输入尺度修正
+
+r03 BiomedCLIP两臂平均28.8446%、最终22%，双曲分支发生距离饱和。已启动r04三种子raw/unit/unit-no-proj配对，固定单位化图文输入，其余HASTEN设置不变。参见[r03结果](r03_biomed_nih/RESULTS_ZH.md)和[r04协议](r04_unit_scale/PROTOCOL.md)。仍在用户12小时、累计新增30GB窗口内。
+
+# 当前运行：r03 BiomedCLIP NIH
+
+用户已明确授权立即开始。同NIH划分/顺序/训练参数，两臂只更换BiomedCLIP骨干系统。协议见[r03_biomed_nih/PROTOCOL.md](r03_biomed_nih/PROTOCOL.md)。独立8小时/8GB，唯一hasten监测已更新；保留r02负结果。
+
 # 当前状态：r02 NIH完成
 
 两臂12阶段、21340更新完成并通过预测计数核对。完整版平均19.8448%/最终13.6667%；关闭投影19.5988%/14.3333%，明显落后旧Spatial及CLS＋patch。详见[r02_nih/RESULTS_ZH.md](r02_nih/RESULTS_ZH.md)。保持HASTEN独立路线自主分析与后继，唯一监测继续。

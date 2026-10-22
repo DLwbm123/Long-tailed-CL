@@ -1,0 +1,120 @@
+{
+  "state": "PASS",
+  "analytic_cases": [
+    {
+      "case": "orthant",
+      "independent_active_subset_error": 0.0,
+      "old_frozen_solver_failed": false,
+      "repair": {
+        "solver": "scipy1.13.1 active-set NNLS of unchanged dual",
+        "KKT_residual": 0.0,
+        "numerical_rank": 2,
+        "constraints": 2,
+        "spectral_roundoff_cutoff": 4.440892098500626e-16,
+        "eigen_min": 1.0,
+        "eigen_max": 1.0,
+        "nnls_residual_norm": 0.0,
+        "regularization_added": 0.0,
+        "maxiter": 2000,
+        "residual": -0.0,
+        "correction_norm": 2.23606797749979
+      }
+    },
+    {
+      "case": "duplicate",
+      "independent_active_subset_error": 2.220446049250313e-16,
+      "old_frozen_solver_failed": false,
+      "repair": {
+        "solver": "scipy1.13.1 active-set NNLS of unchanged dual",
+        "KKT_residual": 2.220446049250313e-16,
+        "numerical_rank": 1,
+        "constraints": 2,
+        "spectral_roundoff_cutoff": 8.881784197001252e-16,
+        "eigen_min": 0.0,
+        "eigen_max": 2.0,
+        "nnls_residual_norm": 0.0,
+        "regularization_added": 0.0,
+        "maxiter": 2000,
+        "residual": 2.220446049250313e-16,
+        "correction_norm": 1.9999999999999998
+      }
+    },
+    {
+      "case": "nearly_opposed",
+      "independent_active_subset_error": 2.9344304763867513e-12,
+      "old_frozen_solver_failed": true,
+      "repair": {
+        "solver": "scipy1.13.1 active-set NNLS of unchanged dual",
+        "KKT_residual": 1.3322676295501878e-15,
+        "numerical_rank": 2,
+        "constraints": 2,
+        "spectral_roundoff_cutoff": 8.881562169048286e-16,
+        "eigen_min": 4.999625031243404e-05,
+        "eigen_max": 1.9999500037496878,
+        "nnls_residual_norm": 1.1332979137512607e-14,
+        "regularization_added": 0.0,
+        "maxiter": 2000,
+        "residual": 0.0,
+        "correction_norm": 1.414213562373651
+      }
+    }
+  ],
+  "saved_real_stage1_gradient_QP": {
+    "old_new_direction_max_error": 3.725290298461914e-08,
+    "old_receipt": {
+      "sweeps": 24,
+      "residual": 6.51925802230835e-08,
+      "correction_norm": 4.586775779724121
+    },
+    "new_receipt": {
+      "solver": "scipy1.13.1 active-set NNLS of unchanged dual",
+      "KKT_residual": 3.0531133177191805e-15,
+      "numerical_rank": 10,
+      "constraints": 10,
+      "spectral_roundoff_cutoff": 4.292502915208693e-15,
+      "eigen_min": 0.02548974050494819,
+      "eigen_max": 1.9331714529420638,
+      "nnls_residual_norm": 1.4668168847796674,
+      "regularization_added": 0.0,
+      "maxiter": 2000,
+      "residual": 6.51925802230835e-09,
+      "correction_norm": 4.586775779724121
+    },
+    "GPU_receipt": {
+      "solver": "scipy1.13.1 active-set NNLS of unchanged dual",
+      "KKT_residual": 1.9984014443252818e-15,
+      "numerical_rank": 10,
+      "constraints": 10,
+      "spectral_roundoff_cutoff": 4.29246528111084e-15,
+      "eigen_min": 0.025489606477226957,
+      "eigen_max": 1.933154504051157,
+      "nnls_residual_norm": 1.4668168925058593,
+      "regularization_added": 0.0,
+      "maxiter": 2000,
+      "residual": 6.51925802230835e-09,
+      "correction_norm": 4.5867815017700195
+    },
+    "active_GPU_case": {
+      "solver": "scipy1.13.1 active-set NNLS of unchanged dual",
+      "KKT_residual": 6.661338147750939e-16,
+      "numerical_rank": 10,
+      "constraints": 10,
+      "spectral_roundoff_cutoff": 4.29246528111084e-15,
+      "eigen_min": 0.025489606477226957,
+      "eigen_max": 1.933154504051157,
+      "nnls_residual_norm": 2.387738323850224e-15,
+      "regularization_added": 0.0,
+      "maxiter": 2000,
+      "residual": 2.3397567279203897e-16,
+      "correction_norm": 0.9999999403953552
+    }
+  },
+  "failed_original_QP_reconstructed": false,
+  "new_encoding": 0,
+  "optimization": 0,
+  "validation_scoring": 0,
+  "synthetic_projection_calls": 6,
+  "saved_real_projection_calls": 4,
+  "seconds": 2.1611745357513428,
+  "RSS_peak_bytes": 961642496
+}

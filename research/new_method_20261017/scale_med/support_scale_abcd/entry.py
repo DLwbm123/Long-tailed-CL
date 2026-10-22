@@ -153,7 +153,7 @@ def main():
                          method_success=False,singleton_class_1='NOT_ESTIMABLE',patient_independence='UNKNOWN')
         write('aggregate.json',final[kind]);del x,text,saved_predictions;torch.cuda.empty_cache()
     out=root
-    assert counts['fits']==96 and counts['optimizer_steps']==57600 and counts['image_encoder_rows']==6280 and counts['query_rows']==0
+    assert counts['fits']==96 and counts['optimizer_steps']==57600 and counts['image_encoder_rows']==6280 and counts['query_rows']==0 and counts['text_encoder_rows']==40 and counts['text_encoder_calls']==2
     write('aggregate.json',dict(backbones=final,counts=counts,source_commit=cfg['source_commit'],scientific_complete=True,
                                 followup_training_authorized=False,query_used=False,scope='Support-only conditional OOF evidence'))
     status(phase='COMPLETE_ANALYZE_THEN_STOP')

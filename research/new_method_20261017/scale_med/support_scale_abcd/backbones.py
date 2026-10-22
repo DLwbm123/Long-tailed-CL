@@ -12,7 +12,7 @@ def get_backbone(kind,cfg,out,write,status,counts):
   tokenizer=open_clip.get_tokenizer('ViT-B-32')
   prompts=['a photo of a '+n+'.' for n in NAMES]+['an endoscopic image of '+n+'.' for n in PARENTS]
   with torch.no_grad():text=F.normalize(backbone.encode_text(tokenizer(prompts).cuda()).float(),dim=1)
-  assert text.shape==(20,512) and torch.isfinite(text).all();counts['text_encoder_rows']=20;counts['text_encoder_calls']=1
+  assert text.shape==(20,512) and torch.isfinite(text).all();counts['text_encoder_rows']+=20;counts['text_encoder_calls']+=1
   write('TEXT_SEAL.json',dict(prompts=prompts,rows=20,normalized=True))
  else:
   import open_clip
@@ -37,6 +37,6 @@ def get_backbone(kind,cfg,out,write,status,counts):
   tokenizer=open_clip.get_tokenizer('fixed_biomedical',context_length=256)
   prompts=['a photo of a '+n+'.' for n in NAMES]+['an endoscopic image of '+n+'.' for n in PARENTS]
   with torch.no_grad():text=F.normalize(backbone.encode_text(tokenizer(prompts).cuda()).float(),dim=1)
-  assert text.shape==(20,512) and torch.isfinite(text).all();counts['text_encoder_rows']=20;counts['text_encoder_calls']=1
+  assert text.shape==(20,512) and torch.isfinite(text).all();counts['text_encoder_rows']+=20;counts['text_encoder_calls']+=1
   write('TEXT_SEAL.json',dict(prompts=prompts,rows=20,normalized=True))
  return backbone,preprocess,text,versions

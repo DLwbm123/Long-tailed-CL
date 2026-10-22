@@ -1,0 +1,150 @@
+{
+  "original_first_epoch": 1792682328.0677536,
+  "hard_deadline_epoch": 1792711128.0677536,
+  "all_groups_exit_epoch": 1792686839.2668347,
+  "elapsed_seconds": 4511.199082136154,
+  "remaining_seconds": 24288.80091881752,
+  "max_wall_seconds": 28800,
+  "root_and_entry_exit_actual_bytes": 104977260,
+  "sampled_peak_bytes": 104974188,
+  "budget_bytes": 3000000000,
+  "prestop_bytes": 2700000000,
+  "RSS_sampled_peak_bytes": 2378346496,
+  "GPU_peak_reserved_bytes": 702545920,
+  "train_encodes": 68078,
+  "science_train_encodes": 68058,
+  "qualification_encodes": 20,
+  "validation_encodes": 300,
+  "encoder_parameter_updates": 0,
+  "formal_updates_total": 9000,
+  "qualification_discarded_updates": 4,
+  "arms": {
+    "qualification_encodes": 20,
+    "science_train_encodes": 68058,
+    "validation_encodes": 300,
+    "qualification_updates": 4,
+    "updates": {
+      "ER": 4500,
+      "ASYMMETRIC": 4500
+    },
+    "sampled_image_rows": {
+      "ER": 288000,
+      "ASYMMETRIC": 288000
+    },
+    "training_view_rows": {
+      "ER": 576000,
+      "ASYMMETRIC": 576000
+    },
+    "incoming_view_rows": {
+      "ER": 288000,
+      "ASYMMETRIC": 288000
+    },
+    "replay_view_rows": {
+      "ER": 288000,
+      "ASYMMETRIC": 288000
+    },
+    "qualification_model_rows": {
+      "ER": 256,
+      "ASYMMETRIC": 256
+    },
+    "qualification_FP64_rows": {
+      "ER": 256,
+      "ASYMMETRIC": 256
+    },
+    "qualification_numpy_rows": {
+      "ER": 256,
+      "ASYMMETRIC": 256
+    },
+    "validation_model_rows": {
+      "ER": 1350,
+      "ASYMMETRIC": 1350
+    },
+    "training_probe_model_rows": {
+      "ER": 768,
+      "ASYMMETRIC": 768
+    },
+    "encoder_parameter_updates": 0,
+    "encoder_seconds": {
+      "qualification_encodes": 2.705472707748413,
+      "science_train_encodes": 4292.110411643982,
+      "validation_encodes": 19.918739795684814
+    },
+    "head_initialization_feature_rows": 68058,
+    "wall_from_first": 4487.026803016663,
+    "GPU_peak_reserved_bytes": 702545920,
+    "encoder_stage_seconds": [
+      {
+        "field": "qualification_encodes",
+        "rows": 20,
+        "seconds": 2.7209715843200684
+      },
+      {
+        "field": "science_train_encodes",
+        "rows": 60129,
+        "seconds": 3781.6234142780304
+      },
+      {
+        "field": "science_train_encodes",
+        "rows": 989,
+        "seconds": 61.68649458885193
+      },
+      {
+        "field": "science_train_encodes",
+        "rows": 3348,
+        "seconds": 222.555655002594
+      },
+      {
+        "field": "science_train_encodes",
+        "rows": 467,
+        "seconds": 29.695497274398804
+      },
+      {
+        "field": "science_train_encodes",
+        "rows": 860,
+        "seconds": 53.63829278945923
+      },
+      {
+        "field": "science_train_encodes",
+        "rows": 2265,
+        "seconds": 143.00887846946716
+      },
+      {
+        "field": "validation_encodes",
+        "rows": 300,
+        "seconds": 19.943816661834717
+      }
+    ],
+    "memory_rows_final": 615
+  },
+  "math": {
+    "ER": {
+      "objective_error": 1.7763568394002505e-15,
+      "finite_difference_error": 2.0616164331244136e-10,
+      "torch_forward_backward_rows": 16,
+      "numpy_objective_rows": 112
+    },
+    "ASYMMETRIC": {
+      "objective_error": 3.552713678800501e-15,
+      "finite_difference_error": 1.502356017368811e-10,
+      "torch_forward_backward_rows": 16,
+      "numpy_objective_rows": 112
+    },
+    "routing": {
+      "old_head_acquisition_gradient_exact_zero": true,
+      "replay_reaches_all_head_rows": true,
+      "extra_torch_forward_backward_rows": 16
+    },
+    "seconds": 0.18404698371887207
+  },
+  "verifier_process_seconds": 20.11587381362915,
+  "verifier_internal_seconds": 10.095763206481934,
+  "verification_numpy_model_rows": 4236,
+  "stage_loops_seconds": 129.38491582870483,
+  "unknown_earlier_local_preparation_not_zero": true,
+  "clock_includes_preparation_wait_qualification_and_verification": true,
+  "one_attempt_no_science_failure_or_retry": true,
+  "postprocessing": "Only saved aggregate JSON and process metadata; zero new forward/encoding/optimization",
+  "retirement_confirmed": true,
+  "sampled_peak_not_continuous_bound": true,
+  "private_artifacts_preserved": true
+}

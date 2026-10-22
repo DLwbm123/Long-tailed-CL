@@ -1,0 +1,330 @@
+{
+  "state": "COMPLETE_VERIFIED_GATE_FAILED",
+  "scientific_source": "476f3c3a9dcecd23c9fa99cf7453af8bcac92f63",
+  "environment_repair_source": "fdae1f1538b8dd31344b6ecae1e98a1bb7b246d0",
+  "original_start_epoch": 1792630907.4253917,
+  "hard_deadline_epoch": 1792645307.4253917,
+  "all_groups_exit_epoch": 1792644770.793981,
+  "elapsed_original_first_to_all_groups_exit_seconds": 13863.368591308594,
+  "wall_limit_seconds": 14400,
+  "wall_headroom_seconds": 536.6314105987549,
+  "attempts": 2,
+  "failed_attempts": 1,
+  "retries": 1,
+  "attempt1": {
+    "state": "ATTEMPT1_ENGINEERING_FAILED_NO_SCIENTIFIC_RESULT",
+    "original_start_epoch": 1792630907.4253917,
+    "hard_deadline_epoch": 1792645307.4253917,
+    "returncode": 1,
+    "finished_epoch": 1792636578.1502733,
+    "elapsed_original_first_to_attempt1_group_exit_seconds": 5670.724882364273,
+    "cause": "CUBLAS_WORKSPACE_CONFIG missing under torch.use_deterministic_algorithms(True); first formal GPU FP32 classifier forward raised RuntimeError.",
+    "science_train_encodes": 60129,
+    "qualification_encodes": 20,
+    "formal_optimizer_updates": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "qualification_optimizer_updates": 3,
+    "validation_encodes": 0,
+    "scientific_metrics": null,
+    "independent_full_verification": "not run: no stage models/scores saved",
+    "failure_record_acceptance": "Read-only check of terminal receipts, original group retirement, expected artifact absence and counters; not scientific verification",
+    "remaining_original_groups": [],
+    "storage_exit_root_bytes": 211902,
+    "storage_sampled_peak_bytes": 315621,
+    "RSS_sampled_peak_bytes": 1852735488,
+    "GPU_reserved_sampled_peak_bytes": 616562688,
+    "encoder_seconds": {
+      "qualification_encodes": 3.120356559753418,
+      "science_train_encodes": 5512.805144071579
+    },
+    "cost_limitations": [
+      "Counters persisted before formal batch; first64 draws/128 dropout views reached incomplete forward, but no completed objective, backward or optimizer step. Partial operations not treated as zero FLOPs.",
+      "Original qualification real-image steps were CPU FP32; encoder used GPUFP16 and missed this GPUFP32 configuration failure.",
+      "Current patient-equal means over60129 features completed before failing forward; no re-encode used to reconstruct missing counters."
+    ],
+    "retry_policy": "One disclosed environment-only retry under same original4h/2GB; all first-attempt counts retained. No scientific target or parameter change, no new budget. If insufficient time, stop by original guard."
+  },
+  "attempt1_worker_counters": {
+    "qualification_encodes": 20,
+    "science_train_encodes": 60129,
+    "validation_encodes": 0,
+    "qualification_updates": 3,
+    "qualification_model_rows": {
+      "ER": 40,
+      "LOGIT": 40,
+      "MARGIN": 40
+    },
+    "qualification_FP64_model_rows": {
+      "ER": 40,
+      "LOGIT": 40,
+      "MARGIN": 40
+    },
+    "qualification_numpy_rows": {
+      "ER": 40,
+      "LOGIT": 40,
+      "MARGIN": 40
+    },
+    "updates": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "sampled_image_rows": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "training_view_rows": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "validation_model_rows": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "encoder_parameter_updates": 0,
+    "encoder_seconds": {
+      "qualification_encodes": 3.120356559753418,
+      "science_train_encodes": 5512.805144071579
+    },
+    "contrastive_similarity_pairs": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "training_probe_model_rows": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "birth_target_model_rows": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "birth_target_logit_elements": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "functional_objective_model_rows": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "historical_target_elements": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "allseen_margin_rival_elements": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "history_memory_rows_final": 0,
+    "wall_from_first": 5659.92174577713,
+    "GPU_peak_reserved_bytes": 616562688,
+    "qualification_teacher_rows": 40
+  },
+  "attempt2_worker_counters": {
+    "qualification_encodes": 20,
+    "science_train_encodes": 68058,
+    "validation_encodes": 300,
+    "qualification_updates": 3,
+    "qualification_model_rows": {
+      "ER": 40,
+      "LOGIT": 40,
+      "MARGIN": 40
+    },
+    "qualification_FP64_model_rows": {
+      "ER": 40,
+      "LOGIT": 40,
+      "MARGIN": 40
+    },
+    "qualification_numpy_rows": {
+      "ER": 40,
+      "LOGIT": 40,
+      "MARGIN": 40
+    },
+    "updates": {
+      "ER": 4500,
+      "LOGIT": 4500,
+      "MARGIN": 4500
+    },
+    "sampled_image_rows": {
+      "ER": 288000,
+      "LOGIT": 288000,
+      "MARGIN": 288000
+    },
+    "training_view_rows": {
+      "ER": 576000,
+      "LOGIT": 576000,
+      "MARGIN": 576000
+    },
+    "validation_model_rows": {
+      "ER": 1350,
+      "LOGIT": 1350,
+      "MARGIN": 1350
+    },
+    "encoder_parameter_updates": 0,
+    "encoder_seconds": {
+      "qualification_encodes": 2.8213138580322266,
+      "science_train_encodes": 6078.514215230942,
+      "validation_encodes": 29.116755485534668
+    },
+    "contrastive_similarity_pairs": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 0
+    },
+    "training_probe_model_rows": {
+      "ER": 768,
+      "LOGIT": 768,
+      "MARGIN": 768
+    },
+    "birth_target_model_rows": {
+      "ER": 615,
+      "LOGIT": 615,
+      "MARGIN": 615
+    },
+    "birth_target_logit_elements": {
+      "ER": 8070,
+      "LOGIT": 8070,
+      "MARGIN": 8070
+    },
+    "functional_objective_model_rows": {
+      "ER": 576000,
+      "LOGIT": 576000,
+      "MARGIN": 576000
+    },
+    "historical_target_elements": {
+      "ER": 0,
+      "LOGIT": 3066400,
+      "MARGIN": 0
+    },
+    "allseen_margin_rival_elements": {
+      "ER": 0,
+      "LOGIT": 0,
+      "MARGIN": 2218556
+    },
+    "history_memory_rows_final": 615,
+    "wall_from_first": 13838.59496641159,
+    "GPU_peak_reserved_bytes": 717225984,
+    "qualification_teacher_rows": 40
+  },
+  "attempt2_run_returncode": 0,
+  "attempt2_verify_returncode": 0,
+  "attempt2_verify_residence_seconds": 20.13991379737854,
+  "attempt2_verify_internal_seconds": 13.068386554718018,
+  "nested_durations_not_added_twice": true,
+  "totals": {
+    "science_train_encodes": 128187,
+    "qualification_encodes": 40,
+    "train_encodes_including_qualification": 128227,
+    "validation_encodes": 300,
+    "formal_neural_optimizer_updates": 13500,
+    "NIH_qualification_optimizer_updates": 6,
+    "additional_GPU_synthetic_updates": 1,
+    "additional_local_synthetic_updates": 3,
+    "encoder_parameter_updates": 0
+  },
+  "CUDA_preflight": {
+    "state": "PASS",
+    "synthetic_GPU_FP32_updates": 1,
+    "NIH_encodes": 0,
+    "validation_encodes": 0,
+    "score_error": 1.7763568394002505e-14,
+    "seconds": 5.3670220375061035,
+    "GPU_reserved_bytes": 77594624,
+    "original_start_epoch": 1792630907.4253917,
+    "hard_deadline_epoch": 1792645307.4253917
+  },
+  "local_math_preflight": {
+    "result": {
+      "ER": {
+        "objective_error": 8.881784197001252e-16,
+        "finite_difference_gradient_error": 8.296041631439266e-11,
+        "permutation_invariant": true,
+        "synthetic_torch_objectives": 2,
+        "synthetic_numpy_objectives": 7
+      },
+      "LOGIT": {
+        "objective_error": 0.0,
+        "finite_difference_gradient_error": 8.474496104859952e-11,
+        "permutation_invariant": true,
+        "synthetic_torch_objectives": 2,
+        "synthetic_numpy_objectives": 7
+      },
+      "MARGIN": {
+        "objective_error": 0.0,
+        "finite_difference_gradient_error": 1.0992537435861038e-10,
+        "permutation_invariant": true,
+        "synthetic_torch_objectives": 2,
+        "synthetic_numpy_objectives": 7
+      },
+      "new_competitor_counterexample": {
+        "historical_logit_loss": 0.0,
+        "margin_loss": 0.0256,
+        "new_logit_descent_direction": true,
+        "wrong_teacher_ignored": true,
+        "scope": "Synthetic algebra only; no NIH performance or proof of unique failure cause."
+      }
+    },
+    "local_seconds": 0.09870314598083496,
+    "RSS_highwater_bytes": 196820992,
+    "NIH_encodes": 0,
+    "optimizer_steps": 0,
+    "scope": "Local synthetic preflight in original clock; formal remote mathematical qualification runs again and both costs retained."
+  },
+  "local_two_stage_preflight": {
+    "result": {
+      "ER": {
+        "after_expansion_loss_error": 0.0,
+        "synthetic_optimizer_steps": 1
+      },
+      "LOGIT": {
+        "after_expansion_loss_error": 8.881784197001252e-16,
+        "synthetic_optimizer_steps": 1
+      },
+      "MARGIN": {
+        "after_expansion_loss_error": 9.646799803419981e-09,
+        "synthetic_optimizer_steps": 1
+      }
+    },
+    "seconds": 0.5230767726898193,
+    "NIH_encodes": 0,
+    "formal_updates": 0,
+    "synthetic_updates": 3,
+    "original_clock_retained": true
+  },
+  "resource": {
+    "storage_sampled_peak_all_root_and_entries_bytes": 122539925,
+    "exit_actual_root_bytes": 122350721,
+    "RSS_sampled_peak_across_attempts_bytes": 2437885952,
+    "GPU_reserved_peak_across_attempts_bytes": 717225984,
+    "storage_hard_limit_bytes": 2000000000,
+    "RSS_budget_bytes": 17179869184,
+    "GPU_reserved_budget_bytes": 8589934592
+  },
+  "stage_training_residence_seconds": [
+    84.92957520484924,
+    22.980279445648193,
+    23.591744661331177,
+    22.731096506118774,
+    23.444360733032227,
+    23.63327717781067
+  ],
+  "training_residence_includes_three_arms_sampling_and_copies": true,
+  "remaining_groups": [],
+  "client_pre_first_preparation": "unknown, not zero",
+  "first_admission_to_first_worker_seconds": 81.5352852344513,
+  "all_first_to_exit_intervals_include_waiting_and_repair": true,
+  "reporting_read_scope": "Only existing aggregate JSON and process metadata; zero new model scoring/encoding/optimizer steps.",
+  "historical_failures_and_costs_retained": true
+}

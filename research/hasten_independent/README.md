@@ -1,3 +1,7 @@
+# 当前运行：r05 类别均衡优化采样
+
+r04三种子单位化平均32.3549%、最终26.3333%，通过预注册配对开发门且距离饱和解除，但仍低旧路线。正在以固定训练步数检验均衡采样改善尾类。参见[r04结果](r04_unit_scale/RESULTS_ZH.md)和[r05协议](r05_balanced/PROTOCOL.md)。仍遵守12小时/累计新增30GB窗口。
+
 # 当前运行：r04 输入尺度修正
 
 r03 BiomedCLIP两臂平均28.8446%、最终22%，双曲分支发生距离饱和。已启动r04三种子raw/unit/unit-no-proj配对，固定单位化图文输入，其余HASTEN设置不变。参见[r03结果](r03_biomed_nih/RESULTS_ZH.md)和[r04协议](r04_unit_scale/PROTOCOL.md)。仍在用户12小时、累计新增30GB窗口内。

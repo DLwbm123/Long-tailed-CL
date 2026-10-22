@@ -1,0 +1,123 @@
+{
+  "state": "PASS",
+  "real_training_images": 20,
+  "validation_encodes": 0,
+  "base_internal_simulated_arrival_only": true,
+  "actual_GPU_encoder": true,
+  "actual_GPU_FP32_batch_views": 128,
+  "all_arms_backward_clip_optimizer_memory_expansion_serialization_FP64_NumPy": true,
+  "math": {
+    "objective_error": 0.0,
+    "finite_difference_error": 1.3628576045476848e-10,
+    "independent_orthant_projection_error": 0.0,
+    "nonlinear_tangent_counterexample": true,
+    "projection": {
+      "sweeps": 1,
+      "residual": -0.0,
+      "correction_norm": 2.23606797749979
+    }
+  },
+  "arms": {
+    "ER": {
+      "first": {
+        "CE": 1.334317684173584,
+        "gradient_norm_before_clip": 1.437364935874939,
+        "accepted": true,
+        "step_factor": 1.0,
+        "projection": {
+          "sweeps": 0,
+          "residual": 0.0,
+          "correction_norm": 0.0
+        },
+        "risks_after": []
+      },
+      "arrival": {
+        "CE": 1.9202475547790527,
+        "gradient_norm_before_clip": 1.7455930709838867,
+        "accepted": true,
+        "step_factor": 1.0,
+        "projection": {
+          "sweeps": 0,
+          "residual": 0.0,
+          "correction_norm": 0.0
+        },
+        "risks_after": []
+      },
+      "arrival_bias": -3.432094097137451,
+      "score_error": 3.197442310920451e-14,
+      "CUDA_FP32": true,
+      "saved_loaded": true
+    },
+    "PROJECT": {
+      "first": {
+        "CE": 1.334317684173584,
+        "gradient_norm_before_clip": 1.437364935874939,
+        "accepted": true,
+        "step_factor": 1.0,
+        "projection": {
+          "sweeps": 0,
+          "residual": 0.0,
+          "correction_norm": 0.0
+        },
+        "risks_after": []
+      },
+      "arrival": {
+        "CE": 1.9202475547790527,
+        "gradient_norm_before_clip": 1.7455930709838867,
+        "accepted": true,
+        "step_factor": 1.0,
+        "projection": {
+          "sweeps": 1,
+          "residual": 0.0,
+          "correction_norm": 0.0
+        },
+        "risks_after": []
+      },
+      "arrival_bias": -3.432094097137451,
+      "score_error": 3.197442310920451e-14,
+      "CUDA_FP32": true,
+      "saved_loaded": true
+    },
+    "FEASIBLE": {
+      "first": {
+        "CE": 1.334317684173584,
+        "gradient_norm_before_clip": 1.437364935874939,
+        "accepted": true,
+        "step_factor": 1.0,
+        "projection": {
+          "sweeps": 0,
+          "residual": 0.0,
+          "correction_norm": 0.0
+        },
+        "risks_after": []
+      },
+      "arrival": {
+        "CE": 1.9202475547790527,
+        "gradient_norm_before_clip": 1.7455930709838867,
+        "accepted": true,
+        "step_factor": 1.0,
+        "projection": {
+          "sweeps": 1,
+          "residual": 0.0,
+          "correction_norm": 0.0
+        },
+        "risks_after": [
+          1.2117167711257935,
+          1.3117797374725342,
+          1.2089815139770508,
+          1.2352712154388428,
+          1.368910312652588,
+          1.2985397577285767,
+          1.3209408521652222,
+          1.1648001670837402
+        ]
+      },
+      "arrival_bias": -3.432094097137451,
+      "score_error": 3.197442310920451e-14,
+      "CUDA_FP32": true,
+      "saved_loaded": true
+    }
+  },
+  "seconds": 2.6021194458007812,
+  "scope": "Discarded engineering states; not formal accuracy or ETA."
+}

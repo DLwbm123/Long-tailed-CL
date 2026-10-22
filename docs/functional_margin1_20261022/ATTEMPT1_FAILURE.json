@@ -1,0 +1,36 @@
+{
+  "state": "ATTEMPT1_ENGINEERING_FAILED_NO_SCIENTIFIC_RESULT",
+  "original_start_epoch": 1792630907.4253917,
+  "hard_deadline_epoch": 1792645307.4253917,
+  "returncode": 1,
+  "finished_epoch": 1792636578.1502733,
+  "elapsed_original_first_to_attempt1_group_exit_seconds": 5670.724882364273,
+  "cause": "CUBLAS_WORKSPACE_CONFIG missing under torch.use_deterministic_algorithms(True); first formal GPU FP32 classifier forward raised RuntimeError.",
+  "science_train_encodes": 60129,
+  "qualification_encodes": 20,
+  "formal_optimizer_updates": {
+    "ER": 0,
+    "LOGIT": 0,
+    "MARGIN": 0
+  },
+  "qualification_optimizer_updates": 3,
+  "validation_encodes": 0,
+  "scientific_metrics": null,
+  "independent_full_verification": "not run: no stage models/scores saved",
+  "failure_record_acceptance": "Read-only check of terminal receipts, original group retirement, expected artifact absence and counters; not scientific verification",
+  "remaining_original_groups": [],
+  "storage_exit_root_bytes": 211902,
+  "storage_sampled_peak_bytes": 315621,
+  "RSS_sampled_peak_bytes": 1852735488,
+  "GPU_reserved_sampled_peak_bytes": 616562688,
+  "encoder_seconds": {
+    "qualification_encodes": 3.120356559753418,
+    "science_train_encodes": 5512.805144071579
+  },
+  "cost_limitations": [
+    "Counters persisted before formal batch; first64 draws/128 dropout views reached incomplete forward, but no completed objective, backward or optimizer step. Partial operations not treated as zero FLOPs.",
+    "Original qualification real-image steps were CPU FP32; encoder used GPUFP16 and missed this GPUFP32 configuration failure.",
+    "Current patient-equal means over60129 features completed before failing forward; no re-encode used to reconstruct missing counters."
+  ],
+  "retry_policy": "One disclosed environment-only retry under same original4h/2GB; all first-attempt counts retained. No scientific target or parameter change, no new budget. If insufficient time, stop by original guard."
+}

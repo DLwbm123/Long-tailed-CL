@@ -1,0 +1,957 @@
+{
+  "summary": {
+    "H-full": {
+      "stage_BA": [
+        0.5329547499616941,
+        0.7605786932011446,
+        0.7179509268866644
+      ],
+      "stage_average_BA": 0.670494790016501,
+      "final_BA": 0.7179509268866644,
+      "hyper_final_BA": 0.6931064255121681,
+      "prototype_final_BA": 0.613972673813502,
+      "old_final_BA": 0.7306795492768288,
+      "new_final_BA": 0.692493682106336,
+      "old_candidates_BA": 0.7533288632436624,
+      "final_recall": [
+        0.9656084378560384,
+        null,
+        0.0,
+        0.6851851940155029,
+        0.3735632101694743,
+        0.9300411343574524,
+        0.9977477391560873,
+        0.9455782572428385,
+        0.9477124214172363,
+        0.8529411753018697,
+        0.7472222248713175,
+        0.5031446615854899,
+        0.6666666666666666
+      ]
+    },
+    "H-no-tree": {
+      "stage_BA": [
+        0.5346652045845985,
+        0.7682904923955599,
+        0.661533551911513
+      ],
+      "stage_average_BA": 0.6548297496305572,
+      "final_BA": 0.661533551911513,
+      "hyper_final_BA": 0.6667930752866799,
+      "prototype_final_BA": 0.613972673813502,
+      "old_final_BA": 0.7314709238708019,
+      "new_final_BA": 0.5216588079929352,
+      "old_candidates_BA": 0.7506618547802262,
+      "final_recall": [
+        0.9788359800974528,
+        null,
+        0.0,
+        0.6111111243565878,
+        0.4367816150188446,
+        0.9218106865882874,
+        1.0,
+        0.9489796161651611,
+        0.9542483687400818,
+        0.8333333333333334,
+        0.725000003973643,
+        0.5283018946647644,
+        0.0
+      ]
+    },
+    "H-shuffle": {
+      "stage_BA": [
+        0.5280058309435844,
+        0.7658770742515723,
+        0.6636614956789546
+      ],
+      "stage_average_BA": 0.6525148002913704,
+      "final_BA": 0.6636614956789546,
+      "hyper_final_BA": 0.6256370654122697,
+      "prototype_final_BA": 0.613972673813502,
+      "old_final_BA": 0.7328346259891987,
+      "new_final_BA": 0.5253152350584666,
+      "old_candidates_BA": 0.7542250816714337,
+      "final_recall": [
+        0.9682539502779642,
+        null,
+        0.0,
+        0.7037037014961243,
+        0.37931033968925476,
+        0.9300411343574524,
+        0.9977477391560873,
+        0.9489796161651611,
+        0.9346405267715454,
+        0.843137244383494,
+        0.7361111044883728,
+        0.5220125913619995,
+        0.0
+      ]
+    },
+    "H-no-proj": {
+      "stage_BA": [
+        0.5329547499616941,
+        0.7619846165180206,
+        0.7458921008639866
+      ],
+      "stage_average_BA": 0.6802771557812338,
+      "final_BA": 0.7458921008639866,
+      "hyper_final_BA": 0.7141740430767337,
+      "prototype_final_BA": 0.613972673813502,
+      "old_final_BA": 0.7309250285228094,
+      "new_final_BA": 0.7758262455463409,
+      "old_candidates_BA": 0.7544967207655559,
+      "final_recall": [
+        0.9735449552536011,
+        null,
+        0.0,
+        0.7037037014961243,
+        0.3563218315442403,
+        0.9259259104728699,
+        0.9977477391560873,
+        0.9489796161651611,
+        0.9411764740943909,
+        0.843137244383494,
+        0.7444444497426351,
+        0.5157232880592346,
+        1.0
+      ]
+    }
+  },
+  "comparisons": {
+    "H-no-tree": {
+      "final_difference": 0.0564173801274761,
+      "stage_average_difference": 0.015665040385943813,
+      "seed_final_differences": [
+        0.07274646060903135,
+        5.9179595274015326e-05,
+        0.09644650017812295
+      ],
+      "conditional_95_interval": [
+        0.04734827887352789,
+        0.06635756596323723
+      ],
+      "protection_pass": false,
+      "per_class_recall_difference": {
+        "0": -0.013227513227513227,
+        "2": 0.0,
+        "3": 0.07407407407407407,
+        "4": -0.0632183908045977,
+        "5": 0.008230452674897118,
+        "6": -0.0022522522522522522,
+        "7": -0.003401360544217687,
+        "8": -0.0065359477124183,
+        "9": 0.0196078431372549,
+        "10": 0.02222222222222222,
+        "11": -0.025157232704402514,
+        "12": 0.6666666666666666
+      },
+      "paired": [
+        {
+          "seed": 74510,
+          "rescued": 6,
+          "harmed": 10,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 0,
+              "harmed": 4
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 0,
+              "harmed": 2
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 4,
+              "harmed": 0
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 0,
+              "harmed": 3
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 1,
+              "harmed": 0
+            }
+          ]
+        },
+        {
+          "seed": 74511,
+          "rescued": 9,
+          "harmed": 12,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 3
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 2,
+              "harmed": 1
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 1,
+              "harmed": 4
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 1,
+              "harmed": 1
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 3,
+              "harmed": 1
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 0,
+              "harmed": 2
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            }
+          ]
+        },
+        {
+          "seed": 74512,
+          "rescued": 13,
+          "harmed": 11,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 3,
+              "harmed": 0
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 1,
+              "harmed": 5
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 1,
+              "harmed": 1
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 3,
+              "harmed": 1
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 2,
+              "harmed": 1
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 1,
+              "harmed": 0
+            }
+          ]
+        }
+      ],
+      "eligible_leave_one_group_range": [
+        0.053512514477512416,
+        0.05744544011780024
+      ],
+      "leave_one_group_undefined_classes": [
+        2,
+        12
+      ],
+      "qualified_exploratory_signal": false
+    },
+    "H-shuffle": {
+      "final_difference": 0.054289430174826625,
+      "stage_average_difference": 0.017979989725130523,
+      "seed_final_differences": [
+        0.08350022688175972,
+        -0.018330954236036284,
+        0.09769901787875644
+      ],
+      "conditional_95_interval": [
+        0.04505245212159232,
+        0.06318687125601528
+      ],
+      "protection_pass": false,
+      "per_class_recall_difference": {
+        "0": -0.002645502645502645,
+        "2": 0.0,
+        "3": -0.018518518518518517,
+        "4": -0.005747126436781612,
+        "5": 0.0,
+        "6": 0.0,
+        "7": -0.003401360544217687,
+        "8": 0.013071895424836603,
+        "9": 0.00980392156862745,
+        "10": 0.011111111111111112,
+        "11": -0.018867924528301886,
+        "12": 0.6666666666666666
+      },
+      "paired": [
+        {
+          "seed": 74510,
+          "rescued": 11,
+          "harmed": 6,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 2,
+              "harmed": 0
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 3,
+              "harmed": 1
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 2,
+              "harmed": 1
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 3,
+              "harmed": 1
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 1,
+              "harmed": 0
+            }
+          ]
+        },
+        {
+          "seed": 74511,
+          "rescued": 3,
+          "harmed": 13,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 4
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 0,
+              "harmed": 2
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 0,
+              "harmed": 3
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 2,
+              "harmed": 2
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 0,
+              "harmed": 2
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            }
+          ]
+        },
+        {
+          "seed": 74512,
+          "rescued": 15,
+          "harmed": 8,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 2,
+              "harmed": 0
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 5,
+              "harmed": 5
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 3,
+              "harmed": 1
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 1,
+              "harmed": 1
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 1,
+              "harmed": 0
+            }
+          ]
+        }
+      ],
+      "eligible_leave_one_group_range": [
+        0.05256466619516068,
+        0.055832640051369835
+      ],
+      "leave_one_group_undefined_classes": [
+        2,
+        12
+      ],
+      "qualified_exploratory_signal": false
+    },
+    "H-no-proj": {
+      "final_difference": -0.02794117366484682,
+      "stage_average_difference": -0.009782365764732829,
+      "seed_final_differences": [
+        -0.005849603088542581,
+        -0.0860499452518021,
+        0.008076027345804223
+      ],
+      "conditional_95_interval": [
+        -0.03337176848307055,
+        -0.0227115544861955
+      ],
+      "protection_pass": false,
+      "per_class_recall_difference": {
+        "0": -0.007936507936507936,
+        "2": 0.0,
+        "3": -0.018518518518518517,
+        "4": 0.017241379310344827,
+        "5": 0.004115226337448559,
+        "6": 0.0,
+        "7": -0.003401360544217687,
+        "8": 0.0065359477124183,
+        "9": 0.00980392156862745,
+        "10": 0.0027777777777777775,
+        "11": -0.012578616352201257,
+        "12": -0.3333333333333333
+      },
+      "paired": [
+        {
+          "seed": 74510,
+          "rescued": 1,
+          "harmed": 5,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 0,
+              "harmed": 3
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            }
+          ]
+        },
+        {
+          "seed": 74511,
+          "rescued": 2,
+          "harmed": 6,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 2
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 1,
+              "harmed": 1
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 1
+            }
+          ]
+        },
+        {
+          "seed": 74512,
+          "rescued": 9,
+          "harmed": 2,
+          "per_class": [
+            {
+              "class_id": 0,
+              "count": 126,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 2,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 3,
+              "count": 18,
+              "rescued": 0,
+              "harmed": 1
+            },
+            {
+              "class_id": 4,
+              "count": 58,
+              "rescued": 6,
+              "harmed": 0
+            },
+            {
+              "class_id": 5,
+              "count": 81,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 6,
+              "count": 148,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 7,
+              "count": 98,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 8,
+              "count": 51,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 9,
+              "count": 34,
+              "rescued": 1,
+              "harmed": 0
+            },
+            {
+              "class_id": 10,
+              "count": 120,
+              "rescued": 0,
+              "harmed": 0
+            },
+            {
+              "class_id": 11,
+              "count": 53,
+              "rescued": 1,
+              "harmed": 1
+            },
+            {
+              "class_id": 12,
+              "count": 1,
+              "rescued": 0,
+              "harmed": 0
+            }
+          ]
+        }
+      ],
+      "eligible_leave_one_group_range": [
+        -0.028758167128899108,
+        -0.02639796378830361
+      ],
+      "leave_one_group_undefined_classes": [
+        2,
+        12
+      ],
+      "qualified_exploratory_signal": false
+    }
+  },
+  "singleton_class_protection": "UNKNOWN",
+  "patient_independence": "UNKNOWN",
+  "independent_confirmation": false,
+  "bootstrap": "5000 class-stratified known-group draws; paired across seeds; fixed trained models; no multiplicity correction",
+  "method_vs_standard_baseline": "NOT_TESTED",
+  "stage_trainings": 36,
+  "updates": 4560
+}

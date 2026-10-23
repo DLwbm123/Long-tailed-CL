@@ -1,0 +1,63 @@
+{
+  "state": "COMPLETE_VERIFIED_GATE_FAILED_CLOSED",
+  "original_start_epoch": 1792769980.933925,
+  "hard_deadline_epoch": 1792784380.933925,
+  "all_groups_exit_epoch": 1792770439.4376028,
+  "elapsed_from_first_seconds": 458.5036790370941,
+  "remaining_at_exit_seconds": 13941.496322154999,
+  "run_resident_seconds": 149.02745580673218,
+  "verifier_resident_seconds": 303.79617714881897,
+  "verifier_internal_seconds": 295.3211245536804,
+  "qualification_internal_seconds": 28.402883291244507,
+  "all_owned_groups_retired": true,
+  "new_model_encodes": 0,
+  "new_optimizer_updates": 0,
+  "new_full_dimension_qualification_classes": 2,
+  "new_training_proof_rows": 4,
+  "new_qualification_score_groups_each_implementation": 3,
+  "new_qualification_score_rows_each_implementation": 12,
+  "formal_class_covariance_fits": 90,
+  "formal_postseal_deterministic_class_factor_materializations": 90,
+  "formal_new_score_groups": 18,
+  "formal_new_score_rows": 4050,
+  "independent_full_dimension_eigensystems": 276,
+  "independent_final_eigensystems": 270,
+  "independent_qualification_eigensystems": 6,
+  "independent_final_score_rows": 4050,
+  "synthetic_check_dimension": 8,
+  "synthetic_check_rows": 7,
+  "diagnostic_saved_score_rows_read": 4050,
+  "diagnostic_new_scores": 0,
+  "source_reference": {
+    "experiment": "patient_crossfit1_20261023",
+    "verified_result_commit": "82c459f2f2311a21e28d47fc3426b3e3123fc479",
+    "source_costs": "../patient_crossfit1_20261023/FINAL_COMBINED_COSTS.json",
+    "newly_copied_source_weights_or_class_moments": 0,
+    "native_anchor_rescored": false,
+    "new_backbone_acceptance": false
+  },
+  "resources": {
+    "new_root_and_entry_sampled_peak_bytes": 229978501,
+    "window_remote_last_sample_bytes": 11741483157,
+    "RSS_sampled_peak_bytes": 1941618688,
+    "GPU_processes_started": 0,
+    "output_hard_limit_bytes": 1000000000,
+    "output_prestop_bytes": 800000000,
+    "RSS_limit_bytes": 25769803776,
+    "window_limit_bytes": 30000000000
+  },
+  "unknown_prepare_or_wait_breakdown_seconds": null,
+  "local_default_python_math_attempt": {
+    "outcome": "numpy unavailable locally; syntax compile only. Remote synthetic and real1536 checks passed.",
+    "new_model_encodes": 0,
+    "new_optimization": 0
+  },
+  "notes": [
+    "All qualification, transfer, setup, waits, science and independent acceptance share the new fixed4h clock; old crossfit clock is closed, not reset or extended.",
+    "Resident/internal segments nest total wall and are not added twice. Earlier local preparation and unsaved segments remain unknown.",
+    "No image encoding or optimization was added, but covariance fitting, matrix decomposition and scoring are new compute. Original source encodes and failed qualification costs remain in source ledger.",
+    "Sealed heads are shared factors, class means/patient counts and immutable source moment references. Postseal materialization repeats deterministic matrix arithmetic without fitting to query or labels; separately counted.",
+    "Synthetic8d operations are separate from full-dimensional real checks; no GPU/ViT qualification is claimed.",
+    "All resource peaks are sampled. No historical artifact was deleted to free storage."
+  ]
+}

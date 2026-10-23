@@ -12,6 +12,7 @@ from data import read_rows, Images
 
 cfg = json.loads(Path(os.environ['RUN_CONFIG']).read_text())
 out = Path(cfg['output']); out.mkdir(exist_ok=False)
+Candidate = NativeEvidence if cfg.get('execution_mode') == 'retained_full_graph' else CheckpointEvidence
 start = time.time()
 cost = dict(prefix_rows=0, teacher_body_rows=0, parity_body_forward_rows=0, parity_body_backward_rows=0, discarded_updates=0, timed_arms={}, science_rows=0, validation_rows=0)
 def receipt(name, value):
@@ -20,7 +21,7 @@ def receipt(name, value):
 def parity(backbone, prompts, x, teacher, labels, weights, micro, scope):
     results = {}
     for arm in cfg['arms'][1:]:
-        a = NativeEvidence(backbone, prompts); b = CheckpointEvidence(backbone, prompts)
+        a = NativeEvidence(backbone, prompts); b = Candidate(backbone, prompts)
         h = F.normalize(torch.randn(10, teacher.shape[1], device=teacher.device), dim=1)
         ha = torch.nn.Parameter(h.clone()); hb = torch.nn.Parameter(h.clone())
         pa=[a.prompts]+([ha] if arm=='CE_RC' else []); pb=[b.prompts]+([hb] if arm=='CE_RC' else [])
@@ -70,7 +71,7 @@ def main():
     parity(b,prompts,tokens[ix[small]].cuda().float(),teacher[ix[small]].cuda(),y[small].cuda(),w[small].cuda(),2,'GPU_EQUIVALENCE')
     torch.cuda.empty_cache();torch.cuda.reset_peak_memory_stats(); times=[]
     for arm in cfg['arms'][1:]:
-        model=CheckpointEvidence(b,prompts); head=torch.nn.Parameter(F.normalize(torch.randn(10,1536,device='cuda'),dim=1));opt=torch.optim.AdamW([model.prompts]+([head] if arm=='CE_RC' else []),lr=cfg['learning_rate'],weight_decay=cfg['weight_decay']);cc={}
+        model=Candidate(b,prompts); head=torch.nn.Parameter(F.normalize(torch.randn(10,1536,device='cuda'),dim=1));opt=torch.optim.AdamW([model.prompts]+([head] if arm=='CE_RC' else []),lr=cfg['learning_rate'],weight_decay=cfg['weight_decay']);cc={}
         torch.cuda.synchronize();tick=time.time()
         for classes in [ordinary,[15]+[c for c in cs if c!=15][:7]]:
             ix,y,w=fixture(classes);graph_update(model,opt,tokens[ix],teacher[ix],y,w,arm,cfg,cc,head if arm=='CE_RC' else None)

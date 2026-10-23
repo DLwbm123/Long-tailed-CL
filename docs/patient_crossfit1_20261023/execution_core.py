@@ -37,8 +37,9 @@ def graph_update(model, optimizer, tokens, teacher, labels, weights, arm, cfg, c
     norm = torch.nn.utils.clip_grad_norm_(params, cfg['gradient_clip'])
     assert torch.isfinite(norm)
     optimizer.step()
-    for field in ['body_forward_rows', 'body_backward_rows', 'mlp_checkpoint_recomputed_rows', 'logical_rows']:
+    for field in ['body_forward_rows', 'body_backward_rows', 'logical_rows']:
         cost[field] = cost.get(field, 0) + len(tokens)
+    cost['mlp_checkpoint_recomputed_rows'] = cost.get('mlp_checkpoint_recomputed_rows', 0) + (len(tokens) if isinstance(model, CheckpointEvidence) else 0)
     cost['updates'] = cost.get('updates', 0) + 1
     cost['inner_dual_solves'] = cost.get('inner_dual_solves', 0) + (2 if arm.startswith('RIDGE') else 0)
     return dict(objective=float(loss.detach()), outer_risk=float(risk.detach()), response_consistency=float(rc.detach()), gradient_norm=float(norm))

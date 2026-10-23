@@ -1,6 +1,6 @@
-# 原生patch多实例主线：协议冻结，完整运行器与GPU资格尚未完成
+# 原生patch多实例主线：协议冻结，实现已补齐、真实GPU资格尚未执行
 
-当前状态IMPLEMENTATION_QUALIFICATION_PENDING，不是科学启动。已完成的native_token、structured、prompt、crossfit、full_covariance均关闭，本实验不能改变其参数救分。假说：在完整且永久冻结的原生768维patch空间中，直接学习类别条件取证并统一新旧类判别，可能利用被CLS+patch均值及其全协方差都丢掉的局部模式。保留原生global旁路，不重学ViT、不压缩到128维、不建局部Gaussian、多原型分布或旧分数融合。类注意力能表达均值相同但局部模式不同的两个bag，是表达能力事实，不是NIH有效性或失败根因证明。
+当前状态IMPLEMENTED_PENDING_REAL_GPU_QUALIFICATION，不是科学启动。已完成的native_token、structured、prompt、crossfit、full_covariance均关闭，本实验不能改变其参数救分。假说：在完整且永久冻结的原生768维patch空间中，直接学习类别条件取证并统一新旧类判别，可能利用被CLS+patch均值及其全协方差都丢掉的局部模式。保留原生global旁路，不重学ViT、不压缩到128维、不建局部Gaussian、多原型分布或旧分数融合。类注意力能表达均值相同但局部模式不同的两个bag，是表达能力事实，不是NIH有效性或失败根因证明。
 
 一手依据为Ilse等Attention-based Deep Multiple Instance Learning（ICML2018），已定点读原文2.1–2.4，特别式7–9的归一化可学习集合聚合：https://arxiv.org/html/1802.04712 。原文使用图像bag的attention/gated attention；本方法是NIH增量类别条件原生patch/有限历史token适配，不是忠实复现或已证明创新。原文结果不作为NIH预期收益。两篇ICLR27队列条目wQqMfweGWo/9YOIbxEDQH当前正文访问403/验证页，仍只属元数据候选，没有读全文或确认当前接收状态。
 
@@ -22,4 +22,8 @@ NATIVE_RIDGE：同一次新编码的原生global1536/L2输入、患者/类别等
 
 先数学counterexample/梯度/置换/初始旁路/扩类保持；再20合法基类真实GPU链：reader→预训练token→量化→三臂2实际clip/AdamW更新、两真实类内部到达/固定记忆选择、global/query非零更新、预训练不变、GPU FP32/CPU FP64/独立NumPy分数与实际保存加载/梯度检查。全部资格模型丢弃。真实4维数学不能代替GPU768维/197token；CPU不能代替GPU。实际两步吞吐和内存、预算预测1.5*5500*三臂配对step+10800s须在原剩余钟内，否则不bulk、不放宽。资格新编码20及完整pipeline接口2张额外调用、丢弃优化6等逐项计费，禁止记0。
 
-最终独立NumPy从封存前缀token计算一次原生完整12层FP64响应对量化token proof（至少query300及每类有限到达proof），不重编码原图；从各stage实际input token/封存w/q/v重算18学习组score和6原生ridge组，score≤2e−6/预测全同、normal residual≤1e−9；实际训练probe目标独立复算，患者/记忆选择/旧token保持/原生冻结/阶段权限/封存/全部计数/资源/完整组退检查。资格、额外body、训练/梯度、独立响应/score、失败与未存等待费用全部保留，嵌套时间不相加。仅源码/聚合结果公开；原图/token/feature/权重/矩/score/身份/实际路径私有，最终按7897代理push+远端SHA+匿名访问交付。当前尚无运行器完成、真实GPU资格、吞吐/内存或启动，不能宣称已可运行。
+最终独立NumPy从封存前缀token计算一次原生完整12层FP64响应对量化token proof（至少query300及每类有限到达proof），不重编码原图；从各stage实际input token/封存w/q/v重算18学习组score和6原生ridge组，score≤2e−6/预测全同、normal residual≤1e−9；实际训练probe目标独立复算，患者/记忆选择/旧token保持/原生冻结/阶段权限/封存/全部计数/资源/完整组退检查。资格、额外body、训练/梯度、独立响应/score、失败与未存等待费用全部保留，嵌套时间不相加。仅源码/聚合结果公开；原图/token/feature/权重/矩/score/身份/实际路径私有，最终按7897代理push+远端SHA+匿名访问交付。当前运行器/守卫/验收器已补齐并通过语法编译，但真实GPU资格、吞吐/内存和科学启动尚未发生，不能宣称已具实际运行证据。
+
+## 资格前工程范围澄清（不改科学配方或硬预算）
+
+GPU FP32→独立FP64响应与实际训练probe目标用原同源5e−5工程阈值，CPU FP64→NumPy实际readout score仍≤2e−6；真实完整64 vs micro8三臂梯度≤3e−4、实际AdamW≤2e−5，另6丢弃参考更新，加原两步三臂6，共12，全部计费。最终FP16 token的逐分量舍入界为abs(actual16−NP64)≤2^−11*abs(NP64)+5e−5，实际head分数始终用实际封存FP16输入做2e−6独立验收；不声称GPU FP32→FP16与CPU FP64逐位相同。为可重建累计解析统计，六stage另存当前到达的Gram总量；全probe和query/prefix、memory等精确文件布局的保守physical预计修正为约1.65GB，原2GB硬限/1.8GB预停不变，不能删旧证据腾额。以上均在首次真实GPU资格与新影像编码前写定。

@@ -1,5 +1,6 @@
 """Native-token global bypass and image/class-conditioned MIL evidence."""
 import math
+import hashlib
 import numpy as np
 import torch
 from torch import nn
@@ -48,3 +49,49 @@ def np_scores(tokens,state,arm):
         pooled=np.einsum('bcp,bpd->bcd',attention,patches)
         local=np.sum(pooled*state['local_head'][None],-1) if arm=='CLASS_ATTN' else pooled[:,0]@state['local_head'].T
     return score+25/math.sqrt(patches.shape[-1])*local
+
+
+def key(seed,c,g,path=''):
+    return hashlib.sha256(f'{seed}:{c}:{g}:{path}'.encode()).digest()
+
+
+def memory_indices(rows,cap,seed):
+    out=[]
+    for c in sorted({r['label'] for r in rows}):
+        groups={}
+        for i,r in enumerate(rows):
+            if r['label']==c:groups.setdefault(r['group'],[]).append(i)
+        for g in sorted(groups,key=lambda g:(key(seed,c,g),g))[:cap]:
+            out.append(min(groups[g],key=lambda i:(key(seed,c,g,rows[i]['relative_path']),i)))
+    return out
+
+
+def global_features(tokens):
+    return F.normalize(torch.cat([tokens[:,0],tokens[:,1:].mean(1)],1),dim=1)
+
+
+def affine(z):
+    z=F.normalize(z.double(),dim=1)
+    return torch.cat([z,torch.ones(len(z),1,dtype=z.dtype,device=z.device)],1)/math.sqrt(2)
+
+
+def weights(rows):
+    from collections import Counter
+    counts=Counter(r['group'] for r in rows)
+    return np.array([1/(len(counts)*counts[r['group']]) for r in rows]),len(counts)
+
+
+def update(model,opt,tokens,labels,cfg,cost):
+    device=next(model.parameters()).device;opt.zero_grad(set_to_none=True);value=0.
+    for i in range(0,len(tokens),cfg['microbatch']):
+        x=tokens[i:i+cfg['microbatch']].to(device).float();y=labels[i:i+cfg['microbatch']].to(device)
+        loss=F.cross_entropy(model(x),y,reduction='sum')/len(tokens);assert torch.isfinite(loss)
+        loss.backward();value+=float(loss.detach());cost['forward_rows']+=len(x);cost['backward_rows']+=len(x)
+    norm=torch.nn.utils.clip_grad_norm_(model.parameters(),cfg['gradient_clip']);assert torch.isfinite(norm)
+    opt.step();cost['updates']+=1;return dict(CE=value,gradient_norm=float(norm))
+
+
+def cpu_scores(tokens,state,arm,micro=8):
+    model=Model(state['global_head'].float(),torch.zeros_like(state['local_head']).float(),arm).double()
+    model.load_state_dict(state)
+    with torch.no_grad():return torch.cat([model(tokens[i:i+micro].double()) for i in range(0,len(tokens),micro)])

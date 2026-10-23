@@ -36,3 +36,5 @@ r03 BiomedCLIP两臂平均28.8446%、最终22%，双曲分支发生距离饱和�
 - r08全类交叉熵负结果：[报告](r08_class_ce/RESULTS_ZH.md)。r09层级损失主线诊断：[预注册](r09_hierarchy_ablation/PROTOCOL.md)。
 
 - r09层级消融：[报告](r09_hierarchy_ablation/RESULTS_ZH.md)。r10回放单位化：[预注册](r10_replay_unit/PROTOCOL.md)。
+
+- r10回放单位化：[报告](r10_replay_unit/RESULTS_ZH.md)。r11稳定增量适配器：[预注册](r11_stable_adapter/PROTOCOL.md)。

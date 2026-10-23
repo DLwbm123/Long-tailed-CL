@@ -63,7 +63,7 @@ def np_upper(tokens, state, eps, heads=12):
 class Expert(nn.Module):
     def __init__(self,native_upper,means):
         super().__init__()
-        self.upper=copy.deepcopy(native_upper)
+        self.upper=copy.deepcopy(native_upper).requires_grad_(True).eval()
         self.head=nn.Parameter(F.normalize(means.detach().clone(),dim=1))
 
     def forward(self,tokens,features=None):
@@ -78,7 +78,7 @@ class Growing(nn.Module):
         self.experts=nn.ModuleList();self.groups=[];self.freeze_old_scores=freeze_old_scores
 
     def append(self,native_upper,current_means,arrived_labels):
-        assert len(arrived_labels)==len(current_means)
+        assert len(arrived_labels)==len(set(arrived_labels))==len(current_means)
         assert not set(arrived_labels)&{c for group in self.groups for c in group}
         for expert in self.experts:
             expert.upper.requires_grad_(False).eval()
@@ -95,7 +95,7 @@ class Growing(nn.Module):
                 if old_features is None:
                     with torch.no_grad():z=expert.upper(tokens)
                 else:
-                    z=old_features[j].detach();assert z.shape==(len(tokens),1536)
+                    z=old_features[j].detach();assert z.shape==(len(tokens),expert.head.shape[1])
                 logits.append(expert(tokens,z))
         return torch.cat(logits,dim=1)
 
@@ -103,11 +103,11 @@ class Growing(nn.Module):
     def seen(self):return [c for group in self.groups for c in group]
 
 
-def np_scores(tokens,experts,eps=1e-6):
+def np_scores(tokens,experts,eps=1e-6,heads=12):
     result=[]
     for weights in experts:
         upper={k.removeprefix('upper.'):v for k,v in weights.items() if k.startswith('upper.')}
-        z=np_upper(tokens,upper,eps)
+        z=np_upper(tokens,upper,eps,heads=heads)
         h=np.asarray(weights['head'],dtype=np.float64);h=h/np.maximum(np.linalg.norm(h,axis=1,keepdims=True),1e-12)
         result.append(25*z@h.T)
     return np.concatenate(result,axis=1)

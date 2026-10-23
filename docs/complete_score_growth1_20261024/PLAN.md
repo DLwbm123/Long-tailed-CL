@@ -20,7 +20,7 @@
 
 主门13项：绝对final≥91/300、mean≥36.005291005291%、tail7≥25/105、initial10≥44/150、later10≥41/150；对Native与FEATURE_FROZEN各final≥+4/300、mean≥+1pp、tail4≥+2/60、later10不降。不是旧17门减少后的同实验：新方法三臂，旧四臂17门与旧失败永久保留。机制四门为FULL对FEATURE的四个相对门。完整中文表报告所有stage和tail/initial/later分母，无选择性报告。
 
-真实资格前先独立小维目标/导数和两阶段冻结/可塑/保存加载检查；实际GPU使用20合法基类图分8+2类，两臂各两次实际micro8更新，检查旧upper/主旧head精确不变、控制旧head确有更新、新upper确有更新、输出顺序和cache/直接路径一致，FP64/NumPy目标误差≤2e-6，FP32分数及probe≤5e-5。同保存梯度/同初态独立递推AdamW 逐坐标参数误差≤3e-7+1e-6×|独立预期参数|，报告绝对误差和最大归一化误差（FP32权重尺度舍入界），落盘再assert。规范实现是micro8，不以full64轨迹等价作本轮准入，不追改MIL联合失败或再跑旧比较。完整GPU峰<8GiB且hostfree40GiB、实际NFS写读探针通过后，以1.5×5500×真实两臂配对step+10800s严格小于原剩余钟减60s才bulk；测最差两阶段配对step，非ETA。
+真实资格前先独立小维目标/导数和两阶段冻结/可塑/保存加载检查；实际GPU使用20合法基类图分8+2类，两臂各两次实际micro8更新，检查旧upper/主旧head精确不变、控制旧head确有更新、新upper确有更新、输出顺序和cache/直接路径一致，FP64/NumPy目标误差≤2e-6，FP32分数及probe≤5e-5。同保存梯度/同初态独立递推AdamW 逐坐标参数误差≤3e-7+1e-6×|独立预期参数|，报告绝对误差和最大归一化误差（FP32权重尺度舍入界），落盘再assert。规范实现是micro8，不以full64轨迹等价作本轮准入，不追改MIL联合失败或再跑旧比较。完整GPU峰<8GiB且hostfree40GiB、实际NFS写读探针通过后，以1.5×5500×真实两臂配对step+10800s严格小于原剩余钟减60s才bulk；测最差两阶段实际canonical forward/backward/clip/AdamW配对step（独立CPU算子审计另计资格壁钟，不能混入每步科学重复成本），额外编码/缓存/初始化/封存/独立验收由10800s冻结余量覆盖，非ETA。
 
 ## 硬预算与停止
 

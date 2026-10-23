@@ -37,14 +37,14 @@ def qualify(template,tokens,means,cfg,p):
         m=Growing(arm=='FULL_SCORE_FROZEN');m.append(template,means[:8],list(range(8)));m.cuda();cc=counter()
         opt=optimizer(m,cfg);ix=torch.arange(64)%16;yy=torch.arange(8).repeat_interleave(2)[ix]
         native=state(m.experts[0]);audit={};torch.cuda.synchronize();tick=time.time()
-        update(m,opt,tokens[ix],yy,cfg,cc,audit=audit);torch.cuda.synchronize();paired[0]+=time.time()-tick
+        timing=update(m,opt,tokens[ix],yy,cfg,cc,audit=audit);torch.cuda.synchronize();audit['residence_seconds']=time.time()-tick;paired[0]+=timing['canonical_step_seconds']
         write(p/'QUALIFICATION_PROGRESS.json',dict(discarded_updates=2*len(receipts)+1,GPU_peak_reserved_bytes=torch.cuda.max_memory_reserved()));write(p/f'OPERATOR_{arm}_0.json',audit);assert audit['AdamW_normalized_error']<=1
         old=state(m.experts[0]);m.append(template,means[8:].cuda(),[8,9]);m.cuda();opt=optimizer(m,cfg)
         before=forward(m.experts[0],tokens[:2]);features=cached(m,tokens)
         ix=torch.arange(64)%20;yy=torch.arange(10).repeat_interleave(2)[ix]
         with torch.no_grad():direct=m(tokens[:2].cuda().float()).cpu();cache=m(tokens[:2].cuda().float(),[features[0][:2].cuda()]).cpu()
         cache_err=float((cache-direct).abs().max());audit={};torch.cuda.synchronize();tick=time.time()
-        update(m,opt,tokens[ix],yy,cfg,cc,[v[ix] for v in features],audit);torch.cuda.synchronize();paired[1]+=time.time()-tick
+        timing=update(m,opt,tokens[ix],yy,cfg,cc,[v[ix] for v in features],audit);torch.cuda.synchronize();audit['residence_seconds']=time.time()-tick;paired[1]+=timing['canonical_step_seconds']
         write(p/'QUALIFICATION_PROGRESS.json',dict(discarded_updates=2*len(receipts)+2,GPU_peak_reserved_bytes=torch.cuda.max_memory_reserved()));write(p/f'OPERATOR_{arm}_1.json',audit);assert audit['AdamW_normalized_error']<=1
         now=state(m.experts[0]);old_head_delta=float((old['head']-now['head']).abs().max());old_score_delta=float((before-forward(m.experts[0],tokens[:2])).abs().max())
         old_upper_delta=max(float((v-now[k]).abs().max()) for k,v in old.items() if k.startswith('upper.'))

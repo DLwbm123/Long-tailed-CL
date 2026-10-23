@@ -1,0 +1,46 @@
+{
+  "expected_pattern_supported": false,
+  "records": [
+    {
+      "radius": 0.1,
+      "dtype": "torch.float32",
+      "loss": 7.547340601377073e-07,
+      "finite_loss": true,
+      "finite_gradients": true,
+      "gradient_norm": 9.221214713761583e-05
+    },
+    {
+      "radius": 0.1,
+      "dtype": "torch.float64",
+      "loss": 7.558021347074124e-07,
+      "finite_loss": true,
+      "finite_gradients": true,
+      "gradient_norm": 9.234264180656481e-05
+    },
+    {
+      "radius": 0.4,
+      "dtype": "torch.float32",
+      "loss": 0.3377237915992737,
+      "finite_loss": true,
+      "finite_gradients": true,
+      "gradient_norm": 7.388099193572998
+    },
+    {
+      "radius": 0.4,
+      "dtype": "torch.float64",
+      "loss": 0.3377238659737343,
+      "finite_loss": true,
+      "finite_gradients": true,
+      "gradient_norm": 7.388099743599265
+    }
+  ],
+  "float32_upper_clamp_equals_one": true,
+  "float64_upper_clamp_equals_one": false,
+  "hypothesis": "FP32 aperture clamp endpoint rounds to 1; test whether this yields nonfinite full loss gradients",
+  "r25_exact_failure_root_cause_proven": false,
+  "synthetic_only": true,
+  "optimizer_steps": 0,
+  "dataset_reads": 0,
+  "val_reads": 0,
+  "no_test": true
+}

@@ -52,16 +52,8 @@ def run():
    rows=[r for r in records if r['seed']==seed];summaries.append(dict(seed=seed,branches={b:dict(mean_BA=st.mean(r['metrics'][b]['BA'] for r in rows),final_BA=rows[-1]['metrics'][b]['BA'],tail_BA=rows[-1]['metrics'][b]['tail_BA']) for b in ['final','core_final']}))
   report[ds]=dict(seeds=summaries,summary={b:{m:dict(mean=st.mean(s['branches'][b][m] for s in summaries),sd=st.stdev(s['branches'][b][m] for s in summaries)) for m in ['mean_BA','final_BA','tail_BA']} for b in ['final','core_final']})
   write('RESULTS.json',results);write('ANALYSIS.json',report)
- h0=json.loads((ref/'assets/references/r12_three_datasets/results/ANALYSIS.json').read_text());gates={}
- for label in ['historical_H0','matched_R24_core']:
-  gate={}
-  for ds in report:
-   old=h0[ds] if label=='historical_H0' else report[ds];branch='final' if label=='historical_H0' else 'core_final'
-   delta={m:report[ds]['summary']['final'][m]['mean']-old['summary'][branch][m]['mean'] for m in ['mean_BA','final_BA','tail_BA']}
-   joint=sum(all(a['branches']['final'][m]>b['branches'][branch][m] for m in ['final_BA','tail_BA']) for a,b in zip(report[ds]['seeds'],old['seeds']))
-   gate[ds]=dict(deltas_pp=delta,paired_both_improved=joint)
-  d=gate['NIH']['deltas_pp'];gate['passed']=d['mean_BA']>=1 and d['final_BA']>=1 and d['tail_BA']>=2.857142857 and gate['NIH']['paired_both_improved']>=2 and all(gate[ds]['deltas_pp'][m]>=-1 for ds in ['ISIC','HK'] for m in ['final_BA','tail_BA']);gates[label]=gate
- gates['passed']=all(gates[k]['passed'] for k in ['historical_H0','matched_R24_core']);write('GATE.json',gates)
+ from finalize import write_gate
+ write_gate(out,ref)
  assert checks==180
  write('VERIFICATION.json',dict(metric_checks=checks,stage_seed_records=45,max_raw_prototype_replay_error=maxerr,core_fusion_exact=True,new_optimizer_steps=0,new_encoder_calls=0,no_test=True,independent_confirmation=False,deterministic_reused_heads_not_new_seed_fits=True))
  write('STATUS.json',dict(phase='COMPLETE',time=time.time()))

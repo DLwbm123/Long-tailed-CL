@@ -1,6 +1,6 @@
 # 到达式患者定向固定类几何与原生低秩迁移：冻结主线协议
 
-状态PROTOCOL_FROZEN_IMPLEMENTATION_PENDING；只有核心源码，语法检查不是数学或GPU资格。没有科学RUNNING，不继承任何旧配方的准入或性能。本文是独立主线构建，不是优化论文对比方法。
+状态IMPLEMENTED_REAL_QUALIFICATION_PENDING：stage runner、资源guard和完整独立verify已实现，只有语法/源调用检查，真实GPU资格尚未执行；已完成的小维资格不重复。没有科学RUNNING，不继承任何旧配方的准入或性能。本文是独立主线构建，不是优化论文对比方法。
 
 ## 来源、证据和假说
 
@@ -41,3 +41,5 @@
 新根+中性入口硬3e9B/2.7e9预停、RSS32GiB/GPU8GiB，预计logical<1GB但不能当physical；已观察NFS大文件blocks约2×logical，必须在本轮准入按实际block物理占用校准预计最坏峰及临时副本，再满足余量。原30GB/remote27GB预停/local100MB累计包含所有旧根/入口/论文源码，旧末采样12.311GB不重置不删。初始hostfree40GiB/GPUfree8GiB、实际NFS4余量与小写读探针，独立NFS无关整组timeout截止前60s TERM/30s KILL及资源guard、所有父子argv中性。
 
 任一数学/权限/资源/时间/资格失败关闭固定配方，不自动重试或放宽；门全PASS才一次bulk。结束需独立验收或诚实失败记录、完整自有组退出、中文表/全部成本与未知、有效7897proxy push+远端SHA+匿名报告验证。无新增数据下载/test/Etest/future初始化/val调参/旧路线恢复；身份/图像/tokens/权重/矩/逐图score/原log/全文私有。当前尚无实际准入或活动科学，不据草案宣称可运行。
+
+实现资源细化（真实资格前，未更改科学配方）：allocator预留上限收紧为7GiB，整组nvidia-smi实际GPU用量仍8GiB硬门，为driver/context留余量；物理forecast采用实际已保存≥64KiB文件的max(size,blocks512)/size最大比例再加10%余量，按900MB保守最终逻辑产物和192MB原子写暂存预算，加已经使用量后须低于2.7GB预停。实际sample不同即停，不以逻辑大小取代物理计量。

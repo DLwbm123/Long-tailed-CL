@@ -1,5 +1,7 @@
 # HASTEN 三医学长尾数据集评估（R12）
 
+> 后续检索更新：已找到同清单引用、计数与顺序的旧 cf 系列完整结果，并统一尾类口径；见 [完整旧方法对比](../comparison_three_datasets/REPORT_ZH.md)。它们不是 Spatial/CLS＋patch，后者对应完整结果仍未找到。
+
 全部完成：NIH 复用 r04 三种子18阶段；ISIC 新9阶段；HyperKvasir 新18阶段。统一保留 H-unit 配置，无数据集专属调参。以下均为历史开发集结果，不是独立测试。
 
 ## 三种子结果

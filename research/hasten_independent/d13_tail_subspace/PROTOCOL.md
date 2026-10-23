@@ -1,0 +1,13 @@
+# D13: sealed NIH tail and projection audit
+
+Authorized 2026-10-23 after the Pro analysis. R12 NIH/ISIC/HyperKvasir continues unchanged. This is a read-only diagnostic of r04 H-unit, with raw/no-projection score references; it does not replace R12 or reopen the sealed r03–r11 training budget.
+
+- Inputs: r04 sealed checkpoints, class TRAIN moments, saved development scores and split counts. No TEST, image encoding, optimizer, checkpoint modification, threshold/weight search or per-example public export.
+- CPU only, two threads, hard 30 minute process timeout, 256 MB output cap; existing files shared read-only. All results descriptive on the repeatedly used 300-image development set, 15 per class; seeds are not independent patients.
+- Tail definition fixed: TRAIN count <250 (seven NIH classes). All 20 classes are reported.
+- Track per-class recall from first appearance with all seen candidates and with candidates fixed at the class's arrival. Compare adjacent stages with the previous candidate set too. This distinguishes competition from loss within the original candidate set.
+- Count prototype/hyperbolic/fused correctness, rescue and harm per class/stage. No fitting of fusion weights.
+- Report all 512 singular values of accumulated uncentered second moment; protected/update rank, squared-spectrum and ordinary-spectrum 95% ranks. Compare protected coverage of every class-mean difference in current pre-TP coordinates. TRAIN-nearest and same-parent contrasts defined before inspecting validation errors.
+- Drift is computed analytically from sealed TRAIN means/covariances and affine adapters: mapping contribution, adapter contribution, cross term and total second moment for each old class and transition. This is TRAIN feature drift, not proof of validation causality. The prior-stage basis is the one constraining the next update. Historical accumulated moments mix task-time adapters; report that coordinate limitation.
+- Restore adapter affine formula from the pinned source (sum of linear adapters weighted by exp(clamp(log_alpha,max=0))); check against direct evaluation. Check drift identity and squared-norm cross identity, and reconcile saved prediction counts with sealed aggregate.
+- Decision: low coverage alone does not justify a new projection experiment. Require tail retention losses plus mapping-linked evidence. If failures are predominantly initial learning, competition, fusion or adapter drift, defer D/R projection training and investigate that cause. Any future training gets a separate frozen protocol with matched-rank control and resource checks. No new training in this audit.

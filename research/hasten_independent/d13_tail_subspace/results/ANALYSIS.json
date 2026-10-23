@@ -1,0 +1,129 @@
+{
+  "tail_trajectories": [
+    {
+      "class_index": 3,
+      "name": "pneumoperitoneum",
+      "train_count": 59,
+      "arrival": 0,
+      "first": 21,
+      "last": 13,
+      "last_fixed": 17,
+      "denominator": 45
+    },
+    {
+      "class_index": 8,
+      "name": "pneumomediastinum",
+      "train_count": 7,
+      "arrival": 0,
+      "first": 0,
+      "last": 0,
+      "last_fixed": 0,
+      "denominator": 45
+    },
+    {
+      "class_index": 10,
+      "name": "calcification of the aorta",
+      "train_count": 121,
+      "arrival": 1,
+      "first": 10,
+      "last": 9,
+      "last_fixed": 11,
+      "denominator": 45
+    },
+    {
+      "class_index": 13,
+      "name": "pneumonia",
+      "train_count": 213,
+      "arrival": 2,
+      "first": 1,
+      "last": 0,
+      "last_fixed": 0,
+      "denominator": 45
+    },
+    {
+      "class_index": 14,
+      "name": "subcutaneous emphysema",
+      "train_count": 32,
+      "arrival": 3,
+      "first": 4,
+      "last": 7,
+      "last_fixed": 7,
+      "denominator": 45
+    },
+    {
+      "class_index": 16,
+      "name": "hernia",
+      "train_count": 49,
+      "arrival": 4,
+      "first": 3,
+      "last": 3,
+      "last_fixed": 3,
+      "denominator": 45
+    },
+    {
+      "class_index": 18,
+      "name": "emphysema",
+      "train_count": 229,
+      "arrival": 5,
+      "first": 6,
+      "last": 6,
+      "last_fixed": 6,
+      "denominator": 45
+    }
+  ],
+  "first": 45,
+  "last": 38,
+  "last_fixed": 44,
+  "denominator": 315,
+  "final_tail_branches": {
+    "prototype_correct": 33,
+    "hyper_correct": 40,
+    "final_correct": 38,
+    "prototype_to_fusion_rescue": 15,
+    "prototype_to_fusion_harm": 10,
+    "hyper_to_fusion_rescue": 3,
+    "hyper_to_fusion_harm": 5,
+    "both_wrong": 263
+  },
+  "coverage": {
+    "non_tail": {
+      "median": 0.024939291519652296,
+      "mean": 0.03781673885690296,
+      "n": 189
+    },
+    "tail": {
+      "median": 0.028794874890234932,
+      "mean": 0.03934065722064909,
+      "n": 81
+    }
+  },
+  "drift": {
+    "non_tail": {
+      "mapping_mean_RMS": 0.001481619129638867,
+      "adapter_mean_RMS": 0.002146594344143131,
+      "adapter_greater_count": 109,
+      "n": 150
+    },
+    "tail": {
+      "mapping_mean_RMS": 0.0015215763836844492,
+      "adapter_mean_RMS": 0.0019857293931022234,
+      "adapter_greater_count": 41,
+      "n": 60
+    }
+  },
+  "decision": "DEFER_DISCRIMINATIVE_PROJECTION_TRAINING",
+  "next": "Complete fixed R12 three-dataset assessment; focus follow-up diagnostics on initial recognition and candidate competition; no validation-fitted fusion or rank search.",
+  "spectrum": {
+    "protected_ranks": [
+      1
+    ],
+    "top_squared_fraction_range": [
+      0.9977563177889056,
+      0.9996816518741676
+    ],
+    "linear95_rank_range": [
+      9,
+      391
+    ]
+  }
+}

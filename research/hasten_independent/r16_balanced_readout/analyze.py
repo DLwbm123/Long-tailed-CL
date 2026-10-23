@@ -2,6 +2,9 @@
 import json,os,statistics as st
 from pathlib import Path
 root=Path(os.environ['RUN_ROOT']);out=root/'results';out.mkdir(exist_ok=True)
+exit=json.loads((root/'CONTROL_EXIT.json').read_text())
+assert exit['exit_code']==0 and exit['reason'] is None
+assert exit['total_elapsed_seconds']<3600 and exit['allocated_bytes']<1000000000
 x=json.loads((root/'RESULTS.json').read_text());report={};gate={};checks=0
 for ds,data in x.items():
     split=data['split'];tail=[c for c,n in enumerate(split['train_counts']) if n<250];n_stage=len(split['stages'])

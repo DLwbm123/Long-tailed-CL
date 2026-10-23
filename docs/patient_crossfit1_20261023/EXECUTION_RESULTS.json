@@ -1,0 +1,140 @@
+{
+  "CPU_EQUIVALENCE": {
+    "CE_RC": {
+      "gradient_error": 0.0,
+      "actual_AdamW_error": 0.0,
+      "objective_error": 0.0,
+      "rows": 8,
+      "body_microbatch": 2
+    },
+    "RIDGE_IN": {
+      "gradient_error": 0.0,
+      "actual_AdamW_error": 0.0,
+      "objective_error": 0.0,
+      "rows": 8,
+      "body_microbatch": 2
+    },
+    "RIDGE_OUT": {
+      "gradient_error": 0.0,
+      "actual_AdamW_error": 0.0,
+      "objective_error": 0.0,
+      "rows": 8,
+      "body_microbatch": 2
+    }
+  },
+  "GPU_EQUIVALENCE": {
+    "CE_RC": {
+      "gradient_error": 0.0,
+      "actual_AdamW_error": 0.0,
+      "objective_error": 0.0,
+      "rows": 8,
+      "body_microbatch": 2
+    },
+    "RIDGE_IN": {
+      "gradient_error": 0.0,
+      "actual_AdamW_error": 0.0,
+      "objective_error": 0.0,
+      "rows": 8,
+      "body_microbatch": 2
+    },
+    "RIDGE_OUT": {
+      "gradient_error": 0.0,
+      "actual_AdamW_error": 0.0,
+      "objective_error": 0.0,
+      "rows": 8,
+      "body_microbatch": 2
+    }
+  },
+  "GPU_RESOURCES": {
+    "peak_reserved_bytes": 4768923648,
+    "limit": 8589934592
+  },
+  "EXECUTION_FEASIBILITY": {
+    "state": "FAIL",
+    "paired_step_seconds": 4.1524118185043335,
+    "forecast_seconds": 69349.0066409111,
+    "remaining_seconds": 55924.38924574852,
+    "original_start_epoch": 1792727818.659005,
+    "hard_deadline_epoch": 1792785418.659005,
+    "scientific_bulk_started": false,
+    "prior_full_class_storage_evidence": "repair2/run/QUALIFICATION.json",
+    "new_evidence_scope": "CPU/GPU all-three objective gradients and optimizer, real62/64 wholegraph, bounded full1536response state; no allclass rerun"
+  },
+  "EXECUTION_COMPLETION": {
+    "state": "BUDGET_GATE_FAILED",
+    "finished": 1792729494.3057215,
+    "resident_seconds": 49.421881437301636,
+    "science_rows": 0,
+    "validation_rows": 0
+  },
+  "EXECUTION_COSTS": {
+    "prefix_rows": 78,
+    "teacher_body_rows": 78,
+    "parity_body_forward_rows": 96,
+    "parity_body_backward_rows": 96,
+    "discarded_updates": 18,
+    "timed_arms": {
+      "CE_RC": {
+        "body_forward_rows": 126,
+        "body_backward_rows": 126,
+        "mlp_checkpoint_recomputed_rows": 126,
+        "logical_rows": 126,
+        "updates": 2,
+        "inner_dual_solves": 0
+      },
+      "RIDGE_IN": {
+        "body_forward_rows": 126,
+        "body_backward_rows": 126,
+        "mlp_checkpoint_recomputed_rows": 126,
+        "logical_rows": 126,
+        "updates": 2,
+        "inner_dual_solves": 4
+      },
+      "RIDGE_OUT": {
+        "body_forward_rows": 126,
+        "body_backward_rows": 126,
+        "mlp_checkpoint_recomputed_rows": 126,
+        "logical_rows": 126,
+        "updates": 2,
+        "inner_dual_solves": 4
+      }
+    },
+    "science_rows": 0,
+    "validation_rows": 0,
+    "at": 1792729494.310779,
+    "elapsed_from_original": 1675.6517751216888
+  },
+  "CE_RC_RESPONSE": {
+    "error": 3.0968895649297057e-07,
+    "FP64_NumPy_rows": 2,
+    "FP32_saved_rows": 2
+  },
+  "RIDGE_IN_RESPONSE": {
+    "error": 2.8331289247951474e-07,
+    "FP64_NumPy_rows": 2,
+    "FP32_saved_rows": 2
+  },
+  "RIDGE_OUT_RESPONSE": {
+    "error": 2.366712310297725e-07,
+    "FP64_NumPy_rows": 2,
+    "FP32_saved_rows": 2
+  },
+  "cost_scope_notes": {
+    "parity_rows": "CPU toy48 plus realGPU48 forward/back rows each; combined96 is not96 images",
+    "extra_bounded_saved_GPU_body_rows": 6,
+    "extra_FP64_body_rows": 6,
+    "extra_NumPy_full12_body_rows": 6,
+    "new_real_prefix_calls": 78,
+    "science_prefix_calls": 0,
+    "validation_calls": 0,
+    "MLP_recompute": "Actual checkpoint recomputation is layer work, not extra image encoding; timed378 rows plus parity candidate24CPU/24GPU rows across all12body layers (CPU toy2layers)",
+    "new_discarded_AdamW_updates": 18,
+    "new_dual_solves": {
+      "CPU_Torch": 8,
+      "GPU_Torch": 16
+    },
+    "new_scientific_head_solves": 0,
+    "missing_segment_times": "unknown, not zero; wall resident includes loading and proofs; no separate CPU/GPU kernel total",
+    "clock": "original first/deadline retained, helper wall nested in original elapsed"
+  }
+}

@@ -1,5 +1,8 @@
 """GELU image adapters; original H0 objectives, replay and readout."""
 import os,json,sys
+if os.environ.get("R25_TRACE_NONFINITE")=="1":
+    import torch
+    torch.autograd.set_detect_anomaly(True,check_nan=True)
 from pathlib import Path
 cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());source=Path(cfg['base_runner']).read_text()
 sys.path.insert(0,str(Path(__file__).parent))

@@ -1,0 +1,45 @@
+{
+  "completed_steps": 4751,
+  "calls": [
+    {
+      "rows": 64,
+      "parent_norm_min": 0.1659320890903473,
+      "parent_norm_max": 0.2684968113899231,
+      "cases": [
+        {
+          "promoted_fp64": false,
+          "input_dtype": "torch.float32",
+          "loss": 0.021043578162789345,
+          "finite_gradients": false
+        },
+        {
+          "promoted_fp64": true,
+          "input_dtype": "torch.float64",
+          "loss": 0.021049784527808483,
+          "finite_gradients": true
+        }
+      ]
+    },
+    {
+      "rows": 10,
+      "parent_norm_min": 0.011363601312041283,
+      "parent_norm_max": 0.011506208218634129,
+      "cases": [
+        {
+          "promoted_fp64": false,
+          "input_dtype": "torch.float32",
+          "loss": 0.0007561734528280795,
+          "finite_gradients": true
+        },
+        {
+          "promoted_fp64": true,
+          "input_dtype": "torch.float64",
+          "loss": 0.0007572393774262558,
+          "finite_gradients": true
+        }
+      ]
+    }
+  ],
+  "no_optimizer_changes": true,
+  "actual_failed_batch": true
+}

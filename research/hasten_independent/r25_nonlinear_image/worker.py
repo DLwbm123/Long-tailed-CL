@@ -42,6 +42,20 @@ assert source.count(old)==1;source=source.replace(old,'eval_x=x[ids]')
 needle='    def _before_step(self):'
 assert source.count(needle)==1
 source=source.replace(needle,needle+"\n        assert all(len(a.fc)==2 and isinstance(a.fc[1],nn.GELU) for a in self._network.Image_Adapter)\n        assert all(len(a.fc)==1 for a in self._network.Text_Adapter)\n        self.audit['image_activation']='GELU_exact'\n        self.audit['gelu_image_adapters']=len(self._network.Image_Adapter)\n        self.audit['extra_parameters_from_activation']=0")
+if os.environ.get('R25_TRACE_ACTUAL_ENTAIL')=='1':
+    import compat
+    original_load=compat.load_upstream
+    def instrumented_load(root):
+        inc,up,geo=original_load(root)
+        up._trace_entail_calls=[]
+        up._original_entail=up.compute_stable_entailment_loss
+        def captured(parent,child,curv,*args,**kw):
+            up._trace_entail_calls.append((parent.detach().clone(),child.detach().clone(),curv.detach().clone() if torch.is_tensor(curv) else curv,args,kw))
+            return up._original_entail(parent,child,curv,*args,**kw)
+        up.compute_stable_entailment_loss=captured
+        return inc,up,geo
+    compat.load_upstream=instrumented_load
+    source=source.replace('    def _after_step(self):','    def _after_step(self):\n        UP._trace_entail_calls.clear()')
 if os.environ.get('R25_TRACE_COMPONENTS')=='1':
     import torch
     original_backward=torch.Tensor.backward
@@ -63,6 +77,19 @@ if os.environ.get('R25_TRACE_COMPONENTS')=='1':
                 gg=torch.autograd.grad(val,[p for n,p in params],allow_unused=True,retain_graph=True)
                 invalid=[n for (n,p),g in zip(params,gg) if g is not None and not torch.isfinite(g).all()]
                 components[k]=dict(loss=float(val.detach()) if torch.isfinite(val) else None,nonfinite_parameter_names=invalid)
+            if os.environ.get('R25_TRACE_ACTUAL_ENTAIL')=='1':
+                probes=[]
+                for parent,child,curv,args,kw in UP._trace_entail_calls:
+                    cases=[]
+                    for promote in [False,True]:
+                        pp=(parent.double() if promote else parent).detach().requires_grad_(True)
+                        cc=(child.double() if promote else child).detach().requires_grad_(True)
+                        cv=curv.double() if promote and torch.is_tensor(curv) else curv
+                        val=UP._original_entail(pp,cc,cv,*args,**kw)
+                        gg=torch.autograd.grad(val,[pp,cc],allow_unused=True)
+                        cases.append(dict(promoted_fp64=promote,input_dtype=str(pp.dtype),loss=float(val) if torch.isfinite(val) else None,finite_gradients=all(g is None or bool(torch.isfinite(g).all()) for g in gg)))
+                    probes.append(dict(rows=len(parent),parent_norm_min=float(parent.norm(dim=-1).min()),parent_norm_max=float(parent.norm(dim=-1).max()),cases=cases))
+                write('TRACE_ACTUAL_ENTAIL.private.json',dict(completed_steps=self.audit['steps'],calls=probes,no_optimizer_changes=True,actual_failed_batch=True))
             write('TRACE_GRADIENT_COMPONENTS.private.json',dict(seed=self.seed,stage=self._cur_task,completed_steps=self.audit['steps'],nonfinite_parameter_names=bad,components=components,mathematics_unchanged=True))
 """
     source=source.replace(needle,needle+trace)

@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 from core import Model,ARMS,np_scores,update
-from foundation import save
+from foundation import save,write
 
 
 def state(m):return {k:v.detach().cpu().clone() for k,v in m.state_dict().items()}
@@ -43,14 +43,14 @@ def qualify(tokens,global_means,patch_means,cfg,p):
         from core import cpu_scores
         cpu=cpu_scores(tokens[:2],loaded,arm).numpy();reference=np_scores(tokens[:2].numpy(),{k:v.numpy() for k,v in loaded.items()},arm)
         with torch.no_grad():gpu=m(tokens[:2].cuda().float()).cpu().numpy()
-        error=float(abs(cpu-reference).max());gpu_error=float(abs(cpu-gpu).max());assert error<=cfg['score_absolute_tolerance'] and gpu_error<=cfg['FP32_probe_tolerance']
+        error=float(abs(cpu-reference).max());gpu_error=float(abs(cpu-gpu).max());write(p/f'READOUT_PARITY_{arm}.json',dict(arm=arm,FP64_NumPy_error=error,GPU_FP32_FP64_error=gpu_error,qualification_updates=cc['updates']));assert error<=cfg['score_absolute_tolerance'] and gpu_error<=cfg['FP32_probe_tolerance']
         assert float(seal['global_head'].abs().sum())>0 and float(seal['local_head'].abs().sum())>0
         if arm!='MEAN':assert float((seal['query'][:len(before['query'])]-before['query']).abs().max())>0
         # Full64 vs micro8 checks coupled clipping and the actual update, not just output values.
         a=copy.deepcopy(m);b=copy.deepcopy(m);oa=optimizer(a,cfg);ob=optimizer(b,cfg);oa.zero_grad()
         loss=F.cross_entropy(a(tokens[ix].cuda().float()),labels.cuda());loss.backward();torch.nn.utils.clip_grad_norm_(a.parameters(),cfg['gradient_clip']);gr={k:v.grad.detach().clone() for k,v in a.named_parameters()};oa.step()
         extra=counter();update(b,ob,tokens[ix],labels,cfg,extra)
-        ge=max(float((v.grad-gr[k]).abs().max()) for k,v in b.named_parameters());ue=max(float((a.state_dict()[k]-v).abs().max()) for k,v in b.state_dict().items());assert ge<cfg['gradient_tolerance'] and ue<cfg['AdamW_tolerance']
+        ge=max(float((v.grad-gr[k]).abs().max()) for k,v in b.named_parameters());ue=max(float((a.state_dict()[k]-v).abs().max()) for k,v in b.state_dict().items());write(p/f'GRADIENT_PARITY_{arm}.json',dict(arm=arm,gradient_error=ge,AdamW_error=ue,gradient_tolerance=cfg['gradient_tolerance'],AdamW_tolerance=cfg['AdamW_tolerance'],discarded_gradient_check_updates=2));assert ge<cfg['gradient_tolerance'] and ue<cfg['AdamW_tolerance']
         receipts[arm]=dict(score_error=error,GPU_FP32_error=gpu_error,gradient_error=ge,AdamW_error=ue,qualification_updates=2,gradient_check_discarded_updates=2,qualification_forward_rows=128,qualification_backward_rows=128,gradient_check_forward_rows=128,gradient_check_backward_rows=128,parameter_count=sum(v.numel() for v in m.parameters()))
         del m,a,b,opt,oa,ob
     return dict(state='PASS',arms=receipts,paired_step_seconds=timed/2,resident_after_means_seconds=time.time()-clock,discarded_updates=12)

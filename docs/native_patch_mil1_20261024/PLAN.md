@@ -1,3 +1,7 @@
+# 最新状态：资格失败关闭
+
+真实GPU资格首MEAN臂的完整64 vs micro8梯度/实际更新联合断言失败，未启动科学训练，详见[资格报告](QUALIFICATION_REPORT_ZH.md)。以下为失败前原冻结协议，保留而不改写为未启动计划；不能据其旧pending段重启。诊断日志补写改动未部署或再运行。
+
 # 原生patch多实例主线：协议冻结，实现已补齐、真实GPU资格尚未执行
 
 当前状态IMPLEMENTED_PENDING_REAL_GPU_QUALIFICATION，不是科学启动。已完成的native_token、structured、prompt、crossfit、full_covariance均关闭，本实验不能改变其参数救分。假说：在完整且永久冻结的原生768维patch空间中，直接学习类别条件取证并统一新旧类判别，可能利用被CLS+patch均值及其全协方差都丢掉的局部模式。保留原生global旁路，不重学ViT、不压缩到128维、不建局部Gaussian、多原型分布或旧分数融合。类注意力能表达均值相同但局部模式不同的两个bag，是表达能力事实，不是NIH有效性或失败根因证明。

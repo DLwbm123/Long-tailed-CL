@@ -1,0 +1,71 @@
+{
+  "math": {
+    "objective_error": 7.216449660063518e-16,
+    "derivative_error": 1.2940568755448467e-11,
+    "Torch_forward_rows": 2,
+    "Torch_backward_rows": 2,
+    "NumPy_objective_rows": 14,
+    "NIH_images": 0,
+    "optimizer_updates": 0
+  },
+  "arms": {
+    "FEATURE_FROZEN": {
+      "FP64_NumPy_error": 1.4210854715202004e-14,
+      "FP32_FP64_error": 2.423944856388971e-06,
+      "cache_error": 5.7220458984375e-06,
+      "old_head_delta": 0.0003000199794769287,
+      "old_score_delta": 0.14595985412597656,
+      "old_upper_delta": 0.0,
+      "new_upper_delta": 0.000301361083984375,
+      "discarded_updates": 2,
+      "operator_checks": 2,
+      "parameters": 28369920
+    },
+    "FULL_SCORE_FROZEN": {
+      "FP64_NumPy_error": 1.4210854715202004e-14,
+      "FP32_FP64_error": 2.447058070842445e-06,
+      "cache_error": 5.7220458984375e-06,
+      "old_head_delta": 0.0,
+      "old_score_delta": 0.0,
+      "old_upper_delta": 0.0,
+      "new_upper_delta": 0.000301361083984375,
+      "discarded_updates": 2,
+      "operator_checks": 2,
+      "parameters": 28369920
+    }
+  },
+  "operator": {
+    "FEATURE_FROZEN": [
+      {
+        "AdamW_normalized_error": 0.1390259240655663,
+        "AdamW_same_gradient_error": 1.9059507962992939e-06,
+        "gradient_norm": 3.0180106163024902,
+        "loss": 1.3269392251968384,
+        "residence_seconds": 16.020575761795044
+      },
+      {
+        "AdamW_normalized_error": 0.13569456971417798,
+        "AdamW_same_gradient_error": 1.9088831990643484e-06,
+        "gradient_norm": 12.374422073364258,
+        "loss": 7.3938069343566895,
+        "residence_seconds": 5.179994583129883
+      }
+    ],
+    "FULL_SCORE_FROZEN": [
+      {
+        "AdamW_normalized_error": 0.1390259240655663,
+        "AdamW_same_gradient_error": 1.9059507962992939e-06,
+        "gradient_norm": 3.0180106163024902,
+        "loss": 1.3269392251968384,
+        "residence_seconds": 1.817516803741455
+      },
+      {
+        "AdamW_normalized_error": 0.13557769898398242,
+        "AdamW_same_gradient_error": 1.910087366496782e-06,
+        "gradient_norm": 11.265506744384766,
+        "loss": 7.3938069343566895,
+        "residence_seconds": 2.0878677368164062
+      }
+    ]
+  }
+}

@@ -54,7 +54,7 @@ def main(cfg):
     cost['qualification_discarded_updates']=qualification['discarded_updates']
     # Full12-chain independent real qualification, on saved actual embedding/lower interface.
     from verify import validate_chain
-    qualification['full_chain']=validate_chain(b,template,qp.values(),cfg)
+    qualification['full_chain']=validate_chain(b,template,qp.values(),cfg,p/'FULL_CHAIN_QUALIFICATION.json')
     forecast=cfg['feasibility_factor']*(cfg['base_updates']+5*cfg['later_updates'])*qualification['paired_step_seconds']+cfg['feasibility_reserve_seconds'];remaining=cfg['hard_deadline_epoch']-time.time()
     qualification.update(forecast_seconds=forecast,original_clock_remaining_seconds=remaining,GPU_peak_reserved_bytes=torch.cuda.max_memory_reserved());write(p/'QUALIFICATION.json',qualification)
     assert forecast<remaining-60 and torch.cuda.max_memory_reserved()<cfg['gpu_reserved_budget_bytes']

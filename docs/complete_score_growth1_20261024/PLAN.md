@@ -1,3 +1,5 @@
+> 最新状态：真实GPU整链准入联合断言失败，本配方已关闭、科学未启动；以下为原冻结计划/设计历史，不能据此重跑。见QUALIFICATION_REPORT_ZH.md。
+
 # 完整旧类别分数冻结与新类原生上层增长：冻结协议
 
 协议状态 PROTOCOL_FROZEN_IMPLEMENTATION_PENDING。不是RUNNING；实现和所有实际资格完成前禁止科学bulk。独立结构依据和与旧路线差别见DESIGN_DRAFT_ZH，旧MIL/upper/expansion不恢复，旧失败不追改。

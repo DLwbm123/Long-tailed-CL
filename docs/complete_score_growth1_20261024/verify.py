@@ -11,7 +11,7 @@ from reporting import report
 
 
 def lower_state(b):return {k:v for k,v in body_state(b).items() if not k.startswith(('blocks.10.','blocks.11.'))}
-def validate_chain(b,template,proofs,cfg):
+def validate_chain(b,template,proofs,cfg,receipt):
     low=lower_state(b);up={k:v.detach().cpu().numpy() for k,v in template.state_dict().items()};err=0.;upper_err=0.;n=0
     for v in proofs:
         ref=np_tokens(v['embedding'][None].numpy(),low,apply_norm=False);error=float(abs(ref-v['lower'][None].numpy()).max());err=max(err,error)
@@ -19,6 +19,7 @@ def validate_chain(b,template,proofs,cfg):
         with torch.no_grad():actual=template.cpu().double()(lower).numpy()
         upper_err=max(upper_err,float(abs(out-actual).max()));n+=1
     r=dict(lower10_FP32_NumPy_error=err,upper2_FP64_NumPy_error=upper_err,rows=n)
+    write(receipt,r)
     assert err<=cfg['FP32_probe_tolerance'] and upper_err<=cfg['score_absolute_tolerance']
     template.float();return r
 
@@ -67,7 +68,7 @@ def main(cfg):
             mm=load(f'memory_{c}.private.pt');assert mm['ids']==[i for i in chosen if train[i]['label']==c] and len(mm['tokens'])==len(mm['ids']) and mm['tokens'].dtype==torch.float16
             proof=load(f'proof_{c}.private.pt');cr=[r for r in rr if r['label']==c];assert proof['images']==len(cr) and proof['patients']==len({r['group'] for r in cr}) and proof['gram_error']<1e-9
             for v in proof['proof']:assert v['id'] in {r['id'] for r in cr}
-            validate_chain(b,template,proof['proof'],cfg);count+=len(proof['proof'])
+            validate_chain(b,template,proof['proof'],cfg,p/f'FULL_CHAIN_PROOF_{c}.json');count+=len(proof['proof'])
         native_sum+=pack['arrived_gram'].numpy();mat=native_sum/len(seen)+cfg['ridge']*np.eye(1537);rhs=pack['native_rhs'].numpy()
         assert abs(mat-pack['native_mat'].numpy()).max()<1e-10 and abs(mat[-1,-1]-(.5+cfg['ridge']))<1e-10
         assert abs(rhs[-1]-1/np.sqrt(2)/len(seen)).max()<1e-10

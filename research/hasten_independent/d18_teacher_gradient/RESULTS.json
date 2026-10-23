@@ -1,0 +1,908 @@
+{
+  "NIH": {
+    "dataset": "NIH",
+    "cells": [
+      {
+        "seed": 74002,
+        "stage": 0,
+        "classes": 10,
+        "probe_rows": 20,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 50.0,
+        "student_TRAIN_BA": 40.0,
+        "teacher_nonuniform_max": 0.5689987087747748,
+        "teacher_entropy": 1.7445974860452567,
+        "teacher_mean_top_probability": 0.355794882623894,
+        "original_KD_parameter_cosine": 0.8538891641129682,
+        "parameter_gradient_norms": {
+          "contrast": 2.241907133984932,
+          "original": 2.3176799501531327,
+          "teacher": 7.775217972659338,
+          "added": 1.6458217258886576
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.8138677819139095,
+            "original": 0.8178533272088447,
+            "teacher": 1.5596374493405898,
+            "added": 0.33013676308194895
+          },
+          "adapters": {
+            "contrast": 2.0889630994766435,
+            "original": 2.1685839357781957,
+            "teacher": 7.617187509112478,
+            "added": 1.6123705749823434
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 2.241907133984932,
+          "original": 2.3176799501531327,
+          "teacher": 7.775217972659338,
+          "added": 1.6458217258886576
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 3.4369240872092788,
+          "contrast": 3.3421098962574614,
+          "KD": 2.4050105844962775
+        },
+        "alpha": 0.21167532621277568,
+        "contrast_geometry_grad": 15.912945755461273,
+        "teacher_geometry_grad": 7.51761957341481,
+        "added_geometry_grad": 1.5912945755461274
+      },
+      {
+        "seed": 74003,
+        "stage": 0,
+        "classes": 10,
+        "probe_rows": 20,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 50.0,
+        "student_TRAIN_BA": 40.0,
+        "teacher_nonuniform_max": 0.5689987087747748,
+        "teacher_entropy": 1.7445974860452567,
+        "teacher_mean_top_probability": 0.355794882623894,
+        "original_KD_parameter_cosine": 0.8576560074882905,
+        "parameter_gradient_norms": {
+          "contrast": 2.259612416790711,
+          "original": 2.3342184700891844,
+          "teacher": 8.01059807246388,
+          "added": 1.6856754219676522
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.8027030432216027,
+            "original": 0.8067446781508386,
+            "teacher": 1.5448897126041963,
+            "added": 0.3250921680468584
+          },
+          "adapters": {
+            "contrast": 2.112230124422416,
+            "original": 2.190374143926282,
+            "teacher": 7.860216107363191,
+            "added": 1.6540304442483564
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 2.259612416790711,
+          "original": 2.3342184700891844,
+          "teacher": 8.01059807246388,
+          "added": 1.6856754219676522
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 3.456696193021991,
+          "contrast": 3.363973422197178,
+          "KD": 2.411952838821053
+        },
+        "alpha": 0.2104306644927288,
+        "contrast_geometry_grad": 15.985533516698576,
+        "teacher_geometry_grad": 7.596579878333721,
+        "added_geometry_grad": 1.5985533516698576
+      },
+      {
+        "seed": 74004,
+        "stage": 0,
+        "classes": 10,
+        "probe_rows": 20,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 50.0,
+        "student_TRAIN_BA": 40.0,
+        "teacher_nonuniform_max": 0.5689987087747748,
+        "teacher_entropy": 1.7445974860452567,
+        "teacher_mean_top_probability": 0.355794882623894,
+        "original_KD_parameter_cosine": 0.9110930699953712,
+        "parameter_gradient_norms": {
+          "contrast": 2.6464883661642484,
+          "original": 2.862339929345401,
+          "teacher": 8.809379210871832,
+          "added": 1.7907798585936816
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.8387252469703992,
+            "original": 0.8663606940118441,
+            "teacher": 1.6237598379582328,
+            "added": 0.33007960861910823
+          },
+          "adapters": {
+            "contrast": 2.510067854130074,
+            "original": 2.728077898263969,
+            "teacher": 8.658439008826862,
+            "added": 1.7600965751681532
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 2.6464883661642484,
+          "original": 2.862339929345401,
+          "teacher": 8.809379210871832,
+          "added": 1.7907798585936816
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 3.4134761489260423,
+          "contrast": 3.3185476963428107,
+          "KD": 2.38126979636599
+        },
+        "alpha": 0.20328105079676945,
+        "contrast_geometry_grad": 15.916486404934693,
+        "teacher_geometry_grad": 7.8297934522422485,
+        "added_geometry_grad": 1.5916486404934693
+      },
+      {
+        "seed": 74002,
+        "stage": 5,
+        "classes": 20,
+        "probe_rows": 40,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 35.0,
+        "student_TRAIN_BA": 30.000000000000004,
+        "teacher_nonuniform_max": 0.3674242486555573,
+        "teacher_entropy": 2.500701964919387,
+        "teacher_mean_top_probability": 0.18934861684176846,
+        "original_KD_parameter_cosine": 0.4025096887840799,
+        "parameter_gradient_norms": {
+          "contrast": 1.6337372469626186,
+          "original": 1.6391588254163463,
+          "teacher": 1.608825149607466,
+          "added": 0.3946997565198632
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.6312591454656482,
+            "original": 0.6314855659953985,
+            "teacher": 0.4955810616573761,
+            "added": 0.12158296129558603
+          },
+          "adapters": {
+            "contrast": 1.506854101556941,
+            "original": 1.5126359888881948,
+            "teacher": 1.530593928295821,
+            "added": 0.37550696574023146
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.5991463543261142,
+          "original": 1.605047079561585,
+          "teacher": 1.589886139036841,
+          "added": 0.390053370353083
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 3.144521698213338,
+          "contrast": 3.105828183930246,
+          "KD": 0.3574011935744923
+        },
+        "alpha": 0.24533415582420298,
+        "contrast_geometry_grad": 8.225173060832805,
+        "teacher_geometry_grad": 3.352640822962559,
+        "added_geometry_grad": 0.8225173060832806
+      },
+      {
+        "seed": 74003,
+        "stage": 5,
+        "classes": 20,
+        "probe_rows": 40,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 35.0,
+        "student_TRAIN_BA": 32.5,
+        "teacher_nonuniform_max": 0.3674242486555573,
+        "teacher_entropy": 2.500701964919387,
+        "teacher_mean_top_probability": 0.18934861684176846,
+        "original_KD_parameter_cosine": 0.29723786721199696,
+        "parameter_gradient_norms": {
+          "contrast": 1.5343120870136289,
+          "original": 1.5415941353372673,
+          "teacher": 1.4495708405875647,
+          "added": 0.34897421947986124
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.598315332168028,
+            "original": 0.596877036195879,
+            "teacher": 0.46538006878972266,
+            "added": 0.11203705293036391
+          },
+          "adapters": {
+            "contrast": 1.412845477626191,
+            "original": 1.4213550864468314,
+            "teacher": 1.3728353919734921,
+            "added": 0.3305006877939246
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.4993590192842714,
+          "original": 1.5070529476142143,
+          "teacher": 1.4263398027858813,
+          "added": 0.3433815069141719
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 3.1382879328808198,
+          "contrast": 3.10026947263352,
+          "KD": 0.3692881516010803
+        },
+        "alpha": 0.24074312781791554,
+        "contrast_geometry_grad": 8.122259344168238,
+        "teacher_geometry_grad": 3.3738281203654776,
+        "added_geometry_grad": 0.8122259344168239
+      },
+      {
+        "seed": 74004,
+        "stage": 5,
+        "classes": 20,
+        "probe_rows": 40,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 35.0,
+        "student_TRAIN_BA": 27.500000000000004,
+        "teacher_nonuniform_max": 0.3674242486555573,
+        "teacher_entropy": 2.500701964919387,
+        "teacher_mean_top_probability": 0.18934861684176846,
+        "original_KD_parameter_cosine": 0.3775179523933735,
+        "parameter_gradient_norms": {
+          "contrast": 1.7045726317489558,
+          "original": 1.7065511555836417,
+          "teacher": 1.3563717131637087,
+          "added": 0.3410879706540171
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.6502663314373631,
+            "original": 0.6504831718368014,
+            "teacher": 0.4801687042865958,
+            "added": 0.12074843935049324
+          },
+          "adapters": {
+            "contrast": 1.5756654324781498,
+            "original": 1.5777162259991488,
+            "teacher": 1.2685354704123908,
+            "added": 0.3189997149203991
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.6680616759831486,
+          "original": 1.6703528657207973,
+          "teacher": 1.3315042527410055,
+          "added": 0.33483452899909427
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 3.219021757229399,
+          "contrast": 3.181974302142269,
+          "KD": 0.35560684500576334
+        },
+        "alpha": 0.251470865531068,
+        "contrast_geometry_grad": 8.18077407955945,
+        "teacher_geometry_grad": 3.253169730928037,
+        "added_geometry_grad": 0.8180774079559451
+      }
+    ],
+    "passed": true,
+    "optimizer_steps": 0,
+    "validation_rows": 0
+  },
+  "ISIC": {
+    "dataset": "ISIC",
+    "cells": [
+      {
+        "seed": 74002,
+        "stage": 0,
+        "classes": 4,
+        "probe_rows": 8,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 100.0,
+        "student_TRAIN_BA": 100.0,
+        "teacher_nonuniform_max": 0.75,
+        "teacher_entropy": 0.7634732485161206,
+        "teacher_mean_top_probability": 0.6610516624124938,
+        "original_KD_parameter_cosine": 0.6352282096339368,
+        "parameter_gradient_norms": {
+          "contrast": 1.730642405466073,
+          "original": 1.659934262799251,
+          "teacher": 0.9998614069538524,
+          "added": 0.34576224410974293
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.3308209975723375,
+            "original": 0.3543448888444851,
+            "teacher": 0.16243724138809443,
+            "added": 0.05617245026266091
+          },
+          "adapters": {
+            "contrast": 1.6987291141210945,
+            "original": 1.6216724257890933,
+            "teacher": 0.9865784184371574,
+            "added": 0.3411688515724938
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.730642405466073,
+          "original": 1.659934262799251,
+          "teacher": 0.9998614069538524,
+          "added": 0.34576224410974293
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.1959966109231086,
+          "contrast": 1.1476438749901745,
+          "KD": 0.10583670633899112
+        },
+        "alpha": 0.34581017216944593,
+        "contrast_geometry_grad": 14.791437367689916,
+        "teacher_geometry_grad": 4.277328591838576,
+        "added_geometry_grad": 1.4791437367689917
+      },
+      {
+        "seed": 74003,
+        "stage": 0,
+        "classes": 4,
+        "probe_rows": 8,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 100.0,
+        "student_TRAIN_BA": 100.0,
+        "teacher_nonuniform_max": 0.75,
+        "teacher_entropy": 0.7634732485161206,
+        "teacher_mean_top_probability": 0.6610516624124938,
+        "original_KD_parameter_cosine": 0.6905838306222764,
+        "parameter_gradient_norms": {
+          "contrast": 1.9775872567135993,
+          "original": 1.9203790488748875,
+          "teacher": 1.5625502713352801,
+          "added": 0.48750384822585
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.33435111531127265,
+            "original": 0.33605895899394045,
+            "teacher": 0.23477545058892332,
+            "added": 0.07324816267460114
+          },
+          "adapters": {
+            "contrast": 1.9491179260388856,
+            "original": 1.8907459023987137,
+            "teacher": 1.5448119103148854,
+            "added": 0.48196961387602827
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.9775872567135993,
+          "original": 1.9203790488748875,
+          "teacher": 1.5625502713352801,
+          "added": 0.48750384822585
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.2029422485246777,
+          "contrast": 1.154012186609922,
+          "KD": 0.11824299106985625
+        },
+        "alpha": 0.3119924272136888,
+        "contrast_geometry_grad": 14.880322547495915,
+        "teacher_geometry_grad": 4.769449912739112,
+        "added_geometry_grad": 1.4880322547495917
+      },
+      {
+        "seed": 74004,
+        "stage": 0,
+        "classes": 4,
+        "probe_rows": 8,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 100.0,
+        "student_TRAIN_BA": 100.0,
+        "teacher_nonuniform_max": 0.75,
+        "teacher_entropy": 0.7634732485161206,
+        "teacher_mean_top_probability": 0.6610516624124938,
+        "original_KD_parameter_cosine": 0.629561337130618,
+        "parameter_gradient_norms": {
+          "contrast": 1.7225122733642455,
+          "original": 1.68552244028378,
+          "teacher": 1.232069356681032,
+          "added": 0.42528307962373146
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.3113250469357726,
+            "original": 0.3123210232225743,
+            "teacher": 0.19027315998642583,
+            "added": 0.06567808557819298
+          },
+          "adapters": {
+            "contrast": 1.6941443997017789,
+            "original": 1.656333745098914,
+            "teacher": 1.2172883899311584,
+            "added": 0.42018101681183634
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.7225122733642455,
+          "original": 1.68552244028378,
+          "teacher": 1.232069356681032,
+          "added": 0.42528307962373146
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.2085503298898217,
+          "contrast": 1.1581349911663856,
+          "KD": 0.11205800653294247
+        },
+        "alpha": 0.3451778783998273,
+        "contrast_geometry_grad": 14.89940472161371,
+        "teacher_geometry_grad": 4.3164425225290355,
+        "added_geometry_grad": 1.4899404721613712
+      },
+      {
+        "seed": 74002,
+        "stage": 2,
+        "classes": 8,
+        "probe_rows": 16,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 68.75,
+        "student_TRAIN_BA": 62.5,
+        "teacher_nonuniform_max": 0.683114631936911,
+        "teacher_entropy": 1.3718243873089855,
+        "teacher_mean_top_probability": 0.4566205792334415,
+        "original_KD_parameter_cosine": -0.13000620456369555,
+        "parameter_gradient_norms": {
+          "contrast": 1.9688361147806472,
+          "original": 1.9557863325067415,
+          "teacher": 1.167255481579888,
+          "added": 0.24346338079260305
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.5153499398989471,
+            "original": 0.5156648401443005,
+            "teacher": 0.3485262479628277,
+            "added": 0.07269477816717226
+          },
+          "adapters": {
+            "contrast": 1.9001921182634944,
+            "original": 1.8865815516587463,
+            "teacher": 1.1140084442046432,
+            "added": 0.23235724007267267
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.9425778997789116,
+          "original": 1.9295726331754512,
+          "teacher": 1.1567260528140977,
+          "added": 0.24126717758844543
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.9190407965612966,
+          "contrast": 1.8640668499288529,
+          "KD": 0.5321192190201802
+        },
+        "alpha": 0.20857762929103954,
+        "contrast_geometry_grad": 12.704597146725336,
+        "teacher_geometry_grad": 6.091064123179735,
+        "added_geometry_grad": 1.2704597146725336
+      },
+      {
+        "seed": 74003,
+        "stage": 2,
+        "classes": 8,
+        "probe_rows": 16,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 68.75,
+        "student_TRAIN_BA": 81.25,
+        "teacher_nonuniform_max": 0.683114631936911,
+        "teacher_entropy": 1.3718243873089855,
+        "teacher_mean_top_probability": 0.4566205792334415,
+        "original_KD_parameter_cosine": -0.2585247385599302,
+        "parameter_gradient_norms": {
+          "contrast": 2.0440706245931954,
+          "original": 2.0330442336744596,
+          "teacher": 0.842002644143312,
+          "added": 0.1793218874656581
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.5347060921956771,
+            "original": 0.5338390656853447,
+            "teacher": 0.32755710447071623,
+            "added": 0.06976006413247957
+          },
+          "adapters": {
+            "contrast": 1.9728948561171842,
+            "original": 1.9617045414702923,
+            "teacher": 0.7756769920882591,
+            "added": 0.16519646720338327
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 2.0179189245098277,
+          "original": 2.007079453927582,
+          "teacher": 0.8291851315336086,
+          "added": 0.1765921328685215
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.909258443603245,
+          "contrast": 1.8518773361256062,
+          "KD": 0.5184625493388482
+        },
+        "alpha": 0.2129706945893507,
+        "contrast_geometry_grad": 12.546137893995365,
+        "teacher_geometry_grad": 5.891016094109466,
+        "added_geometry_grad": 1.2546137893995366
+      },
+      {
+        "seed": 74004,
+        "stage": 2,
+        "classes": 8,
+        "probe_rows": 16,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 68.75,
+        "student_TRAIN_BA": 68.75,
+        "teacher_nonuniform_max": 0.683114631936911,
+        "teacher_entropy": 1.3718243873089855,
+        "teacher_mean_top_probability": 0.4566205792334415,
+        "original_KD_parameter_cosine": 0.015280110278079377,
+        "parameter_gradient_norms": {
+          "contrast": 2.0878828630563158,
+          "original": 2.0729190530950743,
+          "teacher": 0.9545525268255711,
+          "added": 0.19490744760522488
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.5307622753672337,
+            "original": 0.5296827299692658,
+            "teacher": 0.3240705039782291,
+            "added": 0.06617106247062142
+          },
+          "adapters": {
+            "contrast": 2.01929350439485,
+            "original": 2.004103192517013,
+            "teacher": 0.8978579146615455,
+            "added": 0.1833311310811467
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 2.0596108849051675,
+          "original": 2.044858815675303,
+          "teacher": 0.9431916400745551,
+          "added": 0.19258769941406903
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.8891973555283739,
+          "contrast": 1.8326714019906296,
+          "KD": 0.5169673127583936
+        },
+        "alpha": 0.204187241169424,
+        "contrast_geometry_grad": 12.43476813606458,
+        "teacher_geometry_grad": 6.0898849824543415,
+        "added_geometry_grad": 1.243476813606458
+      }
+    ],
+    "passed": true,
+    "optimizer_steps": 0,
+    "validation_rows": 0
+  },
+  "HK": {
+    "dataset": "HK",
+    "cells": [
+      {
+        "seed": 74002,
+        "stage": 0,
+        "classes": 13,
+        "probe_rows": 26,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 96.15384615384616,
+        "student_TRAIN_BA": 61.53846153846154,
+        "teacher_nonuniform_max": 0.7363451052554759,
+        "teacher_entropy": 1.4337993167812146,
+        "teacher_mean_top_probability": 0.5204322296714634,
+        "original_KD_parameter_cosine": 0.11941506266035938,
+        "parameter_gradient_norms": {
+          "contrast": 0.9220933501422753,
+          "original": 0.9178220232667906,
+          "teacher": 3.00974562298958,
+          "added": 0.3109953724910872
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.18601127644432267,
+            "original": 0.1863988033172462,
+            "teacher": 0.5480151724030955,
+            "added": 0.056626110139611885
+          },
+          "adapters": {
+            "contrast": 0.9031367290793563,
+            "original": 0.8986950275346156,
+            "teacher": 2.959433744134331,
+            "added": 0.3057966732345639
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 0.9220933501422753,
+          "original": 0.9178220232667906,
+          "teacher": 3.00974562298958,
+          "added": 0.3109953724910872
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.5803419570899866,
+          "contrast": 1.547850618618087,
+          "KD": 1.2266708552027714
+        },
+        "alpha": 0.10332945691232642,
+        "contrast_geometry_grad": 5.436072049893797,
+        "teacher_geometry_grad": 5.2609122435495115,
+        "added_geometry_grad": 0.5436072049893798
+      },
+      {
+        "seed": 74003,
+        "stage": 0,
+        "classes": 13,
+        "probe_rows": 26,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 96.15384615384616,
+        "student_TRAIN_BA": 65.38461538461539,
+        "teacher_nonuniform_max": 0.7363451052554759,
+        "teacher_entropy": 1.4337993167812146,
+        "teacher_mean_top_probability": 0.5204322296714634,
+        "original_KD_parameter_cosine": 0.11427948089972557,
+        "parameter_gradient_norms": {
+          "contrast": 1.005496402693738,
+          "original": 0.9885486950206576,
+          "teacher": 3.0240904426209,
+          "added": 0.32233134107199524
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.18916546675571544,
+            "original": 0.18967250562540727,
+            "teacher": 0.527075140099794,
+            "added": 0.056179813321225944
+          },
+          "adapters": {
+            "contrast": 0.9875421216419784,
+            "original": 0.9701818711132593,
+            "teacher": 2.9778036875925618,
+            "added": 0.31739773473114635
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.005496402693738,
+          "original": 0.9885486950206576,
+          "teacher": 3.0240904426209,
+          "added": 0.32233134107199524
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.5663091760888261,
+          "contrast": 1.5328038512786815,
+          "KD": 1.2234549316805505
+        },
+        "alpha": 0.10658786401372174,
+        "contrast_geometry_grad": 5.56478626974634,
+        "teacher_geometry_grad": 5.220844156357191,
+        "added_geometry_grad": 0.556478626974634
+      },
+      {
+        "seed": 74004,
+        "stage": 0,
+        "classes": 13,
+        "probe_rows": 26,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 96.15384615384616,
+        "student_TRAIN_BA": 76.92307692307693,
+        "teacher_nonuniform_max": 0.7363451052554759,
+        "teacher_entropy": 1.4337993167812146,
+        "teacher_mean_top_probability": 0.5204322296714634,
+        "original_KD_parameter_cosine": 0.007789393978057997,
+        "parameter_gradient_norms": {
+          "contrast": 0.8937869602790088,
+          "original": 0.8801485829495804,
+          "teacher": 2.9698580044812966,
+          "added": 0.30721457041147193
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.17575627105877042,
+            "original": 0.1759195016609244,
+            "teacher": 0.5260325131464447,
+            "added": 0.05441500767731
+          },
+          "adapters": {
+            "contrast": 0.8763360448756554,
+            "original": 0.8623884606159375,
+            "teacher": 2.922900333896875,
+            "added": 0.3023570723707047
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 0.8937869602790088,
+          "original": 0.8801485829495804,
+          "teacher": 2.9698580044812966,
+          "added": 0.30721457041147193
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.5601437701814433,
+          "contrast": 1.5277786861606868,
+          "KD": 1.20191414533152
+        },
+        "alpha": 0.10344419083446181,
+        "contrast_geometry_grad": 5.322334353128392,
+        "teacher_geometry_grad": 5.145126381862797,
+        "added_geometry_grad": 0.5322334353128392
+      },
+      {
+        "seed": 74002,
+        "stage": 5,
+        "classes": 23,
+        "probe_rows": 46,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 78.26086956521738,
+        "student_TRAIN_BA": 60.86956521739131,
+        "teacher_nonuniform_max": 0.5815191606237272,
+        "teacher_entropy": 2.132089580919566,
+        "teacher_mean_top_probability": 0.3144341185200193,
+        "original_KD_parameter_cosine": 0.3289425433833957,
+        "parameter_gradient_norms": {
+          "contrast": 0.9997688383243897,
+          "original": 0.997409285566491,
+          "teacher": 2.94994434721263,
+          "added": 0.3000718245763321
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.2937487854343,
+            "original": 0.29885096674761424,
+            "teacher": 0.9016848295672053,
+            "added": 0.09172044641910733
+          },
+          "adapters": {
+            "contrast": 0.9556408222446199,
+            "original": 0.9515846691746743,
+            "teacher": 2.8087606020770277,
+            "added": 0.28571044715454263
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 0.994698399118627,
+          "original": 0.9912736290065846,
+          "teacher": 2.9292205880841533,
+          "added": 0.29796377931983
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.8523620106756957,
+          "contrast": 1.8160956997418887,
+          "KD": 1.9491685547004811
+        },
+        "alpha": 0.10172118173422807,
+        "contrast_geometry_grad": 5.58464430136309,
+        "teacher_geometry_grad": 5.49014886196895,
+        "added_geometry_grad": 0.558464430136309
+      },
+      {
+        "seed": 74003,
+        "stage": 5,
+        "classes": 23,
+        "probe_rows": 46,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 78.26086956521738,
+        "student_TRAIN_BA": 65.21739130434783,
+        "teacher_nonuniform_max": 0.5815191606237272,
+        "teacher_entropy": 2.132089580919566,
+        "teacher_mean_top_probability": 0.3144341185200193,
+        "original_KD_parameter_cosine": 0.20791071631499983,
+        "parameter_gradient_norms": {
+          "contrast": 0.8335673652373778,
+          "original": 0.8411061192402248,
+          "teacher": 2.6612168207326796,
+          "added": 0.24979105989442596
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.26003460737107603,
+            "original": 0.25941279947551255,
+            "teacher": 0.8700290394797026,
+            "added": 0.08166394943162018
+          },
+          "adapters": {
+            "contrast": 0.7919700470081896,
+            "original": 0.8001028079513464,
+            "teacher": 2.5149800073584236,
+            "added": 0.23606476434743598
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 0.8286044022690573,
+          "original": 0.8365559368501456,
+          "teacher": 2.6393301001862395,
+          "added": 0.24773669623329678
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.8196978587109394,
+          "contrast": 1.7833623536243075,
+          "KD": 1.863509799892923
+        },
+        "alpha": 0.09386347558659253,
+        "contrast_geometry_grad": 5.053591951046903,
+        "teacher_geometry_grad": 5.383981276492131,
+        "added_geometry_grad": 0.5053591951046904
+      },
+      {
+        "seed": 74004,
+        "stage": 5,
+        "classes": 23,
+        "probe_rows": 46,
+        "validation_rows": 0,
+        "teacher_TRAIN_BA": 78.26086956521738,
+        "student_TRAIN_BA": 60.86956521739131,
+        "teacher_nonuniform_max": 0.5815191606237272,
+        "teacher_entropy": 2.132089580919566,
+        "teacher_mean_top_probability": 0.3144341185200193,
+        "original_KD_parameter_cosine": 0.4035220675116358,
+        "parameter_gradient_norms": {
+          "contrast": 1.0115578444573827,
+          "original": 1.0189246979265918,
+          "teacher": 2.8088866595603283,
+          "added": 0.2767583401013118
+        },
+        "group_gradient_norms": {
+          "mapping": {
+            "contrast": 0.2935072826269874,
+            "original": 0.2963508232429042,
+            "teacher": 0.8963288115079905,
+            "added": 0.08831487505873734
+          },
+          "adapters": {
+            "contrast": 0.9680406746248779,
+            "original": 0.9748762637422502,
+            "teacher": 2.662036612805439,
+            "added": 0.2622892709566919
+          }
+        },
+        "post_mapping_projection_norms": {
+          "contrast": 1.0065653276165314,
+          "original": 1.0134749462321153,
+          "teacher": 2.7858171391160425,
+          "added": 0.27448531063955073
+        },
+        "network_unchanged": true,
+        "losses": {
+          "original": 1.861670010312641,
+          "contrast": 1.824519915680282,
+          "KD": 1.8174248204128494
+        },
+        "alpha": 0.09852955081454493,
+        "contrast_geometry_grad": 5.353984257092766,
+        "teacher_geometry_grad": 5.433886801301049,
+        "added_geometry_grad": 0.5353984257092766
+      }
+    ],
+    "passed": true,
+    "optimizer_steps": 0,
+    "validation_rows": 0
+  }
+}

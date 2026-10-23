@@ -40,3 +40,5 @@ r03 BiomedCLIP两臂平均28.8446%、最终22%，双曲分支发生距离饱和�
 - r10回放单位化：[报告](r10_replay_unit/RESULTS_ZH.md)。r11稳定增量适配器：[预注册](r11_stable_adapter/PROTOCOL.md)。
 
 - [窗口汇总](WINDOW_SUMMARY_ZH.md)：保留r04单位化配置；r11持续冻结[负结果](r11_stable_adapter/RESULTS_ZH.md)，训练阶段结束。
+
+- 用户新任务：NIH、ISIC、HyperKvasir完整固定配置评估，[r12协议](r12_three_datasets/PROTOCOL.md)。旧窗口资源账本封存，新任务独立12小时/8GB。

@@ -1,0 +1,9 @@
+# D36：原文本累加适配器对旧类提示的漂移
+
+R35固定8真实特征回放三域失败，不扫memory大小/选择/混合。D34表明NIH完整旧类TRAIN在加入新类时有竞争，而old-only识别提升，不能简单认定旧类完全遗忘。原Text_encode每阶段把全部Text_Adapter输出相加，旧模块虽冻结，最新模块仍作用于每个旧类提示。D36只读R28linear64封存TRAIN模型确认该直接路径的数值大小与梯度，不测VAL或宣称这是性能唯一原因。
+
+三域3seed所有36增量边界，当前stage缓存只读prompts，旧类文本特征取当前checkpoint保存的冻结model.text_bank，对同一输入比较上一网络Text输出、当前网络全部Text输出、当前网络只含旧模块的输出。原AMLP是Linear(x)*exp(clamp_max(log_alpha,0))；旧模块参数必须逐元素相同，只含旧模块输出对上一模型exact/allclose1e-6。记录每旧类欧氏输出相对变化范数，前后各stage所有类分母保留，不包含图像feature/逐例响应。该比较尚未经过共享Lorentz映射，不能说hyper或分类一定漂移同样幅度。
+
+仅为当前stage最新Text模块的fc.weight在固定旧提示输出平方均值上算一次autograd梯度，再对屏蔽最新模块的同式输出算梯度；新模块梯度应非零/屏蔽后零，说明可路由并非预期效果成功。它不是原自然batch损失梯度，不冒充实际优化轨迹。原checkpoint/state不修改，无优化/新RNG/图像编码/VAL元数据或特征响应/TEST，原始提示特征与权重均私有。事前可行性规则：NIH全部3seed至少一个边界相对漂移>1e-6、最新模块梯度有限非零，冻结旧模块输出匹配与屏蔽梯度零全部通过，才允许下一独立固定文本出生任务路由实验；否则保留未知，不盲启动。
+
+独立600秒原总钟含修复重试，300MB含16MiB余量，CPU2400继承/RSS8GiB/file64MiB，CPU4，无GPU需求。pro/data ext4容量/写读probe前置，全部旧资源只读不复制/不清理。中性主子argv、独立guard。发布安全类级数值/完整正负结果与自有source/protocol，不公开features/权重/原日志/私有路径。不以训练内可达性当泛化。

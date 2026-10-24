@@ -40,4 +40,3 @@ def build_backbone(cfg,device):
         if isinstance(m,torch.nn.Dropout):assert m.p==0
         if hasattr(m,'drop_prob'):assert m.drop_prob==0
     return b.to(device=device,dtype=torch.float64)
-

@@ -1,0 +1,5366 @@
+{
+  "NIH": {
+    "dataset": "NIH",
+    "cells": [
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              15,
+              8,
+              14,
+              5,
+              42,
+              40,
+              19,
+              28,
+              0,
+              1
+            ],
+            "macro_BA": 27.817887931034484,
+            "tail_BA": 8.620689655172415
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              7,
+              42,
+              40,
+              20,
+              30,
+              0,
+              2
+            ],
+            "macro_BA": 29.132543103448274,
+            "tail_BA": 12.068965517241379
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.682845270023722,
+          "loss_last": 3.318978378034904,
+          "loss_max": 4.682845270023722,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07096468703734352,
+            "anchor": 2.8999243880495973,
+            "entailment": 2.0259353935577593,
+            "distance": 0.025343553536058223,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "class_residual",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              13,
+              0,
+              13,
+              0,
+              58,
+              20,
+              12,
+              38,
+              0,
+              4
+            ],
+            "macro_BA": 24.6875,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              12,
+              0,
+              16,
+              0,
+              57,
+              23,
+              13,
+              38,
+              0,
+              4
+            ],
+            "macro_BA": 25.46875,
+            "tail_BA": 0.0
+          }
+        },
+        "extra_parameters": 5120,
+        "residual_norm": 0.21543703973293304,
+        "max_residual_gradient": 11.901040077209473,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.682845270023722,
+          "loss_last": 3.304120209346232,
+          "loss_max": 4.682845270023722,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.273617638236863,
+            "anchor": 10.061806181678453,
+            "entailment": 9.061600403173138,
+            "distance": 0.11285110840080627,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              11,
+              8,
+              7,
+              4,
+              41,
+              33,
+              13,
+              33,
+              0,
+              0
+            ],
+            "macro_BA": 24.191810344827584,
+            "tail_BA": 6.896551724137931
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              12,
+              11,
+              9,
+              7,
+              42,
+              35,
+              12,
+              33,
+              0,
+              0
+            ],
+            "macro_BA": 26.476293103448274,
+            "tail_BA": 12.068965517241379
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.679121011903813,
+          "loss_last": 3.351046437534492,
+          "loss_max": 4.679121011903813,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.08008628343538475,
+            "anchor": 2.9934554686170673,
+            "entailment": 2.063037739180132,
+            "distance": 0.025321602337371445,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "class_residual",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              14,
+              4,
+              37,
+              1,
+              25,
+              30,
+              18,
+              30,
+              0,
+              9
+            ],
+            "macro_BA": 26.438577586206897,
+            "tail_BA": 1.7241379310344827
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              16,
+              4,
+              37,
+              3,
+              25,
+              33,
+              18,
+              32,
+              0,
+              9
+            ],
+            "macro_BA": 28.22198275862069,
+            "tail_BA": 5.172413793103448
+          }
+        },
+        "extra_parameters": 5120,
+        "residual_norm": 0.21551665663719177,
+        "max_residual_gradient": 11.07203483581543,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.679121011903813,
+          "loss_last": 3.3552175001009705,
+          "loss_max": 4.679121011903813,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.41139686906235,
+            "anchor": 10.70800352339418,
+            "entailment": 9.17261553759431,
+            "distance": 0.11318355508521055,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              18,
+              0,
+              24,
+              0,
+              39,
+              42,
+              13,
+              28,
+              1,
+              0
+            ],
+            "macro_BA": 28.958333333333336,
+            "tail_BA": 16.666666666666664
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              19,
+              2,
+              27,
+              1,
+              39,
+              42,
+              17,
+              30,
+              1,
+              0
+            ],
+            "macro_BA": 31.178160919540232,
+            "tail_BA": 18.39080459770115
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.678320134054958,
+          "loss_last": 3.2931008140924996,
+          "loss_max": 4.678320134054958,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07606135806345092,
+            "anchor": 2.9910046429065087,
+            "entailment": 2.0977092137734705,
+            "distance": 0.024763311330976926,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "class_residual",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              13,
+              2,
+              28,
+              4,
+              9,
+              42,
+              14,
+              32,
+              0,
+              25
+            ],
+            "macro_BA": 27.160560344827587,
+            "tail_BA": 6.896551724137931
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              14,
+              2,
+              28,
+              7,
+              14,
+              42,
+              14,
+              33,
+              0,
+              19
+            ],
+            "macro_BA": 28.351293103448274,
+            "tail_BA": 12.068965517241379
+          }
+        },
+        "extra_parameters": 5120,
+        "residual_norm": 0.2146381437778473,
+        "max_residual_gradient": 15.264504432678223,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.678320134054958,
+          "loss_last": 3.276688122070253,
+          "loss_max": 4.678320134054958,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.2680485712673684,
+            "anchor": 10.547455097149724,
+            "entailment": 9.352416330938276,
+            "distance": 0.11065452323285419,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              1,
+              3,
+              11,
+              23,
+              46,
+              10,
+              27,
+              2,
+              0
+            ],
+            "macro_BA": 28.197916666666668,
+            "tail_BA": 43.333333333333336
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              2,
+              4,
+              12,
+              24,
+              47,
+              11,
+              29,
+              2,
+              0
+            ],
+            "macro_BA": 29.625,
+            "tail_BA": 45.0
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.625867983563599,
+          "loss_last": 3.437551587391733,
+          "loss_max": 4.625867983563599,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06351278017879362,
+            "anchor": 2.9957904689485972,
+            "entailment": 2.238702706553316,
+            "distance": 0.024808339806050673,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "class_residual",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              23,
+              0,
+              5,
+              11,
+              40,
+              12,
+              15,
+              35,
+              0,
+              0
+            ],
+            "macro_BA": 23.979166666666664,
+            "tail_BA": 18.333333333333332
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              23,
+              1,
+              6,
+              11,
+              40,
+              16,
+              15,
+              35,
+              0,
+              0
+            ],
+            "macro_BA": 24.916666666666664,
+            "tail_BA": 18.333333333333332
+          }
+        },
+        "extra_parameters": 5120,
+        "residual_norm": 0.22928866744041443,
+        "max_residual_gradient": 14.250204086303711,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.625867983563599,
+          "loss_last": 3.4898073036174186,
+          "loss_max": 4.625867983563599,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 1.997206289549749,
+            "anchor": 10.093981483639816,
+            "entailment": 9.793206022640582,
+            "distance": 0.10911160400841771,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              0,
+              4,
+              18,
+              11,
+              38,
+              2,
+              27,
+              2,
+              0
+            ],
+            "macro_BA": 26.0,
+            "tail_BA": 55.00000000000001
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              0,
+              4,
+              17,
+              11,
+              40,
+              2,
+              28,
+              3,
+              0
+            ],
+            "macro_BA": 28.791666666666664,
+            "tail_BA": 65.83333333333333
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.696851934321323,
+          "loss_last": 3.2259966457490044,
+          "loss_max": 4.696851934321323,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06854474359137304,
+            "anchor": 2.9375956791491338,
+            "entailment": 2.0473180435306575,
+            "distance": 0.02525541066415528,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "class_residual",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              26,
+              0,
+              6,
+              11,
+              38,
+              45,
+              12,
+              12,
+              0,
+              0
+            ],
+            "macro_BA": 25.385416666666664,
+            "tail_BA": 18.333333333333332
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              25,
+              0,
+              8,
+              11,
+              39,
+              46,
+              11,
+              16,
+              0,
+              0
+            ],
+            "macro_BA": 26.322916666666668,
+            "tail_BA": 18.333333333333332
+          }
+        },
+        "extra_parameters": 5120,
+        "residual_norm": 0.22155337035655975,
+        "max_residual_gradient": 13.601325988769531,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.696851934321323,
+          "loss_last": 3.206179104281384,
+          "loss_max": 4.696851934321323,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.1682462598527596,
+            "anchor": 10.214387618453461,
+            "entailment": 9.129144937614788,
+            "distance": 0.11180879971384504,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              16,
+              0,
+              13,
+              8,
+              26,
+              33,
+              1,
+              15,
+              2,
+              0
+            ],
+            "macro_BA": 23.916666666666664,
+            "tail_BA": 38.33333333333333
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              16,
+              0,
+              14,
+              10,
+              31,
+              34,
+              2,
+              15,
+              2,
+              0
+            ],
+            "macro_BA": 25.833333333333336,
+            "tail_BA": 41.666666666666664
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.67346004908557,
+          "loss_last": 3.2913446369530095,
+          "loss_max": 4.67346004908557,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07749300515508013,
+            "anchor": 2.916524074520072,
+            "entailment": 2.1080077791123313,
+            "distance": 0.02486216680615439,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "class_residual",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              27,
+              33,
+              3,
+              20,
+              2,
+              37,
+              4,
+              5,
+              0,
+              0
+            ],
+            "macro_BA": 24.010416666666664,
+            "tail_BA": 33.33333333333333
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              28,
+              33,
+              4,
+              19,
+              5,
+              39,
+              5,
+              8,
+              0,
+              0
+            ],
+            "macro_BA": 25.395833333333336,
+            "tail_BA": 31.666666666666664
+          }
+        },
+        "extra_parameters": 5120,
+        "residual_norm": 0.22774092853069305,
+        "max_residual_gradient": 14.300661087036133,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.67346004908557,
+          "loss_last": 3.293128531256672,
+          "loss_max": 4.67346004908557,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.4493383061476686,
+            "anchor": 10.655302363051652,
+            "entailment": 9.290609153385383,
+            "distance": 0.10960194201862279,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      }
+    ],
+    "optimizer_steps": 216,
+    "VAL_reads": 0,
+    "TEST_reads": 0,
+    "fresh_fit_only_pilot": true,
+    "passed": true
+  },
+  "ISIC": {
+    "dataset": "ISIC",
+    "cells": [
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              52,
+              6,
+              1,
+              28
+            ],
+            "macro_BA": 43.17908653846154,
+            "tail_BA": 46.15384615384615
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              53,
+              8,
+              21,
+              43
+            ],
+            "macro_BA": 61.08774038461539,
+            "tail_BA": 61.53846153846154
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.6851211008361675,
+          "loss_last": 2.6495568489304353,
+          "loss_max": 4.6851211008361675,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.04516450078220145,
+            "anchor": 2.8018217918886386,
+            "entailment": 2.056868303738251,
+            "distance": 0.026371264520788768,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "class_residual",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              27,
+              0,
+              0,
+              62
+            ],
+            "macro_BA": 34.765625,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              30,
+              0,
+              1,
+              61
+            ],
+            "macro_BA": 35.9375,
+            "tail_BA": 0.0
+          }
+        },
+        "extra_parameters": 2048,
+        "residual_norm": 0.10301797091960907,
+        "max_residual_gradient": 17.831335067749023,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.6851211008361675,
+          "loss_last": 2.553408185802828,
+          "loss_max": 4.6851211008361675,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.132269303204942,
+            "anchor": 13.127998925977185,
+            "entailment": 13.521550669746496,
+            "distance": 0.1691365928683704,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              52,
+              0,
+              31,
+              26
+            ],
+            "macro_BA": 42.578125,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              49,
+              5,
+              34,
+              38
+            ],
+            "macro_BA": 56.88100961538461,
+            "tail_BA": 38.46153846153847
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.7030244923321565,
+          "loss_last": 2.656110823650256,
+          "loss_max": 4.7030244923321565,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.03856466019788697,
+            "anchor": 3.0039828503299977,
+            "entailment": 2.0587779278808904,
+            "distance": 0.02641647995391245,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "class_residual",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              2,
+              3,
+              22,
+              62
+            ],
+            "macro_BA": 39.362980769230774,
+            "tail_BA": 23.076923076923077
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              4,
+              3,
+              25,
+              61
+            ],
+            "macro_BA": 40.925480769230774,
+            "tail_BA": 23.076923076923077
+          }
+        },
+        "extra_parameters": 2048,
+        "residual_norm": 0.11129408329725266,
+        "max_residual_gradient": 15.060996055603027,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.7030244923321565,
+          "loss_last": 2.6449932784901113,
+          "loss_max": 4.7030244923321565,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 1.7039859817256837,
+            "anchor": 15.925775755384953,
+            "entailment": 13.612978360874218,
+            "distance": 0.17615965701143382,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              62,
+              2,
+              18,
+              5
+            ],
+            "macro_BA": 37.04927884615385,
+            "tail_BA": 15.384615384615385
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              61,
+              3,
+              24,
+              16
+            ],
+            "macro_BA": 45.222355769230774,
+            "tail_BA": 23.076923076923077
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.671402297535021,
+          "loss_last": 2.6317262955604606,
+          "loss_max": 4.671402297535021,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.03937868054529419,
+            "anchor": 2.8823640863040074,
+            "entailment": 2.128732913337007,
+            "distance": 0.026681905299857034,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "class_residual",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              21,
+              5,
+              51,
+              1
+            ],
+            "macro_BA": 38.13100961538461,
+            "tail_BA": 38.46153846153847
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              22,
+              6,
+              52,
+              4
+            ],
+            "macro_BA": 42.00721153846154,
+            "tail_BA": 46.15384615384615
+          }
+        },
+        "extra_parameters": 2048,
+        "residual_norm": 0.10709931701421738,
+        "max_residual_gradient": 18.75640296936035,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.671402297535021,
+          "loss_last": 2.6045304583090516,
+          "loss_max": 4.671402297535021,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 1.6040038199500226,
+            "anchor": 15.119274058977757,
+            "entailment": 14.18855323853805,
+            "distance": 0.17847131371624206,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              55,
+              1,
+              16,
+              31
+            ],
+            "macro_BA": 41.629464285714285,
+            "tail_BA": 7.142857142857142
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              55,
+              2,
+              18,
+              36
+            ],
+            "macro_BA": 46.14955357142857,
+            "tail_BA": 14.285714285714285
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.70077906179346,
+          "loss_last": 2.545410776638968,
+          "loss_max": 4.70077906179346,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.0464065729302562,
+            "anchor": 3.208204152186809,
+            "entailment": 2.122931630360325,
+            "distance": 0.025821053036111482,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "class_residual",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              27,
+              5,
+              0,
+              61
+            ],
+            "macro_BA": 43.30357142857143,
+            "tail_BA": 35.714285714285715
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              34,
+              8,
+              0,
+              61
+            ],
+            "macro_BA": 51.39508928571428,
+            "tail_BA": 57.14285714285714
+          }
+        },
+        "extra_parameters": 2048,
+        "residual_norm": 0.10251744836568832,
+        "max_residual_gradient": 15.823419570922852,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.70077906179346,
+          "loss_last": 2.5520412469380642,
+          "loss_max": 4.70077906179346,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.111584420783231,
+            "anchor": 17.49655439982582,
+            "entailment": 13.948827265061453,
+            "distance": 0.17275852781238818,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              57,
+              3,
+              16,
+              27
+            ],
+            "macro_BA": 44.419642857142854,
+            "tail_BA": 21.428571428571427
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              56,
+              3,
+              17,
+              31
+            ],
+            "macro_BA": 45.982142857142854,
+            "tail_BA": 21.428571428571427
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.688294634641577,
+          "loss_last": 2.530615608225069,
+          "loss_max": 4.688294634641577,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.05411895808699228,
+            "anchor": 2.8526026151410657,
+            "entailment": 2.0526911907570087,
+            "distance": 0.026279439181089846,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "class_residual",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              61,
+              3,
+              0,
+              42
+            ],
+            "macro_BA": 45.591517857142854,
+            "tail_BA": 21.428571428571427
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              58,
+              5,
+              0,
+              46
+            ],
+            "macro_BA": 49.55357142857143,
+            "tail_BA": 35.714285714285715
+          }
+        },
+        "extra_parameters": 2048,
+        "residual_norm": 0.1084233969449997,
+        "max_residual_gradient": 17.0903263092041,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.688294634641577,
+          "loss_last": 2.486675860729631,
+          "loss_max": 4.688294634641577,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.5416234711541503,
+            "anchor": 14.718305934892571,
+            "entailment": 13.692497349017572,
+            "distance": 0.17454755803908792,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              17,
+              5,
+              18,
+              51
+            ],
+            "macro_BA": 42.52232142857143,
+            "tail_BA": 35.714285714285715
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              17,
+              5,
+              27,
+              51
+            ],
+            "macro_BA": 46.03794642857143,
+            "tail_BA": 35.714285714285715
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.680719168496728,
+          "loss_last": 2.506688462493219,
+          "loss_max": 4.680719168496728,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.048961765917311766,
+            "anchor": 3.1664993217451025,
+            "entailment": 2.1551968455487955,
+            "distance": 0.02576193952730424,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "class_residual",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              15
+            ],
+            "macro_BA": 30.859375,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              23
+            ],
+            "macro_BA": 33.59375,
+            "tail_BA": 0.0
+          }
+        },
+        "extra_parameters": 2048,
+        "residual_norm": 0.10197408497333527,
+        "max_residual_gradient": 19.20485496520996,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.680719168496728,
+          "loss_last": 2.4899082515158386,
+          "loss_max": 4.680719168496728,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 2.4311317963278536,
+            "anchor": 16.57744333899793,
+            "entailment": 14.342407167307208,
+            "distance": 0.17190366573640983,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      }
+    ],
+    "optimizer_steps": 96,
+    "VAL_reads": 0,
+    "TEST_reads": 0,
+    "fresh_fit_only_pilot": true,
+    "passed": true
+  },
+  "HK": {
+    "dataset": "HK",
+    "cells": [
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              1,
+              0,
+              0,
+              47,
+              53,
+              53,
+              32,
+              58,
+              8,
+              0
+            ],
+            "macro_BA": 37.68315018315018,
+            "tail_BA": 10.476190476190478
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              27,
+              11,
+              37,
+              56,
+              55,
+              55,
+              32,
+              58,
+              9,
+              0
+            ],
+            "macro_BA": 49.89697802197803,
+            "tail_BA": 22.857142857142854
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.716398781779801,
+          "loss_last": 2.706043068377046,
+          "loss_max": 4.716398781779801,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.1913918478640831,
+            "anchor": 2.5433207317278854,
+            "entailment": 1.7965056428452244,
+            "distance": 0.025319659771439306,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "class_residual",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              24,
+              21,
+              26,
+              56,
+              63,
+              43,
+              25,
+              41,
+              42,
+              0
+            ],
+            "macro_BA": 52.27220695970696,
+            "tail_BA": 25.90773809523809
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              1,
+              28,
+              23,
+              41,
+              63,
+              62,
+              50,
+              29,
+              40,
+              39,
+              0
+            ],
+            "macro_BA": 56.73076923076923,
+            "tail_BA": 29.0625
+          }
+        },
+        "extra_parameters": 6656,
+        "residual_norm": 0.28956839442253113,
+        "max_residual_gradient": 12.74349594116211,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.716398781779801,
+          "loss_last": 2.552226803530024,
+          "loss_max": 4.716398781779801,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 3.814965550850112,
+            "anchor": 8.505978097628391,
+            "entailment": 7.287594090680885,
+            "distance": 0.10158149604178765,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              0,
+              0,
+              10,
+              31,
+              62,
+              41,
+              42,
+              52,
+              18,
+              0
+            ],
+            "macro_BA": 40.54487179487179,
+            "tail_BA": 19.791666666666664
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              26,
+              18,
+              42,
+              41,
+              63,
+              48,
+              44,
+              52,
+              19,
+              0
+            ],
+            "macro_BA": 53.84043040293041,
+            "tail_BA": 32.79761904761905
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.670604934869229,
+          "loss_last": 2.4801661558012107,
+          "loss_max": 4.670604934869229,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2076767914226263,
+            "anchor": 2.653858943241131,
+            "entailment": 1.949246005808951,
+            "distance": 0.024948000574537436,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "class_residual",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              23,
+              15,
+              38,
+              61,
+              62,
+              54,
+              47,
+              14,
+              40,
+              0
+            ],
+            "macro_BA": 51.327838827838825,
+            "tail_BA": 25.639880952380953
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              30,
+              22,
+              41,
+              61,
+              62,
+              56,
+              48,
+              22,
+              41,
+              0
+            ],
+            "macro_BA": 55.25412087912088,
+            "tail_BA": 29.28571428571429
+          }
+        },
+        "extra_parameters": 6656,
+        "residual_norm": 0.28928565979003906,
+        "max_residual_gradient": 10.497640609741211,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.670604934869229,
+          "loss_last": 2.381058074237497,
+          "loss_max": 4.670604934869229,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 4.261552612131992,
+            "anchor": 9.126261592380239,
+            "entailment": 7.721854630989834,
+            "distance": 0.09998960684796124,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              59,
+              0,
+              1,
+              1,
+              0,
+              3,
+              38,
+              63,
+              41,
+              35,
+              57,
+              15,
+              0
+            ],
+            "macro_BA": 40.12706043956044,
+            "tail_BA": 18.080357142857142
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              28,
+              15,
+              35,
+              50,
+              63,
+              46,
+              35,
+              55,
+              16,
+              0
+            ],
+            "macro_BA": 52.76442307692308,
+            "tail_BA": 30.9375
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.694508590751786,
+          "loss_last": 2.7078613822260587,
+          "loss_max": 4.694508590751786,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2054558916505895,
+            "anchor": 2.6493740040140206,
+            "entailment": 1.932869219903515,
+            "distance": 0.024738149068023754,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "class_residual",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              57,
+              0,
+              0,
+              18,
+              12,
+              61,
+              51,
+              63,
+              40,
+              30,
+              56,
+              11,
+              0
+            ],
+            "macro_BA": 49.08997252747253,
+            "tail_BA": 17.946428571428573
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              59,
+              0,
+              0,
+              23,
+              19,
+              59,
+              54,
+              63,
+              48,
+              34,
+              54,
+              13,
+              0
+            ],
+            "macro_BA": 52.649954212454205,
+            "tail_BA": 21.577380952380956
+          }
+        },
+        "extra_parameters": 6656,
+        "residual_norm": 0.29853561520576477,
+        "max_residual_gradient": 13.718802452087402,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.694508590751786,
+          "loss_last": 2.702264421340783,
+          "loss_max": 4.694508590751786,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 4.468102752315326,
+            "anchor": 9.779796013871154,
+            "entailment": 7.761496849534353,
+            "distance": 0.10000388507551054,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              62,
+              0,
+              1,
+              12,
+              2,
+              0,
+              33,
+              62,
+              44,
+              40,
+              38,
+              20,
+              1
+            ],
+            "macro_BA": 43.45278026237328,
+            "tail_BA": 31.41472868217054
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              1,
+              36,
+              20,
+              35,
+              45,
+              63,
+              48,
+              41,
+              38,
+              20,
+              0
+            ],
+            "macro_BA": 53.83590488968396,
+            "tail_BA": 36.2233527131783
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.689277285711466,
+          "loss_last": 2.6891738400550986,
+          "loss_max": 4.689277285711466,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.21211899183790095,
+            "anchor": 2.808431892442038,
+            "entailment": 1.9918387043716637,
+            "distance": 0.02395224985758342,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "class_residual",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              37,
+              19,
+              27,
+              40,
+              58,
+              62,
+              51,
+              24,
+              20,
+              0
+            ],
+            "macro_BA": 50.48915474060823,
+            "tail_BA": 33.14680232558139
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              37,
+              28,
+              41,
+              46,
+              60,
+              61,
+              52,
+              26,
+              22,
+              0
+            ],
+            "macro_BA": 54.695885509838995,
+            "tail_BA": 33.45930232558139
+          }
+        },
+        "extra_parameters": 6656,
+        "residual_norm": 0.31048503518104553,
+        "max_residual_gradient": 11.634716033935547,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.689277285711466,
+          "loss_last": 2.5016943007846306,
+          "loss_max": 4.689277285711466,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 4.548304840467206,
+            "anchor": 10.247437851490895,
+            "entailment": 8.027061710016165,
+            "distance": 0.0957366100820762,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              17,
+              0,
+              0,
+              40,
+              54,
+              54,
+              42,
+              45,
+              11,
+              2
+            ],
+            "macro_BA": 45.30877310673822,
+            "tail_BA": 34.365310077519375
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              1,
+              36,
+              24,
+              41,
+              49,
+              55,
+              55,
+              44,
+              47,
+              12,
+              0
+            ],
+            "macro_BA": 55.879174120453186,
+            "tail_BA": 37.1608527131783
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.66995997331979,
+          "loss_last": 2.5209030607807903,
+          "loss_max": 4.66995997331979,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2260543329433063,
+            "anchor": 2.839390456459936,
+            "entailment": 2.021012719463761,
+            "distance": 0.024368979978069267,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "class_residual",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              15,
+              13,
+              51,
+              42,
+              63,
+              43,
+              28,
+              59,
+              5,
+              0
+            ],
+            "macro_BA": 46.91413237924866,
+            "tail_BA": 15.726744186046512
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              1,
+              23,
+              20,
+              54,
+              48,
+              63,
+              47,
+              36,
+              59,
+              9,
+              0
+            ],
+            "macro_BA": 54.755515802027425,
+            "tail_BA": 28.61434108527132
+          }
+        },
+        "extra_parameters": 6656,
+        "residual_norm": 0.29165583848953247,
+        "max_residual_gradient": 14.425629615783691,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.66995997331979,
+          "loss_last": 2.358885723968437,
+          "loss_max": 4.66995997331979,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 4.535616162978125,
+            "anchor": 10.282913706521038,
+            "entailment": 8.117543545781261,
+            "distance": 0.09703723882260519,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              12,
+              0,
+              0,
+              36,
+              55,
+              54,
+              50,
+              43,
+              4,
+              2
+            ],
+            "macro_BA": 43.6931648777579,
+            "tail_BA": 34.53972868217054
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              37,
+              23,
+              46,
+              48,
+              58,
+              55,
+              51,
+              45,
+              6,
+              0
+            ],
+            "macro_BA": 54.09492397137746,
+            "tail_BA": 33.14680232558139
+          }
+        },
+        "extra_parameters": 0,
+        "residual_norm": 0.0,
+        "max_residual_gradient": 0.0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.686179920303202,
+          "loss_last": 2.6625393802903967,
+          "loss_max": 4.686179920303202,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.212790686888653,
+            "anchor": 2.9634531157741315,
+            "entailment": 1.990762982610839,
+            "distance": 0.023985041002735772,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "class_residual",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "zero_init_no_rng": true,
+          "initial_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              37,
+              7,
+              38,
+              35,
+              54,
+              58,
+              48,
+              25,
+              28,
+              0
+            ],
+            "macro_BA": 49.16703935599284,
+            "tail_BA": 32.20930232558139
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              62,
+              0,
+              0,
+              37,
+              12,
+              46,
+              47,
+              55,
+              60,
+              48,
+              26,
+              28,
+              0
+            ],
+            "macro_BA": 52.772808586762075,
+            "tail_BA": 32.20930232558139
+          }
+        },
+        "extra_parameters": 6656,
+        "residual_norm": 0.30242300033569336,
+        "max_residual_gradient": 12.02370548248291,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.686179920303202,
+          "loss_last": 2.4499321955163054,
+          "loss_max": 4.686179920303202,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 4.547304473492141,
+            "anchor": 10.165959350359241,
+            "entailment": 8.054875498585583,
+            "distance": 0.09799425792690081,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      }
+    ],
+    "optimizer_steps": 240,
+    "VAL_reads": 0,
+    "TEST_reads": 0,
+    "fresh_fit_only_pilot": true,
+    "passed": true
+  }
+}

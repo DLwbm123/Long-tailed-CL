@@ -68,3 +68,7 @@ D45 54类×fold TRAIN密度cell，固定双fold样本数/维度收缩改善NIH�
 ## D50：直接视觉类原型反馈
 
 Image adapter通过实际TRAIN行与视觉类均值的cosine CE共同学习，区别R23对TEXT CE、R24 detached head、R22对TEXT CE、R32层级叶、D48原始1NN、D49替换主风险；不改读出/融合。新增固定系数1、原目标保留；raw means与A均排除B，21cell对共同B原hyper全类CE方向。NIH宏/尾cos变化−.068622/−.091538，ISIC+.138793/−.084550，HK+.072026/−.054517；NIH0/3支持，跨域false。新梯度仅活跃Image adapter且非零，参数/层级RAM恢复通过但不等效果。拒绝固定反馈、不训练、不扫coeff/temp/normalization/priority/seed/fusion。方向门是局部筛选而非性能因果，不否定所有视觉目标。完整见d50_visual_prototype_feedback/RESULTS_ZH.md。
+
+## D51：真实fit-only类别文本参数化学习pilot
+
+用每类zero-init Text_encode残差测试共享文本仿射耦合之外的结构，原paired/hierarchy/geometry目标保持；与R37/R24/R42不同。三域3seed双fold两arm共36个全新fit-only模型，严格TRAIN奇偶分折、每类每折fit/holdout最多64；2epoch，不加载learned checkpoint或VAL。成功552steps，加attempt1已完成native18steps共570实际步；候选firstforward设备错在0候选更新，原钟修复，失败保留。NIH三个种子两折平均最终宏BA变化−4.186063/−.361530/−1.632184pp、尾−19.367816/−27.198276/−8.160920pp；ISIC/HK平均保护门失败。预设NIH0/3支持，不启动完整训练、不扫幅度/正则/seed/epoch/融合。新参数初始零/核心同control/RNG/非零finite梯度/模型训练均有核验；两epoch小样本初始阶段不是完整增量或泛化结论。完整d51_class_text_residual/RESULTS_ZH.md。

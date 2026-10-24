@@ -60,3 +60,7 @@ D45 54类×fold TRAIN密度cell，固定双fold样本数/维度收缩改善NIH�
 ## D48：图像局部关系机制的有限筛选
 
 核对原生loss及R22/R23/R24/R35干预，直接视觉关系目标尚有结构区别。先检验固定同support类均值与cosine 1NN的双fold TRAIN判别（每类支持/查询各最多64，严格不相交），54cell；NIH尾−10.344828/−13.333333pp，ISIC尾−38.461538/−42.857143，HK尾−32.172619/−6.068314，预设可行性false。不启动依据该固定近邻结构的训练、不扫k/支持数/距离。支持预算与稀有类support不等限制保留，不据此否定全部视觉关系学习；本轮确有代码核对与新的TRAIN区分诊断，不是状态重复。完整见d48_visual_neighborhood/RESULTS_ZH.md。
+
+## D49：最强竞争类二元任务风险筛选
+
+原训练有pairedcontrast而class logits只用于训练正确率，故检验不同主损失softplus(max错误classlogit−真实classlogit)，原几何项保持；不是R08全类CE或D44归约。21个条件TRAIN梯度cell对共同disjoint全类CE风险，NIH宏/尾cos变化−.902356/−1.117401，ISIC+.907831/−.355873，HK+.288995/−.584980；NIH0/3支持，跨域尾受损，预设门false。不启动训练、不扫margin/softness/竞争类数/weight/seed/fusion。参数与层级RAM恢复、finite通过不等于效果。直接任务风险方案确已诊断，下一候选需不同机制，不重复D49。完整见d49_hardest_class_risk/RESULTS_ZH.md。

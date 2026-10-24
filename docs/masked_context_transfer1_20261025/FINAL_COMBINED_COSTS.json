@@ -1,0 +1,149 @@
+{
+  "current": {
+    "recorded_costs": {
+      "arms": {
+        "SUPERVISED_ONLY": {
+          "updates": 0,
+          "forward_rows": 0,
+          "backward_rows": 0
+        },
+        "VISIBLE_RECON_THEN_SUPERVISED": {
+          "updates": 0,
+          "forward_rows": 0,
+          "backward_rows": 0
+        },
+        "MASKED_CONTEXT_THEN_SUPERVISED": {
+          "updates": 0,
+          "forward_rows": 0,
+          "backward_rows": 0
+        }
+      },
+      "qualification_arms": {
+        "SUPERVISED_ONLY": {
+          "updates": 2,
+          "forward_rows": 32,
+          "backward_rows": 32
+        },
+        "VISIBLE_RECON_THEN_SUPERVISED": {
+          "updates": 2,
+          "forward_rows": 32,
+          "backward_rows": 32
+        },
+        "MASKED_CONTEXT_THEN_SUPERVISED": {
+          "updates": 2,
+          "forward_rows": 32,
+          "backward_rows": 32
+        }
+      },
+      "descriptor_rows": {
+        "NATIVE_RIDGE": 0,
+        "SUPERVISED_ONLY": 0,
+        "VISIBLE_RECON_THEN_SUPERVISED": 0,
+        "MASKED_CONTEXT_THEN_SUPERVISED": 0
+      },
+      "ridge_solves": {
+        "NATIVE_RIDGE": 0,
+        "SUPERVISED_ONLY": 0,
+        "VISIBLE_RECON_THEN_SUPERVISED": 0,
+        "MASKED_CONTEXT_THEN_SUPERVISED": 0
+      },
+      "score_rows": {
+        "NATIVE_RIDGE": 0,
+        "SUPERVISED_ONLY": 0,
+        "VISIBLE_RECON_THEN_SUPERVISED": 0,
+        "MASKED_CONTEXT_THEN_SUPERVISED": 0
+      },
+      "endpoint_rows": {
+        "SUPERVISED_ONLY": 0,
+        "VISIBLE_RECON_THEN_SUPERVISED": 0,
+        "MASKED_CONTEXT_THEN_SUPERVISED": 0
+      },
+      "elapsed_from_first": 4868.326977729797,
+      "GPU_peak_reserved_bytes": 3013607424,
+      "qualification_canonical_encodes": 20,
+      "qualification_native_numpy_rows": 20,
+      "qualification_probe_backward_rows": 3,
+      "qualification_FD_forward_rows": 12,
+      "qualification_masked_model_reference_rows": 3,
+      "qualification_trained_numpy_rows": 60,
+      "qualification_trained_GPU_rows": 60,
+      "qualification_mask_leak_rows": 2
+    },
+    "source_derived_executed_GPU_forward_rows": 198,
+    "source_derived_executed_GPU_backward_rows": 99,
+    "source_derived_NumPy_full_model_rows": 83,
+    "count_scope": "Forward/backward counts are source-control-flow derivations, not an additional runtime counter. 96 forward/backward training rows plus3 selected-derivative probes; forward also native20,12 FD,3 explicit tokens,3 objective,60 trained map,1 extra masked leak.",
+    "qualification_unique_base_images": 20,
+    "discarded_updates": 6,
+    "formal_updates": 0,
+    "validation_images": 0,
+    "formal_descriptors": 0,
+    "formal_ridge_solves": 0,
+    "formal_scores": 0,
+    "small_math_CPU_forward": 1,
+    "small_math_CPU_backward": 1,
+    "small_math_optimizer": 0,
+    "first": 1792856368.0840197,
+    "deadline": 1792942768.0840197,
+    "guard_terminal": {
+      "finished": 1792861248.5110762,
+      "elapsed_from_first": 4880.42705821991,
+      "sampled_peak_output_bytes": 17166497,
+      "RSS_sampled_peak_bytes": 10116239360,
+      "GPU_process_sampled_peak_bytes": 0
+    },
+    "worker_terminal": {
+      "returncode": 1,
+      "reason": "process_exit",
+      "finished": 1792861248.4849384,
+      "elapsed_from_first": 4880.400932073593
+    },
+    "sampled_resources": {
+      "phase": "run",
+      "new_output_bytes": 17166497,
+      "peak_output_bytes": 17166497,
+      "window_new_bytes": 18954487093,
+      "RSS_sampled_peak_bytes": 10116239360,
+      "GPU_process_sampled_peak_bytes": 0,
+      "hard_deadline_epoch": 1792942768.0840197
+    },
+    "all_phase_GPU_peak_reserved_bytes": 3013607424,
+    "unknown_preparation_waiting_breakdown": null,
+    "precise_last_group_exit_epoch": null
+  },
+  "prior_cost_evidence": [
+    {
+      "experiment": "local_global_transfer1_20261024",
+      "evidence": "../local_global_transfer1_20261024/FINAL_RECOVERED_COMBINED_COSTS.json",
+      "formal_optimizer_updates": 6000,
+      "discarded_qualification_updates": 6,
+      "validation_encodes": 308,
+      "reason": "Includes original id failure, first verifier rounding failure and final recovered independent acceptance; not rerun."
+    },
+    {
+      "experiment": "causal_frame_lora1_20261024",
+      "evidence": "../causal_frame_lora1_20261024/FINAL_COMBINED_COSTS.json",
+      "formal_optimizer_updates": 16500,
+      "discarded_qualification_updates": 6
+    },
+    {
+      "experiment": "complete_score_growth1_20261024",
+      "evidence": "../complete_score_growth1_20261024/QUALIFICATION_COSTS.json",
+      "formal_optimizer_updates": 0,
+      "discarded_qualification_updates": 4
+    },
+    {
+      "experiment": "native_patch_mil1_20261024",
+      "evidence": "../native_patch_mil1_20261024/QUALIFICATION_COSTS.json",
+      "formal_optimizer_updates": 0,
+      "discarded_qualification_updates": 4
+    },
+    {
+      "experiment": "full_covariance1_20261023",
+      "evidence": "../full_covariance1_20261023/FINAL_COMBINED_COSTS.json",
+      "note": "All source crossfit and earlier failures retained in referenced cumulative cost evidence, not reset."
+    }
+  ],
+  "cumulative_window_not_reset": true,
+  "privacy": "No patient identifiers, raw logs, model weights or per-image scores published."
+}

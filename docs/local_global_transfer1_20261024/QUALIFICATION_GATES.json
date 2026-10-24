@@ -1,0 +1,942 @@
+[
+  {
+    "check": "Torch_new_objective_against_independent_derivatives",
+    "value": {
+      "error": 7.105427357601002e-15,
+      "derivative_error": 4.440892098500626e-16
+    },
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_canonical_encodes",
+    "through": 8,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_canonical_encodes",
+    "through": 16,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_canonical_encodes",
+    "through": 20,
+    "PASS": true
+  },
+  {
+    "check": "real_reader_and_patch_embedding",
+    "value": {
+      "raw_FP64_error": 7.716050021144838e-15,
+      "FP16_rounding_max": 0.007373809814453125
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_full_native_8plus4_chain",
+    "value": {
+      "lower_error": 2.8776980798284058e-12,
+      "native_upper_error": 3.5388358909926865e-16
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_view_pixel_transform",
+    "value": {
+      "error": 0,
+      "matched_cells": 182
+    },
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 8,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 16,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 24,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 32,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 40,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 48,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 56,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 64,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 0,
+    "check": "coupled_objective_finite",
+    "value": 1.6248250465877836,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 0,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 0,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 0,
+    "check": "finite_clipped_gradient",
+    "norm": 5.673270330719688,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 0,
+    "check": "actual_same_gradient_AdamW",
+    "max_absolute_error": 8.881784197001252e-16,
+    "normalized_error": 1.0807459180848176e-06,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "coupled_objective_finite",
+    "value": 21.29620606997797,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "finite_clipped_gradient",
+    "norm": 25.974164486511675,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "actual_same_gradient_AdamW",
+    "max_absolute_error": 2.220446049250313e-16,
+    "normalized_error": 7.84677494491077e-07,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "coupled_objective_finite",
+    "value": 20.23875973880209,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "finite_clipped_gradient",
+    "norm": 21.09069010932643,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 0,
+    "check": "actual_same_gradient_AdamW",
+    "max_absolute_error": 4.440892098500626e-16,
+    "normalized_error": 1.4069828175427453e-06,
+    "PASS": true
+  },
+  {
+    "check": "qualification_benchmark_accounting",
+    "whole_paired_seconds": 89.44726671371609,
+    "qualification_only_operator_reference_seconds": 82.75155143532902,
+    "formal_canonical_paired_seconds": 6.69571527838707
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 8,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 16,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 24,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 32,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 40,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 48,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 56,
+    "PASS": true
+  },
+  {
+    "check": "finite_lower",
+    "field": "qualification_augmented_encodes",
+    "through": 64,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 1,
+    "check": "coupled_objective_finite",
+    "value": 1.5072372099611497,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 1,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 1,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 1,
+    "check": "finite_clipped_gradient",
+    "norm": 4.620680228455981,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_step": 1,
+    "check": "actual_same_gradient_AdamW",
+    "max_absolute_error": 1.3877787807814457e-17,
+    "normalized_error": 1.3061104816976099e-07,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "coupled_objective_finite",
+    "value": 20.430148898605967,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "finite_clipped_gradient",
+    "norm": 23.207107179499303,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "actual_same_gradient_AdamW",
+    "max_absolute_error": 5.551115123125783e-17,
+    "normalized_error": 3.734243359733217e-07,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "coupled_objective_finite",
+    "value": 19.960877025260103,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "finite_clipped_gradient",
+    "norm": 16.23478159933755,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_step": 1,
+    "check": "actual_same_gradient_AdamW",
+    "max_absolute_error": 2.7755575615628914e-17,
+    "normalized_error": 2.4574807064260337e-07,
+    "PASS": true
+  },
+  {
+    "check": "qualification_benchmark_accounting",
+    "whole_paired_seconds": 85.57437106687576,
+    "qualification_only_operator_reference_seconds": 78.98802317492664,
+    "formal_canonical_paired_seconds": 6.586347891949117
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_probe": true,
+    "check": "coupled_objective_finite",
+    "value": 1.3388450966409018,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_probe": true,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_probe": true,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "check": "actual_native_upper_coupled_replay_derivative",
+    "value": {
+      "arm": "BASE_SUPERVISED",
+      "selected_parameters": 2,
+      "error": 2.2259741526905476e-10
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_full_coupled_objective_NumPy",
+    "value": {
+      "arm": "BASE_SUPERVISED",
+      "error": 1.1102230246251565e-15
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_save_load",
+    "value": {
+      "arm": "BASE_SUPERVISED"
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_native_upper_changed",
+    "value": {
+      "arm": "BASE_SUPERVISED",
+      "max_delta": 6.0113053587329546e-05
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_trained_full_upper4_NumPy",
+    "value": {
+      "arm": "BASE_SUPERVISED",
+      "error": 4.163336342344337e-16
+    },
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 13,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 19,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 6,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 14,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 17,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 1,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 9,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 4,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "check": "real_arrival_full_system",
+    "value": {
+      "arm": "BASE_SUPERVISED",
+      "stage": 0,
+      "error": 2.698535839229521e-14,
+      "columns": 8
+    },
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 15,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "BASE_SUPERVISED",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 8,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "check": "real_arrival_full_system",
+    "value": {
+      "arm": "BASE_SUPERVISED",
+      "stage": 1,
+      "error": 1.7486012637846216e-15,
+      "columns": 10
+    },
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_probe": true,
+    "check": "coupled_objective_finite",
+    "value": 19.33345627363483,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_probe": true,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_probe": true,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "check": "actual_native_upper_coupled_replay_derivative",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY",
+      "selected_parameters": 2,
+      "error": 2.9879988278557965e-10
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_full_coupled_objective_NumPy",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY",
+      "error": 7.105427357601002e-15
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_save_load",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY"
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_native_upper_changed",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY",
+      "max_delta": 6.011322918553219e-05
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_trained_full_upper4_NumPy",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY",
+      "error": 4.85722573273506e-16
+    },
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 13,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 19,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 6,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 14,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 17,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 1,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 9,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 4,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "check": "real_arrival_full_system",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY",
+      "stage": 0,
+      "error": 2.9531932455029164e-14,
+      "columns": 8
+    },
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 15,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 8,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "check": "real_arrival_full_system",
+    "value": {
+      "arm": "GLOBAL_REDUNDANCY",
+      "stage": 1,
+      "error": 9.089951014118469e-15,
+      "columns": 10
+    },
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_probe": true,
+    "check": "coupled_objective_finite",
+    "value": 19.213921090137227,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_probe": true,
+    "check": "same_canonical_replay_output",
+    "max_error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_probe": true,
+    "check": "coupled_completed_rows",
+    "first_forward": 64,
+    "replay_forward": 64,
+    "replay_backward": 64,
+    "scope": "Completed backward rows; partial failed operator remains unknown"
+  },
+  {
+    "check": "actual_native_upper_coupled_replay_derivative",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY",
+      "selected_parameters": 2,
+      "error": 9.809444370071502e-11
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_full_coupled_objective_NumPy",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY",
+      "error": 0
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_save_load",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY"
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_native_upper_changed",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY",
+      "max_delta": 6.011860381427425e-05
+    },
+    "PASS": true
+  },
+  {
+    "check": "real_trained_full_upper4_NumPy",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY",
+      "error": 3.191891195797325e-16
+    },
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 13,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 19,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 6,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 14,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 17,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 1,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 9,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 4,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "check": "real_arrival_full_system",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY",
+      "stage": 0,
+      "error": 7.19979631469414e-14,
+      "columns": 8
+    },
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 15,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "arm": "LOCAL_GLOBAL_REDUNDANCY",
+    "qualification_readout": true,
+    "check": "current_patient_class_moments",
+    "label": 8,
+    "images": 2,
+    "patients": 2,
+    "error": 0,
+    "PASS": true
+  },
+  {
+    "check": "real_arrival_full_system",
+    "value": {
+      "arm": "LOCAL_GLOBAL_REDUNDANCY",
+      "stage": 1,
+      "error": 1.8637869025894815e-14,
+      "columns": 10
+    },
+    "PASS": true
+  },
+  {
+    "check": "original_native_weights_frozen",
+    "value": {},
+    "PASS": true
+  }
+]

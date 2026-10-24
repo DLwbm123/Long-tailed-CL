@@ -76,3 +76,7 @@ Image adapter通过实际TRAIN行与视觉类均值的cosine CE共同学习，�
 ## D52：删除可学习公共平移的结构pilot
 
 根据D13强公共谱但非bias因果、D51额外类自由度无益，另立Image/Text均永久无bias的原点保持结构；原生损失/alpha/map/projection/fusion不改，剩余初始化与RNG exact。不是一次init/模块平均/读出中心化。36全新fit-only模型、552steps，2epoch严格TRAIN双fold，NIH74002/3/4宏/尾Δpp分别+.260955/+1.695402、+2.079741/+2.586207、−.916128/−4.971264；仅1/3支持，ISIC尾平均约−4.12pp超限，门false。HK局部改善不选择采用，不启动、不扫单侧bias/幅度/初始化/epoch/seed/fusion。谱仅提供有限动机不证明bias原因，不否定全部受约束结构。完整d52_origin_preserving/RESULTS_ZH.md。
+
+## 用户要求综合分析后的D53整体结构试验
+
+共同证据与新方向记录COMMON_FAILURES_AND_STRUCTURAL_DECISION.md。测试视觉粗专家/语义fine专家的联合后验，重构主训练目标和预测，含native/flat/factorized匹配主线消融，54新fit-only模型828steps，非融合调参。相对native宏/尾pp：NIH−.036877/−11.642720、ISIC+11.793155/+44.047619、HK−7.494427/−4.277178；相对flat NIH+1.987488/−1.130268、ISIC+19.276557/+68.772894、HK+1.647287/+1.835029。NIH0/3双参照支持、跨域false。ISIC尾类为singleton group，不将其收益泛化成层级普遍有效，不择域，不扫tree/routing/temp/prior/expertblend/coeff/seed/epoch。停止每轮强求新编号，保持综合机制研究和真正任务学习证据。完整d53_factorized_decision/RESULTS_ZH.md。

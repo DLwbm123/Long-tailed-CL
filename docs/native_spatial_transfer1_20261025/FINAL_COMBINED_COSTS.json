@@ -1,0 +1,175 @@
+{
+  "current": {
+    "runtime_costs": {
+      "optimizer_steps": 0,
+      "descriptor_rows": {
+        "NATIVE_RIDGE": 68358,
+        "BILATERAL_RIDGE": 68358,
+        "RANDOM4_RIDGE": 68358,
+        "QUADRANT4_RIDGE": 68358
+      },
+      "ridge_solves": {
+        "NATIVE_RIDGE": 6,
+        "BILATERAL_RIDGE": 6,
+        "RANDOM4_RIDGE": 6,
+        "QUADRANT4_RIDGE": 6
+      },
+      "score_rows": {
+        "NATIVE_RIDGE": 1350,
+        "BILATERAL_RIDGE": 1350,
+        "RANDOM4_RIDGE": 1350,
+        "QUADRANT4_RIDGE": 1350
+      },
+      "elapsed_from_first": 8140.822099685669,
+      "GPU_peak_reserved_bytes": 977272832,
+      "qualification_native_encodes": 20,
+      "qualification_NumPy_full_native_rows": 20,
+      "qualification_pool_rows_per_arm": 20,
+      "training_native_encodes": 68058,
+      "validation_encodes": 300
+    },
+    "unique_science_source_images": 68358,
+    "GPU_full_native_forward_rows": 68378,
+    "GPU_forward_scope": "68058train+300val+20qualification; four descriptors share each native forward.",
+    "NumPy_full_native_reference_rows": 360,
+    "NumPy_scope": "20qualification+340independent savedrawpixels, not new source images.",
+    "formal_patient_class_moment_fits": 80,
+    "qualification_patient_class_moment_fits": 40,
+    "qualification_Torch_ridge_solves": 8,
+    "qualification_NumPy_ridge_solves": 8,
+    "formal_Torch_ridge_solves": 24,
+    "independent_NumPy_ridge_solves": 24,
+    "qualification_repeated_descriptor_Gram_rows": 128,
+    "qualification_Gram_operators_per_library": 4,
+    "small_math_synthetic_token_rows": 20,
+    "small_math_Torch_solves": 4,
+    "small_math_NumPy_solves": 4,
+    "optimizer_steps_all_phases": 0,
+    "first": 1792867194.5745559,
+    "deadline": 1792953594.5745559,
+    "worker_terminal": {
+      "returncode": 0,
+      "reason": "process_exit",
+      "finished": 1792875339.985462,
+      "elapsed_from_first": 8145.410907268524
+    },
+    "verifier_terminal": {
+      "returncode": 0,
+      "reason": "process_exit",
+      "finished": 1792876152.3481147,
+      "elapsed_from_first": 8957.77356004715
+    },
+    "guardian_terminal": {
+      "finished": 1792876152.3673058,
+      "elapsed_from_first": 8957.792751550674,
+      "sampled_peak_output_bytes": 4336753129,
+      "RSS_sampled_peak_bytes": 11739480064,
+      "GPU_process_sampled_peak_bytes": 0
+    },
+    "independent_verifier_wall_seconds": 801.8250765800476,
+    "complete_group_absence_observed_at": 1792876199.488032,
+    "precise_last_process_exit_epoch": null,
+    "retired_root_and_entry_bytes_before_exit_receipt": 4336825986,
+    "sampled_peak_root_and_entry_bytes": 4336753129,
+    "RSS_sampled_peak_bytes": 11739480064,
+    "Torch_reserved_peak_bytes": 977272832,
+    "GPU_process_sampled_peak_bytes": 0,
+    "GPU_sampling_limit": "0MiB sampled process values do not negate executed GPU work or establish a full peak.",
+    "window_last_sampled_bytes": 23291306129,
+    "timestamps": {
+      "MAP_SEAL.json": {
+        "at": 1792868445.8734484,
+        "maps": 4,
+        "trainable_backbone_parameters": 0,
+        "optimizer_steps": 0,
+        "partitions_seed": 74008,
+        "dimensions": [
+          1537,
+          2305,
+          3841,
+          3841
+        ]
+      },
+      "FIT_SEAL.json": {
+        "at": 1792875290.086625,
+        "models": 24
+      },
+      "QUERY_OPEN.private.json": {
+        "at": 1792875290.1038432
+      },
+      "STAGE_SEALS.json": [
+        {
+          "task": 0,
+          "at": 1792874467.6472073,
+          "models": 4
+        },
+        {
+          "task": 1,
+          "at": 1792874576.5401788,
+          "models": 4
+        },
+        {
+          "task": 2,
+          "at": 1792874938.694025,
+          "models": 4
+        },
+        {
+          "task": 3,
+          "at": 1792875002.5474327,
+          "models": 4
+        },
+        {
+          "task": 4,
+          "at": 1792875095.846504,
+          "models": 4
+        },
+        {
+          "task": 5,
+          "at": 1792875289.8180766,
+          "models": 4
+        }
+      ]
+    },
+    "unknown_preparation_transfer_wait_breakdown": null,
+    "scope": "Source-derived operator counts are identified; timestamps contain waiting/I/O and are nested, not independent totals. No discarded optimizer steps because this method has no optimizer."
+  },
+  "prior_cost_evidence": [
+    {
+      "experiment": "local_global_transfer1_20261024",
+      "evidence": "../local_global_transfer1_20261024/FINAL_RECOVERED_COMBINED_COSTS.json",
+      "preserved": true
+    },
+    {
+      "experiment": "masked_context_transfer1_20261025",
+      "evidence": "../masked_context_transfer1_20261025/FINAL_COMBINED_COSTS.json",
+      "preserved": true
+    },
+    {
+      "experiment": "visual_word_transfer1_20261025",
+      "evidence": "../visual_word_transfer1_20261025/ADMISSION_FINAL.json",
+      "preserved": true
+    },
+    {
+      "experiment": "causal_frame_lora1_20261024",
+      "evidence": "../causal_frame_lora1_20261024/FINAL_COMBINED_COSTS.json",
+      "preserved": true
+    },
+    {
+      "experiment": "complete_score_growth1_20261024",
+      "evidence": "../complete_score_growth1_20261024/QUALIFICATION_COSTS.json",
+      "preserved": true
+    },
+    {
+      "experiment": "native_patch_mil1_20261024",
+      "evidence": "../native_patch_mil1_20261024/QUALIFICATION_COSTS.json",
+      "preserved": true
+    },
+    {
+      "experiment": "full_covariance1_20261023",
+      "evidence": "../full_covariance1_20261023/FINAL_COMBINED_COSTS.json",
+      "preserved": true
+    }
+  ],
+  "cumulative_window_not_reset": true,
+  "deleted_evidence": false
+}

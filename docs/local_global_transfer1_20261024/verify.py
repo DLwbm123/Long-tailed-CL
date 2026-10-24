@@ -17,7 +17,7 @@ def main(cfg):
     threadpool_limits(4);torch.set_num_threads(4);p=Path(cfg['output']);gates=[];tick=time.time()
     load=lambda name:torch.load(p/name,map_location='cpu',weights_only=False)
     def check(name,value,passed):
-        gates.append(dict(check=name,value=value,PASS=bool(passed)));write(p/'VERIFICATION_PROGRESS.json',gates)
+        gates.append(dict(check=name,value=value,PASS=bool(passed)));write(p/'VERIFICATION_PROGRESS_CORRECTED_INTERVAL.json',gates)
         assert passed,name
         assert time.time()<cfg['hard_deadline_epoch']-60
     train,val=read_rows(cfg,'train'),read_rows(cfg,'val')
@@ -31,8 +31,12 @@ def main(cfg):
     query=load('query.private.pt');recorded=load('query_features.private.pt');query_features={a:[] for a in ARMS};lower_rows=0;feature_error=0.
     for i in range(len(query['lower'])):
         lower=np_tokens(query['embedding'][i:i+1].numpy(),lower_state,apply_norm=False)
-        half=query['lower'][i:i+1].numpy();ulp=np.maximum(np.abs(np.spacing(half)),np.float16(2**-24)).astype(np.float64)
-        ratio=float((abs(lower-half)/(.5*ulp+cfg['full_chain_tolerance'])).max())
+        half=query['lower'][i:i+1].numpy();actual=half.astype(np.float64)
+        # At signed powers of two, the two FP16 rounding half-intervals differ.
+        below=np.nextafter(half,np.float16(-np.inf)).astype(np.float64)
+        above=np.nextafter(half,np.float16(np.inf)).astype(np.float64)
+        half_interval=np.where(lower<actual,actual-below,above-actual)/2
+        ratio=float((abs(lower-actual)/(half_interval+cfg['full_chain_tolerance'])).max())
         check('query_full_lower8_quantized_interface',dict(row=i,bound_ratio=ratio),ratio<=1);lower_rows+=1
         for a in ARMS:
             feature=numpy_affine(half,bodies[a]);query_features[a].append(feature)
@@ -89,4 +93,4 @@ if __name__=='__main__':
     cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text())
     try:main(cfg)
     except BaseException:
-        write(Path(cfg['output'])/'VERIFICATION_FAILURE.json',dict(at=time.time(),traceback=traceback.format_exc()));raise
+        write(Path(cfg['output'])/'VERIFICATION_FAILURE_CORRECTED_INTERVAL.json',dict(at=time.time(),traceback=traceback.format_exc()));raise

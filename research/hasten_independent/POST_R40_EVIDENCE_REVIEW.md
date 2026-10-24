@@ -72,3 +72,7 @@ Image adapter通过实际TRAIN行与视觉类均值的cosine CE共同学习，�
 ## D51：真实fit-only类别文本参数化学习pilot
 
 用每类zero-init Text_encode残差测试共享文本仿射耦合之外的结构，原paired/hierarchy/geometry目标保持；与R37/R24/R42不同。三域3seed双fold两arm共36个全新fit-only模型，严格TRAIN奇偶分折、每类每折fit/holdout最多64；2epoch，不加载learned checkpoint或VAL。成功552steps，加attempt1已完成native18steps共570实际步；候选firstforward设备错在0候选更新，原钟修复，失败保留。NIH三个种子两折平均最终宏BA变化−4.186063/−.361530/−1.632184pp、尾−19.367816/−27.198276/−8.160920pp；ISIC/HK平均保护门失败。预设NIH0/3支持，不启动完整训练、不扫幅度/正则/seed/epoch/融合。新参数初始零/核心同control/RNG/非零finite梯度/模型训练均有核验；两epoch小样本初始阶段不是完整增量或泛化结论。完整d51_class_text_residual/RESULTS_ZH.md。
+
+## D52：删除可学习公共平移的结构pilot
+
+根据D13强公共谱但非bias因果、D51额外类自由度无益，另立Image/Text均永久无bias的原点保持结构；原生损失/alpha/map/projection/fusion不改，剩余初始化与RNG exact。不是一次init/模块平均/读出中心化。36全新fit-only模型、552steps，2epoch严格TRAIN双fold，NIH74002/3/4宏/尾Δpp分别+.260955/+1.695402、+2.079741/+2.586207、−.916128/−4.971264；仅1/3支持，ISIC尾平均约−4.12pp超限，门false。HK局部改善不选择采用，不启动、不扫单侧bias/幅度/初始化/epoch/seed/fusion。谱仅提供有限动机不证明bias原因，不否定全部受约束结构。完整d52_origin_preserving/RESULTS_ZH.md。

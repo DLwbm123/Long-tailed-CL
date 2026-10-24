@@ -1,0 +1,5366 @@
+{
+  "NIH": {
+    "dataset": "NIH",
+    "cells": [
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              15,
+              8,
+              14,
+              5,
+              42,
+              40,
+              19,
+              28,
+              0,
+              1
+            ],
+            "macro_BA": 27.817887931034484,
+            "tail_BA": 8.620689655172415
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              7,
+              42,
+              40,
+              20,
+              30,
+              0,
+              2
+            ],
+            "macro_BA": 29.132543103448274,
+            "tail_BA": 12.068965517241379
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.682845270023722,
+          "loss_last": 3.318978378034904,
+          "loss_max": 4.682845270023722,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07096468703734352,
+            "anchor": 2.8999243880495973,
+            "entailment": 2.0259353935577593,
+            "distance": 0.025343553536058223,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "origin_preserving",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              20,
+              7,
+              21,
+              4,
+              42,
+              36,
+              15,
+              27,
+              0,
+              2
+            ],
+            "macro_BA": 27.941810344827587,
+            "tail_BA": 6.896551724137931
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              20,
+              7,
+              21,
+              8,
+              43,
+              38,
+              17,
+              27,
+              0,
+              2
+            ],
+            "macro_BA": 30.102370689655174,
+            "tail_BA": 13.793103448275861
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 18,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.702040089546023,
+          "loss_last": 3.326744894059335,
+          "loss_max": 4.702040089546023,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.09365961166584282,
+            "anchor": 2.55096011802708,
+            "entailment": 1.7773963754168582,
+            "distance": 0.017202269756929095,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              11,
+              8,
+              7,
+              4,
+              41,
+              33,
+              13,
+              33,
+              0,
+              0
+            ],
+            "macro_BA": 24.191810344827584,
+            "tail_BA": 6.896551724137931
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              12,
+              11,
+              9,
+              7,
+              42,
+              35,
+              12,
+              33,
+              0,
+              0
+            ],
+            "macro_BA": 26.476293103448274,
+            "tail_BA": 12.068965517241379
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.679121011903813,
+          "loss_last": 3.351046437534492,
+          "loss_max": 4.679121011903813,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.08008628343538475,
+            "anchor": 2.9934554686170673,
+            "entailment": 2.063037739180132,
+            "distance": 0.025321602337371445,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "origin_preserving",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              19,
+              6,
+              19,
+              9,
+              46,
+              33,
+              15,
+              28,
+              0,
+              0
+            ],
+            "macro_BA": 29.04094827586207,
+            "tail_BA": 15.517241379310345
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              19,
+              7,
+              20,
+              10,
+              46,
+              33,
+              16,
+              30,
+              0,
+              1
+            ],
+            "macro_BA": 30.323275862068964,
+            "tail_BA": 17.24137931034483
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 18,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.656384666987588,
+          "loss_last": 3.360712808347131,
+          "loss_max": 4.656384666987588,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.11096488800935225,
+            "anchor": 2.6842426204331713,
+            "entailment": 2.001819928506155,
+            "distance": 0.01670561453221608,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              18,
+              0,
+              24,
+              0,
+              39,
+              42,
+              13,
+              28,
+              1,
+              0
+            ],
+            "macro_BA": 28.958333333333336,
+            "tail_BA": 16.666666666666664
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              19,
+              2,
+              27,
+              1,
+              39,
+              42,
+              17,
+              30,
+              1,
+              0
+            ],
+            "macro_BA": 31.178160919540232,
+            "tail_BA": 18.39080459770115
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.678320134054958,
+          "loss_last": 3.2931008140924996,
+          "loss_max": 4.678320134054958,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07606135806345092,
+            "anchor": 2.9910046429065087,
+            "entailment": 2.0977092137734705,
+            "distance": 0.024763311330976926,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "origin_preserving",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              15,
+              0,
+              19,
+              0,
+              48,
+              45,
+              14,
+              31,
+              0,
+              0
+            ],
+            "macro_BA": 26.875,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              10,
+              5,
+              22,
+              14,
+              38,
+              40,
+              17,
+              36,
+              0,
+              6
+            ],
+            "macro_BA": 32.015086206896555,
+            "tail_BA": 24.137931034482758
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              29,
+              64,
+              64,
+              64,
+              64,
+              3,
+              64
+            ],
+            "correct": [
+              15,
+              2,
+              20,
+              2,
+              48,
+              43,
+              16,
+              31,
+              0,
+              0
+            ],
+            "macro_BA": 28.033405172413797,
+            "tail_BA": 3.4482758620689653
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 18,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.702734444481859,
+          "loss_last": 3.285715241275403,
+          "loss_max": 4.702734444481859,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.10742106634934376,
+            "anchor": 2.667303668368008,
+            "entailment": 1.8675386715763103,
+            "distance": 0.016409381813409875,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              1,
+              3,
+              11,
+              23,
+              46,
+              10,
+              27,
+              2,
+              0
+            ],
+            "macro_BA": 28.197916666666668,
+            "tail_BA": 43.333333333333336
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              2,
+              4,
+              12,
+              24,
+              47,
+              11,
+              29,
+              2,
+              0
+            ],
+            "macro_BA": 29.625,
+            "tail_BA": 45.0
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.625867983563599,
+          "loss_last": 3.437551587391733,
+          "loss_max": 4.625867983563599,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06351278017879362,
+            "anchor": 2.9957904689485972,
+            "entailment": 2.238702706553316,
+            "distance": 0.024808339806050673,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "origin_preserving",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              1,
+              9,
+              12,
+              31,
+              43,
+              9,
+              19,
+              2,
+              0
+            ],
+            "macro_BA": 28.6875,
+            "tail_BA": 45.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              1,
+              8,
+              13,
+              31,
+              43,
+              11,
+              19,
+              2,
+              0
+            ],
+            "macro_BA": 29.177083333333336,
+            "tail_BA": 46.666666666666664
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 18,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.653715214385549,
+          "loss_last": 3.4530896127621147,
+          "loss_max": 4.653715214385549,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.08544301341094547,
+            "anchor": 2.659768993582152,
+            "entailment": 1.9909989636638377,
+            "distance": 0.017045427863501324,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              0,
+              4,
+              18,
+              11,
+              38,
+              2,
+              27,
+              2,
+              0
+            ],
+            "macro_BA": 26.0,
+            "tail_BA": 55.00000000000001
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              0,
+              4,
+              17,
+              11,
+              40,
+              2,
+              28,
+              3,
+              0
+            ],
+            "macro_BA": 28.791666666666664,
+            "tail_BA": 65.83333333333333
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.696851934321323,
+          "loss_last": 3.2259966457490044,
+          "loss_max": 4.696851934321323,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06854474359137304,
+            "anchor": 2.9375956791491338,
+            "entailment": 2.0473180435306575,
+            "distance": 0.02525541066415528,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "origin_preserving",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              13,
+              0,
+              2,
+              16,
+              12,
+              43,
+              2,
+              24,
+              3,
+              0
+            ],
+            "macro_BA": 27.833333333333332,
+            "tail_BA": 64.16666666666666
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              13,
+              0,
+              4,
+              17,
+              15,
+              45,
+              1,
+              24,
+              3,
+              0
+            ],
+            "macro_BA": 29.104166666666664,
+            "tail_BA": 65.83333333333333
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 18,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.677054436526812,
+          "loss_last": 3.2164009419861688,
+          "loss_max": 4.677054436526812,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.09490267269623505,
+            "anchor": 2.6085484394305736,
+            "entailment": 1.9261636938446554,
+            "distance": 0.017037042707076885,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              16,
+              0,
+              13,
+              8,
+              26,
+              33,
+              1,
+              15,
+              2,
+              0
+            ],
+            "macro_BA": 23.916666666666664,
+            "tail_BA": 38.33333333333333
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              16,
+              0,
+              14,
+              10,
+              31,
+              34,
+              2,
+              15,
+              2,
+              0
+            ],
+            "macro_BA": 25.833333333333336,
+            "tail_BA": 41.666666666666664
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.67346004908557,
+          "loss_last": 3.2913446369530095,
+          "loss_max": 4.67346004908557,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07749300515508013,
+            "anchor": 2.916524074520072,
+            "entailment": 2.1080077791123313,
+            "distance": 0.02486216680615439,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "origin_preserving",
+        "optimizer_steps": 18,
+        "fit_counts": [
+          64,
+          64,
+          64,
+          29,
+          64,
+          64,
+          64,
+          64,
+          3,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          64,
+          64,
+          30,
+          64,
+          64,
+          64,
+          64,
+          4,
+          64
+        ],
+        "train_counts": [
+          1485,
+          45439,
+          519,
+          59,
+          339,
+          800,
+          1665,
+          2875,
+          7,
+          6941
+        ],
+        "tail_classes": [
+          3,
+          8
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              15,
+              0,
+              12,
+              11,
+              31,
+              36,
+              0,
+              15,
+              2,
+              0
+            ],
+            "macro_BA": 25.697916666666668,
+            "tail_BA": 43.333333333333336
+          },
+          "prototype": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              9,
+              14,
+              13,
+              33,
+              40,
+              14,
+              33,
+              0,
+              4
+            ],
+            "macro_BA": 29.489583333333336,
+            "tail_BA": 21.666666666666668
+          },
+          "final": {
+            "counts": [
+              64,
+              64,
+              64,
+              30,
+              64,
+              64,
+              64,
+              64,
+              4,
+              64
+            ],
+            "correct": [
+              14,
+              0,
+              14,
+              13,
+              31,
+              36,
+              2,
+              17,
+              2,
+              0
+            ],
+            "macro_BA": 27.145833333333336,
+            "tail_BA": 46.666666666666664
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 18,
+        "original_loss_audit": {
+          "steps": 18,
+          "replay": {},
+          "loss_first": 4.662701461500042,
+          "loss_last": 3.295806880463528,
+          "loss_max": 4.662701461500042,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.10618637800768937,
+            "anchor": 2.570426502032884,
+            "entailment": 1.977950280373772,
+            "distance": 0.017076607387241115,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      }
+    ],
+    "optimizer_steps": 216,
+    "VAL_reads": 0,
+    "TEST_reads": 0,
+    "fresh_fit_only_pilot": true,
+    "passed": true
+  },
+  "ISIC": {
+    "dataset": "ISIC",
+    "cells": [
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              52,
+              6,
+              1,
+              28
+            ],
+            "macro_BA": 43.17908653846154,
+            "tail_BA": 46.15384615384615
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              53,
+              8,
+              21,
+              43
+            ],
+            "macro_BA": 61.08774038461539,
+            "tail_BA": 61.53846153846154
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.6851211008361675,
+          "loss_last": 2.6495568489304353,
+          "loss_max": 4.6851211008361675,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.04516450078220145,
+            "anchor": 2.8018217918886386,
+            "entailment": 2.056868303738251,
+            "distance": 0.026371264520788768,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "origin_preserving",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              61,
+              4,
+              10,
+              26
+            ],
+            "macro_BA": 45.58293269230769,
+            "tail_BA": 30.76923076923077
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              58,
+              4,
+              20,
+              40
+            ],
+            "macro_BA": 53.786057692307686,
+            "tail_BA": 30.76923076923077
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 8,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.705174563982785,
+          "loss_last": 2.638316340386684,
+          "loss_max": 4.705174563982785,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06438315644211412,
+            "anchor": 2.8360295708569105,
+            "entailment": 2.0243951819120367,
+            "distance": 0.017942294322633657,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              52,
+              0,
+              31,
+              26
+            ],
+            "macro_BA": 42.578125,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              49,
+              5,
+              34,
+              38
+            ],
+            "macro_BA": 56.88100961538461,
+            "tail_BA": 38.46153846153847
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.7030244923321565,
+          "loss_last": 2.656110823650256,
+          "loss_max": 4.7030244923321565,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.03856466019788697,
+            "anchor": 3.0039828503299977,
+            "entailment": 2.0587779278808904,
+            "distance": 0.02641647995391245,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "origin_preserving",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              50,
+              0,
+              32,
+              30
+            ],
+            "macro_BA": 43.75,
+            "tail_BA": 0.0
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              49,
+              4,
+              33,
+              40
+            ],
+            "macro_BA": 55.348557692307686,
+            "tail_BA": 30.76923076923077
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 8,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.68595451404476,
+          "loss_last": 2.6443895015606196,
+          "loss_max": 4.68595451404476,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.05582517860973998,
+            "anchor": 2.9261523762019803,
+            "entailment": 2.004438839637582,
+            "distance": 0.018660224438432533,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              62,
+              2,
+              18,
+              5
+            ],
+            "macro_BA": 37.04927884615385,
+            "tail_BA": 15.384615384615385
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              61,
+              3,
+              24,
+              16
+            ],
+            "macro_BA": 45.222355769230774,
+            "tail_BA": 23.076923076923077
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.671402297535021,
+          "loss_last": 2.6317262955604606,
+          "loss_max": 4.671402297535021,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.03937868054529419,
+            "anchor": 2.8823640863040074,
+            "entailment": 2.128732913337007,
+            "distance": 0.026681905299857034,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "origin_preserving",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              58,
+              2,
+              24,
+              23
+            ],
+            "macro_BA": 44.86177884615385,
+            "tail_BA": 15.384615384615385
+          },
+          "prototype": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              10,
+              32,
+              47
+            ],
+            "macro_BA": 67.66826923076923,
+            "tail_BA": 76.92307692307693
+          },
+          "final": {
+            "counts": [
+              64,
+              13,
+              64,
+              64
+            ],
+            "correct": [
+              57,
+              2,
+              26,
+              29
+            ],
+            "macro_BA": 47.59615384615385,
+            "tail_BA": 15.384615384615385
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 8,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.705934611147843,
+          "loss_last": 2.6313033999384317,
+          "loss_max": 4.705934611147843,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.056270238398062625,
+            "anchor": 2.8156754507927997,
+            "entailment": 1.991504778793644,
+            "distance": 0.01805428369090829,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              55,
+              1,
+              16,
+              31
+            ],
+            "macro_BA": 41.629464285714285,
+            "tail_BA": 7.142857142857142
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              55,
+              2,
+              18,
+              36
+            ],
+            "macro_BA": 46.14955357142857,
+            "tail_BA": 14.285714285714285
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.70077906179346,
+          "loss_last": 2.545410776638968,
+          "loss_max": 4.70077906179346,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.0464065729302562,
+            "anchor": 3.208204152186809,
+            "entailment": 2.122931630360325,
+            "distance": 0.025821053036111482,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "origin_preserving",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              44,
+              2,
+              30,
+              43
+            ],
+            "macro_BA": 49.27455357142857,
+            "tail_BA": 14.285714285714285
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              45,
+              3,
+              34,
+              44
+            ],
+            "macro_BA": 53.40401785714286,
+            "tail_BA": 21.428571428571427
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 8,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.685822772361059,
+          "loss_last": 2.541392529417805,
+          "loss_max": 4.685822772361059,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06389962262590435,
+            "anchor": 2.9351320048234615,
+            "entailment": 2.021801736911537,
+            "distance": 0.018140078216506136,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              57,
+              3,
+              16,
+              27
+            ],
+            "macro_BA": 44.419642857142854,
+            "tail_BA": 21.428571428571427
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              56,
+              3,
+              17,
+              31
+            ],
+            "macro_BA": 45.982142857142854,
+            "tail_BA": 21.428571428571427
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.688294634641577,
+          "loss_last": 2.530615608225069,
+          "loss_max": 4.688294634641577,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.05411895808699228,
+            "anchor": 2.8526026151410657,
+            "entailment": 2.0526911907570087,
+            "distance": 0.026279439181089846,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "origin_preserving",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              53,
+              1,
+              22,
+              28
+            ],
+            "macro_BA": 42.020089285714285,
+            "tail_BA": 7.142857142857142
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              52,
+              4,
+              22,
+              34
+            ],
+            "macro_BA": 49.33035714285714,
+            "tail_BA": 28.57142857142857
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 8,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.692514888602784,
+          "loss_last": 2.5159480192522405,
+          "loss_max": 4.692514888602784,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.07842939537964265,
+            "anchor": 2.7861398836591778,
+            "entailment": 2.081808036397267,
+            "distance": 0.017882993241680602,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              17,
+              5,
+              18,
+              51
+            ],
+            "macro_BA": 42.52232142857143,
+            "tail_BA": 35.714285714285715
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              17,
+              5,
+              27,
+              51
+            ],
+            "macro_BA": 46.03794642857143,
+            "tail_BA": 35.714285714285715
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.680719168496728,
+          "loss_last": 2.506688462493219,
+          "loss_max": 4.680719168496728,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.048961765917311766,
+            "anchor": 3.1664993217451025,
+            "entailment": 2.1551968455487955,
+            "distance": 0.02576193952730424,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "origin_preserving",
+        "optimizer_steps": 8,
+        "fit_counts": [
+          64,
+          13,
+          64,
+          64
+        ],
+        "holdout_counts": [
+          64,
+          14,
+          64,
+          64
+        ],
+        "train_counts": [
+          458,
+          27,
+          256,
+          3263
+        ],
+        "tail_classes": [
+          1
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              21,
+              6,
+              27,
+              46
+            ],
+            "macro_BA": 47.433035714285715,
+            "tail_BA": 42.857142857142854
+          },
+          "prototype": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              38,
+              10,
+              31,
+              43
+            ],
+            "macro_BA": 61.60714285714286,
+            "tail_BA": 71.42857142857143
+          },
+          "final": {
+            "counts": [
+              64,
+              14,
+              64,
+              64
+            ],
+            "correct": [
+              22,
+              6,
+              33,
+              48
+            ],
+            "macro_BA": 50.94866071428571,
+            "tail_BA": 42.857142857142854
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 8,
+        "original_loss_audit": {
+          "steps": 8,
+          "replay": {},
+          "loss_first": 4.690468987149855,
+          "loss_last": 2.4993791669620706,
+          "loss_max": 4.690468987149855,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.06832462921783954,
+            "anchor": 2.855599354264377,
+            "entailment": 1.9904714242975041,
+            "distance": 0.018494496152121613,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      }
+    ],
+    "optimizer_steps": 96,
+    "VAL_reads": 0,
+    "TEST_reads": 0,
+    "fresh_fit_only_pilot": true,
+    "passed": true
+  },
+  "HK": {
+    "dataset": "HK",
+    "cells": [
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              1,
+              0,
+              0,
+              47,
+              53,
+              53,
+              32,
+              58,
+              8,
+              0
+            ],
+            "macro_BA": 37.68315018315018,
+            "tail_BA": 10.476190476190478
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              27,
+              11,
+              37,
+              56,
+              55,
+              55,
+              32,
+              58,
+              9,
+              0
+            ],
+            "macro_BA": 49.89697802197803,
+            "tail_BA": 22.857142857142854
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.716398781779801,
+          "loss_last": 2.706043068377046,
+          "loss_max": 4.716398781779801,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.1913918478640831,
+            "anchor": 2.5433207317278854,
+            "entailment": 1.7965056428452244,
+            "distance": 0.025319659771439306,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74002,
+        "arm": "origin_preserving",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              0,
+              0,
+              10,
+              41,
+              54,
+              51,
+              35,
+              58,
+              6,
+              0
+            ],
+            "macro_BA": 37.98076923076923,
+            "tail_BA": 10.9375
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              26,
+              13,
+              43,
+              52,
+              55,
+              53,
+              36,
+              58,
+              9,
+              0
+            ],
+            "macro_BA": 50.43498168498168,
+            "tail_BA": 23.630952380952383
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 20,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.715210524935758,
+          "loss_last": 2.674392921424087,
+          "loss_max": 4.715210524935758,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2723419825755595,
+            "anchor": 2.2248854258394504,
+            "entailment": 1.6165525067273636,
+            "distance": 0.016387629966308027,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              0,
+              0,
+              10,
+              31,
+              62,
+              41,
+              42,
+              52,
+              18,
+              0
+            ],
+            "macro_BA": 40.54487179487179,
+            "tail_BA": 19.791666666666664
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              26,
+              18,
+              42,
+              41,
+              63,
+              48,
+              44,
+              52,
+              19,
+              0
+            ],
+            "macro_BA": 53.84043040293041,
+            "tail_BA": 32.79761904761905
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.670604934869229,
+          "loss_last": 2.4801661558012107,
+          "loss_max": 4.670604934869229,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2076767914226263,
+            "anchor": 2.653858943241131,
+            "entailment": 1.949246005808951,
+            "distance": 0.024948000574537436,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74003,
+        "arm": "origin_preserving",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              0,
+              1,
+              13,
+              31,
+              63,
+              49,
+              42,
+              52,
+              16,
+              0
+            ],
+            "macro_BA": 41.866987179487175,
+            "tail_BA": 19.791666666666664
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              28,
+              18,
+              46,
+              42,
+              63,
+              50,
+              44,
+              52,
+              17,
+              1
+            ],
+            "macro_BA": 57.37179487179487,
+            "tail_BA": 40.416666666666664
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 20,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.6847734515366986,
+          "loss_last": 2.446063156999278,
+          "loss_max": 4.6847734515366986,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.29952402802036066,
+            "anchor": 2.4373345547463536,
+            "entailment": 1.7358304790704397,
+            "distance": 0.015966533437499583,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              59,
+              0,
+              1,
+              1,
+              0,
+              3,
+              38,
+              63,
+              41,
+              35,
+              57,
+              15,
+              0
+            ],
+            "macro_BA": 40.12706043956044,
+            "tail_BA": 18.080357142857142
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              28,
+              15,
+              35,
+              50,
+              63,
+              46,
+              35,
+              55,
+              16,
+              0
+            ],
+            "macro_BA": 52.76442307692308,
+            "tail_BA": 30.9375
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.694508590751786,
+          "loss_last": 2.7078613822260587,
+          "loss_max": 4.694508590751786,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2054558916505895,
+            "anchor": 2.6493740040140206,
+            "entailment": 1.932869219903515,
+            "distance": 0.024738149068023754,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 0,
+        "seed": 74004,
+        "arm": "origin_preserving",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              58,
+              0,
+              1,
+              1,
+              0,
+              4,
+              37,
+              63,
+              46,
+              35,
+              53,
+              20,
+              0
+            ],
+            "macro_BA": 40.72802197802197,
+            "tail_BA": 18.080357142857142
+          },
+          "prototype": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              1,
+              1,
+              32,
+              30,
+              52,
+              55,
+              62,
+              55,
+              49,
+              43,
+              33,
+              0
+            ],
+            "macro_BA": 69.0018315018315,
+            "tail_BA": 57.217261904761905
+          },
+          "final": {
+            "counts": [
+              64,
+              1,
+              3,
+              42,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              60,
+              0,
+              1,
+              28,
+              18,
+              37,
+              50,
+              63,
+              52,
+              35,
+              53,
+              24,
+              0
+            ],
+            "macro_BA": 54.80769230769231,
+            "tail_BA": 30.9375
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 20,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.694586588187807,
+          "loss_last": 2.70868957019117,
+          "loss_max": 4.694586588187807,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.28447029886774844,
+            "anchor": 2.3854507999696435,
+            "entailment": 1.7558736141261513,
+            "distance": 0.015610727249266633,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              62,
+              0,
+              1,
+              12,
+              2,
+              0,
+              33,
+              62,
+              44,
+              40,
+              38,
+              20,
+              1
+            ],
+            "macro_BA": 43.45278026237328,
+            "tail_BA": 31.41472868217054
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              1,
+              36,
+              20,
+              35,
+              45,
+              63,
+              48,
+              41,
+              38,
+              20,
+              0
+            ],
+            "macro_BA": 53.83590488968396,
+            "tail_BA": 36.2233527131783
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.689277285711466,
+          "loss_last": 2.6891738400550986,
+          "loss_max": 4.689277285711466,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.21211899183790095,
+            "anchor": 2.808431892442038,
+            "entailment": 1.9918387043716637,
+            "distance": 0.02395224985758342,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74002,
+        "arm": "origin_preserving",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              1,
+              6,
+              0,
+              2,
+              39,
+              61,
+              52,
+              36,
+              46,
+              16,
+              2
+            ],
+            "macro_BA": 46.626229874776385,
+            "tail_BA": 34.04069767441861
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              1,
+              35,
+              19,
+              39,
+              47,
+              62,
+              59,
+              38,
+              46,
+              14,
+              0
+            ],
+            "macro_BA": 55.45989862850328,
+            "tail_BA": 34.820736434108525
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 20,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.663881960336576,
+          "loss_last": 2.7404292459483464,
+          "loss_max": 4.663881960336576,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.3000950756788928,
+            "anchor": 2.5921071802551516,
+            "entailment": 1.8621712761377966,
+            "distance": 0.015793626546034296,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              17,
+              0,
+              0,
+              40,
+              54,
+              54,
+              42,
+              45,
+              11,
+              2
+            ],
+            "macro_BA": 45.30877310673822,
+            "tail_BA": 34.365310077519375
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              1,
+              36,
+              24,
+              41,
+              49,
+              55,
+              55,
+              44,
+              47,
+              12,
+              0
+            ],
+            "macro_BA": 55.879174120453186,
+            "tail_BA": 37.1608527131783
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.66995997331979,
+          "loss_last": 2.5209030607807903,
+          "loss_max": 4.66995997331979,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.2260543329433063,
+            "anchor": 2.839390456459936,
+            "entailment": 2.021012719463761,
+            "distance": 0.024368979978069267,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74003,
+        "arm": "origin_preserving",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              16,
+              0,
+              1,
+              40,
+              56,
+              50,
+              47,
+              41,
+              5,
+              2
+            ],
+            "macro_BA": 44.408728384019085,
+            "tail_BA": 35.462693798449614
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              37,
+              25,
+              40,
+              50,
+              58,
+              54,
+              49,
+              44,
+              9,
+              0
+            ],
+            "macro_BA": 53.85453935599284,
+            "tail_BA": 32.52180232558139
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 20,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.677831906441002,
+          "loss_last": 2.5085888687475077,
+          "loss_max": 4.677831906441002,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.3190909269111522,
+            "anchor": 2.449190618177458,
+            "entailment": 1.796174495723801,
+            "distance": 0.015541763860496398,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "native",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {},
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              61,
+              0,
+              0,
+              12,
+              0,
+              0,
+              36,
+              55,
+              54,
+              50,
+              43,
+              4,
+              2
+            ],
+            "macro_BA": 43.6931648777579,
+            "tail_BA": 34.53972868217054
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              37,
+              23,
+              46,
+              48,
+              58,
+              55,
+              51,
+              45,
+              6,
+              0
+            ],
+            "macro_BA": 54.09492397137746,
+            "tail_BA": 33.14680232558139
+          }
+        },
+        "removed_parameters": 0,
+        "bias_absent_step_checks": 0,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.686179920303202,
+          "loss_last": 2.6625393802903967,
+          "loss_max": 4.686179920303202,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.212790686888653,
+            "anchor": 2.9634531157741315,
+            "entailment": 1.990762982610839,
+            "distance": 0.023985041002735772,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      },
+      {
+        "fold": 1,
+        "seed": 74004,
+        "arm": "origin_preserving",
+        "optimizer_steps": 20,
+        "fit_counts": [
+          64,
+          1,
+          3,
+          42,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "holdout_counts": [
+          64,
+          2,
+          3,
+          43,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          64,
+          3
+        ],
+        "train_counts": [
+          626,
+          3,
+          6,
+          85,
+          288,
+          403,
+          736,
+          488,
+          252,
+          167,
+          595,
+          261,
+          6
+        ],
+        "tail_classes": [
+          1,
+          2,
+          3,
+          9,
+          12
+        ],
+        "fit_holdout_disjoint": true,
+        "fresh_core_fit_only": true,
+        "proof": {
+          "bias_removal_no_rng": true,
+          "removed_parameters": 1024,
+          "origin_exact_zero": true,
+          "initial_nonbias_core_exact_control": true
+        },
+        "scores": {
+          "hyper": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              19,
+              1,
+              3,
+              39,
+              57,
+              48,
+              46,
+              46,
+              3,
+              2
+            ],
+            "macro_BA": 45.30597793679189,
+            "tail_BA": 36.54554263565892
+          },
+          "prototype": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              64,
+              0,
+              0,
+              35,
+              33,
+              52,
+              54,
+              62,
+              55,
+              49,
+              47,
+              32,
+              0
+            ],
+            "macro_BA": 60.10733452593917,
+            "tail_BA": 31.591569767441865
+          },
+          "final": {
+            "counts": [
+              64,
+              2,
+              3,
+              43,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              64,
+              3
+            ],
+            "correct": [
+              63,
+              0,
+              0,
+              37,
+              27,
+              46,
+              49,
+              58,
+              56,
+              52,
+              49,
+              3,
+              0
+            ],
+            "macro_BA": 55.05646243291592,
+            "tail_BA": 33.45930232558139
+          }
+        },
+        "removed_parameters": 1024,
+        "bias_absent_step_checks": 20,
+        "original_loss_audit": {
+          "steps": 20,
+          "replay": {},
+          "loss_first": 4.696896489088902,
+          "loss_last": 2.6598073185629865,
+          "loss_max": 4.696896489088902,
+          "max_projection_residual": 0.0,
+          "max_projection_delta": 0.0,
+          "gradient_components": {
+            "contrast": 0.28994233170464034,
+            "anchor": 2.452742776704603,
+            "entailment": 1.7647408129741762,
+            "distance": 0.015908561527685865,
+            "root": 0.0
+          },
+          "fixed_parent_max_change": 0.0
+        }
+      }
+    ],
+    "optimizer_steps": 240,
+    "VAL_reads": 0,
+    "TEST_reads": 0,
+    "fresh_fit_only_pilot": true,
+    "passed": true
+  }
+}

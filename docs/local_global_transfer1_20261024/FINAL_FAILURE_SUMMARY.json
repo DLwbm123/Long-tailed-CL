@@ -1,0 +1,45 @@
+{
+  "state": "STOPPED_VALIDATION_SCHEMA_KEYERROR_NO_SCORES_CLOSED",
+  "failure": {
+    "type": "KeyError",
+    "key": "id",
+    "location": "run.py describe validation proof collection",
+    "cause": "Only train rows receive integer id in main; validation rows from read_rows do not contain id; describe uses this key for proof storage.",
+    "qualification_gap": "The completed real qualification used base training rows and did not execute the validation manifest proof-collection path.",
+    "source_changed_after_failure": false,
+    "rerun": false
+  },
+  "four_arms": {
+    "NATIVE_RIDGE": {
+      "formal_optimizer_updates": 0,
+      "sealed_systems": 6,
+      "score_rows": 0,
+      "performance": "NOT_AVAILABLE"
+    },
+    "BASE_SUPERVISED": {
+      "formal_optimizer_updates": 2000,
+      "sealed_systems": 6,
+      "score_rows": 0,
+      "performance": "NOT_AVAILABLE"
+    },
+    "GLOBAL_REDUNDANCY": {
+      "formal_optimizer_updates": 2000,
+      "sealed_systems": 6,
+      "score_rows": 0,
+      "performance": "NOT_AVAILABLE"
+    },
+    "LOCAL_GLOBAL_REDUNDANCY": {
+      "formal_optimizer_updates": 2000,
+      "sealed_systems": 6,
+      "score_rows": 0,
+      "performance": "NOT_AVAILABLE"
+    }
+  },
+  "scientific_17_gates": "NOT_EVALUATED",
+  "mechanism_4_gates": "NOT_EVALUATED",
+  "independent_verification": "NOT_RUN",
+  "method_negative_performance_evidence": false,
+  "fit_sealed_before_validation": true,
+  "run_returncode": 1,
+  "full_group_members": []
+}

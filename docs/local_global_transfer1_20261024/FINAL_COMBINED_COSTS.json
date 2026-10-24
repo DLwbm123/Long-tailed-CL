@@ -1,0 +1,485 @@
+{
+  "current": {
+    "arms": {
+      "BASE_SUPERVISED": {
+        "updates": 2000,
+        "first_forward_rows": 128000,
+        "replay_forward_rows": 128000,
+        "backward_rows": 128000
+      },
+      "GLOBAL_REDUNDANCY": {
+        "updates": 2000,
+        "first_forward_rows": 128000,
+        "replay_forward_rows": 128000,
+        "backward_rows": 128000
+      },
+      "LOCAL_GLOBAL_REDUNDANCY": {
+        "updates": 2000,
+        "first_forward_rows": 128000,
+        "replay_forward_rows": 128000,
+        "backward_rows": 128000
+      }
+    },
+    "qualification_arms": {
+      "BASE_SUPERVISED": {
+        "updates": 2,
+        "first_forward_rows": 128,
+        "replay_forward_rows": 128,
+        "backward_rows": 128
+      },
+      "GLOBAL_REDUNDANCY": {
+        "updates": 2,
+        "first_forward_rows": 128,
+        "replay_forward_rows": 128,
+        "backward_rows": 128
+      },
+      "LOCAL_GLOBAL_REDUNDANCY": {
+        "updates": 2,
+        "first_forward_rows": 128,
+        "replay_forward_rows": 128,
+        "backward_rows": 128
+      }
+    },
+    "descriptor_rows": {
+      "NATIVE_RIDGE": 68066,
+      "BASE_SUPERVISED": 68066,
+      "GLOBAL_REDUNDANCY": 68066,
+      "LOCAL_GLOBAL_REDUNDANCY": 68066
+    },
+    "endpoint_probe_rows": {
+      "BASE_SUPERVISED": 64,
+      "GLOBAL_REDUNDANCY": 64,
+      "LOCAL_GLOBAL_REDUNDANCY": 64
+    },
+    "ridge_solves": {
+      "NATIVE_RIDGE": 6,
+      "BASE_SUPERVISED": 6,
+      "GLOBAL_REDUNDANCY": 6,
+      "LOCAL_GLOBAL_REDUNDANCY": 6
+    },
+    "score_rows": {
+      "NATIVE_RIDGE": 0,
+      "BASE_SUPERVISED": 0,
+      "GLOBAL_REDUNDANCY": 0,
+      "LOCAL_GLOBAL_REDUNDANCY": 0
+    },
+    "elapsed_from_first": 29876.488694667816,
+    "GPU_peak_reserved_bytes": 5213519872,
+    "Torch_math_objective_calls": 1,
+    "Torch_math_backward_calls": 1,
+    "new_reference_objective_calls": 1,
+    "qualification_canonical_encodes": 20,
+    "qualification_native_feature_rows": 20,
+    "qualification_extra_embedding_rows": 20,
+    "qualification_NumPy_lower_rows": 20,
+    "qualification_NumPy_native_upper_rows": 20,
+    "qualification_augmented_encodes": 128,
+    "qualification_gradient_probe_forward_rows": 384,
+    "qualification_gradient_probe_backward_rows": 192,
+    "qualification_finite_difference_forward_rows": 768,
+    "qualification_objective_GPU_rows": 192,
+    "qualification_objective_NumPy_rows": 192,
+    "qualification_trained_upper_GPU_rows": 60,
+    "qualification_trained_upper_NumPy_rows": 60,
+    "native_base_initial_encodes": 60129,
+    "base_augmented_encodes": 128000,
+    "adapted_base_encodes": 60129,
+    "later_canonical_encodes": 7929,
+    "validation_encodes": 8
+  },
+  "clock": {
+    "first_research_epoch": 1792820251.646123,
+    "hard_deadline_epoch": 1792877851.646123,
+    "guard_finished_epoch": 1792850136.533063,
+    "elapsed_to_guard_terminal": 29884.88694000244,
+    "whole_group_absence_checked_epoch": 1792850808.058806,
+    "exact_last_process_exit_epoch": "UNKNOWN",
+    "wall_reset": false
+  },
+  "storage": {
+    "retired_root_and_entry_physical_bytes": 4515488546,
+    "sampled_peak_bytes": 4516862754,
+    "window_last_sample_bytes": 18544274672,
+    "cumulative_window_hard_bytes": 30000000000,
+    "remote_window_prestop_bytes": 27000000000,
+    "evidence_deleted": false
+  },
+  "RSS_sampled_peak_bytes": 6395318272,
+  "GPU_torch_reserved_peak_bytes": 5213519872,
+  "GPU_process_0MiB_sample_not_complete_peak": true,
+  "counts_interpretation": {
+    "formal_optimizer_updates": 6000,
+    "discarded_qualification_updates": 6,
+    "canonical_science_prefix_rows": 128187,
+    "augmented_science_prefix_rows": 128000,
+    "validation_prefix_rows": 8,
+    "per_arm_descriptors_68066": "68058 train plus 8 partial validation; these are not score rows",
+    "per_learning_arm_first_forward_replay_forward_backward_rows_each": 128000,
+    "endpoint_probe_rows_each_arm": 64,
+    "independent_verification": "NOT_RUN",
+    "unknown_preparation_wait_breakdown": "UNKNOWN"
+  },
+  "prior_costs_preserved": {
+    "state": "COMPLETE_VERIFIED_GATE_FAILED_CLOSED",
+    "original_start_epoch": 1792780248.618,
+    "hard_deadline_epoch": 1792823448.618,
+    "group_exit_epoch": 1792811944.064544,
+    "elapsed_from_first_seconds": 31695.44654560089,
+    "original_clock_never_reset": true,
+    "all_owned_groups_retired": true,
+    "science_and_real_qualification": {
+      "qualification_encodes": 20,
+      "qualification_full_chain_rows": 20,
+      "qualification_zero_B_rows": 6,
+      "qualification_native_probe_rows": 2,
+      "qualification_CPU_score_rows": 12,
+      "qualification_NumPy_score_rows": 12,
+      "qualification_GPU_score_rows": 12,
+      "science_train_encodes": 68058,
+      "validation_encodes": 300,
+      "qualification_arms": {
+        "LEARNED_CE": {
+          "updates": 2,
+          "forward_rows": 128,
+          "backward_rows": 128
+        },
+        "FRAME_CE": {
+          "updates": 2,
+          "forward_rows": 128,
+          "backward_rows": 128
+        },
+        "FRAME_DR": {
+          "updates": 2,
+          "forward_rows": 128,
+          "backward_rows": 128
+        }
+      },
+      "arms": {
+        "LEARNED_CE": {
+          "updates": 5500,
+          "forward_rows": 352000,
+          "backward_rows": 352000
+        },
+        "FRAME_CE": {
+          "updates": 5500,
+          "forward_rows": 352000,
+          "backward_rows": 352000
+        },
+        "FRAME_DR": {
+          "updates": 5500,
+          "forward_rows": 352000,
+          "backward_rows": 352000
+        }
+      },
+      "native_initialization_rows": 68078,
+      "native_solves": 6,
+      "encoding_seconds": {
+        "qualification_encodes": 1.747969150543213,
+        "science_train_encodes": 420.97875785827637,
+        "validation_encodes": 1.9853582382202148
+      },
+      "validation_model_rows": {
+        "NATIVE_RIDGE": 1350,
+        "LEARNED_CE": 1350,
+        "FRAME_CE": 1350,
+        "FRAME_DR": 1350
+      },
+      "elapsed_from_first": 17066.235273838043,
+      "GPU_peak_reserved_bytes": 2178940928
+    },
+    "independent_acceptance": {
+      "state": "PASS",
+      "full_native_lower_rows": 340,
+      "score_groups": 24,
+      "score_rows": 5400,
+      "score_error": 2.788880237858393e-13,
+      "prediction_mismatches": 0,
+      "training_probe_error": 5.551115123125783e-16,
+      "training_lower_proof_error": 2.2222224060897133e-12,
+      "native_upper_proof_error": 4.718447854656915e-16,
+      "query_FP16_componentwise_bound_max_ratio": 0.996393435048511,
+      "normal_equation_error": 2.42861286636753e-16,
+      "draw_rows": 352000,
+      "wall_seconds": 14613.600823879242,
+      "scope": "Independent full8+4 native chain on saved FP16 embedding/lower coordinates and actual LoRA; qualification checks patch embedding on two saved reader arrays. No new raw-image encoding or full optimization trajectory replay. Current full moments independently checked online."
+    },
+    "resources": {
+      "new_root_and_entry_retired_bytes": 1717758055,
+      "guard": {
+        "finished": 1792811944.064544,
+        "elapsed_from_first": 31695.44654560089,
+        "sampled_peak_output_bytes": 1717721191,
+        "RSS_sampled_peak_bytes": 25106690048,
+        "GPU_process_sampled_peak_bytes": 0
+      },
+      "window_last_sampled_bytes": 14027375054,
+      "GPU_peak_reserved_bytes": 2178940928,
+      "GPU_process_sample_zero_is_not_complete_peak": true,
+      "root_hard_limit_bytes": 3000000000,
+      "root_prestop_bytes": 2700000000,
+      "window_hard_limit_bytes": 30000000000,
+      "window_prestop_bytes": 27000000000
+    },
+    "small_math": {
+      "Torch_objective_forward_rows": 6,
+      "Torch_objective_backward_rows": 6,
+      "zero_B_rows": 6,
+      "native_baseline_rows": 6,
+      "NumPy_objective_rows": 34,
+      "images": 0,
+      "GPU": 0,
+      "optimizer_updates": 0,
+      "optional_time_wrapper_missing_before_Python_exec": true
+    },
+    "unknown_preparation_wait_breakdown_seconds": null,
+    "historical_cost_ledgers": {
+      "patient_crossfit1_20261023": {
+        "state": "COMPLETE_VERIFIED_GATE_FAILED_CLOSED",
+        "original_start_epoch": 1792727818.659005,
+        "hard_deadline_epoch": 1792785418.659005,
+        "all_groups_exit_epoch": 1792767218.9708145,
+        "elapsed_from_first_seconds": 39400.31181025505,
+        "budget_remaining_at_exit_seconds": 18199.688190460205,
+        "all_owned_groups_retired": true,
+        "main_gates_passed": 1,
+        "main_gates_total": 17,
+        "mechanism_OUT_over_IN": false,
+        "physical_science_prefix_rows": 68058,
+        "physical_qualification_prefix_rows_all_attempts": 312,
+        "physical_validation_prefix_rows": 300,
+        "total_physical_prefix_rows": 68670,
+        "formal_optimizer_updates": 28200,
+        "formal_logical_training_rows": 1759830,
+        "formal_per_learning_arm_rows": 586610,
+        "formal_inner_dual_solves": 37600,
+        "formal_arrival_head_solves": 24,
+        "formal_teacher_body_rows": 60129,
+        "formal_mapping_body_rows_all_arms": 272232,
+        "formal_deployment_FP64_body_rows": 1200,
+        "formal_score_rows_across_24_heads": 5400,
+        "all_discarded_optimizer_updates": 64,
+        "discarded_CPU_updates": 30,
+        "discarded_GPU_updates": 34,
+        "prior_failure_costs": "PREFLIGHT_COSTS.json",
+        "checkpoint_execution_costs": "EXECUTION_RESULTS.json",
+        "retained_graph_qualification_costs": "FULL_GRAPH_QUALIFICATION.json",
+        "formal_costs": "FINAL_COSTS.json",
+        "independent_acceptance": "FINAL_VERIFICATION.json",
+        "new_final_worker_CPU_math": {
+          "discarded_updates": 6,
+          "NumPy_objectives": 9,
+          "NumPy_objective_rows": 72,
+          "CPU_objective_rows": 24,
+          "CPU_fullgraph_rows": 24,
+          "CPU_cached_forward_rows": 24,
+          "CPU_recomputed_forward_backward_rows": 24,
+          "seconds": 3.9700353145599365
+        },
+        "run_resident_seconds": 29588.18288421631,
+        "verify_resident_seconds": 6462.965652704239,
+        "verify_internal_seconds": 6453.820386648178,
+        "resources": {
+          "root_and_entries_sampled_peak_bytes": 4884378629,
+          "window_remote_last_guard_sample_bytes": 11511483152,
+          "RSS_sampled_peak_bytes": 26976329728,
+          "formal_GPU_allocator_peak_bytes": 6788481024,
+          "retained_graph_qualification_GPU_peak_bytes": 6796869632,
+          "first_full_GPU_peak_unknown": true
+        },
+        "storage_IO_incident": {
+          "observed": true,
+          "SSH_reachable": true,
+          "guard_RPC_wait_and_verifier_page_wait_observed": true,
+          "resolved_without_restart": true,
+          "separate_wait_duration_seconds": null
+        },
+        "notes": [
+          "All original failures, tests, setup, transfers, waiting, training and acceptance share one original clock; no cumulative endpoint or nested resident segment is added twice.",
+          "Earlier preparation and missing split times remain unknown; no invented zero or pure GPU/NFS causal time.",
+          "Prefix rows count patch/position calls, not complete-body calls or independent patients. Actual 62/64 row counts replace nominal64 counts.",
+          "Formal retained graph uses zero cache or checkpoint recomputation; earlier cache/checkpoint costs remain in their separate ledgers.",
+          "Private weights, identities, raw images, tokens, features, moments, heads, per-image scores and raw logs are excluded.",
+          "Resource peaks are sampled except allocator counter; phase peaks must not be added as simultaneous peaks."
+        ]
+      },
+      "full_covariance1_20261023": {
+        "state": "COMPLETE_VERIFIED_GATE_FAILED_CLOSED",
+        "original_start_epoch": 1792769980.933925,
+        "hard_deadline_epoch": 1792784380.933925,
+        "all_groups_exit_epoch": 1792770439.4376028,
+        "elapsed_from_first_seconds": 458.5036790370941,
+        "remaining_at_exit_seconds": 13941.496322154999,
+        "run_resident_seconds": 149.02745580673218,
+        "verifier_resident_seconds": 303.79617714881897,
+        "verifier_internal_seconds": 295.3211245536804,
+        "qualification_internal_seconds": 28.402883291244507,
+        "all_owned_groups_retired": true,
+        "new_model_encodes": 0,
+        "new_optimizer_updates": 0,
+        "new_full_dimension_qualification_classes": 2,
+        "new_training_proof_rows": 4,
+        "new_qualification_score_groups_each_implementation": 3,
+        "new_qualification_score_rows_each_implementation": 12,
+        "formal_class_covariance_fits": 90,
+        "formal_postseal_deterministic_class_factor_materializations": 90,
+        "formal_new_score_groups": 18,
+        "formal_new_score_rows": 4050,
+        "independent_full_dimension_eigensystems": 276,
+        "independent_final_eigensystems": 270,
+        "independent_qualification_eigensystems": 6,
+        "independent_final_score_rows": 4050,
+        "synthetic_check_dimension": 8,
+        "synthetic_check_rows": 7,
+        "diagnostic_saved_score_rows_read": 4050,
+        "diagnostic_new_scores": 0,
+        "source_reference": {
+          "experiment": "patient_crossfit1_20261023",
+          "verified_result_commit": "82c459f2f2311a21e28d47fc3426b3e3123fc479",
+          "source_costs": "../patient_crossfit1_20261023/FINAL_COMBINED_COSTS.json",
+          "newly_copied_source_weights_or_class_moments": 0,
+          "native_anchor_rescored": false,
+          "new_backbone_acceptance": false
+        },
+        "resources": {
+          "new_root_and_entry_sampled_peak_bytes": 229978501,
+          "window_remote_last_sample_bytes": 11741483157,
+          "RSS_sampled_peak_bytes": 1941618688,
+          "GPU_processes_started": 0,
+          "output_hard_limit_bytes": 1000000000,
+          "output_prestop_bytes": 800000000,
+          "RSS_limit_bytes": 25769803776,
+          "window_limit_bytes": 30000000000
+        },
+        "unknown_prepare_or_wait_breakdown_seconds": null,
+        "local_default_python_math_attempt": {
+          "outcome": "numpy unavailable locally; syntax compile only. Remote synthetic and real1536 checks passed.",
+          "new_model_encodes": 0,
+          "new_optimization": 0
+        },
+        "notes": [
+          "All qualification, transfer, setup, waits, science and independent acceptance share the new fixed4h clock; old crossfit clock is closed, not reset or extended.",
+          "Resident/internal segments nest total wall and are not added twice. Earlier local preparation and unsaved segments remain unknown.",
+          "No image encoding or optimization was added, but covariance fitting, matrix decomposition and scoring are new compute. Original source encodes and failed qualification costs remain in source ledger.",
+          "Sealed heads are shared factors, class means/patient counts and immutable source moment references. Postseal materialization repeats deterministic matrix arithmetic without fitting to query or labels; separately counted.",
+          "Synthetic8d operations are separate from full-dimensional real checks; no GPU/ViT qualification is claimed.",
+          "All resource peaks are sampled. No historical artifact was deleted to free storage."
+        ]
+      },
+      "native_patch_mil1_20261024": {
+        "state": "STOPPED_REAL_GPU_QUALIFICATION_PARITY_ASSERTION_FAILED_NO_SCIENCE",
+        "original_start_epoch": 1792773555.144619,
+        "hard_deadline_epoch": 1792802355.144619,
+        "all_groups_exit_epoch": 1792775630.8249702,
+        "elapsed_from_first_seconds": 2075.6803526878357,
+        "worker_resident_seconds": 35.457417488098145,
+        "remaining_at_exit_seconds": 26724.319648742676,
+        "original_clock_never_reset": true,
+        "new_qualification_images": 20,
+        "qualification_frozen_GPU_prefix_rows": 20,
+        "qualification_frozen_GPU_full_body_rows": 20,
+        "new_interface_image_rows": 0,
+        "new_science_train_encodes": 0,
+        "new_validation_encodes": 0,
+        "formal_optimizer_updates": 0,
+        "formal_analytic_heads": 0,
+        "discarded_qualification_optimizer_updates": 4,
+        "discarded_update_scope": "First MEAN qualification2, then independent full64 reference1 and micro8 comparator1 before assertion. Other arms never reached.",
+        "GPU_readout_forward_rows": 258,
+        "GPU_readout_backward_rows": 256,
+        "GPU_readout_rows_breakdown": {
+          "two_MEAN_qualification_steps": 128,
+          "full_vs_micro_gradient_steps": 128,
+          "GPU_FP32_saved_readout_check": 2
+        },
+        "CPU_FP64_real_readout_rows": 2,
+        "independent_NumPy_real_readout_rows": 2,
+        "CPU_global_descriptor_rows": 20,
+        "full_native_NumPy_response_rows": 0,
+        "full_native_CPU_FP64_response_rows": 0,
+        "synthetic_Torch_forward_rows": 27,
+        "synthetic_Torch_backward_rows": 9,
+        "synthetic_NumPy_objective_rows": 57,
+        "remote_synthetic_math_seconds": 0.606147050857544,
+        "encoder_compute_copy_seconds": {
+          "qualification_encodes": 2.020192861557007
+        },
+        "new_root_entry_guard_sampled_peak_bytes": 118830,
+        "new_root_entry_after_exit_observed_bytes": 516142,
+        "RSS_guard_sampled_peak_bytes": 2055278592,
+        "complete_GPU_allocator_peak_bytes": null,
+        "GPU_allocator_last_status_lower_bound_bytes": 715128832,
+        "window_last_guard_sample_bytes": 11741638851,
+        "window_from_initial_plus_new_root_observed_estimate_bytes": 11742036163,
+        "private_raw_logs_and_model_state_preserved": true,
+        "unknown_prepare_wait_segments_seconds": null,
+        "notes": [
+          "Last status cost counters predate the parity assertion. Discarded operations are recovered from the reached source control flow, not silently treated as0.",
+          "Gradient and update errors were not persisted; neither exact value nor unique failing component is reconstructed.",
+          "End-to-end science0 has no performance or gates, and engineering failure is not evidence the clinical method has poor accuracy.",
+          "Saved MEAN model and raw failure are private; no new model calls, scorings, retries or cache reconstructions were used for this report.",
+          "No source data/history was deleted. Postexit accounting uses max(st_size,st_blocks*512) on only the new root and entry; window estimate is not a fresh full-window scan.",
+          "GPU complete peak was not persisted after the failed check; prior encoder peak is only a lower bound.",
+          "A diagnostic-only source logging fix was added after failure to persist parity values before assertions for future work; it was not deployed or run here, and did not recover missing values.",
+          "Local scalar math, code preparation, waiting, remote setup and qualification share the fixed8h clock; nested resident/internal segments are not added twice."
+        ]
+      },
+      "complete_score_growth1_20261024": {
+        "original_start_epoch": 1792778979.601439,
+        "hard_deadline_epoch": 1792822179.601439,
+        "group_exit_epoch": 1792779142.5113022,
+        "elapsed_from_first_seconds": 162.90986490249634,
+        "qualification_image_encodes": 20,
+        "science_train_encodes": 0,
+        "validation_encodes": 0,
+        "scientific_optimizer_updates": 0,
+        "scientific_heads": 0,
+        "qualification_discarded_updates": 4,
+        "qualification_model_forward_rows": 256,
+        "qualification_model_backward_rows": 256,
+        "initial_native_upper_rows": 20,
+        "qualification_cached_old_upper_rows": 40,
+        "qualification_FP64_model_score_rows": 4,
+        "qualification_NumPy_model_score_rows": 4,
+        "full_chain_reference_rows": 20,
+        "full_chain_FP64_upper_rows": 20,
+        "full_chain_counts_basis": "Source control-flow inference: loop completed and failed at final joint assertion; detailed per-row measurements not persisted.",
+        "toy_Torch_forward_rows": 2,
+        "toy_Torch_backward_rows": 2,
+        "toy_NumPy_objective_rows": 14,
+        "toy_optimizer_updates": 0,
+        "actual_root_entry_retirement_bytes": 569206948,
+        "sampled_peak_root_entry_bytes": 569204900,
+        "sampled_RSS_peak_bytes": 3419336704,
+        "observed_failed_run_GPU_peak_reserved_bytes": 996147200,
+        "formal_GPU_peak": "NOT_RUN",
+        "paired_canonical_step_seconds": "UNKNOWN_NOT_PERSISTED",
+        "bulk_time_forecast": "NOT_RUN",
+        "bulk_physical_storage_feasibility": "NOT_ESTABLISHED",
+        "NFS_weight_accounting_observation": "Actual max(logical,blocks*512) on large saved weights approximately twice logical bytes; draft forecast was not validated for bulk.",
+        "window_initial_bytes": 11742105959,
+        "window_last_sampled_bytes": 12311241063,
+        "unmeasured_preparation_costs": "UNKNOWN_NOT_ZERO",
+        "old_costs": "All historical experiment and qualification costs remain cumulative; no source cost erased."
+      }
+    },
+    "notes": [
+      "All segments nest original total wall; do not add resident/internal segments twice. Unknown unsaved preparation stays unknown, not zero.",
+      "No prior evidence or artifacts deleted. Final retired-root measurement includes small postguard outputs; guard peak is sampled.",
+      "Old failed configurations remain closed; engineering failures are not medical mechanism negative evidence."
+    ]
+  },
+  "new_small_reference": {
+    "state": "PASS_REFERENCE_ONLY",
+    "checked_epoch": 1792822229.189709,
+    "objective": 21.601208800228815,
+    "max_derivative_error": 2.4054416236651832e-09,
+    "objective_calls": 121,
+    "objective_rows": 1210,
+    "geometry_pairs": 81,
+    "min_matched_cells": 144,
+    "Torch": "NOT_RUN",
+    "NIH_images": 0,
+    "GPU_calls": 0,
+    "optimizer_updates": 0
+  }
+}

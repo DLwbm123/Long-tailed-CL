@@ -21,6 +21,8 @@ def main():
  reference=torch.load(root/'reference.private.pt',map_location='cpu',weights_only=False);assert reference['ids']==[r['id'] for r in job['rows']];expected=reference['x'];assert expected.shape==(len(job['rows']),512)
  if job['split']=='val':assert job['TRAIN_sealed_all3seeds']
  export=root/'export';export.mkdir(exist_ok=True);meta=dict(id=job['id'],dataset=job['dataset'],split=job['split'],stage=job.get('stage'),ids=[r['id'] for r in job['rows']],labels=[r['label'] for r in job['rows']],dtype='float32',token_shape=[197,768],chunks=[],actual_encoded_rows=0,reference_max_abs=0.,prefix_tail_max_abs=None)
+ if (export/'META.json').exists():
+  prior=json.loads((export/'META.json').read_text());assert prior['ids']==meta['ids'] and prior['labels']==meta['labels'] and prior['dtype']=='float32' and prior['token_shape']==[197,768];assert prior['actual_encoded_rows']==sum(c['rows'] for c in prior['chunks']);assert all(c['start']==sum(z['rows'] for z in prior['chunks'][:i]) for i,c in enumerate(prior['chunks']));meta=prior
  if job['role']=='preflight':
   state={}
   for i,block in enumerate(list(visual.trunk.blocks)[10:]):
@@ -32,7 +34,7 @@ def main():
   rel=Path(r['relative_path']);assert not rel.is_absolute() and '..' not in rel.parts
   with Image.open(Path(cfg['image_roots'][job['dataset']])/rel) as im:return preprocess(im.convert('RGB'))
  pool=ThreadPoolExecutor(max_workers=4)
- for start in range(0,len(job['rows']),64):
+ for start in range(meta['actual_encoded_rows'],len(job['rows']),64):
   guard(cfg);rows=job['rows'][start:start+64];pixels=[]
   pixels=torch.stack(list(pool.map(read_image,rows))).cuda()
   with torch.no_grad():

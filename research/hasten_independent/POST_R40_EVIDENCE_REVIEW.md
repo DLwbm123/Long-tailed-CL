@@ -80,3 +80,7 @@ Image adapter通过实际TRAIN行与视觉类均值的cosine CE共同学习，�
 ## 用户要求综合分析后的D53整体结构试验
 
 共同证据与新方向记录COMMON_FAILURES_AND_STRUCTURAL_DECISION.md。测试视觉粗专家/语义fine专家的联合后验，重构主训练目标和预测，含native/flat/factorized匹配主线消融，54新fit-only模型828steps，非融合调参。相对native宏/尾pp：NIH−.036877/−11.642720、ISIC+11.793155/+44.047619、HK−7.494427/−4.277178；相对flat NIH+1.987488/−1.130268、ISIC+19.276557/+68.772894、HK+1.647287/+1.835029。NIH0/3双参照支持、跨域false。ISIC尾类为singleton group，不将其收益泛化成层级普遍有效，不择域，不扫tree/routing/temp/prior/expertblend/coeff/seed/epoch。停止每轮强求新编号，保持综合机制研究和真正任务学习证据。完整d53_factorized_decision/RESULTS_ZH.md。
+
+## 用户要求的训练充分性审计与结论纠正（R54）
+
+TRAINING_SUFFICIENCY_AUDIT.md记录：D51–D53单模型18/8/20steps，对原完整初始9400/630/620步仅约.19%/1.27%/3.23%，并且fit头类截64改变类别分布。无平台/holdout轨迹，筛选未标定完整训练预测能力，不能否定整个结构，也不能笼统称所有负结果只是未收敛。保留原门false与全部数值，结论限定为screen配置；D41→R42和D45→R46的正筛选失败不能估算普遍预测率。用户明确要求复核，覆盖此前针对D53追加日程的执行停止；唯一主线R54验证同一因子决策，4h12GB，先uncapped TRAIN-fold10epoch全曲线，再事前承诺三arm完整原数据/日程/增量训练（不根据A选赢家），135全新stage132210full steps；完整BOTH采用门保持。当前后台运行，以STATE为准。

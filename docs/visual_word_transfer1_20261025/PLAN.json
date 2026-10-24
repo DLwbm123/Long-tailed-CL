@@ -1,0 +1,36 @@
+{
+  "state": "FROZEN_DESIGN_IMPLEMENTATION_PENDING_NOT_QUALIFIED",
+  "purpose": "A new cross-patient local visual-word classification mechanism with restoration; independent of closed full-image masked-context prediction. Not a shorter rerun of that recipe.",
+  "first": 1792861766.8452215,
+  "deadline": 1792948166.8452215,
+  "source": "https://arxiv.org/html/2102.10680",
+  "evidence_read": [
+    "II-A",
+    "II-B",
+    "III-A",
+    "III-B",
+    "III-C",
+    "V-B"
+  ],
+  "direct_support": "V-B includes frozen ResNet18 features for chest-Xray DXC and NCC. II-A defines appearance-neighbour patient visual words and joint self-classification/restoration. This supports a testable representation hypothesis, not ViT or continual efficacy.",
+  "explicit_adaptations": "Original autoencoder similarity is replaced by read-only original ImageNet ViT patient descriptors; C100 retained, K64 rather than1000,112px canonical crop resized224, local16pixel shuffle plus linear patch decoder. No claim of faithful TransVW reproduction or clinically certified correspondence.",
+  "hypothesis": "Predicting pseudo-classes shared by local crops from neighbouring base patients can add discriminative anatomical information beyond restoring identical local crops. All-seen patient/class-balanced ridge then tests transfer to new classes without future optimization.",
+  "cohort_algorithm": "Only original arrivedbase10 training rows. Encode each once using fresh original full native model; derive per-patient unit mean descriptor. Select100distinct patient anchors deterministically with seed. For each anchor rank all base patients by squared Euclidean distance, stable patient tie-break, choose64distinct patients including anchor. One uniform fixed112square coordinate per word from margin8, each draw jitters top-left by at most4. Choose a patient uniformly, then one image uniformly. Groups may overlap across words. A patient can carry multiple source labels; no single patient disease label is invented.",
+  "rights": "Discovery/model updates only arrivedbase10 train. No futuretrain preload, validation pixels until24sealed stage systems, test access, new data, old learned maps or cached features. Split metadata is permitted only to check ids/patient isolation. No patient-level case/pathology equivalence assumed.",
+  "arms": {
+    "NATIVE_RIDGE": "Fresh original ViT with0optimizer updates, full native base encoding reused only within this new experiment for discovery and Native moments.",
+    "FULL_IMAGE_SUPERVISED": "Strong standard full-image supervision, actual image disease label, balanced8classes each2patient/image draws,1000updates. Never assign full-image disease labels to cropped patches.",
+    "WORD_RESTORATION": "Same fresh word crops, patient draw, exact pixel shuffle, decoder, update count and initial backbone as main; mean squared reconstruction only.",
+    "VISUAL_WORD_CLASS_RESTORATION": "Identical word crop population/receipts/opportunities to restoration arm; add .01 CE over100pseudo-word classes to unit-weight reconstruction. No supervised consolidation."
+  },
+  "matching_and_limits": "Both word arms use precisely the same raw crops/corruption per update, same active full12 backbone/decoder. Main has active100way1536head,153700extra parameters: classify+restore bundle effect, not unique causal proof of nearest-neighbour anatomy. Full-image supervised control has the same1000optimizer opportunities but different source draw/whole-image domain; standard strong control is not weakened to spurious patch labels. Original CXR anatomy can vary; coordinates do not guarantee homologous structures.",
+  "training": "Fresh original all patch_embed/CLS/pos/12blocks/norm FP64 train, noLoRA, micro1 separable mean over16. AdamW3e-5/wd1e-4/eps1e-8/clip5,1000predeclared updates only. Word patch pixels are shuffled within each16x16cell by one RGB-shared permutation per patch; target is the intact crop. Both word arms match; no masked token/zero replacement, dualview invariance, phase reset or post-pretext supervised training.",
+  "readout": "After1000updates maps permanently frozen. Canonical full-image full1536CLS+patchmean unit descriptor, concat1/sqrt2 and patient/class equal joint ridge1e-4. Same all4 maps and24arrival systems. No crop ensemble, prototype score mixture or density/transport.",
+  "qualification": "100legal distinct base patients, one real image each balanced10classes10patients, sufficient actual C100/K64 discovery shape. Full native and each trained map full12FP64 vsNumPy. Independent patient-mean/top64/cohort label/coordinate+crop/shuffle and restoration/classifier objective. Each arm2 actual discarded updates with independent samegradient AdamW including nonzero second-step state;2selected real parameters/arm FD;RAM serialization explicit not final disk; real8+2jointsystems; productionval metadata ids with no valpixels. All critical values immediately persisted before assertion. Unique-patient quota must be checked before any pixels; otherwise reject, do not reduce C/K or switch sampler.",
+  "verification": "All4 finalmaps independently NumPy patch embedding+12blocks from savedrawFP32 pixels on300query and40trainingproof;24systems/5400scores/predictions. Final actual full16draw/crop/shuffle/objective endpoint uses finalweights+head. Production discovery retained patientmeans/anchors/top64 and deterministic receipt list; NumPy recomputes patientmean weighting online and full anchor distances/top64 at release. It does not independently reencode every discovery image; this scope is explicit. Allpatient/arrival/freeze/moment/count gates remain.",
+  "scientific_gates": "Original17gates unchanged; mechanism4 gates versusWORD_RESTORATION. Must beat both strong full-image supervision and originalNative, not just restoration. HASTEN3seed descriptive reference only. One seed74007; no rescue/armreplace/sweep.",
+  "budget": "Candidate originalfirst1792861766.8452215/deadline1792948166.8452215 not reset. Full-native discovery60129images and all preparation/qualification/transfer/waiting/verification count. Before formal discovery,1.5*1000*worst canonical3arm step+21600 must fit originalremaining-60;21600reserve includes discovery/full4mapencoding/independentverification. Physical calibration +10% predicts full3weights/24systems/query/proof/patientmeans/receipts/logs/transients <7.2GB and cumulativewindow<27GB.8GBhard/GPU8GiB/RSS32GiB; cumulative30GB/local100MB remain; no deletion of older evidence.",
+  "stop": "At any qualification, budget, resource, numerical or correctness failure stop and preserve; no automatic retry, lowering C/K, steps/precision/gates or reopening closed recipes.",
+  "implementation": "Three core/discovery/independent-reference modules written, AST PASS only. No Torch import, math execution, NIH or GPU; complete runner/qualification/verification still required.",
+  "crop_interpolation": "Bilinear align_corners=False from canonical224 rawRGB crop112 to224, matched across word arms; independent explicit NumPy weights. Both crop arms have reduced spatial context/resolution relative to full-image supervision, disclosed."
+}

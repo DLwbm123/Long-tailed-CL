@@ -1,0 +1,46 @@
+{
+  "state": "PASS",
+  "CPU_objective_forward": 1,
+  "CPU_objective_backward": 1,
+  "optimizer_updates": 0,
+  "NIH_images": 0,
+  "GPU_calls": 0,
+  "real_native_models": 0,
+  "wall_seconds": 1.5112237930297852,
+  "checks": 104,
+  "selected": [
+    {
+      "check": "physical_RGB_shared_shuffle",
+      "values": {
+        "error": 0.0,
+        "permutations": 196
+      },
+      "PASS": true
+    },
+    {
+      "check": "independent_bilinear_crop_FP32",
+      "values": {
+        "max_error": 1.7881393432617188e-07,
+        "tolerance": 2e-07
+      },
+      "PASS": true
+    },
+    {
+      "check": "new_word_plus_restoration_objective_and_analytic_gradients",
+      "values": {
+        "objective_error": 2.220446049250313e-16,
+        "gradient_error": 2.8189256484623115e-18
+      },
+      "PASS": true
+    },
+    {
+      "check": "real_shape_synthetic_discovery_and_draw",
+      "values": {
+        "words": 100,
+        "patients_per_word": 64,
+        "draws": 16
+      },
+      "PASS": true
+    }
+  ]
+}

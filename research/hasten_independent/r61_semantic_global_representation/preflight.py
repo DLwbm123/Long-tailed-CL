@@ -1,0 +1,10 @@
+"""Synthetic complete three-arm backward and matched-interface checks,0optimizer."""
+import json,runpy,time
+from pathlib import Path
+import torch
+s=runpy.run_path('/tmp/q1087/worker.py',run_name='engineering_fixture');E=s['Encoder'];F=s['F'];loss=s['loss_values'];perm=s['anchor_permutation'];cfg=s['CFG'];root=Path(cfg['output']);torch.manual_seed(123);torch.cuda.manual_seed_all(123);x=F.normalize(torch.randn(19,512,device='cuda'),dim=1);t=F.normalize(torch.randn(4,512,device='cuda'),dim=1);y=torch.tensor([0]*8+[1]*5+[2]*3+[3]*3,device='cuda');nc=torch.bincount(y);states=[]
+for arm in ['semantic_global','paired_control','permuted_semantic']:
+ torch.manual_seed(100);torch.cuda.manual_seed_all(100);e=E().cuda();states.append({k:v.clone() for k,v in e.state_dict().items()});assert all(torch.equal(v,states[0][k]) for k,v in states[-1].items());z=e(x);assert torch.allclose(z,x,atol=2e-7);tt=t[perm([[0,1],[2,3]],4,arm)];v=loss(z,x,tt,y,nc,len(y),arm);assert torch.isfinite(v);v.backward();assert all(p.grad is not None and torch.isfinite(p.grad).all() for p in e.parameters()) and e.b.weight.grad.norm()>0;other=E().cuda();other.load_state_dict(e.state_dict(),strict=True);assert torch.equal(e(x),other(x));assert sum(p.numel() for p in e.parameters())==66112
+assert perm([[0,1],[2,3]],2,'permuted_semantic')==perm([[0,1],[2,3]],4,'permuted_semantic')[:2]
+gens=[torch.Generator(device='cuda').manual_seed(74002) for _ in range(3)];pp=[torch.randperm(19,device='cuda',generator=g) for g in gens];assert torch.equal(pp[0],pp[1]) and torch.equal(pp[0],pp[2]);w=len(y)/(4*nc[y].float());assert all(torch.allclose(w[y==c].sum()/len(y),torch.tensor(.25,device='cuda')) for c in range(4))
+(root/'PREFLIGHT.json').write_text(json.dumps(dict(passed=True,synthetic_only=True,optimizer_steps=0,matched_initial_core_exact=True,same_batch_generator=True,all3arm_complete_backward=True,tasklocal_permutation_no_future=True,strictload=True,shared_parameters=66112,class_specific_learned_parameters=0,time=time.time()),indent=2))

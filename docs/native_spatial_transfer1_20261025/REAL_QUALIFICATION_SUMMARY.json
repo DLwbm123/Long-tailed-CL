@@ -1,0 +1,271 @@
+{
+  "state": "REAL_QUALIFICATION_PASS_SCIENCE_STARTED",
+  "deployment": "b2fb65faafcea8824e4d292538de15ad97e7150c",
+  "real_qualification": {
+    "state": "PASS",
+    "real_base_images": 20,
+    "real_patients": 20,
+    "optimizer_steps": 0,
+    "production_seconds_per_image": 0.3301441124640405,
+    "NumPy_seconds_per_image": 3.461718862876296,
+    "paired_Gram_seconds_per_row": 0.14338345914438833,
+    "paired_system_seconds": 7.2962616281583905,
+    "scope": "Packed disk persistence and full original-weight RAM roundtrip; no new learned model or optimizer.128row throughput repeats qualified descriptors, not128new images.",
+    "science_started": false
+  },
+  "admission": {
+    "state": "PASS",
+    "time_forecast_seconds": 53920.71702811883,
+    "remaining_seconds": 85148.71335887909,
+    "physical_factor_with_margin": 2.20179042313848,
+    "new_root_forecast_bytes": 4973889506.88658,
+    "window_forecast_bytes": 23928662295.88658,
+    "existing_root_bytes": 254403521,
+    "existing_window_bytes": 19209176310,
+    "ETA": false
+  },
+  "numeric_qualification_gates": 66,
+  "all_pass": true,
+  "selected": [
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 15,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 14,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 17,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 6,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 1,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 13,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 9,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 4,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 8,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "legal_two_patient_quota",
+      "value": {
+        "label": 19,
+        "count": 2
+      },
+      "PASS": true
+    },
+    {
+      "check": "full_native_embedding12block_reference",
+      "value": {
+        "error": 8.098410830825742e-12
+      },
+      "PASS": true
+    },
+    {
+      "check": "four_real_spatial_operators",
+      "value": {
+        "error": 1.9290125052862095e-15
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 0,
+        "arm": "NATIVE_RIDGE",
+        "error": 2.0816681711721685e-14
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 0,
+        "arm": "BILATERAL_RIDGE",
+        "error": 1.7319479184152442e-14
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 0,
+        "arm": "RANDOM4_RIDGE",
+        "error": 1.584843367652411e-14
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 0,
+        "arm": "QUADRANT4_RIDGE",
+        "error": 1.5754758608821362e-14
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 1,
+        "arm": "NATIVE_RIDGE",
+        "error": 1.5834555888716295e-14
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 1,
+        "arm": "BILATERAL_RIDGE",
+        "error": 9.083012120214562e-15
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 1,
+        "arm": "RANDOM4_RIDGE",
+        "error": 1.0887124535230441e-14
+      },
+      "PASS": true
+    },
+    {
+      "check": "real8plus2_system",
+      "value": {
+        "stage": 1,
+        "arm": "QUADRANT4_RIDGE",
+        "error": 9.249545573908335e-15
+      },
+      "PASS": true
+    },
+    {
+      "check": "actual_packed_disk_persistence",
+      "value": {
+        "error": 0.0
+      },
+      "PASS": true
+    },
+    {
+      "check": "original_weight_RAM_roundtrip",
+      "value": {
+        "bytes": 686446150
+      },
+      "PASS": true
+    },
+    {
+      "check": "synthetic128row_full_dimension_Gram_throughput",
+      "value": {
+        "arm": "NATIVE_RIDGE",
+        "error": 0.0,
+        "real_new_images": 0
+      },
+      "PASS": true
+    },
+    {
+      "check": "synthetic128row_full_dimension_Gram_throughput",
+      "value": {
+        "arm": "BILATERAL_RIDGE",
+        "error": 0.0,
+        "real_new_images": 0
+      },
+      "PASS": true
+    },
+    {
+      "check": "synthetic128row_full_dimension_Gram_throughput",
+      "value": {
+        "arm": "RANDOM4_RIDGE",
+        "error": 0.0,
+        "real_new_images": 0
+      },
+      "PASS": true
+    },
+    {
+      "check": "synthetic128row_full_dimension_Gram_throughput",
+      "value": {
+        "arm": "QUADRANT4_RIDGE",
+        "error": 0.0,
+        "real_new_images": 0
+      },
+      "PASS": true
+    }
+  ],
+  "startup_science_snapshot": {
+    "native_base_encoded": 4800,
+    "native_base_total": 60129,
+    "latest_sampled_journal_through": 4880,
+    "formal_ridge_solves": 0,
+    "validation_images": 0,
+    "score_rows": 0,
+    "optimizer_steps": 0
+  },
+  "resource_samples": {
+    "phase": "run",
+    "updated": 1792868965.7918277,
+    "new_output_bytes": 256633793,
+    "peak_output_bytes": 256633793,
+    "window_new_bytes": 19211406582,
+    "RSS_sampled_peak_bytes": 8503017472,
+    "GPU_process_sampled_peak_bytes": 0,
+    "hard_deadline_epoch": 1792953594.5745559
+  },
+  "Torch_GPU_peak_reserved_bytes": 975175680,
+  "first": 1792867194.5745559,
+  "deadline": 1792953594.5745559,
+  "no_performance_conclusion": true,
+  "scope": "Qualification completed; science automatically entered after measured admission. Forecast is not ETA or final physical/GPU peak. Full fixed-map science and independent acceptance still running."
+}

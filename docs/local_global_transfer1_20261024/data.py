@@ -9,7 +9,8 @@ def read_rows(cfg, split):
         rows = list(csv.DictReader(f))
     with open(Path(cfg['author_labels']) / (split + '.csv')) as f:
         source = {r['id']:r for r in csv.DictReader(f)}
-    for r in rows:
+    for row_id, r in enumerate(rows):
+        r['id'] = row_id
         name = Path(r['relative_path']).name
         r['group'] = str(int(source[name]['subject_id']))
         assert r['group'] == str(int(name.split('_')[0]))

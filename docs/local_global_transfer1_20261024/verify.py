@@ -73,7 +73,12 @@ def main(cfg):
             correct={str(c):int(np.sum((actual_labels==c)&(predictions==c))) for c in seen};total=sum(correct.values());metrics[a]=dict(correct=correct,total_correct=total,BA_percent=100*total/len(actual_labels))
         results.append(dict(task=task,seen=seen,metrics=metrics))
     events=json.loads((p/'NUMERIC_GATES.json').read_text());check('all_online_numeric_checks',dict(events=len(events)),all(g.get('PASS',True) for g in events))
-    cost=json.loads((p/'COSTS.json').read_text());check('complete_declared_update_and_score_counts',cost['arms'],all(cost['arms'][a]['updates']==2000 and cost['arms'][a]['first_forward_rows']==128000 and cost['arms'][a]['replay_forward_rows']==128000 and cost['arms'][a]['backward_rows']==128000 and cost['score_rows'][a]==1350 for a in ARMS[1:]) and cost['validation_encodes']==300)
+    cost=json.loads((p/'COSTS.json').read_text());check('complete_declared_update_and_score_counts',cost['arms'],all(cost['arms'][a]['updates']==2000 and cost['arms'][a]['first_forward_rows']==128000 and cost['arms'][a]['replay_forward_rows']==128000 and cost['arms'][a]['backward_rows']==128000 and cost['score_rows'][a]==1350 for a in ARMS[1:]) and cost.get('successful_validation_encodes',cost['validation_encodes'])==300)
+    if (p/'RESUME_VALIDATION_RECEIPT.json').exists():
+        resumed=json.loads((p/'RESUME_VALIDATION_RECEIPT.json').read_text())
+        check('authorized_validation_resume_no_training',resumed,resumed['training_counters_unchanged'] and resumed['sealed_files_unchanged'] and resumed['additional_optimizer_updates']==0 and resumed['successful_validation_encodes']==300 and cost['validation_encodes']==resumed['prior_partial_validation_encodes']+300)
+        checks=json.loads((p/'RESUME_NUMERIC_GATES.json').read_text())
+        check('resume_numeric_checks',dict(events=len(checks)),all(v['PASS'] for v in checks))
     from reporting import report
     result,decision=report(results,cfg,train)
     write(p/'RESULTS.json',result);write(p/'DECISION.json',decision);write(p/'VERIFICATION.json',dict(state='PASS',checks=len(gates),full_lower_rows=lower_rows,unique_query_map_rows=1200,score_groups=24,score_rows=score_rows,score_error=score_error,prediction_mismatches=mismatch,training_lower_proof_error=proof_error,endpoint_objective_error=endpoint_error,wall_seconds=time.time()-tick,scope='Independent saved FP16 numeric interfaces, all frozen maps, full query and actual post-update training-batch endpoint. Online patient moments checked before release; no new image encoding or full optimizer trajectory replay.'))

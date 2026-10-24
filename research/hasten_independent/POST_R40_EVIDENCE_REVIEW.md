@@ -64,3 +64,7 @@ D45 54类×fold TRAIN密度cell，固定双fold样本数/维度收缩改善NIH�
 ## D49：最强竞争类二元任务风险筛选
 
 原训练有pairedcontrast而class logits只用于训练正确率，故检验不同主损失softplus(max错误classlogit−真实classlogit)，原几何项保持；不是R08全类CE或D44归约。21个条件TRAIN梯度cell对共同disjoint全类CE风险，NIH宏/尾cos变化−.902356/−1.117401，ISIC+.907831/−.355873，HK+.288995/−.584980；NIH0/3支持，跨域尾受损，预设门false。不启动训练、不扫margin/softness/竞争类数/weight/seed/fusion。参数与层级RAM恢复、finite通过不等于效果。直接任务风险方案确已诊断，下一候选需不同机制，不重复D49。完整见d49_hardest_class_risk/RESULTS_ZH.md。
+
+## D50：直接视觉类原型反馈
+
+Image adapter通过实际TRAIN行与视觉类均值的cosine CE共同学习，区别R23对TEXT CE、R24 detached head、R22对TEXT CE、R32层级叶、D48原始1NN、D49替换主风险；不改读出/融合。新增固定系数1、原目标保留；raw means与A均排除B，21cell对共同B原hyper全类CE方向。NIH宏/尾cos变化−.068622/−.091538，ISIC+.138793/−.084550，HK+.072026/−.054517；NIH0/3支持，跨域false。新梯度仅活跃Image adapter且非零，参数/层级RAM恢复通过但不等效果。拒绝固定反馈、不训练、不扫coeff/temp/normalization/priority/seed/fusion。方向门是局部筛选而非性能因果，不否定所有视觉目标。完整见d50_visual_prototype_feedback/RESULTS_ZH.md。

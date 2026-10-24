@@ -35,6 +35,8 @@ class Model(nn.Module):
         assert arm in ARMS[1:] and phase in ['A','B']
         masked=phase=='A' and arm=='MASKED_CONTEXT_THEN_SUPERVISED'
         tokens=self(raw,receipt,masked)
+        return self.objective_from_tokens(tokens,raw,labels,receipt,arm,phase)
+    def objective_from_tokens(self,tokens,raw,labels,receipt,arm,phase):
         if phase=='A' and arm!='SUPERVISED_ONLY':
             target=patchify(raw)[:,receipt['tokens']]
             pred=self.decoder(tokens[:,1:][:,receipt['tokens']])

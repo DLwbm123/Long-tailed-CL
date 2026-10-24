@@ -1,0 +1,39 @@
+{
+  "state": "FROZEN_DESIGN_IMPLEMENTATION_PENDING_NOT_QUALIFIED",
+  "first": 1792876168.7442472,
+  "deadline": 1792962568.7442472,
+  "hypothesis": "Base-only channelwise modulation can adapt natural pretraining to CXR without changing original weights; a fixed expanded nonlinear feature map can recover discriminative interactions in a unified patient/class-balanced ridge classifier. Both must transfer to later unseen classes. This is a bounded mechanism hypothesis, not a clinical efficacy claim.",
+  "why_independent": "All12blocks plus patch embedding channelwise SSF; no low-rank weight update, geometry/frame target, density map, spatial partition, masked/reconstruction pretext or image-invariance loss. RP is iid ReLU expansion without data-selected kernel landmarks. Existing negative full-supervision evidence remains relevant; changing PETL alone is not evidence of success.",
+  "controls": "Full2x2 factorial: original vs one shared SSF-trained map crossed with linear vs the same fixed Gaussian/ReLU map. SSF_LINEAR is strongest direct RP control; NATIVE_RANDOM_RELU isolates adaptation at identical output capacity. Exactly one optimization trajectory, reused by both SSF arms, explicitly counted once. Main must beat all3 controls under unchanged17gates; report both4gate mechanism comparisons without swapping primary.",
+  "permissions": "Only existing authorized NIH train and300development val metadata/pixels. No test/Etest, no future-arrival initialization, no downloads of newdata or pretrainedweights. Base10only optimization; source map sealed before later-arrival train and before anyval pixels. Single seed74009, no hyperparameter/partition/dimension/loss/augmentation/ridge scan. Patient/image not interchangeable; rare class15 seven patients suffices2globaldistinct qualification.",
+  "protocol": "Use config.json exactly. One new original map loaded from existing sealed shared originalweights; an SSF wrapper sharing/freeze-original is allowed only if independent snapshot proves originalunchanged. SSF random initialmodulation is not native identity; record its extra active parameters. At1000steps discard temporarycosinehead and freeze SSF. Persist SSF-only FP64state plus exactoriginalweight reference and RPmatrix; no full adaptedweight duplicate or merging. Fresh base/later encoding for each of2 maps; eachmap gives2readouts simultaneously. No oldfeaturecache/scores.",
+  "primary_sources": [
+    {
+      "url": "https://arxiv.org/html/2307.02251",
+      "read": "3.3/4.1-4.4/C.1-C.3/D",
+      "scope": "Natural-image CIL firstsession PETL + frozen nonlinear GaussianRP/Gram-ridge; no NIH medicaltail guarantee. 4.4 retainsPETL/discards temporaryhead."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/McDonnell-Research-Lab/RanPAC/main/RanPAC.py",
+      "read": "91-123,178-260 via7897proxy",
+      "scope": "Actual ReLU feature transform, onceGaussianW, firstsession freeze policy and SGD. inc_net.py and petl/vision_transformer_ssf.py read relevantproductionoperations."
+    },
+    {
+      "url": "https://arxiv.org/html/2210.08823",
+      "read": "3.2-3.3,4.1-4.2/Table4",
+      "scope": "SSF feature gamma*x+beta and parameterfreeze. VTABmedicalPatchCamelyon/retinopathy supporttransfermotivation but not CXRincremental."
+    },
+    {
+      "url": "https://arxiv.org/html/2305.08252",
+      "read": "4.1/4.2/Table3,AppendixA/B",
+      "scope": "MIDLmedicalPEFT benchmark: ViTBaseSSF RSNAPneumonia F1 .88 vsfull .87/linear .86. MAEPneumoniaSSF .83 vsfull .87: mixedpretraining evidence; no blanketbenefit. AuthorsusevalidationHPO, not adoptedhere. EdinburghPDF403 once; arxivprimaryreadinstead."
+    }
+  ],
+  "differences": "Not faithful RanPAC reproduction: concatCLS+patchmean1536 vsusualCLS768; M2048 vsusual10000; normalizedRP descriptor and appendedbias;patient/classbalanced moments vsimage-summed;fixedridge1e-4 vs taskwise train80:20lambda sweep;1000balanced16draw SGD vs20epochs/batch48;no spatial augmentation. Chosen once beforecandidateNIH pixels/results, neverclaimpaperlevelperformance.",
+  "qualification": "Metadata quota first:20baseimages/20globaldifferentpatients2/class rare-first, rejectnotrelax. Newreal20native and20SSF fullpatch+12block FP64/independentNumPy;4readouts;unitnorm/ReLU/RPposition exact. Two actual discardedSGD steps including nonzero momentum with fullsavedgradient independentNumPy optimizer over alltrainables; specified2SSF/head parameterscentralFD; CE/cos25targetoperator parity. Verify alloriginalweightsunchanged andtrainablewhitelist, RAM serialization ofSSF-only plusRP;actualmax2049packedGram disk save/load;real8+2systems all4arms;128repeatedqualifieddescriptorGram benchmarknotnewimages. Every numeric value savedbeforeassert. Anyfailure closes fixedcandidate withoutretry.",
+  "physical_admission": "Measure max(filelogical,st_blocks*512) on real sampled representative packed2049system,SSFcheckpoint,RP/rawFP32interfaces;include10percentmargin. Forecast6stage normalized+arrivalpacked matrices/head/rhs perarm,340savedrawpixels,2mapquery/proofdescriptors,16endpointdrawpixel/target/gradientinterface,RPmatrix,SSFstate,qualification/temp/metadata/logs. No20classfullGram persistence. Newroot<3.6GBprestop/4GBhard andwindow<27GBprestop/30GBhard,local100MB persists. Existing23291306129Bsampleisnotfreshscan orroomguarantee. No deletingprotectedartifacts.",
+  "duration_admission": "Conservative1.5*(1000*worstactualproduction16drawSSFstep_seconds +68358*worstpaired_native_SSF_reader_forward_fourreadouts_seconds_per_image +68058*worstpairedTorch_NumPy4armGram_seconds_perrow +6*worstTorch_NumPy4armSolve_seconds +680*worstNumPyfull12SSF_orNative_seconds_perimage)+3600 < originalremaining-60. Count allpreparation/qualification/reference/timing/wait in originalclock. Benchmarkexcludesindependentoptimizer/FDoverhead fromproductionstep but countswall. Failcloses no1000reduction/clockextension/precisionchange.",
+  "acceptance": "Afterformal2mapfresh68058train+300val each:24ridge/5400scores. Independent340savedrawFP32 rows permap full12NP(680fullmaps), then2operators/map=1200query+160proofrows,24systems5400scoresandpredictions;patientmomentsonlineindependentNumPy alltrain,arrivals/seals/counts,final16drawfullimageendpoint/CE,SSFdiskload vsactualmap,RPconstant andoriginalimmutability. No newsourceimage encoding inverifier, nofulloptimizationtrajectoryreplayclaim. Preserveactualsource/descriptor/reference/costdenominators.",
+  "stop": "Independentneutralargvtimeout DEADLINE-60 TERM/-30KILL,5sresourceguard,GPU8GiB/RSS32GiB. Allqualification and actualphysical/timeadmission before atmostonescience;run0thenautoindependentverify. Anyfailure/prestop preserveandclose;noautomaticretrain,relaxation orrepeatdiagnosis. Fullfourarm/Native/twofactorcontrols/HASTENdescriptivereference andoldfailurecosts inChinese finalreport;source/smallaggregates onlypublishedvia7897proxy.",
+  "next_action": "Implement new SSF forward/backward and independentNumPy plusSGD operator, reuse authorizedreader/packedpatientridge andguard structure without executingclosedexperiments. Thenunique boundedCPU math andimports, fullsingle realqualification onlyaftercompleteproductionpath andbudgetimplementation. Current no newrealmodel/image/GPU/optimization/score."
+}

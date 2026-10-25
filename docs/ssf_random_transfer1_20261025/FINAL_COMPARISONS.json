@@ -1,0 +1,94 @@
+{
+  "within_round": {
+    "NATIVE_LINEAR": {
+      "final_correct": 75,
+      "final_percent": 25.0,
+      "mean_BA_percent": 29.98941798941799,
+      "tail4": 20,
+      "tail7": 28,
+      "initial10": 34,
+      "later10": 41
+    },
+    "SSF_LINEAR": {
+      "final_correct": 65,
+      "final_percent": 21.666666666666668,
+      "mean_BA_percent": 27.49118165784832,
+      "tail4": 12,
+      "tail7": 17,
+      "initial10": 34,
+      "later10": 31
+    },
+    "NATIVE_RANDOM_RELU": {
+      "final_correct": 65,
+      "final_percent": 21.666666666666668,
+      "mean_BA_percent": 26.3450176366843,
+      "tail4": 15,
+      "tail7": 23,
+      "initial10": 26,
+      "later10": 39
+    },
+    "SSF_RANDOM_RELU": {
+      "final_correct": 66,
+      "final_percent": 22.0,
+      "mean_BA_percent": 28.377865961199294,
+      "tail4": 12,
+      "tail7": 17,
+      "initial10": 37,
+      "later10": 29
+    }
+  },
+  "main_minus_controls": {
+    "NATIVE_LINEAR": {
+      "final_correct": -9,
+      "mean_pp": -1.6115520282186964,
+      "tail4": -8,
+      "tail7": -11,
+      "initial10": 3,
+      "later10": -12
+    },
+    "SSF_LINEAR": {
+      "final_correct": 1,
+      "mean_pp": 0.8866843033509753,
+      "tail4": 0,
+      "tail7": 0,
+      "initial10": 3,
+      "later10": -2
+    },
+    "NATIVE_RANDOM_RELU": {
+      "final_correct": 1,
+      "mean_pp": 2.032848324514994,
+      "tail4": -3,
+      "tail7": -6,
+      "initial10": 11,
+      "later10": -10
+    }
+  },
+  "HASTEN_prior_3seed_reference": {
+    "final_percent": 26.333334,
+    "mean_BA_percent": 32.354939,
+    "tail7_percent": 12.063493,
+    "scope": "Existing NIH H-unit three-seed aggregate only; no rerun, pairing or equal-training-budget causal claim."
+  },
+  "prior_GLOBAL_reference": {
+    "final_correct": 65,
+    "final_percent": 21.666666666666668,
+    "mean_BA_percent": 29.787257495590826,
+    "tail4_correct": 11,
+    "tail7_correct": 16,
+    "initial10_correct": 32,
+    "later10_correct": 33,
+    "scope": "Different frozen protocol/seed and precision interface; descriptive cross-run reference only. No mechanism isolation."
+  },
+  "caveat": "Current Native mean29.98941798941799 differs from older30.05114638447972; do not substitute olderbaseline.",
+  "main_minus_HASTEN_pp": {
+    "final": -4.333334000000001,
+    "mean": -3.9770730388007074,
+    "tail7": 4.12698319047619
+  },
+  "main_minus_prior_GLOBAL": {
+    "final_correct": 1,
+    "mean_pp": -1.4093915343915313,
+    "tail7_correct": 1,
+    "later10_correct": -4
+  }
+}

@@ -84,3 +84,31 @@ Image adapter通过实际TRAIN行与视觉类均值的cosine CE共同学习，�
 ## 用户要求的训练充分性审计与结论纠正（R54）
 
 TRAINING_SUFFICIENCY_AUDIT.md记录：D51–D53单模型18/8/20steps，对原完整初始9400/630/620步仅约.19%/1.27%/3.23%，并且fit头类截64改变类别分布。无平台/holdout轨迹，筛选未标定完整训练预测能力，不能否定整个结构，也不能笼统称所有负结果只是未收敛。保留原门false与全部数值，结论限定为screen配置；D41→R42和D45→R46的正筛选失败不能估算普遍预测率。用户明确要求复核，覆盖此前针对D53追加日程的执行停止；唯一主线R54验证同一因子决策，4h12GB，先uncapped TRAIN-fold10epoch全曲线，再事前承诺三arm完整原数据/日程/增量训练（不根据A选赢家），135全新stage132210full steps；完整BOTH采用门保持。当前后台运行，以STATE为准。
+
+
+## R54完整训练充分性验证与R55/D56后继
+R54完整18audit/135freshstage、PhaseA31980+PhaseB132210=164190实际优化步完成，factorized/flat原BOTH门false；fixed factorized拒绝不外推所有结构无效。R55选择类别均衡视觉适配后冻结+真实统计全局解析判别，完整9base20epoch63900steps/45analyticstages/90readouts，均衡候选两门false，ISIC/HK尾类相对H0下降约7.96/7.41pp；不选有利HK宏、不扫lambda/dim/map/epoch救援。D56全TRAIN重代入零优化核对显示balanced尾TRAIN83.55/100/99.66%却历史开发尾12.38/51.23/30.41%，泛化落差不能仅归训练不足，也不证明唯一过拟合原因。下一研究须围绕全局类均衡下的少样本泛化约束和旧新竞争，拒绝散点模块。全部数值/全seed与曲线见各RESULTS_ZH与results，public179a4b7。当前无训练进程；持续自主研究/唯一hasten不暂停。
+
+## R57 完整共享低秩判别与真实历史风险
+用户明确要求从公式落实完整主线，冻结R57：unit512真实视觉均值无类专属可训练参数，共享rank16的I+UV^T、F范数硬界.25；全部已到达真实TRAIN特征完整记忆，每stage10epoch全局等类CE，共三域三seed45stage52110步。不用短pilot筛选，合成0optimizer工程预检通过后真实后台启动，原4h6GB时钟保持。假设是限制自由度且直接训练旧尾/新头共同边界；不保证泛化。不是R55随机高维ridge参数救援或R35固定8行回放；额外真实记忆成本和不同训练曝光披露。当前运行，以STATE现场为准，source/protocol public51061ab；效果尚未知。
+
+## R57完整结束：真实历史风险和强共享约束仍未带来判别收益
+exit0总206.114048s/202420224bytes，45完整训练stage52110步/90保存响应/45x11曲线及约束、均值prefix、memory与restore全部通过。shared平均/最终/尾NIH28.635582/21.777778/10.476190 ISIC51.371887/45.768234/57.371795 HK52.783830/51.403691/30.026540；H0/R28两门false、全域joint0/3，保留H0，固定配置拒绝不扫rank/bound/scale/epoch。45/45终点boundactive、末三objective描述平台；无holdout不能断言泛化原因。保存权重谱显示NIH/HK主方向能量>99.9%，effective rank近1；共享与rawNCM全曝光预测改变仅9/4050、6/1935、31/22014。尾BA三域与rawNCM相同，不等于所有逐例预测完全相同。NIH最终TRAIN宏24.32尾29.10亦弱，不是所有失败都高拟合过拟合。后继须解耦共享判别与类分布证据的结构问题，不再强弱约束扫参；不能把rank塌缩当作放宽bound肯定有效。无活动训练，持续自主研究。
+
+## D58归因边界与R59完整分布判别
+D58三域三seed初始/最终18全TRAIN cell，0optimizer/新拟合/VAL/TEST，exit0总26.007378s/163840bytes。确认R57双因子尺度U约4→33–257/V约.001–.008且乘积固定.25；初始完整直接矩阵梯度已有主方向，但初阶Adam乘积方向有效秩约3.8–4，不能说首步强制rank1。最终因子方向近rank1，直接G仍有非径向分量，不是固定rank可行KKT残差。早期moments/参数未保存，不能定位塌缩时刻或因果分离Adam/投影。单均值不充分仅是假设非唯一根因。R59以512共享正权度量代替双因子，以每类全真实支持角核混合代替均值；TRAIN查询自身支持严格剔除、其类分母n-1，全部已见类全局等风险，梯度经过query/support两边。初始/每stage10完整epoch，全三域三seed45stage52110步，4h6GB，已真实后台运行，预设distribution_fixed/centroid_shared消融，不挑读出替代主候选。R59不是R57半径/秩救援、D48最近k或Gaussian密度选参，效果待完整终点。source+完整D58 publicdaf700b，原门/预算/历史保持。
+
+## R59完整结束：分布证据的收益依赖域，原采用门失败
+三域三seed45stage52110steps135读出/495曲线核验，exit0总1626.785019s/200187904bytes。候选平均/最终/尾NIH28.255438/19.333333/8.571429 ISIC48.092563/43.697462/49.358974 HK58.635087/55.124069/41.277032；H0/R28两门false全域joint0/3，保留H0。共享metric仍有226/465/453有效维数，45/45stage NLL下降和目标描述平台，不是R57近rank1因子失衡，也不证明全局收敛。LOO非独立holdout，不能和R55重代入差值宣称泛化解决。相同learned度量，分布vs单中心HK尾+11.03pp、ISIC约-8.01、NIH持平；学习度量相对固定分布HK反降，不择域/ablation采用。旧尾错到任一后到head描述计数各seedNIH13/82、ISIC10/25、HK8/70，不能只靠old/new校准解释全部错误。后继转向医学图文语义/真实全局等类判别接口，不重复Gaussian/均值/融合/短pilot或参数救援。无活动训练、持续研究。完整公开交付以STATE回执为准。
+
+## D60联合接口审计与R61完整匹配训练
+15全到达TRAINstage几何（另attempt1重复NIHstage0，共实际16cell），0optimizer/训练新分类器，存在类均值统计估计；原clock148.756273s/exit143360bytes。严格textbitwise失败maxabs5.96e-8数值舍入，修为记录差异且要求2e-6，输入/指标未改，失败保留。原始语义宏不强于视觉LOO，不能当oracle或冻结表示上限；原NIHauthor TRAIN68058行20列恰1positive及原manifest对应无明确错误。配对image→text CE重复文本引入log(batchmultiplicity)的梯度恒等式已核，但不解释native全部loss。联合综合见R54_R59_JOINT_SYNTHESIS.md。R61单主线共享视觉representation+固定语义cosine决策+全真实历史等类风险，matched paired目标和tasklocal语义置换两完整控制，初始/数据/batch/日程/预测公式一致。全三域三seed135stage156330步180读出，4h6GB原钟，已真实后台，不能从D60预言效果。用户随后授权离开12h自主继续、30min、不逐轮审批、无总GPU时间预算，未来run不沿用任意4h上限；当前R61冻结协议保持，新增累计<50GB/server，确认无依赖临时产物可清理，历史证据仍保护。
+
+## R61完整结案与原视觉骨干适配准备
+exit0总2811.676530s/247726080bytes(closeout249212928)，135stage156330steps/1485curves/180responses核验。候选avg/final/tail NIH30.664903/23.222222/11.111111 ISIC52.242356/50.981709/64.529915 HK55.485786/56.351127/36.751135，H0/R28两门false，保留H0。完整matchedglobalCE比paired三域宏更高但尾更低；正确语义非一致优于task内置换（NIH置换更好，HK原语义宏更好），不能认定loss或text独自主因。共享representation比frozen语义宏提高，原cache含可学习信息，不是内在不可分上限证据。完整结果b607d58已双端交付。
+后继R62准备进入视觉backbone内部共享适配，非再换global512读出。已做有界原source目录stat、每域1TRAIN图像实际解码、旧Biomed权重存在，q107v已import并读取原Timmforward接口，sourceGPU有余量。尚未做新编码/大复制/GPU训练。规划冻结前10visionblocks缓存原生FP32tokens，训练末2attentionq/vLoRAr8，保持原pool/proj/semanticglobalrisk及真实历史；源单chunk暂存、pro逐domain可再生成cache生命周期严格<50GB实际窗口占用，不删结果/重置峰值账。计划20h独立原钟（非任意4h），正式协议/缓存数值等价/跨serverguards尚需工程实现，不冒称已启动。用户12h持续授权/唯一hasten保持。
+
+
+## R62完整结案：原生视觉适配提高若干宏指标，尾类泛化仍失败
+原20hclock全程保留，exit0总28302.872598s，45stage52110updates/208050microbackward/495curves/90保存响应核验全部通过。候选avg/final/tail NIH34.388521/23/6.984127 ISIC53.873505/52.887993/52.457265 HK57.944613/58.341124/33.689028，H0/R28两门false、三域两参照joint均0/3，保留H0。NIHavg对H0+2.033583但final−3.333333、tail−5.079365；ISIC/HK尾−6.730769/−4.133471。45/45末三objective未达1%描述平台，但最终TRAIN尾NIH约94.63%、ISIC100%、HK约81.22%，开发尾6.98/52.46/33.69，未平台与泛化落差同时存在，不以追加epochs救援或宣称已定位唯一过拟合因果。初始/后到尾的出生和终点全类计数保留。源NFS st_blocks约2倍导致storageguard在0optimizer时停；分段ACK保留36416已编码行、原钟续完，全部失败/费用保留。sourcepeak44.689GB/propeak41.894GB低于45GB，各域全部科学产物保存后仅删再生token/base，历史保护不变。当前无活动训练，不再监测旧PID。
+下一选择支持条件化的共享视觉适配：其他真实历史支持定义类别、组不相交query驱动风险、同一决策覆盖训练和增量推理，替代固定文本槽直接拟合。只读TRAIN metadata审计各类>=2 identity_component可实施；不把component普遍称患者、无优化/VAL/TEST/效果筛选。R63已写decision接口和工程计划，尚无冻结完整协议/模型前向/新编码/GPU训练；下一必须完成fold与交替刷新训练实现及预算，预检后直接全三域实验，不停在公式或用短pilot否定。

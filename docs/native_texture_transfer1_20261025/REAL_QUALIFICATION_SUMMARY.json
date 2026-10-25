@@ -1,0 +1,51 @@
+{
+  "REAL_QUALIFICATION.json": {
+    "state": "PASS",
+    "real_base_images": 20,
+    "real_patients": 20,
+    "optimizer_steps": 0,
+    "production_seconds_per_image": 0.19203588378150016,
+    "NumPy_seconds_per_image": 2.0522219110280275,
+    "paired_Gram_seconds_per_row": 0.0016948861521086656,
+    "paired_system_seconds": 1.1546831680461764,
+    "scope": "Packed disk persistence and full original-weight RAM roundtrip; no new learned model or optimizer.128row throughput repeats qualified descriptors, not128new images.",
+    "science_started": false
+  },
+  "QUALIFICATION.json": {
+    "state": "PASS",
+    "time_forecast_seconds": 24520.83458105071,
+    "remaining_seconds": 85323.70400929451,
+    "physical_factor_with_margin": 2.2030883767882776,
+    "new_root_forecast_bytes": 999559300.6925946,
+    "window_forecast_bytes": 26297026137.692596,
+    "existing_root_bytes": 52843299,
+    "existing_window_bytes": 25350310136,
+    "ETA": false
+  },
+  "PHYSICAL_CALIBRATION.json": {
+    "samples": [
+      {
+        "file": "qualification_system.private.pt",
+        "logical_bytes": 21519152,
+        "blocks_bytes": 43040768,
+        "ratio": 2.0001145026532643
+      },
+      {
+        "file": "physical_calibration.private.pt",
+        "logical_bytes": 4818324,
+        "blocks_bytes": 9650176,
+        "ratio": 2.0028076152620704
+      }
+    ],
+    "factor_with_margin": 2.2030883767882776
+  },
+  "numeric_checks": 73,
+  "all_numeric_PASS": true,
+  "maximum_errors": {
+    "full_native_embedding12block_reference": 8.098410830825742e-12,
+    "four_real_spatial_operators": 1.9012569296705806e-15,
+    "real8plus2_system": 8.346101587619614e-14,
+    "compact_shared_block_disk_reconstruction": 0.0,
+    "compact_disk_full_score_reference": 1.2323475573339238e-14
+  }
+}

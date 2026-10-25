@@ -12,7 +12,7 @@ def prototypes(embeddings,labels,classes):
 
 def query_risk(query,labels,support_prototypes,global_class_counts,total_rows):
     """Same all-seen decision for query training and inference; no text or fusion."""
-    logits=20*F.normalize(query,dim=1)@support_prototypes.T
+    logits=20*query@support_prototypes.T
     classes=len(global_class_counts)
     weights=total_rows/(classes*global_class_counts[labels].to(query.dtype))
     return weights*F.cross_entropy(logits,labels,reduction='none'),logits

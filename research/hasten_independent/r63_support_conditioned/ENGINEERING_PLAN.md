@@ -1,3 +1,7 @@
+# R63 implementation status
+
+The full worker, bounded request/relay pipeline, saved-output verifier and frozen PROTOCOL.md are implemented. Shared firstactual clock1792895156.926857→1792967156.926857 was created before genuine-model preflight/new encoding. Source and target real-engineering preflight passed with0optimizer updates; source2TRAIN/Torch crossruntime maxabs5.96e-8, detached-support decision backward and strictrestore pass. Currently NIH stage0 cache is being produced in<=16000row jobs; no scientific training update has yet been observed. The following preparation record is historical and superseded by PROTOCOL.md/current STATE.
+
 # R63 selected structural mainline — not launched
 
 R62 complete evidence and bounded TRAIN component audit are delivered with its results. R62 internal visual learning improves some macro values but leaves very high TRAIN-tail/low development-tail performance. Neither frozen information absence nor insufficient rare-row fitting explains this alone. Fixed semantic anchors are not consistently superior to permuted semantics in R61. The next falsifiable problem is how shared visual adaptation learns a class from other real examples and retains that evidence under incremental updates.

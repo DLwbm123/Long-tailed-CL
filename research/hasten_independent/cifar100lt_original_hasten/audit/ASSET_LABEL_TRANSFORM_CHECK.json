@@ -1,0 +1,54 @@
+{
+  "label_name_order_matches_CIFAR_meta": true,
+  "label_normalization": "underscore to space only",
+  "HASTEN_train_transform": "[Resize(size=(224, 224), interpolation=bicubic, max_size=None, antialias=warn), CenterCrop(size=(224, 224)), ToTensor(), Normalize(mean=(0.48145466, 0.4578275, 0.40821073), std=(0.26862954, 0.26130258, 0.27577711))]",
+  "HASTEN_test_transform": "[Resize(size=(224, 224), interpolation=bicubic, max_size=None, antialias=warn), CenterCrop(size=(224, 224)), ToTensor(), Normalize(mean=(0.48145466, 0.4578275, 0.40821073), std=(0.26862954, 0.26130258, 0.27577711))]",
+  "CLIP_model_config": {
+    "embed_dim": 512,
+    "vision_cfg": {
+      "image_size": 224,
+      "layers": 12,
+      "width": 768,
+      "patch_size": 16
+    },
+    "text_cfg": {
+      "context_length": 77,
+      "vocab_size": 49408,
+      "width": 512,
+      "heads": 8,
+      "layers": 12
+    }
+  },
+  "official_pretrained_tag_cfg": {
+    "url": "https://github.com/mlfoundations/open_clip/releases/download/v0.2-weights/vit_b_16-laion400m_e32-55e67d44.pt",
+    "hf_hub": "",
+    "mean": [
+      0.48145466,
+      0.4578275,
+      0.40821073
+    ],
+    "std": [
+      0.26862954,
+      0.26130258,
+      0.27577711
+    ],
+    "interpolation": "bicubic",
+    "resize_mode": "shortest"
+  },
+  "local_checkpoint_bytes": 598533543,
+  "unmatched_runtime_versions": {
+    "torch": "2.1.2+cu121",
+    "torchvision": "0.16.2+cu121",
+    "open_clip": "2.26.1",
+    "cuda": "12.1",
+    "gpu": "NVIDIA A100-PCIE-40GB",
+    "cpu_affinity": [
+      76,
+      77,
+      78,
+      79
+    ]
+  },
+  "stats_loader_workers_hardcoded_in_upstream": 8,
+  "train_and_test_loader_workers_overridden": 2
+}

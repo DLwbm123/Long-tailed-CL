@@ -25,3 +25,5 @@ h(p)仅将端点概率代入current=old、clip未激活的binaryG8假设快照�
 仅物理A1000端点推理/1冻结prefix，RAM总30GB/GPU各reserved<12GiB；rootcap0/noOSswap。声明再生prefix已清，prefix编码6821个TRAIN行、parity最大1.6578e-7，root/remote spill均0；全部科学产物及历史权重保留。正式87651行端点计数不含native复算或冻结prefix工程前向，相关开销计入控制器费用。共享R67SFT/R75savedheads只读，无复制大模型、修改旧结果或恢复R65。
 
 本轮补齐表示层面的证据，不能称新方法成功、三seed/三域BOTH/TEST或临床证据。现阶段不据几何表直接叠加新的聚类/间隔/保护项，也不通过先验、权重或epoch搜索救援；后续方法仍需独立的TRAIN依据、可证伪假设、匹配对照和完整冻结实验。
+
+访问范围补充：沿用的数据加载器会读取既有完整TRAIN manifest的标签、组件与固定顺序/计数元数据，再按已到达stage构造输入；因此不声称未来类manifest元数据完全不可见。编码器输入、支持与原型仅包含当前已到达类，未加载未来类图像/features/端点head，未用未来类元数据选择方法或更新参数。原冻结协议与代码保留，该披露界定其中“无未来类输入”的实际实现范围。

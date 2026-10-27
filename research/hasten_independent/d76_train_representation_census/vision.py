@@ -35,7 +35,7 @@ class NativeTail(nn.Module):
   trunk=timm.create_model('vit_base_patch16_224',pretrained=False,num_classes=0,depth=2)
   self.blocks=trunk.blocks;self.norm=trunk.norm;self.norm.eps=bundle['meta']['norm_eps'];self.proj=nn.Linear(768,512,bias=False)
   assert bundle['meta']['global_pool']=='token' and bundle['meta']['fc_norm_identity']
-  
+
   for b,eps in zip(self.blocks,bundle['meta']['block_norm_eps']):b.norm1.eps=eps[0];b.norm2.eps=eps[1]
   self.load_state_dict(bundle['state'],strict=True);self.requires_grad_(False).eval()
  def forward(self,tokens):return F.normalize(self.proj(self.norm(self.blocks(tokens))[:,0]),dim=-1)

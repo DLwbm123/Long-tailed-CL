@@ -1,0 +1,10 @@
+{
+  "scope": "saved-only verification repair after successful training exit0",
+  "failure": "RuntimeError: Boolean value of Tensor with more than one value is ambiguous",
+  "cause": "verify.py reused n for per-class count tensor, shadowing total row count",
+  "repair": "Rename weight-check count tensor to nvec; original checks and saved training outputs unchanged",
+  "new_optimizer_steps": 0,
+  "new_model_scores": 0,
+  "clock_reset": false,
+  "training_rerun": false
+}

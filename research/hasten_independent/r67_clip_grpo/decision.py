@@ -1,0 +1,61 @@
+"""One-step categorical GRPO/TARS for CLIP; not generative TARS reproduction."""
+import math
+import torch
+import torch.nn.functional as F
+
+GROUP_SIZE=8
+CLIP=.2
+BETA=.04
+GAMMA=.75
+EPS=1e-8
+ARMS=('sft_continue','grpo','tars_grpo','tars_exact')
+
+@torch.no_grad()
+def tailness(counts,correct):
+    counts=counts.double();correct=correct.double()
+    assert counts.ndim==1 and bool((counts>0).all())
+    assert bool(((correct>=0)&(correct<=counts)).all())
+    raw=(counts.mean()/counts*(1-correct/counts)).pow(GAMMA)
+    median=torch.quantile(raw,.5)
+    weights=(raw/median.clamp_min(EPS)).clamp_min(1)
+    assert torch.isfinite(weights).all()
+    return weights
+
+@torch.no_grad()
+def rollout(old_logits,labels,generator):
+    assert old_logits.ndim==2 and old_logits.shape[0]==len(labels)
+    actions=torch.multinomial(old_logits.softmax(1),GROUP_SIZE,replacement=True,generator=generator)
+    rewards=(actions==labels[:,None]).to(old_logits.dtype)
+    adv=(rewards-rewards.mean(1,keepdim=True))/(rewards.std(1,keepdim=True,correction=0)+EPS)
+    assert torch.isfinite(adv).all()
+    return actions,adv,rewards
+
+def exact_group_surrogate(logp,old_logp,labels):
+    """Exact expectation over all Bernoulli group counts and wrong-class identities."""
+    old=old_logp.detach().exp().double();p=old.gather(1,labels[:,None]).squeeze(1)
+    ratio=(logp.double()-old_logp.detach().double()).exp();clipped=ratio.clamp(1-CLIP,1+CLIP)
+    correct=F.one_hot(labels,logp.shape[1]).bool();wrong=old.masked_fill(correct,0)/(1-p[:,None]).clamp_min(1e-30)
+    result=torch.zeros_like(p)
+    for k in range(1,GROUP_SIZE):
+        f=k/GROUP_SIZE;sd=math.sqrt(f*(1-f))+EPS
+        a_pos=(1-f)/sd;a_neg=-f/sd
+        prob=math.comb(GROUP_SIZE,k)*p.pow(k)*(1-p).pow(GROUP_SIZE-k)
+        pos=torch.minimum(ratio*a_pos,clipped*a_pos).gather(1,labels[:,None]).squeeze(1)
+        neg=(wrong*torch.minimum(ratio*a_neg,clipped*a_neg)).sum(1)
+        result+=prob*(f*pos+(1-f)*neg)
+    return result.to(logp.dtype)
+
+def objective(logits,old_logits,ref_logits,labels,weights,arm,generator=None):
+    assert arm in ARMS and logits.shape==old_logits.shape==ref_logits.shape
+    logp=logits.log_softmax(1);old=old_logits.detach().log_softmax(1);ref=ref_logits.detach().log_softmax(1)
+    kl=(logp.exp()*(logp-ref)).sum(1)
+    stats=dict(groups=0,zero_advantage_groups=0,reward_sum=0,actions=0,clipped_actions=0)
+    if arm=='sft_continue':return F.cross_entropy(logits,labels,reduction='none'),stats
+    if arm=='tars_exact':surrogate=exact_group_surrogate(logp,old,labels)
+    else:
+        actions,adv,rewards=rollout(old_logits.detach(),labels,generator)
+        ratio=(logp.gather(1,actions)-old.gather(1,actions)).exp()
+        surrogate=torch.minimum(ratio*adv,ratio.clamp(1-CLIP,1+CLIP)*adv).mean(1)
+        stats=dict(groups=len(labels),zero_advantage_groups=int((adv.abs().sum(1)==0).sum()),reward_sum=int(rewards.sum()),actions=rewards.numel(),clipped_actions=int(((ratio<1-CLIP)|(ratio>1+CLIP)).sum()))
+    scale=torch.ones_like(surrogate) if arm=='grpo' else weights[labels].to(logits.dtype).detach()
+    return -scale*surrogate+BETA*kl,stats

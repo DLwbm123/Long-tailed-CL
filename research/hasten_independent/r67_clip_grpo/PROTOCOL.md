@@ -1,0 +1,42 @@
+# R67-HK74002: CLIP categorical GRPO after a matched supervised bootstrap
+
+## Explicit user scope
+
+The user stopped R65 after NIH was complete and then explicitly requested ISIC or HK, initially one seed. Select HK and fixed seed74002 for the smaller real-data run. This supersedes the unstarted R67 full-three-domain plan; original files are retained in original_three_domain_plan/. No R65 restart, missing-output fabrication, seed/domain selection after this run, or claim of complete three-domain confirmation. All6 original HK stages are run, not a short-stage efficacy veto. This is an independent experiment with its own single20h clock, never reset.
+
+## Common supervised reference and four matched posttraining arms
+
+Use the original HK order/splits, real TRAIN history, metadata-component two folds (not patient guarantees), Biomed original first10block frozen prefixes, last2q/vLoRAr8alpha8=49152 parameters, original opposite-fold prototypes, natural query distribution. First build a common supervised checkpoint at each stage: exactly R65 likelihood CE(20cos+logarrivedTRAINcount)+.01originalimage drift, AdamW.001wd.001/cosine10,10epochs/batch256/micro64, optimizer reset per stage, supervised LoRA carried across6stages. This fresh SFT is a planned internal matched reference, not an attempt to resume or repair stopped R65. No SFT validation pixels are read before every GRPO arm is sealed.
+
+For each completed SFT stage separately initialize four posttraining branches from that identical stage checkpoint: sft_continue, grpo, tars_grpo(primary), tars_exact. Each gets2epochs, AdamW.001wd.001/cosine2, same natural shuffled queries/metadatafolds/supportrefresh and .01image drift. Posttraining deltas do not carry into later stages, which always initialize from the common SFT stage checkpoint. Therefore this is **stagewise posttraining**, not end-to-end online RL continual learning.
+
+Policy logits are20cos+logTRAINcount; prediction at validation is raw20cos only, no prior adjustment/temperature/calibration. Real G8 categorical class actions are sampled with replacement from a per-queryfold frozen behavior model. Reward is binary correct class. Normalize within group using population standard deviation+1e-8; all-identical groups have zero surrogate advantage, stay in denominators, and are not resampled. The min(ratio*A,clip(ratio,.8,1.2)*A) surrogate uses behavior logits, not a current-policy self-ratio. Exact categorical forward KL beta.04 is to the fixed stage SFT model/opposite-fold prototypes. TARS multiplies the normalized surrogate by fixed true-class weight, not the KL. gamma.75; t=((meanTRAINcount/count)*(1-SFT_TRAIN_crossfold_accuracy))^.75; conventional midpoint median normalization with1e-8 floor; w=max(1,t/median). SFT TRAIN counts/corrects come from saved epoch10 observations, not dev/TEST. The table is fixed before all four branches of that stage.
+
+sft_continue is ordinary additional natural likelihood and anchor, without policyKL. vanilla grpo uses weight1; tars_grpo uses the fixed TARS weights. tars_exact integrates the **same clipped normalized-group TARS surrogate** over Binomial(G8,p_correct) group counts and conditional wrong-class identities, plus the same unscaledKL/anchor. This exact objective/gradient matches exhaustive3^8 groups in the software fixture. It is a no-sampling control, not weightedCE or sampled GRPO. Old/ref distributions, actions/rewards/advantages/weights are detached. Record sampled group counts, identical-reward groups, action rewards and clipped ratios. No performance tuning ofG/beta/gamma/epsilon/lr/epoch.
+
+This borrows TARS's principle from the user-provided paper (Sec3.1–3.3,4.1): original Qwen2.5-VL free-form generation/frozen vision tower differs from this CLIP categorical policy/trainable visualLoRA. Training crossfold error also differs from full-support SFT inference in the paper. No claim of original TARS reproduction, original novelty or transfer of its reported efficacy.
+
+## Exact workload and evaluation
+
+HK seed74002 stageN/foldrows/steps_per_epoch/micro_per_epoch:
+0:3916/[1961,1955]/16/62;
+1:4033/[2020,2013]/16/64;
+2:4081/[2045,2036]/16/64;
+3:4843/[2427,2416]/20/76;
+4:5523/[2767,2756]/22/88;
+5:6821/[3416,3405]/28/108.
+SFT:6stages,1180updates,4620micro,66curves. Each posttraining arm:6stagebranches,236updates,924micro,18curves. Total SFT+post:30stagebranches,2124updates,8316micro,138curves,30genuineVALreadouts (6SFT+24post). All seed74002. Support/query training exposures, old/reference queries, full TRAIN observations and prototype refresh forward costs are disclosed; low train loss/reward is not validation improvement.
+
+Read true HK VAL only after all SFT6stages and all4arm×6stage checkpoints are sealed. Save every checkpoint/curve/count/raw response/restore receipt. Compare primary tars_grpo with identical SFT reference, continuedSFT, vanillaGRPO, exactexpectation and existing standard H0/R28 seed74002 on matching VAL rows/classes. Report stage-average BA, final BA and final TRAIN<250 tailBA, per-stage/per-class counts and all arm deltas. No choosing the best arm/seed or claiming the full H0/R28 three-domain BOTH gate was evaluated. One historical development seed is exploratory and is not independent patient/clinical evidence. A negative result does not universally reject CLIP/GRPO. Analyze full saved reward/variance/clipping/KL/weights and controls, then freeze justified follow-up under current user autonomy and budgets.
+
+## Resources and launch
+
+Only my-gpu A100physical0 training/1 frozenprefix, CUDA_VISIBLE_DEVICES0,1; neverGPU2/3 orpro5000. Neutral localq1112/remoteq1113; all persistent data/weights/checkpoints/results/logs under approved remote-home root. Readonly original images/Biomedweights/R62runtime and R65 retained manifests/base references shared; no stopped R65 process is restarted. Original frozen tail bundle is copied as a small counted weight export; no NIH image/token cache is copied or scored.
+
+Independent single20h original clock includes mount/read/write probes, transfer, real2TRAIN nativepreflight, cache, SFT, four arms, repair and cleanup. No reset. Shared exclusive posttraining memory lock prevents concurrent new experiments. RAMprefix23GB, workerRSS28GB, conservative process-group+controller RSS stop29GB (<30GB with safety margin), independent2s guard. R65 was explicitly exempt from the new memory cap and is now stopped. EachGPUreserved<12GiB; CPU4/400000s/file1GiB. Memory remainsFP32, no quantization.
+
+User permits root swap acceleration: only declared regenerable prefix spill under/tmp/q1113_swap, cap8GB and3GBfree reserve, actual disk filesystem only. Optional remote-home prefix spill capped14GB actual allocated via conservative2.1x admission; remote total21GB, combined root+remote29GB with512MiB early stop reserve. All learned/scientific outputs stayremote-home. No OSswap changes, root filling, other-process changes or unrelated cleanup. Domain/endguard cleanup deletes only declared regenerable prefix files; preserves every learned artifact/failure/cost. Each newly generated row must match old original-unit512 base<=2e-5; prefix shape197×768 float32. Over-budgetcache is recomputed.
+
+Native engineering preflight uses exactly2 current-stage HK TRAIN pixels, original frozen model parity, zeroLoRA/native strictrestore and finite backward for all4objectives with a labeled two-class algebra fixture;0optimizer/0VAL/0TEST, not a performance pilot. Software checks/exhaustive expectations and memory/swap fixtures are separate from this native evidence. Start reliable background controller, verify neutral argv/GPU identity and immediate failures, same sole30min heartbeat. On actual completion verify.py thenanalyze.py saved-only; full safe source/protocol/aggregate results/curves/cost/report delivery via local GitHubproxy with exactremote/anonymous200 andsource/local receipts. Never publish original images/identities/per-example arrays/tokens/features/weights/raw logs/private configs/third-party fulltext.
+
+Final pre-launch resource amendment: live root free6.43GB is below the optional8GBswap+3GBreserve admission. This HK-only run sets root swap budget0 (empty control directory only); all persistent files and any optional spill remain remote-home. HK TRAIN6821rows imply~4.12GB FP32 prefixes, comfortably within23GB RAM cache. The scientific protocol and all30GB memory/29GBcombineddisk/original20h bounds stay unchanged. No clock had started at this rejected admission.

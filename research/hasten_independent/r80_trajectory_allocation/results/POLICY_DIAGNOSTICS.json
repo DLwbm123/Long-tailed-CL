@@ -1,0 +1,80 @@
+{
+  "per_arm": {
+    "balanced_short": {
+      "retained_tail_exposure_fraction": 0.15087890625,
+      "all_branch_tail_exposure_fraction": 0.15087890625,
+      "sampled_decisions": 0,
+      "priority_tail_decisions": 0,
+      "balanced_decisions": 768,
+      "mean_reward_population_std": 1.0266866345053968e-10,
+      "zero_reward_std_contexts": 47,
+      "mean_controller_KL": null,
+      "mean_clipped_fraction": null,
+      "decision_entries": 768
+    },
+    "macro_controller": {
+      "retained_tail_exposure_fraction": 0.1352267795138889,
+      "all_branch_tail_exposure_fraction": 0.12877061631944445,
+      "sampled_decisions": 768,
+      "priority_tail_decisions": 335,
+      "balanced_decisions": 27,
+      "mean_reward_population_std": 0.0006301190226957535,
+      "zero_reward_std_contexts": 0,
+      "mean_controller_KL": 0.01276858768078526,
+      "mean_clipped_fraction": 0.0,
+      "controller_parameter_delta_L2": 1.845203074355705,
+      "decision_entries": 768
+    },
+    "protected_controller": {
+      "retained_tail_exposure_fraction": 0.1352267795138889,
+      "all_branch_tail_exposure_fraction": 0.1294487847222222,
+      "sampled_decisions": 768,
+      "priority_tail_decisions": 342,
+      "balanced_decisions": 25,
+      "mean_reward_population_std": 0.0013843844416464894,
+      "zero_reward_std_contexts": 0,
+      "mean_controller_KL": 0.014082549308033284,
+      "mean_clipped_fraction": 0.0,
+      "controller_parameter_delta_L2": 1.8029003015796776,
+      "decision_entries": 768
+    },
+    "shuffled_controller": {
+      "retained_tail_exposure_fraction": 0.1376953125,
+      "all_branch_tail_exposure_fraction": 0.12984061535493827,
+      "sampled_decisions": 768,
+      "priority_tail_decisions": 348,
+      "balanced_decisions": 30,
+      "mean_reward_population_std": 0.0012883916632981923,
+      "zero_reward_std_contexts": 0,
+      "mean_controller_KL": 0.0013022094923525647,
+      "mean_clipped_fraction": 0.0,
+      "controller_parameter_delta_L2": 0.80401271343841,
+      "decision_entries": 768
+    },
+    "balanced_long": {
+      "retained_tail_exposure_fraction": 0.15087890625,
+      "all_branch_tail_exposure_fraction": 0.15087890625,
+      "sampled_decisions": 0,
+      "priority_tail_decisions": 0,
+      "balanced_decisions": 768,
+      "mean_reward_population_std": 0.010096688711744229,
+      "zero_reward_std_contexts": 0,
+      "mean_controller_KL": null,
+      "mean_clipped_fraction": null,
+      "decision_entries": 768
+    }
+  },
+  "action_matches": {
+    "protected_controller_vs_macro_controller": {
+      "same": 740,
+      "total": 768,
+      "fraction": 0.9635416666666666
+    },
+    "protected_controller_vs_shuffled_controller": {
+      "same": 621,
+      "total": 768,
+      "fraction": 0.80859375
+    }
+  },
+  "interpretation": "Action agreement is under coupled random numbers, not independent replication or proof of a cause. Policy KL is to uniform legal actions, not visual drift."
+}

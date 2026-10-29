@@ -1,0 +1,134 @@
+{
+  "rss_budget_bytes": 28000000000,
+  "aggregate_rss_budget_bytes": 29000000000,
+  "ram_cache_budget_bytes": 23000000000,
+  "swap_cache_budget_bytes": 0,
+  "remote_swap_budget_bytes": 14000000000,
+  "storage_budget_bytes": 29000000000,
+  "remote_output_budget_bytes": 21000000000,
+  "output": "/private/outputs",
+  "budget_root": "/private/outputs",
+  "python": "/private/python",
+  "entry": "/run/experiment/campaign.py",
+  "runtime": "/private/outputs/runtime",
+  "clock": "/private/outputs/FIRST_ACTUAL.private.json",
+  "swap_cache_root": "/private/empty_scratch",
+  "shared_memory_lock": "/private/posttraining_memory.lock",
+  "matched_reference_run": "/private/sealed_SFT",
+  "biomed_assets": "/private/biomed/assets",
+  "biomed_checkpoint": "/private/biomed/checkpoint",
+  "image_roots": {
+    "HK": "/private/images"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "0,1",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1"
+  },
+  "domains": {
+    "HK": {
+      "dataset": "HK",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "stages": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          21,
+          22
+        ]
+      ],
+      "train_counts_ordered": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "seeds": [
+        74002
+      ],
+      "branches_per_stage": 6,
+      "output": "/private/outputs/HK",
+      "clock": "/private/outputs/FIRST_ACTUAL.private.json",
+      "root_config": "/private/outputs/config.private.json",
+      "rss_budget_bytes": 28000000000,
+      "manifest": "/private/manifest",
+      "train_cache": "/private/original_features",
+      "validation_cache": "/private/original_val_features"
+    }
+  }
+}

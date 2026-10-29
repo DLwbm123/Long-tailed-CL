@@ -1,0 +1,3 @@
+# Pre-native CPU precision correction
+
+First software attempt stopped at fixed-mean CE weight-mass assertion: Python scalar / integer-count tensor was calculated in default FP32 before addition into FP64 weights. Corrected class counts to FP64; formula, rho, tolerance and frozen gates unchanged. No native/visual optimizer/model scoring/VAL/TEST or scientific endpoint preceded failure. Original controller exit/cost/log/source version and zero-optimizer audit preserved. Original20hclock retained. A fresh admission and audited second controller attempt reruns CPU checks before any native/model work; no partial optimizer resume.

@@ -1,0 +1,16 @@
+"""Prespecified R83 saved-only controllability and recognition gates."""
+import os,json
+from pathlib import Path
+from common import write
+from diagnostic_stats import kendall,selection
+cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());r=Path(cfg['output']);assert json.loads((r/'results/VERIFICATION.json').read_text())['passed'];rows=json.loads((r/'HK/RECORDS.private.json').read_text());di=[];actions=[]
+for v in rows:
+ bs=v['branches'];base=bs[0];dup=next(z for z in bs if z['duplicate']);noise=dup['parameter_difference']['L2'];risknoise=max(abs(x-y) for x,y in zip(dup['query']['full']['brier'],base['query']['full']['brier']));rr=[z for z in bs if not z['duplicate'] and not z['fixed_mean']];di.append(dict(stage=v['stage'],fold=v['fold'],repeat=v['repeat'],duplicate_parameter_L2=noise,duplicate_max_Brier_difference=risknoise,rank_tau_b=kendall([z['stats']['Qa']['utility'] for z in rr],[z['stats']['Qb']['utility'] for z in rr]),forward_selection=selection(bs),reverse_selection=selection(bs,'Qb','Qa')))
+ for z in bs:actions.append(dict(stage=v['stage'],fold=v['fold'],repeat=v['repeat'],action=z['action'],duplicate=z['duplicate'],fixed_mean=z['fixed_mean'],exposure=z['exposure'],exposure_minus_action0=z['exposure_minus_action0'],first_step_class_loss_mass=z['allocation'][0]['CE_class_mass'],parameter_difference=z['parameter_difference'],parameter_distinguishable=z['parameter_difference']['L2']>max(10*noise,1e-7),risk_distinguishable=max(abs(x-y) for x,y in zip(z['query']['full']['brier'],base['query']['full']['brier']))>max(10*risknoise,1e-6),macro_stats=z['stats']))
+stages=[]
+for s in range(6):
+ vv=[z for z in di if z['stage']==s];stages.append(dict(stage=s,**{m+'_'+ref:sum(z['forward_selection'][m][ref] for z in vv)/6 for m in ['BA','tail_BA'] for ref in ['gain_vs_uniform','gain_vs_fixed_mean','gain_vs_action0']}))
+keys=['BA_gain_vs_uniform','tail_BA_gain_vs_uniform','BA_gain_vs_fixed_mean','tail_BA_gain_vs_fixed_mean'];means={k:sum(z[k] for z in stages)/6 for k in keys};positive_stage=sum(all(z[k]>0 for k in keys) for z in stages);strata=sum(sum(z['rank_tau_b'] is not None and z['rank_tau_b']>0 for z in di if z['stage']==s and z['fold']==b)>=2 for s in range(6) for b in [0,1]);recognition=all(v>0 for v in means.values()) and positive_stage>=5 and strata>=9
+actuator={str(c):dict(stage_positive_counts=[sum(z['parameter_distinguishable'] for z in actions if z['stage']==s and z['action']==c+1 and not z['fixed_mean'] and not z['duplicate']) for s in range(6)]) for c in [1,2,12]}
+for item in actuator.values():item['stages_with_at_least4_of6_responses']=sum(v>=4 for v in item['stage_positive_counts']);item['passed']=item['stages_with_at_least4_of6_responses']>=5
+summary=dict(stage_results=stages,mean_forward_gains=means,stage_means_all_four_positive=positive_stage,positive_rank_strata=strata,actuator=actuator,actuator_condition_passed=all(v['passed'] for v in actuator.values()),recognition_condition_passed=recognition,necessary_pattern_supported=recognition and all(v['passed'] for v in actuator.values()),unsupported_class1_fold1=True,not_independent_confirmation=True,new_model_scores=0,new_optimizer_steps=0);write(r/'results/ANALYSIS.json',summary);write(r/'results/BLOCK_DIAGNOSTICS.json',di);write(r/'results/ACTION_RESPONSES.json',actions);print(json.dumps(summary))

@@ -1,0 +1,177 @@
+{
+  "output": "/private/r83_loss_share_action",
+  "budget_root": "/private/r83_loss_share_action",
+  "python": "/private/python",
+  "entry": "/private/campaign.py",
+  "clock": "/private/FIRST_ACTUAL.private.json",
+  "runtime": "/private/runtime",
+  "storage_budget_bytes": 29000000000,
+  "rss_budget_bytes": 28000000000,
+  "reference_run": "/private/reference_run",
+  "domains": {
+    "HK": {
+      "dataset": "HK",
+      "output": "/private/HK",
+      "clock": "/private/FIRST_ACTUAL.private.json",
+      "manifest": "/private/manifest",
+      "train_cache": "/private/cache",
+      "validation_cache": "/private/val_features.private.pt",
+      "order": [
+        4,
+        5,
+        6,
+        22,
+        20,
+        1,
+        2,
+        15,
+        14,
+        12,
+        10,
+        11,
+        19,
+        16,
+        7,
+        0,
+        17,
+        9,
+        18,
+        13,
+        21,
+        8,
+        3
+      ],
+      "stages": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          21,
+          22
+        ]
+      ],
+      "train_counts_ordered": [
+        626,
+        3,
+        6,
+        85,
+        288,
+        403,
+        736,
+        488,
+        252,
+        167,
+        595,
+        261,
+        6,
+        34,
+        83,
+        25,
+        23,
+        635,
+        127,
+        662,
+        18,
+        654,
+        644
+      ],
+      "ordered_names": [
+        "dyed resection margins",
+        "hemorrhoids",
+        "ileum",
+        "ulcerative colitis grade 3",
+        "ulcerative colitis grade 2",
+        "bbps 0 1",
+        "bbps 2 3",
+        "retroflex stomach",
+        "retroflex rectum",
+        "oesophagitis b d",
+        "normal z line",
+        "oesophagitis a",
+        "ulcerative colitis grade 1 2",
+        "short segment barretts",
+        "impacted stool",
+        "barretts",
+        "ulcerative colitis grade 0 1",
+        "normal pylorus",
+        "ulcerative colitis grade 1",
+        "polyp",
+        "ulcerative colitis grade 2 3",
+        "normal cecum",
+        "dyed lifted polyps"
+      ],
+      "leaf_template": "an endoscopic image of {}.",
+      "root_config": "/private/config.private.json",
+      "job_base": 61,
+      "expected_steps": 3540,
+      "rss_budget_bytes": 28000000000,
+      "branches_per_stage": 1,
+      "seeds": [
+        74002
+      ]
+    }
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "0,1",
+    "PYTHONPATH": "/private/runtime_deps",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "HF_HOME": "/private/hf",
+    "TORCH_HOME": "/private/torch",
+    "CUDA_CACHE_PATH": "/private/cuda",
+    "XDG_CACHE_HOME": "/private/cache",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4"
+  },
+  "migration_resume_sealed_stages": false,
+  "biomed_assets": "/private/assets",
+  "biomed_checkpoint": "/private/biomed_checkpoint.private.bin",
+  "image_roots": {
+    "NIH": "/private/nih_chestxray14",
+    "ISIC": "/private/ISIC",
+    "HK": "/private/HK"
+  },
+  "aggregate_rss_budget_bytes": 29000000000,
+  "ram_cache_budget_bytes": 23000000000,
+  "swap_cache_budget_bytes": 0,
+  "remote_swap_budget_bytes": 14000000000,
+  "swap_cache_root": "/private/q1145_swap",
+  "remote_output_budget_bytes": 21000000000,
+  "matched_reference_run": "/private/SFT",
+  "shared_memory_lock": "/private/.posttraining_memory.lock",
+  "seeds": [
+    74002
+  ],
+  "scope": "HK74002 loss-share action controllability diagnosis",
+  "source_run": "/private/r81_uniform_allocation",
+  "split_reference_run": "/private/r82_action_identifiability"
+}

@@ -1,0 +1,891 @@
+{
+  "scope": "Saved-only synthesis; zero new model scores, image forwards, optimizer updates or validation reads. HK seed74002 repeated development, six stages.",
+  "metric_order": [
+    "mean_stage_BA_percent",
+    "final_BA_percent",
+    "final_tail_BA_percent"
+  ],
+  "references": {
+    "sft_reference": [
+      66.840040521249,
+      64.87678195784177,
+      44.924938328486
+    ],
+    "distribution_sft_reference": [
+      69.29184261189839,
+      62.15359662525305,
+      41.21684856163792
+    ]
+  },
+  "H0": [
+    55.6301,
+    56.454053,
+    36.857416
+  ],
+  "runs": [
+    {
+      "run": "R67",
+      "directory": "r67_clip_grpo",
+      "prespecified_primary": "tars_grpo",
+      "commit": "363bf426c4e7c3792e6269fda1c3b53c17d7d1ec",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/363bf426c4e7c3792e6269fda1c3b53c17d7d1ec/research/hasten_independent/r67_clip_grpo/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 3324.531064748764,
+        "worker_CPU_seconds": 4987.270232,
+        "peak_RSS_bytes": 7413186560,
+        "peak_aggregate_RSS_bytes": 7397466112,
+        "peak_allocated_bytes": 174802021
+      }
+    },
+    {
+      "run": "R68",
+      "directory": "r68_aligned_grpo",
+      "prespecified_primary": "raw_tars_grpo",
+      "commit": "073d05a4d8d3997fc4581feb245424702c882663",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/073d05a4d8d3997fc4581feb245424702c882663/research/hasten_independent/r68_aligned_grpo/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 1835.4636342525482,
+        "worker_CPU_seconds": 2768.3178740000003,
+        "peak_RSS_bytes": 7451242496,
+        "peak_aggregate_RSS_bytes": 7473340416,
+        "peak_allocated_bytes": 54861503
+      }
+    },
+    {
+      "run": "R69",
+      "directory": "r69_stationary_support",
+      "prespecified_primary": "fixed_tars_grpo",
+      "commit": "4e70ed1c355818504512d4840fd0ba8e62b69073",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/4e70ed1c355818504512d4840fd0ba8e62b69073/research/hasten_independent/r69_stationary_support/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 1782.9203000068665,
+        "worker_CPU_seconds": 2718.335168,
+        "peak_RSS_bytes": 7373180928,
+        "peak_aggregate_RSS_bytes": 7393226752,
+        "peak_allocated_bytes": 57109939
+      }
+    },
+    {
+      "run": "R70",
+      "directory": "r70_risk_guard",
+      "prespecified_primary": "protected_tars_grpo",
+      "commit": "a31b624d62b12468dbca70091795cd2917bdea0c",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a31b624d62b12468dbca70091795cd2917bdea0c/research/hasten_independent/r70_risk_guard/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 2114.2775270938873,
+        "worker_CPU_seconds": 3193.456516,
+        "peak_RSS_bytes": 7586447360,
+        "peak_aggregate_RSS_bytes": 7568171008,
+        "peak_allocated_bytes": 55595329
+      }
+    },
+    {
+      "run": "R71",
+      "directory": "r71_macro_guard",
+      "prespecified_primary": "balanced_guard_grpo",
+      "commit": "945979b26f7aa6e7681de70157111074504aea85",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/945979b26f7aa6e7681de70157111074504aea85/research/hasten_independent/r71_macro_guard/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 2071.7787442207336,
+        "worker_CPU_seconds": 3106.454711,
+        "peak_RSS_bytes": 7442014208,
+        "peak_aggregate_RSS_bytes": 7464415232,
+        "peak_allocated_bytes": 55811856
+      }
+    },
+    {
+      "run": "R72",
+      "directory": "r72_signal_compensation",
+      "prespecified_primary": "compensated_grpo",
+      "commit": "2ae6bf68a987f9d201d5d0a066c5bd2f6870b83e",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/2ae6bf68a987f9d201d5d0a066c5bd2f6870b83e/research/hasten_independent/r72_signal_compensation/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 1989.5442969799042,
+        "worker_CPU_seconds": 2994.390198,
+        "peak_RSS_bytes": 7459135488,
+        "peak_aggregate_RSS_bytes": 7481163776,
+        "peak_allocated_bytes": 55353162
+      }
+    },
+    {
+      "run": "R73",
+      "directory": "r73_contrastive_reward",
+      "prespecified_primary": "hardnegative_grpo",
+      "commit": "a6c78c3b4c12f6939d3a7213eae2f26fe55376e4",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a6c78c3b4c12f6939d3a7213eae2f26fe55376e4/research/hasten_independent/r73_contrastive_reward/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 2587.5225303173065,
+        "worker_CPU_seconds": 3548.444895,
+        "peak_RSS_bytes": 7438196736,
+        "peak_aggregate_RSS_bytes": 7460487168,
+        "peak_allocated_bytes": 55628273
+      }
+    },
+    {
+      "run": "R74",
+      "directory": "r74_semantic_prototypes",
+      "prespecified_primary": "semantic_grpo",
+      "commit": "05fde7ab01e8518a1c7c6e5bb739bf562882cd1d",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/05fde7ab01e8518a1c7c6e5bb739bf562882cd1d/research/hasten_independent/r74_semantic_prototypes/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 2375.8483834266663,
+        "worker_CPU_seconds": 3310.797047,
+        "peak_RSS_bytes": 7499583488,
+        "peak_aggregate_RSS_bytes": 7521988608,
+        "peak_allocated_bytes": 59027039
+      }
+    },
+    {
+      "run": "R75",
+      "directory": "r75_macro_risk",
+      "prespecified_primary": "macro_grpo",
+      "commit": "9ca10114add58e312507abf3ce2bbd1de7474635",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/9ca10114add58e312507abf3ce2bbd1de7474635/research/hasten_independent/r75_macro_risk/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 2650.7040407657623,
+        "worker_CPU_seconds": 3622.561488,
+        "peak_RSS_bytes": 7450222592,
+        "peak_aggregate_RSS_bytes": 7418015744,
+        "peak_allocated_bytes": 55081294
+      }
+    },
+    {
+      "run": "R77",
+      "directory": "r77_distributional_support",
+      "prespecified_primary": "distribution_grpo",
+      "commit": "52819958e066f16d0a7b4875ff3c0041895ae6f9",
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/52819958e066f16d0a7b4875ff3c0041895ae6f9/research/hasten_independent/r77_distributional_support/REPORT_ZH.md",
+      "cost": {
+        "total_elapsed_seconds": 2727.9029195308685,
+        "worker_CPU_seconds": 3630.493491,
+        "peak_RSS_bytes": 7669895168,
+        "peak_aggregate_RSS_bytes": 7654436864,
+        "peak_allocated_bytes": 657658700
+      }
+    }
+  ],
+  "all_arms": [
+    {
+      "run": "R67",
+      "arm": "sft_continue",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.58025034689425,
+      "final_BA_percent": 62.4971515371536,
+      "final_tail_BA_percent": 39.85472398997898,
+      "delta_vs_original_SFT_pp": [
+        -0.25979017435474816,
+        -2.379630420688173,
+        -5.0702143385070215
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/363bf426c4e7c3792e6269fda1c3b53c17d7d1ec/research/hasten_independent/r67_clip_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R67",
+      "arm": "grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.57795619986227,
+      "final_BA_percent": 63.5979610896278,
+      "final_tail_BA_percent": 42.511518415066085,
+      "delta_vs_original_SFT_pp": [
+        -0.2620843213867232,
+        -1.2788208682139697,
+        -2.413419913419915
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/363bf426c4e7c3792e6269fda1c3b53c17d7d1ec/research/hasten_independent/r67_clip_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R67",
+      "arm": "tars_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/363bf426c4e7c3792e6269fda1c3b53c17d7d1ec/research/hasten_independent/r67_clip_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R67",
+      "arm": "tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/363bf426c4e7c3792e6269fda1c3b53c17d7d1ec/research/hasten_independent/r67_clip_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R68",
+      "arm": "natural_tars_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/073d05a4d8d3997fc4581feb245424702c882663/research/hasten_independent/r68_aligned_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R68",
+      "arm": "raw_tars_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.29555749270986,
+      "final_BA_percent": 63.72715213795955,
+      "final_tail_BA_percent": 43.58688244497557,
+      "delta_vs_original_SFT_pp": [
+        -1.5444830285391333,
+        -1.1496298198822217,
+        -1.3380558835104281
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/073d05a4d8d3997fc4581feb245424702c882663/research/hasten_independent/r68_aligned_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R68",
+      "arm": "natural_tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/073d05a4d8d3997fc4581feb245424702c882663/research/hasten_independent/r68_aligned_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R68",
+      "arm": "raw_tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.29570292533327,
+      "final_BA_percent": 63.056157683419286,
+      "final_tail_BA_percent": 40.945565890133516,
+      "delta_vs_original_SFT_pp": [
+        -1.5443375959157208,
+        -1.8206242744224852,
+        -3.9793724383524847
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/073d05a4d8d3997fc4581feb245424702c882663/research/hasten_independent/r68_aligned_grpo/REPORT_ZH.md"
+    },
+    {
+      "run": "R69",
+      "arm": "dynamic_tars_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/4e70ed1c355818504512d4840fd0ba8e62b69073/research/hasten_independent/r69_stationary_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R69",
+      "arm": "fixed_tars_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.13359118583644,
+      "final_BA_percent": 63.55404235729885,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7064493354125574,
+        -1.3227396005429242,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/4e70ed1c355818504512d4840fd0ba8e62b69073/research/hasten_independent/r69_stationary_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R69",
+      "arm": "dynamic_tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/4e70ed1c355818504512d4840fd0ba8e62b69073/research/hasten_independent/r69_stationary_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R69",
+      "arm": "fixed_tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.64045654656722,
+      "final_BA_percent": 64.81655232114201,
+      "final_tail_BA_percent": 45.24925370269051,
+      "delta_vs_original_SFT_pp": [
+        -1.1995839746817722,
+        -0.060229636699759226,
+        0.3243153742045095
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/4e70ed1c355818504512d4840fd0ba8e62b69073/research/hasten_independent/r69_stationary_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R70",
+      "arm": "unprotected_tars_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a31b624d62b12468dbca70091795cd2917bdea0c/research/hasten_independent/r70_risk_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R70",
+      "arm": "protected_tars_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.82837820369461,
+      "final_BA_percent": 62.006397237288816,
+      "final_tail_BA_percent": 42.03201639454411,
+      "delta_vs_original_SFT_pp": [
+        -1.0116623175543822,
+        -2.8703847205529556,
+        -2.892921933941892
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a31b624d62b12468dbca70091795cd2917bdea0c/research/hasten_independent/r70_risk_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R70",
+      "arm": "unprotected_tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a31b624d62b12468dbca70091795cd2917bdea0c/research/hasten_independent/r70_risk_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R70",
+      "arm": "protected_tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.40592940161521,
+      "final_BA_percent": 63.998844511205114,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.4341111196337835,
+        -0.8779374466366576,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a31b624d62b12468dbca70091795cd2917bdea0c/research/hasten_independent/r70_risk_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R71",
+      "arm": "natural_guard_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.82837820369461,
+      "final_BA_percent": 62.006397237288816,
+      "final_tail_BA_percent": 42.03201639454411,
+      "delta_vs_original_SFT_pp": [
+        -1.0116623175543822,
+        -2.8703847205529556,
+        -2.892921933941892
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/945979b26f7aa6e7681de70157111074504aea85/research/hasten_independent/r71_macro_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R71",
+      "arm": "balanced_guard_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.49493158968258,
+      "final_BA_percent": 62.4957589005743,
+      "final_tail_BA_percent": 42.96212841113063,
+      "delta_vs_original_SFT_pp": [
+        -1.3451089315664149,
+        -2.3810230572674698,
+        -1.9628099173553721
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/945979b26f7aa6e7681de70157111074504aea85/research/hasten_independent/r71_macro_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R71",
+      "arm": "natural_guard_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.40592940161521,
+      "final_BA_percent": 63.998844511205114,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.4341111196337835,
+        -0.8779374466366576,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/945979b26f7aa6e7681de70157111074504aea85/research/hasten_independent/r71_macro_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R71",
+      "arm": "balanced_guard_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.32484478278312,
+      "final_BA_percent": 63.33151908301012,
+      "final_tail_BA_percent": 43.025359710503835,
+      "delta_vs_original_SFT_pp": [
+        -1.5151957384658772,
+        -1.54526287483165,
+        -1.899578617982165
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/945979b26f7aa6e7681de70157111074504aea85/research/hasten_independent/r71_macro_guard/REPORT_ZH.md"
+    },
+    {
+      "run": "R72",
+      "arm": "tars_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/2ae6bf68a987f9d201d5d0a066c5bd2f6870b83e/research/hasten_independent/r72_signal_compensation/REPORT_ZH.md"
+    },
+    {
+      "run": "R72",
+      "arm": "compensated_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 64.89961347662434,
+      "final_BA_percent": 63.053406000586605,
+      "final_tail_BA_percent": 43.866204010328175,
+      "delta_vs_original_SFT_pp": [
+        -1.9404270446246557,
+        -1.8233759572551662,
+        -1.0587343181578248
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/2ae6bf68a987f9d201d5d0a066c5bd2f6870b83e/research/hasten_independent/r72_signal_compensation/REPORT_ZH.md"
+    },
+    {
+      "run": "R72",
+      "arm": "compensated_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.90394130242743,
+      "final_BA_percent": 63.28031883820991,
+      "final_tail_BA_percent": 44.2703084055634,
+      "delta_vs_original_SFT_pp": [
+        0.06390078117843245,
+        -1.5964631196318635,
+        -0.6546299229226022
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/2ae6bf68a987f9d201d5d0a066c5bd2f6870b83e/research/hasten_independent/r72_signal_compensation/REPORT_ZH.md"
+    },
+    {
+      "run": "R72",
+      "arm": "weighted_ce",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.46627812434838,
+      "final_BA_percent": 61.356237325974284,
+      "final_tail_BA_percent": 41.289198606271775,
+      "delta_vs_original_SFT_pp": [
+        -1.3737623969006165,
+        -3.5205446318674873,
+        -3.6357397222142254
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/2ae6bf68a987f9d201d5d0a066c5bd2f6870b83e/research/hasten_independent/r72_signal_compensation/REPORT_ZH.md"
+    },
+    {
+      "run": "R73",
+      "arm": "binary_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a6c78c3b4c12f6939d3a7213eae2f26fe55376e4/research/hasten_independent/r73_contrastive_reward/REPORT_ZH.md"
+    },
+    {
+      "run": "R73",
+      "arm": "hardnegative_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.77635554117374,
+      "final_BA_percent": 63.47262351991373,
+      "final_tail_BA_percent": 44.4825591998541,
+      "delta_vs_original_SFT_pp": [
+        -1.0636849800752515,
+        -1.4041584379280394,
+        -0.44237912863189877
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a6c78c3b4c12f6939d3a7213eae2f26fe55376e4/research/hasten_independent/r73_contrastive_reward/REPORT_ZH.md"
+    },
+    {
+      "run": "R73",
+      "arm": "binary_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a6c78c3b4c12f6939d3a7213eae2f26fe55376e4/research/hasten_independent/r73_contrastive_reward/REPORT_ZH.md"
+    },
+    {
+      "run": "R73",
+      "arm": "hardnegative_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 64.85293904899572,
+      "final_BA_percent": 62.51086123438732,
+      "final_tail_BA_percent": 40.72616407982262,
+      "delta_vs_original_SFT_pp": [
+        -1.987101472253272,
+        -2.365920723454451,
+        -4.1987742486633834
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/a6c78c3b4c12f6939d3a7213eae2f26fe55376e4/research/hasten_independent/r73_contrastive_reward/REPORT_ZH.md"
+    },
+    {
+      "run": "R74",
+      "arm": "visual_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/05fde7ab01e8518a1c7c6e5bb739bf562882cd1d/research/hasten_independent/r74_semantic_prototypes/REPORT_ZH.md"
+    },
+    {
+      "run": "R74",
+      "arm": "semantic_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.87011996611795,
+      "final_BA_percent": 63.759644813656784,
+      "final_tail_BA_percent": 43.46478724527505,
+      "delta_vs_original_SFT_pp": [
+        -0.9699205551310399,
+        -1.117137144184987,
+        -1.4601510832109525
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/05fde7ab01e8518a1c7c6e5bb739bf562882cd1d/research/hasten_independent/r74_semantic_prototypes/REPORT_ZH.md"
+    },
+    {
+      "run": "R74",
+      "arm": "visual_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/05fde7ab01e8518a1c7c6e5bb739bf562882cd1d/research/hasten_independent/r74_semantic_prototypes/REPORT_ZH.md"
+    },
+    {
+      "run": "R74",
+      "arm": "semantic_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.53443371241022,
+      "final_BA_percent": 62.63094822982423,
+      "final_tail_BA_percent": 41.207177892322015,
+      "delta_vs_original_SFT_pp": [
+        -1.3056068088387747,
+        -2.245833728017544,
+        -3.717760436163985
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/05fde7ab01e8518a1c7c6e5bb739bf562882cd1d/research/hasten_independent/r74_semantic_prototypes/REPORT_ZH.md"
+    },
+    {
+      "run": "R75",
+      "arm": "tars_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/9ca10114add58e312507abf3ce2bbd1de7474635/research/hasten_independent/r75_macro_risk/REPORT_ZH.md"
+    },
+    {
+      "run": "R75",
+      "arm": "macro_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.41159651988866,
+      "final_BA_percent": 62.74178379309569,
+      "final_tail_BA_percent": 47.5223409258886,
+      "delta_vs_original_SFT_pp": [
+        -1.428444001360333,
+        -2.1349981647460794,
+        2.597402597402599
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/9ca10114add58e312507abf3ce2bbd1de7474635/research/hasten_independent/r75_macro_risk/REPORT_ZH.md"
+    },
+    {
+      "run": "R75",
+      "arm": "tars_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/9ca10114add58e312507abf3ce2bbd1de7474635/research/hasten_independent/r75_macro_risk/REPORT_ZH.md"
+    },
+    {
+      "run": "R75",
+      "arm": "macro_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 64.69565687679773,
+      "final_BA_percent": 62.80862528136148,
+      "final_tail_BA_percent": 42.36689031589253,
+      "delta_vs_original_SFT_pp": [
+        -2.144383644451267,
+        -2.0681566764802923,
+        -2.558048012593467
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/9ca10114add58e312507abf3ce2bbd1de7474635/research/hasten_independent/r75_macro_risk/REPORT_ZH.md"
+    },
+    {
+      "run": "R77",
+      "arm": "prototype_grpo",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 66.11595359218599,
+      "final_BA_percent": 63.65557399786539,
+      "final_tail_BA_percent": 44.73764410017181,
+      "delta_vs_original_SFT_pp": [
+        -0.7240869290630059,
+        -1.2212079599763825,
+        -0.18729422831418674
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/52819958e066f16d0a7b4875ff3c0041895ae6f9/research/hasten_independent/r77_distributional_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R77",
+      "arm": "distribution_grpo",
+      "prespecified_primary": true,
+      "seed": 74002,
+      "mean_stage_BA_percent": 69.45898387232002,
+      "final_BA_percent": 62.37864735436364,
+      "final_tail_BA_percent": 41.736497058004815,
+      "delta_vs_original_SFT_pp": [
+        2.6189433510710245,
+        -2.498134603478128,
+        -3.188441270481185
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/52819958e066f16d0a7b4875ff3c0041895ae6f9/research/hasten_independent/r77_distributional_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R77",
+      "arm": "prototype_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 65.45601903095992,
+      "final_BA_percent": 63.954742586757504,
+      "final_tail_BA_percent": 44.16172334686747,
+      "delta_vs_original_SFT_pp": [
+        -1.3840214902890722,
+        -0.9220393710842671,
+        -0.7632149816185319
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/52819958e066f16d0a7b4875ff3c0041895ae6f9/research/hasten_independent/r77_distributional_support/REPORT_ZH.md"
+    },
+    {
+      "run": "R77",
+      "arm": "distribution_exact",
+      "prespecified_primary": false,
+      "seed": 74002,
+      "mean_stage_BA_percent": 70.01974796884973,
+      "final_BA_percent": 62.70012566918889,
+      "final_tail_BA_percent": 42.61741584357992,
+      "delta_vs_original_SFT_pp": [
+        3.179707447600734,
+        -2.176656288652879,
+        -2.3075224849060803
+      ],
+      "report_url": "https://github.com/DLwbm123/Long-tailed-CL/blob/52819958e066f16d0a7b4875ff3c0041895ae6f9/research/hasten_independent/r77_distributional_support/REPORT_ZH.md"
+    }
+  ],
+  "SFT_learning_rate_audit": [
+    {
+      "stage": 0,
+      "last_actual_epoch_lr": 2.4471741852423235e-05,
+      "logged_after_final_scheduler_lr": 0.0,
+      "posttraining_initial_lr": 0.001,
+      "restart_ratio": 40.86345818906137
+    },
+    {
+      "stage": 1,
+      "last_actual_epoch_lr": 2.4471741852423235e-05,
+      "logged_after_final_scheduler_lr": 0.0,
+      "posttraining_initial_lr": 0.001,
+      "restart_ratio": 40.86345818906137
+    },
+    {
+      "stage": 2,
+      "last_actual_epoch_lr": 2.4471741852423235e-05,
+      "logged_after_final_scheduler_lr": 0.0,
+      "posttraining_initial_lr": 0.001,
+      "restart_ratio": 40.86345818906137
+    },
+    {
+      "stage": 3,
+      "last_actual_epoch_lr": 2.4471741852423235e-05,
+      "logged_after_final_scheduler_lr": 0.0,
+      "posttraining_initial_lr": 0.001,
+      "restart_ratio": 40.86345818906137
+    },
+    {
+      "stage": 4,
+      "last_actual_epoch_lr": 2.4471741852423235e-05,
+      "logged_after_final_scheduler_lr": 0.0,
+      "posttraining_initial_lr": 0.001,
+      "restart_ratio": 40.86345818906137
+    },
+    {
+      "stage": 5,
+      "last_actual_epoch_lr": 2.4471741852423235e-05,
+      "logged_after_final_scheduler_lr": 0.0,
+      "posttraining_initial_lr": 0.001,
+      "restart_ratio": 40.86345818906137
+    }
+  ],
+  "final_class_counts": {
+    "TRAIN": [
+      626,
+      3,
+      6,
+      85,
+      288,
+      403,
+      736,
+      488,
+      252,
+      167,
+      595,
+      261,
+      6,
+      34,
+      83,
+      25,
+      23,
+      635,
+      127,
+      662,
+      18,
+      654,
+      644
+    ],
+    "VAL": [
+      165,
+      1,
+      1,
+      21,
+      66,
+      113,
+      182,
+      123,
+      60,
+      41,
+      150,
+      61,
+      2,
+      8,
+      21,
+      7,
+      5,
+      164,
+      33,
+      160,
+      4,
+      153,
+      157
+    ],
+    "tail_rule": "TRAIN count <250",
+    "tail_class_indices": [
+      1,
+      2,
+      3,
+      9,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20
+    ]
+  },
+  "R77_same_readout_increment_pp": {
+    "distribution_grpo": [
+      0.16714126042163002,
+      0.22505072911059187,
+      0.5196484963668979
+    ],
+    "distribution_exact": [
+      0.7279053569513394,
+      0.5465290439358412,
+      1.4005672819420028
+    ]
+  }
+}

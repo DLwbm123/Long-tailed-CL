@@ -1,0 +1,5 @@
+# Saved-verifier ordering correction
+
+Initial saved-only verify stopped at reconstructed allocation count equality. The verifier used manifest-order filtering for all arrived classes, while data.Tokens concatenates per-stage descriptors in arrival order. The source training code and saved descriptors establish the intended order. Corrected only verifier ids construction to concatenate each arrived stage in order, preserving within-stage manifest order. No training/evaluation output, optimizer, threshold, scientific gate or original clock changed; 0newmodelscore/optimizer. Full saved-only verification is rerun after correction and descriptor identities additionally checked. This is an implementation error in the verifier, not evidence of changed training samples.
+
+The supplemental descriptor audit confirmed corrected ordering equals saved descriptors for all six stages; manifest-filter order is identical only at stage0 and differs at stages1–5. The additional slice/prototype/utility check passed: prototype maxabs0, weighted slice identity maxabs2.77555756e-17, utility recomputation maxabs0. These are saved algebra checks, not new model inference.

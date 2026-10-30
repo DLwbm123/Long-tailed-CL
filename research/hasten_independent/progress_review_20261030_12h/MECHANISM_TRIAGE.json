@@ -1,0 +1,53 @@
+{
+  "kind": "bounded mathematical mechanism analysis, not an experiment or a frozen launch protocol",
+  "uses": "existing R82-R86 source/objective/protocol evidence only; no new image, feature, prediction, optimizer or VAL access",
+  "new_results": false,
+  "representer_observation": {
+    "objective": "L(V,b)=sum_i w_i CE(base_i+Vz_i+b,y_i)+0.5*(||V||F^2+||b||2^2)",
+    "stationarity": "V_c=sum_i w_i*(1[y_i=c]-p_ic)*z_i; b_c=sum_i w_i*(1[y_i=c]-p_ic)",
+    "query_correction": "delta_f_c(zq)=sum_i w_i*(1[y_i=c]-p_ic)*(dot(z_i,zq)+1)",
+    "meaning": "R84 independent normals remove the NCM mean-normal constraint, but the learned residual remains in the support-feature span. More free classifier parameters do not by themselves add independent evidence for rare classes.",
+    "R85_extension": "With fixed class-graph quadratic penalty, left multiplication mixes class coefficient rows; feature-direction span is still the span of the same S features.",
+    "R86_extension": "Patch changes the support/query feature kernel, while duplicated CLS retains the original dot-product kernel. Both per-arm prototype normalization and fitted residuals change; the observed contrast does not isolate a single causal explanation.",
+    "not_implied": [
+      "No proof that residuals cannot correct any Q error",
+      "No proof that all fixed representations are insufficient",
+      "No proof of unique overfitting cause",
+      "No authorization to change anchor or search feature modules"
+    ]
+  },
+  "three_distinct_questions": [
+    {
+      "question": "Does utility transfer?",
+      "evidence": "R82/R83 yes in rank, but no stable recognition gain; scalar proxy transfer is not sufficient recognition feedback."
+    },
+    {
+      "question": "Can fixed-feature supervised boundaries correct mistakes?",
+      "evidence": "R84 partially yes; tiny targets mostly unchanged. Does not identify a universal representation bottleneck."
+    },
+    {
+      "question": "Does added fixed image information help?",
+      "evidence": "R86 globally and in final stage yes conditional on this fixed protocol, but early losses/tiny gate failure remain. Does not license choosing later stages."
+    }
+  ],
+  "candidate_for_scrutiny_not_approved_launch": {
+    "hypothesis": "A pooled within-class residual covariance estimated from sufficiently supported arrived S classes contains transferable nuisance geometry for rare-class decisions, beyond S class means or a fixed label graph.",
+    "distinct_basis": "R84 unit isotropic residual anchoring and R85 class-graph sharing do not explicitly estimate shared within-class feature noise. Long-tail class sample counts make independent per-rare-class covariance unreliable. This is a known statistical hypothesis, not new RL or new independent observations.",
+    "currently_missing_evidence": "No measured cross-class covariance-transfer advantage has been established. Anisotropy alone is not a justification: it can be class-specific, estimation noise, or in discriminative directions.",
+    "mathematical_conditional": "Under shared-covariance Gaussian class conditionals, equal-prior discriminant normals are Sigma^{-1}*mu_c with class-specific quadratic offsets. This conditional model is not established for these unit embeddings.",
+    "prospective_first_test": "S-only component-held-out residual covariance predictive likelihood, all six stages and both original folds; compare one analytic shrinkage estimator against spherical covariance and a prespecified same-spectrum orientation control. No Q labels/predictions, no classifier reward/selector search. Must freeze exact eligible-class/component rules, likelihood denominators, estimator, controls, cost and stop gates before any new fit/CPU experiment.",
+    "reject_if": "Cross-class/component predictive transfer does not beat both controls consistently; covariance anisotropy or improved S fit alone is insufficient. Do not respond with shrinkage/metric/strength sweeps.",
+    "later_action_only_if_supported": "A separately frozen classification test with identical S/Q and matched controls would still be required; improved covariance likelihood alone cannot claim macro/tail or RL gain.",
+    "authorization_scope": "No patch variant, fusion, temperature, lowLR, R65, R79 or D13 branch restored. Overall mainline analysis authorization remains active."
+  },
+  "execution": {
+    "new_FIRST": false,
+    "new_launch": false,
+    "new_scientific_CPU_fits": 0,
+    "new_model_scores": 0,
+    "new_optimizer_steps": 0,
+    "new_VAL_TEST_reads": 0
+  },
+  "next_required_work": "Evaluate whether the covariance-transfer first test has enough support components and whether prior recorded work already tested the same mechanism; then either freeze one bounded S-only protocol or explicitly reject this candidate. Do not return to idle repeated completion checks.",
+  "created_unix": 1793372435.9773388
+}

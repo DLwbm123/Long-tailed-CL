@@ -1,0 +1,270 @@
+{
+  "window": {
+    "start": "2026-10-30T11:21:30+08:00",
+    "end": "2026-10-30T23:21:30+08:00",
+    "timezone": "Asia/Shanghai",
+    "scope": "this research session; fixed 12-hour cutoff at summary request, publication may finish later"
+  },
+  "new_formal_experiments": [
+    "R86"
+  ],
+  "formal_experiments_completed": 1,
+  "scientific_CPU_head_fits": 24,
+  "scientific_visual_optimizer_steps": 0,
+  "controller_updates": 0,
+  "VAL_TEST_reads": 0,
+  "new_scientific_TRAIN_tail_encoding_rows": 29217,
+  "new_classifier_TRAIN_query_rows_scored": 58434,
+  "toy_CPU_fits_local_and_server": 4,
+  "all_heads_sealed_before_query": true,
+  "verification_passed": true,
+  "R86_analysis": {
+    "global_gain_pp": {
+      "duplicate": {
+        "macro": 0.134297299045078,
+        "tail": 0.3349937263755294
+      },
+      "CLS": {
+        "macro": 0.134297299045078,
+        "tail": 0.3349937263755294
+      },
+      "NCM": {
+        "macro": 0.4380497155793748,
+        "tail": 0.572630168701964
+      }
+    },
+    "four_positive_stages": 4,
+    "tiny_class_gate": false,
+    "final_NCM_gain_pp": {
+      "macro": 0.5369756115060511,
+      "tail": 0.5228377668256172
+    },
+    "necessary_gate": false,
+    "not_GRPO_efficacy": true,
+    "new_VAL_TEST_reads": 0
+  },
+  "R86_cost": {
+    "original_clock": {
+      "start_unix": 1793347961.151105,
+      "deadline_unix": 1793419961.151105,
+      "clock_reset": false
+    },
+    "control": {
+      "attempt": 1,
+      "exit_code": 0,
+      "reason": null,
+      "attempt_wall_seconds": 356.79979252815247,
+      "total_elapsed_seconds": 2813.085983276367,
+      "worker_CPU_seconds": 530.9978169999999,
+      "peak_RSS_bytes": 5980635136,
+      "peak_aggregate_RSS_bytes": 5936906240,
+      "peak_allocated_bytes": 436027826,
+      "allocated_bytes": 436027826,
+      "deadline_unix": 1793419961.151105
+    },
+    "local_software": {
+      "passed": true,
+      "duplicate_isometry_loss_gradient": true,
+      "duplicate_fit_reduces_to_CLS": true,
+      "toy_CPU_head_fits": 2,
+      "visual_optimizer_steps": 0,
+      "model_scores": 0,
+      "VAL_reads": 0,
+      "wall_seconds": 0.5531740188598633,
+      "platform": "Darwin",
+      "local_only": true,
+      "CPU_seconds": 2.352893,
+      "peak_RSS_bytes": 275677184,
+      "complete_wall_seconds": 1.7166399955749512,
+      "original_clock_reset": false,
+      "remote_software_still_required": true
+    },
+    "server_software": {
+      "passed": true,
+      "duplicate_isometry_loss_gradient": true,
+      "duplicate_fit_reduces_to_CLS": true,
+      "toy_CPU_head_fits": 2,
+      "visual_optimizer_steps": 0,
+      "model_scores": 0,
+      "VAL_reads": 0,
+      "wall_seconds": 4.537304401397705
+    },
+    "total_toy_CPU_head_fits": 4,
+    "scientific": {
+      "cells": 12,
+      "fitted_heads": 24,
+      "new_TRAIN_encoding_rows": 29217,
+      "new_classifier_TRAIN_query_rows_scored": 58434,
+      "reference_refits": 0,
+      "reference_scoring_rows": 0,
+      "visual_optimizer_steps": 0,
+      "controller_updates": 0,
+      "VAL_TEST_reads": 0,
+      "time": 1793350760.438937
+    },
+    "head_iterations": 251,
+    "head_closure_evaluations": 302,
+    "max_abs_gradient": 4.930907751138358e-07,
+    "native": {
+      "passed": true,
+      "real_TRAIN_pixel_rows": 2,
+      "base_CLS_max_abs": 2.123415470123291e-07,
+      "source_CLS_original_forward_exact": true,
+      "patch_formula_max_abs": 2.9802322387695312e-08,
+      "source_restore_exact": true,
+      "all_visual_parameters_frozen": true,
+      "backward_calls": 0,
+      "optimizer_steps": 0,
+      "VAL_TEST_reads": 0,
+      "wall_seconds": 45.71451926231384
+    },
+    "native_unique_TRAIN_pixels": 2,
+    "native_full_prefix_reference_forward_rows": 2,
+    "native_tail_formula_forward_rows": 8,
+    "scientific_unique_prefix_rows": 6821,
+    "scientific_source_tail_rows": 29217,
+    "scientific_prefix_reference_forward_rows": 6821,
+    "prefix": {
+      "encoded_unique_prefix_rows": 6821,
+      "RAM_bytes": 4127960064,
+      "prefix_max_abs": 1.6577541828155518e-07,
+      "root_spill_bytes": 0,
+      "remote_spill_bytes": 0,
+      "science_preserved": true
+    },
+    "supplemental_saved_only_audit": {
+      "saved_only": true,
+      "new_model_scores": 0,
+      "new_optimizer_steps": 0,
+      "new_VAL_TEST_reads": 0,
+      "cells": [
+        {
+          "stage": 0,
+          "fold": 0,
+          "max_abs_saved_logit_difference": 1.4833563465543875e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 0,
+          "fold": 1,
+          "max_abs_saved_logit_difference": 1.166306455147037e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 1,
+          "fold": 0,
+          "max_abs_saved_logit_difference": 1.150838783203767e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 1,
+          "fold": 1,
+          "max_abs_saved_logit_difference": 1.1923175456729496e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 2,
+          "fold": 0,
+          "max_abs_saved_logit_difference": 1.3344295773265458e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 2,
+          "fold": 1,
+          "max_abs_saved_logit_difference": 1.3345632257966145e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 3,
+          "fold": 0,
+          "max_abs_saved_logit_difference": 1.3151656645504772e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 3,
+          "fold": 1,
+          "max_abs_saved_logit_difference": 1.3668856345461222e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 4,
+          "fold": 0,
+          "max_abs_saved_logit_difference": 1.1430328040518134e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 4,
+          "fold": 1,
+          "max_abs_saved_logit_difference": 1.2378843427640618e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 5,
+          "fold": 0,
+          "max_abs_saved_logit_difference": 1.1490899545663069e-05,
+          "prediction_differences": 0
+        },
+        {
+          "stage": 5,
+          "fold": 1,
+          "max_abs_saved_logit_difference": 1.4585283182100284e-05,
+          "prediction_differences": 0
+        }
+      ],
+      "max_abs_saved_logit_difference": 1.4833563465543875e-05,
+      "prediction_differences": 0,
+      "CPU_seconds": 1.524840415,
+      "wall_seconds": 0.6100974082946777,
+      "peak_RSS_bytes": 389419008
+    },
+    "admission": {
+      "MemAvailable": 122160328704,
+      "GPU_free_MiB": {
+        "0": 26780
+      },
+      "retained_bytes": 27642667186,
+      "ram_admission_bytes": 68719476736
+    },
+    "physical_GPUs": [
+      0
+    ],
+    "new_storage_cap_bytes": 2000000000,
+    "closeout_documentation_delivery_CPU_seconds": null,
+    "closeout_CPU_note": "Not independently sampled, not zero; no new model scoring or optimizer.",
+    "remote_software_and_native_CPU_note": "Included in guarded worker CPU, not separately sampled.",
+    "prelaunch_remote_CPU_seconds": null,
+    "prelaunch_CPU_note": "Not independently sampled, not zero; original elapsed includes queuing and amendments."
+  },
+  "R86_verification": {
+    "passed": true,
+    "cells": 12,
+    "fitted_heads": 24,
+    "source_feature_ids_labels_deltas_exact": true,
+    "S_only_prototypes_rebuilt_exact": true,
+    "saved_predictions_denominators_exact": true,
+    "source_CLS_max_abs": 0.0,
+    "CPU_head_iterations": 251,
+    "CPU_head_closure_evaluations": 302,
+    "max_abs_gradient": 4.930907751138358e-07,
+    "new_model_scores": 0,
+    "new_optimizer_steps": 0,
+    "new_VAL_TEST_reads": 0
+  },
+  "current_state": "No active experiment and no frozen next run; other paused branches remain closed",
+  "new_candidate_status": "Mathematical design only; no empirical covariance-transfer test, no launch or new FIRST",
+  "summary_new_model_scores": 0,
+  "summary_new_optimizer_steps": 0,
+  "historical_background_not_charged_as_new_12h_experiments": [
+    "R82",
+    "R83",
+    "R84",
+    "R85"
+  ],
+  "limits": [
+    "Repeated single HK74002 TRAIN development",
+    "component folds do not establish independent patients",
+    "No independent seed, VAL, TEST or clinical confirmation",
+    "Recorded unmeasured preparation/documentation CPU is not zero",
+    "No measured GPU device-time total; worker wall/CPU are distinct"
+  ]
+}

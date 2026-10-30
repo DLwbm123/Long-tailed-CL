@@ -1,0 +1,5 @@
+# R84 post-complete saved error-transfer clarification
+
+Frozen after main R84 report/gate and public delivery. Question: do unchanged correct counts in classes1/12 conceal corrected errors offset by new errors? On the newly available R84 saved aligned Q predictions only, compute NCM-to-balanced and NCM-to-natural stable-correct/corrected/new-error/persistent-error, and wrong-label switches. Include every23class and all12stage-fold cells; no selector/oracle/metric search, model call, optimizer, new labels, VAL/TEST or change to main gate. Sum opportunities repeat TRAIN images across stages and are not independent cases. Corrected-minus-new must reproduce each saved main correct-count difference.
+
+Use parent original R84 clock/deadline, no reset/FIRST. CPU60s/wall60s/RSS1GB/file8MiB; save private source class-confusion counts but publish only class/global direction aggregates without identity/perexample arrays/logits/competing-class vectors. This is a descriptive correction to interpretation, not new benefit evidence or permission to tune classifier/strength. One analysis only, not a repeated monitor census.

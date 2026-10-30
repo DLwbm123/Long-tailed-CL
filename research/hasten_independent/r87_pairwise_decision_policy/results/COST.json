@@ -1,0 +1,180 @@
+{
+  "original_clock": {
+    "start_unix": 1793376588.90611,
+    "deadline_unix": 1793448588.90611,
+    "clock_reset": false,
+    "scope": "R87 all setup/probe/software/saved-score-native/policy training/analysis/repair/cleanup"
+  },
+  "control": {
+    "attempt": 1,
+    "exit_code": 0,
+    "reason": null,
+    "attempt_wall_seconds": 489.4275772571564,
+    "total_elapsed_seconds": 897.7388682365417,
+    "worker_CPU_seconds": 1646.321136,
+    "peak_RSS_bytes": 773754880,
+    "peak_aggregate_RSS_bytes": 791343104,
+    "peak_allocated_bytes": 310234704,
+    "allocated_bytes": 310234704,
+    "deadline_unix": 1793448588.90611
+  },
+  "fit_by_arm": [
+    {
+      "arm": "G",
+      "policy_stage_snapshots": 72,
+      "optimizer_steps": 9216,
+      "CPU_seconds": 415.908795637001,
+      "wall_seconds": 104.56149315834045,
+      "distribution_evaluations": 11592,
+      "max_training_legal_actions": 125,
+      "max_training_legal_trajectories": 15295
+    },
+    {
+      "arm": "H",
+      "policy_stage_snapshots": 72,
+      "optimizer_steps": 9216,
+      "CPU_seconds": 415.54787927099943,
+      "wall_seconds": 104.44134259223938,
+      "distribution_evaluations": 11592,
+      "max_training_legal_actions": 125,
+      "max_training_legal_trajectories": 15295
+    },
+    {
+      "arm": "CE",
+      "policy_stage_snapshots": 72,
+      "optimizer_steps": 9216,
+      "CPU_seconds": 365.16944207300014,
+      "wall_seconds": 91.87483644485474,
+      "distribution_evaluations": 9288,
+      "max_training_legal_actions": 125,
+      "max_training_legal_trajectories": 15295
+    },
+    {
+      "arm": "E",
+      "policy_stage_snapshots": 72,
+      "optimizer_steps": 9216,
+      "CPU_seconds": 365.49605509500077,
+      "wall_seconds": 91.993155002594,
+      "distribution_evaluations": 9288,
+      "max_training_legal_actions": 125,
+      "max_training_legal_trajectories": 15295
+    }
+  ],
+  "formal_policy_snapshots": 288,
+  "formal_controller_optimizer_steps": 36864,
+  "formal_GRPO_G_steps": 9216,
+  "shuffled_GRPO_H_steps": 9216,
+  "exact_CE_steps": 9216,
+  "exact_reward_gradient_E_steps": 9216,
+  "local_software_checks": [
+    {
+      "passed": true,
+      "synthetic_policy_optimizer_steps": 5,
+      "CPU_seconds": 1.202659,
+      "wall_seconds": 0.6243453025817871,
+      "peak_RSS_bytes": 259866624,
+      "local_only": true,
+      "phase": "initial synthetic check before exact-tie fixture clarification",
+      "new_real_model_scores": 0,
+      "visual_optimizer_steps": 0,
+      "VAL_TEST_reads": 0
+    },
+    {
+      "passed": true,
+      "synthetic_policy_optimizer_steps": 5,
+      "visual_optimizer_steps": 0,
+      "new_real_model_scores": 0,
+      "VAL_TEST_reads": 0,
+      "two_slot_decoder_additive_counts_CE": true,
+      "legal_tree_probability": true,
+      "stop_semantics": true,
+      "one_support_action_freedom": true,
+      "exact_gradient_finite_difference_error": 3.270494292051396e-11,
+      "CPU_seconds": 1.112806,
+      "wall_seconds": 0.537830114364624,
+      "platform": "CPU",
+      "peak_RSS_platform_units": 257245184
+    }
+  ],
+  "server_software": {
+    "passed": true,
+    "synthetic_policy_optimizer_steps": 5,
+    "visual_optimizer_steps": 0,
+    "new_real_model_scores": 0,
+    "VAL_TEST_reads": 0,
+    "two_slot_decoder_additive_counts_CE": true,
+    "legal_tree_probability": true,
+    "stop_semantics": true,
+    "one_support_action_freedom": true,
+    "exact_gradient_finite_difference_error": 1.0663123162224508e-11,
+    "CPU_seconds": 2.621425661,
+    "wall_seconds": 5.5825560092926025,
+    "platform": "CPU",
+    "peak_RSS_platform_units": 415064
+  },
+  "synthetic_policy_optimizer_steps_total": 15,
+  "synthetic_steps_not_formal_policy_steps": true,
+  "native": {
+    "passed": true,
+    "kind": "saved_TRAIN_logit_CPU_decoder_engineering_not_pixel_GPU_native",
+    "real_saved_TRAIN_score_rows": 2,
+    "source_ids_labels_optimizersteps_bound": true,
+    "zero_action_identity": true,
+    "finite_legal_policy": true,
+    "encoder_classifier_forward_rows": 0,
+    "visual_optimizer_steps": 0,
+    "controller_optimizer_steps": 0,
+    "VAL_TEST_reads": 0,
+    "wall_seconds": 0.6356949806213379
+  },
+  "train_complete": {
+    "policy_snapshots": 288,
+    "formal_controller_optimizer_steps": 36864,
+    "policy_fit_cells": 288,
+    "records": 144,
+    "heldout_policy_distribution_evaluations": 576,
+    "shared_counterfactual_class_trajectory_evaluations": 7784805,
+    "encoder_classifier_forward_rows": 0,
+    "visual_optimizer_steps": 0,
+    "VAL_TEST_reads": 0,
+    "fullQ_is_descriptive": true,
+    "time": 1793377473.7167947
+  },
+  "distribution_evaluation_field_clarification": {
+    "field": "heldout_policy_distribution_evaluations",
+    "actual_total_heldout_plus_full": 576,
+    "heldout": 288,
+    "full": 288
+  },
+  "saved_closeout": {
+    "saved_only": true,
+    "records": 144,
+    "new_policy_encoder_classifier_forward_rows": 0,
+    "new_optimizer_steps": 0,
+    "new_VAL_TEST_reads": 0,
+    "CPU_seconds": 2.178510083,
+    "wall_seconds": 1.5602405071258545,
+    "peak_RSS_bytes": 399400960
+  },
+  "visual_optimizer_steps": 0,
+  "encoder_classifier_forward_rows": 0,
+  "GPU_requests": 0,
+  "VAL_TEST_reads": 0,
+  "storage_cap_bytes": 6000000000,
+  "retained_bytes_at_admission": 28079098722,
+  "admission_MemAvailable_bytes": 198096797696,
+  "ram_admission_bytes": 68719476736,
+  "root_scratch_spill_bytes": 0,
+  "prelaunch_documentation_delivery_CPU_seconds": null,
+  "unmeasured_CPU_note": "Not independently sampled, not zero. Original elapsed includes prelaunch work/repairs. Server software/native/train/verify/analyze are included in worker CPU; do not double count.",
+  "no_compute_efficiency_claim": true,
+  "sampled_groups_by_arm": {
+    "G": 2304,
+    "H": 2304
+  },
+  "sampled_training_trajectory_draws_by_arm": {
+    "G": 18432,
+    "H": 18432
+  },
+  "sampled_trajectory_note": "Trajectory draws include repeats and stop paths; not independent samples or new image/model exposures."
+}

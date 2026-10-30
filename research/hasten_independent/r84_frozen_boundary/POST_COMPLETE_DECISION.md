@@ -1,0 +1,9 @@
+# R84 decision after all frozen heads and TRAIN query results
+
+Complete exit0 and saved verification passed. The original necessary gate failed: balanced-NCM mean macro/tail +.303752/+ .237636pp, but only3/6 stages all-four positive and class1/12 correct counts unchanged in all12cells; class2 improves only1/12. Final stage is negative against NCM. Every stage beats natural, which itself harms tail substantially; do not use the weaker arm as sole comparator.
+
+New conditional evidence: a separately trained boundary can improve some fixed-embedding decisions, including class2 in one cell, without visual optimization. This is not stable whole-stage/tiny-class benefit, not a universal representation-sufficiency proof, and not RL credit. Previously D56's fit/generalization warning remains relevant. No change to unit anchor/LR/iteration/temperature, no stage selection, head-family sweep or use of Q to train a selector. Do not launch stronger GRPO because average TRAIN macro is positive.
+
+Overall user-authorized mainline research remains active. Next mechanism must address independently identifiable incorrect decisions and demonstrate transferable benefit beyond this modest and stage-dependent supervised correction, with an explicit information/feedback rationale. Preserve R77 same-readout conditional positives and all original negative gates. No next GPU protocol/FIRST is created by this closeout. Autonomous continuation is not an obligation to manufacture a run; do not repeat current saved selector/audits or notify identical failures. Retain sole30min hasten, pursuing genuinely bounded new evidence/design and notifying material decisions.
+
+Private saved arrays permit future explicitly scoped mechanism checks but are not authorization for a sweep. All learned states/features/optimizer/science are protected. Original R84 clock and all measured/unmeasured cost boundaries are disclosed in COST.json.

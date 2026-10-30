@@ -1,0 +1,31 @@
+{
+  "scope": "Primary task-definition triage, not new candidate or GPU run. No scores, optimizer, downloads or dataset relabeling.",
+  "sources": [
+    {
+      "url": "https://www.nature.com/articles/s41597-020-00622-y",
+      "mirror": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7455694/",
+      "read_scope": "Abstract and targeted indexed primary-text excerpts only. Later full-page requests encountered publisher redirect / PMC recaptcha; no claim of complete reading.",
+      "supported_facts": [
+        "The image task includes anatomical landmarks and pathological findings.",
+        "Ulcerative-colitis labels include grades and intermediate categories; authors discuss observer variation.",
+        "Upper/lower GI and finding-type structure are described by the original dataset."
+      ],
+      "limits": [
+        "A shared family is not a new independent image.",
+        "Do not merge targets or infer patient-level independence.",
+        "Do not use the displayed paper count table to remap labels; retain existing verified manifest order/counts."
+      ]
+    }
+  ],
+  "next_question": "For saved R84 UC-family mistakes, is the wrong label usually inside or outside that family? Coarse-family supervision cannot by itself resolve within-family leaf errors.",
+  "prespecified_families_by_existing_label_strings": {
+    "ulcerative_colitis": "starts with ulcerative colitis",
+    "oesophagitis": "starts with oesophagitis",
+    "barretts": "contains barretts"
+  },
+  "primary_target_class_index": 12,
+  "secondary_scope": "All members of all three explicitly named families, both existing balanced/natural heads; no selector or new outcome metric.",
+  "new_run_started": false,
+  "new_model_scores": 0,
+  "new_optimizer_steps": 0
+}

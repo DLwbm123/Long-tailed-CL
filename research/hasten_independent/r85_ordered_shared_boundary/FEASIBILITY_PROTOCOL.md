@@ -1,0 +1,1 @@
+CPU-only saved-feature mechanism. No new native pixels, GPU, prefix cache or visual optimization. Stage0 saved-native two actualTRAIN feature rows; complete6stage source feature/head consistency checked chronologically during the campaign. The two engineering classifier rows are not scientific query evidence. Original R84 component split and tiny-class limitations unchanged.

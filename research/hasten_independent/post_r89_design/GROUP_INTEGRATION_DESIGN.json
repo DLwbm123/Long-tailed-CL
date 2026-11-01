@@ -1,0 +1,60 @@
+{
+  "status": "MATHEMATICAL_FEASIBILITY_ONLY_NOT_EXPERIMENT",
+  "result": "Finite-group normalized/clipped GRPO expectation can be integrated by multinomial REWARD-count cases, with fixed old policy and a fixed trajectory reward table. This is not raw expected reward gradient.",
+  "definitions": {
+    "trajectory": "t with old joint probability p0(t), current per-slot ratio rho_s(t)",
+    "reward_levels": "u_k; P_k=sum_{t:r(t)=u_k}p0(t)",
+    "count_distribution": "n~Multinomial(G,P), mean=sum_k n_k*u_k/G, sigma=sqrt(sum_k n_k*(u_k-mean)^2/G)",
+    "A": "A_k(n)=(u_k-mean)/(sigma+1e-8)",
+    "Bplus": "B_k^+=E_n[(n_k/G)*max(A_k(n),0)]",
+    "Bminus": "B_k^-=E_n[(n_k/G)*min(A_k(n),0)]",
+    "exact_loss": "-sum_t p0(t)/P_level(t) * sum_valid_slots [ B_level(t)^+*min(rho_s,clip(rho_s)) + B_level(t)^-*max(rho_s,clip(rho_s)) ]"
+  },
+  "assumptions": [
+    "All p0, rewards, advantages and B coefficients stopped during surrogate differentiation",
+    "Independent ancestral trajectory draws with replacement, as in the tested group estimator",
+    "Finite enumerated complete trajectories; per-slot clipping and slot summation specified",
+    "Reward is a function of one terminal program on its fixed feedback episode, not of the other sampled programs",
+    "Separate exact joint KL can be added; it was not part of this synthetic check"
+  ],
+  "checks": {
+    "passed": true,
+    "trajectories": 4,
+    "slots": 2,
+    "group_size": 3,
+    "reward_levels": 3,
+    "ordered_cases": 64,
+    "multinomial_reward_cases": 10,
+    "max_loss_error": 6.106226635438361e-16,
+    "max_finite_difference_error": 1.3877787807814457e-10,
+    "all_rewards_equal_zero_advantage": true,
+    "raw_reward_objective_distinct": true,
+    "CPU_seconds": 0.004823000000000001,
+    "wall_seconds": 0.004821833019377664,
+    "new_optimizer_steps": 0,
+    "new_real_forward": 0,
+    "VAL_TEST_reads": 0,
+    "imports_preparation_publication_CPU_not_separately_measured": true
+  },
+  "prospective_bound": {
+    "example": "4 tokens at each of2slots ->16 complete programs, G8",
+    "ordered_groups": 4294967296,
+    "worst_distinct_reward_multinomial_cases": 490314,
+    "note": "Combinatorial count only, not a timing/native/efficacy result. Early visual action encodings and full exact reward tables remain unbudgeted. No general compute-efficiency claim."
+  },
+  "relation_to_prior_work": [
+    {
+      "url": "https://arxiv.org/abs/2203.17030",
+      "boundary": "Simulated multi-phase few-shot tasks already exist (LIMIT); no novelty claim for creating such episodes."
+    },
+    {
+      "url": "https://arxiv.org/abs/2203.05557",
+      "boundary": "Conditional prompt generation already exists (CoCoOp); adding a conditioning network is not a distinct contribution."
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.06571",
+      "boundary": "Meta-prompt initialization and gradient regulation are prior work (GRAM); do not relabel them GRPO."
+    }
+  ],
+  "decision": "Exact same-surrogate control is algebraically feasible for a small finite program, but the representation construction action, deployable state, transferable TRAIN feedback, gradient paths, novelty and full compute budget are not yet concrete. NOT PROMOTED; no new FIRST, native, scientific fit or old endpoint scan. R89 remains closed."
+}

@@ -6,6 +6,9 @@ from common import write
 cfg=json.loads(Path(os.environ['RUN_CONFIG']).read_text());r=Path(cfg['output'])
 try:
  import software,preflight
+ if (r/'ENGINEERING_RETRY.private.json').exists():
+  prior=json.loads((r/'ENGINEERING_RETRY.private.json').read_text())['previous_counts'];assert prior['formal_visual_optimizer_steps']==prior['formal_controller_optimizer_steps']==prior['TRAIN_encoder_rows']==prior['VAL_rows']==0
+  counts.C.update(prior)
  write(r/'STATUS.json',{'phase':'SOFTWARE'})
  if (r/'SOFTWARE_CPU_PROCESS.private.json').exists():
   receipt=json.loads((r/'SOFTWARE_CPU_PROCESS.private.json').read_text());assert receipt['passed'] and receipt['core']['passed'];counts.C['toy_controller_optimizer_steps']=receipt['core']['toy_controller_optimizer_steps'];write(r/'SOFTWARE_REUSED.private.json',{'passed':True,'new_toy_steps':0,'external_CPU_cost':receipt})

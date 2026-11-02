@@ -1,0 +1,47 @@
+{
+  "status": "COMPLETE_PRECHECK_NEGATIVE",
+  "passed": false,
+  "main_transfer_gate": true,
+  "held_class_gate": true,
+  "block_transfer_gate": false,
+  "mean_deltas_pp": {
+    "main_macro_pp": 1.5592969701024837,
+    "main_tail_pp": 0.7832556002198856,
+    "held_macro_pp": 2.1131824210909995,
+    "held_tail_pp": 3.287037037037037,
+    "block_macro_pp": 0.07403083747193281,
+    "block_tail_pp": 0.05512290962026261
+  },
+  "stages_both_nonnegative": {
+    "main": 4,
+    "held": 6,
+    "block": 2
+  },
+  "counts": {
+    "builder_optimizer_steps": 3072,
+    "builder_episode_backward": 12288,
+    "actor_optimizer_steps": 0,
+    "precheck_contexts": 30,
+    "joint_reward_calls": 0,
+    "engineering_real_encoder_rows": 14,
+    "VAL_prefix_encoder_rows": 0,
+    "VAL_tail_encoder_rows": 0,
+    "VAL_classifier_score_rows": 0,
+    "TEST_reads": 0
+  },
+  "builder_states": 12,
+  "exit_code": 0,
+  "cost": {
+    "attempt_wall_seconds": 2830.1336195468903,
+    "total_elapsed_seconds": 3392.513734817505,
+    "worker_CPU_seconds": 4941.250045,
+    "worker_peak_RSS_bytes": 2171371520,
+    "peak_group_RSS_bytes": 2062352384,
+    "allocated_bytes": 162835593,
+    "peak_allocated_bytes": 162835593
+  },
+  "external_software_CPU_seconds": 12.771162,
+  "external_software_wall_seconds": 7.382575035095215,
+  "cost_limitations": "Native and budget profile costs are included in worker cost. Preparation, documents, SSH, guard, failed prefit software attempts and publishing have nonzero incompletely sampled CPU costs. No GPU-active-time claim.",
+  "interpretation": "TRAIN precondition negative, not a completed VAL efficacy comparison or evidence that GRPO is ineffective."
+}

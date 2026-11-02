@@ -1,0 +1,149 @@
+{
+  "phase": "COMPLETE",
+  "mechanism_gate": false,
+  "variance_ratio": 0.9889052248967366,
+  "candidate_minus_control_pp": {
+    "main": {
+      "macro": 0.031073311184059094,
+      "tail": 0.08025988699352382
+    },
+    "held": {
+      "macro": -0.17419966873360693,
+      "tail": -0.5353009259259309
+    }
+  },
+  "candidate_minus_own_NOOP_pp": {
+    "macro": 2.5592182444565026,
+    "tail": 2.6262819521748284
+  },
+  "stage_main_deltas": [
+    {
+      "macro": 0.0344337642385284,
+      "tail": 0.035714285714291805
+    },
+    {
+      "macro": -0.013166350371108138,
+      "tail": 0.061649659863938666
+    },
+    {
+      "macro": 0.12250042422729734,
+      "tail": 0.2843915343915313
+    },
+    {
+      "macro": -0.007833552261246268,
+      "tail": 0.0338541666666643
+    },
+    {
+      "macro": 0.01374800478102145,
+      "tail": 0.010484307359320155
+    },
+    {
+      "macro": 0.036757576489662824,
+      "tail": 0.05546536796536827
+    }
+  ],
+  "tiny_new_harm_total": 0,
+  "counts": {
+    "builder_optimizer_steps": 6144,
+    "pair_backward": 24576,
+    "support_episode": 49152,
+    "query_training_rows": 49373184,
+    "engineering_pair_backward": 0,
+    "evaluation_contexts": 120,
+    "evaluation_builder_forward": 960,
+    "encoder": 0,
+    "actor_optimizer": 0,
+    "VAL_TEST": 0
+  },
+  "CPU_seconds": 5083.428332501,
+  "wall_seconds": 1315.669112443924,
+  "limitations": "TRAIN development diagnosis; no actor or VAL/TEST; FULL S differs from all-TRAIN deployment; no originality or GRPO efficacy claim.",
+  "status": "COMPLETE_MECHANISM_NEGATIVE",
+  "verification_passed": true,
+  "gate_checks": {
+    "stability_at_least_10pct": false,
+    "main_global_macro_tail_nonnegative": true,
+    "main_at_least_4stages_nonnegative": true,
+    "candidate_vs_NOOP": true,
+    "held_macro_tail_nonnegative": false,
+    "tiny_no_new_harm": true
+  },
+  "means": {
+    "main": {
+      "CONTROL": {
+        "margin_variance": 0.01307952217255692,
+        "residual_norm": 0.09999532281576695,
+        "NOOP_macro": 69.07292441618864,
+        "NOOP_tail": 57.87727392619506,
+        "HALF_macro": 69.96993245870593,
+        "HALF_tail": 58.26746498788909,
+        "FULL_macro": 71.60106934946111,
+        "FULL_tail": 60.42329599137635,
+        "NOOP_prediction_change_rate": 0.048847394657091356
+      },
+      "MARGIN": {
+        "margin_variance": 0.012934407815594257,
+        "residual_norm": 0.099995186785443,
+        "NOOP_macro": 69.07292441618864,
+        "NOOP_tail": 57.87727392619506,
+        "HALF_macro": 69.97578699850499,
+        "HALF_tail": 58.27450704608443,
+        "FULL_macro": 71.63214266064513,
+        "FULL_tail": 60.503555878369866,
+        "NOOP_prediction_change_rate": 0.048845035303933075
+      }
+    },
+    "held": {
+      "CONTROL": {
+        "margin_variance": 0.013118599639962876,
+        "residual_norm": 0.09989005524920479,
+        "NOOP_macro": 67.1708517854029,
+        "NOOP_tail": 58.104745370370374,
+        "HALF_macro": 67.85293867475784,
+        "HALF_tail": 58.7037037037037,
+        "FULL_macro": 68.45009469181299,
+        "FULL_tail": 59.00173611111111,
+        "NOOP_prediction_change_rate": 0.04727421596122061
+      },
+      "MARGIN": {
+        "margin_variance": 0.012946865678293335,
+        "residual_norm": 0.0998199497006165,
+        "NOOP_macro": 67.1708517854029,
+        "NOOP_tail": 58.104745370370374,
+        "HALF_macro": 67.8076781968378,
+        "HALF_tail": 58.570601851851855,
+        "FULL_macro": 68.2758950230794,
+        "FULL_tail": 58.46643518518518,
+        "NOOP_prediction_change_rate": 0.04726743504202309
+      }
+    }
+  },
+  "total_worker_CPU_seconds": 5230.488016,
+  "formal_worker_cost": {
+    "exit_code": 0,
+    "attempt_wall_seconds": 1322.4330983161926,
+    "total_elapsed_seconds": 4880.703017711639,
+    "worker_CPU_seconds": 5090.103055,
+    "worker_peak_RSS_bytes": 736264192,
+    "peak_group_RSS_bytes": 748023808,
+    "allocated_bytes": 326502416,
+    "peak_allocated_bytes": 326502416
+  },
+  "saved_closeout_worker_cost": {
+    "exit_code": 0,
+    "attempt_wall_seconds": 28.180666208267212,
+    "total_elapsed_seconds": 5788.264493942261,
+    "worker_CPU_seconds": 61.93107499999999,
+    "worker_peak_RSS_bytes": 536702976,
+    "peak_group_RSS_bytes": 527233024,
+    "allocated_bytes": 327195653,
+    "peak_allocated_bytes": 327195653
+  },
+  "saved_closeout_counts": {
+    "saved_only_builder_forwards": 960,
+    "saved_only_score_bank_calls": 960,
+    "saved_only_candidate_score_rows": 3502080,
+    "saved_only_classifier_rows": 3502080
+  },
+  "cost_limitations": "Worker total includes native/core/profile costs, not exact all end-to-end CPU. Preparation/docs/SSH/guard/publishing nonzero CPU not fully sampled. No GPU-active-time claim."
+}

@@ -1,0 +1,119 @@
+{
+  "status": "FORMAL_TRAIN_STARTED",
+  "scientific_results_available": false,
+  "native_equivalence": {
+    "passed": true,
+    "checks": [
+      {
+        "arm": "FULL",
+        "scores_maxabs": 0.0,
+        "loss_error": 2.0028840364005873e-08,
+        "gradient_maxabs": 1.4156103134155273e-07,
+        "gradient_normalized_error": 1.1056357957479622e-07,
+        "AdamW_parameter_normalized_error": 4.375764739530461e-05
+      },
+      {
+        "arm": "CE_WEIGHT",
+        "scores_maxabs": 0.0,
+        "loss_error": 0.0,
+        "gradient_maxabs": 1.4156103134155273e-07,
+        "gradient_normalized_error": 1.1056357957479622e-07,
+        "AdamW_parameter_normalized_error": 4.46554310388872e-07
+      },
+      {
+        "arm": "UNIFORM",
+        "scores_maxabs": 0.0,
+        "loss_error": 0.0,
+        "gradient_maxabs": 1.043081283569336e-07,
+        "gradient_normalized_error": 8.14589265822099e-08,
+        "AdamW_parameter_normalized_error": 1.3468950199303602e-08
+      }
+    ],
+    "counts": {
+      "image_rows": 102,
+      "text_rows": 45,
+      "optimizer_steps": 6,
+      "formal_optimizer": 0,
+      "VAL_TEST": 0
+    },
+    "distinct_TRAIN_rows": 6,
+    "microbatch": 2,
+    "last_group_rows": 7,
+    "cache_deterministic_preprocess": true,
+    "all_base_frozen": true,
+    "GPU_reserved_bytes": 1237319680,
+    "own_GPU1_binding": true,
+    "CPU_seconds": 21.448611316,
+    "wall_seconds": 31.57342004776001
+  },
+  "budget": {
+    "passed": true,
+    "complete_step_profiles": [
+      {
+        "classes": 13,
+        "branches": 1,
+        "step_seconds": [
+          1.5769329071044922,
+          0.39512014389038086
+        ]
+      },
+      {
+        "classes": 23,
+        "branches": 6,
+        "step_seconds": [
+          0.49413180351257324,
+          0.37187814712524414
+        ]
+      }
+    ],
+    "frozen_forward_profiles": [
+      {
+        "rows": 1,
+        "seconds": [
+          0.010751485824584961,
+          0.010203838348388672
+        ]
+      },
+      {
+        "rows": 2,
+        "seconds": [
+          0.010594367980957031,
+          0.010497331619262695
+        ]
+      }
+    ],
+    "fixed_second_pass_max_step_seconds": 0.39512014389038086,
+    "frozen_seconds_per_row_upper": 0.010203838348388672,
+    "formal_steps": 31260,
+    "stage_TRAIN_rows": [
+      3916,
+      332,
+      303,
+      1057,
+      1015,
+      1671
+    ],
+    "old_cache_rows": 49572,
+    "current_bank_rows": 26019,
+    "arrival_rows": 6821,
+    "VAL_encoder_rows_upper": 117162,
+    "nonstep_forward_rows_upper": 199574,
+    "safety_factor": 2,
+    "IO_save_analysis_reserve_seconds": 7200,
+    "projected_seconds": 35975.75306510925,
+    "remaining_seconds": 84151.08702778816,
+    "GPU_reserved_bytes": 2774532096,
+    "engineering_counts": {
+      "image_rows": 172,
+      "text_rows": 96,
+      "optimizer_steps": 10,
+      "formal_optimizer": 0,
+      "VAL_TEST": 0
+    },
+    "formal_optimizer": 0,
+    "VAL_TEST": 0
+  },
+  "method_epochs_controls_unchanged": true,
+  "D94_preparation_clock_included": true,
+  "note": "RLAP reconstruction on biomedical backbone; not standard GRPO or complete efficacy evidence. Deferred-gradient reuse is mathematically equivalent with measured FP32 rounding differences, not bitwise optimizer identity."
+}

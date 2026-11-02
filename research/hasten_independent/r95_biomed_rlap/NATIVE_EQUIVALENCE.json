@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "arm": "FULL",
+      "scores_maxabs": 0.0,
+      "loss_error": 2.0028840364005873e-08,
+      "gradient_maxabs": 1.4156103134155273e-07,
+      "gradient_normalized_error": 1.1056357957479622e-07,
+      "AdamW_parameter_normalized_error": 4.375764739530461e-05
+    },
+    {
+      "arm": "CE_WEIGHT",
+      "scores_maxabs": 0.0,
+      "loss_error": 0.0,
+      "gradient_maxabs": 1.4156103134155273e-07,
+      "gradient_normalized_error": 1.1056357957479622e-07,
+      "AdamW_parameter_normalized_error": 4.46554310388872e-07
+    },
+    {
+      "arm": "UNIFORM",
+      "scores_maxabs": 0.0,
+      "loss_error": 0.0,
+      "gradient_maxabs": 1.043081283569336e-07,
+      "gradient_normalized_error": 8.14589265822099e-08,
+      "AdamW_parameter_normalized_error": 1.3468950199303602e-08
+    }
+  ],
+  "counts": {
+    "image_rows": 102,
+    "text_rows": 45,
+    "optimizer_steps": 6,
+    "formal_optimizer": 0,
+    "VAL_TEST": 0
+  },
+  "distinct_TRAIN_rows": 6,
+  "microbatch": 2,
+  "last_group_rows": 7,
+  "cache_deterministic_preprocess": true,
+  "all_base_frozen": true,
+  "GPU_reserved_bytes": 1237319680,
+  "own_GPU1_binding": true,
+  "CPU_seconds": 21.448611316,
+  "wall_seconds": 31.57342004776001
+}

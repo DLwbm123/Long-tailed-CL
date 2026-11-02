@@ -1,3 +1,31 @@
+# R93 最新状态：等价实现优化后预算通过，正式训练已启动
+
+2026-11-02。用户明确要求优化实现且不改方法、训练步数或对照，通过预算即直接启动。本轮沿用原FIRST/deadline，没有以新实验名重置24h；以下旧预算拒绝记录保持历史，不代表最新运行状态。
+
+## 唯一性能修复与等价证据
+
+旧pair函数每支持对、每类重新扫描全部S，用Torch标量标签筛选成员；当C23/S6821时，该重复元数据工作显著放大每次梯度更新的wall时间。现在只在每个不可变stage数据上一次分组/排序，缓存class→有序ID列表。支持采样、成员和顺序、m与offset、双侧state、网络/损失/精度/梯度/优化器、lambda0/1和6144steps全部不变。
+
+六stage有序池与原定义相同；6264个训练/评估配对情境的成员选择一致；两端stage共40组双侧state/p0/coverage比较完全相同；lambda0/1和cap4/FULL完整参数梯度检查的state/loss/grad最大差均为0。等价检查是工程验证，不是效益结果，未进行正式optimizer/encoder/VAL。详见OPTIMIZATION_EQUIVALENCE.json、METADATA_CACHE_AMENDMENT.md。
+
+## 同口径预算
+
+五cap固定第二pass取最慢，全尺寸C23/B1713/S6821。最坏pair从0.912116秒降到0.136254秒（约6.69倍）；最坏合成eval-context从3.568342降到0.516917秒。缓存构建首次成本包含第一pass，六stage一次构建由原3600秒准备/保存/分析余量覆盖。safety4、全部6144×4pair、eval120context和AdamW开销不减。
+
+新全计划保守投影17431.130150秒（4.842小时），检查时原钟剩余82903.641615秒（23.029小时），准入通过。估计不是完成保证，独立守卫继续约束原deadline、CPU4、RAM、磁盘和共享锁。未缩epoch/更新/held模型/对照，不使用GPU或新图像编码。
+
+## 已确认正式启动
+
+正式attempt从原seed重新初始化CONTROL/MARGIN×main/held全部模型及AdamW，不复用合成优化参数、不恢复任何已学习optimizer。启动后STATUS BUILD，stage0 CONTROL/main已128正式更新，pairbackward512/supportepisode1024，actor/encoder/VALTEST0，进程入口中性，资源正常。这是启动快照，不是最终计数或效果。
+
+工程attempt3 workerCPU41.853483秒/wall32.215002秒，峰RSS606658560B/group593186816B；其中equivalence CPU29.271573/wall21.168596、optimized profile CPU5.544989/wall1.491653已包含，不重复加。前三attempt合计workerCPU78.453886秒；工程真实TRAIN pairbackward累计10（原native2+等价8），合成profile pairbackward20、合成optimizer2，另最初软件合成backward单列。正式worker后续费用另加，当前正式counter不包含旧工程attempt。准备/导入/SSH/guard/发布CPU非0未全采样。
+
+结果仍未知。完成需6144steps/24builder阶段端点/120固定F情境每arm、原稳定性与识别/tiny门、所有正负及成本交付；0actor/VALTEST。协议中的F是开发TRAIN反馈，不称独立验证，FULL S不等于全TRAIN部署。未宣称GRPO收益或最终创新。
+
+---
+
+## 以下为优化前工程拒绝及完整历史收据
+
 # R93 配对支持间隔一致性：工程预算不准入
 
 2026-11-02。独立候选工程检查正常exit0，状态NOT_ADMITTED_BUDGET。新数学软件及真实TRAIN原型模块梯度/恢复检查通过；事前保守预算未通过，正式构建器训练没有启动，不是方法效益负结果。R91/D92保持关闭。

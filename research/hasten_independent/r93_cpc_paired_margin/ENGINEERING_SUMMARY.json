@@ -1,5 +1,5 @@
 {
-  "status": "NOT_ADMITTED_BUDGET_FINAL",
+  "status": "FORMAL_BUILD_STARTED",
   "software_passed": true,
   "TRAIN_native_gradient_restore_passed": true,
   "budget_passed": false,
@@ -104,5 +104,103 @@
     "peak_allocated_bytes": 147269
   },
   "cumulative_worker_CPU_seconds": 36.600403,
-  "further_profile_allowed": false
+  "further_profile_allowed": false,
+  "user_authorized_metadata_optimization": true,
+  "method_steps_controls_unchanged": true,
+  "optimized_equivalence": {
+    "passed": true,
+    "all_six_stage_pool_ID_lists_equal": true,
+    "membership_contexts": 6264,
+    "state_pair_comparisons": 40,
+    "max_state_error": 0.0,
+    "max_loss_error": 0.0,
+    "max_parameter_gradient_error": 0.0,
+    "lambda_controls": [
+      0,
+      1
+    ],
+    "gradient_actual_TRAIN_pair_backwards": 8,
+    "formal_optimizer": 0,
+    "encoder": 0,
+    "VAL_TEST": 0,
+    "pool_build_wall_seconds": {
+      "reference": 1.4305880069732666,
+      "cached_first": 0.08342194557189941,
+      "cached_repeat": 2.3126602172851562e-05
+    },
+    "CPU_seconds": 29.271572855000002,
+    "wall_seconds": 21.168595790863037,
+    "scope": "Same ordered IDs, states, coverage and losses/gradients; only immutable metadata caching changed. No parameter fitting."
+  },
+  "optimized_budget": {
+    "passed": true,
+    "method": "direct worst-size same-function synthetic profile, five caps maximum fixed second pass",
+    "cap_times": [
+      {
+        "slot": 0,
+        "pass_seconds": [
+          0.1012721061706543,
+          0.06306743621826172
+        ]
+      },
+      {
+        "slot": 1,
+        "pass_seconds": [
+          0.07476997375488281,
+          0.07403945922851562
+        ]
+      },
+      {
+        "slot": 2,
+        "pass_seconds": [
+          0.07397603988647461,
+          0.0741117000579834
+        ]
+      },
+      {
+        "slot": 3,
+        "pass_seconds": [
+          0.07548880577087402,
+          0.07539486885070801
+        ]
+      },
+      {
+        "slot": 4,
+        "pass_seconds": [
+          0.1423954963684082,
+          0.13625407218933105
+        ]
+      }
+    ],
+    "worst_pair_seconds": 0.13625407218933105,
+    "synthetic_optimizer_step_seconds": 0.007677793502807617,
+    "synthetic_eval_context_seconds": 0.5169174671173096,
+    "safety_factor": 4,
+    "reserve_seconds": 3600,
+    "projected_seconds": 17431.13014984131,
+    "remaining_seconds": 82903.64161515236,
+    "engineering_synthetic_pair_backward": 10,
+    "engineering_synthetic_optimizer_steps": 1,
+    "engineering_synthetic_eval_contexts": 1,
+    "formal_optimizer": 0,
+    "encoder": 0,
+    "VAL_TEST": 0,
+    "CPU_seconds": 5.544988992,
+    "wall_seconds": 1.4916532039642334,
+    "synthetic_support_rows": 6821,
+    "synthetic_B_rows": 1713,
+    "synthetic_F_shaped_rows": 1703
+  },
+  "optimization_worker_cost": {
+    "exit_code": 0,
+    "attempt_wall_seconds": 32.21500205993652,
+    "total_elapsed_seconds": 3499.5556135177612,
+    "worker_CPU_seconds": 41.853483,
+    "worker_peak_RSS_bytes": 606658560,
+    "peak_group_RSS_bytes": 593186816,
+    "allocated_bytes": 256801,
+    "peak_allocated_bytes": 256801
+  },
+  "preformal_worker_CPU_seconds": 78.453886,
+  "scientific_results_available": false
 }

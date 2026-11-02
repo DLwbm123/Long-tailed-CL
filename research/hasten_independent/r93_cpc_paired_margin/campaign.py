@@ -10,10 +10,19 @@ from train_build import loss_build
 rcfg=json.loads((Path(cfg['r91'])/'config.private.json').read_text());torch.set_num_threads(4)
 counter={'builder_optimizer_steps':0,'pair_backward':0,'support_episode':0,'query_training_rows':0,'engineering_pair_backward':0,'evaluation_contexts':0,'evaluation_builder_forward':0,'encoder':0,'actor_optimizer':0,'VAL_TEST':0};cpu=time.process_time();wall=time.time()
 
+def support_pools(d):
+ # Roles and labels are immutable within each loaded stage; cache only metadata.
+ if '_support_pools' not in d:
+  pools={}
+  for i in d['roles']['S']:
+   c=int(d['y'][d['index'][i]]);pools.setdefault(c,[]).append(i)
+  d['_support_pools']={c:sorted(ids) for c,ids in pools.items()}
+ return d['_support_pools']
+
 def pair(d,s,idx,classes):
- cap=[1,2,4,8,None][idx%5];sa=[];sb=[];coverage=[]
+ cap=[1,2,4,8,None][idx%5];sa=[];sb=[];coverage=[];pools=support_pools(d)
  for c in classes:
-  pool=sorted(i for i in d['roles']['S'] if int(d['y'][d['index'][i]])==c);n=len(pool);m=n if cap is None else min(cap,n);a=(74002+100003*s+idx//5)%n;b=(a+max(1,m))%n if m<n else a
+  pool=pools[c];n=len(pool);m=n if cap is None else min(cap,n);a=(74002+100003*s+idx//5)%n;b=(a+max(1,m))%n if m<n else a
   ia=[pool[(a+j)%n] for j in range(m)];ib=[pool[(b+j)%n] for j in range(m)]
   sa.append(d['z'][[d['index'][i] for i in ia]]);sb.append(d['z'][[d['index'][i] for i in ib]]);coverage.append({'class':c,'m':m,'n':n,'overlap':len(set(ia)&set(ib)),'different':ia!=ib})
  sta,pa=state(sa,classes,s,rcfg['train_counts'],d['birth']);stb,pb=state(sb,classes,s,rcfg['train_counts'],d['birth']);return sta,pa,stb,pb,coverage
@@ -44,14 +53,21 @@ def recall(sc,y,C):
  pred=sc.argmax(1);return torch.stack([(pred[y==c]==c).double().mean() for c in range(C)]),pred
 
 def main():
- software();d=load_stage(rcfg,0);classes=list(range(d['C']));z,y,_=query(d,'W',classes);g,opt=init();before={k:v.clone() for k,v in g.state_dict().items()};times=[]
- for repeat in range(2):
-  t=time.time();g.zero_grad();loss,mc,cov=objective(g,d,0,2,classes,z,y,1.);loss.backward();elapsed=time.time()-t;times.append(elapsed);counter['engineering_pair_backward']+=1;assert torch.isfinite(loss);assert g.net[-1].weight.grad.norm()>0
- assert all(torch.equal(v,before[k]) for k,v in g.state_dict().items());g.load_state_dict(before,strict=True);g.zero_grad()
- # Fixed second pass; conservative worst-size projection and safety4, plus analysis reserve.
- factor=(23/d['C'])**2*(1713/len(y));projected=times[1]*6144*4*max(1,factor)*4+3600;remaining=cfg['deadline']-time.time();passed=projected<remaining-180
- write(root/'NATIVE_BUDGET.json',{'passed':passed,'pair_times_seconds':times,'fixed_second_pass':True,'worst_size_factor':factor,'safety_factor':4,'projected_seconds':projected,'remaining_seconds':remaining,'engineering_optimizer':0,'encoder':0,'TRAIN_pair_gradient_finite':True,'strict_restore':True,'counts':counter.copy()})
- if not passed:write(root/'STATUS.json',{'phase':'NOT_ADMITTED_BUDGET','counts':counter});return
+ if cfg.get('optimized_admission',False):
+  eq=json.loads((root/'OPTIMIZATION_EQUIVALENCE.json').read_text());budget=json.loads((root/'BUDGET_OPTIMIZED.json').read_text());original=json.loads((root/'engineering_preopt'/'NATIVE_BUDGET.json').read_text())
+  assert eq['passed'] and budget['passed'] and original['TRAIN_pair_gradient_finite'] and original['strict_restore']
+  assert budget['projected_seconds']<cfg['deadline']-time.time()-180
+  assert not list(root.glob('builder_*.private.pt')) and not (root/'FORMAL_STARTED.private.json').exists()
+  write(root/'FORMAL_STARTED.private.json',{'original_start':cfg['start'],'original_deadline':cfg['deadline'],'optimizer_steps_before':0,'reuse_software_native':True,'metadata_cache_only':True})
+ else:
+  software();d=load_stage(rcfg,0);classes=list(range(d['C']));z,y,_=query(d,'W',classes);g,opt=init();before={k:v.clone() for k,v in g.state_dict().items()};times=[]
+  for repeat in range(2):
+   t=time.time();g.zero_grad();loss,mc,cov=objective(g,d,0,2,classes,z,y,1.);loss.backward();elapsed=time.time()-t;times.append(elapsed);counter['engineering_pair_backward']+=1;assert torch.isfinite(loss);assert g.net[-1].weight.grad.norm()>0
+  assert all(torch.equal(v,before[k]) for k,v in g.state_dict().items());g.load_state_dict(before,strict=True);g.zero_grad()
+  # Fixed second pass; conservative worst-size projection and safety4, plus analysis reserve.
+  factor=(23/d['C'])**2*(1713/len(y));projected=times[1]*6144*4*max(1,factor)*4+3600;remaining=cfg['deadline']-time.time();passed=projected<remaining-180
+  write(root/'NATIVE_BUDGET.json',{'passed':passed,'pair_times_seconds':times,'fixed_second_pass':True,'worst_size_factor':factor,'safety_factor':4,'projected_seconds':projected,'remaining_seconds':remaining,'engineering_optimizer':0,'encoder':0,'TRAIN_pair_gradient_finite':True,'strict_restore':True,'counts':counter.copy()})
+  if not passed:write(root/'STATUS.json',{'phase':'NOT_ADMITTED_BUDGET','counts':counter});return
  models={};opts={}
  for arm in ['CONTROL','MARGIN']:
   for kind in ['main','held']:models[arm,kind],opts[arm,kind]=init()

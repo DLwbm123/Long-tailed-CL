@@ -105,6 +105,7 @@ def main():
  save(root/'tiny_harms.private.pt',harms)
  write(root/'RESULTS.json',{'phase':'COMPLETE','mechanism_gate':gate,'variance_ratio':ratio,'candidate_minus_control_pp':diffs,'candidate_minus_own_NOOP_pp':own,'stage_main_deltas':staged,'tiny_new_harm_total':sum(harms),'rows':rows,'counts':counter,'CPU_seconds':time.process_time()-cpu,'wall_seconds':time.time()-wall,'limitations':'TRAIN development diagnosis; no actor or VAL/TEST; FULL S differs from all-TRAIN deployment; no originality or GRPO efficacy claim.'})
  write(root/'STATUS.json',{'phase':'COMPLETE','mechanism_gate':gate,'counts':counter})
-try:main()
-except BaseException:
- (root/'FAILURE.private.txt').write_text(traceback.format_exc());raise
+if __name__=='__main__':
+ try:main()
+ except BaseException:
+  (root/'FAILURE.private.txt').write_text(traceback.format_exc());raise

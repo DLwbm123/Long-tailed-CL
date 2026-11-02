@@ -43,8 +43,8 @@ def native_budget(cfg):
    for rep in range(2):
     torch.cuda.synchronize();a=time.time();visual(base,images[:B].cuda(),m.branches[-1]);torch.cuda.synchronize();tt.append(time.time()-a);ENGINEERING_COUNTER['real_image_encoder_rows']+=B
    fw.append({'rows':B,'seconds':tt})
- own=[l for l in subprocess.check_output(['nvidia-smi','--query-compute-apps=pid,gpu_uuid','--format=csv,noheader'],text=True).splitlines() if l.split(',')[0].strip()==str(os.getpid())];assert len(own)==1 and own[0].split(',')[1].strip()==cfg['GPU_UUID'];assert os.environ['CUDA_VISIBLE_DEVICES']=='1';assert torch.cuda.max_memory_reserved()<12*2**30
- native.update(passed=True,strict_restore=True,own_GPU1=True,CPU_seconds=time.process_time()-cpu,wall_seconds=time.time()-start);write(r/'NATIVE.json',native)
+ own=[l for l in subprocess.check_output(['nvidia-smi','--query-compute-apps=pid,gpu_uuid','--format=csv,noheader'],text=True).splitlines() if l.split(',')[0].strip()==str(os.getpid())];assert len(own)==1 and own[0].split(',')[1].strip()==cfg['GPU_UUID'];assert os.environ['CUDA_VISIBLE_DEVICES']==str(cfg['physical_gpu']);assert torch.cuda.max_memory_reserved()<12*2**30
+ native.update(passed=True,strict_restore=True,own_GPU_binding=True,physical_gpu=cfg['physical_gpu'],CPU_seconds=time.process_time()-cpu,wall_seconds=time.time()-start);write(r/'NATIVE.json',native)
  memory=0;lens=[];cache_rows=0;banknew=0
  for s,cc in enumerate(cfg['stages']):
   nr=sum(cfg['train_counts'][c] for c in cc)+memory;lens.append(nr);cache_rows+=s*nr;mn=sum(min(20,cfg['train_counts'][c]) for c in cc);memory+=mn;banknew+=mn

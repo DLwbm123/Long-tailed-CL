@@ -1,0 +1,7 @@
+# R96 parallel resource amendment — before any native or formal execution
+
+The user explicitly directs using any GPU with enough free memory, superseding the earlier R96 GPU1-only/shared serial lock restriction. A lightweight live inventory found physicalGPU2 with40445MiB free; physicalGPU1 remains R95's unchanged device. R96 will use physicalGPU2, its UUID bound at native startup, with an independent per-run duplicate-prevention lock. This is a resource scheduling amendment only: original FIRST/deadline and all science/model/seed/steps/objectives/checks/gates remain unchanged. Queue time and all engineering costs remain in original clock.
+
+Retire only the R96 queued controller after confirming QUEUED_SHARED_LOCK, no worker, no native/model/optimizer/VAL activity. Preserve original STARTED/QUEUE_LAUNCH/status and controller CPU/wall receipt. Start a fresh neutral controller on this zero-science boundary; this is not partial optimizer resume. R95 and other processes are not stopped, altered or restarted.
+
+Admission still requires64GiB available RAM/14GiB GPUfree, reserved<12GiB, own worker28GB/group29GB, CPU4 and disk8GB bounds. R96's2s guard additionally sums its own process group and the known R95 group, checking worker starttime to avoid PID reuse, and stops only R96 if combined RSS reaches29GB. R95 guard remains unchanged. Distinct four-CPU affinity avoids contention with R95's last four allowed CPUs. Native and full budget checks run on the selected device before formal fit. No effects or throughput claims follow merely from GPU availability.

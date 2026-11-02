@@ -26,3 +26,6 @@ Reuse R95 deterministic frozen old visual/text caches and within-group text/prot
 GPU1 only, >=64GiB RAM and >=14GiB GPUfree admission; reserved<12GiB, worker28GB/group29GB sampled2s/total30GB, CPU4/400000s/file1GiB. New disk8GB plus512MiB early reserve, each server<50GB. Remote-home NFS probe/free and shared lock; neutral argv. No other process intervention, base download/copy, swap/root spill/quantization. Queue has independent deadline guard and checks existing launch receipts, no duplicate launcher. Science failures are audited and closed without partial optimizer resume; saved-only verify/analyze repair allowed. Deadline includes implementation/queue/engineering/fit/eval/analysis/delivery.
 
 Public delivery only safe ownsource/protocol/config/aggregate results/cost via local explicit7897 proxy, NO_PROXY empty, existing delivery checkout/branch. No images/IDs/individual scores/risk margins/features/weights/optim/rawlogs/privatepaths. R95 and all historical science protected. Initial source delivery may precede result delivery; never label queued as training or loss as accuracy.
+
+## Execution amendment
+The subsequent PARALLEL_RESOURCE_AMENDMENT.md supersedes this original GPU1-only/serial-lock scheduling rule at a zero-science boundary, under explicit user instruction. All scientific settings and original clock remain unchanged.

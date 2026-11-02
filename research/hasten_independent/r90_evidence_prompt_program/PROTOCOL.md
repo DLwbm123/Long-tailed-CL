@@ -55,3 +55,5 @@ Software checks actual53state/tree addressing, utility/old-anchor arithmetic, ro
 
 ## Pre-fit timing audit
 See NATIVE_TIMING_AMENDMENT.md for the audited0formal-step admission rejection and fixed cold/steady measurement. Scientific parameters and original clock are unchanged; all engineering attempts/counts/costs are retained.
+
+Accounting-only completed-phase continuation: see COUNTER_BOUNDARY_REPAIR.md. Original scientific plan and clock unchanged.

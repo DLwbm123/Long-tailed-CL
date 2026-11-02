@@ -111,16 +111,29 @@ def fit_policies(cfg,stage,memory,features,pos,rows,y,roles,birth,policies,optim
  with (r/f'memory_s{stage}.private.json').open('w') as f:json.dump({str(c):memory[c] for c in memory},f)
  torch.save({'stage':stage,'proto':proto,'all_memory_proto':all_memory_proto,'support':support,'W_ids':Wids,'F_ids':Fids,'states':states,'distributions':distributions,'context_tables':tables,'memory':copy.deepcopy(memory),'counts':dict(counts.C)},r/f'deployment_s{stage}.private.pt')
 
-def train(cfg,base,tf):
+def train(cfg,base,tf,sealed_boundary=False):
  start=time.time();cpu=time.process_time();r=Path(cfg['output']);rows,y,roles=load_roles(cfg);torch.manual_seed(cfg['seed']);dictionary=Dictionary().cuda();memory={};birth=[];policies={};optimizers={}
  for a in ARMS:
   torch.manual_seed(cfg['seed']);policies[a]=Policy();optimizers[a]=torch.optim.AdamW(policies[a].parameters(),lr=cfg['controller_lr'],weight_decay=0)
  for stage,classes in enumerate(cfg['stages']):
-  safe(cfg);write(r/'STATUS.json',{'phase':'ARRIVAL','stage':stage,'counts':dict(counts.C)});new=[i for i,c in enumerate(y.tolist()) if c in classes];basefeatures=encode_ids(cfg,base,dictionary,rows,new,tf,(0,0));memory.update(select_memory(cfg,new,basefeatures,y,roles));birth.extend([stage]*len(classes))
-  if stage==0:fit_dictionary(cfg,base,tf,dictionary,rows,y,roles,new,basefeatures,memory)
-  array=np.empty((16,len(new),512),dtype=np.float32);array[0]=basefeatures
-  for k,program in enumerate(PROGRAMS[1:],1):array[k]=encode_ids(cfg,base,dictionary,rows,new,tf,program)
-  np.save(r/f'arrival_s{stage}.private.npy',array,allow_pickle=False);write(r/f'arrival_s{stage}.private.json',{'stage':stage,'ids':new,'labels':y[new].tolist()});del array,basefeatures
+  safe(cfg);new=[i for i,c in enumerate(y.tolist()) if c in classes]
+  write(r/'STATUS.json',{'phase':'ARRIVAL','stage':stage,'counts':dict(counts.C)})
+  if stage==0 and sealed_boundary:
+   # Full dictionary phase and arrival cache were sealed before the accounting failure.
+   audit=json.loads((r/'COUNTER_FAILURE_BOUNDARY_AUDIT.private.json').read_text());assert audit['boundary_audit_passed'] and audit['controller_updates']==audit['VAL_TEST_reads']==0
+   z=torch.load(r/'dictionary_epoch10.private.pt',map_location='cpu',weights_only=False);assert z['epoch']==10
+   dictionary.load_state_dict(z['dictionary'],strict=True);dictionary.requires_grad_(False).eval()
+   meta=json.loads((r/'arrival_s0.private.json').read_text());assert meta['ids']==new
+   cached=np.load(r/'arrival_s0.private.npy',mmap_mode='r');assert cached.shape==(16,len(new),512)
+   memory.update(select_memory(cfg,new,cached[0],y,roles));assert [i for c in range(13) for i in memory[c]['S']]==z['support_ids'];del cached,z
+   write(r/'BOUNDARY_RESTORED.private.json',{'dictionary_epoch':10,'new_visual_optimizer_steps':0,'new_encoder_rows':0,'controller_optimizer_restored':False,'counts':dict(counts.C)})
+  else:
+   basefeatures=encode_ids(cfg,base,dictionary,rows,new,tf,(0,0));memory.update(select_memory(cfg,new,basefeatures,y,roles))
+   if stage==0:fit_dictionary(cfg,base,tf,dictionary,rows,y,roles,new,basefeatures,memory)
+   array=np.empty((16,len(new),512),dtype=np.float32);array[0]=basefeatures
+   for k,program in enumerate(PROGRAMS[1:],1):array[k]=encode_ids(cfg,base,dictionary,rows,new,tf,program)
+   np.save(r/f'arrival_s{stage}.private.npy',array,allow_pickle=False);write(r/f'arrival_s{stage}.private.json',{'stage':stage,'ids':new,'labels':y[new].tolist()});del array,basefeatures
+  birth.extend([stage]*len(classes))
   needed={i for c in memory for role in memory[c].values() for i in role};needed.update(i for i in roles['F'] if int(y[i]) in classes);features,pos=all_features(cfg,stage,needed)
   try:fit_policies(cfg,stage,memory,features,pos,rows,y,roles,birth,policies,optimizers)
   except BaseException:

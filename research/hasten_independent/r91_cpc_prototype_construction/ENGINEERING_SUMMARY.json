@@ -1,0 +1,71 @@
+{
+  "software": {
+    "passed": true,
+    "exact_B_error": 1.1102230246251565e-16,
+    "exact_B_gradient_error": 1.6132928326584306e-16,
+    "conditional_risk_gradient_error": 1.214306433183765e-17,
+    "conditional_CE_gradient_error": 1.3530843112619095e-16,
+    "clipped_local_integral_error": 4.163336342344337e-17,
+    "H_changes_gradient": true,
+    "singleton_freedom": true,
+    "NOOP_exact": true,
+    "permutation_equivariance": true,
+    "strict_restore": true,
+    "new_optimizer_steps": 0,
+    "real_encoder_classifier_forward": 0,
+    "VAL_TEST": 0,
+    "CPU_seconds": 2.8870843389999994,
+    "wall_seconds": 1.0489187240600586
+  },
+  "software_process": {
+    "exit_code": 0,
+    "whole_process_CPU_seconds": 12.771162,
+    "whole_process_wall_seconds": 7.382575035095215,
+    "peak_RSS_bytes": 430526464,
+    "stderr": ""
+  },
+  "native": {
+    "passed": true,
+    "real_distinct_TRAIN_rows": 2,
+    "SFT_saved_feature_maxabs": 3.6205165088176727e-07,
+    "NOOP_same_matmul_exact": true,
+    "builder_gradient_finite_nonzero": true,
+    "strict_restore": true,
+    "physical_GPU": 1,
+    "four_2row_full_frozen_encode_wall": 0.039691925048828125,
+    "GPU_reserved_bytes": 486539264,
+    "CPU_seconds": 24.587984746,
+    "wall_seconds": 32.7064905166626,
+    "new_optimizer_steps": 0,
+    "VAL_TEST": 0
+  },
+  "budget": {
+    "passed": true,
+    "projected_remaining_seconds": 26249.146842956543,
+    "remaining_seconds": 85791.26401805878,
+    "build_episode": {
+      "wall_seconds": 0.02068352699279785,
+      "CPU_seconds": 0.08000226600000104
+    },
+    "risk_conditional_G8_C23_N1703": {
+      "wall_seconds": 1.6034901142120361,
+      "CPU_seconds": 6.4152278390000035
+    },
+    "CE_conditional": {
+      "wall_seconds": 1.6028916835784912,
+      "CPU_seconds": 6.395013096999996
+    },
+    "four_actor_updates": {
+      "wall_seconds": 0.06437397003173828,
+      "CPU_seconds": 0.2560001299999968
+    },
+    "safety_factor": 4,
+    "extra_IO_search_seal_eval_reserve_seconds": 7200,
+    "synthetic_only": true,
+    "new_optimizer_steps": 0,
+    "VAL_TEST": 0
+  },
+  "state": "FORMAL_BUILDER_STARTED_NO_EFFECT_RESULT",
+  "initial_parameters": "INITIAL_PARAMETERS.json",
+  "cost_note": "external software core included in external process; native/budget included in main worker; earlier failed prefit software/import attempts cost nonzero not independently sampled"
+}

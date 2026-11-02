@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "vision_NOOP_maxabs": 0.0,
+  "text_NOOP_maxabs": 0.0,
+  "token_context": 256,
+  "bert_max_positions": 512,
+  "pad_token_id": 0,
+  "CLS_token_id": 2,
+  "SEP_token_id": 3,
+  "gradient_norms": {
+    "visual": 0.30120226740837097,
+    "text": 2.0760555267333984
+  },
+  "all_base_frozen_no_grad": true,
+  "strict_prompt_restore": true,
+  "prompt_parameters": 6144,
+  "text_prompt_parameters_delta_vs_R88_per_branch": 1024,
+  "zero_tokens_vision_maxabs_vs_NOOP": 1.0973100662231445,
+  "zero_tokens_text_maxabs_vs_NOOP": 1.7433937788009644,
+  "physical_GPU": 1,
+  "own_PID_GPU_binding": true,
+  "GPU_reserved_bytes": 1272971264,
+  "counts": {
+    "engineering_image_rows": 8,
+    "engineering_text_sequences": 8,
+    "distinct_TRAIN_rows": 2,
+    "formal_optimizer": 0,
+    "engineering_optimizer": 0,
+    "VAL_TEST": 0
+  },
+  "CPU_seconds": 20.363655574,
+  "wall_seconds": 44.424447774887085,
+  "scope": "Interface and gradient compatibility only, no accuracy/efficiency/complete RLAP/GRPO efficacy claim.",
+  "status": "COMPLETE_ENGINEERING_ONLY",
+  "software_passed": true,
+  "exit_code": 0,
+  "worker_cost": {
+    "exit_code": 0,
+    "attempt_wall_seconds": 76.31361556053162,
+    "total_elapsed_seconds": 224.86013007164001,
+    "worker_CPU_seconds": 27.062167000000002,
+    "worker_peak_RSS_bytes": 2052517888,
+    "peak_group_RSS_bytes": 1908322304,
+    "allocated_bytes": 106841,
+    "peak_allocated_bytes": 106841
+  },
+  "limitations": "Only interface/gradient compatibility on two TRAIN images and two public generic texts. No recognition accuracy, complete RLAP training readiness, efficiency claim or GRPO evidence. Model width/projection and prompt parameter differences disclosed. Preparation/SSH/guard/document/publication CPU incompletely sampled, nonzero."
+}

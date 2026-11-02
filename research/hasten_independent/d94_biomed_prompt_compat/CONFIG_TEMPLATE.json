@@ -1,0 +1,52 @@
+{
+  "output": "<REMOTE_HOME_OUTPUT>",
+  "runtime": "<NEUTRAL_RUNTIME_ALIAS>",
+  "entry": "<NEUTRAL_RUNTIME_ALIAS>/campaign.py",
+  "python": "<PYTHON>",
+  "start": null,
+  "deadline": null,
+  "shared_memory_lock": "<SHARED_LOCK_FILE>",
+  "biomed_assets": "<LOCAL_BIOMED_ASSETS>",
+  "biomed_checkpoint": "<READ_ONLY_BIOMED_CHECKPOINT>",
+  "source_root": "<AUTHORIZED_EXISTING_SOURCES>",
+  "manifest": "<AUTHORIZED_TRAIN_MANIFEST_DIRECTORY>",
+  "image_roots": {
+    "HK": "<AUTHORIZED_HK_IMAGES>"
+  },
+  "order": [
+    4,
+    5,
+    6,
+    22,
+    20,
+    1,
+    2,
+    15,
+    14,
+    12,
+    10,
+    11,
+    19,
+    16,
+    7,
+    0,
+    17,
+    9,
+    18,
+    13,
+    21,
+    8,
+    3
+  ],
+  "GPU_UUID": "<PHYSICAL_GPU1_UUID>",
+  "storage_budget_bytes": 1000000000,
+  "aggregate_rss_budget_bytes": 29000000000,
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "1",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1"
+  }
+}

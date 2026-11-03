@@ -1,0 +1,9 @@
+# R98 engineering and accounting
+
+Original protocol and numerical configuration unchanged. Source commit906590e contains fit code. Mechanism test passed on its first fixed65536-sample attempt; CPU core2.612546314s/wall2.822470427s, one zero-learning-rate engineering optimizer call,0 encoder/VAL/TEST. Import/SSH/preparation/publication CPU nonzero and not completely sampled.
+
+Native24 engineering optimizer steps/22 image encoder rows/6 distinct TRAIN images; these are a worker prefix, not formal updates. Cached-feature native comparison maxabs3.911554813e-7, not bitwise identity or an efficacy result. Profile uses actual legal initial/final S/B feature banks and two episodes; fixed second pass, safety2 and7200s reserve. Full10752-step plan admitted, no arm/phase removed. Formal model and RNG freshly initialized after engineering.
+
+NATIVE/profile CPU11.564805417s/wall16.754637718s already included in eventual worker CPU/wall. PRECHECK software runs outside worker and is separately charged once. ENGINEERING_DIAGNOSTIC_COUNTS.json recovers primitive operations for the20 native diagnostic forwards arithmetically; they are not new forwards. Native peak reserved937426944B; no GPU-time benefit claim. Runtime cost and counters distinguish formal/diagnostic/engineering work.
+
+Own physical GPU0/UUID and neutral parent/worker argv verified; one empty GPU selected. All new runtime assets live on authorized data filesystem, original R67 heads and R97 frozen features read-only; six small teacher SHA checks specifically required by attached protocol, no full feature/data hash scan. S/B/F role counts3405/1713/1703 and component disjointness checked; pre-seal F/VAL/TEST feature access blocked. No monitor/cron created. Original24h FIRST includes preparation and never resets. Final36 and middle30 states preserved; no blind partial optimizer resume.

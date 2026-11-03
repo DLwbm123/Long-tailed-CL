@@ -1,0 +1,19 @@
+"""Immutable R91 roles bound to R97 stage-specific frozen R67 features."""
+import csv,json,io,hashlib
+from pathlib import Path
+import torch
+from common import write
+
+def metadata(c):
+ src=json.loads((Path(c['output'])/'SOURCE_BINDING.private.json').read_text());rows=list(csv.DictReader((Path(c['manifest'])/'train.csv').open()));old=list(csv.DictReader(io.StringIO(src['train_manifest'])));assert len(rows)==6821 and rows==old,'ORDERED_MANIFEST_MISMATCH';y=torch.tensor([c['order'].index(int(x['original_label'])) for x in rows]);assert torch.bincount(y,minlength=23).tolist()==c['train_counts'];roles={k:src['roles'][v] for k,v in [('S','S'),('B','W'),('F','F')]};assert {k:len(v) for k,v in roles.items()}=={'S':3405,'B':1713,'F':1703};sets=[set(v) for v in roles.values()];assert len(set.union(*sets))==6821 and all(not a&b for i,a in enumerate(sets) for b in sets[i+1:]);components=[{rows[i]['identity_component'] for i in roles[k]} for k in roles];assert all(not a&b for i,a in enumerate(components) for b in components[i+1:]);assert [[sum(int(y[i])==cl for i in roles[k]) for k in ['S','B','F']] for cl in [1,2,12]]==[[1,1,1],[3,2,1],[3,2,1]]
+ sh=[]
+ for s in range(6):
+  q=Path(c['strong_heads'])/f'head{s}.private.pt';h=hashlib.sha256(q.read_bytes()).hexdigest();assert h==src['teacher_sha256'][s];sh.append(h)
+ receipt={'passed':True,'TRAIN':6821,'role_counts':{k:len(v) for k,v in roles.items()},'component_disjoint':True,'ordered_manifest_matches_historical_binding':True,'teacher_sha256':sh,'stage_feature_cache':'R97 stage-specific original-teacher frozen FP32; same manifest-index rows, filled mask and class-prefix labels asserted before access','preprocess_binding':'Reused R97 deterministic Biomed transform and teacher prototype/native binding; no feature files rehashed','F_VAL_feature_access_before_seal':0,'teacher_full_TRAIN_history':True,'F_historically_developed':True};write(Path(c['output'])/'ASSET_MANIFEST_SANITIZED.json',receipt);return rows,y,roles
+
+def load_stage(c,s,y,roles):
+ n=sum(map(len,c['stages'][:s+1]));pack=torch.load(Path(c['cache_source'])/f'teacher_s{s}.private.pt',map_location='cpu',weights_only=False);expected=[i for i,v in enumerate(y.tolist()) if v<n];assert pack['stage']==s and pack['ids']==expected and torch.equal(pack['labels'],y) and pack['filled'][expected].all();assert pack['raw_counts'].tolist()==c['train_counts'][:n]
+ ids={k:sorted(i for i in roles[k] if y[i]<n) for k in ['S','B']};assert all(set(v)<=set(expected) for v in ids.values());z={k:pack['z'][v].cuda() for k,v in ids.items()};assert all(torch.isfinite(v).all() and torch.allclose(v.norm(dim=1),torch.ones(len(v),device=v.device),atol=2e-5) for v in z.values());birth=[i for i,cl in enumerate(c['stages'][:s+1]) for _ in cl];sy=y[ids['S']];by=y[ids['B']].cuda();nB=torch.bincount(by,minlength=n).float();assert (nB>0).all();d={'C':n,'S':z['S'],'B':z['B'],'By':by,'Sall':torch.tensor(ids['S'],device='cuda'),'Sids':[torch.tensor([i for i in ids['S'] if y[i]==cl]) for cl in range(n)],'Bids_set':set(ids['B']),'Bids':ids['B'],'rawcounts':c['train_counts'][:n],'births':birth,'protected':torch.tensor([b<s or c['train_counts'][i]<250 for i,b in enumerate(birth)],device='cuda'),'nB':nB};assert all(len(v)>0 for v in d['Sids']);return d
+
+def require_seal(c):
+ q=Path(c['output'])/'SEAL.json';assert q.exists(),'F_VAL_LOADER_DISABLED_BEFORE_SEAL';a=json.loads(q.read_text());assert a['final_endpoints']==36 and a['formal_optimizer_steps']==10752

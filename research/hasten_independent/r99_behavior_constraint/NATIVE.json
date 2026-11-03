@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "ACT_equivalence_to_R98": [
+    {
+      "stage": 0,
+      "objective": "SC",
+      "loss_maxabs": 0.0,
+      "gradient_maxabs": 0.0
+    },
+    {
+      "stage": 0,
+      "objective": "CF",
+      "loss_maxabs": 2.7755575615628914e-17,
+      "gradient_maxabs": 0.0
+    },
+    {
+      "stage": 0,
+      "objective": "PATH",
+      "loss_maxabs": 0.0,
+      "gradient_maxabs": 0.0
+    },
+    {
+      "stage": 5,
+      "objective": "SC",
+      "loss_maxabs": 0.0,
+      "gradient_maxabs": 0.0
+    },
+    {
+      "stage": 5,
+      "objective": "CF",
+      "loss_maxabs": 3.885780586188048e-16,
+      "gradient_maxabs": 0.0
+    },
+    {
+      "stage": 5,
+      "objective": "PATH",
+      "loss_maxabs": 1.1102230246251565e-16,
+      "gradient_maxabs": 0.0
+    }
+  ],
+  "ACT_equivalence_forward_and_backward_each": 12,
+  "profile_cache_S_B_rows_accessed": 8056,
+  "behavior_constraint_gradients_nonzero_finite": true,
+  "strict_policy_restore": true,
+  "own_physical_GPU_UUID": true,
+  "teacher_no_training_parameters": "Only shared Policy parameters ever enter optimizer; frozen teacher features reused, no image encoder constructed during fit or this native check",
+  "GPU_peak_reserved_bytes": 88080384,
+  "CPU_seconds": 24.109018805000005,
+  "wall_seconds": 23.986389875411987,
+  "engineering_prefix_in_worker": {
+    "optimizer_steps": 36,
+    "image_encoder_rows": 0,
+    "episodes": 78,
+    "joint_rollouts": 416,
+    "active_class_actions": 6688,
+    "policy_class_prototype_builds": 10296,
+    "raw_score_rows": 771056,
+    "replacement_utility_contexts": 3344,
+    "factual_utility_contexts": 416,
+    "utility_contexts": 3760,
+    "diagnostic_forward": 36,
+    "diagnostic_backward": 108,
+    "diagnostic_compute_counts": {
+      "episodes": 36,
+      "joint_rollouts": 192,
+      "active_class_actions": 3264,
+      "policy_class_prototype_builds": 4752,
+      "raw_score_rows": 355872,
+      "replacement_utility_contexts": 1632,
+      "factual_utility_contexts": 192,
+      "utility_contexts": 1824
+    },
+    "legacy_ACT_equivalence_counts": {
+      "episodes": 6,
+      "joint_rollouts": 32,
+      "active_class_actions": 544,
+      "prototype_builds": 792,
+      "raw_score_rows": 59312,
+      "counterfactual_utility_calls": 288,
+      "utility_calls": 304
+    },
+    "F_VAL_TEST": 0
+  },
+  "formal_optimizer": 0,
+  "F_VAL_TEST": 0
+}

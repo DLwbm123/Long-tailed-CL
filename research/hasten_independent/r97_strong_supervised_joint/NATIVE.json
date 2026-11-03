@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "stage": 0,
+      "strong_delta_parameters": 49152,
+      "zero_gain_teacher_logits_exact": true,
+      "prompt_and_policy_gradient_after_gate_opens": true,
+      "strict_restore_finite": true
+    },
+    {
+      "stage": 5,
+      "strong_delta_parameters": 49152,
+      "zero_gain_teacher_logits_exact": true,
+      "prompt_and_policy_gradient_after_gate_opens": true,
+      "strict_restore_finite": true
+    }
+  ],
+  "base_and_LoRA_frozen": true,
+  "own_GPU_binding": true,
+  "physical_gpu": 6,
+  "distinct_TRAIN_images": 6,
+  "fixture_image_repeats_and_synthetic_support_for_cost_only": true,
+  "CPU_seconds": 14.785794801,
+  "wall_seconds": 29.039273262023926
+}

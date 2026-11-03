@@ -20,7 +20,7 @@ def run(root,kind,counts):
     if name in m['groups']:
      v=m['groups'][name];assert (ba is None)==(v is None);assert ba is None or abs(ba-v)<1e-10
  def dump(name,header,data):
-  with (root/name).open('w') as f:w=csv.writer(f);w.writerow(header);w.writerows(data)
+  with (root/name).open('w') as f:w=csv.writer(f,lineterminator="\n");w.writerow(header);w.writerows(data)
  dump('STAGE_METRICS.csv',['stage','arm','micro','macro','tail'],stage);dump('CLASS_STAGE.csv',['stage','arm','class','VAL_count','correct','recall','age','frequency'],classes);dump('GROUP_STAGE.csv',['stage','arm','group','eligible_classes','VAL_count','correct','macro','micro'],groups)
  if kind=='r95':
   d=lambda ref,s,k:rows[s]['arms']['FULL'][k]-rows[s]['arms'][ref][k]

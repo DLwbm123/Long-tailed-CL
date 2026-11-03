@@ -52,6 +52,10 @@ PATH_ACT/PATH_BHV/PATH_NONE：CE−同G8随机utility均值+各自保持项，�
 
 初始C13和最终C23真实合法S/B上下文，每臂两次完整step（含两episode）profile，固定第二次最坏×2；诊断、校准、F/全TRAIN部署、VAL编码上界10188及7200s保存分析发布余量全计。完整九臂计划不够则BUDGET_NOT_ADMITTED，不砍臂/步数或换原clock。复用环境、冻结特征/heads/images，不下载/复制底座，不重编码全TRAIN。拟合无需新encoder；六张S/B原生缓存核验仅在确有必要时执行，不重复已验证的同路径；新约束native主要核真实S/B目标、梯度、restore和ownGPUUUID。
 
-pro5000 data盘、最多1张空闲GPU，reserved<12GiB；RAM64GiB/freeGPU14GiB准入，CPU4/400000s/文件1GiB/worker28GB/group29GB每2s，science8,000,000,000B+512MiB早停余量，每server新增<50,000,000,000B。独立24h含准备、校准、队列、全部工程/fit/eval/分析交付，硬保护原clock，不重置/不盲partialresume。saved-only分析修复单列费用。中性入口及PID→物理GPU UUID核验，保护全部历史与他人。
+pro5000 data盘、最多1张显存余量充分的GPU（可共享），reserved<12GiB；RAM64GiB/freeGPU14GiB准入，CPU4/400000s/文件1GiB/worker28GB/group29GB每2s，science8,000,000,000B+512MiB早停余量，每server新增<50,000,000,000B。独立24h含准备、校准、队列、全部工程/fit/eval/分析交付，硬保护原clock，不重置/不盲partialresume。saved-only分析修复单列费用。中性入口及PID→物理GPU UUID核验，保护全部历史与他人。
 
 公开仅安全源码、脱敏配置、工程及聚合正负/成本，走本机显式7897代理且NO_PROXY空，exactremote/匿名报告200及source+local交付收据。图像、身份、逐例结果/Q逐类风险、features、weights、optim、rawlogs与私有路径不发布。监测保持关闭。完成本轮停止，不自动追加新实验或搜索。
+
+## 0正式更新资源准入修订
+
+首次选定的GPU5在启动复核时已出现其他进程，launcher在创建STARTED/controller之前退出；0GPU native/0formal/0F/VAL。依用户现行servers授权，非空GPU只要显存充足可共享，不动他人进程。本轮改物理GPU3，超过14GiB空闲准入且保留reserved12GiB限制；仅资源绑定改变，原FIRST/deadline、方法、校准种子/比例、九臂/更新预算和效果门不变。该次准入shell CPU非0未单采样，不当科学失败或新attempt重置。

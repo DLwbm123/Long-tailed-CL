@@ -1,0 +1,74 @@
+{
+  "source_stop": "USER_AUTHORIZED_MIGRATION_NOT_ENGINEERING_FAILURE",
+  "source_last_committed_counts": {
+    "real_image_encoder_rows": 74559,
+    "text_encoder_rows": 45510,
+    "formal_optimizer_steps": 3834,
+    "formal_visual_optimizer_steps": 3834,
+    "VAL_rows": 0,
+    "TEST_rows": 0,
+    "cached_visual_rows": 13245,
+    "cached_text_rows": 5444,
+    "GRPO_optimizer_steps": 1064
+  },
+  "source_worker": {
+    "attempt": 2,
+    "exit_code": -15,
+    "reason": null,
+    "attempt_wall_seconds": 4436.386617183685,
+    "total_elapsed_seconds": 6460.073291778564,
+    "queue_controller_CPU_seconds": 12.173647898,
+    "worker_CPU_seconds": 5783.782177,
+    "worker_peak_RSS_bytes": 2052493312,
+    "peak_group_RSS_bytes": 2065035264,
+    "allocated_bytes": 307063975,
+    "peak_allocated_bytes": 307063975,
+    "deadline": 1793715877.149329
+  },
+  "target_worker": {
+    "attempt": 1,
+    "exit_code": 0,
+    "reason": null,
+    "attempt_wall_seconds": 4253.5678358078,
+    "total_elapsed_seconds": 11171.283067941666,
+    "queue_controller_CPU_seconds": 154.833175101,
+    "worker_CPU_seconds": 7883.400993,
+    "worker_peak_RSS_bytes": 2475732992,
+    "peak_group_RSS_bytes": 2480164864,
+    "allocated_bytes": 600481792,
+    "peak_allocated_bytes": 600481792,
+    "deadline": 1793715877.149329
+  },
+  "worker_CPU_sum_both_servers": 13667.18317,
+  "target_train_core_included_in_worker": {
+    "counts": {
+      "real_image_encoder_rows": 153950,
+      "text_encoder_rows": 52727,
+      "formal_optimizer_steps": 7294,
+      "formal_visual_optimizer_steps": 7294,
+      "VAL_rows": 0,
+      "TEST_rows": 0,
+      "cached_visual_rows": 269955,
+      "cached_text_rows": 71567,
+      "GRPO_optimizer_steps": 2084
+    },
+    "CPU_seconds": 6691.252654857,
+    "wall_seconds": 3682.311223268509,
+    "peak_RSS_bytes": 2460225536,
+    "GPU_peak_reserved_bytes": 2820669440
+  },
+  "target_evaluation_counts": {
+    "real_image_encoder_rows": 217530,
+    "text_encoder_rows": 52727,
+    "formal_optimizer_steps": 7294,
+    "formal_visual_optimizer_steps": 7294,
+    "VAL_rows": 22014,
+    "TEST_rows": 0,
+    "cached_visual_rows": 269955,
+    "cached_text_rows": 71567,
+    "GRPO_optimizer_steps": 2084
+  },
+  "other_preparation_CPU_nonzero_not_fully_sampled": true,
+  "native_profile_CPU_included_do_not_add_again": true,
+  "all_history_retained": true
+}

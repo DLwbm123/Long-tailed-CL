@@ -1,0 +1,121 @@
+{
+  "status": "COMPLETE_NEGATIVE_GATE",
+  "gate": false,
+  "completed_stages": 6,
+  "TEST_rows": 0,
+  "formal_updates": 7294,
+  "saved_endpoints": 12,
+  "mean": {
+    "SFT": {
+      "micro": 69.97344207763672,
+      "macro": 50.83186493399725,
+      "tail": 33.67247638153561
+    },
+    "JOINT": {
+      "micro": 69.09066454569499,
+      "macro": 51.85220660494449,
+      "tail": 36.36626760792635
+    },
+    "NCM": {
+      "micro": 70.65107727050781,
+      "macro": 50.957003770914305,
+      "tail": 33.24892136111912
+    },
+    "NCM_ALL": {
+      "micro": 73.42142232259114,
+      "macro": 52.81848908545987,
+      "tail": 33.73312945789453
+    }
+  },
+  "final": {
+    "SFT": {
+      "micro": 58.30388641357422,
+      "macro": 44.12990914490158,
+      "tail": 32.48356226183277
+    },
+    "JOINT": {
+      "micro": 61.6607780456543,
+      "macro": 44.07686198498325,
+      "tail": 27.784528848830398
+    },
+    "NCM": {
+      "micro": 69.6113052368164,
+      "macro": 49.18475952521434,
+      "tail": 29.49542143001123
+    },
+    "NCM_ALL": {
+      "micro": 72.85041046142578,
+      "macro": 51.42231411355493,
+      "tail": 30.02654034804811
+    }
+  },
+  "analysis": {
+    "performance_pilot_gate": false,
+    "mean_JOINT_minus_internal_SFT_pp": {
+      "macro": 1.0203416709472404,
+      "tail": 2.6937912263907386,
+      "micro": -0.8827775319417318
+    },
+    "final_delta_pp": {
+      "macro": -0.053047159918328646,
+      "tail": -4.699033413002375,
+      "micro": 3.356891632080078
+    },
+    "stage_deltas_pp": {
+      "macro": [
+        1.9984931769124614,
+        -1.5136442022756427,
+        -1.255459628169774,
+        3.996264443879511,
+        2.9494433952552157,
+        -0.053047159918328646
+      ],
+      "tail": [
+        8.048780487804876,
+        3.67512858802057,
+        0.27906826687314634,
+        2.2501847745750183,
+        6.608618654073197,
+        -4.699033413002375
+      ],
+      "micro": [
+        -3.3468551635742188,
+        -6.009849548339844,
+        -3.2132415771484375,
+        3.267974853515625,
+        0.6484146118164062,
+        3.356891632080078
+      ]
+    },
+    "stages_macro_tail_nonnegative": 3,
+    "tiny": [
+      {
+        "class": 1,
+        "count": 1,
+        "SFT_correct": 0,
+        "JOINT_correct": 0,
+        "harm": 0,
+        "rescue": 0
+      },
+      {
+        "class": 2,
+        "count": 1,
+        "SFT_correct": 0,
+        "JOINT_correct": 0,
+        "harm": 0,
+        "rescue": 0
+      },
+      {
+        "class": 12,
+        "count": 2,
+        "SFT_correct": 0,
+        "JOINT_correct": 0,
+        "harm": 0,
+        "rescue": 0
+      }
+    ],
+    "attribution_controls_deferred": true,
+    "not_independent_confirmation": true
+  },
+  "new_forward_optimizer_VAL_TEST": 0
+}

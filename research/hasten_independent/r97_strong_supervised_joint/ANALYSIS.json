@@ -1,0 +1,192 @@
+{
+  "RL_trained": true,
+  "mean": {
+    "TEACHER": {
+      "micro": 85.35517434905846,
+      "macro": 66.840040521249,
+      "tail": 50.729224515849474
+    },
+    "SUP": {
+      "micro": 84.72093298451621,
+      "macro": 67.96376638971755,
+      "tail": 55.23003994650336
+    },
+    "JOINT": {
+      "micro": 84.95969171712449,
+      "macro": 66.77240687734981,
+      "tail": 51.100103813016915
+    }
+  },
+  "final": {
+    "TEACHER": {
+      "micro": 85.10011778563016,
+      "macro": 64.87678195784177,
+      "tail": 44.924938328486
+    },
+    "SUP": {
+      "micro": 85.57126030624264,
+      "macro": 65.05347825375314,
+      "tail": 45.368037358059524
+    },
+    "JOINT": {
+      "micro": 85.21790341578327,
+      "macro": 64.75240761669436,
+      "tail": 45.172872212783524
+    }
+  },
+  "comparisons_to_teacher": {
+    "SUP": {
+      "stage_delta_pp": {
+        "micro": [
+          -1.5212981744421938,
+          0.3940886699507473,
+          -1.2658227848101262,
+          -1.3071895424836555,
+          -0.5763688760806929,
+          0.4711425206124744
+        ],
+        "macro": [
+          5.437099485879969,
+          4.32997490314564,
+          0.7146110704216966,
+          -1.731629531267572,
+          -2.1843970132797494,
+          0.17669629591136982
+        ],
+        "tail": [
+          19.04761904761905,
+          9.762319561971132,
+          2.9036004645760727,
+          -1.852127547249495,
+          -3.2996179725669705,
+          0.4430990295735242
+        ]
+      },
+      "mean_delta_pp": {
+        "micro": -0.6342413645422411,
+        "macro": 1.123725868468559,
+        "tail": 4.500815430653886
+      },
+      "final_delta_pp": {
+        "micro": 0.4711425206124744,
+        "macro": 0.17669629591136982,
+        "tail": 0.4430990295735242
+      },
+      "stages_macro_tail_nonnegative": 4,
+      "tiny": [
+        {
+          "class": 1,
+          "final_count": 1,
+          "teacher_final_correct": 0,
+          "method_final_correct": 0,
+          "harm_stage_exposures": 0,
+          "rescue_stage_exposures": 4
+        },
+        {
+          "class": 2,
+          "final_count": 1,
+          "teacher_final_correct": 0,
+          "method_final_correct": 0,
+          "harm_stage_exposures": 0,
+          "rescue_stage_exposures": 0
+        },
+        {
+          "class": 12,
+          "final_count": 2,
+          "teacher_final_correct": 0,
+          "method_final_correct": 1,
+          "harm_stage_exposures": 0,
+          "rescue_stage_exposures": 2
+        }
+      ],
+      "performance_gate": false
+    },
+    "JOINT": {
+      "stage_delta_pp": {
+        "micro": [
+          -1.6227180527383496,
+          0.5911330049261068,
+          0.4868549172346661,
+          -1.2254901960784252,
+          -0.720461095100859,
+          0.11778563015310795
+        ],
+        "macro": [
+          6.1800325490849275,
+          -2.3403645224117042,
+          -1.2066378974794247,
+          -0.913622762683147,
+          -2.000834888758284,
+          -0.12437434114741563
+        ],
+        "tail": [
+          16.65505226480837,
+          -6.912643106022898,
+          -4.219576719576715,
+          -0.5429996832435862,
+          -3.0024908572580316,
+          0.24793388429752383
+        ]
+      },
+      "mean_delta_pp": {
+        "micro": -0.39548263193395883,
+        "macro": -0.0676336438991747,
+        "tail": 0.37087929716744367
+      },
+      "final_delta_pp": {
+        "micro": 0.11778563015310795,
+        "macro": -0.12437434114741563,
+        "tail": 0.24793388429752383
+      },
+      "stages_macro_tail_nonnegative": 1,
+      "tiny": [
+        {
+          "class": 1,
+          "final_count": 1,
+          "teacher_final_correct": 0,
+          "method_final_correct": 0,
+          "harm_stage_exposures": 0,
+          "rescue_stage_exposures": 3
+        },
+        {
+          "class": 2,
+          "final_count": 1,
+          "teacher_final_correct": 0,
+          "method_final_correct": 0,
+          "harm_stage_exposures": 0,
+          "rescue_stage_exposures": 0
+        },
+        {
+          "class": 12,
+          "final_count": 2,
+          "teacher_final_correct": 0,
+          "method_final_correct": 1,
+          "harm_stage_exposures": 0,
+          "rescue_stage_exposures": 2
+        }
+      ],
+      "performance_gate": false
+    }
+  },
+  "main_gate": false,
+  "historical_strong_SFT_reference": {
+    "mean_macro": 66.840041,
+    "final_macro": 64.876782,
+    "final_tail": 44.924938
+  },
+  "attribution_controls_deferred": true,
+  "JOINT_minus_SUP": {
+    "mean_delta_pp": {
+      "micro": 0.23875873260827518,
+      "macro": -1.1913595123677396,
+      "tail": -4.129936133486446
+    },
+    "final_delta_pp": {
+      "micro": -0.35335689045936647,
+      "macro": -0.30107063705878545,
+      "tail": -0.19516514527600037
+    },
+    "not_an_independent_GRPO_attribution_control": true
+  },
+  "conclusion": "COMPLETE_MAIN_GATE_NEGATIVE"
+}

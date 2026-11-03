@@ -1,0 +1,71 @@
+{
+  "primary_conclusion": "Gradient variance reduction concerns estimator precision for the same proxy objective, not objective alignment or classification improvement. CF changes scores but no B argmax prediction at the six fixed S-full endpoints.",
+  "fixed_endpoint_CPU_diagnostic": true,
+  "total_B_stage_query_exposures": 7340,
+  "CF_vs_SUP0_B_prediction_changes": 0,
+  "B_deterministic_proxy_U_delta_by_stage": [
+    0.00022495595937710444,
+    5.1685969955639344e-05,
+    0.00015813682451326638,
+    0.0001031929429949896,
+    8.783332795048171e-05,
+    0.00010039768118774717
+  ],
+  "B_proxy_units": "0-1 utility; not accuracy percentage points",
+  "B_median_abs_logit_change_range": [
+    0.0002193450927734375,
+    0.0006170272827148438
+  ],
+  "B_median_top2_gap_range": [
+    3.794802665710449,
+    4.928537368774414
+  ],
+  "B_gap_certified_unchanged_fraction_range": [
+    0.9827089309692383,
+    0.9991782903671265
+  ],
+  "reward_vs_weighted_action_KL_gradient_cosine_by_stage": [
+    -0.9680948366778623,
+    -0.34641384118917995,
+    -0.8421662978004291,
+    -0.6325764247722279,
+    -0.5712353849584964,
+    -0.4870173489636921
+  ],
+  "scope_limitations": [
+    "32 paired G8 MC gradient estimates at final CF models, not exact stochastic expectations.",
+    "The new derivative estimate uses PATH for the same differentiable objective at the CF point; it is not a newly trained PATH arm.",
+    "Only S-full contexts analyzed; does not identify all transient or half-support trajectories.",
+    "Teacher already saw full TRAIN, B is module-training data, not independent validation.",
+    "KL opposition or small changes do not prove removing KL or widening actions improves generalization.",
+    "Sampling U below deterministic U is descriptive; it does not alone explain failed deployment.",
+    "No new VAL/F scoring or parameter/endpoint selection; existing frozen gates and results unchanged."
+  ],
+  "proposed_next_work": {
+    "priority_1": "Separate action-space anchoring from reward gradient using a prospectively frozen matched diagnostic; keep CE and same action space, replace coordinate-level trust constraint with explicit decision-preservation measurement, not a VAL lambda sweep.",
+    "priority_2": "Use genuine class-correct rescue/harm and deployment-aligned hard decision checks as the endpoint objective for any new RL design; continuous sigmoid utility remains diagnostic rather than being equated with classification success.",
+    "priority_3": "If useful flips cannot be induced in the constrained single-prototype family, test a structurally different evidence-set/multimode action space under fixed capacity. Ordinary multiprototype capacity, supervised selection and exact/enumerated expectation controls remain required.",
+    "not_admitted": "No R99 launch, no guarantee of improvement or novelty; old closed branches and original R98 stop remain respected."
+  },
+  "focused_primary_references": [
+    "https://arxiv.org/abs/1705.08926",
+    "https://proceedings.mlr.press/v80/ren18a.html",
+    "https://arxiv.org/abs/1902.04552"
+  ],
+  "cost": {
+    "CPU_seconds": 20.591019263,
+    "wall_seconds": 7.275222539901733,
+    "peak_RSS_bytes": 686899200,
+    "counts": {
+      "policy_state_forwards": 270,
+      "raw_B_score_rows": 9453920,
+      "utility_calls": 7722,
+      "PATH_aux_backward": 192,
+      "other_backward": 12,
+      "optimizer": 0,
+      "image_encoder": 0,
+      "new_F_VAL_TEST_readout": 0
+    },
+    "external_imports_SSH_document_publication_CPU": "nonzero not fully sampled"
+  }
+}

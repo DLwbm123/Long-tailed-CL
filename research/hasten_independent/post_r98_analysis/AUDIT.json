@@ -1,0 +1,738 @@
+{
+  "scope": "Fixed saved SUP0/SC/RLP/CF/GLOBAL/PATH endpoints, six stages, only original S-full/B frozen features. Deterministic and fixed32xG8 diagnostic, no tuning, optimizer, new encoder or F/VAL scoring. Full deployment prototype tensors already saved are compared geometrically only. Not an independent efficacy experiment.",
+  "records": [
+    {
+      "stage": 0,
+      "models": {
+        "SUP0": {
+          "B_deterministic_metrics": {
+            "micro": 90.1322482197355,
+            "macro": 78.9003001440158,
+            "tail": 67.66233766233766
+          },
+          "mu_abs_max": 1.4649395942687988,
+          "B_deterministic_U": 0.7305000032991072,
+          "B_sampled_U_mean": 0.7258673651927593,
+          "B_sampled_U_std": 0.0030579217685384424,
+          "B_sampled_U_MC_standard_error": 0.00019112011053365265,
+          "sample_minus_deterministic_U": -0.004632638106347953
+        },
+        "SC": {
+          "B_deterministic_metrics": {
+            "micro": 90.1322482197355,
+            "macro": 78.9003001440158,
+            "tail": 67.66233766233766
+          },
+          "mu_abs_max": 1.4638720750808716,
+          "B_deterministic_U": 0.7304609530189115
+        },
+        "RLP": {
+          "B_deterministic_metrics": {
+            "micro": 90.1322482197355,
+            "macro": 78.9003001440158,
+            "tail": 67.66233766233766
+          },
+          "mu_abs_max": 1.464092493057251,
+          "B_deterministic_U": 0.7304677934021437
+        },
+        "CF": {
+          "B_deterministic_metrics": {
+            "micro": 90.1322482197355,
+            "macro": 78.9003001440158,
+            "tail": 67.66233766233766
+          },
+          "mu_abs_max": 1.4708173274993896,
+          "B_deterministic_U": 0.7307249592584844,
+          "B_sampled_U_mean": 0.7265022102894778,
+          "B_sampled_U_std": 0.002954711440252226,
+          "B_sampled_U_MC_standard_error": 0.0001846694650157641,
+          "sample_minus_deterministic_U": -0.00422274896900654
+        },
+        "GLOBAL": {
+          "B_deterministic_metrics": {
+            "micro": 90.1322482197355,
+            "macro": 78.9003001440158,
+            "tail": 67.66233766233766
+          },
+          "mu_abs_max": 1.4714126586914062,
+          "B_deterministic_U": 0.7306290616176694,
+          "B_sampled_U_mean": 0.726262522681675,
+          "B_sampled_U_std": 0.002983019694739458,
+          "B_sampled_U_MC_standard_error": 0.00018643873092121614,
+          "sample_minus_deterministic_U": -0.0043665389359943685
+        },
+        "PATH": {
+          "B_deterministic_metrics": {
+            "micro": 90.1322482197355,
+            "macro": 78.9003001440158,
+            "tail": 67.66233766233766
+          },
+          "mu_abs_max": 1.4688677787780762,
+          "B_deterministic_U": 0.730745057957222,
+          "B_sampled_U_mean": 0.7265855102792815,
+          "B_sampled_U_std": 0.0029328824613538895,
+          "B_sampled_U_MC_standard_error": 0.0001833051538346181,
+          "sample_minus_deterministic_U": -0.004159547677940467
+        },
+        "T_S": {
+          "B_deterministic_metrics": {
+            "micro": 90.64089521871821,
+            "macro": 79.29492788763682,
+            "tail": 67.66233766233766
+          },
+          "B_deterministic_U": 0.7014646194121871
+        }
+      },
+      "final_CF_gradient_separation": {
+        "MC_PATH_expected_reward_loss_gradient_vs_CE": {
+          "a_norm": 0.016004961793288988,
+          "b_norm": 0.0013713022844249964,
+          "cosine": 0.7525117082637934
+        },
+        "weighted_Gaussian_KL_vs_CE": {
+          "a_norm": 0.014251729473471642,
+          "b_norm": 0.0013713020598515868,
+          "cosine": -0.6818509697914124
+        },
+        "reward_vs_weighted_KL": {
+          "a_norm": 0.016004961793288988,
+          "b_norm": 0.01425173385211771,
+          "cosine": -0.9680948366778623
+        },
+        "mean_reward_gradient_MC_norm_standard_error": 0.0019784594606721247,
+        "weighted_KL_value": 0.0002724371151998639,
+        "CE_value": 0.2143564224243164,
+        "unclipped_raw_parameter_gradients": true
+      },
+      "action_to_boundary": {
+        "B_CF_vs_SUP0_prediction_changes": 0,
+        "B_rows": 983,
+        "B_median_abs_logit_change": 0.0006170272827148438,
+        "B_max_abs_logit_change": 0.03748086094856262,
+        "B_certified_unchanged_by_gap_fraction": 0.9959308505058289,
+        "B_SUP0_median_top2_gap": 3.9054126739501953,
+        "S_class_proto_CF_SUP0_mean_L2": 0.0007728937780484557,
+        "S_class_proto_CF_SUP0_max_L2": 0.004208199214190245,
+        "deployed_class_proto_CF_SUP0_mean_L2": 0.0007232915959320962,
+        "deployed_class_proto_CF_SUP0_max_L2": 0.0023983356077224016,
+        "universal_unit_query_deployment_logit_change_upper": 0.04796671122312546,
+        "S_to_deployment_correction_direction_cosine_mean": 0.83380526304245,
+        "S_to_deployment_correction_direction_negative_classes": 0,
+        "nonzero_correction_classes": 12
+      }
+    },
+    {
+      "stage": 1,
+      "models": {
+        "SUP0": {
+          "B_deterministic_metrics": {
+            "micro": 88.94373149062191,
+            "macro": 77.1299317748618,
+            "tail": 66.72850958565245
+          },
+          "mu_abs_max": 1.7918221950531006,
+          "B_deterministic_U": 0.7432130790358277,
+          "B_sampled_U_mean": 0.7409018131870665,
+          "B_sampled_U_std": 0.0013562139482097934,
+          "B_sampled_U_MC_standard_error": 8.476337176311209e-05,
+          "sample_minus_deterministic_U": -0.0023112658487611792
+        },
+        "SC": {
+          "B_deterministic_metrics": {
+            "micro": 88.94373149062191,
+            "macro": 77.1299317748618,
+            "tail": 66.72850958565245
+          },
+          "mu_abs_max": 1.7915552854537964,
+          "B_deterministic_U": 0.7432025483880134
+        },
+        "RLP": {
+          "B_deterministic_metrics": {
+            "micro": 88.94373149062191,
+            "macro": 77.1299317748618,
+            "tail": 66.72850958565245
+          },
+          "mu_abs_max": 1.7979142665863037,
+          "B_deterministic_U": 0.7431669910851396
+        },
+        "CF": {
+          "B_deterministic_metrics": {
+            "micro": 88.94373149062191,
+            "macro": 77.1299317748618,
+            "tail": 66.72850958565245
+          },
+          "mu_abs_max": 1.7919714450836182,
+          "B_deterministic_U": 0.7432647650057833,
+          "B_sampled_U_mean": 0.7410649741655788,
+          "B_sampled_U_std": 0.0013210685484922428,
+          "B_sampled_U_MC_standard_error": 8.256678428076518e-05,
+          "sample_minus_deterministic_U": -0.0021997908402044963
+        },
+        "GLOBAL": {
+          "B_deterministic_metrics": {
+            "micro": 88.94373149062191,
+            "macro": 77.1299317748618,
+            "tail": 66.72850958565245
+          },
+          "mu_abs_max": 1.792603850364685,
+          "B_deterministic_U": 0.743229273261795,
+          "B_sampled_U_mean": 0.7410197536076497,
+          "B_sampled_U_std": 0.0013305413882438515,
+          "B_sampled_U_MC_standard_error": 8.315883676524072e-05,
+          "sample_minus_deterministic_U": -0.0022095196541452866
+        },
+        "PATH": {
+          "B_deterministic_metrics": {
+            "micro": 88.94373149062191,
+            "macro": 77.1299317748618,
+            "tail": 66.72850958565245
+          },
+          "mu_abs_max": 1.7918024063110352,
+          "B_deterministic_U": 0.743263351355987,
+          "B_sampled_U_mean": 0.7410965201736838,
+          "B_sampled_U_std": 0.0013141239094467466,
+          "B_sampled_U_MC_standard_error": 8.213274434042166e-05,
+          "sample_minus_deterministic_U": -0.0021668311823032083
+        },
+        "T_S": {
+          "B_deterministic_metrics": {
+            "micro": 88.64758144126358,
+            "macro": 74.19339195335114,
+            "tail": 61.172954030096896
+          },
+          "B_deterministic_U": 0.7191743855027544
+        }
+      },
+      "final_CF_gradient_separation": {
+        "MC_PATH_expected_reward_loss_gradient_vs_CE": {
+          "a_norm": 0.009517590185672989,
+          "b_norm": 0.0011072290678026495,
+          "cosine": -0.23810038310119438
+        },
+        "weighted_Gaussian_KL_vs_CE": {
+          "a_norm": 0.008809183724224567,
+          "b_norm": 0.0011072285706177354,
+          "cosine": -0.18959565460681915
+        },
+        "reward_vs_weighted_KL": {
+          "a_norm": 0.009517590185672989,
+          "b_norm": 0.008809190064909133,
+          "cosine": -0.34641384118917995
+        },
+        "mean_reward_gradient_MC_norm_standard_error": 0.0007690278522940887,
+        "weighted_KL_value": 7.177107909228653e-05,
+        "CE_value": 0.20738816261291504,
+        "unclipped_raw_parameter_gradients": true
+      },
+      "action_to_boundary": {
+        "B_CF_vs_SUP0_prediction_changes": 0,
+        "B_rows": 1013,
+        "B_median_abs_logit_change": 0.0005726814270019531,
+        "B_max_abs_logit_change": 0.015424728393554688,
+        "B_certified_unchanged_by_gap_fraction": 0.99901282787323,
+        "B_SUP0_median_top2_gap": 3.794802665710449,
+        "S_class_proto_CF_SUP0_mean_L2": 0.00038146396400406957,
+        "S_class_proto_CF_SUP0_max_L2": 0.001120331115089357,
+        "deployed_class_proto_CF_SUP0_mean_L2": 0.00030860837432555854,
+        "deployed_class_proto_CF_SUP0_max_L2": 0.0009357698727399111,
+        "universal_unit_query_deployment_logit_change_upper": 0.018715396523475647,
+        "S_to_deployment_correction_direction_cosine_mean": 0.6473851799964905,
+        "S_to_deployment_correction_direction_negative_classes": 2,
+        "nonzero_correction_classes": 14
+      }
+    },
+    {
+      "stage": 2,
+      "models": {
+        "SUP0": {
+          "B_deterministic_metrics": {
+            "micro": 89.8635477582846,
+            "macro": 77.4143674431673,
+            "tail": 68.54256854256855
+          },
+          "mu_abs_max": 1.9495477676391602,
+          "B_deterministic_U": 0.7437949621913916,
+          "B_sampled_U_mean": 0.7407812957648707,
+          "B_sampled_U_std": 0.002223562392499365,
+          "B_sampled_U_MC_standard_error": 0.00013897264953121032,
+          "sample_minus_deterministic_U": -0.0030136664265209
+        },
+        "SC": {
+          "B_deterministic_metrics": {
+            "micro": 89.8635477582846,
+            "macro": 77.4143674431673,
+            "tail": 68.54256854256855
+          },
+          "mu_abs_max": 1.9500356912612915,
+          "B_deterministic_U": 0.7437952014382524
+        },
+        "RLP": {
+          "B_deterministic_metrics": {
+            "micro": 89.76608187134502,
+            "macro": 77.37488856436747,
+            "tail": 68.54256854256855
+          },
+          "mu_abs_max": 1.9503971338272095,
+          "B_deterministic_U": 0.7437752575472122
+        },
+        "CF": {
+          "B_deterministic_metrics": {
+            "micro": 89.8635477582846,
+            "macro": 77.4143674431673,
+            "tail": 68.54256854256855
+          },
+          "mu_abs_max": 1.9513429403305054,
+          "B_deterministic_U": 0.7439530990159049,
+          "B_sampled_U_mean": 0.741325025391329,
+          "B_sampled_U_std": 0.001988008337672257,
+          "B_sampled_U_MC_standard_error": 0.00012425052110451605,
+          "sample_minus_deterministic_U": -0.002628073624575844
+        },
+        "GLOBAL": {
+          "B_deterministic_metrics": {
+            "micro": 89.76608187134502,
+            "macro": 77.37488856436747,
+            "tail": 68.54256854256855
+          },
+          "mu_abs_max": 1.951112985610962,
+          "B_deterministic_U": 0.7439022476404494,
+          "B_sampled_U_mean": 0.7411570261284102,
+          "B_sampled_U_std": 0.0020723963914684547,
+          "B_sampled_U_MC_standard_error": 0.00012952477446677842,
+          "sample_minus_deterministic_U": -0.0027452215120392642
+        },
+        "PATH": {
+          "B_deterministic_metrics": {
+            "micro": 89.8635477582846,
+            "macro": 77.4143674431673,
+            "tail": 68.54256854256855
+          },
+          "mu_abs_max": 1.9515258073806763,
+          "B_deterministic_U": 0.7439421204532848,
+          "B_sampled_U_mean": 0.741374129830328,
+          "B_sampled_U_std": 0.0019473839117342725,
+          "B_sampled_U_MC_standard_error": 0.00012171149448339203,
+          "sample_minus_deterministic_U": -0.0025679906229567617
+        },
+        "T_S": {
+          "B_deterministic_metrics": {
+            "micro": 90.35087719298247,
+            "macro": 74.00408020441579,
+            "tail": 61.75244508577842
+          },
+          "B_deterministic_U": 0.7122902947255918
+        }
+      },
+      "final_CF_gradient_separation": {
+        "MC_PATH_expected_reward_loss_gradient_vs_CE": {
+          "a_norm": 0.010282281776573208,
+          "b_norm": 0.003138396348105902,
+          "cosine": -0.1742598993366366
+        },
+        "weighted_Gaussian_KL_vs_CE": {
+          "a_norm": 0.009968648664653301,
+          "b_norm": 0.003138392698019743,
+          "cosine": 0.17009030282497406
+        },
+        "reward_vs_weighted_KL": {
+          "a_norm": 0.010282281776573208,
+          "b_norm": 0.009968650697829666,
+          "cosine": -0.8421662978004291
+        },
+        "mean_reward_gradient_MC_norm_standard_error": 0.001781879674090974,
+        "weighted_KL_value": 0.00018499053840059787,
+        "CE_value": 0.17542773485183716,
+        "unclipped_raw_parameter_gradients": true
+      },
+      "action_to_boundary": {
+        "B_CF_vs_SUP0_prediction_changes": 0,
+        "B_rows": 1026,
+        "B_median_abs_logit_change": 0.0005054473876953125,
+        "B_max_abs_logit_change": 0.09648656845092773,
+        "B_certified_unchanged_by_gap_fraction": 0.9844054579734802,
+        "B_SUP0_median_top2_gap": 4.360102653503418,
+        "S_class_proto_CF_SUP0_mean_L2": 0.0011254673590883613,
+        "S_class_proto_CF_SUP0_max_L2": 0.010768440552055836,
+        "deployed_class_proto_CF_SUP0_mean_L2": 0.0004425310471560806,
+        "deployed_class_proto_CF_SUP0_max_L2": 0.002122048055753112,
+        "universal_unit_query_deployment_logit_change_upper": 0.04244096204638481,
+        "S_to_deployment_correction_direction_cosine_mean": 0.48456400632858276,
+        "S_to_deployment_correction_direction_negative_classes": 3,
+        "nonzero_correction_classes": 16
+      }
+    },
+    {
+      "stage": 3,
+      "models": {
+        "SUP0": {
+          "B_deterministic_metrics": {
+            "micro": 90.63270336894001,
+            "macro": 77.44772263954293,
+            "tail": 67.24882756132757
+          },
+          "mu_abs_max": 1.9588576555252075,
+          "B_deterministic_U": 0.7470430861406484,
+          "B_sampled_U_mean": 0.7449766302779184,
+          "B_sampled_U_std": 0.0012185147089765985,
+          "B_sampled_U_MC_standard_error": 7.615716931103741e-05,
+          "sample_minus_deterministic_U": -0.002066455862730021
+        },
+        "SC": {
+          "B_deterministic_metrics": {
+            "micro": 90.63270336894001,
+            "macro": 77.44772263954293,
+            "tail": 67.24882756132757
+          },
+          "mu_abs_max": 1.958780288696289,
+          "B_deterministic_U": 0.7470512248418808
+        },
+        "RLP": {
+          "B_deterministic_metrics": {
+            "micro": 90.63270336894001,
+            "macro": 77.44772263954293,
+            "tail": 67.24882756132757
+          },
+          "mu_abs_max": 1.9584734439849854,
+          "B_deterministic_U": 0.7470389796523801
+        },
+        "CF": {
+          "B_deterministic_metrics": {
+            "micro": 90.63270336894001,
+            "macro": 77.44772263954293,
+            "tail": 67.24882756132757
+          },
+          "mu_abs_max": 1.959218978881836,
+          "B_deterministic_U": 0.7471462790836434,
+          "B_sampled_U_mean": 0.7451555884604586,
+          "B_sampled_U_std": 0.0011915740647294578,
+          "B_sampled_U_MC_standard_error": 7.447337904559111e-05,
+          "sample_minus_deterministic_U": -0.0019906906231847987
+        },
+        "GLOBAL": {
+          "B_deterministic_metrics": {
+            "micro": 90.63270336894001,
+            "macro": 77.44772263954293,
+            "tail": 67.24882756132757
+          },
+          "mu_abs_max": 1.9591271877288818,
+          "B_deterministic_U": 0.7471462048099157,
+          "B_sampled_U_mean": 0.7451514172918544,
+          "B_sampled_U_std": 0.001198143105138641,
+          "B_sampled_U_MC_standard_error": 7.488394407116507e-05,
+          "sample_minus_deterministic_U": -0.0019947875180612584
+        },
+        "PATH": {
+          "B_deterministic_metrics": {
+            "micro": 90.63270336894001,
+            "macro": 77.44772263954293,
+            "tail": 67.24882756132757
+          },
+          "mu_abs_max": 1.9596936702728271,
+          "B_deterministic_U": 0.7471470861898041,
+          "B_sampled_U_mean": 0.7451625567543311,
+          "B_sampled_U_std": 0.0011894826859299038,
+          "B_sampled_U_MC_standard_error": 7.434266787061898e-05,
+          "sample_minus_deterministic_U": -0.0019845294354730036
+        },
+        "T_S": {
+          "B_deterministic_metrics": {
+            "micro": 90.3861955628595,
+            "macro": 74.16451502068256,
+            "tail": 60.99882756132757
+          },
+          "B_deterministic_U": 0.719295259426945
+        }
+      },
+      "final_CF_gradient_separation": {
+        "MC_PATH_expected_reward_loss_gradient_vs_CE": {
+          "a_norm": 0.010450054334100912,
+          "b_norm": 0.0008237850534017323,
+          "cosine": 0.3560426439134681
+        },
+        "weighted_Gaussian_KL_vs_CE": {
+          "a_norm": 0.0034648918081074953,
+          "b_norm": 0.0008237843285314739,
+          "cosine": -0.5468394160270691
+        },
+        "reward_vs_weighted_KL": {
+          "a_norm": 0.010450054334100912,
+          "b_norm": 0.003464896044625131,
+          "cosine": -0.6325764247722279
+        },
+        "mean_reward_gradient_MC_norm_standard_error": 0.0010141525198340605,
+        "weighted_KL_value": 6.231097358977422e-05,
+        "CE_value": 0.16731177270412445,
+        "unclipped_raw_parameter_gradients": true
+      },
+      "action_to_boundary": {
+        "B_CF_vs_SUP0_prediction_changes": 0,
+        "B_rows": 1217,
+        "B_median_abs_logit_change": 0.0002193450927734375,
+        "B_max_abs_logit_change": 0.014884471893310547,
+        "B_certified_unchanged_by_gap_fraction": 0.9991782903671265,
+        "B_SUP0_median_top2_gap": 4.676807403564453,
+        "S_class_proto_CF_SUP0_mean_L2": 0.00039186995127238333,
+        "S_class_proto_CF_SUP0_max_L2": 0.0013644665013998747,
+        "deployed_class_proto_CF_SUP0_mean_L2": 0.00026394633459858596,
+        "deployed_class_proto_CF_SUP0_max_L2": 0.001382185728289187,
+        "universal_unit_query_deployment_logit_change_upper": 0.027643714100122452,
+        "S_to_deployment_correction_direction_cosine_mean": 0.620330274105072,
+        "S_to_deployment_correction_direction_negative_classes": 2,
+        "nonzero_correction_classes": 18
+      }
+    },
+    {
+      "stage": 4,
+      "models": {
+        "SUP0": {
+          "B_deterministic_metrics": {
+            "micro": 92.507204610951,
+            "macro": 82.46486019914,
+            "tail": 75.13872491145219
+          },
+          "mu_abs_max": 1.9389662742614746,
+          "B_deterministic_U": 0.786211913291389,
+          "B_sampled_U_mean": 0.784733896725649,
+          "B_sampled_U_std": 0.0009420568775106122,
+          "B_sampled_U_MC_standard_error": 5.887855484441326e-05,
+          "sample_minus_deterministic_U": -0.0014780165657399813
+        },
+        "SC": {
+          "B_deterministic_metrics": {
+            "micro": 92.507204610951,
+            "macro": 82.46486019914,
+            "tail": 75.13872491145219
+          },
+          "mu_abs_max": 1.938466191291809,
+          "B_deterministic_U": 0.7862207494177825
+        },
+        "RLP": {
+          "B_deterministic_metrics": {
+            "micro": 92.507204610951,
+            "macro": 82.46486019914,
+            "tail": 75.13872491145219
+          },
+          "mu_abs_max": 1.9389506578445435,
+          "B_deterministic_U": 0.7862145448859611
+        },
+        "CF": {
+          "B_deterministic_metrics": {
+            "micro": 92.507204610951,
+            "macro": 82.46486019914,
+            "tail": 75.13872491145219
+          },
+          "mu_abs_max": 1.9376537799835205,
+          "B_deterministic_U": 0.7862997466193394,
+          "B_sampled_U_mean": 0.7849481737108495,
+          "B_sampled_U_std": 0.0008719616862978569,
+          "B_sampled_U_MC_standard_error": 5.449760539361605e-05,
+          "sample_minus_deterministic_U": -0.001351572908489973
+        },
+        "GLOBAL": {
+          "B_deterministic_metrics": {
+            "micro": 92.507204610951,
+            "macro": 82.46486019914,
+            "tail": 75.13872491145219
+          },
+          "mu_abs_max": 1.9378877878189087,
+          "B_deterministic_U": 0.7862770381086424,
+          "B_sampled_U_mean": 0.7848974492762336,
+          "B_sampled_U_std": 0.0008849982507791107,
+          "B_sampled_U_MC_standard_error": 5.531239067369442e-05,
+          "sample_minus_deterministic_U": -0.0013795888324087402
+        },
+        "PATH": {
+          "B_deterministic_metrics": {
+            "micro": 92.507204610951,
+            "macro": 82.46486019914,
+            "tail": 75.13872491145219
+          },
+          "mu_abs_max": 1.93728506565094,
+          "B_deterministic_U": 0.7863052260671854,
+          "B_sampled_U_mean": 0.784965716050279,
+          "B_sampled_U_std": 0.000863782115872829,
+          "B_sampled_U_MC_standard_error": 5.3986382242051814e-05,
+          "sample_minus_deterministic_U": -0.0013395100169064644
+        },
+        "T_S": {
+          "B_deterministic_metrics": {
+            "micro": 92.29106628242076,
+            "macro": 79.2120207819363,
+            "tail": 69.01498753771482
+          },
+          "B_deterministic_U": 0.7577945971436313
+        }
+      },
+      "final_CF_gradient_separation": {
+        "MC_PATH_expected_reward_loss_gradient_vs_CE": {
+          "a_norm": 0.008045505305162647,
+          "b_norm": 0.0014401205366478332,
+          "cosine": -0.22459405533975868
+        },
+        "weighted_Gaussian_KL_vs_CE": {
+          "a_norm": 0.013823858462274075,
+          "b_norm": 0.0014401163207367063,
+          "cosine": -0.07656373828649521
+        },
+        "reward_vs_weighted_KL": {
+          "a_norm": 0.008045505305162647,
+          "b_norm": 0.013823891635475675,
+          "cosine": -0.5712353849584964
+        },
+        "mean_reward_gradient_MC_norm_standard_error": 0.000662500066029062,
+        "weighted_KL_value": 0.0001082563103409484,
+        "CE_value": 0.13941626250743866,
+        "unclipped_raw_parameter_gradients": true
+      },
+      "action_to_boundary": {
+        "B_CF_vs_SUP0_prediction_changes": 0,
+        "B_rows": 1388,
+        "B_median_abs_logit_change": 0.00028705596923828125,
+        "B_max_abs_logit_change": 0.15446186065673828,
+        "B_certified_unchanged_by_gap_fraction": 0.9827089309692383,
+        "B_SUP0_median_top2_gap": 4.928537368774414,
+        "S_class_proto_CF_SUP0_mean_L2": 0.0009188526310026646,
+        "S_class_proto_CF_SUP0_max_L2": 0.014827937819063663,
+        "deployed_class_proto_CF_SUP0_mean_L2": 0.0005002921679988503,
+        "deployed_class_proto_CF_SUP0_max_L2": 0.005003234837204218,
+        "universal_unit_query_deployment_logit_change_upper": 0.10006469488143921,
+        "S_to_deployment_correction_direction_cosine_mean": 0.6968976259231567,
+        "S_to_deployment_correction_direction_negative_classes": 2,
+        "nonzero_correction_classes": 20
+      }
+    },
+    {
+      "stage": 5,
+      "models": {
+        "SUP0": {
+          "B_deterministic_metrics": {
+            "micro": 93.9871570344425,
+            "macro": 89.70987917011493,
+            "tail": 85.58753115571297
+          },
+          "mu_abs_max": 1.969085693359375,
+          "B_deterministic_U": 0.8370942416884009,
+          "B_sampled_U_mean": 0.8358145700604845,
+          "B_sampled_U_std": 0.0008652188259222898,
+          "B_sampled_U_MC_standard_error": 5.4076176620143114e-05,
+          "sample_minus_deterministic_U": -0.0012796716279163123
+        },
+        "SC": {
+          "B_deterministic_metrics": {
+            "micro": 93.9871570344425,
+            "macro": 89.70987917011493,
+            "tail": 85.58753115571297
+          },
+          "mu_abs_max": 1.969089150428772,
+          "B_deterministic_U": 0.837083091968302
+        },
+        "RLP": {
+          "B_deterministic_metrics": {
+            "micro": 93.9871570344425,
+            "macro": 89.70987917011493,
+            "tail": 85.58753115571297
+          },
+          "mu_abs_max": 1.9690380096435547,
+          "B_deterministic_U": 0.837092019174659
+        },
+        "CF": {
+          "B_deterministic_metrics": {
+            "micro": 93.9871570344425,
+            "macro": 89.70987917011493,
+            "tail": 85.58753115571297
+          },
+          "mu_abs_max": 1.970322608947754,
+          "B_deterministic_U": 0.8371946393695886,
+          "B_sampled_U_mean": 0.8359857905622053,
+          "B_sampled_U_std": 0.0008326221648885124,
+          "B_sampled_U_MC_standard_error": 5.203888530553203e-05,
+          "sample_minus_deterministic_U": -0.001208848807383256
+        },
+        "GLOBAL": {
+          "B_deterministic_metrics": {
+            "micro": 93.9871570344425,
+            "macro": 89.70987917011493,
+            "tail": 85.58753115571297
+          },
+          "mu_abs_max": 1.9702609777450562,
+          "B_deterministic_U": 0.8371498626537714,
+          "B_sampled_U_mean": 0.8359353300450625,
+          "B_sampled_U_std": 0.0008406766438872057,
+          "B_sampled_U_MC_standard_error": 5.254229024295035e-05,
+          "sample_minus_deterministic_U": -0.0012145326087089625
+        },
+        "PATH": {
+          "B_deterministic_metrics": {
+            "micro": 93.9871570344425,
+            "macro": 89.70987917011493,
+            "tail": 85.58753115571297
+          },
+          "mu_abs_max": 1.9704139232635498,
+          "B_deterministic_U": 0.8371935747221225,
+          "B_sampled_U_mean": 0.8359904404912918,
+          "B_sampled_U_std": 0.0008310565576419842,
+          "B_sampled_U_MC_standard_error": 5.194103485262401e-05,
+          "sample_minus_deterministic_U": -0.001203134230830738
+        },
+        "T_S": {
+          "B_deterministic_metrics": {
+            "micro": 93.92877991827204,
+            "macro": 90.76835927467089,
+            "tail": 88.17427521972976
+          },
+          "B_deterministic_U": 0.8095561534785047
+        }
+      },
+      "final_CF_gradient_separation": {
+        "MC_PATH_expected_reward_loss_gradient_vs_CE": {
+          "a_norm": 0.006662320260087433,
+          "b_norm": 0.0010785012443654475,
+          "cosine": -0.0752652608128413
+        },
+        "weighted_Gaussian_KL_vs_CE": {
+          "a_norm": 0.010092000477015972,
+          "b_norm": 0.0010784987825900316,
+          "cosine": -0.22644555568695068
+        },
+        "reward_vs_weighted_KL": {
+          "a_norm": 0.006662320260087433,
+          "b_norm": 0.01009203375756935,
+          "cosine": -0.4870173489636921
+        },
+        "mean_reward_gradient_MC_norm_standard_error": 0.00047597434428334873,
+        "weighted_KL_value": 7.409757381537929e-05,
+        "CE_value": 0.1350473314523697,
+        "unclipped_raw_parameter_gradients": true
+      },
+      "action_to_boundary": {
+        "B_CF_vs_SUP0_prediction_changes": 0,
+        "B_rows": 1713,
+        "B_median_abs_logit_change": 0.0004305839538574219,
+        "B_max_abs_logit_change": 0.02596127986907959,
+        "B_certified_unchanged_by_gap_fraction": 0.9976649284362793,
+        "B_SUP0_median_top2_gap": 4.465850830078125,
+        "S_class_proto_CF_SUP0_mean_L2": 0.000442397576989606,
+        "S_class_proto_CF_SUP0_max_L2": 0.002529626479372382,
+        "deployed_class_proto_CF_SUP0_mean_L2": 0.0004340228042565286,
+        "deployed_class_proto_CF_SUP0_max_L2": 0.0015940177254378796,
+        "universal_unit_query_deployment_logit_change_upper": 0.03188035637140274,
+        "S_to_deployment_correction_direction_cosine_mean": 0.722840428352356,
+        "S_to_deployment_correction_direction_negative_classes": 1,
+        "nonzero_correction_classes": 22
+      }
+    }
+  ],
+  "counts": {
+    "policy_state_forwards": 270,
+    "raw_B_score_rows": 9453920,
+    "utility_calls": 7722,
+    "PATH_aux_backward": 192,
+    "other_backward": 12,
+    "optimizer": 0,
+    "image_encoder": 0,
+    "new_F_VAL_TEST_readout": 0
+  },
+  "CPU_seconds": 20.591019263,
+  "wall_seconds": 7.275222539901733,
+  "peak_RSS_bytes": 686899200
+}

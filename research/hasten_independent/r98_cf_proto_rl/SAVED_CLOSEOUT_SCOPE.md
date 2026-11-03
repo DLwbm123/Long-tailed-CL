@@ -1,0 +1,5 @@
+# R98 saved-only closeout
+
+Original source, protocol, formal steps, all endpoints and gates unchanged. Existing worker verification already reconstructed all stage/arm metrics and A/B gates from saved predictions, checked all66 model states and contribution sums. Additional closeout reads saved model/optimizer/prototype/prediction tensors only, checking optimizer finiteness and distinct CF/GLOBAL/PATH models. No new encoder, model forward, classifier scoring, optimizer, F or VAL readout. Saved predictions are reused for result interpretation; no resampling or endpoint selection. Cost counters retain original runtime values and explicitly separate replacement-only logical evaluations. Extra native diagnostic primitive counts were already recovered arithmetically, no new forward.
+
+The model/optimizer audit timing is charged separately; publication/SSH/documentation and imports have nonzero unmeasured CPU. Existing worker/native/profile costs are not added twice. Full negative result delivered; no next run or monitor.

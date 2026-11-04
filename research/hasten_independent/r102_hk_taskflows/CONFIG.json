@@ -1,0 +1,65 @@
+{
+  "baseline_commit": "ab67c59c5a47e1bb7e26784cfaf6c5813fdd7668",
+  "seed": 74002,
+  "order_seeds_trained": [
+    null,
+    0
+  ],
+  "order_seeds_defined_only": [
+    1,
+    2
+  ],
+  "task_sizes": [
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "history_access": "all arrived TRAIN teacher; fixed arrived S/B module; not finite-memory LT-CIL",
+  "teacher": {
+    "epochs": 10,
+    "optimizer": "AdamW",
+    "lr": 0.001,
+    "weight_decay": 0.001,
+    "scheduler": "CosineAnnealingLR10",
+    "batch": 256,
+    "micro": 64,
+    "LoRA_rank": 8,
+    "LoRA_alpha": 8,
+    "trainable_parameters": 49152,
+    "LoRA_carry": true,
+    "optimizer_reset_per_stage": true,
+    "objective": "CE(20cos+log arrived count)+.01 generic-image drift",
+    "support": "opposite component fold detached, refreshed every epoch/fold"
+  },
+  "module": {
+    "cycles_per_stage": 512,
+    "arms": [
+      "UNIFORM",
+      "CE_WEIGHT",
+      "RLPO_STYLE",
+      "PROTO_GRPO"
+    ],
+    "main": "PROTO_GRPO",
+    "same_R101_objectives_hyperparameters": true,
+    "combined_supervised_steps": 20480,
+    "combined_policy_steps": 15360,
+    "combined_steps": 35840,
+    "final_endpoints": 40,
+    "teacher_endpoints": 10,
+    "middle_endpoints": 40,
+    "start_states": 40,
+    "stage_age_denominator": 4
+  },
+  "all_streams_seal_before_F_VAL": true,
+  "TEST": 0,
+  "no_R101_six_stage_success_gate": true,
+  "single_clock_limit_seconds": 86400,
+  "storage_limit_bytes": 20000000000,
+  "CPU_total": 4,
+  "GPU_max": 2,
+  "combined_RSS_limit_bytes": 29000000000,
+  "monitor": "one current-chat30min per latest user; stop after complete delivery",
+  "after_delivery": "STOP"
+}

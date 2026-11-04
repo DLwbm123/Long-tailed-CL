@@ -1,0 +1,245 @@
+{
+  "worker_core_CPU_seconds": 4036.3603688050002,
+  "worker_core_wall_seconds": 3866.3078439235687,
+  "worker_peak_RSS_bytes": 3861504000,
+  "GPU_peak_reserved_bytes": 973078528,
+  "formal_readout_and_diagnostic_counts": {
+    "formal_optimizer_steps": 13824,
+    "episodes": 27648,
+    "joint_rollouts": 147456,
+    "active_class_actions": 2359296,
+    "policy_class_prototype_builds": 3649536,
+    "raw_score_rows": 248033280,
+    "replacement_utility_contexts": 1179648,
+    "factual_utility_contexts": 147456,
+    "utility_contexts": 1327104,
+    "image_encoder_rows": 7338,
+    "cache_feature_rows_accessed": 73015,
+    "F_rows": 80256,
+    "VAL_rows": 80718,
+    "TEST_rows": 0,
+    "diagnostic_forward": 162,
+    "diagnostic_backward": 486,
+    "diagnostic_compute_counts": {
+      "episodes": 162,
+      "joint_rollouts": 864,
+      "active_class_actions": 14688,
+      "policy_class_prototype_builds": 21384,
+      "raw_score_rows": 1453320,
+      "replacement_utility_contexts": 7344,
+      "factual_utility_contexts": 864,
+      "utility_contexts": 8208
+    },
+    "VAL_image_encoder_rows": 7338
+  },
+  "engineering_in_worker": {
+    "optimizer_steps": 36,
+    "image_encoder_rows": 0,
+    "episodes": 78,
+    "joint_rollouts": 416,
+    "active_class_actions": 6688,
+    "policy_class_prototype_builds": 10296,
+    "raw_score_rows": 771056,
+    "replacement_utility_contexts": 3344,
+    "factual_utility_contexts": 416,
+    "utility_contexts": 3760,
+    "diagnostic_forward": 36,
+    "diagnostic_backward": 108,
+    "diagnostic_compute_counts": {
+      "episodes": 36,
+      "joint_rollouts": 192,
+      "active_class_actions": 3264,
+      "policy_class_prototype_builds": 4752,
+      "raw_score_rows": 355872,
+      "replacement_utility_contexts": 1632,
+      "factual_utility_contexts": 192,
+      "utility_contexts": 1824
+    },
+    "legacy_ACT_equivalence_counts": {
+      "episodes": 6,
+      "joint_rollouts": 32,
+      "active_class_actions": 544,
+      "prototype_builds": 792,
+      "raw_score_rows": 59312,
+      "counterfactual_utility_calls": 288,
+      "utility_calls": 304
+    },
+    "F_VAL_TEST": 0
+  },
+  "calibration_in_worker": {
+    "passed": true,
+    "stages": [
+      {
+        "stage": 0,
+        "kappa": 2537.521509841784,
+        "contexts": [
+          {
+            "episode": "full",
+            "action_KL_sum": 0.07423706364352256,
+            "behavior_KL_sum": 2.387452831574214e-05,
+            "directions": 32,
+            "queries": 983,
+            "classes": 13,
+            "class_prototypes": 429,
+            "raw_score_rows": 32439
+          },
+          {
+            "episode": "half",
+            "action_KL_sum": 0.08072871528565884,
+            "behavior_KL_sum": 3.7195211715286645e-05,
+            "directions": 32,
+            "queries": 983,
+            "classes": 13,
+            "class_prototypes": 429,
+            "raw_score_rows": 32439
+          }
+        ],
+        "not_optimized_or_VAL_selected": true
+      },
+      {
+        "stage": 1,
+        "kappa": 6643.5297493374555,
+        "contexts": [
+          {
+            "episode": "full",
+            "action_KL_sum": 0.0566951020155102,
+            "behavior_KL_sum": 9.608381466762888e-06,
+            "directions": 32,
+            "queries": 1013,
+            "classes": 15,
+            "class_prototypes": 495,
+            "raw_score_rows": 33429
+          },
+          {
+            "episode": "half",
+            "action_KL_sum": 0.055058731930330396,
+            "behavior_KL_sum": 7.213073115717993e-06,
+            "directions": 32,
+            "queries": 1013,
+            "classes": 15,
+            "class_prototypes": 495,
+            "raw_score_rows": 33429
+          }
+        ],
+        "not_optimized_or_VAL_selected": true
+      },
+      {
+        "stage": 2,
+        "kappa": 3007.5354096143496,
+        "contexts": [
+          {
+            "episode": "full",
+            "action_KL_sum": 0.048800612217746675,
+            "behavior_KL_sum": 2.085631297794293e-05,
+            "directions": 32,
+            "queries": 1026,
+            "classes": 17,
+            "class_prototypes": 561,
+            "raw_score_rows": 33858
+          },
+          {
+            "episode": "half",
+            "action_KL_sum": 0.042668013949878514,
+            "behavior_KL_sum": 9.556837229772838e-06,
+            "directions": 32,
+            "queries": 1026,
+            "classes": 17,
+            "class_prototypes": 561,
+            "raw_score_rows": 33858
+          }
+        ],
+        "not_optimized_or_VAL_selected": true
+      },
+      {
+        "stage": 3,
+        "kappa": 3592.466637503529,
+        "contexts": [
+          {
+            "episode": "full",
+            "action_KL_sum": 0.040978077333420515,
+            "behavior_KL_sum": 1.3956489149392205e-05,
+            "directions": 32,
+            "queries": 1217,
+            "classes": 19,
+            "class_prototypes": 627,
+            "raw_score_rows": 40161
+          },
+          {
+            "episode": "half",
+            "action_KL_sum": 0.043020930141210556,
+            "behavior_KL_sum": 9.42549764422866e-06,
+            "directions": 32,
+            "queries": 1217,
+            "classes": 19,
+            "class_prototypes": 627,
+            "raw_score_rows": 40161
+          }
+        ],
+        "not_optimized_or_VAL_selected": true
+      },
+      {
+        "stage": 4,
+        "kappa": 4591.794566397148,
+        "contexts": [
+          {
+            "episode": "full",
+            "action_KL_sum": 0.04952527937712148,
+            "behavior_KL_sum": 1.6762394755233428e-05,
+            "directions": 32,
+            "queries": 1388,
+            "classes": 21,
+            "class_prototypes": 693,
+            "raw_score_rows": 45804
+          },
+          {
+            "episode": "half",
+            "action_KL_sum": 0.04951173794688657,
+            "behavior_KL_sum": 4.8058648635141305e-06,
+            "directions": 32,
+            "queries": 1388,
+            "classes": 21,
+            "class_prototypes": 693,
+            "raw_score_rows": 45804
+          }
+        ],
+        "not_optimized_or_VAL_selected": true
+      },
+      {
+        "stage": 5,
+        "kappa": 2046.4229736531358,
+        "contexts": [
+          {
+            "episode": "full",
+            "action_KL_sum": 0.0586978419451043,
+            "behavior_KL_sum": 1.0709323337102571e-05,
+            "directions": 32,
+            "queries": 1713,
+            "classes": 23,
+            "class_prototypes": 759,
+            "raw_score_rows": 56529
+          },
+          {
+            "episode": "half",
+            "action_KL_sum": 0.05499262176454067,
+            "behavior_KL_sum": 4.48463780859969e-05,
+            "directions": 32,
+            "queries": 1713,
+            "classes": 23,
+            "class_prototypes": 759,
+            "raw_score_rows": 56529
+          }
+        ],
+        "not_optimized_or_VAL_selected": true
+      }
+    ],
+    "CPU_seconds": 9.281865977,
+    "wall_seconds": 8.72915244102478,
+    "formal_optimizer": 0,
+    "F_VAL_TEST": 0,
+    "scope": "Fixed SUP0, two S/B contexts/stage,32 output perturbations/context; local output-space scale only."
+  },
+  "do_not_double_add_worker_subitems": true,
+  "borrowed_assets": "R67 frozen teachers/R97 cached features/R98 six SUP0 checkpoints including3072 historical warmup updates; not new training or free lifetime cost",
+  "external_software_CPU_separate": true,
+  "external_preparation_SSH_document_publication_CPU": "nonzero not fully sampled"
+}

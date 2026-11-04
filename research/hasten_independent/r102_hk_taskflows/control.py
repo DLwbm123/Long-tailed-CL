@@ -13,7 +13,7 @@ try:
         wc=json.loads((r/folder/'RUN_CONFIG.private.json').read_text());gpu=int(subprocess.check_output(['nvidia-smi','-i',str(wc['physical_gpu']),'--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True).strip())*2**20;assert gpu>=14*2**30
     for folder in ['a','b']:
         wc=json.loads((r/folder/'RUN_CONFIG.private.json').read_text());env=os.environ.copy();env.update(wc['environment']);env['RUN_CONFIG']=str(r/folder/'RUN_CONFIG.private.json')
-        f=(r/folder/'worker.private.log').open('w');p=subprocess.Popen([wc['python'],str(r/'worker.py')],cwd=r,env=env,preexec_fn=lambda a=wc['cpu_affinity']:limits(a),stdin=subprocess.DEVNULL,stdout=f,stderr=subprocess.STDOUT);f.close();children[folder]=p
+        f=(r/folder/'worker.private.log').open('w');p=subprocess.Popen([wc['python'],str(Path(c['runtime'])/'worker.py')],cwd=r,env=env,preexec_fn=lambda a=wc['cpu_affinity']:limits(a),stdin=subprocess.DEVNULL,stdout=f,stderr=subprocess.STDOUT);f.close();children[folder]=p
     write(r/'LAUNCH.private.json',{'controller':os.getpid(),'workers':{k:v.pid for k,v in children.items()},'original_start':c['start'],'deadline':c['deadline']})
     while len(exits)<2:
         for folder,p in children.items():

@@ -17,7 +17,8 @@ def bundle_from_visual(v):
     state={}
     for k,b in enumerate(v.trunk.blocks[10:]):state.update({f'blocks.{k}.{n}':p.detach().cpu().clone() for n,p in b.state_dict().items()})
     state.update({'norm.'+n:p.detach().cpu().clone() for n,p in v.trunk.norm.state_dict().items()})
-    state['proj.weight']=v.head.weight.detach().cpu().clone()
+    assert list(v.head._modules)==['drop','proj'] and v.head.drop.p==0 and isinstance(v.head.proj,torch.nn.Linear) and v.head.proj.bias is None,'UNSUPPORTED_VISUAL_HEAD'
+    state['proj.weight']=v.head.proj.weight.detach().cpu().clone()
     return {'state':state,'meta':{'norm_eps':v.trunk.norm.eps,'block_norm_eps':[(b.norm1.eps,b.norm2.eps) for b in v.trunk.blocks[10:]],'global_pool':v.trunk.global_pool,'fc_norm_identity':isinstance(v.trunk.fc_norm,torch.nn.Identity)}}
 
 class Prefixes:

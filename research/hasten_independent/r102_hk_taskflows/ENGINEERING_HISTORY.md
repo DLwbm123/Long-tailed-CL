@@ -1,0 +1,5 @@
+# Engineering history
+
+Attempt 1 stopped while exporting the generic Biomed visual head: the projection is wrapped in a Sequential drop/proj container. No image encoder rows, engineering or scientific optimizer updates, F, VAL or TEST were executed. Both failure receipts and logs were preserved before retry. Worker CPU seconds were 12.004839 and 12.198828; controller CPU was 1.179189268 seconds. These costs remain part of the original campaign clock and final accounting.
+
+The exporter now requires the known drop/proj structure, zero dropout and a bias-free Linear projection, and exports the actual projection weight. Native parity against the original full visual path and both full-plan budget checks passed after the repair. Attempt 2 starts fresh; it does not resume partial scientific training. The original deadline, teacher recipe, four arms, both task streams and global evaluation barrier are unchanged. Native budget costs are included in attempt 2 worker costs and must not be added twice. No scientific accuracy results are available at this point.

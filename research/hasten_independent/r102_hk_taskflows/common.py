@@ -12,4 +12,11 @@ def guard(cfg):
  if torch.cuda.is_initialized():assert torch.cuda.max_memory_reserved()<12*2**30,'GPU_RESERVED_LIMIT'
  rss=int(next(s for s in Path('/proc/self/status').read_text().splitlines() if s.startswith('VmRSS:')).split()[1])*1024;assert rss<28_000_000_000
 
-def allocated(root):return sum(max(p.stat().st_size,p.stat().st_blocks*512) for p in Path(root).rglob('*') if p.is_file() and not p.is_symlink())
+def allocated(root):
+ total=0
+ for p in Path(root).rglob('*'):
+  try:
+   if p.is_file() and not p.is_symlink():
+    st=p.stat();total+=max(st.st_size,st.st_blocks*512)
+  except FileNotFoundError:pass  # An atomic JSON/checkpoint rename may race this guard scan.
+ return total

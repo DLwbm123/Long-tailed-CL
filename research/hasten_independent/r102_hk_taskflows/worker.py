@@ -36,6 +36,8 @@ try:
     train.run(c,meta);write(r/'STATUS.json',{'phase':'WAIT_GLOBAL_EVAL_BARRIER','counts':train.COUNTS})
     while not (root/'GLOBAL_LEARNING_SEAL.json').exists():guard(c);time.sleep(2)
     evaluate.run(c,meta,train.COUNTS);a=analyze.run(c);verify.run(c)
+    import aggregate_saved
+    aggregate_saved.run(r)
     write(r/'STATUS.json',{'phase':a['conclusion'],'counts':train.COUNTS});write(r/'WORKER_COMPLETE.json',{'CPU_seconds':time.process_time()-cpu,'wall_seconds':time.time()-wall,'teacher_counts':teacher.COUNTS,'module_counts':train.COUNTS})
 except BaseException:
     (r/'FAILURE.private.txt').write_text(traceback.format_exc());write(r/'STATUS.json',{'phase':'FAILED'})

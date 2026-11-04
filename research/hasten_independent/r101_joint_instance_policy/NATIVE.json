@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "stage": 0,
+      "arm": "UNIFORM",
+      "initial_score_maxabs": 5.7220458984375e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 0,
+      "arm": "CE_WEIGHT",
+      "initial_score_maxabs": 5.7220458984375e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 0,
+      "arm": "RLPO_STYLE",
+      "initial_score_maxabs": 5.7220458984375e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 0,
+      "arm": "PROTO_GRPO",
+      "initial_score_maxabs": 5.7220458984375e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 5,
+      "arm": "UNIFORM",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 5,
+      "arm": "CE_WEIGHT",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 5,
+      "arm": "RLPO_STYLE",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    },
+    {
+      "stage": 5,
+      "arm": "PROTO_GRPO",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_identical_to_teacher": true,
+      "adapter_updated": true,
+      "policy_only_adapter_frozen": true,
+      "strict_model_restore": true
+    }
+  ],
+  "new_joint_software": {
+    "passed": true,
+    "device": "cuda",
+    "initial_teacher_score_maxabs": 3.5762786865234375e-07,
+    "joint_support_query_gradients_nonzero": true,
+    "auxiliary_adapter_frozen": true,
+    "policy_gradient_nonzero_finite": true,
+    "fixed_action_score_gradient_analytic": true,
+    "LOO_offset_and_zero_group": true,
+    "single_support_weight_one": true,
+    "strict_restore": true,
+    "optimizer": 0,
+    "image_encoder": 0,
+    "F_VAL_TEST": 0,
+    "CPU_seconds": 1.3030207870000001,
+    "wall_seconds": 1.4641494750976562
+  },
+  "engineering": {
+    "supervised_optimizer": 16,
+    "policy_optimizer": 12,
+    "total_optimizer": 28,
+    "image_encoder": 0,
+    "F_VAL_TEST": 0
+  },
+  "CPU_seconds": 3.554850988,
+  "wall_seconds": 3.52075457572937,
+  "included_in_worker": true,
+  "own_GPU_UUID_verified": true,
+  "GPU_peak_reserved_bytes": 161480704,
+  "initial_binding_is_tolerance_not_bitwise": true
+}

@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "worst_second_cycle_seconds": {
+    "UNIFORM": 0.053899288177490234,
+    "CE_WEIGHT": 0.19823002815246582,
+    "RLPO_STYLE": 0.19916200637817383,
+    "PROTO_GRPO": 0.20166826248168945
+  },
+  "projected_remaining_seconds": 11143.153076171875,
+  "remaining_original_clock_seconds": 83273.56942367554,
+  "supervised_steps": 10240,
+  "policy_steps": 7680,
+  "total_steps": 17920,
+  "bindings": [
+    {
+      "stage": 0,
+      "arm": "UNIFORM",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 0,
+      "arm": "CE_WEIGHT",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 0,
+      "arm": "RLPO_STYLE",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 0,
+      "arm": "PROTO_GRPO",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 4,
+      "arm": "UNIFORM",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 4,
+      "arm": "CE_WEIGHT",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 4,
+      "arm": "RLPO_STYLE",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    },
+    {
+      "stage": 4,
+      "arm": "PROTO_GRPO",
+      "initial_score_maxabs": 7.62939453125e-06,
+      "initial_predictions_match": true
+    }
+  ],
+  "engineering": {
+    "teacher_optimizer": 4,
+    "teacher_query_rows": 1024,
+    "prefix_rows": 4,
+    "module_supervised_optimizer": 16,
+    "module_policy_optimizer": 12,
+    "VAL_TEST": 0
+  },
+  "CPU_seconds": 2.914624347999961,
+  "wall_seconds": 2.8038058280944824,
+  "included_in_worker": true
+}

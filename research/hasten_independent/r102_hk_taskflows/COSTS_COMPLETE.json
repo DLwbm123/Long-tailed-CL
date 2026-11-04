@@ -1,0 +1,43 @@
+{
+  "attempt2": {
+    "exit_code": 0,
+    "reason": null,
+    "workers": {
+      "b": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 2681.4749540000003,
+        "worker_peak_RSS_bytes": 7497633792
+      },
+      "a": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 2181.9579120000003,
+        "worker_peak_RSS_bytes": 7329931264
+      }
+    },
+    "controller_CPU_seconds": 126.511132426,
+    "controller_wall_seconds": 2394.6487290859222,
+    "original_elapsed_seconds": 4100.496418714523,
+    "peak_sampled_group_RSS_bytes": 14846033920,
+    "allocated_bytes": 8623788032,
+    "original_deadline": 1793888511.821341
+  },
+  "attempt1": {
+    "worker_CPU_seconds": 24.203667,
+    "controller_CPU_seconds": 1.179189268,
+    "wall_seconds": 25.693503856658936,
+    "original_elapsed_seconds_at_exit": 1449.024317741394,
+    "all_encoder_optimizer_F_VAL_TEST_counts": 0
+  },
+  "all_attempt_worker_CPU_seconds": 4887.636533000001,
+  "original_elapsed_seconds_at_report": 5765.776450872421,
+  "teacher_optimizer_total": 2100,
+  "module_optimizer_total": 35840,
+  "engineering_optimizer_total": 64,
+  "engineering_optimizer_breakdown": "8 teacher +32 module supervised +24 module policy, included in workers",
+  "software_external_CPU_seconds": 0.68292846,
+  "software_external_wall_seconds": 1.14052701,
+  "additional_unsampled_CPU": "preparation, imports outside sampled core, binding, SSH, documents, publication are nonzero and not fully sampled",
+  "no_double_add": "worker core, native/profile, teacher, extraction, module and eval subitems are included in wait4 worker CPU; parallel worker wall is not campaign wall",
+  "GPU_kernel_time_seconds": null,
+  "GPU_efficiency_claim": false
+}

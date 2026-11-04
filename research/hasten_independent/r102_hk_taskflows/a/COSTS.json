@@ -1,0 +1,46 @@
+{
+  "worker_core_CPU_seconds": 2179.305982464,
+  "worker_core_wall_seconds": 2389.528253555298,
+  "worker_peak_RSS_bytes": 7329931264,
+  "GPU_peak_reserved_bytes": 2126512128,
+  "teacher_counts": {
+    "prefix_image_rows": 6821,
+    "generic_tail_forward_rows": 6821,
+    "teacher_optimizer": 1200,
+    "teacher_micro_backwards": 4630,
+    "training_query_rows": 292940,
+    "training_support_rows": 292940,
+    "observation_tail_rows": 644468,
+    "final_teacher_feature_rows": 29294,
+    "teacher_prototype_rows": 29294,
+    "VAL_TEST": 0
+  },
+  "module_counts": {
+    "supervised_optimizer": 10240,
+    "policy_optimizer": 7680,
+    "formal_optimizer": 17920,
+    "supervised_query_rows": 15042560,
+    "support_transform_rows": 52437504,
+    "aux_query_rows": 11281920,
+    "sampled_query_score_rows": 30085120,
+    "joint_G8_groups": 2560,
+    "joint_rollouts": 20480,
+    "Gaussian_action_coordinates": 59924480,
+    "Gaussian_draw_coordinates": 59928576,
+    "image_encoder": 7286,
+    "F_rows": 43908,
+    "VAL_rows": 43716,
+    "TEST_rows": 0
+  },
+  "engineering_in_worker": {
+    "teacher_optimizer": 4,
+    "teacher_query_rows": 1024,
+    "prefix_rows": 4,
+    "module_supervised_optimizer": 16,
+    "module_policy_optimizer": 12,
+    "VAL_TEST": 0
+  },
+  "teacher_costs_not_free": true,
+  "teacher_feature_stage_cost_breakdown": "TEACHER_RECORDS.json; all inside worker, do not double-add",
+  "preparation_import_SSH_publication_CPU": "nonzero not fully sampled"
+}

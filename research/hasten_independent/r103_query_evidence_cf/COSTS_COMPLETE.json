@@ -1,0 +1,116 @@
+{
+  "formal_attempt2": {
+    "exit_code": 0,
+    "reason": null,
+    "workers": {
+      "b": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 7090.224771,
+        "worker_peak_RSS_bytes": 7263653888
+      },
+      "a": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 10174.822713,
+        "worker_peak_RSS_bytes": 7246880768
+      }
+    },
+    "controller_CPU_seconds": 478.755644096,
+    "controller_wall_seconds": 9001.146397590637,
+    "original_elapsed_seconds": 9792.459320545197,
+    "peak_sampled_group_RSS_bytes": 14356021248,
+    "allocated_bytes": 1125130240,
+    "original_deadline": 1793932890.538213
+  },
+  "prefit_attempt1": {
+    "exit_code": 1,
+    "reason": "WORKER_FAILURE",
+    "workers": {
+      "a": {
+        "exit_code": 1,
+        "worker_CPU_seconds": 1.942366,
+        "worker_peak_RSS_bytes": 595943424
+      },
+      "b": {
+        "exit_code": 1,
+        "worker_CPU_seconds": 1.8607559999999999,
+        "worker_peak_RSS_bytes": 596418560
+      }
+    },
+    "controller_CPU_seconds": 0.215506595,
+    "controller_wall_seconds": 4.366135358810425,
+    "original_elapsed_seconds": 753.0197377204895,
+    "peak_sampled_group_RSS_bytes": 181010432,
+    "allocated_bytes": 360448,
+    "original_deadline": 1793932890.538213
+  },
+  "all_new_worker_CPU_seconds": 17268.850606,
+  "saved_only_closeout": {
+    "passed": true,
+    "operation": "saved-only aggregation of completed verified streams",
+    "new_encoder_optimizer_VAL_TEST": 0,
+    "both_scientific_worker_exit0_recorded_in_guard": true,
+    "original_controller_terminal_receipt_missing": false,
+    "original_controller_exit_code": 0,
+    "controller_reason": null,
+    "CPU_seconds": 1.622513135,
+    "wall_seconds": 1.5084795951843262,
+    "original_elapsed_seconds_at_saved_closeout": 9838.926315546036,
+    "scope_correction": "terminal receipt appeared during closeout; science and controller exit0, no missing-receipt failure"
+  },
+  "software_engineering_optimizer_steps_external": 10,
+  "native_engineering_optimizer_steps_in_workers": 176,
+  "formal_new_fold_teacher_optimizer_steps": 2160,
+  "formal_fusion_optimizer_steps": 30720,
+  "formal_router_optimizer_steps": 25600,
+  "sampled_query_groups": 327680,
+  "sampled_categorical_actions": 2621440,
+  "new_generic_view_encoder_rows": 382062,
+  "new_teacher_view_tail_rows": 994110,
+  "reused_R102_teacher_CPU_seconds": 3317.6296019399997,
+  "reused_R102_teacher_wall_seconds_sum_parallel_not_campaign": 2648.2620918750763,
+  "GPU_kernel_time_seconds": null,
+  "note": "Worker/native/teacher/crop/fusion/router/evaluation subitems included, do not double-add. Parallel worker walls not summed as campaign wall. Binding/preparation/software/SSH/docs/publication CPU nonzero not fully sampled. Original clock never reset.",
+  "saved_full_metrics_audit": {
+    "passed": true,
+    "readouts_recomputed": 90,
+    "micro_macro_tail_oldtail_groups_class_counts_rescue_harm_oracle_verified": true,
+    "all_empty_groups_and_mean_denominators_checked": true,
+    "R102_teacher_prediction_differences": {
+      "a": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "b": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "GRPO_GROUP_EXACT_prediction_differences": {
+      "a": [
+        0,
+        6,
+        26,
+        0,
+        0
+      ],
+      "b": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "strict_R102_teacher_VAL_identity": false,
+    "baseline_readout_limitation_reported": true,
+    "new_encoder_optimizer_VAL_TEST": 0,
+    "CPU_seconds": 0.22423663500000002,
+    "wall_seconds": 0.22674083709716797
+  }
+}

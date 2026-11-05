@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "status": "prospective_design_not_an_experiment_result",
+  "seed": 74002,
+  "repo": "DLwbm123/Long-tailed-CL",
+  "source_commit": "c7ac5faa33456b6a56bb22d7fa38f977bd095a12",
+  "source_dir": "research/hasten_independent/r102_hk_taskflows",
+  "information_budget": "all_arrived_TRAIN_history_teacher_conditioned_not_bounded_memory",
+  "train_rows": 6821,
+  "val_rows": 1698,
+  "test_reads": 0,
+  "monitor": "OFF",
+  "legacy_train_counts": [
+    626,
+    3,
+    6,
+    85,
+    288,
+    403,
+    736,
+    488,
+    252,
+    167,
+    595,
+    261,
+    6,
+    34,
+    83,
+    25,
+    23,
+    635,
+    127,
+    662,
+    18,
+    654,
+    644
+  ],
+  "legacy_tiny_ids": [
+    1,
+    2,
+    12
+  ],
+  "tail_threshold_train_count_lt": 250,
+  "streams": [
+    {
+      "id": "Ordered",
+      "tasks_legacy_ids": [
+        [
+          6,
+          19,
+          21,
+          22,
+          17
+        ],
+        [
+          0,
+          10,
+          7,
+          5,
+          4
+        ],
+        [
+          11,
+          8,
+          9,
+          18,
+          3
+        ],
+        [
+          14,
+          13,
+          15,
+          16
+        ],
+        [
+          20,
+          2,
+          12,
+          1
+        ]
+      ],
+      "new_task_train_counts": [
+        3331,
+        2400,
+        892,
+        165,
+        33
+      ]
+    },
+    {
+      "id": "StratifiedShuffled_order0",
+      "order_seed": 0,
+      "tasks_legacy_ids": [
+        [
+          21,
+          0,
+          8,
+          15,
+          2
+        ],
+        [
+          19,
+          7,
+          11,
+          13,
+          16
+        ],
+        [
+          6,
+          10,
+          3,
+          14,
+          12
+        ],
+        [
+          17,
+          5,
+          9,
+          20
+        ],
+        [
+          22,
+          4,
+          18,
+          1
+        ]
+      ],
+      "new_task_train_counts": [
+        1563,
+        1468,
+        1505,
+        1223,
+        1062
+      ]
+    }
+  ],
+  "crossfit": {
+    "num_folds": 2,
+    "fold_A": "legacy_S",
+    "fold_B": "legacy_B_union_F",
+    "expected_sizes": [
+      3405,
+      3416
+    ],
+    "partition_unit": "identity_component",
+    "exclude_entire_supervised_lineage": true,
+    "old_F_is_feedback_not_validation": true,
+    "requires_each_seen_class_supported_in_both_outer_folds": true,
+    "inner_support_fallback": "only_if_opposite_inner_fold_empty_use_all_outer_fit_class_support",
+    "full_teacher_reuse": "same_stream_same_stage_R102_only",
+    "new_fold_teacher_stage_endpoints": 20
+  },
+  "crop_boxes_xyxy": [
+    [
+      0,
+      0,
+      1,
+      1
+    ],
+    [
+      0.125,
+      0.125,
+      0.875,
+      0.875
+    ],
+    [
+      0,
+      0,
+      0.6,
+      0.6
+    ],
+    [
+      0.4,
+      0,
+      1,
+      0.6
+    ],
+    [
+      0,
+      0.4,
+      0.6,
+      1
+    ],
+    [
+      0.4,
+      0.4,
+      1,
+      1
+    ]
+  ],
+  "crop_rounding": "floor_left_top_ceil_right_bottom_clamp",
+  "crop_before_official_preprocess": true,
+  "deployment_views_computed": 6,
+  "compute_saving_claim_allowed": false,
+  "candidate_names": [
+    "TEACHER",
+    "GLOBAL_CENTER",
+    "GLOBAL_FOUR_CORNER_MEAN"
+  ],
+  "fusion": {
+    "input_dim": 1024,
+    "rank": 16,
+    "output_dim": 512,
+    "bias": false,
+    "U_init": "zero",
+    "activation": "GELU",
+    "teacher_and_prototypes_frozen": true,
+    "reinitialize_each_stage": true,
+    "steps": 512,
+    "loss": "natural_CE(score+log_n_fit)+0.1_class_balanced_teacher_KL",
+    "optimizer": {
+      "name": "AdamW",
+      "lr": 0.0001,
+      "weight_decay": 0.01,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08
+    },
+    "gradient_clip": 1.0,
+    "gradient_scope_per_step": "full_fit_accumulated",
+    "microbatch": 64,
+    "num_final_heads": 60,
+    "total_fusion_updates": 30720
+  },
+  "router": {
+    "features": [
+      "max_prob",
+      "top1_top2_margin",
+      "entropy_over_logC",
+      "candidate_prob_teacher_class",
+      "teacher_prob_candidate_class",
+      "JS_over_log2",
+      "argmax_agreement",
+      "predicted_class_frequency",
+      "predicted_class_log_count",
+      "predicted_class_is_new",
+      "predicted_class_age_over4",
+      "teacher_class_log_count",
+      "teacher_class_is_new",
+      "teacher_class_age_over4",
+      "nominal_candidate_views_over5",
+      "global_local_cosine",
+      "action_onehot_0",
+      "action_onehot_1",
+      "action_onehot_2"
+    ],
+    "feature_dim": 19,
+    "hidden_dim": 32,
+    "activation": "Tanh",
+    "first_bias": true,
+    "last_bias": false,
+    "param_count": 672,
+    "last_weight_init": "zero",
+    "reference_probs": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "score": "log_q_ref+shared_action_MLP",
+    "reinitialize_each_stage": true,
+    "optimizer": {
+      "name": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08
+    },
+    "gradient_clip": 1.0,
+    "query_sampling": "uniform_class_then_uniform_row_with_replacement",
+    "query_batch": 128,
+    "outer_iterations": 128,
+    "inner_updates": 4,
+    "updates_per_stage_arm": 512,
+    "teacher_ref_KL_coefficient": 0.01,
+    "old_tail_penalty_coefficient": 1.0,
+    "deploy": "hard_argmax_action_tie_0_then_1_then_2_FULL_bank",
+    "reward": "candidate_correct_minus_same_bank_teacher_correct",
+    "harm": "exact_expected_teacher_correct_to_wrong_on_old_tail_class_macro",
+    "harm_placement": "outside_group_advantage_normalization",
+    "group_size": 8,
+    "clip_range": [
+      0.8,
+      1.2
+    ],
+    "advantage_std": "population",
+    "advantage_eps": 1e-08,
+    "equal_reward_groups": "zero_advantage_retain_in_denominator_no_resampling",
+    "raw_reward_exact_control": true,
+    "same_group_normalized_surrogate_exact_control": true,
+    "same_group_exact_compositions": 45,
+    "exact_reference_ordered_groups": 6561,
+    "num_final_routers": 50,
+    "total_router_updates": 25600,
+    "sampled_query_groups_all_GRPO_arms": 327680,
+    "sampled_actions_all_GRPO_arms": 2621440
+  },
+  "learned_arms": [
+    "SUP_CF",
+    "RAW_EXACT_CF",
+    "GROUP_EXACT_CF",
+    "GRPO_CF",
+    "GRPO_IN"
+  ],
+  "fixed_readouts": [
+    "T",
+    "CENTER",
+    "MULTI",
+    "UNIFORM"
+  ],
+  "primary": "GRPO_CF",
+  "evaluation": {
+    "readouts_per_stage": 9,
+    "stage_readouts_total": 90,
+    "global_endpoint_seal_before_VAL": true,
+    "primary_deploy": "deterministic",
+    "report_empty_groups_as": null,
+    "oracle": "postseal_diagnostic_only"
+  },
+  "resources": {
+    "follow_current_project_stricter_limits": true,
+    "max_gpus": 2,
+    "max_cpu_threads_total": 4,
+    "combined_rss_limit_GB": 29,
+    "gpu_reserved_limit_GiB_per_worker": 12,
+    "max_new_science_disk_GB": 20,
+    "max_total_disk_GB_per_server": 50,
+    "max_single_file_GiB": 1,
+    "wall_limit_seconds_from_first": 86400,
+    "cpu_seconds_limit": 400000,
+    "persistent_all_crop_token_cache_allowed": false
+  },
+  "result_claim": "no_HK_training_or_evaluation_performed_by_prompt_generation"
+}

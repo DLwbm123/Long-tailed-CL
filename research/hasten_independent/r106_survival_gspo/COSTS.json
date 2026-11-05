@@ -1,0 +1,99 @@
+{
+  "workers": {
+    "a": {
+      "counts": {
+        "native_encoder_rows": 360,
+        "native_classifier_optimizer": 992,
+        "native_query_update_rows": 32000,
+        "native_reward_query_rows": 928,
+        "native_trajectory_rollouts": 16,
+        "native_sampled_actions": 2000,
+        "native_policy_optimizer": 8,
+        "native_value_optimizer": 56,
+        "TRAIN_encoder_rows": 40926,
+        "shadow_classifier_optimizer": 39360,
+        "shadow_query_update_rows": 1259520,
+        "shadow_reward_query_rows": 32400,
+        "shadow_trajectory_rollouts": 640,
+        "shadow_sampled_actions": 32032,
+        "policy_optimizer": 320,
+        "shadow_value_optimizer": 2240,
+        "formal_classifier_optimizer": 10500,
+        "formal_query_update_rows": 672000,
+        "VAL_encoder_rows": 10188,
+        "VAL_classifier_rows": 51002
+      },
+      "core_CPU_seconds": 881.220735642,
+      "core_wall_seconds": 824.5875644683838,
+      "GPU_peak_reserved_bytes": 989855744,
+      "native_profile_included_once_in_worker": true,
+      "generic_encoder_shared_physical_work_vs_method_logical_costs": "see protocol; no historical supervised model/feature reuse",
+      "preparation_import_SSH_document_delivery_CPU": "nonzero not fully sampled"
+    },
+    "b": {
+      "counts": {
+        "native_encoder_rows": 360,
+        "native_classifier_optimizer": 992,
+        "native_query_update_rows": 32000,
+        "native_reward_query_rows": 928,
+        "native_trajectory_rollouts": 16,
+        "native_sampled_actions": 2000,
+        "native_policy_optimizer": 8,
+        "native_value_optimizer": 56,
+        "TRAIN_encoder_rows": 40926,
+        "shadow_classifier_optimizer": 39360,
+        "shadow_query_update_rows": 1259520,
+        "shadow_reward_query_rows": 33612,
+        "shadow_trajectory_rollouts": 640,
+        "shadow_sampled_actions": 32608,
+        "policy_optimizer": 320,
+        "shadow_value_optimizer": 2240,
+        "formal_classifier_optimizer": 10500,
+        "formal_query_update_rows": 672000,
+        "VAL_encoder_rows": 10188,
+        "VAL_classifier_rows": 37709
+      },
+      "core_CPU_seconds": 944.121343107,
+      "core_wall_seconds": 825.1051924228668,
+      "GPU_peak_reserved_bytes": 700448768,
+      "native_profile_included_once_in_worker": true,
+      "generic_encoder_shared_physical_work_vs_method_logical_costs": "see protocol; no historical supervised model/feature reuse",
+      "preparation_import_SSH_document_delivery_CPU": "nonzero not fully sampled"
+    }
+  },
+  "actual_wait4_and_controller": "CONTROL_EXIT.json written after aggregation",
+  "shared_shadow_actual_classifier_updates_per_complete_group": 492,
+  "logical_GSPO_per_group": 188,
+  "logical_PG_per_group": 188,
+  "logical_GREEDY_per_group": 44,
+  "logical_MORE_per_group": 204,
+  "shared_physical_work_must_not_be_double_counted": true,
+  "controller_exit": {
+    "exit_code": 0,
+    "reason": null,
+    "workers": {
+      "a": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 884.0057879999999,
+        "worker_peak_RSS_bytes": 2696658944
+      },
+      "b": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 946.5864379999999,
+        "worker_peak_RSS_bytes": 2677379072
+      }
+    },
+    "controller_CPU_seconds": 46.865377551,
+    "controller_wall_seconds": 831.8690657615662,
+    "original_elapsed_seconds": 4648.1938445568085,
+    "peak_sampled_group_RSS_bytes": 5334188032,
+    "allocated_bytes": 116449280,
+    "original_deadline": 1793974912.963933
+  },
+  "measured_worker_CPU_total_seconds": 1830.5922259999998,
+  "measured_workers_plus_controller_CPU_seconds": 1877.4576035509997,
+  "science_optimizer_total": 104840,
+  "engineering_optimizer_total": 2112,
+  "GPU_kernel_seconds": null,
+  "software_preparation_CPU": "nonzero incomplete sampling; successful checks were repeated, last sampled CPU .335683157s is not their total"
+}

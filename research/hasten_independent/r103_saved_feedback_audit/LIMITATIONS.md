@@ -1,0 +1,17 @@
+# Coverage and limitations
+
+All available prescribed statistics have been completed; requested information coverage remains PARTIAL. VERIFICATION.json distinguishes passed available checks from missing information.
+
+- No saved per-row trained-router probabilities on TRAIN/VAL, no saved true rollout old probabilities, no individual sampled action arrays or per-query zero-group flags. Model/checkpoint weights are not outputs and were not loaded or forwarded. Trained endpoint Pzero, exact conditional historical expectation and which informative query missed contrast are unavailable.
+- QUERY_PLAN and exact per-outer zero fractions are available. Deduplicating four inner updates gives exact observed structural counts and aggregate sampling-zero residual; this is derived aggregate history, not per-group action recovery. Fixed protocol q_ref analytic expectations are a separate reference, not actual historical or trained endpoint probabilities. No mean probability is substituted into the nonlinear formula.
+- TRAIN learned-selector outputs are class aggregates only. OOF/FULL router shift is copied from the original aggregate record and marked aggregate_only; not independently recreated.
+- TRAIN candidate logits support fixed equal-softmax probability averaging. VAL has saved candidate predictions/correctness/actions but no candidate logits/probabilities: original UNIFORM arithmetic cannot be replayed there, only saved predictions and 8-pattern relations audited.
+- OOF bank ownership is independently derived from stable source roles/IDs and component exclusion checked. Prior training lineage uses archived runtime/static assertions; no independent training-history reexecution is claimed.
+- identity_component currently has one observed component per image; it is not verified patient identity. Different stages/streams reuse the same data. Counts of components across patterns/stages must not be added as independent cases.
+- OldF is router training feedback. All saved VAL analysis is posthoc explanation of historical development data, not a new model evaluation or independent replication; TEST remains unread. Repeated saved-record reads are explicitly costed, not called new independent images.
+- Preserve the R103/R102 single final teacher readout difference in the stratified stream. All pairings here use R103's own common T; no rereading images, replacement predictions or threshold/prior/G/view searches.
+- Positive-contribution concentration and fraction of net gain have different denominators. Net-share ratios are unstable for tiny/nonpositive net differences; tables retain arithmetic, reports do not interpret these as stable gain shares. Removing a contribution retains the original class denominator; it is not a revised main metric.
+- The second independent verification expands tests to weighted transition/action-order matrices, tail/oldtail contribution sums and opportunity denominators. Both runs' costs are included; no statistical/model outputs or original science changed.
+- Preparation/report/SSH/publication CPU is nonzero and not fully sampled. Sampled wait4 analysis/verification costs are exact to tool precision; historical teacher/training costs are only referenced, never added.
+
+No causal attribution of VAL failure, significance, clinical transfer, universal RL ineffectiveness or future success is justified. No followup training, launcher or monitoring is created.

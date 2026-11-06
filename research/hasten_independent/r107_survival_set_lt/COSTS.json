@@ -1,0 +1,107 @@
+{
+  "workers": {
+    "a": {
+      "counts": {
+        "native_encoder_rows": 360,
+        "native_classifier_optimizer": 1304,
+        "native_query_update_rows": 41984,
+        "native_reward_query_rows": 1248,
+        "native_trajectory_rollouts": 24,
+        "native_sampled_actions": 2996,
+        "native_policy_optimizer": 12,
+        "native_value_optimizer": 56,
+        "TRAIN_encoder_rows": 40926,
+        "shadow_classifier_optimizer": 51840,
+        "shadow_query_update_rows": 1658880,
+        "shadow_reward_query_rows": 43452,
+        "shadow_trajectory_rollouts": 960,
+        "shadow_sampled_actions": 55081,
+        "policy_optimizer": 480,
+        "shadow_value_optimizer": 2240,
+        "formal_classifier_optimizer": 10500,
+        "formal_query_update_rows": 672000,
+        "VAL_encoder_rows": 10188,
+        "VAL_classifier_rows": 51002
+      },
+      "core_CPU_seconds": 996.920523569,
+      "core_wall_seconds": 861.5577108860016,
+      "GPU_peak_reserved_bytes": 1000341504,
+      "native_profile_included_once_in_worker": true,
+      "generic_encoder_shared_physical_work_vs_method_logical_costs": "see protocol; no historical supervised model/feature reuse",
+      "preparation_import_SSH_document_delivery_CPU": "nonzero not fully sampled"
+    },
+    "b": {
+      "counts": {
+        "native_encoder_rows": 360,
+        "native_classifier_optimizer": 1304,
+        "native_query_update_rows": 41984,
+        "native_reward_query_rows": 1248,
+        "native_trajectory_rollouts": 24,
+        "native_sampled_actions": 3000,
+        "native_policy_optimizer": 12,
+        "native_value_optimizer": 56,
+        "TRAIN_encoder_rows": 40926,
+        "shadow_classifier_optimizer": 51840,
+        "shadow_query_update_rows": 1658880,
+        "shadow_reward_query_rows": 45000,
+        "shadow_trajectory_rollouts": 960,
+        "shadow_sampled_actions": 56624,
+        "policy_optimizer": 480,
+        "shadow_value_optimizer": 2240,
+        "formal_classifier_optimizer": 10500,
+        "formal_query_update_rows": 672000,
+        "VAL_encoder_rows": 10188,
+        "VAL_classifier_rows": 37709
+      },
+      "core_CPU_seconds": 976.114469998,
+      "core_wall_seconds": 861.4477443695068,
+      "GPU_peak_reserved_bytes": 713031680,
+      "native_profile_included_once_in_worker": true,
+      "generic_encoder_shared_physical_work_vs_method_logical_costs": "see protocol; no historical supervised model/feature reuse",
+      "preparation_import_SSH_document_delivery_CPU": "nonzero not fully sampled"
+    }
+  },
+  "shared_physical_classifier_updates_per_meta_group": 648,
+  "logical_RL_per_group": 188,
+  "logical_GREEDY_per_group": 44,
+  "logical_MORE_per_group": 204,
+  "actual_wait4_controller": "CONTROL_EXIT.json",
+  "shared_work_charged_once": true,
+  "controller_exit": {
+    "exit_code": 0,
+    "reason": null,
+    "workers": {
+      "a": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 999.52341,
+        "worker_peak_RSS_bytes": 2691276800
+      },
+      "b": {
+        "exit_code": 0,
+        "worker_CPU_seconds": 978.758623,
+        "worker_peak_RSS_bytes": 2695147520
+      }
+    },
+    "controller_CPU_seconds": 49.620966297,
+    "controller_wall_seconds": 869.3033018112183,
+    "original_elapsed_seconds": 1537.3275728225708,
+    "peak_sampled_group_RSS_bytes": 5387776000,
+    "allocated_bytes": 196976640,
+    "original_deadline": 1794039759.078354
+  },
+  "measured_workers_plus_controller_CPU_seconds": 2027.902999297,
+  "science_optimizer_total": 130120,
+  "engineering_worker_optimizer_total": 2744,
+  "external_CPU_engineering_optimizer": 1,
+  "external_restore_check": {
+    "passed": true,
+    "scope": "synthetic CPU classifier+nonempty AdamW strict serialization roundtrip; no data/encoder/VAL",
+    "engineering_classifier_optimizer": 1,
+    "before_global_native_admission": false,
+    "CPU_seconds": 1.1285618130000001,
+    "wall_seconds": 1.1390790939331055,
+    "external_to_workers_cost": true
+  },
+  "saved_policy_audit_CPU_seconds": 0.1753588239999999,
+  "GPU_kernel_seconds": null
+}

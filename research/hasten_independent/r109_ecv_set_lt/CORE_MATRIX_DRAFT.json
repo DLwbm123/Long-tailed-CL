@@ -1,0 +1,43 @@
+{
+  "executable": false,
+  "reason": "scientific protocol and total resource admission not frozen",
+  "arms": [
+    "R107",
+    "ZERO",
+    "BALANCED",
+    "VERIFIER_GREEDY",
+    "NEAROPT_SFT",
+    "ECV_MORE_SUP",
+    "ECV_RL",
+    "RL_REWARD_SHUFFLE"
+  ],
+  "orders": [
+    "Ordered",
+    "stratified_order0"
+  ],
+  "seeds": [
+    74002,
+    74003,
+    74004
+  ],
+  "phases": [
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "formal_flows": 48,
+  "formal_classifier_endpoints": 240,
+  "formal_classifier_updates": 72000,
+  "cost_excludes": [
+    "P1 opportunity experiments",
+    "fit/calibration/audit paired rollouts",
+    "PPO trajectories",
+    "virtual updates",
+    "encoding",
+    "engineering",
+    "analysis and delivery"
+  ],
+  "extra_new_order_or_TEST": "requires prospectively frozen protocol; old TEST0 unchanged"
+}

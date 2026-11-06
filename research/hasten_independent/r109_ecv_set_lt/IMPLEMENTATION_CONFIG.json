@@ -1,0 +1,56 @@
+{
+  "version": "engineering-v1",
+  "science": false,
+  "host_phases": [
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "memory_tokens": 256,
+  "token_bytes": 2064,
+  "stats_bytes": 184,
+  "evidence_bytes": 528568,
+  "formal_pre_steps": 200,
+  "formal_post_steps": 100,
+  "optimizer": "AdamW",
+  "lr": 0.001,
+  "weight_decay": 0.001,
+  "gradient_clip": 1,
+  "batch": 64,
+  "KD_coefficient": 2,
+  "KD_temperature": 2,
+  "max_candidates": 16,
+  "edit_tokens": [
+    1,
+    2,
+    4
+  ],
+  "score_group_cap": 128,
+  "eps_s": 0.2,
+  "eps_T": 0.5,
+  "alpha": 0.5,
+  "sigma_floor_engineering": 0.02,
+  "risk_feature_role": "proposal only; inner objective unchanged",
+  "H": [
+    1,
+    3
+  ],
+  "G_science_default": 8,
+  "G_synthetic_smoke": 2,
+  "PPO_lr": 0.0001,
+  "PPO_epochs": 2,
+  "PPO_clip": [
+    0.8,
+    1.2
+  ],
+  "KL_weight": 0.01,
+  "KL_stop": 0.02,
+  "epsilon_pref": 0.005,
+  "risk_tolerance": 0.005,
+  "verifier_frozen_for_PG": true,
+  "deployment": "sample once using registered action seed",
+  "monitor": "OFF",
+  "new_paid_or_full_science_runs": false
+}

@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "both_flow_own_device_verified": true,
+  "both_native_full_plan_before_fit_barrier": true,
+  "formal_init_discards_engineering_parameters": true,
+  "monitor": "OFF",
+  "projection_seconds": {
+    "Ordered": 10041.792494532776,
+    "order0": 10064.76693871847
+  },
+  "worker_engineering_counts": {
+    "Ordered": {
+      "native_encoder_rows": 360,
+      "native_classifier_optimizer": 1304,
+      "native_query_update_rows": 41984,
+      "native_reward_query_rows": 1248,
+      "native_trajectory_rollouts": 24,
+      "native_sampled_actions": 2996,
+      "native_policy_optimizer": 12,
+      "native_value_optimizer": 56
+    },
+    "order0": {
+      "native_encoder_rows": 360,
+      "native_classifier_optimizer": 1304,
+      "native_query_update_rows": 41984,
+      "native_reward_query_rows": 1248,
+      "native_trajectory_rollouts": 24,
+      "native_sampled_actions": 3000,
+      "native_policy_optimizer": 12,
+      "native_value_optimizer": 56
+    }
+  },
+  "external_synthetic_CPU_restore_optimizer": 1,
+  "CPU_restore_scope": "Classifier+nonempty AdamW exact roundtrip; after native admission, during formal initial arrival encoding. External cost separately recorded; no model/data reuse in fit.",
+  "actual_frozen_encoder_gradient_check": true,
+  "three_native_actors_nonzero_finite_gradient_check": true,
+  "ZERO_ACTOR_last_layer_zero_check": true,
+  "not_scientific_effect_evidence": true
+}

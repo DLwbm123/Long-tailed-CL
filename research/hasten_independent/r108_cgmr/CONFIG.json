@@ -1,0 +1,76 @@
+{
+  "experiment": "R108_CGMR",
+  "base_commit": "c7d5db2d51b77a6c1b1efa92c6612c12f6762680",
+  "streams": [
+    "Ordered",
+    "stratified_order0"
+  ],
+  "stages": [
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "TRAIN": 6821,
+  "final_VAL": 1698,
+  "TEST": 0,
+  "B_seeds": [
+    74002,
+    74003,
+    74004
+  ],
+  "A_roots_per_stream": 24,
+  "A_actor_updates": 0,
+  "B_arms": [
+    "BASE_ZERO",
+    "BALANCED",
+    "RANDOM_REPAIR",
+    "SUP_GREEDY",
+    "REWARD_SHUFFLED",
+    "CGMR_MAIN"
+  ],
+  "B_roots_per_learned_arm_stage": 16,
+  "B_classifier_endpoints": 180,
+  "B_classifier_optimizer": 54000,
+  "A_B_classifier_optimizer_upper": 631344,
+  "B_actor_optimizer_upper": 1920,
+  "B_supervised_optimizer_upper": 960,
+  "feature_dimension": 48,
+  "head_parameters": 1601,
+  "memory_budget_bytes": 528568,
+  "max_candidates": 9,
+  "candidate_attempts_per_target_max": 64,
+  "max_operations": 4,
+  "max_removed_tokens_rule": "min(24,floor(B/10))",
+  "no_op_prior": 0.5,
+  "surrogate_clip": 0.2,
+  "trust_KL": 0.01,
+  "sigma_floor": 0.02,
+  "head_lr": 0.001,
+  "head_wd": 0.0001,
+  "head_updates_per_root": 2,
+  "supervised_target_scale": 0.05,
+  "formal_classifier_pre_post": [
+    200,
+    100
+  ],
+  "formal_batch": 64,
+  "shadow_batch": 32,
+  "prefix_classifier_updates": 64,
+  "branch_updates": [
+    4,
+    12,
+    4,
+    16
+  ],
+  "pilot_gate": {
+    "nontrivial_min": 16,
+    "old_scarce_min": 8,
+    "audit_delta_R_min": 0.005,
+    "audit_delta_U_min": 0,
+    "audit_H_max": 0.005
+  },
+  "monitor": "OFF",
+  "storage_budget_bytes": 20000000000
+}

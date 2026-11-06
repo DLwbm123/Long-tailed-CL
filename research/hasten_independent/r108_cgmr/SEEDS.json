@@ -1,0 +1,28 @@
+{
+  "train_seeds": [
+    74002,
+    74003,
+    74004
+  ],
+  "pilot_seed": 74002,
+  "query_role_seed_base": 947108,
+  "query_role_seed_formula": "947108+original_label, sorted component keys then independent random permutation; roles fixed across flows/seeds; current HK components do not span labels",
+  "A_root_seed": "74002*100000+root*101+8100",
+  "B_root_seed": "seed*100000+stage*10000+root*101+9100",
+  "shadow_split_and_caps": "root seed local Python RNG",
+  "shadow_query_subset": "root seed+400000, separate Python RNG",
+  "shadow_classifier_update": "root seed+10000+prefixstage; downstream+40000,+40001,+40002,+40003",
+  "shadow_zero_compression": "root seed+20000+prefixstage; future1+50000",
+  "shadow_reference_draw": "root seed+30000",
+  "shadow_proposal": "root seed+31000",
+  "reward_shuffle": "root seed+60000, uniform randperm including identity/fixedpoints",
+  "same_state_diagnostic_draw32": "root seed+70000(B),+80000(A), never reuses formal draw stream",
+  "formal_classifier_update": "seed*100000+stage*100+1(pre) or+2(post)",
+  "formal_reference": "seed*100000+stage*100+30000",
+  "formal_proposal": "seed*100000+stage*100+31000",
+  "formal_diagnostic32": "seed*100000+stage*100+32000",
+  "formal_single_memory_draw": "seed*100000+stage*100+33000",
+  "arm_pairing": "same exogenous streams; different own histories remain distinct roots/feedback, no cross-arm memory sharing",
+  "prior_seed_identifiers_not_new_patients": true,
+  "no_seed_replacement_after_results": true
+}

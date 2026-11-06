@@ -1,0 +1,70 @@
+{
+  "dimension": 48,
+  "psi_fields": {
+    "0": "same_class_global_coverage",
+    "1": "scarce_class_global_coverage",
+    "2": "same_parent_local_coverage",
+    "3": "macro_within_class_global_cosine_redundancy",
+    "4": "global_class_entropy",
+    "5": "minimum_to_mean_class_global_count",
+    "6": "scarce_global_fraction",
+    "7": "old_global_fraction",
+    "8": "macro_true_label_probability",
+    "9": "macro_margin_div40_clipped",
+    "10": "macro_prediction_entropy",
+    "11": "mean_parent_age_saturation"
+  },
+  "layout": [
+    {
+      "offset": 0,
+      "length": 12,
+      "meaning": "psi(candidate)"
+    },
+    {
+      "offset": 12,
+      "length": 12,
+      "meaning": "psi(candidate)-psi(noop)"
+    },
+    {
+      "offset": 24,
+      "length": 12,
+      "meaning": "psi(noop)"
+    },
+    {
+      "offset": 36,
+      "length": 8,
+      "meaning": "state8"
+    },
+    {
+      "offset": 44,
+      "length": 4,
+      "meaning": "edit4"
+    }
+  ],
+  "state8": [
+    "C/23",
+    "B/256",
+    "B/pool_tokens",
+    "noop_global_tokens/B",
+    "new_arrival_parent_fraction_in_pool",
+    "clipped_log1p_min_accessible_parent_count_over_log257",
+    "mean_log1p_observed_over_log1p_max_observed",
+    "stage/(1+stage)"
+  ],
+  "edit4": [
+    "is_noop",
+    "removed_tokens/B",
+    "replaced_global_parents/max(1,noop_global_parents)",
+    "operations/4"
+  ],
+  "coverage": "For each seen class, mean of max (cos+1)/2 from all accessible globals to retained same-class globals, then class macro average; scarce subset same class average. Cos blocks256 rows.",
+  "scarcity": "lower empirical third: quantile(counts,1/3,interpolation=lower), include ties; actual arrived shadow support counts or legal formal observed counts; not HK tail<250",
+  "local_coverage": "Per retained global parent: average best mapped cosine from that same parent available local views to retained local views; absent available or retained locals0; average over retained parents. No cross-parent local matching.",
+  "redundancy": "For each class, average off-diagonal cosine of retained globals; singleton0; then mean over classes; singleton-class fraction audited.",
+  "probability_margin_entropy": "Candidate bags only, true labels legal TRAIN; macro over all seen classes; C1 margin and entropy0.",
+  "age": "Actual simulated/real arrival age; average age/(1+age) over retained parent globals.",
+  "inputs_detached": true,
+  "query_features_or_labels_accepted": false,
+  "no_trainable_value_encoder": true,
+  "missing_values": "No NaN imputation; masks/coverage ensure each seen class global count>=1; empty locals0, C1 entropy0; counts for unseen classes never in vector."
+}

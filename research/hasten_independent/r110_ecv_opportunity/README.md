@@ -1,3 +1,10 @@
+<!-- R110_RESULTS_OVERVIEW -->
+**P1结果已完成并核验：Ordered未通过、分层order0通过，联合门未通过；未启动P2/RL。**
+
+[中文实验结果总览](RESULTS_OVERVIEW_ZH.md)集中列出实际执行范围、主结果、逐阶段结果、每项门槛和机制对照。正式VAL/TEST尚无新结果。
+
+<!-- /R110_RESULTS_OVERVIEW -->
+
 # R110 ECV opportunity/query pilot
 
 Prospectively frozen P1-only scientific diagnostic. Read PROTOCOL.md and CONFIG.json. The base package is the previously delivered R109 implementation, copied as source only. Original R106–R109 outcomes are unchanged. No method efficacy or RL-specific gain is established by this source release.

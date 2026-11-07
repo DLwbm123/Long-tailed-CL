@@ -108,7 +108,12 @@ def anchors(evidence,seed):
     return z,b,{'S_capacity':B,'FIT_tokens':C,'AUDIT_tokens':C,'mandatory_support_globals_union':len(choice.cover),'S_pool_tokens':len(S),'measurement_induced_pressure':len(S)>B and len(S)<=256}
 
 
-def compressed(evidence,seed):return evidence.with_support(anchors(evidence,seed)[0])
+def compressed(evidence,seed):
+    S=evidence.role(0);C=evidence.C
+    if len(S)<=256-2*C:return evidence.with_support(S)
+    choice=Choice(S,C,256-2*C,evidence.core_keys())
+    zero=choice.construct('RANDOM',generator=torch.Generator(device=S.z.device).manual_seed(seed))[0]
+    return evidence.with_support(zero)
 
 
 def classes(evidence,selected,mapping=None,refresh_counts=False):

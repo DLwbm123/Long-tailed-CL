@@ -12,7 +12,7 @@ def run(cfg):
         os.sched_setaffinity(0,set(cores));resource.setrlimit(resource.RLIMIT_CPU,(400000,400000));resource.setrlimit(resource.RLIMIT_FSIZE,(2**30,2**30))
     def execute(phase):
         nonlocal peak,disk_peak,reason,active
-        children={};exits={};term=None
+        children={};active=children;exits={};term=None
         available=int(next(x for x in Path('/proc/meminfo').read_text().splitlines() if x.startswith('MemAvailable:')).split()[1])*1024
         assert available>=64*2**30
         for n in ['a','b']:
@@ -31,7 +31,13 @@ def run(cfg):
                 native={n:json.loads((root/n/'science/NATIVE_ADMISSION.json').read_text()) for n in ['a','b']};ok=all(x['passed'] and x['complete_scientific_projected_seconds']<cfg['deadline']-time.time() for x in native.values())
                 write(root/('GLOBAL_NATIVE_ADMISSION.json' if ok else 'GLOBAL_NATIVE_FAIL.json'),{'passed':ok,'workers':native,'epoch':time.time()})
             total=rss_tree(os.getpid());peak=max(peak,total);rss={n:rss_tree(p.pid) for n,p in children.items() if n not in exits}
-            allocated=sum(max(p.stat().st_size,p.stat().st_blocks*512) for p in root.rglob('*') if p.is_file() and not p.is_symlink());disk_peak=max(disk_peak,allocated)
+            allocated=0
+            for p in root.rglob('*'):
+                try:
+                    if p.is_file() and not p.is_symlink():
+                        s=p.stat();allocated+=max(s.st_size,s.st_blocks*512)
+                except FileNotFoundError:pass
+            disk_peak=max(disk_peak,allocated)
             if time.time()>=cfg['deadline']-120:reason=reason or 'ORIGINAL_CLOCK'
             if total>=29_000_000_000 or any(v>=28_000_000_000 for v in rss.values()):reason=reason or 'RAM_LIMIT'
             if allocated+512*2**20>=20_000_000_000:reason=reason or 'DISK_LIMIT'
@@ -48,7 +54,11 @@ def run(cfg):
         active={};history[phase]=exits
         if reason:raise RuntimeError(reason)
     try:
-        execute('construction')
+        if cfg.get('resume_after_construction',False):
+            assert cfg['native_attempt']==2 and (root/'attempt1.private/GLOBAL_NATIVE_FAIL.json').exists(),'UNBOUNDED_NATIVE_RETRY'
+            assert json.loads((root/'CONSTRUCTION_ADMISSION.json').read_text())['passed'],'CLOSED_CONSTRUCTION_NOT_ADMITTED'
+            assert json.loads((root/'COMPRESSION_EQUIVALENCE.json').read_text())['passed'],'UNVERIFIED_IMPLEMENTATION_CHANGE'
+        else:execute('construction')
         results={n:json.loads((root/n/'construction/CONSTRUCTION_RESULT.json').read_text()) for n in ['a','b']};passed=all(x['passed'] for x in results.values())
         records=[x for n in ['a','b'] for x in json.loads((root/n/'construction/ROOT_CONSTRUCTION.json').read_text())]
         table(root/'CONSTRUCTION_COMPARISON.csv',records);write(root/'CONSTRUCTION_ADMISSION.json',{'passed':passed,'workers':results,'planned_roots':64,'scientific_training_started':False})

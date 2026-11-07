@@ -177,3 +177,37 @@ and counts; unmeasured preparation CPU is nonzero/unknown, never0.
 Output source supply/retention, byte ledger, construction comparison, frozen
 source/config, P1C results if run, costs/exit receipts and clear Chinese status.
 Public delivery excludes all private paths, identities, raw features and weights.
+
+
+## Prospective engineering revision 2, before any scientific training
+
+Attempt1 completed construction and the full native tests, but conservative
+projections were101357.57/108469.18 seconds (28.15/30.13 hours), exceeding the
+remaining original clock. Science was not admitted. Preserve its exact source,
+receipts, costs and negative admission; do not overwrite that outcome.
+
+ZERO-only continuations previously computed unused BAL and repeatedly assembled
+protected evidence. Compute only the identical ZERO state. When all available
+S tokens fit, return that unique feasible complete set; the discarded internal
+ordering RNG had no external generator or learner effect. E-BAL remains a full
+comparison arm. No selection, role, byte, class, seed, tape, horizon, feedback,
+threshold, KD or optimizer-step parameter changes. Twenty sequential full and
+underfilled synthetic states match sets, features, flags and statistics exactly;
+a GPU pressure fixture also matches. Its old/new compression cost was24.764/
+11.198 seconds, which is engineering overhead evidence, not classification gain.
+
+Reuse the already completed64-slot construction. One additional full native
+admission may run, then all scientific branches if both receipts pass. If this
+second resource admission fails, stop this protocol; no third attempt, new seeds
+or alternate task follows automatically. The control process explicitly requires
+the first failed receipt and equivalence check for this one resume. It also
+handles disappearing temporary files and retains ownership of partially launched
+children. Fresh GPU binding may use the currently lowest-utilization devices with
+the original memory margin; no other process is changed. Record the actual binding.
+
+All prior time/storage/CPU costs count, with FIRST.private unchanged. Original
+projection factors and reserves remain fixed. Native engineering encoding is now
+<=1440 rows in total for two attempts, explicitly including the first720 rows.
+The extra GPU equality fixture encodes no images and trains no classifier. All
+scientific budgets, updates and data remain unchanged; total planned generic
+encoding is<=165144 rows including construction, native attempts and science.

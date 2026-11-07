@@ -1,0 +1,48 @@
+{
+  "persistent_record": {
+    "feature_float32_bytes": 2048,
+    "parent_int64_bytes": 8,
+    "label_int16_bytes": 2,
+    "view_uint8_bytes": 1,
+    "role_core_uint8_bytes": 1,
+    "remaining_padding_bytes": 4,
+    "total_bytes": 2064,
+    "role_flag_values": {
+      "S": 0,
+      "FIT": 1,
+      "AUDIT": 2,
+      "S_core_global": 4
+    }
+  },
+  "class_statistics_record": {
+    "support_count_uint32_bytes": 4,
+    "birth_int16_bytes": 2,
+    "birth_total_uint16_bytes": 2,
+    "classes": 23,
+    "total_bytes": 184
+  },
+  "upper_bound": {
+    "tokens": 256,
+    "token_payload_bytes": 528384,
+    "statistics_bytes": 184,
+    "total_bytes": 528568
+  },
+  "no_external_history_role_decoder": true,
+  "roles_decoded_from_paid_token_flags": true,
+  "probe_identifiers_and_core_decoded_from_records": true,
+  "query_tokens_after_C_classes": "2*C",
+  "S_capacity_after_C_classes": "256-2*C",
+  "at_23_classes": {
+    "FIT_tokens": 23,
+    "AUDIT_tokens": 23,
+    "maximum_S_tokens": 210,
+    "S_capacity_lost_to_queries": 46,
+    "S_capacity_loss_fraction": 0.1796875
+  },
+  "mandatory_S_globals": "union(original centroid-cover globals, fixed hash S cores), measured per root; not assumed to be C or 2C",
+  "precision_changes": false,
+  "query_view_change_from_R110": "fixed global-only instead of originally retained variable view packages",
+  "framework_tensor_overhead": "counted against actual RAM/GPU caps; canonical evidence record remains as specified",
+  "learner_optimizer_states": "original model/optimizer scope unchanged; not an additional historical feature store",
+  "checkpoint_policy": "only CURRENT evidence per seed per phase; prior state file overwritten; aggregate retention traces retained; no old archive is read by later stages"
+}

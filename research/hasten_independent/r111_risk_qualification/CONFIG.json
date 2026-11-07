@@ -1,0 +1,68 @@
+{
+  "source_commit": "c1a2fac694cf837271a746e5528dc8c4bcb021c1",
+  "source_run": "r110_ecv_opportunity",
+  "donor_seeds": [
+    74003,
+    74004
+  ],
+  "stages": [
+    0,
+    2,
+    3,
+    4
+  ],
+  "scenarios_per_stage": 4,
+  "tapes": [
+    31001,
+    31002
+  ],
+  "H": 3,
+  "memory_tokens": 256,
+  "token_bytes": 2064,
+  "stats_bytes": 184,
+  "tail_tolerance": 0.005,
+  "penalty_coefficient": 2,
+  "risk_protection": "all real-seen old-tail classes; original shadow-T reported separately; missing support or query is unknown",
+  "patient_denominator": "NA until verified source grouping is established",
+  "A_pools": {
+    "A": [
+      "anchor"
+    ],
+    "L": [
+      "anchor",
+      "risk<=4",
+      "cover<=4",
+      "random<=2"
+    ]
+  },
+  "A_rules": [
+    "ZERO",
+    "BAL",
+    "FULL_ORIGINAL",
+    "A0",
+    "A1",
+    "L0",
+    "L1"
+  ],
+  "P1b_controls": [
+    "ZERO",
+    "BAL",
+    "A0",
+    "A1",
+    "L0",
+    "L1"
+  ],
+  "new_training_in_A": 0,
+  "readiness_uses_query_predictions": false,
+  "no_AUDIT_feedback_in_readiness_or_selection": true,
+  "P1b_admission": "must establish informative nontrivial/full-risk states in both streams and seeds, plus complete native resource budget",
+  "max_new_bytes": 20000000000,
+  "hard_new_bytes_exclusive": 50000000000,
+  "max_CPU_seconds": 400000,
+  "max_file_bytes": 1073741824,
+  "max_worker_RSS_bytes": 28000000000,
+  "max_group_RSS_bytes": 29000000000,
+  "max_GPU_reserved_bytes": 12884901888,
+  "monitor": "OFF",
+  "auto_C_or_RL": false
+}

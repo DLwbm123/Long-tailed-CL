@@ -5,7 +5,8 @@ from collections import Counter
 
 
 def write(path,value):
-    Path(path).write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False))
+    p=Path(path);temporary=p.with_suffix(p.suffix+'.tmp')
+    temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False));temporary.replace(p)
 
 
 def table(path,rows):

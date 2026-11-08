@@ -1,5 +1,5 @@
-# R114: generative-recognition TARS RL
+# R114 completed: generative-recognition TARS RL
 
-Prospectively frozen static HK23 diagnostic, now training on physicalGPU1. It tests original TARS-style post-normalization advantage scaling in an autoregressive recognizer, with ordinaryRL, constant-strengthRL, ordinaryCE and weightedCE from the same SFT. This is a development experiment, not a completed result or continual-learning claim.
+All six endpoints completed and saved verification passed. TARS_GRPO versus the common SFT: macro+1.2393pp, tail+7.1683pp, head-4.1957pp. It exceeds ordinary GRPO, constant-strength GRPO and weighted CE on macro/tail, but fails the frozen head-retention gate. These are static HK23 development results from one seed, not continual or independent clinical confirmation.
 
-See [protocol](PROTOCOL.md), [source review](SOURCE_REVIEW.md), [configuration](CONFIG.json), and [pre-RL numerical repair](IMPLEMENTATION_REPAIR.json). Images, feature caches, weights and individual predictions remain private.
+[Final Chinese report](REPORT_ZH.md) · [Results](FINAL_RESULTS.json) · [Class counts](CLASS_RESULTS.csv) · [Verification](FINAL_VERIFICATION.json) · [Learning diagnostics](TRAINING_CURVES.json) · [All-attempt costs](ALL_ATTEMPT_COSTS.json) · [Protocol](PROTOCOL.md). No images, features, adapters or individual predictions are public.

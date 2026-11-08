@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "count_rows": 138,
+  "max_metric_error": 2.506343721453419e-08,
+  "gates": {
+    "macro_over_SFT_ge_1pp": true,
+    "tail_over_SFT_ge_2pp": true,
+    "head_over_SFT_ge_minus1pp": false,
+    "macro_over_GRPO_positive": true,
+    "tail_over_GRPO_positive": true,
+    "macro_over_CONST_GRPO_positive": true,
+    "tail_over_CONST_GRPO_positive": true,
+    "macro_over_TARS_CE_nonnegative": true,
+    "tail_over_TARS_CE_positive": true
+  },
+  "all_gates_pass": false,
+  "learning": {
+    "GRPO": {
+      "groups": 4096,
+      "constant_groups": 2735,
+      "sampled_responses": 32768,
+      "truncated_responses": 1,
+      "mean_reward": 0.773284912109375,
+      "maximum_gradient_norm": 9.963263511657715,
+      "mean_KL": 0.019867029980581957,
+      "maximum_sampling_forward_logp_difference": 1.015106201171875
+    },
+    "CONST_GRPO": {
+      "groups": 4096,
+      "constant_groups": 2724,
+      "sampled_responses": 32768,
+      "truncated_responses": 3,
+      "mean_reward": 0.774505615234375,
+      "maximum_gradient_norm": 12.835870742797852,
+      "mean_KL": 0.020258909861613047,
+      "maximum_sampling_forward_logp_difference": 0.9061233997344971
+    },
+    "TARS_GRPO": {
+      "groups": 4096,
+      "constant_groups": 2632,
+      "sampled_responses": 32768,
+      "truncated_responses": 3,
+      "mean_reward": 0.767333984375,
+      "maximum_gradient_norm": 31.253273010253906,
+      "mean_KL": 0.021563781903937873,
+      "maximum_sampling_forward_logp_difference": 0.9032406806945801
+    }
+  },
+  "new_images_queries_optimizer_updates": 0,
+  "scope": "saved_only",
+  "TARS_amplified_classes": 11,
+  "TARS_constant_strength": 1.4181295401301217
+}

@@ -1,0 +1,120 @@
+{
+  "completed_revision2": {
+    "science_classifier_optimizer_updates": 374940,
+    "science_paired_updates": 310000,
+    "science_prefix_updates": 64000,
+    "science_virtual_updates": 940,
+    "LONG_GRPO_updates": 80,
+    "MYOPIC_GRPO_updates": 80,
+    "SUP_shared_updates": 80,
+    "science_generic_encoder_rows": 81852,
+    "native_encoder_rows": 720,
+    "worker_costs": {
+      "a": {
+        "CPU_seconds": 2069.881285936,
+        "wall_seconds": 1934.9923186302185,
+        "counts": {
+          "native_encoder_rows": 360,
+          "native_prefix_classifier_optimizer": 200,
+          "native_prefix_query_update_rows": 12800,
+          "native_virtual_classifier_optimizer": 11,
+          "native_virtual_query_update_rows": 704,
+          "native_paired_classifier_updates": 3500,
+          "native_paired_training_rows": 224000,
+          "native_query_rows": 330,
+          "science_TRAIN_encoder_rows": 40926,
+          "science_prefix_classifier_optimizer": 32000,
+          "science_prefix_query_update_rows": 2048000,
+          "science_virtual_classifier_optimizer": 470,
+          "science_virtual_query_update_rows": 30080,
+          "science_paired_classifier_updates": 155000,
+          "science_paired_training_rows": 9920000,
+          "science_query_rows": 8760
+        },
+        "GPU_peak_reserved_bytes": 786432000
+      },
+      "b": {
+        "CPU_seconds": 7209.4593925750005,
+        "wall_seconds": 7063.36118555069,
+        "counts": {
+          "native_encoder_rows": 360,
+          "native_prefix_classifier_optimizer": 200,
+          "native_prefix_query_update_rows": 12800,
+          "native_virtual_classifier_optimizer": 11,
+          "native_virtual_query_update_rows": 704,
+          "native_paired_classifier_updates": 3500,
+          "native_paired_training_rows": 224000,
+          "native_query_rows": 330,
+          "science_TRAIN_encoder_rows": 40926,
+          "science_prefix_classifier_optimizer": 32000,
+          "science_prefix_query_update_rows": 2048000,
+          "science_virtual_classifier_optimizer": 470,
+          "science_virtual_query_update_rows": 30080,
+          "science_paired_classifier_updates": 155000,
+          "science_paired_training_rows": 9920000,
+          "science_query_rows": 8760
+        },
+        "GPU_peak_reserved_bytes": 788529152
+      }
+    },
+    "native_engineering_classifier_optimizer_updates": 7422,
+    "native_LONG_updates": 4,
+    "native_SUP_updates": 4
+  },
+  "failed_attempt1": {
+    "Ordered_science_updates": 108389,
+    "order0_science_updates_lower_bound": 62274,
+    "order0_science_updates_upper_bound": 66285,
+    "upper_bound_basis": "in-progress stage1 root has at most500 prefix+11 virtual+3500 paired updates after saved status",
+    "order0_exact_final_counts": "NA_SIGTERM",
+    "generic_encoder_rows_including_native": 59634,
+    "native_engineering_classifier_optimizer_updates": 7422,
+    "native_LONG_updates": 4,
+    "native_SUP_updates": 4,
+    "LONG_science_optimizer_updates": 40,
+    "MYOPIC_science_optimizer_updates_lower_bound": 38,
+    "MYOPIC_science_optimizer_updates_upper_bound": 40,
+    "SUP_science_optimizer_updates": 40
+  },
+  "all_attempt_science_updates_lower_bound": 545603,
+  "all_attempt_science_updates_upper_bound": 549614,
+  "all_attempt_generic_encoder_rows": 142206,
+  "synthetic_classifier_integrity_check_steps": 124,
+  "original_elapsed_seconds_to_process_exit": 16078.319712162018,
+  "peak_group_RSS_bytes": 5066416128,
+  "peak_disk_bytes_all_attempts": 47591424,
+  "preparation_CPU_seconds": "nonzero, not fully sampled",
+  "numerical_audit_synthetic_only": {
+    "synthetic_only": true,
+    "post_hoc_audit": true,
+    "real_images": 0,
+    "real_classifier_updates": 0,
+    "AUDIT_queries": 0,
+    "frozen_training_code_modified": false,
+    "fixtures": 132,
+    "optimizer_steps": 264,
+    "zero_reward_nonZERO_argmax_cases": {
+      "torch.float32": 80,
+      "torch.float64": 78
+    },
+    "maximum_probability_span": {
+      "torch.float32": 2.9727816581726074e-05,
+      "torch.float64": 1.2020939799128882e-13
+    },
+    "maximum_initial_policy_gradient": 0.0,
+    "trained_off_reference_KL_gradient": 0.007533832307130737,
+    "decay_only_uniform_behavior_checks_passed": true,
+    "actual_historical_cause_reconstruction": "NA; deployment vectors and historical descriptors were not saved",
+    "wall_seconds": 9.528618574142456,
+    "frozen_updater_optimizer_steps": 264,
+    "decay_control_optimizer_steps": 132,
+    "total_synthetic_optimizer_steps": 396,
+    "after_update_observations_per_dtype": {
+      "torch.float32": 132,
+      "torch.float64": 132
+    }
+  },
+  "all_attempt_native_engineering_classifier_updates": 14844,
+  "all_attempt_native_LONG_updates": 8,
+  "all_attempt_native_SUP_updates": 8
+}

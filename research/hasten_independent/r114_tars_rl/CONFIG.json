@@ -1,0 +1,38 @@
+{
+  "prompt": "What is the endoscopic finding or anatomical landmark shown in this image? Answer with the category name only.",
+  "seed": 74005,
+  "dataset": "HK23",
+  "TRAIN": 6821,
+  "VAL": 1698,
+  "TEST": 0,
+  "bootstrap_epochs": 2,
+  "bootstrap_effective_batch": 16,
+  "micro_batch": 2,
+  "bootstrap_lr": 0.0002,
+  "post_lr": 2e-05,
+  "post_updates": 512,
+  "queries_per_update": 8,
+  "G": 8,
+  "KL": 0.04,
+  "gamma": 0.75,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "max_new_tokens": 24,
+  "resolution": [
+    224,
+    224
+  ],
+  "arms": [
+    "SFT",
+    "CE_CONT",
+    "TARS_CE",
+    "GRPO",
+    "CONST_GRPO",
+    "TARS_GRPO"
+  ],
+  "max_new_total_bytes": 10000000000,
+  "max_GPU_reserved_bytes": 60129542144,
+  "group_RSS_limit_bytes": 48000000000,
+  "class_error_source": "fixed_SFT_TRAIN_greedy_once",
+  "independent_confirmation": false
+}

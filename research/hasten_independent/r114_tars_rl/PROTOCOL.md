@@ -1,0 +1,39 @@
+# R114: generative-recognition TARS mechanism diagnostic
+
+User authorization 2026-11-09: RL remains required; borrow TARS; autonomous research for the next 12 hours on physical GPU1; one 30-minute heartbeat; cumulative new storage strictly below 10,000,000,000 bytes. This experiment is an independent, static HK23 mechanism diagnostic. It is not a continual-learning result or a claim of final method novelty. R67 trained a CLIP categorical visual LoRA; R105 trained a fixed-expert selector; R113 trained a memory selector. This experiment instead updates an autoregressive visual recognizer from the shared generic Qwen2.5-VL-3B-Instruct checkpoint.
+
+## Source and hypothesis
+
+TARS, ICLR2027 submission me8ReG9Qh4, sections3.1-3.3 and4.1 read from the existing local original PDF. Original: frozen vision, all other parameters updated, free-form class names, G8, beta.04, gamma.75, three seeds/four H100. Here language q/v LoRA rank8 alpha16, BF16 frozen base and FP32 LoRA, fixed224x224 images, one development seed74005 and one GPU. These are explicit adaptation differences, not an exact reproduction.
+
+Hypothesis: the failed selector/categorical adaptations do not settle whether rarity times recognizer error improves generative recognition RL. TARS weights act AFTER within-query group normalization and do not scale KL. Test class allocation against uniform and constant-strength RL, and test RL against matched-query supervised updates. No presumption that sampling adds label information or outperforms CE.
+
+## Data and model
+
+Use all6821 existing HK23 TRAIN identity components and1698 existing VAL examples, no TEST. All23 classes visible from the beginning; no access to real future stages is claimed. Use existing original_label and official_class_name, display hyphens as spaces. One canonical name per class, no aliases selected from predictions. Prompt: 'What is the endoscopic finding or anatomical landmark shown in this image? Answer with the category name only.' No candidate label list. Tokenizer chat template plus exactly one image; EOS included in supervised labels. Frozen visual outputs may be cached in BF16, exact64 merged tokens/image, shared read-only across arms, new copies charged. No training augmentation. Patient independence is unverified; VAL has been used in prior development, hence no independent confirmation.
+
+Common supervised bootstrap: two natural-order shuffled epochs, effective batch16/micro2, AdamW lr2e-4/wd0, fixed cosine schedule to0, gradclip1. Seed74005, no checkpoint/epoch selection. Only all36 language attention q_proj/v_proj rank8 alpha16 adapters update. Frozen vision/base/head remain shared. Save the common SFT endpoint before any branch. Reference is that fixed SFT adapter, no second base copy.
+
+Compute class error from ONE greedy SFT TRAIN pass before RL, using exact normalized free-form name matching. Tailness t_c=((mean(n)/n_c)*(1-acc_c))^.75, w_c=max(1,t_c/max(midpoint_median(t),1e-8)). Constant strength is the full TRAIN-distribution average sum(n_c*w_c)/sum(n_c), fixed before branch training. No weight clipping or test-derived estimator. Report zero median, extremes and error denominators.
+
+## Frozen posttraining matrix
+
+Six readouts: SFT reference, CE_CONT, TARS_CE, GRPO, CONST_GRPO, TARS_GRPO(primary). Each branch begins from the identical SFT adapter and a fresh optimizer. Each has512 outer updates, eight natural TRAIN queries sampled with replacement per update. The exact query index tape and rollout seed tape are shared across branches, while responses are on-policy for each branch. No reward resampling, filtering or forced successful answers.
+
+CE_CONT uses ordinary target-name CE, TARS_CE scales each query CE by fixed w_c. GRPO uses G8 independently sampled free-form responses/query, temperature1, max24 new tokens. Binary exact normalized name reward; EOS required; truncation/parse failure reward0. Group population std plus1e-6; all-identical groups retain zero advantages and remain in denominators. One clipped-surrogate epoch, ratio clip[.8,1.2], KL beta.04 to fixed SFT, AdamW lr2e-5/wd0, gradclip1, micro2responses. Response loss is the mean over active generated tokens, then average over all64 responses. KL estimator exp(ref_logp-logp)-(ref_logp-logp)-1 on sampled responses. Weights multiply only the normalized surrogate, never KL. CONST_GRPO uses the fixed TRAIN-weighted mean weight; TARS_GRPO uses the true class weight; ordinaryGRPO uses1. Zero PG is not treated as learned preference; at reference with exact zero advantages/KL no spurious update should occur. Off-reference zero-advantage groups retain legitimate KL updates.
+
+Query-budget matched CE has fewer response forward/backward operations; report this difference, not compute equivalence. All arms use the same fixed learning rates, number of updates, input resolution, label prompt and initialization. Do not adjust these based on partial outcomes. Save training reward diversity, per-class correct/count, surrogate and KL, gradient norm, truncation and timing. No performance-based early stopping or arm selection.
+
+## Evaluation and prospective decision
+
+Seal every branch before any VAL inference. Greedy free-form decode at max24, strict canonical normalization, same prompt and resolution. Publish all23 correct/count denominators, micro, macro, head(n>=250), tail(n<250), tiny(n<25), prediction invalid/truncation rates and pairwise rescue/harm counts; private per-example arrays remain private. Compare all arms, not best seed/epoch.
+
+Exploratory main success requires TARS_GRPO minus commonSFT macro>=1pp, tail>=2pp, head>=-1pp; TARS_GRPO strictly exceeds ordinary and constant-strength GRPO on macro AND tail; against TARS_CE macro>=0 and tail>0. Report each component separately even if conjunction fails. One development seed cannot prove statistical or clinical generalization. Continued-learning confirmation is a separate future protocol. Negative results do not universally reject RL; positive results do not prove novelty or independent efficacy.
+
+## Engineering admission and budgets
+
+Before science, two predetermined TRAIN images only for native engineering: cached versus native visual/decoder parity, strict adapter save/restore, finite SFT and real G8 free-generation/GRPO backward/update, exact zero-information invariant on the loss fixture, EOS mask and post-normalization weight checks, and a full-shape timing projection. This is not a performance pilot, no VAL/TEST. Engineering updates are discarded and recorded. Admission checks remaining original clock against complete science forecast plus1hour reserve; insufficient forecast means no partial matrix launched, preserve blocker and choose a genuinely new affordable protocol rather than silently shrink this one.
+
+Start clock at preparation, retries share it. Independent background guard every2seconds, hard cutoff before2026-11-09 12:45 Asia/Shanghai, at most12hours and below24hours original-clock general bound. Peak new disk expected<4GB, pre-stop at9GB (10GB hard including local small-source allowance), GPU reserved<56GiB, groupRSS<48GB, CPU4, file cap4GB, minimum filesystem free5GB. Check actual /data mount with a write/read probe. Store no duplicate base model, share existing image/model assets read-only. No historical deletion required while disk is healthy. Guard survives chat/SSH disconnect; all new process argv neutral. No interference with other GPU1 processes.
+
+After complete science, saved-only verification and privacy-safe source/aggregate report publication via existing proxy GitHub workflow. A single 30-minute research heartbeat analyzes results and advances justified successors; no second monitor. Future12hour research budget ledger is cumulative across successors, not reset by deleting files or renaming runs.

@@ -1,0 +1,142 @@
+{
+  "finished_at": "2026-11-08T23:56:00+08:00",
+  "experiment_complete": true,
+  "real_stage_rows": 100,
+  "training_groups": 80,
+  "decision": "no_consistent_long_GRPO_advantage",
+  "streams": {
+    "ordered": {
+      "ZERO": {
+        "R_real5": 0.0,
+        "mean_macro_BA_percent": 78.98855835240275,
+        "terminal_macro_BA_percent": 56.52173913043478,
+        "terminal_oldtail_BA_percent": 64.28571428571428,
+        "mean_macro_delta_pp": 0.0,
+        "nonzero_actions": 0,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 0
+      },
+      "BAL": {
+        "R_real5": -0.4437343358395991,
+        "mean_macro_BA_percent": 81.23417238749046,
+        "terminal_macro_BA_percent": 56.52173913043478,
+        "terminal_oldtail_BA_percent": 50.0,
+        "mean_macro_delta_pp": 2.2456140350877196,
+        "nonzero_actions": 10,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 3
+      },
+      "MYOPIC_GRPO": {
+        "R_real5": 0.0,
+        "mean_macro_BA_percent": 78.98855835240275,
+        "terminal_macro_BA_percent": 56.52173913043478,
+        "terminal_oldtail_BA_percent": 64.28571428571428,
+        "mean_macro_delta_pp": 0.0,
+        "nonzero_actions": 1,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 0
+      },
+      "LONG_GRPO": {
+        "R_real5": 0.0,
+        "mean_macro_BA_percent": 78.98855835240275,
+        "terminal_macro_BA_percent": 56.52173913043478,
+        "terminal_oldtail_BA_percent": 64.28571428571428,
+        "mean_macro_delta_pp": 0.0,
+        "nonzero_actions": 1,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 0
+      },
+      "SUP_SHARED": {
+        "R_real5": 0.0,
+        "mean_macro_BA_percent": 78.98855835240275,
+        "terminal_macro_BA_percent": 56.52173913043478,
+        "terminal_oldtail_BA_percent": 64.28571428571428,
+        "mean_macro_delta_pp": 0.0,
+        "nonzero_actions": 1,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 0
+      }
+    },
+    "stratified_shuffled": {
+      "ZERO": {
+        "R_real5": 0.0,
+        "mean_macro_BA_percent": 67.15789473684211,
+        "terminal_macro_BA_percent": 50.0,
+        "terminal_oldtail_BA_percent": 27.777777777777775,
+        "mean_macro_delta_pp": 0.0,
+        "nonzero_actions": 0,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 0
+      },
+      "BAL": {
+        "R_real5": -0.4723455377574371,
+        "mean_macro_BA_percent": 69.4233409610984,
+        "terminal_macro_BA_percent": 58.69565217391305,
+        "terminal_oldtail_BA_percent": 44.44444444444444,
+        "mean_macro_delta_pp": 2.2654462242562934,
+        "nonzero_actions": 10,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 3
+      },
+      "MYOPIC_GRPO": {
+        "R_real5": -0.47528985507246374,
+        "mean_macro_BA_percent": 69.12890922959573,
+        "terminal_macro_BA_percent": 56.52173913043478,
+        "terminal_oldtail_BA_percent": 38.888888888888886,
+        "mean_macro_delta_pp": 1.9710144927536233,
+        "nonzero_actions": 9,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 3
+      },
+      "LONG_GRPO": {
+        "R_real5": -0.47437452326468343,
+        "mean_macro_BA_percent": 69.22044241037375,
+        "terminal_macro_BA_percent": 54.34782608695653,
+        "terminal_oldtail_BA_percent": 38.888888888888886,
+        "mean_macro_delta_pp": 2.062547673531655,
+        "nonzero_actions": 9,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 3
+      },
+      "SUP_SHARED": {
+        "R_real5": 0.0,
+        "mean_macro_BA_percent": 67.15789473684211,
+        "terminal_macro_BA_percent": 50.0,
+        "terminal_oldtail_BA_percent": 27.777777777777775,
+        "mean_macro_delta_pp": 0.0,
+        "nonzero_actions": 0,
+        "action_denominator": 10,
+        "oldtail_violation_stage_seed_pairs": 0
+      }
+    }
+  },
+  "learning": {
+    "ordered": {
+      "groups": 40,
+      "policy_updates": {
+        "MYOPIC_GRPO": 40,
+        "LONG_GRPO": 40,
+        "SUP_SHARED": 40
+      },
+      "groups_with_nonconstant_returns": 28,
+      "max_gradient_norm": 0.17319324612617493,
+      "science_classifier_updates": 187470
+    },
+    "stratified_shuffled": {
+      "groups": 40,
+      "policy_updates": {
+        "MYOPIC_GRPO": 40,
+        "LONG_GRPO": 40,
+        "SUP_SHARED": 40
+      },
+      "groups_with_nonconstant_returns": 24,
+      "max_gradient_norm": 0.17736117541790009,
+      "science_classifier_updates": 187470
+    }
+  },
+  "original_R112_C_unchanged": true,
+  "independent_population_confirmation": false,
+  "VAL_TEST": 0,
+  "patient_denominator": "NA",
+  "failed_attempt1_not_pooled": true
+}

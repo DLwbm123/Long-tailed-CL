@@ -1,0 +1,51 @@
+{
+  "registered_at": "2026-11-09T00:43:11+08:00",
+  "type": "post-completion synthetic numerical audit; not prospective scientific evidence",
+  "dtypes": [
+    "float32",
+    "float64"
+  ],
+  "terminal_class_counts": [
+    5,
+    10,
+    23
+  ],
+  "candidate_counts": [
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "fixture_seeds": [
+    113000,
+    113001
+  ],
+  "epochs": 2,
+  "actual_update_function": "frozen R113 trajectory.update",
+  "rewards": "exact zero for all four trajectories",
+  "controls": [
+    "zero gradients plus AdamW decay",
+    "trained off-reference policy KL gradient"
+  ],
+  "observe": [
+    "PG gradient",
+    "KL gradient",
+    "parameter changes",
+    "output weight changes",
+    "probability span",
+    "argmax"
+  ],
+  "actual_cause_inference": "not claimed without saved historical deployment distributions",
+  "new_real_images": 0,
+  "AUDIT_queries": 0,
+  "no_frozen_training_edits": true,
+  "candidate_count_source": "observed counts in all completed R113 group receipts, plus N1/N2 controls",
+  "paired_precision_inputs": "same float32 initialized weights and descriptors, upcast to float64"
+}

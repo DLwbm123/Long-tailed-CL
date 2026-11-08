@@ -2,6 +2,9 @@
 import copy
 import importlib
 import torch
+from .coverage import install
+
+install()
 
 E = importlib.import_module('r112_evidence_memory.evidence')
 old = importlib.import_module('r112_evidence_memory.roots')

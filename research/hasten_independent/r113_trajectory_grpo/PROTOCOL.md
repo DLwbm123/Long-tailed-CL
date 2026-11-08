@@ -123,3 +123,15 @@ private paths, image identities, features, actor/classifier weights and raw data
 
 GRPO reference: https://arxiv.org/abs/2402.03300 . This is a categorical
 trajectory adaptation, not a claim that the original paper validated this task.
+
+## Bounded engineering repair, revision2
+
+See IMPLEMENTATION_REPAIR.json. Attempt1 aborted on a reproduced centroid-coverage
+rounding mismatch; its partial outputs remain separate. Revision2 constructs the
+mandatory coverage anchors with the unchanged validator arithmetic. All scientific
+seeds, roles, rewards, hyperparameters, arms and per-run updates remain unchanged.
+One additional full native admission and one full generic restart are registered
+under the SAME original24h clock and cumulative20GB disk guard. This overrides the
+original one-native-attempt engineering limit only for this documented repair;
+cumulative science upper bound is848000, not424000. No partial results are pooled,
+no old adapted weights are loaded, and no performance-based retuning is allowed.

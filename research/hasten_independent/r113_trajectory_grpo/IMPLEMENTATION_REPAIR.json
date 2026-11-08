@@ -1,0 +1,33 @@
+{
+  "registered_at": "2026-11-08T21:56:02+08:00",
+  "implementation_revision": 2,
+  "failed_source_commit": "b40ac0cc482b52c039b4120987d9ca0c017dcffc",
+  "failure": "HOST_COVERAGE_ANCHOR_REMOVED",
+  "cause": "batched normalization in constructor disagreed with per-class normalization in validator and edit protection on near ties",
+  "fix": "constructor uses unchanged validator per-class centroid arithmetic; no relaxed assertion",
+  "regression": {
+    "passed": true,
+    "synthetic_only": true,
+    "real_images": 0,
+    "real_classifier_updates": 0,
+    "pools_checked": 39,
+    "old_centroid_coverage_disagreements": 3,
+    "old_anchor_assertions_reproduced": 1,
+    "max_dot_product_rounding_difference": 1.1920928955078125e-07,
+    "canonical_constructor_matches_unchanged_validator": true,
+    "core_bytes_quotas_and_parent_constraints_preserved": true,
+    "wall_seconds": 3.6437296867370605
+  },
+  "scientific_hyperparameters_seeds_rewards_roles_and_controls_changed": false,
+  "full_restart_from_generic": true,
+  "partial_attempt1_results_not_pooled_with_revision2": true,
+  "original_start_and_deadline_preserved": true,
+  "one_additional_native_admission_attempt_per_stream": true,
+  "one_science_retry_only": true,
+  "max_science_updates_per_completed_attempt": 424000,
+  "max_science_updates_all_attempts": 848000,
+  "disk_total_all_attempts_exclusive_bytes": 20000000000,
+  "available_original_clock_hours_at_registration": 21.53322746084796,
+  "worker_b_final_counts": "missing due to paired SIGTERM; saved status is lower bound, not a final total",
+  "original_R112_C_unchanged": true
+}

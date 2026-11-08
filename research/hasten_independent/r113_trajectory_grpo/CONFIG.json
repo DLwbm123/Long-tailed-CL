@@ -1,0 +1,52 @@
+{
+  "seeds": [
+    74003,
+    74004
+  ],
+  "streams": [
+    "ordered",
+    "stratified_shuffled"
+  ],
+  "stage_sizes": [
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "training_scenarios": [
+    0,
+    1
+  ],
+  "group_size": 4,
+  "trajectory_H": 3,
+  "classifier_pre_steps": 200,
+  "classifier_post_steps": 100,
+  "batch_size": 64,
+  "policy_epochs_per_group": 2,
+  "actor_lr": 0.0001,
+  "actor_weight_decay": 0.001,
+  "ratio_clip": 0.2,
+  "KL_weight": 0.01,
+  "advantage_std_epsilon": 1e-06,
+  "fixed_uniform_reference": true,
+  "arms": [
+    "ZERO",
+    "BAL",
+    "MYOPIC_GRPO",
+    "LONG_GRPO",
+    "SUP_SHARED"
+  ],
+  "total_meta_groups": 80,
+  "max_science_classifier_updates": 424000,
+  "max_native_attempts": 1,
+  "max_new_disk_bytes": 20000000000,
+  "disk_stop_reserve_bytes": 536870912,
+  "max_wall_seconds": 86400,
+  "termination_reserve_seconds": 120,
+  "max_total_evidence_tokens_per_arm": 256,
+  "max_total_evidence_bytes_per_arm": 528568,
+  "VAL_TEST": 0,
+  "independent_population_confirmation": false,
+  "prior_R112_decision": "C_no_consistent_local_advantage"
+}

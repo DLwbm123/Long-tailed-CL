@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-11-08T17:20:35+08:00",
+  "status": "post_hoc_saved_only_diagnostic; not prospective training preregistration",
+  "inputs": "completed R112 predictions and private probe bindings only",
+  "roots": "all 64 original slots; report each stream/seed and informative subset",
+  "action_shared_across_tapes": true,
+  "AUDIT_safety": "original full oldtail gate on both tapes and every H3 endpoint; no-tail not_applicable",
+  "oracles": [
+    "safe anchors chosen using AUDIT mean R",
+    "safe all candidates chosen using AUDIT mean R",
+    "safe anchors additionally FIT-qualified",
+    "safe all candidates additionally FIT-qualified"
+  ],
+  "ties": "ZERO; positive return only; original index for remaining ties",
+  "primary_diagnostic": "safe ALL oracle minus safe ANCHOR oracle",
+  "secondary_diagnostic": "ALL oracle minus FIT-qualified ALL oracle",
+  "concentration": "positive root counts; net component attribution with gross-positive top1/top3/top5 shares; repeated component contributions are not independent observations",
+  "selection_use_of_AUDIT": "diagnostic only; never deploy or reinterpret R112 C as success",
+  "new_training": 0,
+  "VAL_TEST": 0,
+  "protocol_retuning": false,
+  "threshold_for_success": "none; report magnitudes and distribution, no post-hoc pass gate"
+}

@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "rows": 46,
+  "max_metric_error": 2.8433311149989038e-08,
+  "learning": {
+    "PROJECTED_TARS": {
+      "attempted_AdamW_updates": 512,
+      "nonzero_parameter_updates": 469,
+      "cone_active_steps": 496,
+      "zero_alpha_steps": 43,
+      "positive_actual_head_dot_steps": 0,
+      "guard_violations": 0,
+      "groups": 4096,
+      "constant_groups": 2555,
+      "sampled_responses": 32768,
+      "mean_reward": 0.76971435546875
+    },
+    "SHRINK_TARS": {
+      "attempted_AdamW_updates": 512,
+      "nonzero_parameter_updates": 419,
+      "cone_active_steps": 0,
+      "zero_alpha_steps": 93,
+      "positive_actual_head_dot_steps": 199,
+      "guard_violations": 0,
+      "groups": 4096,
+      "constant_groups": 2524,
+      "sampled_responses": 32768,
+      "mean_reward": 0.768035888671875
+    }
+  },
+  "gates": {
+    "macro_over_SFT_ge_1pp": true,
+    "tail_over_SFT_ge_2pp": true,
+    "head_over_SFT_ge_minus1pp": false,
+    "macro_over_SHRINK_nonnegative": true,
+    "tail_over_SHRINK_positive": false
+  },
+  "all_gates_pass": false,
+  "new_model_queries_updates": 0,
+  "scope": "saved_only"
+}

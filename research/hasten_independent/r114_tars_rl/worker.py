@@ -80,7 +80,7 @@ class Experiment:
         n, G = len(labels), 8
         g = torch.Generator(device='cuda').manual_seed(draw_seed)
         f = features.repeat_interleave(G, 0)
-        tok, mask, old, text, done = self.engine.generate(f, generator=g, sample=True)
+        tok, mask, sampled_lp, text, done = self.engine.generate(f, generator=g, sample=True)
         target = [normalize(self.names[int(c)]) for c in labels for _ in range(G)]
         reward = torch.tensor([int(t == y and bool(d)) for t, y, d in zip(text, target, done)], device='cuda', dtype=torch.float32).reshape(n, G)
         adv = advantages(reward).flatten().detach()
@@ -90,6 +90,12 @@ class Experiment:
             for lo in range(0, n * G, 2):
                 refs.append(self.engine.token_logps(f[lo:lo+2], tok[lo:lo+2], mask[lo:lo+2]))
         ref = torch.cat(refs).detach()
+        # BF16 cached decoding and full-sequence training use different GEMM shapes.
+        # Freeze the behavior forward in exactly the optimization microbatch path,
+        # so an unchanged policy starts at ratio1 rather than numerical clipping.
+        with torch.no_grad():
+            old = torch.cat([self.engine.token_logps(f[lo:lo+2], tok[lo:lo+2], mask[lo:lo+2])
+                             for lo in range(0, n * G, 2)]).detach()
         opt.zero_grad(set_to_none=True)
         loss_sum, pg_sum, kl_sum, margin = 0., 0., 0., 0.
         w = weights[labels.to(weights.device)].repeat_interleave(G)
@@ -102,6 +108,7 @@ class Experiment:
             loss_sum += float(loss.detach()) * len(lp) / (n * G)
             pg_sum += float(pg.sum()) / (n * G)
             kl_sum += float(kl.sum()) / (n * G)
+        assert margin == 0., ('UNCHANGED_POLICY_RATIO_NOT_ONE', margin)
         norm = self.step(opt)
         self.counts['generation_responses'] += n * G
         constant = reward.std(-1, unbiased=False) == 0
@@ -111,7 +118,8 @@ class Experiment:
                 'correct_by_class': torch.bincount(labels, weights=reward.sum(-1).cpu(), minlength=23).tolist(),
                 'responses_by_class': (torch.bincount(labels, minlength=23) * G).tolist(),
                 'truncated_responses': int((~done).sum()), 'tokens': int(mask.sum()),
-                'sample_vs_teacher_logp_max_difference': margin,
+                'unchanged_policy_logp_max_difference': margin,
+                'cached_sampling_vs_behavior_forward_max_difference': float(((sampled_lp - old).abs() * mask).max()),
                 'all_advantages_zero': bool((adv == 0).all())}
 
     def native(self):
@@ -196,7 +204,7 @@ class Experiment:
             indices = torch.randperm(6821, generator=g)
             for lo in range(0, 6821, 16):
                 k = self.counts['SFT_updates']
-                self.status('COMMON_SFT', epoch=epoch, update=k, total=total)
+                self.status('COMMON_SFT', training_epoch=epoch, update=k, total=total)
                 opt.param_groups[0]['lr'] = 2e-4 * .5 * (1 + math.cos(math.pi * k / total))
                 ids = indices[lo:lo+16]
                 loss, norm = self.ce(self.features(data, ids), self.labels[ids], opt, torch.ones(23, device='cuda'))
@@ -240,7 +248,14 @@ class Experiment:
         return result
 
     def science(self):
-        train = self.cache(self.train, 'TRAIN')
+        existing = self.out / 'TRAIN_CACHE_COMPLETE.json'
+        if existing.exists():
+            receipt = json.loads(existing.read_text())
+            assert receipt['rows'] == 6821 and receipt['features_shape'] == [6821, 64, 2048]
+            train = np.memmap(self.out / 'TRAIN_FEATURES.private.bin', mode='r', dtype=np.uint16, shape=(6821, 64, 2048))
+        else:
+            train = self.cache(self.train, 'TRAIN')
+            write(existing, {'rows': 6821, 'features_shape': [6821, 64, 2048], 'dtype': 'BF16', 'TRAIN_only': True})
         sft = self.sft(train)
         fit = self.evaluate(train, self.train, 'SFT_TRAIN')
         w, constant, median = tailness(fit['denominator'], fit['correct'])

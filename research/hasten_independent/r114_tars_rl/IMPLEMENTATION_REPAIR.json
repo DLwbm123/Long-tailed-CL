@@ -1,0 +1,20 @@
+{
+  "revision": 2,
+  "reason": "BF16 cached decoding and full-sequence training batch shapes produce different token logps; using raw cached scores gives spurious initial ratio/clipping",
+  "engineering_evidence": "LOGP_DIAGNOSTIC.json",
+  "diagnostic_native_same_TWO_TRAIN_images": true,
+  "new_unique_diagnostic_images": 0,
+  "before_formal_RL": true,
+  "VAL_TEST": 0,
+  "change": "freeze behavior token logps via identical full-sequence microbatch path; retain cached sampling logp discrepancy, assert unchanged-policy ratio exactly1; fix status epoch field",
+  "SFT_attempt1_completed_updates_lower": 11,
+  "SFT_attempt1_completed_updates_upper": 12,
+  "attempt1_TRAIN_encoded_rows": 6823,
+  "attempt1_engineering_optimizer_updates": 2,
+  "attempt1_sampled_responses": 16,
+  "reuse_complete_frozen_TRAIN_feature_cache": true,
+  "restart_from_generic_adapter": true,
+  "all_attempts_share_original_clock": true,
+  "budgets_hyperparameters_data_and_gate_unchanged": true,
+  "approximate_on_policy_BF16_sampling_disclosed": true
+}

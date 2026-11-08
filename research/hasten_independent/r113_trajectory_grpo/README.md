@@ -1,10 +1,9 @@
-# R113: continuous trajectory GRPO
+# Continuous memory-decision GRPO: current method and evidence
 
-See [PROTOCOL.md](PROTOCOL.md), [CONFIG.json](CONFIG.json), and [SELFCHECK.json](SELFCHECK.json).
-This experiment trains real categorical trajectory GRPO with own-state multi-step decisions and evaluates separate continuous real streams. Prior R112 C is unchanged. All outcomes are development-only.
+Snapshot: 2026-11-08T23:06:50+08:00. R113 revision2, source `fb2327ee0399ee5b2decdf01ae44ea1be38b1ff4`.
 
-Launch status: synthetic integrity checks passed; full-shape native admission and science follow under the same original24h clock. No effect is claimed from engineering checks. Runtime private configurations and data are excluded.
+Ordered: all5 real stages complete; LONG_GRPO and ZERO both56.52% terminal macro BA,64.29% terminal oldtail BA, R_real5=0. order0: first3 real stages complete,30/40 training groups; latest macro BA73.33% versus ZERO70.00%, but oldtail25.00% versus37.50%. LONG and MYOPIC have identical observed endpoint scores so far. These are development-only fixed-probe scores, not independent confirmation. The full experiment is still running.
 
-Full native admission passed in both streams. Real policy rollouts and GRPO optimizer updates are now confirmed. See [REPORT_ZH.md](REPORT_ZH.md), [RUN_STATUS.json](RUN_STATUS.json), and [STARTUP_TRAINING_RECEIPT.json](STARTUP_TRAINING_RECEIPT.json). First-group equal returns are preserved; no efficacy claim.
+[Chinese method/results report](REPORT_ZH.md) · [Snapshot metrics](CURRENT_SUMMARY.json) · [Stage counts](CURRENT_STAGE_RESULTS.csv) · [Seed/arm summary](CURRENT_BLOCK_SUMMARY.csv) · [Saved-only verification](CURRENT_VERIFICATION.json)
 
-Revision2: attempt1 failed on a reproduced coverage-rounding mismatch. Partial results are in ATTEMPT1_SUMMARY.json. Constructor arithmetic is repaired without relaxing the validator. A fresh generic restart is active under the original clock; see IMPLEMENTATION_REPAIR.json and RUN_STATUS.json.
+The policy makes all3 decisions in arrived-prefix training trajectories, then acts in its own continuous5-stage deployment stream. Arms: ZERO, BAL, MYOPIC_GRPO, LONG_GRPO, SUP_SHARED. FIT trains; AUDIT scores only. Total evidence256 feature tokens including paid probes; no future real-stage encoding. See [protocol](PROTOCOL.md), [configuration](CONFIG.json), and [implementation repair](IMPLEMENTATION_REPAIR.json). Attempt1 failure is preserved separately; no partial outcomes are pooled.

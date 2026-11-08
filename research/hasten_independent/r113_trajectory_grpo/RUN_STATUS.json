@@ -1,8 +1,58 @@
 {
-  "phase": "ENGINEERING_REPAIR_READY",
+  "as_of": "2026-11-08T21:59:47+08:00",
+  "phase": "REV2_REAL_EXPERIMENT_RUNNING",
   "implementation_revision": 2,
-  "attempt1_failed": true,
-  "partial_results_only": true,
-  "original_clock_unchanged": true,
-  "science_hyperparameters_unchanged": true
+  "source_commit": "fb2327ee0399ee5b2decdf01ae44ea1be38b1ff4",
+  "native_joint_passed": true,
+  "streams": {
+    "a": {
+      "phase": "SCIENCE_ENCODING_CURRENT_ARRIVAL",
+      "stage": 0,
+      "actor_updates": {
+        "MYOPIC_GRPO": 0,
+        "LONG_GRPO": 0,
+        "SUP_SHARED": 0
+      },
+      "counts": {
+        "native_encoder_rows": 360,
+        "native_prefix_classifier_optimizer": 200,
+        "native_prefix_query_update_rows": 12800,
+        "native_virtual_classifier_optimizer": 11,
+        "native_virtual_query_update_rows": 704,
+        "native_paired_classifier_updates": 3500,
+        "native_paired_training_rows": 224000,
+        "native_query_rows": 330
+      }
+    },
+    "b": {
+      "phase": "REAL_POLICY_TRAINING",
+      "stage": 0,
+      "seed": 74003,
+      "mode": "LONG_GRPO",
+      "scenario": 0,
+      "groups_completed": 0,
+      "actor_updates": {
+        "MYOPIC_GRPO": 0,
+        "LONG_GRPO": 0,
+        "SUP_SHARED": 0
+      },
+      "counts": {
+        "native_encoder_rows": 360,
+        "native_prefix_classifier_optimizer": 200,
+        "native_prefix_query_update_rows": 12800,
+        "native_virtual_classifier_optimizer": 11,
+        "native_virtual_query_update_rows": 704,
+        "native_paired_classifier_updates": 3500,
+        "native_paired_training_rows": 224000,
+        "native_query_rows": 330,
+        "science_TRAIN_encoder_rows": 9378
+      }
+    }
+  },
+  "attempt1_failed_preserved": true,
+  "attempt1_middle_result": "LONG equals ZERO in complete real stages; no complete R_real5",
+  "original_clock_preserved": true,
+  "remaining_seconds": 77295.75906634331,
+  "guard_reason": null,
+  "no_efficacy_claim": true
 }

@@ -1,0 +1,179 @@
+{
+  "scope": "saved_group_counterfactual_and_scalar_math_not_performance",
+  "new_model_queries_updates": 0,
+  "summaries": [
+    {
+      "experiment": "r118_reward_support_bootstrap",
+      "arm": "SUPPORT_TARS_FULL_IS",
+      "queries": 2048,
+      "mixed_groups": 1004,
+      "tiny_queries": 259,
+      "tiny_mixed_groups": 163,
+      "tiny_share_before": 0.12646484375,
+      "tiny_share_retained": 0.16235059760956175,
+      "observed_zero_mixed_classes": []
+    },
+    {
+      "experiment": "r118_reward_support_bootstrap",
+      "arm": "SUPPORT_GRPO_FULL_IS",
+      "queries": 2048,
+      "mixed_groups": 842,
+      "tiny_queries": 259,
+      "tiny_mixed_groups": 104,
+      "tiny_share_before": 0.12646484375,
+      "tiny_share_retained": 0.12351543942992874,
+      "observed_zero_mixed_classes": []
+    },
+    {
+      "experiment": "r120_native448_bootstrap",
+      "arm": "NATIVE_TARS_FULL_IS",
+      "queries": 2048,
+      "mixed_groups": 676,
+      "tiny_queries": 238,
+      "tiny_mixed_groups": 14,
+      "tiny_share_before": 0.1162109375,
+      "tiny_share_retained": 0.020710059171597635,
+      "observed_zero_mixed_classes": [
+        5,
+        6
+      ]
+    },
+    {
+      "experiment": "r120_native448_bootstrap",
+      "arm": "NATIVE_GRPO_FULL_IS",
+      "queries": 2048,
+      "mixed_groups": 607,
+      "tiny_queries": 238,
+      "tiny_mixed_groups": 9,
+      "tiny_share_before": 0.1162109375,
+      "tiny_share_retained": 0.014827018121911038,
+      "observed_zero_mixed_classes": [
+        5,
+        6,
+        17,
+        19
+      ]
+    },
+    {
+      "experiment": "r121_r117_paired_seed",
+      "arm": "SEED_TARS_FULL_IS",
+      "queries": 2048,
+      "mixed_groups": 668,
+      "tiny_queries": 261,
+      "tiny_mixed_groups": 10,
+      "tiny_share_before": 0.12744140625,
+      "tiny_share_retained": 0.014970059880239521,
+      "observed_zero_mixed_classes": [
+        5,
+        6,
+        19
+      ]
+    },
+    {
+      "experiment": "r121_r117_paired_seed",
+      "arm": "SEED_GRPO_FULL_IS",
+      "queries": 2048,
+      "mixed_groups": 662,
+      "tiny_queries": 261,
+      "tiny_mixed_groups": 5,
+      "tiny_share_before": 0.12744140625,
+      "tiny_share_retained": 0.0075528700906344415,
+      "observed_zero_mixed_classes": [
+        5,
+        6,
+        19
+      ]
+    }
+  ],
+  "PG_conditioning": {
+    "fixtures": [
+      {
+        "p": 0.0,
+        "mixed_probability": 0.0,
+        "unconditional_PG_direction": 0.0,
+        "conditional_mixed_PG_direction": null,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 0.001,
+        "mixed_probability": 0.007972055930055974,
+        "unconditional_PG_direction": 0.002639357349753266,
+        "conditional_mixed_PG_direction": 0.3310761205026737,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 0.01,
+        "mixed_probability": 0.0772553055720798,
+        "unconditional_PG_direction": 0.02582765895576885,
+        "conditional_mixed_PG_direction": 0.3343156662770746,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 0.1,
+        "mixed_probability": 0.5695327800000001,
+        "unconditional_PG_direction": 0.20949144515844484,
+        "conditional_mixed_PG_direction": 0.3678303558900417,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 0.5,
+        "mixed_probability": 0.9921875,
+        "unconditional_PG_direction": 0.46391299521697793,
+        "conditional_mixed_PG_direction": 0.4675658534470329,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 0.9,
+        "mixed_probability": 0.5695327799999998,
+        "unconditional_PG_direction": 0.20949144515844473,
+        "conditional_mixed_PG_direction": 0.36783035589004165,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 0.999,
+        "mixed_probability": 0.007972055930055979,
+        "unconditional_PG_direction": 0.002639357349753268,
+        "conditional_mixed_PG_direction": 0.33107612050267377,
+        "global_mass_identity_error": 0.0
+      },
+      {
+        "p": 1.0,
+        "mixed_probability": 0.0,
+        "unconditional_PG_direction": 0.0,
+        "conditional_mixed_PG_direction": null,
+        "global_mass_identity_error": 0.0
+      }
+    ],
+    "max_error": 0.0,
+    "identity": "For fixed old policy and unchanged PG surrogate, g=0 outside mixed M, so E[g]=P(M)E[g|M]. Global rescaling does not imply identical Adam trajectories or equivalence of whole DAPO."
+  },
+  "off_reference_KL_counterexample": {
+    "class_current_p": [
+      0.01,
+      0.5
+    ],
+    "class_reference_p": [
+      0.1,
+      0.1
+    ],
+    "class_mixed_probability": [
+      0.07725530557207982,
+      0.9921875
+    ],
+    "full_expected_KL_logit_gradient": 0.2627834905666755,
+    "mixed_mass_times_conditional_KL_gradient": 0.27159035688717464
+  },
+  "limitations": [
+    "Retained group share is not gradient share or actual dynamic-resampling accuracy.",
+    "Fixed saved responses do not predict a changed future policy; absolute mixed count is not reduced by merely discarding constants.",
+    "Zero observed mixed groups is not proof of zero population acceptance probability.",
+    "R117 lacks exact saved per-class group composition; excluded rather than reconstructed.",
+    "Synthetic Bernoulli identities are not VLM efficacy results."
+  ],
+  "cost": {
+    "CPU_seconds": 0.0005170000000000036,
+    "wall_seconds": 0.0013020038604736328,
+    "image_encodings": 0,
+    "optimizer_updates": 0
+  }
+}

@@ -53,7 +53,12 @@ def run(cfg):
     assert gates==final['gates'] and all(gates.values())==final['all_gates_pass']
     cost=load('COSTS.json');assert cost['counts']=={'generation_responses':1062,'proposal_attempts':354,'proposal_responses':354,
             'recognition_attempts':708,'recognition_responses':708,'TRAIN_encoder_rows':1420,'VAL_encoder_rows':0,'optimizer_updates':0}
-    native=load('NATIVE_ADMISSION.json');assert native['passed'] and native['recognition_native_manual_max_difference']<=.05
+    native=load('NATIVE_ADMISSION.json');assert native['passed'] and native['recognition_native_hidden_same_head_max_difference']<=.05
+    assert native['native_hidden_vs_manual_max_difference']<=.05
+    failed=load('failed_native1/COSTS.json')
+    assert failed['counts']['generation_responses']==0 and failed['counts']['TRAIN_encoder_rows']==4 and failed['counts']['optimizer_updates']==0
+    write(root/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'failed_native1':failed,'total_TRAIN_encoder_rows':1424,
+          'total_generation_responses':1062,'total_optimizer_updates':0,'original_clock_not_reset':True})
     assert load('MEASUREMENTS_SEALED.json')['instrument_and_generic_reference_immutable']
     assert load('INSTRUMENT_BINDING.json')['generic_proposer_B_zero']
     with (root/'CLASS_RESULTS.csv').open('w') as f:

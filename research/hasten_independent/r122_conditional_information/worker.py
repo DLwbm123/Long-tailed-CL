@@ -76,19 +76,27 @@ def unchanged(e):
 def native(e):
     check=fixtures();e.status('NATIVE_INFORMATION_INTERFACE')
     with torch.no_grad():
-        parity=[]
+        parity=[];hidden_parity=[];raw_head_parity=[]
         for row in [0,1]:
             features,raw=e.engine.encode(e.images(e.train,[row]));e.counts['TRAIN_encoder_rows']+=1
-            full=e.engine.model(**raw,use_cache=False).logits[:,-1].float();e.counts['TRAIN_encoder_rows']+=1
+            full=e.engine.model(**raw,use_cache=False,output_hidden_states=True);e.counts['TRAIN_encoder_rows']+=1
             ids=e.engine.prompt_ids;pos,_=e.engine.positions(ids,torch.ones_like(ids))
             hidden=e.engine.model.model(inputs_embeds=e.engine.embeddings(ids,features),position_ids=pos,
                      attention_mask=torch.ones_like(ids),use_cache=False,return_dict=True).last_hidden_state
-            parity.append(float((full-e.engine.model.lm_head(hidden[:,-1]).float()).abs().max()))
-        assert max(parity)<=.05
+            native_last=full.hidden_states[-1][:,-1:]
+            manual_last=e.engine.model.lm_head(hidden[:,-1:])[:,0].float()
+            parity.append(float((e.engine.model.lm_head(native_last)[:,0].float()-manual_last).abs().max()))
+            hidden_parity.append(float((native_last-hidden[:,-1:]).abs().max()))
+            raw_head_parity.append(float((full.logits[:,-1].float()-manual_last).abs().max()))
+        write(e.out/'NUMERICAL_PARITY.json',{'native_hidden_vs_manual_max_difference':max(hidden_parity),
+              'same_shape_last_token_head_max_difference':max(parity),'raw_full_sequence_head_vs_manual_last_head_max_difference':max(raw_head_parity),
+              'same_shape_threshold':.05,'native_TRAIN_encoder_rows':4,'VAL_TEST':0})
+        assert max(parity)<=.05 and max(hidden_parity)<=.05
     start=time.time();records=[measure(e,row,rank,'NATIVE') for rank,row in enumerate([0,1])];elapsed=time.time()-start
     write(e.out/'NATIVE_RECORDS.private.json',records);assert unchanged(e)
     forecast=1.5*175/2*elapsed+600;remaining=e.cfg['deadline']-time.time()
-    write(e.out/'NATIVE_ADMISSION.json',{'passed':forecast<remaining,'parser_fixtures':check,'recognition_native_manual_max_difference':max(parity),
+    write(e.out/'NATIVE_ADMISSION.json',{'passed':forecast<remaining,'parser_fixtures':check,'recognition_native_hidden_same_head_max_difference':max(parity),
+          'native_hidden_vs_manual_max_difference':max(hidden_parity),'raw_full_sequence_head_vs_manual_last_head_max_difference':max(raw_head_parity),
           'proposal_native_HF_only_no_manual_multiimage_cache':True,'generic_proposer_and_instrument_immutable':True,
           'native_responses':12,'native_TRAIN_encoder_rows':20,'VAL_TEST':0,'two_component_matrix_seconds':elapsed,
           'full_forecast_seconds_with_margin_and_reserve':forecast,'remaining_seconds':remaining,

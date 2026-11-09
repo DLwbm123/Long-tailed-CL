@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "rows": 92,
+  "max_metric_error": 1.3830524170366232e-08,
+  "allocation_verified": true,
+  "learning": {
+    "ALLOC_TARS_FULL_IS": {
+      "updates": 256,
+      "maximum_gradient_norm": 11.367776870727539,
+      "constant_groups": 1276,
+      "groups": 2048,
+      "responses": 16384,
+      "mean_reward": 0.57391357421875,
+      "mean_KL": 0.03002892681174192,
+      "mean_weighted_KL": 0.01866218157213172
+    },
+    "ALLOC_TARS_PG_ONLY_IS": {
+      "updates": 256,
+      "maximum_gradient_norm": 11.771774291992188,
+      "constant_groups": 1288,
+      "groups": 2048,
+      "responses": 16384,
+      "mean_reward": 0.57421875,
+      "mean_KL": 0.027211998096721177,
+      "mean_weighted_KL": 0.027211998096721177
+    },
+    "ALLOC_GRPO_FULL_IS": {
+      "updates": 256,
+      "maximum_gradient_norm": 10.991910934448242,
+      "constant_groups": 1345,
+      "groups": 2048,
+      "responses": 16384,
+      "mean_reward": 0.56597900390625,
+      "mean_KL": 0.022018950783154575,
+      "mean_weighted_KL": 0.013959957213406612
+    },
+    "ALLOC_CE_FULL_IS": {
+      "updates": 256,
+      "maximum_gradient_norm": 21.357486724853516
+    }
+  },
+  "gates": {
+    "macro_over_SFT_ge_1pp": true,
+    "tail_over_SFT_ge_2pp": true,
+    "head_over_SFT_ge_minus1pp": false,
+    "macro_over_ALLOC_GRPO_positive": true,
+    "tail_over_ALLOC_GRPO_positive": true,
+    "head_over_natural_TARS_nonnegative": true,
+    "tail_over_natural_TARS_positive": true,
+    "macro_over_ALLOC_CE_nonnegative": true,
+    "tail_over_ALLOC_CE_positive": true
+  },
+  "all_gates_pass": false,
+  "scope": "saved_only",
+  "new_model_queries_updates": 0
+}

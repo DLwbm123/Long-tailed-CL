@@ -1,5 +1,9 @@
 # R117 tailness-proportional query allocation
 
-Prospective RL mechanism diagnostic: transfer TARS effort into query allocation and importance-correct both the surrogate and reference KL. Four matched-query arms test full correction, omitted KL correction, ordinary RL and weighted CE. Natural-query256-stepTARS is a frozen reused anchor. No effect result yet; static development only. [Protocol](PROTOCOL.md).
+Completed and independently checked from saved artifacts: **macro50.0162%, tail19.3029%, head78.1701%**. Versus commonSFT: **+2.9268/+9.3117/−2.9260pp** respectively. Eight of nine original gates passed; head protection failed. All tiny VAL recalls remain zero. Static single-development-seed evidence, not independent confirmation or continual learning.
 
-[Saved-prediction transition audit](SAVED_ANALYSIS_ZH.md) separates rescued/harmed validation rows and query exposure from independent TRAIN components. CPU-only `saved_diagnostics.run(cfg)` reads saved artifacts; run again after final completion to include all four R117 endpoints and recoverable reward totals. Exact per-class all-wrong/all-right/mixed group counts were not retained by the frozen worker.
+[Protocol](PROTOCOL.md) · [Final report](REPORT_ZH.md) · [Class counts](CLASS_RESULTS.csv) · [Verification](FINAL_VERIFICATION.json)
+
+The primary fully corrects both PG and KL under q=p*w/Z and exceeds same-query ordinaryGRPO and weightedCE on macro/tail at this endpoint. CE has fewer forwards and no KL; the naturalTARS256 anchor is reused, not a new replicate. Four previously undiscovered tiny classes still generated zero correct responses despite increased exposure.
+
+[Saved transition audit](SAVED_ANALYSIS_ZH.md) and `SAVED_DIAGNOSTICS.json` distinguish rescue/harm, repeated queries and independent TRAIN components. CPU-only `saved_diagnostics.run(cfg)` now includes completed R117 endpoints and reward totals. Exact per-class all-wrong/all-right/mixed group compositions were not retained by the frozen worker. Private images, identities, predictions, features and weights are excluded.

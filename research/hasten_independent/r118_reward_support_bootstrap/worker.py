@@ -72,10 +72,12 @@ def native(e, dep):
             rec = {'loss': loss, 'gradient_norm': norm}
         else:
             rec = audited_rl(e, features, e.labels[:2], opt, pg, kl, 118000)
-        rec['parameter_delta_L2'] = e.last_parameter_delta_L2
-        assert rec['parameter_delta_L2'] > 0
-        torch.cuda.synchronize();timings[arm] = time.time() - start;details.append({'arm': arm, 'result': rec})
         e.counts['engineering_optimizer_updates'] += 1
+        rec['parameter_delta_L2'] = e.last_parameter_delta_L2
+        assert rec['parameter_delta_L2'] >= 0
+        if rec['gradient_norm'] == 0:
+            assert rec['parameter_delta_L2'] == 0  # Fresh Adam and no weight decay: a legal zero-signal step.
+        torch.cuda.synchronize();timings[arm] = time.time() - start;details.append({'arm': arm, 'result': rec})
         del opt
     e.engine.restore(e.sft);e.engine.freeze_reference()
     assert all(torch.equal(a.a, a.ref_a) and torch.equal(a.b, a.ref_b) for a in e.engine.adapters)

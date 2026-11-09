@@ -44,6 +44,13 @@ def run(cfg):
     expected = {'engineering_optimizer_updates': 4, 'SFT_updates': 853, 'posttraining_optimizer_updates': 768,
                 'generation_responses': 39592, 'TRAIN_encoder_rows': 2, 'VAL_encoder_rows': 0}
     assert cost['counts'] == expected and cost['shared_support_queries'] == 6821
+    repair_path = root/'PRE_SCIENCE_REPAIR.json'
+    attempts = {'completed_run': cost}
+    if repair_path.exists():
+        repair = load('PRE_SCIENCE_REPAIR.json')
+        assert repair['failed_native_actual_optimizer_attempts'] == 2 and repair['failed_native_science_updates'] == 0
+        attempts['failed_native'] = repair
+    (root/'ALL_ATTEMPT_COSTS.json').write_text(json.dumps(attempts, indent=2)+'\n')
     rows = [];errors = []
     assert [r['name'] for r in final['results']] == ['SUPPORT_SFT'] + arms
     for result in final['results']:

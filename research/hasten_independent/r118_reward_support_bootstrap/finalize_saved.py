@@ -1,6 +1,7 @@
 """Saved-only independent checks for common support and incremental RL."""
 import csv
 import json
+from collections import Counter
 from pathlib import Path
 
 
@@ -78,6 +79,33 @@ def run(cfg):
                  end_to_end_head_over_original_ge_minus1pp=main['head']-original['head'] >= -.01)
     assert gates == final['gates'] and all(gates.values()) == final['all_gates_pass']
     assert any(final['successful_responses_formerly_zero_classes'][arms[0]].values()) == final['any_formerly_zero_class_discovered_by_main']
+    import torch
+    torch.set_num_threads(1)
+    predictions = {r['name']: torch.load(root/(r['name']+'_PREDICTIONS.private.pt'),
+                   map_location='cpu', weights_only=True) for r in final['results']}
+    predictions['ORIGINAL_SFT'] = torch.load(Path(cfg['base_source'])/'SFT_PREDICTIONS.private.pt',
+                                             map_location='cpu', weights_only=True)
+    transitions = {}
+    for baseline in ['ORIGINAL_SFT', 'SUPPORT_SFT']:
+        reference = predictions[baseline];transitions[baseline] = {}
+        for result in final['results']:
+            endpoint = predictions[result['name']]
+            assert torch.equal(reference['labels'], endpoint['labels']) and len(endpoint['labels']) == 1698
+            class_rows = []
+            for c in range(23):
+                mask = endpoint['labels'] == c
+                old, new = reference['predictions'][mask], endpoint['predictions'][mask]
+                rescued = int(((old != c) & (new == c)).sum())
+                harmed = int(((old == c) & (new != c)).sum())
+                assert int((new == c).sum()) == result['correct'][c]
+                assert int((new == c).sum()-(old == c).sum()) == rescued-harmed
+                pairs = Counter(zip(old.tolist(), new.tolist()))
+                class_rows.append({'class': c, 'denominator': int(mask.sum()), 'rescued': rescued, 'harmed': harmed,
+                                   'prediction_transitions': [{'before': a, 'after': b, 'count': n}
+                                                            for (a, b), n in sorted(pairs.items())]})
+            transitions[baseline][result['name']] = class_rows
+    (root/'PREDICTION_TRANSITIONS.json').write_text(json.dumps({'scope': 'saved_only_aggregate',
+            'independent_patient_counts': False, 'transitions': transitions}, indent=2)+'\n')
     with (root/'CLASS_RESULTS.csv').open('w') as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
     result = {'passed': True, 'scope': 'saved_only', 'new_model_queries_updates': 0, 'rows': len(rows),

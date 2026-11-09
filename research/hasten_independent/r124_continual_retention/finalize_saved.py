@@ -1,5 +1,4 @@
 """CPU-only count, access, state, metric and gate audit after the real stream ends."""
-import collections
 import csv
 import json
 from pathlib import Path
@@ -40,6 +39,8 @@ def run(cfg):
             calibration=[i for r in journal if r['stage']==stage and r['arm']==arm and r['purpose']=='current_calibration' for i in r['ids']]
             assert calibration==current
             table=load(f'CALIBRATION_{stage}_{arm}.json');w,z,median=weights_for_current(table['counts'],table['correct'])
+            assert table['classes']==STAGES[stage] and table['counts']==[y.count(c) for c in STAGES[stage]]
+            assert all(0<=g<=n for g,n in zip(table['correct'],table['counts']))
             assert max(abs(a-b) for a,b in zip(w.tolist(),table['mean_normalized_TARS_weights']))<1e-12
             assert abs(z-table['Z'])<1e-12 and abs(median-table['raw_median'])<1e-12
             expected_used=w.tolist() if arm in ['TARS','TARS_RAPO','TARS_CE'] else [1.]*len(w)
@@ -71,7 +72,7 @@ def run(cfg):
                     assert abs(successes/64-r['task_reward_mean'])<1e-7
                     assert 0<r['retention_reward_mean']<=1. and r['drift_mean']>=0
             assert sigma==state['sigma']
-    classes=[]
+    classes=[];old_new=[]
     for result in evaluations:
         stage=result['stage'];arm=result['arm'];filearm='COMMON' if stage==0 else arm
         saved=torch.load(root/f'VAL_{stage}_{filearm}.private.pt',map_location='cpu',weights_only=True)
@@ -82,9 +83,12 @@ def run(cfg):
         computed=score(good,den,seen,counts)
         for key,value in computed.items():assert result[key]==value
         assert result['evaluation_started_epoch']>=load(f'STAGE_{stage}_ALL_MODELS_SEALED.json')['epoch']
+        old=[c for c in seen if c not in STAGES[stage]];new=STAGES[stage]
+        old_new.append({'stage':stage,'arm':arm,'old_macro':sum(good[c]/den[c] for c in old)/len(old) if old else None,
+                        'new_macro':sum(good[c]/den[c] for c in new)/len(new)})
         for c in seen:classes.append({'stage':stage,'arm':arm,'class':c,'name':train[y.index(c)]['official_class_name'],
             'TRAIN_count':counts[c],'correct':good[c],'denominator':den[c],'recall_percent':100*good[c]/den[c],
-            'shared_first_task_readout':stage==0})
+            'role':'new' if c in STAGES[stage] else 'old','shared_first_task_readout':stage==0})
     assert len(classes)==360
     final=load('FINAL_RESULTS.json');assert final==summarize(evaluations,counts)
     cost=load('COSTS.json');native=load('NATIVE_ADMISSION.json');c=cost['counts']
@@ -104,12 +108,25 @@ def run(cfg):
         'initial_generic_no_old_task_SFT_verified':True,'all_counts_verified':True,'all_nine_gates_verified':True,
         'gates':final['gates'],'all_gates_pass':final['all_gates_pass']})
     write(root/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'failed_attempts':0,'original_clock_not_reset':True,
+        'CPU_software_preflight':load('CPU_SOFTWARE_RUN_COSTS.json'),
         'historical_cache_creation_costs_not_repeated_or_free':True,'partial_failures_must_be_added_if_any':True})
+    write(root/'OLD_NEW_SUMMARY.json',old_new)
+    groups=[]
+    for stage in range(1,5):
+        for arm in ARMS[:-1]:
+            seq=[r for r in curves if r['phase']=='POST' and r['stage']==stage and r['arm']==arm]
+            for c in STAGES[stage]:
+                totals={k:sum(r['class_groups'].get(str(c),{}).get(k,0) for r in seq)
+                        for k in ['queries','all_wrong','all_correct','mixed','correct_responses']}
+                groups.append({'stage':stage,'arm':arm,'class':c,**totals})
+    with (root/'GROUP_DIAGNOSTICS.csv').open('w') as f:
+        w=csv.DictWriter(f,fieldnames=list(groups[0]));w.writeheader();w.writerows(groups)
     report=['# R124 replay-free生成式连续RL机制实验','', '**单顺序开发VAL、非独立患者；首任务共同SFT贡献不记RL。**', '',
         '|arm|post平均macro %|post平均tail %|平均forgetting pp|','|---|---:|---:|---:|']
     for arm in ARMS:report.append(f"|{arm}|{100*final['post_stage_means'][arm]['macro']:.4f}|{100*final['post_stage_means'][arm]['tail']:.4f}|{100*final['mean_classwise_forgetting'][arm]:.4f}|")
     report+=['','原九门：'+json.dumps(final['gates']),'全部通过：'+str(final['all_gates_pass']),
         '','CE控制为匹配TARS权重、同query和更新次数，但无G8 rollout/KL，计算更少。',
         '所有原正负结果与旧门保留，不把新连续条件改写为旧实验成功。',
-        '25行含5行共享首任务读出；实际21个读出序列，不是25独立重复。原生cache后端存在不等于可读取旧/未来TRAIN；accessor日志与seal先后已核。']
+        '25行含5行共享首任务读出；实际21个读出序列，不是25独立重复。原生cache后端存在不等于可读取旧/未来TRAIN；accessor日志与seal先后已核。',
+        '校准保存了aggregate正确计数与数学表，未保存逐例校准预测；可核样本访问/类别分母/权重计算，不能事后独立重评分该校准正确计数。不追加生成补造。']
     (root/'REPORT_ZH.md').write_text('\n'.join(report)+'\n')

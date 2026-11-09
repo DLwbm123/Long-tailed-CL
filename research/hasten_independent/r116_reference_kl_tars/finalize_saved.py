@@ -67,4 +67,11 @@ def run(cfg):
     (root/'REPORT_ZH.md').write_text('\n'.join(report)+'\n')
     result={'passed':True,'rows':len(table),'max_metric_error':max(errors),'learning':summary,'gates':gates,
             'all_gates_pass':all(gates.values()),'scope':'saved_only','new_model_queries_updates':0}
+    auxiliary=root/'CANONICAL_DISCOVERABILITY.json'
+    if auxiliary.exists():
+        diagnostic=json.loads(auxiliary.read_text())
+        result['separate_prior_SFT_TRAIN_diagnostic_costs']={k:diagnostic[k] for k in
+            ['teacher_forced_TRAIN_queries','real_image_encoder_rows','optimizer_updates','VAL_TEST','CPU_seconds','wall_seconds','GPU_peak_reserved_bytes']}
+        with (root/'REPORT_ZH.md').open('a') as f:
+            f.write('\n辅助起点诊断另计56次既有SFT的TRAIN教师强制查询、0图像编码/0优化/0VAL；结果与费用见CANONICAL_DISCOVERABILITY.json，不混入本轮RL效果或主worker计数。\n')
     (root/'FINAL_VERIFICATION.json').write_text(json.dumps(result,indent=2));return result

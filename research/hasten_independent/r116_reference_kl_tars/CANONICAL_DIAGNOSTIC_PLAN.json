@@ -1,0 +1,15 @@
+{
+  "scope": "post_hoc_R114_TRAIN_only_auxiliary_analysis_before_R116_VAL",
+  "purpose": "Distinguish rare-query underexposure from negligible canonical-answer probability before selecting a justified future RL route",
+  "fixed_model": "R114 commonSFT",
+  "selection": "all and only originalTRAINcount<25 classes;56TRAINcomponents",
+  "queries": 56,
+  "new_real_encoder_rows": 0,
+  "optimizer_updates": 0,
+  "VAL_TEST": 0,
+  "no_current_R116_policy_or_protocol_change": true,
+  "probability_proxy": "teacher-forced canonical label+EOS, no aliases; cached sampling numerical differences and alternate separator answers explicitly omitted",
+  "report": "per-class probability and fixed-SFT expected canonical discovery on original query tape vs uniform-class exposure; no new efficacy claim",
+  "resource": "one neutral GPU1 sidecar,12GiB allocator,CPU1 on existingCPUset,90second hard process timeout,no feature/model copy",
+  "costs": "separate observational CPU/wall/GPU/query receipt, included in cumulative window"
+}

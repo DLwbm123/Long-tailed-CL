@@ -1,0 +1,77 @@
+{
+  "scope": "post_hoc_R114_TRAIN_only_before_R116_VAL",
+  "fixed_SFT_not_current_RL_policy": true,
+  "rows": [
+    {
+      "class": 5,
+      "name": "hemorroids",
+      "TRAIN_count": 3,
+      "canonical_probability_min": 4.4795928266230855e-07,
+      "canonical_probability_median": 8.245202502474458e-05,
+      "canonical_probability_mean": 0.00011100966648496864,
+      "canonical_probability_max": 0.000250129015147499,
+      "natural_tape_queries": 1,
+      "expected_groups_with_canonical_success_on_natural_tape_fixed_SFT_proxy": 3.5836686426129724e-06,
+      "expected_groups_with_canonical_success_uniform_classes_4096_fixed_SFT_proxy": 0.15803975159930322
+    },
+    {
+      "class": 6,
+      "name": "ileum",
+      "TRAIN_count": 6,
+      "canonical_probability_min": 2.282193567997027e-05,
+      "canonical_probability_median": 0.0002813757409408993,
+      "canonical_probability_mean": 0.0006888166466449425,
+      "canonical_probability_max": 0.0027072863500565312,
+      "natural_tape_queries": 2,
+      "expected_groups_with_canonical_success_on_natural_tape_fixed_SFT_proxy": 0.024949105432082914,
+      "expected_groups_with_canonical_success_uniform_classes_4096_fixed_SFT_proxy": 0.9745878664507288
+    },
+    {
+      "class": 17,
+      "name": "ulcerative-colitis-grade-0-1",
+      "TRAIN_count": 23,
+      "canonical_probability_min": 0.00020218431287062207,
+      "canonical_probability_median": 0.007988238241720614,
+      "canonical_probability_mean": 0.011768981802062704,
+      "canonical_probability_max": 0.056584528624717176,
+      "natural_tape_queries": 19,
+      "expected_groups_with_canonical_success_on_natural_tape_fixed_SFT_proxy": 1.661549792035417,
+      "expected_groups_with_canonical_success_uniform_classes_4096_fixed_SFT_proxy": 15.332993959669485
+    },
+    {
+      "class": 19,
+      "name": "ulcerative-colitis-grade-1-2",
+      "TRAIN_count": 6,
+      "canonical_probability_min": 0.0008685311360064766,
+      "canonical_probability_median": 0.001989738297813713,
+      "canonical_probability_mean": 0.0024610340539824443,
+      "canonical_probability_max": 0.00584219201426969,
+      "natural_tape_queries": 5,
+      "expected_groups_with_canonical_success_on_natural_tape_fixed_SFT_proxy": 0.1863879513082447,
+      "expected_groups_with_canonical_success_uniform_classes_4096_fixed_SFT_proxy": 3.461308872761164
+    },
+    {
+      "class": 21,
+      "name": "ulcerative-colitis-grade-2-3",
+      "TRAIN_count": 18,
+      "canonical_probability_min": 0.005673068056696925,
+      "canonical_probability_median": 0.025807362728149884,
+      "canonical_probability_mean": 0.023227085874812085,
+      "canonical_probability_max": 0.04052256399089339,
+      "natural_tape_queries": 15,
+      "expected_groups_with_canonical_success_on_natural_tape_fixed_SFT_proxy": 2.4845757652981537,
+      "expected_groups_with_canonical_success_uniform_classes_4096_fixed_SFT_proxy": 30.059600763829422
+    }
+  ],
+  "teacher_forced_TRAIN_queries": 56,
+  "real_image_encoder_rows": 0,
+  "synthetic_processor_images_no_vision_forward": 1,
+  "optimizer_updates": 0,
+  "VAL_TEST": 0,
+  "R116_frozen_training_modified": false,
+  "probability_boundary": "Teacher-forced exact canonical-token-sequence proxy; accepted separator variants are omitted and cached BF16 sampling differs numerically. Not an exact realized reward or mixed-group probability.",
+  "counterfactual_boundary": "Uniform-class query exposure is an expectation with fixed SFT, not an executed learning method or evidence it improves accuracy.",
+  "CPU_seconds": 6.963095313999999,
+  "wall_seconds": 7.281890630722046,
+  "GPU_peak_reserved_bytes": 7935623168
+}

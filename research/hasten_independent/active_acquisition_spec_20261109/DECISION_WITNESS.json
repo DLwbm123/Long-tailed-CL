@@ -1,0 +1,33 @@
+{
+  "scope": "constructed_finite_specification_only",
+  "new_model_queries_updates": 0,
+  "medical_examples": 0,
+  "latent_state": "uniform location0..3; initially unobserved",
+  "optional_acquisition_budget": 2,
+  "reward": "target evidence observed; not a measured medical classification reward",
+  "open_loop_policies_enumerated": 36,
+  "closed_loop_policies_enumerated": 1321,
+  "best_open_loop_success": 0.5,
+  "myopic_success": 0.5,
+  "best_closed_loop_success": 1.0,
+  "same_information_exact_control_success": 1.0,
+  "pre_action_hidden_location_oracle": 1.0,
+  "acquisition_costs": {
+    "scan_then_inspect_expected": 2.0,
+    "myopic_expected": 1.75,
+    "same_expected_cost_scan_stop_mixture_probability": 0.875,
+    "same_expected_cost_mixture_success": 0.875,
+    "hard_cap_for_all": 2
+  },
+  "inferences": [
+    "Conditioning on a genuinely new observation can matter; not all two-step tasks collapse to a root-only bandit.",
+    "This tiny known model is exactly solvable; the gap does not show a need for sampled RL or medical efficacy.",
+    "An oracle with hidden-location access is not an admissible deployable comparison."
+  ],
+  "cost": {
+    "CPU_seconds": 0.0012730000000000033,
+    "wall_seconds": 0.0012698173522949219,
+    "image_encodings": 0,
+    "optimizer_updates": 0
+  }
+}

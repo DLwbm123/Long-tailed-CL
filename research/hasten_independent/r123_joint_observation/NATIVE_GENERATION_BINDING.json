@@ -1,0 +1,26 @@
+{
+  "scope": "postrun_static_decoder_configuration_audit_no_new_model_calls",
+  "new_model_queries_updates": 0,
+  "native_api": "HF model.generate",
+  "explicit_overrides": {
+    "do_sample": false,
+    "max_new_tokens": 24,
+    "pad_token_id": "engine.pad",
+    "eos_token_id": "engine.eos"
+  },
+  "inherited_model_generation_config": {
+    "repetition_penalty": 1.05
+  },
+  "previous_manual_greedy_has_repetition_processor": false,
+  "all_five_R123_readouts_use_same_native_configuration": true,
+  "12_single_path_prediction_differences_not_attributed_to_BF16_alone": true,
+  "not_retuned_or_rerun": true,
+  "inherited_unused_private_metadata": {
+    "policies": "R122names_not_read_by_R123worker",
+    "normal_responses": 1062,
+    "normal_TRAIN_encoder_rows": 1420,
+    "proposal_max_new_tokens": 64
+  },
+  "authoritative_R123_counts_and_conditions": "SCIENTIFIC_FREEZE,publicCONFIG,sourceworker,COSTS,FINAL_VERIFICATION",
+  "unused_private_metadata_preserved_not_rewritten": true
+}

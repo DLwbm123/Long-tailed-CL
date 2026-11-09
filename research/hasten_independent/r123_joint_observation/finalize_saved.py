@@ -56,6 +56,12 @@ def run(cfg):
         'metrics_and_all_13_gates_verified':True,'gates':final['gates'],'all_gates_pass':final['all_gates_pass'],
         'counts_verified':True,'classifier_TRAIN_in_sample':True}
     write(root/'FINAL_VERIFICATION.json',proof)
+    single_path_comparison={'scope':'saved_only_native_vs_previous_manual_single_image_readout',
+        'new_model_queries_updates':0,'components':175,
+        'prediction_disagreements':sum(r['results']['NATIVE_ROOT']['prediction']!=o['results']['ROOT']['recognition']['prediction'] for r,o in zip(rows,old)),
+        'old_ROOT_correct':sum(o['results']['ROOT']['recognition']['prediction']==o['class'] for o in old),
+        'new_NATIVE_ROOT_correct':sum(r['results']['NATIVE_ROOT']['prediction']==r['class'] for r in rows)}
+    write(root/'SINGLE_PATH_COMPARISON.json',single_path_comparison)
     write(root/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'new_proposals_optimizer_VAL_TEST':0,
         'failure_accounting':'Normal path only; any failed attempt must be added before public completion.','original_clock_not_reset':True,
         'historical_costs':'R1221062responses1424encodingsincludingfailednative;R121SFTandpriorcostsremainhistorical'})

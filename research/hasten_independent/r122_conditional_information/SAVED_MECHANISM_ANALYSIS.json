@@ -1,0 +1,70 @@
+{
+  "scope": "posthoc_saved_only_descriptive_not_new_gates",
+  "new_model_queries_updates": 0,
+  "components": 175,
+  "ROOT_correct": 90,
+  "validity_strata": {
+    "global_False_center_False": {
+      "components": 1,
+      "ROOT_correct": 1,
+      "GLOBAL_correct": 1,
+      "CENTER_correct": 1,
+      "CENTER_rescues_GLOBAL_errors": 0,
+      "CENTER_loses_GLOBAL_correct": 0
+    },
+    "global_False_center_True": {
+      "components": 21,
+      "ROOT_correct": 12,
+      "GLOBAL_correct": 12,
+      "CENTER_correct": 7,
+      "CENTER_rescues_GLOBAL_errors": 0,
+      "CENTER_loses_GLOBAL_correct": 5
+    },
+    "global_True_center_False": {
+      "components": 10,
+      "ROOT_correct": 1,
+      "GLOBAL_correct": 1,
+      "CENTER_correct": 1,
+      "CENTER_rescues_GLOBAL_errors": 0,
+      "CENTER_loses_GLOBAL_correct": 0
+    },
+    "global_True_center_True": {
+      "components": 143,
+      "ROOT_correct": 76,
+      "GLOBAL_correct": 20,
+      "CENTER_correct": 34,
+      "CENTER_rescues_GLOBAL_errors": 18,
+      "CENTER_loses_GLOBAL_correct": 4
+    }
+  },
+  "policy_vs_ROOT": {
+    "GLOBAL_REPEAT": {
+      "valid": 153,
+      "invalid": 22,
+      "correct_valid": 21,
+      "ROOT_correct_on_valid": 77,
+      "rescues_ROOT_errors": 1,
+      "loses_ROOT_correct": 57,
+      "mean_valid_normalized_box_area": 0.09216671895424837,
+      "median_valid_normalized_box_area": 0.075,
+      "valid_area_at_most_quarter": 148
+    },
+    "CENTER_DETAIL": {
+      "valid": 164,
+      "invalid": 11,
+      "correct_valid": 41,
+      "ROOT_correct_on_valid": 88,
+      "rescues_ROOT_errors": 1,
+      "loses_ROOT_correct": 48,
+      "mean_valid_normalized_box_area": 0.22145178658536585,
+      "median_valid_normalized_box_area": 0.09,
+      "valid_area_at_most_quarter": 132
+    }
+  },
+  "limitations": [
+    "Validity strata are post-intervention selections, not randomized subgroups.",
+    "ROOT is cheaper; these counts diagnose retained information, not matched-compute superiority.",
+    "No localization ground truth; box area is descriptive, not localization quality.",
+    "The recognizer was fit on TRAIN; no independent clinical or RL-learning claim."
+  ]
+}

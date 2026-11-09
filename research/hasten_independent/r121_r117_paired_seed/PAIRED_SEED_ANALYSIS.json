@@ -1,0 +1,118 @@
+{
+  "scope": "saved_only_two_training_seeds_same_development_VAL",
+  "new_model_queries_updates": 0,
+  "paired_deltas_pp": {
+    "74005": {
+      "SFT": {
+        "macro": 2.9267829044595297,
+        "head": -2.9260382533775386,
+        "tail": 9.311678713009087,
+        "micro": -0.706714391708374,
+        "tiny": 0.0
+      },
+      "GRPO": {
+        "macro": 3.8535737763528752,
+        "head": -2.195865128424679,
+        "tail": 10.452961672473865,
+        "micro": 0.4122495651245117,
+        "tiny": 0.0
+      },
+      "CE": {
+        "macro": 3.2094384840964327,
+        "head": 3.8109458109508054,
+        "tail": 2.553248672982597,
+        "micro": 3.062427043914795,
+        "tiny": 0.0
+      }
+    },
+    "74006": {
+      "SFT": {
+        "macro": -0.6178762436923058,
+        "head": -6.813728185973201,
+        "tail": 6.141234966068669,
+        "micro": -1.3545334339141846,
+        "tiny": 0.0
+      },
+      "GRPO": {
+        "macro": 2.3477464578340435,
+        "head": -2.9016941703677523,
+        "tail": 8.074408961326922,
+        "micro": 0.05889534950256348,
+        "tiny": 0.0
+      },
+      "CE": {
+        "macro": -0.5888982525244002,
+        "head": -0.7507036659464728,
+        "tail": -0.412383256063964,
+        "micro": 1.0600686073303223,
+        "tiny": -5.0
+      }
+    }
+  },
+  "newseed_seven_gates_passed": 3,
+  "newseed_seven_gates_total": 7,
+  "six_directional_components_repeated": 3,
+  "all_six_repeat": false,
+  "both_seeds_main_over_GRPO_macro_and_tail": true,
+  "both_seeds_main_over_SFT_and_CE_macro_and_tail": false,
+  "TRAIN_evolving_policy_group_composition": {
+    "SEED_TARS_FULL_IS": {
+      "head": {
+        "queries": 1429,
+        "successful_responses": 9145,
+        "allwrong_groups": 105,
+        "allright_groups": 836,
+        "mixed_groups": 488,
+        "mixed_fraction": 0.34149755073477955
+      },
+      "tail": {
+        "queries": 619,
+        "successful_responses": 798,
+        "allwrong_groups": 417,
+        "allright_groups": 22,
+        "mixed_groups": 180,
+        "mixed_fraction": 0.29079159935379645
+      },
+      "tiny": {
+        "queries": 261,
+        "successful_responses": 11,
+        "allwrong_groups": 251,
+        "allright_groups": 0,
+        "mixed_groups": 10,
+        "mixed_fraction": 0.038314176245210725
+      }
+    },
+    "SEED_GRPO_FULL_IS": {
+      "head": {
+        "queries": 1429,
+        "successful_responses": 9296,
+        "allwrong_groups": 81,
+        "allright_groups": 848,
+        "mixed_groups": 500,
+        "mixed_fraction": 0.34989503149055284
+      },
+      "tail": {
+        "queries": 619,
+        "successful_responses": 577,
+        "allwrong_groups": 444,
+        "allright_groups": 13,
+        "mixed_groups": 162,
+        "mixed_fraction": 0.2617124394184168
+      },
+      "tiny": {
+        "queries": 261,
+        "successful_responses": 5,
+        "allwrong_groups": 256,
+        "allright_groups": 0,
+        "mixed_groups": 5,
+        "mixed_fraction": 0.019157088122605363
+      }
+    }
+  },
+  "limitations": [
+    "Two training seeds on reused developmentVAL; no formal significance, new patients or seed selection.",
+    "OldR117 per-class reward-group composition was not persisted; no invented seed-to-seed group comparison.",
+    "CE has no matched KL and fewer forwards; recipe comparison does not isolate RL-objective necessity.",
+    "Training response/group counts are repeated evolving-policy draws, not independent components or endpoint accuracy."
+  ]
+}

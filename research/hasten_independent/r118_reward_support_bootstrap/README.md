@@ -1,5 +1,9 @@
 # R118 shared reward-support formation
 
-Prospectively frozen diagnostic after R117: four tiny classes still had zero correct responses despite additional exposure. All controls receive the same fixed extra class-balanced teacher-forced epoch, then compare incremental TARS-RL, ordinaryRL and weightedCE. The support-only endpoint separates added-supervision gains from RL gains. No effect result yet. [Protocol](PROTOCOL.md).
+Completed and saved-verified: primary **macro49.4792/head73.6607/tail23.0994/tiny4.0%**. Relative to shared support: macro+1.3838/tail+3.8281/head−.8568pp; relative to original SFT: +2.3898/+13.1081/−7.4354pp. **Nine of ten original gates pass; end-to-end head protection fails.** Support itself damages head by6.5786pp. Added supervision and RL increments are separated.
 
-The support stage is not itself RL or a final novel contribution. Frozen original TARS weights/query tape, same model/LoRA/resolution and new common reference; no VAL-driven protector or support-length tuning. Native admission must pass before science; saved-only verification includes exact class-wise reward-group counts for this new protocol.
+All four formerly-zero-success tiny classes now yield correct TRAIN responses. Tiny VAL gain is one UC0-1 row out of five; CE has two UC2-3 rows out of four. Do not claim stable tiny/clinical/continual improvement or superiority to CE on tiny.
+
+[Protocol](PROTOCOL.md) · [Report](REPORT_ZH.md) · [Verification](FINAL_VERIFICATION.json) · [All attempt costs](ALL_ATTEMPT_COSTS.json) · [Class counts](CLASS_RESULTS.csv)
+
+Exact class-wise reward groups and aggregate rescue/harm transitions are saved. Images, identities, per-row predictions, features and weights are excluded. Native zero-step repair and failed-attempt cost remain disclosed; original clock unchanged.

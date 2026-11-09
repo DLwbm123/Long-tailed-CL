@@ -1,0 +1,137 @@
+{
+  "scope": "fixed_saved_terminal_library_only_not_new_joint_readout",
+  "new_model_queries_updates": 0,
+  "components": 175,
+  "oracle_is_not_deployable": true,
+  "ROOT_correct": 90,
+  "libraries": {
+    "STOP_or_GLOBAL": {
+      "methods": [
+        "ROOT",
+        "GLOBAL_REPEAT"
+      ],
+      "oracle_correct": 91,
+      "rescues_over_ROOT": 1,
+      "increment_upper_bound_pp": {
+        "macro": 0.5434782608695652,
+        "head": 1.0416666666666667,
+        "tail": 0.0,
+        "tiny": 0.0
+      },
+      "class_rescues": [
+        {
+          "class": 11,
+          "name": "oesophagitis a",
+          "rescues": 1,
+          "denominator": 8
+        }
+      ],
+      "tiny_correct_upper_bound": 0,
+      "tiny_components": 31
+    },
+    "STOP_or_DETAIL": {
+      "methods": [
+        "ROOT",
+        "CENTER_DETAIL"
+      ],
+      "oracle_correct": 91,
+      "rescues_over_ROOT": 1,
+      "increment_upper_bound_pp": {
+        "macro": 0.5434782608695652,
+        "head": 1.0416666666666667,
+        "tail": 0.0,
+        "tiny": 0.0
+      },
+      "class_rescues": [
+        {
+          "class": 20,
+          "name": "ulcerative colitis grade 2",
+          "rescues": 1,
+          "denominator": 8
+        }
+      ],
+      "tiny_correct_upper_bound": 0,
+      "tiny_components": 31
+    },
+    "STOP_or_either_proposed_crop": {
+      "methods": [
+        "ROOT",
+        "GLOBAL_REPEAT",
+        "CENTER_DETAIL"
+      ],
+      "oracle_correct": 92,
+      "rescues_over_ROOT": 2,
+      "increment_upper_bound_pp": {
+        "macro": 1.0869565217391304,
+        "head": 2.0833333333333335,
+        "tail": 0.0,
+        "tiny": 0.0
+      },
+      "class_rescues": [
+        {
+          "class": 11,
+          "name": "oesophagitis a",
+          "rescues": 1,
+          "denominator": 8
+        },
+        {
+          "class": 20,
+          "name": "ulcerative colitis grade 2",
+          "rescues": 1,
+          "denominator": 8
+        }
+      ],
+      "tiny_correct_upper_bound": 0,
+      "tiny_components": 31
+    },
+    "STOP_or_any_saved_view": {
+      "methods": [
+        "ROOT",
+        "CENTER",
+        "GLOBAL_REPEAT",
+        "CENTER_DETAIL"
+      ],
+      "oracle_correct": 94,
+      "rescues_over_ROOT": 4,
+      "increment_upper_bound_pp": {
+        "macro": 2.1739130434782608,
+        "head": 3.125,
+        "tail": 1.1363636363636365,
+        "tiny": 0.0
+      },
+      "class_rescues": [
+        {
+          "class": 4,
+          "name": "dyed resection margins",
+          "rescues": 1,
+          "denominator": 8
+        },
+        {
+          "class": 11,
+          "name": "oesophagitis a",
+          "rescues": 1,
+          "denominator": 8
+        },
+        {
+          "class": 12,
+          "name": "oesophagitis b d",
+          "rescues": 1,
+          "denominator": 8
+        },
+        {
+          "class": 20,
+          "name": "ulcerative colitis grade 2",
+          "rescues": 1,
+          "denominator": 8
+        }
+      ],
+      "tiny_correct_upper_bound": 0,
+      "tiny_components": 31
+    }
+  },
+  "limitations": [
+    "Uses labels only to exclude an incapable fixed library, never as a deployable selector.",
+    "Does not bound new regions, new stochastic generations, changed weights, or joint global-plus-crop observations.",
+    "No new experiment, optimizer, patient-validation result, or change to the frozen ten gates."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "TRAIN_only_joint_readout_transport_diagnostic_not_RL_training",
+  "selection": "All175R122sealedcomponentsandoriginalboxes/fallbacks;nonewproposals,selection,ROI,promptorseedsearch",
+  "methods": [
+    "NATIVE_ROOT",
+    "DUPLICATE",
+    "FIXED_CENTER",
+    "GLOBAL_BOX",
+    "DETAIL_BOX"
+  ],
+  "raw_science_counts": {
+    "responses": 875,
+    "TRAIN_encoder_rows": 1575,
+    "optimizer_updates": 0,
+    "VAL_TEST": 0
+  },
+  "normal_with_native_counts": {
+    "responses": 885,
+    "TRAIN_encoder_rows": 1597
+  },
+  "max_window_physical_new_bytes": 10000000000,
+  "new_disk_expected_upper_bytes": 20000000,
+  "hard_guard_pre_stop_bytes": 9000000000,
+  "not_RL_admission_or_innovation_proof": true,
+  "prompt": "What is the endoscopic finding or anatomical landmark shown in this image? Answer with the category name only.",
+  "recognizer": "chronologicalR121SEED_SFTseed74006",
+  "greedy_max_new_tokens": 24,
+  "resolution": [
+    224,
+    224
+  ],
+  "per_image_visual_tokens": 64,
+  "source_of_boxes": "R122sealed175TRAINcomponents",
+  "gates": 13
+}

@@ -26,8 +26,14 @@ def run(cfg):
     assert reuse=={'TRAIN_rows':6821,'VAL_rows':1698,'TRAIN_bytes':1788084224,'VAL_bytes':445120512,'new_feature_disk_bytes':0,'mode':'read_only_no_copy'}
     assert not (root/'TRAIN_FEATURES.private.bin').exists() and not (root/'VAL_FEATURES.private.bin').exists()
     expected={'engineering_optimizer_updates':4,'SFT_updates':854,'posttraining_optimizer_updates':768,
-              'generation_responses':46415,'TRAIN_encoder_rows':4,'VAL_encoder_rows':0}
+              'generation_responses':46415,'TRAIN_encoder_rows':12,'VAL_encoder_rows':0}
     assert cost['counts']==expected and cost['new_feature_disk_bytes']==0
+    assert load('CACHE_BATCH_PARITY.json')['same_eight_image_batch_vs_cached_max_difference']<=.05
+    failed=load('failed_native1/COSTS.json')
+    assert failed['counts']['SFT_updates']==0 and failed['counts']['posttraining_optimizer_updates']==0
+    assert failed['counts']['TRAIN_encoder_rows']==2
+    (root/'ALL_ATTEMPT_COSTS.json').write_text(json.dumps({'new_successful_run':cost,'failed_native1':failed,
+        'total_TRAIN_encoder_rows':14,'total_generation_responses':46415,'original_clock_not_reset':True},indent=2)+'\n')
     sft_rows=[r for r in curves if r['phase']=='SFT']
     assert len(sft_rows)==854 and [r['update'] for r in sft_rows]==list(range(854))
     assert sum(r['queries'] for r in sft_rows)==13642

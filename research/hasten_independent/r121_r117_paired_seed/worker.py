@@ -75,7 +75,14 @@ def native(e,helper,dep):
     start=time.time();features,raw=e.engine.encode(e.images(e.train,ids));torch.cuda.synchronize();encode_seconds=time.time()-start
     e.counts['TRAIN_encoder_rows']+=2
     reference=torch.from_numpy(np.array(old[:2],copy=True)).view(torch.bfloat16).cuda()
-    feature_parity=float((features-reference).abs().max());assert feature_parity<=.05
+    two_vs_cached=float((features-reference).abs().max())
+    # Historical224cache used batches of8; separate BF16 batch shape from cache identity.
+    features8,_=e.engine.encode(e.images(e.train,list(range(8))));e.counts['TRAIN_encoder_rows']+=8
+    reference8=torch.from_numpy(np.array(old[:8],copy=True)).view(torch.bfloat16).cuda()
+    feature_parity=float((features8-reference8).abs().max())
+    write(e.out/'CACHE_BATCH_PARITY.json',{'original_cache_encoding_batch':8,'two_image_vs_cached_max_difference':two_vs_cached,
+          'same_eight_image_batch_vs_cached_max_difference':feature_parity,'diagnostic_extra_TRAIN_encoder_rows':8,'VAL_TEST':0})
+    assert feature_parity<=.05
     with torch.no_grad():
         full=e.engine.model(**raw,use_cache=False).logits[:,-1].float();e.counts['TRAIN_encoder_rows']+=2
         prompt=e.engine.prompt_ids.expand(2,-1);pos,_=e.engine.positions(prompt,torch.ones_like(prompt))
@@ -83,6 +90,7 @@ def native(e,helper,dep):
                                     attention_mask=torch.ones_like(prompt),use_cache=False,return_dict=True).last_hidden_state
         parity=float((full-e.engine.model.lm_head(hidden[:,-1]).float()).abs().max())
     assert parity<=.05
+    features=reference  # Exercise the actual shared224cache in native optimization paths.
     start=time.time();e.engine.generate(features);torch.cuda.synchronize();greedy_seconds=time.time()-start
     e.counts['generation_responses']+=2;timings={};details=[]
     for arm in ['BOOTSTRAP']+ARMS:
@@ -101,7 +109,7 @@ def native(e,helper,dep):
                   6821/2*greedy_seconds+4*256*sum(timings[a] for a in ARMS)+4*1698/2*greedy_seconds)+1800
     passed=forecast<e.cfg['deadline']-time.time()
     write(e.out/'NATIVE_ADMISSION.json',{'passed':passed,'objective_fixture':fixture,'native_manual_max_logit_difference':parity,
-          'reused_frozen_visual_feature_max_difference':feature_parity,'native_encoder_rows':4,'VAL_TEST':0,
+          'reused_frozen_visual_feature_max_difference':feature_parity,'two_image_vs_cached_max_difference':two_vs_cached,'native_encoder_rows':12,'VAL_TEST':0,
           'two_image_encode_seconds':encode_seconds,'two_image_greedy_seconds':greedy_seconds,'two_query_seconds':timings,
           'paths':details,'generic_parameters_and_reference_restored':True,'native_unit_weights_engineering_only':True,
           'full_forecast_seconds_with_margin_and_reserve':forecast,'remaining_seconds':e.cfg['deadline']-time.time()})

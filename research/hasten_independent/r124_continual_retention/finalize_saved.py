@@ -110,6 +110,14 @@ def run(cfg):
     write(root/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'failed_attempts':0,'original_clock_not_reset':True,
         'CPU_software_preflight':load('CPU_SOFTWARE_RUN_COSTS.json'),
         'historical_cache_creation_costs_not_repeated_or_free':True,'partial_failures_must_be_added_if_any':True})
+    # Preserve CPU-only interim analyses separately from model training costs.
+    pulses=[json.loads(p.read_text()) for p in sorted((root/'INTEGRITY_PULSES').glob('*.json'))]
+    costs=load('ALL_ATTEMPT_COSTS.json');costs['CPU_integrity_analyses']=pulses
+    costs['CPU_integrity_analysis_body_seconds']=sum(p.get('CPU_seconds',p.get('CPU_analysis_body_seconds',0))
+        +p.get('previous_inspection_CPU_body_seconds',0) for p in pulses)
+    costs['CPU_integrity_body_times_are_not_whole_process_CPU']=True
+    costs['controller_exit']=load('CONTROL_EXIT.json')
+    write(root/'ALL_ATTEMPT_COSTS.json',costs)
     write(root/'OLD_NEW_SUMMARY.json',old_new)
     groups=[]
     for stage in range(1,5):
@@ -121,6 +129,21 @@ def run(cfg):
                 groups.append({'stage':stage,'arm':arm,'class':c,**totals})
     with (root/'GROUP_DIAGNOSTICS.csv').open('w') as f:
         w=csv.DictWriter(f,fieldnames=list(groups[0]));w.writeheader();w.writerows(groups)
+    common=torch.load(root/'COMMON_PREFIX_SFT.private.pt',map_location='cpu',weights_only=True)
+    zero=[]
+    for arm in ARMS:
+        seq=[r for r in curves if r['phase']=='POST' and r['arm']==arm]
+        state=torch.load(root/f'STATE_4_{arm}.private.pt',map_location='cpu',weights_only=True)
+        equal=all(torch.equal(x,a) and torch.equal(y,b) for (x,y),(a,b) in zip(state['weights'],common))
+        record={'arm':arm,'attempts':len(seq),'nonzero_updates':sum(r['nonzero_update'] for r in seq),
+                'final_weights_equal_common_SFT':equal,'final_sigma':state['sigma']}
+        if arm!='TARS_CE':
+            record['correct_RL_responses']=sum(v['correct_responses'] for r in seq for v in r['class_groups'].values())
+            record['responses']=len(seq)*64
+            record['retention_reward_range']=[min(r['retention_reward_mean'] for r in seq),max(r['retention_reward_mean'] for r in seq)]
+            record['maximum_advantage_abs']=max(r['advantage_max_abs'] for r in seq)
+        zero.append(record)
+    write(root/'LEARNING_INTEGRITY.json',{'scope':'saved_only_full_run','new_model_queries_updates':0,'arms':zero})
     report=['# R124 replay-free生成式连续RL机制实验','', '**单顺序开发VAL、非独立患者；首任务共同SFT贡献不记RL。**', '',
         '|arm|post平均macro %|post平均tail %|平均forgetting pp|','|---|---:|---:|---:|']
     for arm in ARMS:report.append(f"|{arm}|{100*final['post_stage_means'][arm]['macro']:.4f}|{100*final['post_stage_means'][arm]['tail']:.4f}|{100*final['mean_classwise_forgetting'][arm]:.4f}|")
@@ -129,4 +152,15 @@ def run(cfg):
         '所有原正负结果与旧门保留，不把新连续条件改写为旧实验成功。',
         '25行含5行共享首任务读出；实际21个读出序列，不是25独立重复。原生cache后端存在不等于可读取旧/未来TRAIN；accessor日志与seal先后已核。',
         '校准保存了aggregate正确计数与数学表，未保存逐例校准预测；可核样本访问/类别分母/权重计算，不能事后独立重评分该校准正确计数。不追加生成补造。']
+    report+=['','## 实际学习与保留的区别','',
+        '|arm|post尝试|非零参数步|最终参数等首任务SFT|正确RL响应|', '|---|---:|---:|---|---:|']
+    for row in zero:
+        report.append(f"|{row['arm']}|{row['attempts']}|{row['nonzero_updates']}|{row['final_weights_equal_common_SFT']}|{row.get('correct_RL_responses','不适用')}|")
+    if all(r['nonzero_updates']==0 and r['correct_RL_responses']==0 for r in zero if r['arm']!='TARS_CE'):
+        report+=['','四RL臂全部新增任务共131072响应、0正确奖励、0实际参数更新；最终逐参数等于首任务共同SFT。组内优势恒零，RaPO的sigma变化没有产生学习。',
+            '零遗忘与较高seen平均macro来自停留在首任务模型，不是主方法学会新类、保留奖励的净增量或持续学习成功。主对TARS/RAPO增量0；匹配CE可学习部分新类但严重忘旧，也不是整体成功。']
+    report+=['','原九门通过数：'+str(sum(final['gates'].values()))+'/9。旧R117等结果与原失败门保持。',
+        'RaPO原文附录分类任务提供累计seen类别列表，本冻结适配开放category-only提示没有该条件；未证明它是零奖励的单一原因，不把本轮当作者原样复现或所有RL无效。详见TASK_INTERFACE_AUDIT_ZH.md。',
+        '完整完成后仅允许另立一次共享累计seen词表的资格实验；重新generic共同首任务起点、匹配全部控制、不提供未来或逐例答案，不同时改SFT/推理长度/奖励。接口收益和监督收益不记RL或创新。',
+        '所有182226响应、2866曲线、360类行、当前TRAIN/已见VAL访问与封存顺序核对通过。CPU软件和历次saved-only审计另计，body计时不是完整进程CPU。']
     (root/'REPORT_ZH.md').write_text('\n'.join(report)+'\n')

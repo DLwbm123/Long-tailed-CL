@@ -1,0 +1,155 @@
+{
+  "saved_only_integrity_pulses": [
+    {
+      "scope": "stage1_saved_only_CPU_audit",
+      "started_epoch": 1794289808.0642335,
+      "finished_epoch": 1794289810.15796,
+      "wall_seconds": 2.093726634979248,
+      "whole_child_CPU_seconds": 2.062131,
+      "max_RSS_KiB": 644168,
+      "exit_code": 0,
+      "new_model_calls": 0,
+      "new_optimizer_updates": 0,
+      "original_23h_clock_not_reset": true
+    },
+    {
+      "scope": "stage2_saved_only_CPU_audit",
+      "started_epoch": 1794296733.0068777,
+      "finished_epoch": 1794296736.6652496,
+      "wall_seconds": 3.658371925354004,
+      "whole_child_CPU_seconds": 2.666331,
+      "max_RSS_KiB": 668700,
+      "exit_code": 0,
+      "new_model_calls": 0,
+      "new_optimizer_updates": 0,
+      "original_23h_clock_not_reset": true
+    },
+    {
+      "scope": "stage3_saved_only_CPU_audit",
+      "started_epoch": 1794303874.6229868,
+      "finished_epoch": 1794303876.816251,
+      "wall_seconds": 2.1932644844055176,
+      "whole_child_CPU_seconds": 2.105665,
+      "max_RSS_KiB": 666152,
+      "exit_code": 0,
+      "new_model_calls": 0,
+      "new_optimizer_updates": 0,
+      "original_23h_clock_not_reset": true
+    },
+    {
+      "scope": "full_saved_only_CPU_verification",
+      "started_epoch": 1794311111.802646,
+      "finished_epoch": 1794311116.103219,
+      "wall_seconds": 4.300573348999023,
+      "whole_child_CPU_seconds": 4.121732,
+      "max_RSS_KiB": 654136,
+      "exit_code": 0,
+      "new_model_calls": 0,
+      "new_optimizer_updates": 0,
+      "original_23h_clock_not_reset": true
+    },
+    {
+      "scope": "analysis_saved_only_CPU_verification",
+      "started_epoch": 1794311387.146747,
+      "finished_epoch": 1794311387.235115,
+      "wall_seconds": 0.08836793899536133,
+      "whole_child_CPU_seconds": 0.054174,
+      "max_RSS_KiB": 12288,
+      "exit_code": 0,
+      "new_model_calls": 0,
+      "new_optimizer_updates": 0,
+      "original_23h_clock_not_reset": true
+    }
+  ],
+  "measured_integrity_pulse_whole_child_CPU_seconds": 11.010033,
+  "successful_run": {
+    "counts": {
+      "engineering_optimizer_attempts": 5,
+      "engineering_teacherforced_queries": 18,
+      "SFT_updates": 0,
+      "SFT_queries": 0,
+      "post_optimizer_attempts": 2048,
+      "post_CE_queries": 0,
+      "post_RL_responses": 131072,
+      "calibration_responses": 17548,
+      "VAL_responses": 22812,
+      "engineering_responses": 80,
+      "generation_responses": 171512,
+      "generation_attempts": 171512,
+      "SFT_optimizer_attempts": 0,
+      "post_completed_updates": 2048,
+      "TRAIN_encoder_rows": 4,
+      "VAL_encoder_rows": 0,
+      "CE_aux_queries": 4098,
+      "positive_teacher_rows": 58928,
+      "negative_teacher_rows": 26144,
+      "teacher_TF_input_token_cells": 19610631,
+      "teacher_active_response_tokens": 468911,
+      "generation_input_tokens": 35774940,
+      "generated_active_tokens": 923990,
+      "decoded_token_cells": 1447886,
+      "decoder_forward_token_rows": 1276374,
+      "native_profile_teacher_rows": 32
+    },
+    "CPU_seconds": 29523.639640189,
+    "wall_seconds": 31353.514139652252,
+    "GPU_peak_allocated_bytes": 10162680320,
+    "GPU_peak_reserved_bytes": 14122221568,
+    "new_feature_model_copy_bytes": 0,
+    "zero_old_TRAIN_replay_by_accessor": true
+  },
+  "controller_exit": {
+    "exit_code": 0,
+    "reason": null,
+    "worker": {
+      "exit_code": 0,
+      "CPU_seconds": 29527.183524
+    },
+    "original_elapsed_seconds": 33431.45875597,
+    "peak_disk_bytes": 518594560,
+    "peak_group_RSS_bytes": 4307558400
+  },
+  "CPU_software": {
+    "exit_code": 0,
+    "CPU_seconds": 4.76955,
+    "wall_seconds": 5.131985187530518,
+    "model_calls": 0,
+    "optimizer_updates": 0,
+    "original_first_preparation_clock_not_reset": true
+  },
+  "reused_historical_prefix": {
+    "new_engine_generic_B0_before_restore": true,
+    "R125_verified_chronological_first_task_only_prefix": true,
+    "prefix_weights_exact_after_restore": true,
+    "no_full_TRAIN_SFT_or_VAL_selection": true,
+    "new_SFT_updates": 0,
+    "historical_SFT_updates": 306,
+    "historical_SFT_queries": 4868,
+    "historical_initial_VAL_responses": 624,
+    "source_runtime": "aedf8075657e8feafe013439345acb9f893b3bee",
+    "future_image_feature_feedback_to_model": false,
+    "historical_prefix_CPU_not_separately_instrumented_not_zero": true
+  },
+  "original_23h_clock_not_reset": true,
+  "private_rollout_outputs_remain_remote": true,
+  "teacher_contexts_are_full_answer_auxiliary_supervision": true,
+  "token_accounting_scope": {
+    "exact_generation_prefill_input_tokens": 35774940,
+    "exact_generation_active_tokens": 923990,
+    "exact_generation_decoded_token_cells_including_padding": 1447886,
+    "exact_context_teacher_TF_input_cells": 19610631,
+    "base_TF_response_rows_exact": 393408,
+    "base_TF_input_token_cells_bounds": [
+      83766378,
+      86552322
+    ],
+    "base_TF_per_kind_padded_lengths_not_logged_not_zero": true,
+    "all_operator_wall_CPU_and_hard_budget_includes_these_calls": true
+  },
+  "execution_cost_scope": {
+    "worker_body_CPU_is_subset_of_wait4_whole_worker_not_additive": true,
+    "preparation_shell_SSH_Git_CPU_not_fully_instrumented_not_zero": true,
+    "historical_prefix_CPU_not_separately_instrumented_not_free": true,
+    "all_preparation_native_science_interim_final_children_within_original_23h_clock": true
+  }
+}

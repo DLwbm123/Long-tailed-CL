@@ -28,6 +28,11 @@ def run(cfg):
   correct=[0]*23;den=[0]*23
   for i,pred in zip(ids,z['predictions']):den[vy[i]]+=1;correct[vy[i]]+=int(pred==vy[i])
   assert correct==r['correct'] and den==r['denominator'];assert abs(sum(correct[c]/den[c] for c in range(10))/10-r['macro'])<1e-12
+  counts=[sum(x==c for x in ys) for c in range(23)]
+  for key,subset in [('head',[c for c in range(10) if counts[c]>=250]),('tail',[c for c in range(10) if counts[c]<250]),('tiny',[c for c in range(10) if counts[c]<25])]:
+   expected_metric=sum(correct[c]/den[c] for c in subset)/len(subset) if subset else None
+   assert (r[key] is None and expected_metric is None) or abs(r[key]-expected_metric)<1e-12
+  assert abs(sum(correct)/sum(den)-r['micro'])<1e-12
   for c in range(10):classes.append({'arm':r['arm'],'class_id':c,'correct':correct[c],'denominator':den[c],'accuracy':correct[c]/den[c]})
  seal=json.loads((p/'STAGE_1_ALL_MODELS_SEALED.json').read_text())
  for r in evals:
@@ -49,4 +54,4 @@ def run(cfg):
  for a in ARMS:
   r=next(r for r in evals if r['arm']==a);oldnew=result['old_new'][a];report.append(f'| {a} | {100*r["macro"]:.4f} | {100*r["tail"]:.4f} | {100*oldnew["old_macro"]:.4f} | {100*oldnew["new_macro"]:.4f} |')
  report+=['','仅固定首转换32步开发资格，原R125/R128失败不改。B接近A不证明等价或全由CTAN。有限字符串条件分布不保证旧图风险；标签CE对照及全部失败/费用保留。',f'本成功attempt生成{count["generation_responses"]}，全部attempt生成{proof["all_attempt_generated_responses"]}；失败/native/probe费用另列，不按正常预算抹去重试。无新SFT/VAL编码，CPU保存核验0新模型调用。','准备shell/SSH/Git CPU未全面仪器，未知非0；COSTS/CPU软件/native/保存验证分别保留，wholeworkerCPU和body不重复相加。']
- (p/'REPORT_ZH.md').write_text('\n'.join(report)+'\n');write(p/'ALL_ATTEMPT_COSTS.json',{'worker_successful_attempt':cost,'failed_attempt_1':prior_cost,'failed_controller_exit':json.loads((p/'attempt_1/CONTROL_EXIT.json').read_text()) if prior_cost else None,'controller_exit':exit,'software':json.loads((p/'CPU_SOFTWARE_RUN_COSTS.json').read_text()),'saved_verification':proof,'original_clock_not_reset':True,'shell_SSH_Git_CPU_unknown_not_zero':True})
+ (p/'REPORT_ZH.md').write_text('\n'.join(report)+'\n');write(p/'ALL_ATTEMPT_COSTS.json',{'worker_successful_attempt':cost,'failed_attempt_1':prior_cost,'failed_controller_exit':json.loads((p/'attempt_1/CONTROL_EXIT.json').read_text()) if prior_cost else None,'controller_exit':exit,'software':json.loads((p/'CPU_SOFTWARE_RUN_COSTS.json').read_text()),'saved_verification':proof,'original_clock_not_reset':True,'INTEGRITY_PULSES':json.loads((p/'INTEGRITY_PULSES.json').read_text()) if (p/'INTEGRITY_PULSES.json').exists() else [],'shell_SSH_Git_CPU_unknown_not_zero':True})

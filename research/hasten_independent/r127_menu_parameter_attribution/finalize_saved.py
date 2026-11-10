@@ -63,9 +63,9 @@ def run(cfg):
     def csvout(name,values):
         with (r/name).open('w') as f:w=csv.DictWriter(f,fieldnames=list(values[0]));w.writeheader();w.writerows(values)
     csvout('CLASS_RESULTS.csv',classes);csvout('CLASS_ATTRIBUTION.csv',class_attr)
-    write(r/'ATTRIBUTION.json',{'scope':'retrospective_final_first_task_only','arms':attribution,'main_minus_controls_menu_effect_cancels':paired,'original_R125_gates_unchanged':True})
+    write(r/'ATTRIBUTION.json',{'scope':'retrospective_final_first_task_only','arms':attribution,'main_minus_controls_menu_effect_cancels':paired,'original_R125_gates_unchanged':True,'units':'recall_fraction; multiply100 for percentage points'})
     write(r/'FINAL_VERIFICATION.json',{'passed':True,'saved_only_no_new_model_calls':True,'readouts':7,'class_rows':35,'class_attribution_rows':25,'full624_baseline_prediction_parity':True,'all_prompt_access_same_batch_count_metrics_and_additive_identities_verified':True,'all_loaded_weights_immutable_receipts_verified':True,'counts':c})
-    write(r/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'controller_exit':load('CONTROL_EXIT.json'),'CPU_software':load('CPU_SOFTWARE_RUN_COSTS.json'),'historical_R125_and_cache_creation_costs_not_repeated_or_free':True,'first_preparation_and_4h_clock_not_reset':True,'scientific_optimizer_updates':0})
+    write(r/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'controller_exit':load('CONTROL_EXIT.json'),'CPU_software':load('CPU_SOFTWARE_RUN_COSTS.json'),'historical_R125_and_cache_creation_costs_not_repeated_or_free':True,'first_preparation_and_4h_clock_not_reset':True,'scientific_optimizer_updates':0,'input_token_accounting':{'generation_prefill_input_tokens':expected_input,'native_extra_cached_forward_input_tokens':4*original['0']['input_tokens'],'all_prefill_and_native_input_tokens':expected_input+4*original['0']['input_tokens'],'decoder_forward_token_rows':c['decoder_forward_token_rows'],'all_transformer_input_token_rows':expected_input+4*original['0']['input_tokens']+c['decoder_forward_token_rows']}})
     report=['# R127：类别菜单与最终首task head参数变化归因','','回顾性冻结仪器诊断，不是RL训练/临床验证；原R125/R126结果和门不变。',
         '', '|arm|原始head %|共同权重最终菜单 %|最终匹配head %|菜单项 pp|参数项 pp|原读出残差 pp|', '|---|---:|---:|---:|---:|---:|---:|']
     for record in attribution:
@@ -74,7 +74,8 @@ def run(cfg):
         '主模型匹配总变化pp='+str(100*x['matched_total'])+'；历史总变化pp='+str(100*x['historical_total'])+'。两者差由原全seen批次与本固定旧类批次的读出残差单列，不未经实验归因某种数值机制。']
     if x['matched_total']<0:report+=['有符号menu/total比='+str(x['menu']/x['matched_total'])+'（不裁剪；异号或大于1可表示两项抵消）。']
     report+=['','共同SFT的同624图像预测在原5类菜单下逐例完全等于R125保存结果；最终23类菜单也是R125原模板。全部learned模型只用最终23类菜单，没有给它们oracle旧5类限制菜单，不搜索新prompt或挑菜单部署。',
-        '相对控制的菜单项抵消：主与控制的匹配读出差精确等于参数项差，因此共同菜单效应不能解释原同菜单相对保留增量。全部四个控制与各类分母均报。',
+        '这是预先固定的条件分解：菜单项在共同初始权重下定义，参数项在最终菜单下定义，不是唯一分解；未测learned模型原5类菜单，不能估计或排除菜单与参数的交互。',
+        '相对控制的共同基线菜单项在代数上抵消：主与控制的匹配读出差精确等于参数项差，因此共同菜单效应不能解释原同菜单相对保留增量。全部四个控制与各类分母均报。',
         '所有任务已到达后回顾性读取历史首任务模型；不能把最终schema当作首任务当时在线可得。首任务模型拟合TRAIN，这些VAL是组件级开发证据，非患者独立。',
         '只涵盖首任务5类，其中head4类、tail仅class0、无tiny；不能由此解释全23类tail/tiny失败或认定新保留机制。所有权重只读、0 optimizer/额外SFT。',
         '4368响应包含native复用32，额外cached-forward4，共4372缓存特征使用行，0新视觉encoder/0TRAIN图像特征访问。Input/generated active tokens、包括padding的decoder token cells及wall/CPU全部计费，原cache/模型和R125训练费用不当免费。']

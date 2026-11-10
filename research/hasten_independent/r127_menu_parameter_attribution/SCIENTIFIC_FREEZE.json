@@ -1,0 +1,56 @@
+{
+  "scope": "retrospective_frozen_instrument_final_head_attribution_not_RL_training",
+  "start": 1794271927.5872638,
+  "deadline": 1794286327.5872638,
+  "wall_hours": 4,
+  "clock": "uses earlier R126 candidate preparation conservatively; neither R126 clock nor20h limit altered",
+  "primary_classes": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "original_first_task_head_classes": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "old_VAL_components": 624,
+  "readouts": [
+    "COMMON_INITIAL_MENU",
+    "COMMON_FINAL_MENU",
+    "GRPO_FINAL_MENU",
+    "TARS_FINAL_MENU",
+    "RAPO_FINAL_MENU",
+    "TARS_RAPO_FINAL_MENU",
+    "TARS_CE_FINAL_MENU"
+  ],
+  "batch": 16,
+  "max_response_tokens": 24,
+  "temperature": "greedy identical R125 manual engine, no HF repetition processor",
+  "new_generation_responses_expected": 4368,
+  "new_visual_encoder_rows_expected": 0,
+  "cached_feature_forward_rows_expected": 4372,
+  "optimizer_updates_expected": 0,
+  "SFT_updates_expected": 0,
+  "TRAIN_image_feature_accesses_expected": 0,
+  "native_generation_rows_reused_in_science": 32,
+  "native_extra_cached_forward_rows": 4,
+  "native_forecast": "1.5*7*39*max(two16rowgreedywall)+600reserve < original remaining",
+  "first_task_baseline_full_prediction_parity_required": true,
+  "fixed_model_input_menu_levels": [
+    0,
+    4
+  ],
+  "no_menu_selection_or_new_prompt": true,
+  "no_original_result_gate_replacement": true,
+  "retained_previous_roots_baseline_bytes": 6995677184,
+  "local_reserve_bytes": 200000000,
+  "new_disk_expected_upper_bytes": 150000000,
+  "window_max_new_physical_bytes": 10000000000,
+  "guard_pre_stop_bytes": 9000000000,
+  "single_patient_independence_not_claimed": true,
+  "frozen_before_new_implementation_and_model_calls": true
+}

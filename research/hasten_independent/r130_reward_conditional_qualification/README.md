@@ -1,3 +1,7 @@
+# Completed: fixed old-conditional recipe failed qualification
+
+All five arms completed 32 nonzero parameter updates, saved verification and independent integer arithmetic passed. Only 1 of 6 prespecified performance conditions passed (integrity separately passed). The fixed recipe is closed without a full continual run or parameter/seed/menu rescue. See REPORT_ZH.md, ROUTE_DECISION_ZH.md and ALL_ATTEMPT_COSTS.json. The scientific worker was unchanged during training; later CPU-only audit sources and delivery have separate revisions.
+
 # R130 single-transition mechanism qualification
 
 The protocol and all five arms are frozen before new model calls. CPU mathematical fixtures and the first real GPU native admission passed. A subsequent CPU-versus-CUDA restoration assertion failed before qualification updates; see FAILURE_AND_RECOVERY_ZH.md for the preserved failed attempt and bounded recovery. No efficacy or full continual-learning claim follows from software checks. The inherited original preparation clock is not reset.

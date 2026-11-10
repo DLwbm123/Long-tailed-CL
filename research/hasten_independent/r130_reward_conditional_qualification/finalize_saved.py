@@ -19,7 +19,7 @@ def run(cfg):
    drift=(((z['old']-z['ref'])*m).sum(-1)/m.sum(-1).clamp_min(1)).clamp_min(0);h=torch.exp(-20*drift).reshape_as(b);reward=b+.5*h;ns=.999*sigma+.001*float(reward.std(unbiased=False))
    assert torch.allclose(z['h'],h,atol=1e-6,rtol=1e-5) and abs(ns-r['sigma_after'])<1e-7 and abs(sigma-r['sigma_before'])<1e-9
    assert torch.allclose(z['a'],(reward-reward.mean(-1,keepdim=True))/(ns+1e-6),atol=2e-6) and torch.allclose(z['ac'],(b-b.mean(-1,keepdim=True))/(ns+1e-6),atol=2e-6)
-   names=json.loads((p/'PROMPT_BINDINGS.json').read_text())['1']['classes'];assert names==list(range(10))
+   bound_classes=json.loads((p/'PROMPT_BINDINGS.json').read_text())['1']['classes'];assert bound_classes==list(range(10))
    assert int(b.sum())==r['correct_responses'] and r['nonzero_update'] and r['parameter_L2']>0;sigma=ns
   state=torch.load(p/f'STATE_1_{arm}.private.pt',map_location='cpu',weights_only=True);assert state['updates']==32 and {int(x['step']) for x in state['optimizer']['state'].values()}=={32} and abs(state['sigma']-sigma)<1e-8
  classes=[]

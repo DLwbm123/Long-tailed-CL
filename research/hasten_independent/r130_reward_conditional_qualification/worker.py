@@ -97,6 +97,11 @@ class Run(P.Run):
   private={k:P.cpu_tree(v) for k,v in z.items() if k not in ['f']};self.checkpoint(private,('ROLLOUT_%s_%03d.private.pt'%(self.arm,self.current_update)) if kind=='post_RL_responses' else 'NATIVE_'+self.arm+'.private.pt')
   return record,z['sigma_after']
  def native(self):
+  if self.cfg.get('reuse_native_proof'):
+   old=Path(self.cfg['reuse_native_proof']);proof=json.loads(old.read_text());prior=json.loads((old.parent/'CONFIG.private.json').read_text());assert proof['passed'] and prior['source_commit']==self.cfg['reuse_native_source_sha']
+   assert all(self.cfg[k]==v for k,v in prior.items() if k!='source_commit')
+   assert self.same(self.e.engine.snapshot(),self.prefix) and all(torch.equal(a.ref_a.detach().cpu(),x) and torch.equal(a.ref_b.detach().cpu(),y) for a,(x,y) in zip(self.e.engine.adapters,self.prefix))
+   proof.update(reused_previous_successful_native=True,native_model_calls_this_attempt=0,original_native_runtime=prior['source_commit'],remaining_at_recovery=self.cfg['deadline']-time.time());assert proof['forecast_seconds']<self.cfg['deadline']-time.time();write(self.out/'NATIVE_ADMISSION.json',proof);return
   self.status('NATIVE_R130');write(self.out/'SOFTWARE_CHECK.json',fixtures());ids=[i for i,c in enumerate(self.y) if c in range(5)][:16];first=ids[:2];expected=self.e.engine.prompt_ids.clone()
   self.access.check('TRAIN',first,0,'NATIVE','native_images');features,raw=self.e.engine.encode(self.e.images(self.e.train,first));self.counts['TRAIN_encoder_rows']+=2;assert torch.equal(expected,self.e.engine.prompt_ids)
   with torch.no_grad():
@@ -128,7 +133,7 @@ class Run(P.Run):
  def tape(self):
   current=[i for i,c in enumerate(self.y) if c in range(5,10)];g=torch.Generator().manual_seed(12474006);return torch.tensor(current)[torch.randint(len(current),(32,8),generator=g)]
  def diagnostic(self):
-  self.phase='diagnostic'
+  self.phase='diagnostic';self.status('FIXED_CURRENT_GRADIENT_PROBE')
   state=torch.load(Path(self.cfg['prefix_source'])/'STATE_1_RAPO.private.pt',map_location='cpu',weights_only=True);assert state['updates']==128
   self.stage=1;self.bind_prompt(1);self.arm='PROBE';self.e.engine.restore(self.prefix);self.e.engine.freeze_reference();self.e.engine.restore(state['weights']);ids=self.tape()[0].tolist();f=self.get('TRAIN',ids,'fixed_current_gradient_probe');labels=self.labels(ids)
   z=self.rollout(f,labels,state['sigma'],13081000,'probe_responses');opt=self.opt();opt.load_state_dict(state['optimizer']);vectors={};losses={}
@@ -139,7 +144,8 @@ class Run(P.Run):
   opt.zero_grad(set_to_none=True);losses['TARS_PG']=self.backward_rollout(z,'a',w[labels.to('cuda')].repeat_interleave(8));vectors['TARS_PG']=self.gradient()
   norms={k:float(v.norm()) for k,v in vectors.items()};cos={a+'__'+b:float(torch.dot(vectors[a],vectors[b])/(vectors[a].norm()*vectors[b].norm()).clamp_min(1e-30)) for i,a in enumerate(vectors) for b in list(vectors)[i+1:]}
   opt.zero_grad(set_to_none=True);self.backward_rollout(z,'a');self.backward_rollout(z,'KL');before=self.e.engine.snapshot();pre=float(self.gradient().norm());self.counts['probe_optimizer_attempts']+=1;norm,delta=self.step(opt);postclip=float(self.gradient().norm());assert delta>0
-  self.e.engine.restore(before);assert self.same(self.e.engine.snapshot(),state['weights']);assert all(torch.equal(a.ref_a,x) and torch.equal(a.ref_b,y) for a,(x,y) in zip(self.e.engine.adapters,self.prefix))
+  self.checkpoint({k:P.cpu_tree(v) for k,v in z.items() if k!='f'},'PROBE_ROLLOUT.private.pt')
+  self.e.engine.restore(before);assert self.same(self.e.engine.snapshot(),state['weights']);assert all(torch.equal(a.ref_a.detach().cpu(),x) and torch.equal(a.ref_b.detach().cpu(),y) for a,(x,y) in zip(self.e.engine.adapters,self.prefix))
   self.checkpoint({k:P.cpu_tree(v) for k,v in z.items() if k!='f'},'PROBE_ROLLOUT.private.pt')
   self.probe={'queries':8,'responses':64,'saved_RAPO_stage1_Adam_step':128,'sigma_before':state['sigma'],'sigma_after_one_hypothetical_stat_update':z['sigma_after'],'gradient_norms':norms,'gradient_cosines':cos,'component_losses':losses,'combined_preclip_norm':pre,'combined_postclip_norm':postclip,'counterfactual_actual_L2':delta,'counterfactual_discarded_actor_anchor_restored':True,'TARS_table_other_arm_diagnostic_only_not_RAPO_training':True,'correct_responses':int(z['b'].sum()),'mixed_queries':int(((z['b'].sum(-1)>0)&(z['b'].sum(-1)<8)).sum())};write(self.out/'GRADIENT_PROBE.json',self.probe);del opt,z,vectors
   # Four same-batch readouts; old menu is diagnostic only and cannot enter training.

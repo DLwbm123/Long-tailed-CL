@@ -98,7 +98,13 @@ def run(cfg):
         seq=[x for x in curves if x['arm']==arm];learning.append({'arm':arm,'attempts':len(seq),'nonzero_updates':sum(x['nonzero_update'] for x in seq),'correct_responses':sum(v['correct_responses'] for x in seq for v in x['class_groups'].values()),'positive_teacher_rows':sum(x['positive_teacher_rows'] for x in seq),'negative_teacher_rows':sum(x['negative_teacher_rows'] for x in seq)})
     write(r/'LEARNING_INTEGRITY.json',learning)
     write(r/'FINAL_VERIFICATION.json',{'passed':True,'scope':'CPU_saved_only_no_new_model_calls','new_curve_rows':2048,'historical_prefix_curve_rows':306,'full_chain_rows':2354,'class_rows':288,'class_group_rows':72,'arm_stage_table_rows':20,'unique_readout_sequences':17,'new_readout_sequences':16,'all_prefix_access_seals_tapes_optimizer_sigma_teacher_sync_validity_negative_ties_reward_math_metrics_gates_and_costs_verified':True,'calibration_correct_counts_not_independently_rescorable':True,'teacher_logp_values_not_independently_recomputed':True,'gates':final['gates'],'all_gates_pass':final['all_gates_pass']})
-    write(r/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'controller_exit':load('CONTROL_EXIT.json'),'CPU_software':load('CPU_SOFTWARE_RUN_COSTS.json'),'reused_historical_prefix':prefix,'original_23h_clock_not_reset':True,'private_rollout_outputs_remain_remote':True,'teacher_contexts_are_full_answer_auxiliary_supervision':True})
+    # Generation tensors were not logged per kind: retain honest padded-token bounds for base TF.
+    rl_rows=131072+64;other_rows=c['generation_responses']-rl_rows;decoded=c['decoded_token_cells']
+    rl_decoded_bounds=[max(rl_rows,decoded-24*other_rows),min(24*rl_rows,decoded-other_rows)]
+    rl_prefill=32768*sum(prompts[str(stage)]['input_tokens'] for stage in range(1,5))+64*native['conservative_longest_prompt_profile']['input_tokens']
+    accounting={'exact_generation_prefill_input_tokens':c['generation_input_tokens'],'exact_generation_active_tokens':c['generated_active_tokens'],'exact_generation_decoded_token_cells_including_padding':decoded,'exact_context_teacher_TF_input_cells':c['teacher_TF_input_token_cells'],'base_TF_response_rows_exact':3*rl_rows,'base_TF_input_token_cells_bounds':[3*(rl_prefill+x) for x in rl_decoded_bounds],'base_TF_per_kind_padded_lengths_not_logged_not_zero':True,'all_operator_wall_CPU_and_hard_budget_includes_these_calls':True}
+    write(r/'COST_ACCOUNTING_SCOPE.json',accounting)
+    write(r/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'controller_exit':load('CONTROL_EXIT.json'),'CPU_software':load('CPU_SOFTWARE_RUN_COSTS.json'),'reused_historical_prefix':prefix,'original_23h_clock_not_reset':True,'private_rollout_outputs_remain_remote':True,'teacher_contexts_are_full_answer_auxiliary_supervision':True,'token_accounting_scope':accounting})
     report=['# R128 当前完整标签对比辅助监督资格实验','','已知SIPO机制的TARS/RaPO适配，不是作者原样复现、独立临床或创新结论。完整标签teacher项是辅助监督，不把它的收益自动记成纯RL必要性。','','|arm|postmacro %|posttail %|forgetting pp|','|---|---:|---:|---:|']
     for arm in ARMS:report.append(f"|{arm}|{100*final['post_stage_means'][arm]['macro']:.4f}|{100*final['post_stage_means'][arm]['tail']:.4f}|{100*final['mean_classwise_forgetting'][arm]:.4f}|")
     report+=['','九门通过'+str(sum(final['gates'].values()))+'/9：'+json.dumps(final['gates']),
@@ -107,5 +113,6 @@ def run(cfg):
         'SIPO原1/G符号裕量不适用RaPO连续奖励；本轮只用显式token符号投影。无效/未来schema/truncated回答不造负例、不丢组；全错组也不是必有teacher信号，合法率/资格率由私有保存输出独立核算。',
         '复用唯一R125合法generic首taskSFT前缀，306历史步/4868queries/624历史VAL不当新调用或免费；本轮新2048步+131072RLresponses，校准17548/VAL22812/native80合171512新响应，0额外SFT/4TRAIN原生编码/0新VAL编码。2354是加历史前缀的完整链，非2354新更新。',
         '只当前TRAIN、无历史replay；动态seen菜单、全臂seal后seenVAL、各臂连续Adam/sigma/teacherK10、teacher/actor/reference还原与actualL2/资格数学均核。20表行含4共享前缀历史读出=17unique其中16新，288类行/72group类行。',
+        'generation各kind未逐项保存padded长度，base TF物理response行数精确、总input-token cells给出由实际总decode cells推得的区间，不伪称全forward token精确值；所有这些算子的CPU/wall/硬预算均已实际计入。',
         '校准只有aggregate正确数，teacher logp/逐类梯度未保存，不补造独立重评分、variance或梯度效果；组份额/teacher项非零不等泛化。所有failed attempts若发生须另记且原钟不重置。']
     (r/'REPORT_ZH.md').write_text('\n'.join(report)+'\n')

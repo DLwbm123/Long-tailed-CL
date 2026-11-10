@@ -100,7 +100,8 @@ def run(cfg):
     assert c==expected,(c,expected)
     assert native['passed'] and native['generic_and_reference_restored']
     assert native['single_hidden_parity']<=.05 and native['same_shape_last_head_parity']<=.05
-    names={int(r['original_label']):r['official_class_name'] for r in train}
+    # R114's frozen Experiment applies this same normalization to every task label.
+    names={int(r['original_label']):r['official_class_name'].replace('-',' ') for r in train}
     prompts=load('PROMPT_BINDINGS.json');assert set(prompts)==set(map(str,range(5)))
     profile=native['conservative_longest_prompt_profile']
     assert native['native_processor_token_binding_exact'] and profile['classes']==STAGES[0]
@@ -128,10 +129,12 @@ def run(cfg):
     write(root/'FINAL_VERIFICATION.json',{'passed':True,'scope':'CPU_saved_only_no_new_model_calls','arm_stage_rows':25,
         'actual_unique_readouts':21,'class_rows':360,'curve_rows':2866,'current_only_TRAIN_and_seen_only_VAL_verified':True,
         'all_stage_prompt_bindings_and_native_token_parity_verified':True,
+        'prompt_categories_match_frozen_Engine_hyphen_to_space_label_normalization':True,
         'zero_old_TRAIN_replay_verified':True,'same_current_query_tape_verified':True,'own_optimizer_and_sigma_continuity_verified':True,
         'initial_generic_no_old_task_SFT_verified':True,'all_counts_verified':True,'all_nine_gates_verified':True,
         'gates':final['gates'],'all_gates_pass':final['all_gates_pass']})
-    write(root/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'failed_attempts':0,'original_clock_not_reset':True,
+    write(root/'ALL_ATTEMPT_COSTS.json',{'successful_run':cost,'scientific_model_failed_attempts':0,
+        'saved_only_verification_failed_attempts':int((root/'POSTPROCESS_REPAIR.json').exists()),'original_clock_not_reset':True,
         'CPU_software_preflight':load('CPU_SOFTWARE_RUN_COSTS.json'),
         'historical_cache_creation_costs_not_repeated_or_free':True,'partial_failures_must_be_added_if_any':True})
     # Preserve CPU-only interim analyses separately from model training costs.
@@ -141,6 +144,8 @@ def run(cfg):
         +p.get('previous_inspection_CPU_body_seconds',0) for p in pulses)
     costs['CPU_integrity_body_times_are_not_whole_process_CPU']=True
     costs['controller_exit']=load('CONTROL_EXIT.json')
+    if (root/'POSTPROCESS_REPAIR.json').exists():costs['saved_only_verification_repair']=load('POSTPROCESS_REPAIR.json')
+    if (root/'POSTPROCESS_COSTS.json').exists():costs['successful_saved_only_postprocess']=load('POSTPROCESS_COSTS.json')
     write(root/'ALL_ATTEMPT_COSTS.json',costs)
     write(root/'OLD_NEW_SUMMARY.json',old_new)
     groups=[]
@@ -191,4 +196,5 @@ def run(cfg):
         '|arm|正确响应|mixed准确率组|非零参数步|启动资格|','|---|---:|---:|---:|---|']
     for row in qualification:
         report.append(f"|{row['arm']}|{row['correct_responses']}|{row['mixed_accuracy_groups']}|{row['nonzero_parameter_steps']}|{row['startup_qualified']}|")
+    report+=['','后处理首次prompt校验误用CSV原始连字符类别名；训练与CE目标始终沿用冻结R114引擎的hyphen→space规范化。校验器改为同映射后重新做CPU-only保存验证，原失败源码/记录保留，0新模型调用/更新，未重跑或修改科学结果。类别身份/顺序不变；这是协议中canonical类别表的实际字符串规范化澄清，非事后更改提示。']
     (root/'REPORT_ZH.md').write_text('\n'.join(report)+'\n')
